@@ -9,28 +9,38 @@ Palavras-chave: Video transition; Morfologia Matemática; Segmentação do Víde
 
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . An approach to detect video transitions based on mathematical morphology. In: International Conference on Image Processing, 2003, Barcelone. IEEE ICIP 2003, 2003. v. III. p. 1021-1024.  
 
+-----
+
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . A directional and multi-scale method to identify gradual transitions. In: XV Brazilian Symposium on Computer Graphics and Image Processing, 2002, Fortaleza. IEEE SIBGRAPI 2002, 2002. p. 261-268.  
+
+-----
 
 GUIMARÃES, S. J. F. ; ARAÚJO, Arnaldo de Albuquerque ; COUPRIE, Michel ; LEITE, Neucimar Jerônimo . Identificação de transições em vídeo digital a partir da análise de ritmo visual,. In: Workshop em Tratamento de Imagens, 2002, Belo horizonte. Anais (CD-ROM) do III Workshop em Tratamento de Imagens, 2002. 
  
+-----
 
 GUIMARÃES, S. J. F. . A method for cut detection based on visual rhythm. In: XIV Brazilian Symposium on Computer Graphics and Image Processing, 2001, Florianópolis. Proc. of the IEEE SIBGRAPI'2001, 2001. p. 297-304. 
  
+-----
 
 R. Zabih, J. Miller, and K. Mai. A feature-based algorithms for detecting and classifying 
 scene breaks. Multimedia Systems, 7:119–128, 1999. 
 
+-----
 
 W. A. C. Fernando, C. N. Canagarajah, and D. R. Bull. Fade and dissolve detection 
 in uncompressed and compressed video sequences. In Proc. of the IEEE ICIP, pages
 299–303, 1999. 
 
+-----
 
 H. Zhang, A. Kanknhalli, and S. W. Smoliar. Automatic partitioning of full-motion 
 video. Multimedia Systems, 1:10–28, 1993. 
 
+-----
 
 M. G. Chung, J. Lee, H. Kim, S. M.-H. Song, and W. M. Kim. Automatic video segmentation based on spatio-temporal features. Korea Telecom Journal, 4(1):4–14, 1999. 
 
+-----
 
 [http://www.sciencedirect.com/science?_ob=ArticleURL&_udi=B6V15-4700R11-1&_user=3812328&_rdoc=1&_fmt=&_orig=search&_sort=d&view=c&_acct=C000061442&_version=1&_urlVersion=0&_userid=3812328&md5=cce0aa14f873a3bdd0a0ea3345050256# Video segmentation based on 2D image analysis ]
