@@ -3,7 +3,9 @@
 Do DOC de trabalhos relacionadosdo professor :
 
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . Video transition sharpening based on flat zone analysis. In: Non-linear Signal Image Processing, 2003, Grado. EURASIP NSIP 2003, 2003.  
-Palavras-chave: Video transition; Morfologia Matemática; Segmentação do Vídeo; Video Digital. 
+Palavras-chave: Video transition; Morfologia Matemática; Segmentação do Vídeo; Video Digital.  [http://code.google.com/p/m-fit/downloads/detail?name=Journal_04_JASP.pdf&can=2&q=#makechanges Link]
+
+-----
 
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . An approach to detect video transitions based on mathematical morphology. In: International Conference on Image Processing, 2003, Barcelone. IEEE ICIP 2003, 2003. v. III. p. 1021-1024.  
 
