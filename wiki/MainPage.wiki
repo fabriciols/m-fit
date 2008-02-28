@@ -17,7 +17,7 @@ GUIMARÃES, S. J. F. ; ARAÚJO, Arnaldo de Albuquerque ; COUPRIE, Michel ; LEITE
 [http://m-fit.googlecode.com/files/297-304.pdf Link]
 GUIMARÃES, S. J. F. . A method for cut detection based on visual rhythm. In: XIV Brazilian Symposium on Computer Graphics and Image Processing, 2001, Florianópolis. Proc. of the IEEE SIBGRAPI'2001, 2001. p. 297-304. 
 -----
-R. Zabih, J. Miller, and K. Mai. A feature-based algorithms for detecting and classifying 
+[http://m-fit.googlecode.com/files/ZMM-MM95.pdf Link] R. Zabih, J. Miller, and K. Mai. A feature-based algorithms for detecting and classifying 
 scene breaks. Multimedia Systems, 7:119–128, 1999. 
 -----
 W. A. C. Fernando, C. N. Canagarajah, and D. R. Bull. Fade and dissolve detection 
