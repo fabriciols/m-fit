@@ -20,6 +20,7 @@ GUIMARÃES, S. J. F. . A method for cut detection based on visual rhythm. In: XI
 [http://m-fit.googlecode.com/files/ZMM-MM95.pdf Link] R. Zabih, J. Miller, and K. Mai. A feature-based algorithms for detecting and classifying 
 scene breaks. Multimedia Systems, 7:119–128, 1999. 
 -----
+PAGO 
 W. A. C. Fernando, C. N. Canagarajah, and D. R. Bull. Fade and dissolve detection 
 in uncompressed and compressed video sequences. In Proc. of the IEEE ICIP, pages
 299–303, 1999. 
