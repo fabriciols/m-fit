@@ -31,3 +31,6 @@ video. Multimedia Systems, 1:10–28, 1993.
 M. G. Chung, J. Lee, H. Kim, S. M.-H. Song, and W. M. Kim. Automatic video segmentation based on spatio-temporal features. Korea Telecom Journal, 4(1):4–14, 1999. 
 -----
 [http://www.sciencedirect.com/science?_ob=ArticleURL&_udi=B6V15-4700R11-1&_user=3812328&_rdoc=1&_fmt=&_orig=search&_sort=d&view=c&_acct=C000061442&_version=1&_urlVersion=0&_userid=3812328&md5=cce0aa14f873a3bdd0a0ea3345050256# Video segmentation based on 2D image analysis ]
+
+
+[ Pagina do Guimaraes e TODOS seus artigos :) http://www.inf.pucminas.br/projetos/viplab/site/viplab/files/publications.htm]
