@@ -9,6 +9,7 @@ Palavras-chave: Video transition; Morfologia Matemática; Segmentação do Víde
 [http://m-fit.googlecode.com/files/cr2033.pdf Link]
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . An approach to detect video transitions based on mathematical morphology. In: International Conference on Image Processing, 2003, Barcelone. IEEE ICIP 2003, 2003. v. III. p. 1021-1024.  
 -----
+[http://m-fit.googlecode.com/files/Conf_02_SIBGRAPI_Silvio.pdf Link]
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . A directional and multi-scale method to identify gradual transitions. In: XV Brazilian Symposium on Computer Graphics and Image Processing, 2002, Fortaleza. IEEE SIBGRAPI 2002, 2002. p. 261-268.  
 -----
 [http://m-fit.googlecode.com/files/guimarae.pdf Link]
