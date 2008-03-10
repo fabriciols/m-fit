@@ -2,6 +2,10 @@
 
 == Trabalhos relacionados == 
 
+[http://m-fit.googlecode.com/files/Simoes.pdf Link]
+Detecção de Algumas Transições Abruptas em seqüencias de Imagens.
+Nielsen Cassiano Simões
+-----
 [http://code.google.com/p/m-fit/downloads/detail?name=Journal_04_JASP.pdf&can=2&q=#makechanges Link]
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . Video transition sharpening based on flat zone analysis. In: Non-linear Signal Image Processing, 2003, Grado. EURASIP NSIP 2003, 2003.  
 Palavras-chave: Video transition; Morfologia Matemática; Segmentação do Vídeo; Video Digital.  
