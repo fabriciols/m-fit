@@ -2,9 +2,46 @@
 
 == Trabalhos relacionados == 
 
+mizu                cr2033.pdf Conf_02_SIBGRAPI_Silvio.pdf ngo99detection.pdf
+fabricio            Journal_04_JASP.pdf 297-304.pdf ZMM-MM95.pdf
+ivan                KrisAthens.pdf guimarae.pdf bertrand97image.pdf
+mauricio            jamil.pdf Simoes.pdf a-directional-and-parametrized.pdf 
+
+
+=== Ivan (MachidaWARRR) ===
+
+==== KrisAtjens.pdf ====
+==== guimarae.pdv ====
+==== bertrand97image.pdf ====
+
+=== Mizutani ===
+==== cr2033.pdv ====
+
+[http://m-fit.googlecode.com/files/cr2033.pdf Link]
+GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . An approach to detect video transitions based on mathematical morphology. In: International Conference on Image Processing, 2003, Barcelone. IEEE ICIP 2003, 2003. v. III. p. 1021-1024.  
+
+==== Conf_02_SIBGRAPI_Silvio.pdf ====
+
+[http://m-fit.googlecode.com/files/Conf_02_SIBGRAPI_Silvio.pdf Link]
+GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . A directional and multi-scale method to identify gradual transitions. In: XV Brazilian Symposium on Computer Graphics and Image Processing, 2002, Fortaleza. IEEE SIBGRAPI 2002, 2002. p. 261-268.  
+
+==== ngo99detection.pdf ====
+
+=== Mauricio ===
+
+==== jamil.pdf ====
+==== Simoes.pdf ====
+
 [http://m-fit.googlecode.com/files/Simoes.pdf Link]
 Detecção de Algumas Transições Abruptas em seqüencias de Imagens.
 Nielsen Cassiano Simões
+
+==== a-directional-and-parametrized.pdf ====
+
+
+
+== Referencias ==
+
 -----
 [http://code.google.com/p/m-fit/downloads/detail?name=Journal_04_JASP.pdf&can=2&q=#makechanges Link]
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . Video transition sharpening based on flat zone analysis. In: Non-linear Signal Image Processing, 2003, Grado. EURASIP NSIP 2003, 2003.  
@@ -40,3 +77,6 @@ M. G. Chung, J. Lee, H. Kim, S. M.-H. Song, and W. M. Kim. Automatic video segme
 
 Pagina do Guimaraes e TODOS seus artigos 
 * http://www.inf.pucminas.br/projetos/viplab/site/viplab/files/publications.htm
+
+
+== Divisão ==
