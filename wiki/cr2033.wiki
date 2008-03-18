@@ -1,8 +1,20 @@
 = Uma abordagem para detectar transições de vídeo baseado em morfologia matemática =
 
-== Download pdf ==
+== Resumo ==
 
-[http://m-fit.googlecode.com/files/cr2033.pdf Link]
+{{{
+Um algoritmo de detecção de transição parametrizada e direcional baseado em resíduos morfológicos
+
+Silvio. J. F. Guimarães et al., 2002, com o objetivo de realizar a identificação e 
+classificação de transições graduais entre duas zonas planas consecutivas (conjunto de 
+pontos consecutivos com os mesmos tons de cinza), aplicaram um método baseado na 
+decomposição hierárquica dos componentes da imagem em resíduos morfológicos. Com o uso 
+deste método era possível retirar as informações necessárias sobre a transição e ainda 
+fazer a reconstrução exata da imagem a partir dos seus resíduos. Desta forma, conseguiram 
+fazer a detecção e identificação das transições facilmente. Apesar de o método funcionar 
+bem em relação às transições graduais, o trabalho não faz referência às transições 
+bruscas (cortes).
+}}}
 
 == Tradução ==
 {{{
@@ -47,22 +59,6 @@ comportamento deste método poderia ser feito considerando a sua aplicação dir
  
 }}}
 
-== Resumo ==
-
-{{{
-Um algoritmo de detecção de transição parametrizada e direcional baseado em resíduos morfológicos
-
-Silvio. J. F. Guimarães et al., 2002, com o objetivo de realizar a identificação e 
-classificação de transições graduais entre duas zonas planas consecutivas (conjunto de 
-pontos consecutivos com os mesmos tons de cinza), aplicaram um método baseado na 
-decomposição hierárquica dos componentes da imagem em resíduos morfológicos. Com o uso 
-deste método era possível retirar as informações necessárias sobre a transição e ainda 
-fazer a reconstrução exata da imagem a partir dos seus resíduos. Desta forma, conseguiram 
-fazer a detecção e identificação das transições facilmente. Apesar de o método funcionar 
-bem em relação às transições graduais, o trabalho não faz referência às transições 
-bruscas (cortes).
-}}}
-
 == Citação ==
 
 {{{
@@ -71,3 +67,7 @@ Albuquerque . An approach to detect video transitions based on mathematical morp
 In: International Conference on Image Processing, 2003, Barcelone. IEEE ICIP 2003, 2003. 
 v. III. p. 1021-1024.  
 }}}
+
+== Download pdf ==
+
+[http://m-fit.googlecode.com/files/cr2033.pdf Link]
