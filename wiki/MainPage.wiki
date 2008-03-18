@@ -17,76 +17,8 @@ mauricio            jamil.pdf Simoes.pdf a-directional-and-parametrized.pdf
 === bertrand97image.pdf ===
 
 == Mizutani ==
-=== cr2033.pdf ===
 
-==== Tradução ====
-{{{
-Uma abordagem para detectar transições de vídeo baseado em morfologia matemática
-
-Resumo 
-
-	O problema de segmentação de vídeo pode ser considerado como um problema 
-fundamental para detecção de tomadas de vídeo.  
-	Devido às diferentes formas de ligação entre duas tomadas consecutivas, esta 
-tarefa torna-se difícil. Neste trabalho, nós propomos um método de detectar tanto cortes 
-como transições graduais através de ferramentas de segmentação de imagens ao invés de 
-usar modelos matemáticos ou medidas de dissimilaridade.
-	Primeiramente, o vídeo é transformado em uma imagem 2D, chamada Ritmo Visual por 
-sub-amostragem. Posteriormente, nós aplicaremos ferramentas de processamento de imagem 
-para detectar todas as transições verticais alinhadas nesta imagem. O principal operador 
-aplicado é o gradiente multi-escalar morfológico. Nós iremos apresentar alguns resultados 
-experimentais.
-
-Conclusão
-
-	Neste trabalho, nós estudamos o problema da segmentação de vídeo onde nós 
-transformamos um vídeo em uma imagem 2D aplicando ferramentas de processamento de 
-imagens. Aqui, nós propomos uma nova abordagem para identificar cortes e transições 
-graduais. Graças à correspondência entre os padrões de Ritmo Visual e as Transições de 
-vídeo, esta abordagem torna-se muito interessante e viável. Nossa abordagem é baseada nos 
-operadores de gradiente multi-escalares, mais especificadamente, o gradiente Soille e 
-duas outras variantes que são baseadas em erosão e desgaste. Um aspecto interessante que 
-nós ressaltamos aqui é a inclusão da relação entre o gradiente de erosão multi-escalar e 
-o gradiente Soille. FALTA UM TECO. De forma geral, o Gradiente Soille apresentou os 
-melhores resultados, mas o Gradiente baseado em desbaste contém mais informações 
-relativas, por exemplo, o tamanho da transição. Neste trabalho, nós estamos interessados 
-principalmente em identificar a presença de cortes e transições graduais sem levar em 
-conta o tamanho dessas transições. Esta informação será considerada em um trabalho futuro.
-
-	Dos experimentos referidos, observamos que o uso do gradiente multi-escalar pode 
-ser uma interessante abordagem de como lidar com problemas de transições graduais. De 
-acordo com as características do gradiente baseado em desbaste, um estudo sobre a relação 
-entre o tamanho da transição e este desbaste pode ser previsto. Além disso, um estudo do 
-comportamento deste método poderia ser feito considerando a sua aplicação direta no vídeo.
-
- 
-}}}
-
-==== Resumo ====
-
-{{{
-Um algoritmo de detecção de transição parametrizada e direcional baseado em resíduos morfológicos
-
-Silvio. J. F. Guimarães et al., 2002, com o objetivo de realizar a identificação e 
-classificação de transições graduais entre duas zonas planas consecutivas (conjunto de 
-pontos consecutivos com os mesmos tons de cinza), aplicaram um método baseado na 
-decomposição hierárquica dos componentes da imagem em resíduos morfológicos. Com o uso 
-deste método era possível retirar as informações necessárias sobre a transição e ainda 
-fazer a reconstrução exata da imagem a partir dos seus resíduos. Desta forma, conseguiram 
-fazer a detecção e identificação das transições facilmente. Apesar de o método funcionar 
-bem em relação às transições graduais, o trabalho não faz referência às transições 
-bruscas (cortes).
-}}}
-
-==== Citação ====
-
-[http://m-fit.googlecode.com/files/cr2033.pdf Link]
-{{{
-GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de 
-Albuquerque . An approach to detect video transitions based on mathematical morphology. 
-In: International Conference on Image Processing, 2003, Barcelone. IEEE ICIP 2003, 2003. 
-v. III. p. 1021-1024.  
-}}}
+[cr2033]
 
 === Conf_02_SIBGRAPI_Silvio.pdf ===
 
