@@ -3,47 +3,36 @@
 = Trabalhos relacionados =
 
 {{{
-mizu                cr2033.pdf Conf_02_SIBGRAPI_Silvio.pdf ngo99detection.pdf
-fabricio            Journal_04_JASP.pdf 297-304.pdf ZMM-MM95.pdf
-ivan                KrisAthens.pdf guimarae.pdf bertrand97image.pdf
-mauricio            jamil.pdf Simoes.pdf a-directional-and-parametrized.pdf 
+|| *Nome    || Trabalho 1        || Trabalho 2                || Trabalho 3* ||
+|| mizu     || [cr2033]          || [Conf_02_SIBGRAPI_Silvio] || [ngo99detection]  ||
+|| fabricio || [Journal_04_JASP] || [297-304]                 || [ZMM-MM95]        ||
+|| ivan     || [KrisAthens]      || [guimarae.pdf]            || [bertrand97image] ||
+|| mauricio || [jamil]           || [Simoes.pdf]              || [a-directional-and-parametrized] ||
 }}}
 
 
 == Ivan ==
 
-=== KrisAtjens.pdf ===
-=== guimarae.pdv ===
-=== bertrand97image.pdf ===
+[KrisAtjens]
+[guimaraes]
+[bertrand97image]
 
 == Mizutani ==
 
 [cr2033]
-
-=== Conf_02_SIBGRAPI_Silvio.pdf ===
-
-[http://m-fit.googlecode.com/files/Conf_02_SIBGRAPI_Silvio.pdf Link]
-{{{
-GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de 
-Albuquerque . A directional and multi-scale method to identify gradual transitions. In: 
-XV Brazilian Symposium on Computer Graphics and Image Processing, 2002, Fortaleza. IEEE 
-SIBGRAPI 2002, 2002. p. 261-268.  
-}}}
-
-=== ngo99detection.pdf ===
+[Conf_02_SIBGRAPI_Silvio]
+[ngo99detection]
 
 == Mauricio ==
-=== jamil.pdf ===
-=== Simoes.pdf ===
+[jamil]
+[Simoes]
+[a-directional-and-parametrized]
 
-[http://m-fit.googlecode.com/files/Simoes.pdf Link]
-{{{
-Detecção de Algumas Transições Abruptas em seqüencias de Imagens.
-Nielsen Cassiano Simões
-}}}
+== Fabricio ==
 
-=== a-directional-and-parametrized.pdf ===
-
+[Journal_04_JASP]
+[297-304]
+[ZMM-MM95]
 
 
 = Referencias =
