@@ -4,9 +4,9 @@
 
 || *Nome    || Trabalho 1        || Trabalho 2                || Trabalho 3* ||
 || mizu     || [cr2033]          || [Conf_02_SIBGRAPI_Silvio] || [ngo99detection]  ||
-|| fabricio || [Journal_04_JASP] || [297-304]                 || [ZMM-MM95]        ||
+|| fabricio || [Journal_04_JASP] || [297_304]                 || [ZMM_MM95]        ||
 || ivan     || [KrisAthens]      || [guimarae]                || [bertrand97image] ||
-|| mauricio || [jamil]           || [Simoes]                  || [a-directional-and-parametrized] ||
+|| mauricio || [jamil]           || [Simoes]                  || [a_directional_and_parametrized] ||
 
 == Ivan ==
 
