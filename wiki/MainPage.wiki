@@ -23,14 +23,40 @@ Uma abordagem para detectar transições de vídeo baseado em morfologia matemá
 
 Resumo 
 
-	O problema de segmentação de vídeo pode ser considerado como um problema fundamental para detecção de tomadas de vídeo.  
-	Devido às diferentes formas de ligação entre duas tomadas consecutivas, esta tarefa torna-se difícil. Neste trabalho, nós propomos um método de detectar tanto cortes como transições graduais através de ferramentas de segmentação de imagens ao invés de usar modelos matemáticos ou medidas de dissimilaridade.
-	Primeiramente, o vídeo é transformado em uma imagem 2D, chamada Ritmo Visual por sub-amostragem. Posteriormente, nós aplicaremos ferramentas de processamento de imagem para detectar todas as transições verticais alinhadas nesta imagem. O principal operador aplicado é o gradiente multi-escalar morfológico. Nós iremos apresentar alguns resultados experimentais.
+	O problema de segmentação de vídeo pode ser considerado como um problema 
+fundamental para detecção de tomadas de vídeo.  
+	Devido às diferentes formas de ligação entre duas tomadas consecutivas, esta 
+tarefa torna-se difícil. Neste trabalho, nós propomos um método de detectar tanto cortes 
+como transições graduais através de ferramentas de segmentação de imagens ao invés de 
+usar modelos matemáticos ou medidas de dissimilaridade.
+	Primeiramente, o vídeo é transformado em uma imagem 2D, chamada Ritmo Visual por 
+sub-amostragem. Posteriormente, nós aplicaremos ferramentas de processamento de imagem 
+para detectar todas as transições verticais alinhadas nesta imagem. O principal operador 
+aplicado é o gradiente multi-escalar morfológico. Nós iremos apresentar alguns resultados 
+experimentais.
 
 Conclusão
 
-	Neste trabalho, nós estudamos o problema da segmentação de vídeo onde nós transformamos um vídeo em uma imagem 2D aplicando ferramentas de processamento de imagens. Aqui, nós propomos uma nova abordagem para identificar cortes e transições graduais. Graças à correspondência entre os padrões de Ritmo Visual e as Transições de vídeo, esta abordagem torna-se muito interessante e viável. Nossa abordagem é baseada nos operadores de gradiente multi-escalares, mais especificadamente, o gradiente Soille e duas outras variantes que são baseadas em erosão e desgaste. Um aspecto interessante que nós ressaltamos aqui é a inclusão da relação entre o gradiente de erosão multi-escalar e o gradiente Soille. FALTA UM TECO. De forma geral, o Gradiente Soille apresentou os melhores resultados, mas o Gradiente baseado em desbaste contém mais informações relativas, por exemplo, o tamanho da transição. Neste trabalho, nós estamos interessados principalmente em identificar a presença de cortes e transições graduais sem levar em conta o tamanho dessas transições. Esta informação será considerada em um trabalho futuro.
-	Dos experimentos referidos, observamos que o uso do gradiente multi-escalar pode ser uma interessante abordagem de como lidar com problemas de transições graduais. De acordo com as características do gradiente baseado em desbaste, um estudo sobre a relação entre o tamanho da transição e este desbaste pode ser previsto. Além disso, um estudo do comportamento deste método poderia ser feito considerando a sua aplicação direta no vídeo.
+	Neste trabalho, nós estudamos o problema da segmentação de vídeo onde nós 
+transformamos um vídeo em uma imagem 2D aplicando ferramentas de processamento de 
+imagens. Aqui, nós propomos uma nova abordagem para identificar cortes e transições 
+graduais. Graças à correspondência entre os padrões de Ritmo Visual e as Transições de 
+vídeo, esta abordagem torna-se muito interessante e viável. Nossa abordagem é baseada nos 
+operadores de gradiente multi-escalares, mais especificadamente, o gradiente Soille e 
+duas outras variantes que são baseadas em erosão e desgaste. Um aspecto interessante que 
+nós ressaltamos aqui é a inclusão da relação entre o gradiente de erosão multi-escalar e 
+o gradiente Soille. FALTA UM TECO. De forma geral, o Gradiente Soille apresentou os 
+melhores resultados, mas o Gradiente baseado em desbaste contém mais informações 
+relativas, por exemplo, o tamanho da transição. Neste trabalho, nós estamos interessados 
+principalmente em identificar a presença de cortes e transições graduais sem levar em 
+conta o tamanho dessas transições. Esta informação será considerada em um trabalho futuro.
+
+	Dos experimentos referidos, observamos que o uso do gradiente multi-escalar pode 
+ser uma interessante abordagem de como lidar com problemas de transições graduais. De 
+acordo com as características do gradiente baseado em desbaste, um estudo sobre a relação 
+entre o tamanho da transição e este desbaste pode ser previsto. Além disso, um estudo do 
+comportamento deste método poderia ser feito considerando a sua aplicação direta no vídeo.
+
  
 }}}
 
@@ -50,7 +76,7 @@ bem em relação às transições graduais, o trabalho não faz referência às 
 bruscas (cortes).
 }}}
 
-==== Resumo ====
+==== Citação ====
 
 [http://m-fit.googlecode.com/files/cr2033.pdf Link]
 {{{
