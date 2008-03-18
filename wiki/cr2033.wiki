@@ -1,5 +1,9 @@
 = Uma abordagem para detectar transições de vídeo baseado em morfologia matemática =
 
+== Download pdf ==
+
+[http://m-fit.googlecode.com/files/cr2033.pdf Link]
+
 == Tradução ==
 {{{
 Uma abordagem para detectar transições de vídeo baseado em morfologia matemática
@@ -61,7 +65,6 @@ bruscas (cortes).
 
 == Citação ==
 
-[http://m-fit.googlecode.com/files/cr2033.pdf Link]
 {{{
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de 
 Albuquerque . An approach to detect video transitions based on mathematical morphology. 
