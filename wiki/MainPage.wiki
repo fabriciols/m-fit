@@ -2,10 +2,12 @@
 
 == Trabalhos relacionados == 
 
+{{{
 mizu                cr2033.pdf Conf_02_SIBGRAPI_Silvio.pdf ngo99detection.pdf
 fabricio            Journal_04_JASP.pdf 297-304.pdf ZMM-MM95.pdf
 ivan                KrisAthens.pdf guimarae.pdf bertrand97image.pdf
 mauricio            jamil.pdf Simoes.pdf a-directional-and-parametrized.pdf 
+}}}
 
 
 === Ivan (MachidaWARRR) ===
@@ -18,7 +20,9 @@ mauricio            jamil.pdf Simoes.pdf a-directional-and-parametrized.pdf
 ==== cr2033.pdv ====
 
 [http://m-fit.googlecode.com/files/cr2033.pdf Link]
+{{{
 GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . An approach to detect video transitions based on mathematical morphology. In: International Conference on Image Processing, 2003, Barcelone. IEEE ICIP 2003, 2003. v. III. p. 1021-1024.  
+}}}
 
 ==== Conf_02_SIBGRAPI_Silvio.pdf ====
 
