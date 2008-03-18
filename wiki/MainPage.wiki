@@ -1,3 +1,5 @@
+[[TableOfContents]]
+
 = Trabalhos relacionados =
 
 {{{
@@ -8,7 +10,7 @@ mauricio            jamil.pdf Simoes.pdf a-directional-and-parametrized.pdf
 }}}
 
 
-== Ivan (MachidaWARRR) ==
+== Ivan ==
 
 === KrisAtjens.pdf ===
 === guimarae.pdv ===
