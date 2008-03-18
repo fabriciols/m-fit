@@ -48,6 +48,14 @@ podemos substituir o gradiente computacional por nosso algoritmo de detecção d
 
 }}}
 
+== Citação ==
+{{{
+GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de 
+Albuquerque . A directional and multi-scale method to identify gradual transitions. In: 
+XV Brazilian Symposium on Computer Graphics and Image Processing, 2002, Fortaleza. IEEE 
+SIBGRAPI 2002, 2002. p. 261-268.  
+}}}
+
 == Download ==
 
 [http://m-fit.googlecode.com/files/Conf_02_SIBGRAPI_Silvio.pdf Conf_02_SIBGRAPI_Silvio.pdf]
