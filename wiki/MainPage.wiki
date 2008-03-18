@@ -2,14 +2,11 @@
 
 = Trabalhos relacionados =
 
-{{{
 || *Nome    || Trabalho 1        || Trabalho 2                || Trabalho 3* ||
 || mizu     || [cr2033]          || [Conf_02_SIBGRAPI_Silvio] || [ngo99detection]  ||
 || fabricio || [Journal_04_JASP] || [297-304]                 || [ZMM-MM95]        ||
 || ivan     || [KrisAthens]      || [guimarae.pdf]            || [bertrand97image] ||
 || mauricio || [jamil]           || [Simoes.pdf]              || [a-directional-and-parametrized] ||
-}}}
-
 
 == Ivan ==
 
