@@ -60,7 +60,11 @@ Mohamed Rizonb, Shaharudin Sayutia. *Circular discontinuities detection in welde
 -----
 [http://m-fit.googlecode.com/files/Temporal%20video%20segmentation%20and%20classification%20of%20edit%20effects.pdf Link] Sarah Porter, Majid Mirmehdi, Barry Thomas. *Temporal video segmentation and classification of edit effects*, 2003.
 -----
-[http://www.sciencedirect.com/science?_ob=ArticleURL&_udi=B6V15-4700R11-1&_user=3812328&_rdoc=1&_fmt=&_orig=search&_sort=d&view=c&_acct=C000061442&_version=1&_urlVersion=0&_userid=3812328&md5=cce0aa14f873a3bdd0a0ea3345050256# Video segmentation based on 2D image analysis ]
+[http://m-fit.googlecode.com/files/Journal_00_RITA.pdf Link]ARAÚJO, Arnaldo de Albuquerque ; GUIMARÃES, S. J. F. . *Recuperação de Informação com Base no Conteúdo Visual em Imagens e Vídeo Digitais.* Revista de Informatica Teórica e Aplicada, Porto Alegre, v. VII, n. 2, p. 43-71, 2000
 -----
-Pagina do Guimaraes e TODOS seus artigos 
+[http://m-fit.googlecode.com/files/Journal_03_prl_jamil.pdf Link] GUIMARÃES, S. J. F. ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque ; LEITE, Neucimar Jerônimo . *Video segmentation based on 2D image analysis. *Pattern Recognition Letters, v. 24, p. 947-957, 2003.
+-----
+[http://www.inf.pucminas.br/projetos/viplab/site/viplab/files/pdf/Journal_04_JASP.pdf Link] GUIMARÃES, S. J. F. ; LEITE, Neucimar Jerônimo ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque . *Flat Zone Analysis and a Sharpening Operation for Gradual Transition Detection on Video Images.* Journal On Applied Signal Processing, Ohio, USA, 2004.
+-----
+Pagina do Guimaraes e TODOS seus artigos. Obs.: Os artigos já estão nesta lista aqui.
 * http://www.inf.pucminas.br/projetos/viplab/site/viplab/files/publications.htm
