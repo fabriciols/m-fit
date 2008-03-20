@@ -16,6 +16,37 @@
 || mauricio            || [Indexing_for_reuse_of_TV_news_shots] || [Object_based_video_retrieval_with_local_region_tracking] || [Temporal_video_segmentation_and_classification_of_edit_effects] ||
 
 
+= sort =
+{{{
+[fabriciols@linux01 fabriciols]$ cat sort.sh
+cp -p journal_temp journal
+
+while read who ; do
+        NUM=0
+        ALL=""
+
+        while [ $NUM -ne 3 ] ; do
+                RAND=$(expr $RANDOM % 10)
+                FIND=$(sed -n ${RAND}p journal)
+                if [ ! -z "$FIND" ] ; then
+                        grep -v "$FIND" journal > journal.2
+                        mv journal.2 journal
+                        ((NUM++))
+                        FIND=$( echo $FIND | sed s/.pdf//g )
+                        FIND=$( echo $FIND | sed "s/[ -]/_/g" )
+                        ALL="${ALL} || [$FIND]"
+                fi
+        done
+
+        printf "|| %-18s %s ||\n" $who "$ALL"
+
+done <<EOF
+mizu
+fabricio
+ivan
+mauricio
+EOF
+}}}
 
 = Referencias =
 
