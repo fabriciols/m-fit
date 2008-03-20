@@ -13,3 +13,5 @@ quanto a outros tipos de transições .
 }}}
 
 = Download =
+
+[http://m-fit.googlecode.com/files/Journal_04_JASP.pdf Journal_04_JASP.pdf]
