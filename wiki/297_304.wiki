@@ -9,15 +9,14 @@
 
 Resumo .
 
-O ritmo visual é uma simplificação do conteudo do video representado por uma imagem 2D , Neste trabalho
-
-o problema de segmentação em um problema de detecção de padrões , onde cada efeito do 
-video eh transformado em um diferente padrão no ritimo visual . Para detectar transições 
-bruscas (cortes) nós usamos ferramente topológivas e morfológicas ao invés de usar medida 
-de diferença (!semelhança) . Assim , nós propomos (?) um metodo para detectar tansições 
-bruscas entre duas tomadas consecutivas . Apresentamos uma analise comparativa de nosso 
-metodo em relação com alguns outros métodos . Propomos (?) uma variante deste metodo para 
-detectar a posição de flashs no video .
+O ritmo visual é uma simplificação do conteudo do video representado por uma imagem 2D , 
+neste trabalho o problema de segmentação em um problema de detecção de padrões , onde 
+cada efeito do video eh transformado em um diferente padrão no ritimo visual . Para 
+detectar transições bruscas (cortes) nós usamos ferramente topológivas e morfológicas ao 
+invés de usar medida de diferença (!semelhança) . Assim , nós propomos (?) um metodo para 
+detectar tansições bruscas entre duas tomadas consecutivas . Apresentamos uma analise 
+comparativa de nosso metodo em relação com alguns outros métodos . Propomos (?) uma 
+variante deste metodo para detectar a posição de flashs no video .
 
 Introdução .
 
@@ -54,7 +53,8 @@ verificar que o metodo proposto apresenta melhores resultados para detecção de
 FIG 1
  
 Este documento é organizado como seguido : In Sec 2, descrevemos o metodo basico usado 
-nesta obra , o ritmo visual . Na Sec3 , descrevemos alum trabalhos relacionados . Na Sec 4 , propomos um metodo para detecção de corte baseada na analise do ritmo visual . Na Sec 
+nesta obra , o ritmo visual . Na Sec3 , descrevemos alum trabalhos relacionados . Na Sec 
+4 , propomos um metodo para detecção de corte baseada na analise do ritmo visual . Na Sec 
 5 , mostramos uma variante do metodo para detecção de flash . Na Sec 6 , fizemos uma 
 analise comparativa involvendo nosso metodo e algums outros metodos usando medidas de 
 qualidade . Finalmente , algumas conclusões e sumário de trabalhos futuros são dados na 
