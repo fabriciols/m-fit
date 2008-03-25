@@ -1,7 +1,7 @@
 = Segmentação de vídeo baseado em análise de imagens 2D =
 
 == Resumo ==
-{{{}}}
+{{{ FALTA FAZE!!!}}}
 
 == Tradução ==
 
@@ -59,7 +59,9 @@ segmentação.
 
 == Citação == 
 {{{
-GUIMARÃES, S. J. F. ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque ; LEITE, Neucimar Jerônimo . Video segmentation based on 2D image analysis. Pattern Recognition Letters, v. 24, p. 947-957, 2003.
+GUIMARÃES, S. J. F. ; COUPRIE, Michel ; ARAÚJO, Arnaldo de Albuquerque ; LEITE, Neucimar 
+Jerônimo . Video segmentation based on 2D image analysis. Pattern Recognition Letters, v. 
+24, p. 947-957, 2003.
 }}}
 
 == Download ==
