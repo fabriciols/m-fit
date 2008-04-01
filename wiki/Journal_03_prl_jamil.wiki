@@ -1,7 +1,16 @@
 = Segmentação de vídeo baseado em análise de imagens 2D =
 
 == Resumo ==
-{{{ FALTA FAZE!!!}}}
+{{{ 
+   Silvio J. F. Guimarães et al., 2002, com o objetivo de fazer a identificação de 
+transições de vídeo, utilizaram um método que fazia uso de Ritmo Visual (transformação dos
+ eventos do vídeo em padrões de imagens 2D), juntamente com a aplicação de operadores de 
+Morfologia Matemática e Topologia Digital. Com isso puderam fazer a identificação de fades
+ curtos com baixas taxas de erros. Ressalta-se ainda que este método possa sofrer algumas 
+alterações para fazer a detecção de outros tipos de transições, além disso, fazer a 
+aplicação direta nos dados do vídeo através de seqüências de imagens 3D. 
+
+}}}
 
 == Tradução ==
 
