@@ -3,17 +3,11 @@
 == Resumo ==
 
 {{{
-Um algoritmo de detecção de transição parametrizada e direcional baseado em resíduos morfológicos
-
-Silvio. J. F. Guimarães et al., 2002, com o objetivo de realizar a identificação e 
-classificação de transições graduais entre duas zonas planas consecutivas (conjunto de 
-pontos consecutivos com os mesmos tons de cinza), aplicaram um método baseado na 
-decomposição hierárquica dos componentes da imagem em resíduos morfológicos. Com o uso 
-deste método era possível retirar as informações necessárias sobre a transição e ainda 
-fazer a reconstrução exata da imagem a partir dos seus resíduos. Desta forma, conseguiram 
-fazer a detecção e identificação das transições facilmente. Apesar de o método funcionar 
-bem em relação às transições graduais, o trabalho não faz referência às transições 
-bruscas (cortes).
+   Silvio J. F. Guimarães et al., 2003, propuseram um método para fazer a detecção de 
+transições em um vídeo, aplicando o operador gradiente multi-escalar morfológico em cima 
+de uma determinada amostragem do vídeo. Através deste método, puderam obter bons 
+resultados através do gradiente multi-escalar em relação à detecção de transições 
+graduais, porém o método não foca na dimensão da transição. 
 }}}
 
 == Tradução ==
