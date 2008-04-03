@@ -12,4 +12,4 @@ dissolves.
 
 = Download =
 
-[http://m-fit.googlecode.com/files/bertrand97image.pdf bertrand97image.pdf]
+[http://m-fit.googlecode.com/files/guimarae.pdf guimarae.pdf]
