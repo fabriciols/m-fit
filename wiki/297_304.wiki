@@ -1,5 +1,13 @@
 = Resumo =
 
+{{{
+Guimar, S.J.F et all , propuseram um metodo que transforma o problema de segmentação de 
+video em um problema de detecção de padrões , one cada efeito de video é transformado em 
+diferentes padrões no ritmo visual . Obtiveram bons resultados acima de outros metodos em 
+relação a robustez , falhas e medidas de gamma , porém foram piores que outros metodos em 
+relação a quantidade de detecções quando não há nenhuma false-detecão (falseless error)
+}}} 
+
 = Tradução = 
 
 == NAO TERMINADA ==
