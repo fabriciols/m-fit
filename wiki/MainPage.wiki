@@ -3,7 +3,7 @@
 
 * 
   # [MorfoLogia Morfologia Matematica]
-  # [EdiçãoVideo Edição de Vídeo]
+  # [EdicaoVideo Edição de Vídeo]
   # [ProcBaixoNivel Processamento de Baixo Nível]
   # [FiltragemEspacial Filtragem Espacial]
   # [Borda Detecção de Bordas]
