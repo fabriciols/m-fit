@@ -13,7 +13,7 @@ pode detectar e classificar tomardas que são dificeis de dectar com uma abordag
 inicial roda aproximadamente 2 fps em uma estação SUN .
 
 
-C|onclusão
+Conclusão
 
 Descrevemos uma nova abordagem para detectar e classificar tomadas . Nosso metodo tolera movimento , bem 
 como artefatos comprimidos . Estamos incorporando nosso algoritmo em um browser para videos MPEG o qual
