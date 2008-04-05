@@ -3,15 +3,15 @@
 
 * 
   # [MorfoLogia Morfologia Matematica]
-  # Edição de Vídeo
-  # Processamento de Baixo Nível
-  # Filtragem Espacial
-  # Detecção de Bordas
-  # Sistemas de cor
-  # Sistemas de vídeo (isso é tp... formatos de vídeo, tipos, tipo... a formatacao de  video... foi oq eu entendi)
-  # Segmentação de Imagens
-  # Ritmo Visual
-  # Métodos de casamento de padrões (isso é coisa mais de entropia... se não me engano...)
+  # [EdiçãoVideo Edição de Vídeo]
+  # [ProcBaixoNivel Processamento de Baixo Nível]
+  # [FiltragemEspacial Filtragem Espacial]
+  # [Borda Detecção de Bordas]
+  # [SistemaCor Sistemas de cor]
+  # [SistemaVideo Sistemas de vídeo] (isso é tp... formatos de vídeo, tipos, tipo... a formatacao de  video... foi oq eu entendi)
+  # [Segmentacao Segmentação de Imagens]
+  # [RitmoVisual Ritmo Visual]
+  # [CasamentoDePadros Métodos de casamento de padrões] (isso é coisa mais de entropia... se não me engano...)
 
 
 = Trabalhos relacionados =
