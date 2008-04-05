@@ -1,4 +1,19 @@
 #labels Paginainicial
+= Revisao bibliografica =
+
+* 
+  # Morfologia Matematica
+  # Edição de Vídeo
+  # Processamento de Baixo Nível
+  # Filtragem Espacial
+  # Detecção de Bordas
+  # Sistemas de cor
+  # Sistemas de vídeo (isso é tp... formatos de vídeo, tipos, tipo... a formatacao de  video... foi oq eu entendi)
+  # Segmentação de Imagens
+  # Ritmo Visual
+  # Métodos de casamento de padrões (isso é coisa mais de entropia... se não me engano...)
+
+
 = Trabalhos relacionados =
 
 || *Nome*   || *Trabalho 1*      || *Trabalho 2  *            || *Trabalho 3* ||
