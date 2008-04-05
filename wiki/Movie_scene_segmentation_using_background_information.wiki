@@ -1,0 +1,12 @@
+= Segmentação de Cena de Filme Usando Infomrçãoes de Segundo Plano =
+
+== Resumo ==
+{{{}}}
+
+== Tradução ==
+
+{{{
+   Resumo
+   A extração de cenas é o primeiro passo para compreender a semântica de um vídeo.
+Isto melhorou e facilitou a navegação e a recuperação de uma base de dados de vídeo por seus usuários. Este trabalho apresenta uma efetiva abordagem para a extracao de cenas de filmes baseada na análise de imagens de segundo plano. Nossa abordagem explora o fade de que tomadas de uma determinada cena possuem um segundo plano similar. Embora parte do frame do vídeo seja composto por objetos de primeiro plano, o fundo da cena pode ser recosntruído por uma técnica de mosaico. O algorítmo de extração de cena proposta consiste em dois componentes principais: determinação de tomadas de medidas similares e um processamento de agrupamento de tomadas. Em nossa abordage, várias características de baixo nível visuais são integradas para computar a medida de similaridade entre duas tomadas. Por outro lado, as regras de filmagem são usadas para guiar o processo de agrupamento de tomadas. Resultados experimentais mostram que nossa abordagem é promissora e tem um melhor desempenho em relação a outras técnicas existentes.
+}}}
