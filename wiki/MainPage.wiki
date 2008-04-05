@@ -4,9 +4,9 @@
 * 
   # [MorfoLogia Morfologia Matematica]
   # [EdicaoVideo Edição de Vídeo]
-  # [ProcBaixoNivel Processamento de Baixo Nível]
-  # [FiltragemEspacial Filtragem Espacial]
-  # [Borda Detecção de Bordas]
+  # Processamento de Baixo Nível
+    # [FiltragemEspacial Filtragem Espacial]
+    # [Borda Detecção de Bordas]
   # [SistemaCor Sistemas de cor]
   # [SistemaVideo Sistemas de vídeo] (isso é tp... formatos de vídeo, tipos, tipo... a formatacao de  video... foi oq eu entendi)
   # [Segmentacao Segmentação de Imagens]
