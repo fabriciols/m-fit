@@ -2,7 +2,7 @@
 = Revisao bibliografica =
 
 * 
-  # [MorfoLogia Morfologia Matematica]
+  # [Morfologia Morfologia Matematica]
   # [EdicaoVideo Edição de Vídeo]
   # Processamento de Baixo Nível
     # [FiltragemEspacial Filtragem Espacial]
