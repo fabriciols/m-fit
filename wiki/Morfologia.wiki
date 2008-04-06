@@ -1,3 +1,4 @@
+{{{
    Morfologia Matemática é basicamente o estudo das formas de objetos através da aplicação 
 de determinadas operações matemáticas. Na área de processamento de imagens a morfologia pode 
 ser aplicada em uma imagem com o objetivo de realizar o seu reconhecimento, a eliminação 
@@ -11,3 +12,4 @@ estruturante, que é um conjunto definido e conhecido (forma, tamanho) que sempr
 Matemática para analisar a imagem gerada a partir de técnicas de Ritmo Visual aplicadas no 
 vídeo extraindo suas propriedades geométricas e topológicas para fazer a definição dos 
 padrões das transições que ocorrem em determinados pontos do vídeo.
+}}}
