@@ -8,9 +8,9 @@ alterar o Nível Digital (ND) de um pixel através do ND de seus pixels vizinhos
 de convolução, que nada mais é do que uma matriz (normalmente de tamanho 3x3) que possui 
 um determinado peso em cada uma de suas posições. 
 }}}
-|| 1 || 1 || 1 ||
-|| 1 || 8 || 1 ||
-|| 1 || 1 || 1 ||
+     || 1 || 1 || 1 ||
+     || 1 || 8 || 1 ||
+     || 1 || 1 || 1 ||
 
 {{{
 Matriz 3x3 para um filtro passa-alta.
