@@ -1,10 +1,8 @@
 = TRADUÇÃO =
 
+== Resumo ==
+
 {{{
-Resumo
-
-
-
 Apresentamos neste paper uma revisão de métodos para segmentação de sequências de vídeos 
 sem compressão Segmentação de video é normalmente feito no dominio temporal por detecção 
 de mudança de omada . No caso de segmentação em tempo-real , complexidade computacional é 
@@ -27,15 +25,11 @@ como critério para detectar transições. Finalmente , diferentes tipos de info
 ser combinada com o objetivo de aumentar a qualidade da detecção de transição. Então 
 nosso "review" irá detalhar métodos de segmentação baseados nas seguintes informações : 
 pixel, histograma, bloco , características , movimento , ou outro tipo de informação .
+}}}
 
+== Conclusão ==
 
-
-
-Conclusão
-
-
-
-	Apresentamos neste paper vários métodos para segmentação sequências de video sem
+{{{	Apresentamos neste paper vários métodos para segmentação sequências de video sem
 compressão. Focamos na complexidade dos métodos , contrário á reviews anteriormente publicados.
 Este critério é particurlamente importande por duas razões principais. Primeiramente ,
 videos sem compressão tem uma grande quantia de dados, que não é o caso dos videos comprimidos.
