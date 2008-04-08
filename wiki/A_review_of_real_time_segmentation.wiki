@@ -29,7 +29,8 @@ pixel, histograma, bloco , características , movimento , ou outro tipo de infor
 
 == Conclusão ==
 
-{{{	Apresentamos neste paper vários métodos para segmentação sequências de video sem
+{{{
+	Apresentamos neste paper vários métodos para segmentação sequências de video sem
 compressão. Focamos na complexidade dos métodos , contrário á reviews anteriormente publicados.
 Este critério é particurlamente importande por duas razões principais. Primeiramente ,
 videos sem compressão tem uma grande quantia de dados, que não é o caso dos videos comprimidos.
