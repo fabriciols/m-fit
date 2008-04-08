@@ -28,8 +28,10 @@ ser combinada com o objetivo de aumentar a qualidade da detecção de transiçã
 nosso "review" irá detalhar métodos de segmentação baseados nas seguintes informações : 
 pixel, histograma, bloco , características , movimento , ou outro tipo de informação .
 
-Conclusão
 
+
+
+Conclusão
 
 
 
