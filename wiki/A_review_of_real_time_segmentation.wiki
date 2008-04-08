@@ -1,8 +1,26 @@
 = TRADUÇÃO =
 
 {{{
-Apresentamos neste paper uma revisão de métodos para segmentação de sequências de vídeos sem compressão Segmentação de video é normalmente feito no dominio temporal por detecção de mudança de omada . No caso de segmentação em tempo-real , complexidade computacional é um dos critérios que devem ser levados em conta quando comparando diferentes métodos . Quando trabalhando com sequências de video sem compressão, este critério é ainda mais significativo. Entretanto , alguns reviews anteriormente publicados não involvem critérios de complexidade quando comparam os metodos de detecção de transição . Somente taxa de reconhecimento e habilidade de classificar transições detectadas são consideradas . Então ao contrário de outros "review" , demonstramos aqui a complexidade da maioria dos métodos descritos . Resumimos neste paper um extensiva gama de metodos apresentados na literatura e calssificamos eles em varias partes , dependendo da informaçãp usada para detectar as transições. Os primeiros métodos comparam frames sucessivos confiando no mais simples dos elementos, isto é: o pixel. Comparações podem ser feitas a um nivel global , então metodos baseados em histogramas estão sendo propostos tambem. Metodos baseados em blocos tem que ser comparados para processar dados em um nivel intermediário , entre niveis 
-locais (usando pixels) e  globais (usando histogramas). Características mais complexas podem ser envolvidas, resultando em um mpetodo baseado em característica. Como alternativa outros métodos confiam no movimento como critério para detectar transições. Finalmente , diferentes tipos de informação pode ser combinada com o objetivo de aumentar a qualidade da detecção de transição. Então nosso "review" irá detalhar métodos de segmentação baseados nas seguintes informações : pixel, histograma, bloco , 
-características , movimento , ou outro tipo de informação .
-
+Apresentamos neste paper uma revisão de métodos para segmentação de sequências de vídeos 
+sem compressão Segmentação de video é normalmente feito no dominio temporal por detecção 
+de mudança de omada . No caso de segmentação em tempo-real , complexidade computacional é 
+um dos critérios que devem ser levados em conta quando comparando diferentes métodos . 
+Quando trabalhando com sequências de video sem compressão, este critério é ainda mais 
+significativo. Entretanto , alguns reviews anteriormente publicados não involvem 
+critérios de complexidade quando comparam os metodos de detecção de transição . Somente 
+taxa de reconhecimento e habilidade de classificar transições detectadas são 
+consideradas . Então ao contrário de outros "review" , demonstramos aqui a complexidade 
+da maioria dos métodos descritos . Resumimos neste paper um extensiva gama de metodos 
+apresentados na literatura e calssificamos eles em varias partes , dependendo da 
+informaçãp usada para detectar as transições. Os primeiros métodos comparam frames 
+sucessivos confiando no mais simples dos elementos, isto é: o pixel. Comparações podem 
+ser feitas a um nivel global , então metodos baseados em histogramas estão sendo 
+propostos tambem. Metodos baseados em blocos tem que ser comparados para processar dados 
+em um nivel intermediário , entre niveis locais (usando pixels) e  globais (usando 
+histogramas). Características mais complexas podem ser envolvidas, resultando em um 
+mpetodo baseado em característica. Como alternativa outros métodos confiam no movimento 
+como critério para detectar transições. Finalmente , diferentes tipos de informação pode 
+ser combinada com o objetivo de aumentar a qualidade da detecção de transição. Então 
+nosso "review" irá detalhar métodos de segmentação baseados nas seguintes informações : 
+pixel, histograma, bloco , características , movimento , ou outro tipo de informação .
 }}}
