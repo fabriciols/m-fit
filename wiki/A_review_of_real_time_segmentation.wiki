@@ -2,8 +2,8 @@
 
 Apresentamos neste paper uma revisão de métodos para segmentação de sequências de vídeos 
 sem compressão Segmentação de video é normalmente feito no dominio temporal por detecção 
-de mudança de omada . No caso de segmentação em tempo-real , complexidade computacional é 
-um dos critérios que devem ser levados em conta quando comparando diferentes métodos . 
+de mudança de omada . 
+No caso de segmentação em tempo-real , complexidade computacional é um dos critérios que devem ser levados em conta quando comparando diferentes métodos . 
 Quando trabalhando com sequências de video sem compressão, este critério é ainda mais 
 significativo. Entretanto , alguns reviews anteriormente publicados não involvem 
 critérios de complexidade quando comparam os metodos de detecção de transição . Somente 
