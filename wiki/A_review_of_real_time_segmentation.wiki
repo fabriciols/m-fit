@@ -1,3 +1,18 @@
+= RESUMO =
+
+{{{
+Sebastina stevie at all , apresentaram neste paper uma gama de algoritmos referentes
+a identificação de transições em videos sem compressão , utilizando métodos baseados em:
+pixel, histograma, bloco, caracteristicas, movimento e outros tipos . O foco era analizar
+o custo computacional de cada algoritmo à fim de encontrar o melhor . Conclui-se que 
+os algoritmos que utilizam logicas simples geralmente tem um custo computacional baixo
+porém dispõe de uma qualidade menor nas detecções , em contrapartida , algoritmos que
+usam logicas complexas , como analise de movimento e caracteristica , ou um método que 
+use varios algoritmos , conseguem ter como resultado final uma boa qualidade em termo
+de detecçaõ de transição , porem tem um custo computacional mais alto. O artigo não
+tinha como escopo analizar videos com algum tipo de compressão.
+}}}
+
 = TRADUÇÃO =
 
 == Resumo ==
