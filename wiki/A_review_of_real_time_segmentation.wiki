@@ -3,6 +3,8 @@
 {{{
 Resumo
 
+
+
 Apresentamos neste paper uma revisão de métodos para segmentação de sequências de vídeos 
 sem compressão Segmentação de video é normalmente feito no dominio temporal por detecção 
 de mudança de omada . No caso de segmentação em tempo-real , complexidade computacional é 
@@ -27,6 +29,9 @@ nosso "review" irá detalhar métodos de segmentação baseados nas seguintes in
 pixel, histograma, bloco , características , movimento , ou outro tipo de informação .
 
 Conclusão
+
+
+
 
 	Apresentamos neste paper vários métodos para segmentação sequências de video sem
 compressão. Focamos na complexidade dos métodos , contrário á reviews anteriormente publicados.
