@@ -1,6 +1,8 @@
 = TRADUÇÃO =
 
 {{{
+Resumo
+
 Apresentamos neste paper uma revisão de métodos para segmentação de sequências de vídeos 
 sem compressão Segmentação de video é normalmente feito no dominio temporal por detecção 
 de mudança de omada . No caso de segmentação em tempo-real , complexidade computacional é 
@@ -23,4 +25,22 @@ como critério para detectar transições. Finalmente , diferentes tipos de info
 ser combinada com o objetivo de aumentar a qualidade da detecção de transição. Então 
 nosso "review" irá detalhar métodos de segmentação baseados nas seguintes informações : 
 pixel, histograma, bloco , características , movimento , ou outro tipo de informação .
+
+Conclusão
+
+	Apresentamos neste paper vários métodos para segmentação sequências de video sem
+compressão. Focamos na complexidade dos métodos , contrário á reviews anteriormente publicados.
+Este critério é particurlamente importande por duas razões principais. Primeiramente ,
+videos sem compressão tem uma grande quantia de dados, que não é o caso dos videos comprimidos.
+Então o método de "parsear" o video se trtando de videos sem compressão pe caracterizado
+pelo seu aspecto de intensidade computacional . Por segundo , temos que usar metodos conhecidos
+pelo seu baixo custo computacional para processar um video pela sua taxa de frames .
+Resultados deste estudo demonstram que o melhor metodo para segmentação em tempo-real de 
+videos sem compressão devem ser selecionados considerando eficiência e custo computacional. 
+Métodos simples como diferença entre frames é um dos metodos mais rápidos , porém são
+caracterizados pela baixa qualidade. Por outro lado, métodos baseados em cracteristica/movimento
+ou metodos combinando vários algoritmos são mais robustos e levam para uma melhor qualidade,
+mas eles são conhecidos por utilizar muitos recursos computacionais. Outro critério importante
+para escolher um método é como escolher limites computacionais e o numero de limites .
+Trabalhos futuros trabalharam em cima do estudo deste critério.
 }}}
