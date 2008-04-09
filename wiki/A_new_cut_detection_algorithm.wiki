@@ -17,7 +17,7 @@ muito boa , se comparado com técnicas existentes
 recall = Ndetectado / (Ndetectado + Nerro-detectado) .
 }}}
 
-== CONCLUSÃO
+== CONCLUSÃO ==
 
 {{{
 Neste paper , a "novel" algoritmo de detecção de corte em videos com constante reslação de alarme-falso é proposto.
