@@ -27,7 +27,7 @@
 
 || *Nome*   || *Trabalho 1*      || *Trabalho 2  *            || *Trabalho 3* ||
 || mizu                || [Journal_03_prl_jamil] || [Movie_scene_segmentation_using_background_information] (Não Serve) || [Circular_discontinuities_detection] (Não Serve) ||
-|| fabricio            || [A_review_of_real_time_segmentation] || [Journal_00_RITA] nao server || [A_new_cut_detection_algorithm] ||
+|| fabricio            || [A_review_of_real_time_segmentation] || [Journal_00_RITA] (nao serve) || [A_new_cut_detection_algorithm] ||
 || ivan                || [A_fuzzy_logic_approach_for_detection] || [An_efficient_method_for_scene_cut_detection] || [Content_based_indexing_and_retrieval_of_TV_news] ||
 || mauricio            || [Indexing_for_reuse_of_TV_news_shots] || [Object_based_video_retrieval_with_local_region_tracking] || [Temporal_video_segmentation_and_classification_of_edit_effects] ||
 
