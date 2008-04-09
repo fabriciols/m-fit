@@ -1,16 +1,15 @@
 = WIKIPEDIA =
 
 {{{
-No meio da visão computacional , segmentação refere-se ao processo de
-particionamento de uma imagem digital em multiplas regiões (pacotes de pixel) .
-O Objetido da segmentaão é simplificar e/ou modificar a representação da 
-imagem em algo que tenha mais sentido e seja mais fácil de ser analizado .
-Segmentação de imagem é normalmente usado para localizar objetos e limites
-(linhas,curvas, etc ) em imagems .
-O resultado da sgmentação de imagems é um conjunto  de regiões as quais
-coletivamente cobrem a imagem inteira , ou um conjunto de contornos extradiso
-da imagem . Cada um dos pixels em uma região são similares em reslação a 
-alguma caracteristica ou propriedade computada , como cor , intensidade ou
-textura . Regiões adjacentes são significantemente diferentes em relação
-as mesmas caracteristicas .
+Em visão computacional, segmentação se refere ao processo de dividir uma imagem digital em 
+múltiplas regiões (conjunto de pixels) ou objetos, com o objetivo de simplificar e/ou mudar 
+a representação de uma imagem para facilitar a sua análise. Segmentação de imagens é 
+tipicamente usada para localizar objetos e formas (linhas, curvas, etc) em imagens.
+
+O resultado da segmentação de imagens é um conjunto de regiões/objetos ou um conjunto de 
+contornos extraídos da imagem (ver detecção de borda). Como resultado, cada um dos pixels 
+em uma mesma região é similar com referência a alguma característica ou propriedade 
+computacional, tais como cor, intensidade, textura ou continuidade. Regiões adjacentes 
+devem possuir diferenças significativas com respeito a mesma característica(s).
+
 }}}
