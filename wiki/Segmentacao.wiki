@@ -1,3 +1,30 @@
+{{{
+Finalizando
+
+Em visão computacional, segmentação é o processo de dividr uma imagem
+em multiplas regiões , com a intenção de conseguir subdividir partes
+importantes da imagem , ou simplesmente modifica-las , ambos
+à fim de facilitar uma análise posterior .
+Em imagems monocromáticas algoritmos soa baseados em uma das propriedades
+basicas de valores de niveis de cinza : descontinuidade(detecção de bordas
+e similaridade (agrupamento de regiões homogêneas)
+
+Na descontinuidade o objetivo é particionar a imagem tendo como regra mudanças
+bruscas na escala de cinza.
+
+A técnica de similaridade funciona da seguinte maneira : Uma imagem f(x,y) produz
+como saida uma imagem g(x,y) , onde cada pixel da imagem f é comparado com um
+limiar T , se o nivel de cinza do pixel for maior que o limiar T , este pixe
+l é mantido em g , caso contrário ele é descartado .
+Esta técnica é amplamente utilizada pois tem um baixo custo computacional
+
+Referências :
+
+http://www.inf.ufrgs.br/pos/SemanaAcademica/Semana98/evandro.html
+http://atlas.ucpel.tche.br/~vbastos/segmenta.htm
+http://www2.ufpa.br/rcientifica/ed_anteriores/pdf/ed_02_scmn.pdf 
+}}}
+
 = WIKIPEDIA =
 
 {{{
