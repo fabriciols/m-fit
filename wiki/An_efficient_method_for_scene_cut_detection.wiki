@@ -26,7 +26,8 @@ conteúdo de video entre dois frames e um inicio para determinar se a largura da
 detectar cortes de cenas usando a diferença de métrica baseado no histograma de cores de
 sucessivos frames de uma sequencia de video. Um método de entropia thresholding é usado
 para obter o threshold automaticamente identificando cortes de cenas. Futuramente
-aplicaremos o processo de refinamento para remover falsas detecções. Resultados experimentais são representados para ilustrar uma boa performance do método.
+aplicaremos o processo de refinamento para remover falsas detecções. Resultados 
+experimentais são representados para ilustrar uma boa performance do método.
 
 Conclusão
 
