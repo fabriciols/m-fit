@@ -2,15 +2,15 @@
 
 == Resumo ==
 {{{ 
-Com o objetivo de identificar cortes de uma cena utilizando um algoritimo único
-, Jianmin Jiang et al.,2005, propuzeram o aproximamento da lógica fuzzy para 
-integrar funcionalidades hibridas para detecção de cortes de uma cena dentro de
-um video em geral. A aproximação da logica fuzzy contém dois modos de
-processamento, onde um é dedicado a detecção de cortes de cenas bruscas
-incluindo a transição dissolve, e o outro para detecção de cortes graduais. 
+Com o objetivo de identificar cortes de uma cena utilizando um único algoritimo 
+, Jianmin Jiang et al.,2005, propuseram a aproximação da lógica fuzzy para 
+integrar funcionalidades híbridas para a detecção de cortes de uma cena dentro de
+um vídeo em geral. A aproximação da logica fuzzy contém dois modos de
+processamento, onde um é dedicado a detecção de cortes bruscos de cenas, incluindo a 
+transição dissolve, e o outro para detecção de transições graduais. 
 Estes dois modos são unificados por um seletor de modos que decide qual modo o
 esquema deve trabalhar para atingir a melhor performance de detecção, sendo que
-não se aplicam a transições de flashes.
+não se aplicam a transições flashes.
 }}}
 
 == Tradução ==
