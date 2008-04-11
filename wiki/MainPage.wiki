@@ -2,16 +2,20 @@
 = Revisao bibliografica =
 
 * 
-  # [Morfologia Morfologia Matematica]
   # [EdicaoVideo Edição de Vídeo]
+  # [SistemaVideo Sistemas de vídeo] 
+  # [SistemaCor Sistemas de cor]
+  # [RitmoVisual Ritmo Visual]
   # Processamento de Baixo Nível
     # [FiltragemEspacial Filtragem Espacial]
     # [Borda Detecção de Bordas]
-  # [SistemaCor Sistemas de cor]
-  # [SistemaVideo Sistemas de vídeo] (isso é tp... formatos de vídeo, tipos, tipo... a formatacao de  video... foi oq eu entendi)
-  # [Segmentacao Segmentação de Imagens]
-  # [RitmoVisual Ritmo Visual]
-  # [CasamentoDePadros Métodos de casamento de padrões] (isso é coisa mais de entropia... se não me engano...)
+  # Processamento de Médio Nível
+    # [Morfologia Morfologia Matemtica]
+    # [Segmentacao Segmentação de Imagens]
+  # Processamento de Alto Nível
+    # [CasamentoDePadros Métodos de casamento de padrões]
+    # [Entropia Métodos de Baseados em Entropia]
+
 
 
 = Trabalhos relacionados =
