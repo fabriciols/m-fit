@@ -15,7 +15,7 @@
   # Processamento de Alto Nível
     # [CasamentoDePadros Métodos de casamento de padrões]
     # [Entropia Métodos de Baseados em Entropia]
-
+  # [DeteccaoTransicao Detecção de Transições]
 
 
 = Trabalhos relacionados =
