@@ -1,0 +1,224 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{a4wide}
+\usepackage[portuguese,english]{babel}
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage[latin1]{inputenc}
+\usepackage{doublespace}
+\usepackage{fancyheadings}
+\usepackage{longtable}
+\usepackage{dropping}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage[top=3cm,left=3cm,bottom=2cm,right=2cm]{geometry}
+
+
+%\usepackage{apalike}
+\newcommand{\figr}[1]{Figura~\ref{#1}}
+\newcommand{\eqt}[1]{Eq.~(\ref{#1})}
+\newcommand{\eqts}[2]{Eq.~(\ref{#1})~e~(\ref{#2})}
+\newcommand{\eqtss}[3]{Eq.~(\ref{#1})~,~(\ref{#2})~e~(\ref{#3})}
+\newcommand{\tab}[1]{Tabela~\ref{#1}}
+
+%comandos para se definir cabeçalhos nas páginas da dissertação
+\pagestyle{fancyplain}
+\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\small\leftmark}}
+\rhead[\fancyplain{}{\small\rightmark}]{\fancyplain{}{\thepage}}
+\cfoot{\fancyplain{\thepage}{}}
+
+%package para reconhecimento de acentuação em português
+\usepackage[latin1]{inputenc}
+
+%package para reconhecimento de português
+\usepackage{babel}
+
+%package para uso de verbatimtab
+%\usepackage{moreverb}
+
+%configuração para numeração de subsubseções
+\setcounter{secnumdepth}{3}
+
+% Frases de efeito no início de cada capítulo
+\newcommand{\epigraph}[2]{%
+  \vspace{1ex}%
+  {\footnotesize%
+   \begin{spacing}{1}
+    \begin{flushright}%
+      \begin{minipage}{.6\textwidth}%
+        #1\\
+      \end{minipage}\\
+      \textit{#2}%
+    \end{flushright}
+    \end{spacing}}%
+  \vspace{1ex}}
+
+
+
+\begin{document}
+
+%-----------------------------------
+% CAPA EM PORTUGUÊS
+%-----------------------------------
+\thispagestyle{empty}
+
+\begin{spacing}{1.0}
+
+\begin{center}
+\begin{large}
+\begin{huge}
+CENTRO UNIVERSITÁRIO DA FEI\\[0.2 cm]
+\end{huge}
+
+\vspace {2 cm}
+
+ANA MARIA UTSUMI DE ARAÚJO\\[0.2 cm]
+
+ANDRESSA MARTINEZ BARELLI\\[0.2 cm]
+
+HUGO ALEXANDRE DA FONTE SANCHES\\[0.2 cm]
+
+JAQUELINE DE SOUZA GOMES\\[0.2 cm]
+
+RODRIGO LAZARINI GIL\\[0.2 cm]
+Orientador: Prof. D.Sc. Paulo Sérgio Silva Rodrigues \\[0.2 cm]
+\end{large}
+\end{center}
+
+\vspace {2 cm}
+
+\begin{spacing}{1.5}
+\begin{center}
+\begin{huge}
+{\bf Detecção de Geometria Facial para Avaliação da Razão de Fibonacci}
+\end{huge}
+\end{center}
+\end{spacing}
+
+\vspace {8 cm}
+
+\begin{center}
+\begin{large}
+São Bernardo do Campo \\[0.2 cm]
+2007
+\end{large}
+\end{center}
+
+\end{spacing}
+\newpage
+
+%-----------------------------------
+% CAPA DE APRESENTAÇÃO EM PORTUGUÊS
+%-----------------------------------
+\thispagestyle{empty}
+
+\begin{spacing}{1.0}
+
+\begin{center}
+\begin{large}
+\begin{huge}
+CENTRO UNIVERSITÁRIO DA FEI\\[0.2 cm]
+\end{huge}
+
+\vspace {2 cm}
+
+ANA MARIA UTSUMI DE ARAÚJO\\[0.2 cm]
+
+ANDRESSA MARTINEZ BARELLI\\[0.2 cm]
+
+HUGO ALEXANDRE DA FONTE SANCHES\\[0.2 cm]
+
+JAQUELINE DE SOUZA GOMES\\[0.2 cm]
+
+RODRIGO LAZARINI GIL\\[0.2 cm]
+Orientador: Prof. D.Sc. Paulo Sérgio Silva Rodrigues \\[0.2 cm]
+\end{large}
+\end{center}
+
+\vspace {2 cm}
+
+\begin{spacing}{1.5}
+\begin{center}
+\begin{huge}
+{\bf Detecção de Geometria Facial para Avaliação da Razão de Fibonacci}
+\end{huge}
+\end{center}
+\end{spacing}
+
+\vspace {2 cm}
+
+\begin{flushright}
+\begin{minipage}[t]{8.5 cm}
+Trabalho de Conclusão de curso, apresentado no Centro Universitário da FEI, como parte dos requisitos necessários para obtenção do título de Bacharel em Ciências da Computação, orientado pelo professor Prof. D.Sc. Paulo Sérgio Silva Rodrigues.
+\end{minipage}
+\end{flushright}
+
+\vspace {2 cm}
+
+\begin{center}
+\begin{large}
+São Bernardo do Campo \\[0.2 cm]
+2007
+\end{large}
+\end{center}
+
+\end{spacing}
+\newpage
+
+
+%-----------------------------------
+% DOCUMENTAÇÃO DO TRABALHO
+%-----------------------------------
+
+\renewcommand{\baselinestretch}{1.3}
+
+\pagenumbering{roman}
+\setlength{\voffset}{0.0in}
+
+\begin{spacing}{1.0}
+\include{PFII-Fibonacci_resumo}
+\end{spacing}
+
+\begin{spacing}{1.0}
+\include{PFII-Fibonacci_abstract}
+\end{spacing}
+
+\selectlanguage{portuguese}
+
+%\begin{spacing}{1.0}
+%include{prefacio}
+%\end{spacing}
+
+\begin{spacing}{1.0}
+\tableofcontents
+\listoffigures
+%\listoftables
+\end{spacing}
+
+\clearpage
+
+\setcounter{page}{0} \pagenumbering{arabic}
+
+\begin{spacing}{1.5}
+\include{PFII-Fibonacci_introducao}
+\include{PFII-Fibonacci_definicaodoproblema}
+\include{PFII-Fibonacci_trabalhosrelacionados}
+\include{PFII-Fibonacci_conceitosfundamentais}
+\include{PFII-Fibonacci_metodologia}
+\include{PFII-Fibonacci_requisitosdosistema}
+\include{PFII-Fibonacci_modelagem}
+\include{PFII-Fibonacci_experimentos}
+\include{PFII-Fibonacci_conclusao}
+\end{spacing}
+
+\appendix
+
+%\include{apendice}
+
+\begin{spacing}{1.0}
+\bibliographystyle{apalike}
+\bibliography{PFII-Fibonacci_referencias}
+\end{spacing}
+
+\end{document}
