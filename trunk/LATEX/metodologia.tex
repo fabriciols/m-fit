@@ -1,0 +1,52 @@
+\chapter{Metodologia \label{metodologia}}
+
+Nesta seção será definida a metodologia a ser utilizada para a realização da detecção de transições.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.9\linewidth]{imagens/metodologia.png}
+ \caption{Seqüência de processos utilizados na metodologia.}
+ \label{img_metodologia}
+\end{figure}
+	 
+Como pode ser observado na Figura \ref{img_metodologia}, será primeiramente será realizado o cálculo do Ritmo Visual. Dentro dele podem estar representados vários tipos de transições, somente cortes, somente dissolves, ou vários tipos misturados. 
+Para realizar a detecção de cortes será utilizado o seguinte processo:
+Após obter o Ritmo Visual do vídeo será realizada a filtragem desta imagem, primeiramente para a diminuição de possíveis ruídos encontrados no vídeo. A eliminação destes ruídos pode ser dada através da aplicação de uma filtragem do tipo passa-baixa como visto mais anteriormente em \ref{filtragem_espacial}. Após a suavização desta imagem será feita a binarização da imagem, que consiste na transformação de uma imagem colorida ou em tons de cinza para uma imagem binária. Este processo é feito baseando-se em cima de seu histograma (vide tópico \ref{segmentacao_de_imagens}). Após a binarização será feita a detecção das bordas do ritmo visual, através do uso de operadores morfológicos, no caso o operador de Sobel. Como já dito anteriormente, ele é uma boa opção para realizar a detecção de bordas, visto que estas possuem gradientes de alta magnitude e ao realizar a binarização da imagem, regiões em que não houver borda terão um gradiente de magnitude aproximadamente igual em todos os seus pontos, enquanto as regiões de transição terão um gradiente de magnitude elevada (picos), resultando no mapa de bordas.
+A partir do mapa de bordas, é possível obter as transições que ocorrem no ritmo visual e com isso determinar onde ocorrem as transições no vídeo.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/meto_rv.png}
+ \caption{Obtenção do Ritmo Visual.}
+ \label{img_meto_rv}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/meto_ruido.png}
+ \caption{Filtragem para diminuição de ruídos.}
+ \label{img_meto_ruido}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/meto_bordas.png}
+ \caption{Detecção das bordas.}
+ \label{img_meto_bordas}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/meto_limiar.png}
+ \caption{Mapa de bordas.}
+ \label{img_meto_limiar}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/meto_sobrep.png}
+ \caption{Sobreposição do mapa de bordas na imagem do ritmo visual, dando destaque às transições}
+ \label{img_meto_sobrep}
+\end{figure}
+     
+Nas Figuras \ref{img_meto_rv} , \ref{img_meto_ruido} , \ref{img_meto_bordas} , \ref{img_meto_limiar} e \ref{img_meto_sobrep} , pode-se observar que os cortes de um vídeo são transições verticais na representação do Ritmo Visual. Através de técnicas de filtragem e uso de operadores para a detecção das bordas, podemos obter as linhas verticais que caracterizam uma transição de corte, porém é importante lembrar que nem toda reta vertical encontrada no ritmo visual pode ser considerada uma transição.

@@ -1,0 +1,71 @@
+\section{Ritmo Visual \label{ritmo_visual}}
+
+Ritmo Visual é definido como a representação de um segmento de
+imagens 2D (um vídeo) em uma única imagem na dimensão 1D, sendo
+portanto uma tentativa de tornar o trabalho de analise de vídeo
+simplificada. Existem dois tipos de representações do ritmo visual.
+Ritmo Visual por histograma e por sub-amostragem. Neste trabalho
+iremos focar no ritmo visual por sub-amostragem, o qual se
+caracteriza pela transformação de determinadas faixas de pixels
+(amostras) de cada um dos frames de uma tomada do vídeo em uma
+coluna da representação 1D, como representado na Figura 13. Podemos
+dizer então que o Ritmo Visual é uma simplificação do vídeo. O
+padrão desta representação pode ser alterado conforme a escolha dos
+pixels, portanto, o padrão do ritmo visual é totalmente dependente
+do tipo da amostragem retirada do vídeo. Bons resultados podem ser
+obtidos se a sub-amostragem do frame for dada pela sua diagonal
+principal, uma vez que ela trará características horizontais e
+verticais do frame, podendo assim fazer uma boa representação do
+mesmo. Uma melhor abordagem sobre este processo pode ser encontrada
+em [6,17].
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/rv_diagonal.png}
+ \caption{ransformação da diagonal principal dos frames de um
+vídeo em colunas do Ritmo Visual.}
+ \label{img_rvdiagonal}
+\end{figure}
+
+Na Figura \ref{img_rdiagonal} pode ser observado o processo de
+transformação das diagonais principais dos frames $1$, $2$, $3$, $4$
+e $5$ nas colunas $1$, $2$, $3$, $4$, e $5$ do Ritmo Visual.
+Matematicamente, podemos definir ritmo visual como:
+
+Seja $\bigvee$ um vídeo composto por $Fi \in \bigvee, i = \{1,2,3,
+...,t\}$
+
+Então  $RV = (Fi)$  é o seu Ritmo Visual.
+
+Cada tipo de transição gera uma coluna com características, padrões
+diferentes no ritmo visual, como podem ser observados nas Figuras:
+\ref{img_rvcorte}, \ref{img_rvfadein}, \ref{img_rvdissolve}:
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/rv_a.png}
+ \caption{Representações de Ritmo Visual : cortes}
+ \label{img_rvcorte}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/rv_b.png}
+ \caption{Representações de Ritmo Visual : fade-in}
+ \label{img_rvfadein}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/rv_c.png}
+ \caption{Representações de Ritmo Visual : dissolves}
+ \label{img_rvdissolve}
+\end{figure}
+
+Em nosso trabalho, as técnicas de Ritmo Visual serão utilizadas para
+transformar o nosso problema de segmentação de vídeos em um problema
+de segmentação de imagens. A partir daí, faremos uso de outras
+ferramentas de PDI como filtragem espacial e detecção de bordas,
+juntamente com a aplicação de operadores de morfologia matemática,
+sobre o RV com o objetivo de obter os pontos de transição das
+tomadas no vídeo $\bigvee$.

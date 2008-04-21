@@ -1,0 +1,43 @@
+\subsection{Segmentação de Imagens \label{segmentacao_de_imagens}}
+
+Em visão computacional, segmentação é o processo de dividir uma imagem em múltiplas regiões, com a intenção de subdividir partes importantes da imagem, ou simplesmente modificá-las, ambos a fim de facilitar uma análise posterior. Em imagens monocromáticas algoritmos são baseados em uma das propriedades básicas de valores de níveis de cinza: descontinuidade (detecção de bordas) e similaridade (agrupamento de regiões homogêneas). Na descontinuidade, o objetivo é particionar a imagem tendo como regra mudanças bruscas nas escalas de cinza. A técnica de similaridade funciona da seguinte maneira: uma imagem f(x,y) produz como saída uma imagem g(x,y) , onde cada pixel da imagem f é comparado com um limiar T, se o nível de cinza do pixel for maior que o limiar T, este pixel é mantido em g , caso contrário ele é descartado (considerado como fundo). Esta técnica é amplamente utilizada, pois tem um baixo custo computacional.
+Outra técnica também bastante conhecida é a limiarização ou binarização da imagem.
+É dado um exemplo de histograma com limiar na Figura \ref{img_seg_histograma}:
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.5\linewidth]{imagens/seg_histograma.png}
+ \caption{Exemplo de limiar com histograma.}
+ \label{img_seg_histograma}
+\end{figure}
+ 
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.5\linewidth]{imagens/seg_limiar1.png}
+ \caption{Imagem Original.}
+ \label{img_seg_limiar1}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.5\linewidth]{imagens/seg_limiar2.png}
+ \caption{Limiar = 10.}
+ \label{img_seg_limiar2}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.5\linewidth]{imagens/seg_limiar3.png}
+ \caption{Limiar = 30.}
+ \label{img_seg_limiar3}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.5\linewidth]{imagens/seg_limiar4.png}
+ \caption{Limiar = 70.}
+ \label{img_seg_limiar4}
+\end{figure}
+ 
+   
+Como pode ser observado nos exemplos das Figuras \ref{img_seg_limiar1} , \ref{img_seg_limiar2} , \ref{img_seg_limiar3} e \ref{img_seg_limiar4} , dependendo da limiar escolhida o resultado se altera. (explicar limiarização das imagens [29]).

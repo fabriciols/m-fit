@@ -1,0 +1,79 @@
+\section{Processamento de Médio Nivel \label{medio_nivel}}
+\subsection{Morfologia Matemática \label{morfologia_matematica}}
+
+Morfologia Matemática é basicamente o estudo das formas de objetos através da aplicação de determinadas operações matemáticas. Na área de processamento de imagens a morfologia pode ser aplicada em uma imagem com o objetivo de realizar o seu reconhecimento, a eliminação de ruídos, detecção de bordas, através do uso de algumas operações morfológicas. Segundo [1], a base da morfologia matemática é composta por dois operadores básicos, a erosão e a dilatação. A erosão consiste na retirada de pontos indesejáveis da imagem, enquanto a dilatação é a propagação de um determinado ponto para áreas ao seu redor. 
+ 
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.1\linewidth]{imagens/morf_cruz.png}
+ \caption{Cruz.}
+ \label{img_morf_cruz}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.1\linewidth]{imagens/morf_quadrado.png}
+ \caption{Quadrado.}
+ \label{img_morf_quad}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.1\linewidth]{imagens/morf_hexagono.png}
+ \caption{Hexagonal.}
+ \label{img_morf_hexa}
+\end{figure}
+
+Ambas as operações são sempre baseadas em um elemento estruturante que é um conjunto pequeno definido e conhecido (forma, tamanho) que é sempre comparado a um conjunto desconhecido da imagem. O elemento estruturante pode ser de vários tipos conforme observado nas Figuras \ref{img_morf_cruz} , \ref{img_morf_quad} e \ref{imf_morf_hexa} . A boa escolha de um elemento estruturante está bastante ligada à qualidade dos resultados das operações. Na Figura \ref{img_morf_erosao_a} e Figura \ref{img_morf_erosao_b}, podem ser observadas a aplicação de uma erosão e dilatação respectivamente:
+  
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.1\linewidth]{imagens/morf_erosao_a.png}
+ \caption{Imagem Original.}
+ \label{img_morf_erosao_a}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.1\linewidth]{imagens/morf_erosao_b.png}
+ \caption{Resultado da aplicação da operação de erosão na imagem.}
+ \label{img_morf_erosao_b}
+\end{figure}
+
+Segundo [1], a erosão de um element é dada por:
+
+\begin{large}
+\begin{center}
+$ [ \varepsilon_B(f)](x)  = \min{b \in B} f(x + b) - B(b) $
+\end{center}
+\end{large}
+
+Onde $f$ é a região da imagem a ser erodida e $B$ é o elemento estruturante.
+Uma imagem erodida resulta em uma imagem com regiões escuras alargadas e as claras diminuídas, em relação à imagem original, como é possível observar na Figura \ref{img_morf_erosao_b}.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.1\linewidth]{imagens/morf_dilatacao_a.png}
+ \caption{Imagem Original.}
+ \label{img_morf_dilatacao_a}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.1\linewidth]{imagens/morf_dilatacao_b.png}
+ \caption{Resultado da aplicação da operação de dilatação na imagem.}
+ \label{img_morf_dilatacao_b}
+\end{figure}
+  
+A dilatação, segundo [1], é dada por:
+
+\begin{large}
+\begin{center}
+$ [ \varepsilon_B(f)](x)  = \max{b \in B} f(x + b) $
+\end{center}
+\end{large}
+
+	Onde $f$ é a região da imagem a ser dilatada e $B$ é o elemento estruturante.
+Como é possível observar na Figura \ref{img_morf_dilatacao_b}, uma imagem dilatada tem seus pontos claros expandidos, enquanto os escuros são diminuídos em relação à imagem original.
+
+Em nosso trabalho utilizaremos a Morfologia Matemática para analisar a imagem gerada a partir de técnicas de Ritmo Visual, e após a aplicação de técnicas de filtragem para fazer a extração de suas propriedades geométricas e topológicas definindo os padrões das transições que ocorrem em determinados pontos do vídeo.

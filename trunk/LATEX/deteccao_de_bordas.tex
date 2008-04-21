@@ -1,0 +1,57 @@
+\subsection{Detecção de Bordas \label{deteccao_de_bordas}}
+
+Detecção de Bordas é uma técnica para localizar os pontos e linhas que dividem regiões distintas de uma determinada imagem. A detecção das bordas pode ser feita através do uso de diversos operadores. Computacionalmente, define-se uma borda como sendo uma região que possui um gradiente de alta magnitude, por este fato, o operador de Sobel é uma interessante forma de se realizar a detecção de bordas, visto que este operador é baseado no cálculo do gradiente e sua magnitude. 
+Segundo [20, 21], o cálculo do gradiente é dado por:
+
+\begin{large}
+\begin{center}
+	$\nabla f =  \begin{bmatrix} Gx \\ Gy \end{bmatrix} = 
+	\begin{bmatrix} \frac{\partial f}{\partial x} \\ \frac{\partial f}{\partial y} \end{bmatrix}$
+\end{center}
+\end{large}
+
+E sua magnitude é dada por:
+\begin{large}
+\begin{center}
+	$ mag(\nabla f) = [ G_x^2 + G_y^2 ]^\frac{1}{2} $
+\end{center}
+\end{large}
+ 
+Onde:
+
+\begin{large}
+\begin{center}
+	$G_x =  \begin{bmatrix} -1 & 0 & 1 \\
+									-2 & 0 & 1 \\
+									-1 & 0 & 1
+		  		\end{bmatrix} 
+	$ e $
+	 		  \begin{bmatrix} 1 & 2 & 1 \\
+									0 & 0 & 0 \\
+									-1 & -2 & -1
+		  		\end{bmatrix}
+	$
+\end{center}
+\end{large}
+
+são operadores que aplicam o processo de convolução na imagem como visto no tópico anterior.
+Através destes cálculos é possível obter, além da magnitude, a direção do gradiente.
+    
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/bordas_a.png}
+ \caption{Imagem Original.}
+ \label{img_bordas_a}
+\end{figure}
+
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/bordas_b.png}
+ \caption{Imagem após sofrer filtragem com operador se sobel.}
+ \label{img_bordas_b}
+\end{figure}
+
+Observa-se na Figura \ref{img_bordas_b}, que ao realizar uma filtragem utilizando o operador de Sobel, a imagem tem suas bordas em maior destaque do que na imagem original (Figura \ref{img_bordas_a} ) Apesar deste operador realizar uma boa detecção de bordas, ele também aumenta o nível dos ruídos da imagem. Isto se deve ao fato de que ao passar pelos processos de convolução e cálculo de magnitude do gradiente, os ruídos, assim como as bordas, retornam um valor de magnitude elevada, sendo necessário aplicar outros processos de filtragem para a redução dos mesmos.	
+Uma melhor abordagem sobre estes métodos pode ser encontrada em [17, 20, 21, 22, 23].
+Em nosso trabalho, utilizaremos algumas técnicas de Filtragem Espacial para fazer o realce das bordas do ritmo visual, possibilitando dar um destaque maior para as bordas que possam possivelmente caracterizar uma transição.
