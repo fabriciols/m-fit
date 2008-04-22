@@ -68,11 +68,6 @@ um cubo.
 
 \subsection{CMYK \label{sc_cmyk}}
 
-Também conhecido como modelo de cores baseado na subtração (absorção
-de luz), é formado pelas cores Ciano, Magenta, Amarelo e Preto,
-utilizado com maior freqüência para impressões gráficas. A Figura
-\ref{img_cmyk} representa as misturas de cores de um sistema CMYK.
-
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=0.3\linewidth]{imagens/cmyk.png}
@@ -80,7 +75,19 @@ utilizado com maior freqüência para impressões gráficas. A Figura
  \label{img_cmyk}
 \end{figure}
 
+Também conhecido como modelo de cores baseado na subtração (absorção
+de luz), é formado pelas cores Ciano, Magenta, Amarelo e Preto,
+utilizado com maior freqüência para impressões gráficas. A Figura
+\ref{img_cmyk} representa as misturas de cores de um sistema CMYK.
+
 \subsection{HSV \label{sc_hsv}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/hsv.png}
+ \caption{Representação do sistema HSV: a) A mistura de cores representada por um círculo; b) Modelo de representação do padrão HSV;}
+ \label{img_hsv}
+\end{figure}
 
 Também conhecido como HSB, este sistema de cores é o mais próximo à
 percepção da visão humana, por esse motivo, apresenta maiores
@@ -90,27 +97,12 @@ Valor, onde a tonalidade é a cor definida pela faixa de valores de 0
 a 360 graus (Tabela \ref{tab:hsv}), representada por um círculo, a
 saturação varia pelo percentual da presença de tons de cinza de 0 a
 $100$\% e o valor é definido pelo brilho composto variando de 0 a
-$100$\% Figura \ref{img_hsv_b}. O sistema HSV é representado por um
-cone: (Figura \ref{img_hsv_a}), uma vantagem deste modelo de
+$100$\% Figura \ref{img_hsv} - b. O sistema HSV é representado por
+um cone: (Figura \ref{img_hsv}) - a, uma vantagem deste modelo de
 representação é a capacidade de representar as cores do espaço HSV
 em um único objeto. Devido à natureza bidimensional interfaces de
 computador, o modelo de cônico HSV é mais adequada para selecionar
 as cores para computação gráfica.
-
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.4\linewidth]{imagens/hsv_a.png}
- \caption{A mistura de cores representada por um círculo.}
- \label{img_hsv_a}
-\end{figure}
-
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.4\linewidth]{imagens/hsv_b.png}
- \caption{Modelo de representação do padrão HSV.}
- \label{img_hsv_b}
-\end{figure}
-
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
