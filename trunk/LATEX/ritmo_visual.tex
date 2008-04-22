@@ -3,21 +3,24 @@
 Ritmo Visual é definido como a representação de um segmento de
 imagens 2D (um vídeo) em uma única imagem na dimensão 1D, sendo
 portanto uma tentativa de tornar o trabalho de analise de vídeo
-simplificada. Existem dois tipos de representações do ritmo visual.
-Ritmo Visual por histograma e por sub-amostragem. Neste trabalho
-iremos focar no ritmo visual por sub-amostragem, o qual se
-caracteriza pela transformação de determinadas faixas de pixels
-(amostras) de cada um dos frames de uma tomada do vídeo em uma
-coluna da representação 1D, como representado na Figura 13. Podemos
-dizer então que o Ritmo Visual é uma simplificação do vídeo. O
-padrão desta representação pode ser alterado conforme a escolha dos
-pixels, portanto, o padrão do ritmo visual é totalmente dependente
-do tipo da amostragem retirada do vídeo. Bons resultados podem ser
-obtidos se a sub-amostragem do frame for dada pela sua diagonal
-principal, uma vez que ela trará características horizontais e
-verticais do frame, podendo assim fazer uma boa representação do
-mesmo. Uma melhor abordagem sobre este processo pode ser encontrada
-em [6,17].
+simplificada.
+
+Existem dois tipos de representações do ritmo visual. Ritmo Visual
+por histograma e por sub-amostragem. Neste trabalho iremos focar no
+ritmo visual por sub-amostragem, o qual se caracteriza pela
+transformação de determinadas faixas de pixels (amostras) de cada um
+dos frames de uma tomada do vídeo em uma coluna da representação 1D,
+como representado na Figura 13. Podemos dizer então que o Ritmo
+Visual é uma simplificação do vídeo.
+
+O padrão desta representação pode ser alterado conforme a escolha
+dos pixels, portanto, o padrão do ritmo visual é totalmente
+dependente do tipo da amostragem retirada do vídeo. Bons resultados
+podem ser obtidos se a sub-amostragem do frame for dada pela sua
+diagonal principal, uma vez que ela trará características
+horizontais e verticais do frame, podendo assim fazer uma boa
+representação do mesmo. Uma melhor abordagem sobre este processo
+pode ser encontrada em [6,17].
 
 \begin{figure}[h|top]
  \centering
@@ -38,31 +41,24 @@ Seja $\bigvee$ um vídeo composto por $Fi \in \bigvee, i = \{1,2,3,
 Então  $RV = (Fi)$  é o seu Ritmo Visual.
 
 Cada tipo de transição gera uma coluna com características, padrões
-diferentes no ritmo visual, como podem ser observados nas Figuras:
-\ref{img_rvcorte}, \ref{img_rvfadein}, \ref{img_rvdissolve}:
+diferentes no ritmo visual, como podem ser observados na Figura:
+\ref{img_rv_exemplos}:
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.3\linewidth]{imagens/rv_a.png}
- \caption{Representações de Ritmo Visual : cortes}
- \label{img_rvcorte}
+ \includegraphics[width=1.0\linewidth]{imagens/rv_exemplos.png}
+ \caption{Representações de Ritmo Visual: a) cortes; b) fade-out seguido de fade-in; c) dois dissolves consecutivos}
+ \label{img_rv_exemplos}
 \end{figure}
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.3\linewidth]{imagens/rv_b.png}
- \caption{Representações de Ritmo Visual : fade-in}
- \label{img_rvfadein}
-\end{figure}
+Como visto na Figura \ref{img_rv_exemplos}- a, os cortes são
+caracterizados no Ritmo Visual por linhas verticais. Porém, pela
+possível existência de ruídos na imagem gerada, nem todas as linhas
+verticais podem ser necessariamente um corte. Para resolver este
+problema, algumas técnicas de filtragem espacial podem ser
+aplicadas, diminuindo a intensidade dos ruídos.
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.3\linewidth]{imagens/rv_c.png}
- \caption{Representações de Ritmo Visual : dissolves}
- \label{img_rvdissolve}
-\end{figure}
-
-Em nosso trabalho, as técnicas de Ritmo Visual serão utilizadas para
+Neste trabalho, as técnicas de Ritmo Visual serão utilizadas para
 transformar o nosso problema de segmentação de vídeos em um problema
 de segmentação de imagens. A partir daí, faremos uso de outras
 ferramentas de PDI como filtragem espacial e detecção de bordas,

@@ -5,14 +5,16 @@
 Filtragem Espacial Filtragem Espacial é uma técnica utilizada na
 área de processamento de imagens para realizar a suavização ou
 realce de detalhes da imagem, ou até mesmo a eliminação de elementos
-indesejáveis dessas imagens, como por exemplo, os ruídos. Para a
-aplicação de um filtro, utiliza-se o conceito de operadores de
-vizinhança, que consiste em alterar o Nível Digital (nível de tons
-de cinza, ou cor) de um pixel através do ND de seus pixels vizinhos.
-Dependendo do filtro a ser utilizado este cálculo pode ser alterado.
-Geralmente, cria-se uma máscara de convolução, que nada mais é do
-que uma matriz (normalmente de tamanho 3x3 : \ref{tab:filtragem})
-que possui um determinado peso em cada uma de suas posições.
+indesejáveis dessas imagens, como por exemplo, os ruídos.
+
+Para a aplicação de um filtro, utiliza-se o conceito de operadores
+de vizinhança, que consiste em alterar o Nível Digital (nível de
+tons de cinza, ou cor) de um pixel através do ND de seus pixels
+vizinhos. Dependendo do filtro a ser utilizado este cálculo pode ser
+alterado. Geralmente, cria-se uma máscara de convolução, que nada
+mais é do que uma matriz (normalmente de tamanho 3x3 :
+\ref{tab:filtragem}) que possui um determinado peso em cada uma de
+suas posições.
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
@@ -37,7 +39,7 @@ posição central da matriz, como mostrado na Figura
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.3\linewidth]{imagens/filtragem_masc.png}
+ \includegraphics[width=0.5\linewidth]{imagens/filtragem_masc.png}
  \caption{Máscara 3x3 sendo utilizada para a filtragem de uma
 imagem digital. No caso, o ND a ser recalculado é do pixel X.}
  \label{img_filtragem_masc}
@@ -51,46 +53,39 @@ filtrada, então:
 
 \begin{large}
 \begin{center}
-$ND = \sum_{i=n}^{n}{MiOi}$
+$ND = \sum_{i=1}^{n}{MiOi}$
 \end{center}
 \end{large}
 
-Onde   é o número de elementos de M. Caso  , então todos os valores
-de   devem ser divididos por  . Durante a filtragem, esta matriz
-percorre toda a imagem pixel a pixel, partindo da esquerda para a
-direita, tal deslocamento é obtido através da soma de 1 pixel na
-posição x atual da matriz, como pode ser observado na Figura 12.
-Entre os principais tipos de filtragem está o filtro passa-alta, que
-pode ser uma boa alternativa para fazer a detecção de bordas e o
-filtro passa-baixa, que serve para fazer a suavização da imagem,
-resultando na diminuição de possíveis ruídos presentes na mesma.
+Onde n  é o número de elementos de M.
+
+Caso $\sum_{i=1}^{n}{MiOi} > 1$, então todos os valores de Mi devem
+ser divididos por $\sum_{i=1}^{n}{MiOi}$.
+
+Durante a filtragem, esta matriz percorre toda a imagem pixel a
+pixel, partindo da esquerda para a direita, tal deslocamento é
+obtido através da soma de 1 pixel na posição x atual da matriz, como
+pode ser observado na Figura \ref{img_filtragem_masc}. Entre os
+principais tipos de filtragem está o filtro passa-alta, que pode ser
+uma boa alternativa para fazer a detecção de bordas e o filtro
+passa-baixa, que serve para fazer a suavização da imagem, resultando
+na diminuição de possíveis ruídos presentes na mesma.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.3\linewidth]{imagens/filtragem_ori.png}
- \caption{Imagem Original}
- \label{img_filtragem_ori}
+ \includegraphics[width=1.0\linewidth]{imagens/exemplos_filtragem.png}
+ \caption{a) Imagem Original; b) Imagem após filtragem passa-baixa; c) Imagem após filtragem passa-alta.}
+ \label{img_exemplos_filtragem}
 \end{figure}
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.3\linewidth]{imagens/filtragem_baixa.png}
- \caption{Imagem Após Filtragem Passa-Baixa}
- \label{img_filtragem_alta}
-\end{figure}
+Como pode ser observado na Figura \ref{img_exemplos_filtragem} - b,
+ao aplicar um filtro passa-baixa na imagem, ela torna-se mais
+homogênea e também se perde nitidez, porém os ruídos são suavizados.
+Já na Figura \ref{img_exemplos_filtragem} - c, foi aplicado um
+filtro passa-alta na imagem, havendo um aumento do contraste entre
+os objetos e o fundo da imagem, ganha-se nitidez e caso existam
+ruídos na imagem original, estes poderão ser realçados assim como as
+bordas dos objetos.
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.3\linewidth]{imagens/filtragem_alta.png}
- \caption{Imagem Após Filtragem Passa-Alta}
- \label{img_filtragem_baixa}
-\end{figure}
-
-Como pode ser observado na Figura \ref{img_filtragem_alta}, ao aplicar um filtro
-passa-baixa na imagem, ela torna-se mais homogênea e também se perde
-nitidez, porém os ruídos são suavizados. Já na Figura \ref{img_filtragem_baixa}, foi
-aplicado um filtro passa-alta na imagem, havendo um aumento do
-contraste entre os objetos e o fundo da imagem, ganha-se nitidez e
-caso existam ruídos na imagem original, estes poderão ser realçados
-assim como as bordas dos objetos. Uma abordagem mais completa sobre
-este assunto pode ser encontrada em [19,23].
+Uma abordagem mais completa sobre este assunto pode ser encontrada
+em [19,23].
