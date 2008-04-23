@@ -16,13 +16,20 @@ esta mesma amostragem o vídeo passa pelo canal expansor.
 \end{figure}
 
 
-O AVI (Audio Video Interleave) é um padrão criado pela Microsoft em
-1992, o qual é derivado do padrão RIFF que divide os dados em
-blocos. Ao contrário dos outros padrões o AVI não possui compressão.
+Audio Video Interleave, o AVI é um padrão criado pela Microsoft em
+1992, formato derivado do padrão RIFF, cujo divide os dados em
+blocos. Ao contrário dos outros padrões o AVI não possui compressão,
+resultando em arquivos com tamanhos grandes porém sem perda de
+qualidade. Na Figura 2 observar-se que o arquivo AVI é formado
+primeiramente pelo cabeçalho RIFF seguido pelo tamanho do bloco que
+será armazenado fisicamente no disco, isto é, o tamanho total de um
+arquivo AVI, em seguida o bloco AVI é definido com sua respectiva
+lista de sub-blocos, que são identificados a partir de um ID e seu
+tamanho correspondente.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.5\linewidth]{imagens/avi.png}
+ \includegraphics[width=0.3\linewidth]{imagens/avi.png}
  \caption{Sistema de armazenamento AVI.}
  \label{img_avi}
 \end{figure}
