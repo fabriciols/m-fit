@@ -22,13 +22,13 @@ Após obter o Ritmo Visual do vídeo será realizada a filtragem desta
 imagem para a diminuição de possíveis ruídos encontrados no vídeo, a
 qual se dará através da aplicação do operador de Sobel, junto com a
 aplicação de um determinado limiar. Com esta operação será obtido o
-mapa de bordas (\ref{img_processo_meto} - b. Neste mapa será
+mapa de bordas (Figura \ref{img_processo_meto} - b). Neste mapa será
 aplicado novamente o operador de Sobel com uma limiar diferente da
 primeira filtragem, fazendo com que as linhas que provavelmente
 identifiquem uma região de transição do vídeo fiquem mais realçadas
 do que aquelas que representem o fundo ou objetos da imagem.
 
-Como já dito anteriormente, este operador é uma boa opção para
+Como já dito anteriormente (Seçao: \ref{deteccao_de_bordas}), este operador é uma boa opção para
 realizar a detecção de bordas, visto que estas possuem gradientes de
 alta magnitude. Como observado no tópico
 \ref{segmentacao_de_imagens}, a escolha do limiar é feita através da
