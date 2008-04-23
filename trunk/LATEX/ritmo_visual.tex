@@ -1,7 +1,7 @@
 \section{Ritmo Visual \label{ritmo_visual}}
 
 Ritmo Visual é definido como a representação de um segmento de
-imagens 2D (um vídeo) em uma única imagem na dimensão 1D, sendo
+imagens $2D+t$ (um vídeo) em uma única imagem na dimensão $2D$, sendo
 portanto uma tentativa de tornar o trabalho de analise de vídeo
 simplificada.
 
@@ -9,8 +9,8 @@ Existem dois tipos de representações do ritmo visual. Ritmo Visual
 por histograma e por sub-amostragem. Neste trabalho iremos focar no
 ritmo visual por sub-amostragem, o qual se caracteriza pela
 transformação de determinadas faixas de pixels (amostras) de cada um
-dos frames de uma tomada do vídeo em uma coluna da representação 1D,
-como representado na Figura 13. Podemos dizer então que o Ritmo
+dos frames de uma tomada do vídeo em uma coluna da representação $2D$,
+como representado na Figura \ref{img_rvdiagonal}. Podemos dizer então que o Ritmo
 Visual é uma simplificação do vídeo.
 
 O padrão desta representação pode ser alterado conforme a escolha
@@ -20,7 +20,7 @@ podem ser obtidos se a sub-amostragem do frame for dada pela sua
 diagonal principal, uma vez que ela trará características
 horizontais e verticais do frame, podendo assim fazer uma boa
 representação do mesmo. Uma melhor abordagem sobre este processo
-pode ser encontrada em [6,17].
+pode ser encontrada em \cite{GUIMARAES_2003_2} e \cite{GUIMARAES_2001_2}.
 
 \begin{figure}[h|top]
  \centering
