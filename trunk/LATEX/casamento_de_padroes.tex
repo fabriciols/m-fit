@@ -1,2 +1,56 @@
 \section{Processamento de Alto Nivel \label{alto_nivel}}
 \subsection{Método de Casamento de Padrões \label{casamento_de_padroes}}
+
+Casamento de padrões é uma técnica baseada na comparação de padrões
+de elementos. Tal comparação pode ser do tipo estrutural, de sinais
+ou feições. A comparação por casamento de sinais se dá entre duas
+imagens (no caso de PDI), uma imagem de estudo (E) e uma imagem de
+referência (R) baseando-se em seus níveis de intensidade de tons de
+cinza.
+
+A imagem de referência é aquela onde são escolhidos determinados
+pontos (pixels) que possam definir um padrão para aquele tipo de
+imagem. Tais pixels podem ser definidos através de intervenções
+humanas ou por um processo automático. Juntamente das propriedades
+deste pixel, são consideradas as propriedades de seus pixels
+vizinhos, formando pequenas sub-imagens da imagem de referência. Em
+geral, estas regiões de R são regiões que guardam fortes
+características que possibilitam fazer a identificação da imagem, as
+quais são chamadas de padrões.
+
+Estas sub-imagens são como as matrizes de convolução vistas no
+tópico (citar tópico de filtragem espacial), porém, diferente
+destas, cada posição da matriz guarda o valor do nível de tom de
+cinza do pixel analisado, ou o nível de brilho dos pixels.
+
+Definida a região (matriz) da imagem R a ser comparada, define-se a
+região (sub-imagem) de E que será a região utilizada para calcular a
+medida, com isso, cabe ao operador de casamento de padrões em
+calcular a medida de similaridade entre os pontos da sub-imagem de E
+e a sub-imagem de R, selecionando aquele que obtiver o maior grau de
+similaridade, ignorando aqueles cuja medida de similaridade esteja
+abaixo da limiar definida.
+
+Um exemplo deste método pode ser visto na Figura
+\ref{img_casamento_padrao}:
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.6\linewidth]{imagens/casamento_padrao.png}
+ \caption{Histograma de uma imagem com entropia Máxima.}
+ \label{img_casamento_padrao}
+\end{figure}
+
+Note que na Figura \ref{img_casamento_padrao}, a sub-imagem da
+imagem de pesquisa possui o mesmo tamanho da janela W, que é a
+matriz com os padrões definidos de uma imagem de referência.
+
+Visto que cada transição possui uma estrutura diferente, e ao
+realizar a detecção de bordas é gerada uma imagem com um padrão
+diferente, este trabalho pretende utilizar métodos de casamento de
+padrões para fazer a classificação do tipo das transições presentes
+no vídeo.
+
+Uma melhor abordagem sobre esta e outros tipos de técnicas de
+casamento de padrões podem ser encontradas em \cite{FARIA_1997} e
+\cite{FARIA_2001}.
