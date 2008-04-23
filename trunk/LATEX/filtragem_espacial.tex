@@ -9,10 +9,10 @@ indesejáveis dessas imagens, como por exemplo, os ruídos.
 
 Para a aplicação de um filtro, utiliza-se o conceito de operadores
 de vizinhança, que consiste em alterar o Nível Digital (nível de
-tons de cinza, ou cor) de um pixel através do ND de seus pixels
+tons de cinza, ou cor) de um pixel através do $ND$ de seus pixels
 vizinhos. Dependendo do filtro a ser utilizado este cálculo pode ser
 alterado. Geralmente, cria-se uma máscara de convolução, que nada
-mais é do que uma matriz (normalmente de tamanho 3x3 :
+mais é do que uma matriz (normalmente de tamanho $3x3$, como na tabela
 \ref{tab:filtragem}) que possui um determinado peso em cada uma de
 suas posições.
 
@@ -33,7 +33,7 @@ suas posições.
    \label{tab:filtragem}
 \end{table}
 
-O pixel a ter seu ND recalculado é sempre aquele que estiver sob a
+O pixel a ter seu $ND$ recalculado é sempre aquele que estiver sob a
 posição central da matriz, como mostrado na Figura
 \ref{img_filtragem_masc}:
 
@@ -41,15 +41,15 @@ posição central da matriz, como mostrado na Figura
  \centering
  \includegraphics[width=0.5\linewidth]{imagens/filtragem_masc.png}
  \caption{Máscara 3x3 sendo utilizada para a filtragem de uma
-imagem digital. No caso, o ND a ser recalculado é do pixel X.}
+imagem digital. No caso, o $ND$ a ser recalculado é do pixel X.}
  \label{img_filtragem_masc}
 \end{figure}
 
-Segundo [19, 22], o cálculo do novo ND de um pixel é dado pelo
-processo de convolução, que consiste na soma dos produtos entre os
-valores da matriz e pixels correspondentes da imagem, como mostrado
-abaixo: Seja M uma matriz de convolução 3x3 e O uma imagem a ser
-filtrada, então:
+Segundo \cite{STIVANELLO_2005} e \cite{FELGUEIRAS_2008}, o cálculo
+do novo $ND$ de um pixel é dado pelo processo de convolução, que consiste
+na soma dos produtos entre os valores da matriz e pixels correspondentes
+da imagem, como mostrado a seguir. Seja $M$ uma matriz de convolução $3x3$ e $O$
+uma imagem a ser filtrada, então:
 
 \begin{large}
 \begin{center}
@@ -87,5 +87,5 @@ os objetos e o fundo da imagem, ganha-se nitidez e caso existam
 ruídos na imagem original, estes poderão ser realçados assim como as
 bordas dos objetos.
 
-Uma abordagem mais completa sobre este assunto pode ser encontrada
-em [19,23].
+Uma abordagem mais completa sobre este assunto pode ser encontrada em
+\cite{STIVANELLO_2005} e \cite{FELGUEIRAS_2008}.
