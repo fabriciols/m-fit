@@ -1,12 +1,11 @@
 \section{Detecção de Transições \label{deteccao_de_transicoes}}
 
-
-A detecção de transições de um vídeo como já visto no item 5.1, é o
-passo principal para o início da manipulação de qualquer amostra de
-vídeos, pois representam marcos de início e fim de cada tomada de
+A detecção de transições de um vídeo como já visto na seção \ref{edicao_de_video},
+é o passo principal para o início da manipulação de qualquer amostra de
+vídeos, pois evidenciam marcos de início e fim de cada tomada no 
 vídeo.
 
-Para cada tipo de transição, existem métodos de maior ou menor
+Para cada tipo de transição existem métodos de maior ou menor
 eficiência. Dentre os métodos de detecção de transições de vídeo, a
 aplicação do Ritmo Visual (visto na seção seguinte), Morfologia
 Matemática são as mais utilizadas.
@@ -21,3 +20,13 @@ Aplicando Ritmo Visual e Morfologia Matemática, é possível
 representar um determinado evento de vídeo por um padrão de imagem
 2D. Este método permite detectar transições como fades, cortes e
 dissolves.
+
+Como exemplo, na figura \ref{img_transicoes_detectadas}, é demonstrado uma
+sequência de vídeo com suas transições detectadas.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1\linewidth]{imagens/transicoes_detectadas.png}
+ \caption{Transições Detectadas.}
+ \label{img_transicoes_detectadas}
+\end{figure}
