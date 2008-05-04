@@ -1,0 +1,9 @@
+Mostar uma timeline do vídeo, contendo as tomadas do vídeo de forma sequencial ou devidamente separadas conforme as suas transições
+Disponibilizar uma visualização do frame em que o cursor estiver posicionado no timeline
+Disponibilizar uma listagem com as tomadas divididas e detectadas
+Ao clicar num transição, o software automaticamente seleciona a porção do video no timeline
+Disponibilizar ao usuário uma box com atalhos para os principais efeitos possíveis de se aplicar no sistema
+Ao carregar o vídeo ao projeto, tem-se a opção de realizar a detecção de transições
+A detecção de transições pode ser feita a qualquer momento de edição de um projeto
+Ao salvar o projeto , o SW deverá salvar os pontos de transição das tomadas para que ao recarregar o projeto, não haja a necessidade de
+O software pode editar um ou mais vídeos ao mesmo tempo, podendo então juntar dois arquivos de video em um só
