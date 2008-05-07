@@ -8,30 +8,20 @@ imagem, ou até mesmo a eliminação de elementos indesejáveis dessas
 imagens, como por exemplo, os ruídos.
 
 Para a aplicação de um filtro, utiliza-se o conceito de operadores
-de vizinhança, que consiste em alterar o Nível Digital, o qual pode
+de vizinhança, que consiste em alterar o Nível Digital ($ND$), o qual pode
 ser o nível de tons de cinza, ou cor, de um pixel através do $ND$ de
 seus pixels vizinhos. Dependendo do filtro a ser utilizado este
 cálculo pode ser alterado. Geralmente, cria-se uma máscara de
 convolução, que nada mais é do que uma matriz (normalmente de
-tamanho $3x3$, como na tabela \ref{tab:filtragem}) que possui um
+tamanho $3x3$, como na tabela \ref{img_mascaras_convolucao}) que possui um
 determinado peso em cada uma de suas posições.
 
-\begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{2\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Matriz 3x3 para um filtro passa-alta.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-
-        \hline -1 & -1 & -1 \\
-        \hline -1 &  8 & -1  \\
-        \hline -1 & -1 & -1  \\
-        \hline
-
-   \end{tabular}
-   \label{tab:filtragem}
-\end{table}
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1\linewidth]{imagens/mascaras.png}
+ \caption{Exemplos de Máscaras para filtro passa-alta.}
+ \label{img_mascaras_convolucao}
+\end{figure}
 
 O pixel a ter seu $ND$ recalculado é sempre aquele que estiver sob a
 posição central da matriz, como mostrado na Figura
