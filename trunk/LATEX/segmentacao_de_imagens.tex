@@ -1,23 +1,23 @@
 \subsection{Segmentação de Imagens \label{segmentacao_de_imagens}}
 
 Em visão computacional, segmentação é o processo de dividir uma
-imagem em múltiplas regiões, com a intenção de subdividir partes
-importantes da imagem, ou simplesmente modificá-las, ambos a fim de
+imagem em múltiplas regiões, com a intenção de subdividir a imagem
+em areas de interesse, ou simplesmente modificá-las, ambos a fim de
 facilitar uma análise posterior. Em imagens monocromáticas
-algoritmos são baseados em uma das propriedades básicas de valores
-de níveis de cinza: descontinuidade (detecção de bordas) e
+algoritmos de segmentaçao são baseados em uma das propriedades básicas
+de valores de níveis de cinza: descontinuidade (detecção de bordas) e
 similaridade (agrupamento de regiões homogêneas).
 
 Na descontinuidade, o objetivo é particionar a imagem tendo como
 regra mudanças bruscas nas escalas de cinza. A similaridade
 baseia-se na limiarização. A limiarização ou binarização de uma
 imagem é dada a partir do nível de cinza de seus pixels. Tal
-processo é dado pela definição de uma limiar no histograma da imagem
-e comparação dos nível de tom de cinza dos pixels com a limiar T.
+processo é dado pela definição de um limiar $T$ no histograma da imagem
+e comparação dos nível de tom de cinza dos pixels com o limiar $T$.
 Valores que forem menores que a limiar, têm seus valores de níveis
-de cinza aproximados de 255, tornando-se brancos, e aqueles que
+de cinza aproximados para $255$, tornando-se brancos, e aqueles que
 tiverem níveis de cinza maiores que a limiar, têm seus valores em
-níveis de cinza aproximados de 0, tornando-se pretos.
+níveis de cinza aproximados para 0, tornando-se pretos.
 
 É dado um exemplo de histograma com limiar na Figura
 \ref{img_seg_histograma}:
@@ -37,6 +37,7 @@ níveis de cinza aproximados de 0, tornando-se pretos.
 \end{figure}
 
 Como pode ser observado nos exemplos das Figura \ref{img_ex_limiar},
-dependendo da limiar escolhida o resultado se altera. Quanto menor o
+dependendo do limiar escolhido o resultado se altera. Quanto menor o
 valor da limiar mais pixels terão seus níveis de cinza aproximados
-de 0, deixando a imagem com mais pontos pretos do que brancos.
+de 255, deixando a imagem com mais pontos brancos do que pretos.
+A recíproca tambem e verdadeira. 
