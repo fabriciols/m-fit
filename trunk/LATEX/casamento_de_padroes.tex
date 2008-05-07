@@ -26,12 +26,12 @@ matriz pode armazenar os tons de cinza, ou brilho dos pixels da
 imagem de referência R.
 
 Definida a região (matriz) da imagem R a ser comparada, define-se a
-região (sub-imagem) de E que será a região utilizada para calcular a
-medida, com isso, cabe ao operador de casamento de padrões em
-calcular a medida de similaridade entre os pontos da sub-imagem de E
-e a sub-imagem de R, selecionando aquele que obtiver o maior grau de
-similaridade, ignorando aqueles cuja medida de similaridade esteja
-abaixo da limiar definida.
+região (sub-imagem) de E que será a região a ser analisada. Com
+isso, cabe ao operador de casamento de padrões em calcular a medida
+de similaridade entre os pontos da sub-imagem de E e a sub-imagem de
+R, selecionando aquele que obtiver o maior grau de similaridade,
+ignorando aqueles cuja medida de similaridade esteja abaixo da
+limiar definida.
 
 \begin{figure}[h|top]
  \centering
@@ -40,9 +40,9 @@ abaixo da limiar definida.
  \label{img_casamento_padrao}
 \end{figure}
 
-Note que na Figura \ref{img_casamento_padrao}, a sub-imagem da
-imagem de pesquisa possui o mesmo tamanho da janela W, que é a
-matriz com os padrões definidos de uma imagem de referência.
+Na Figura \ref{img_casamento_padrao}, a sub-imagem da imagem de
+pesquisa possui o mesmo tamanho da janela W, que é a matriz com os
+padrões definidos de uma imagem de referência.
 
 Visto que cada transição possui uma estrutura diferente, e ao
 realizar a detecção de bordas, é gerada uma imagem com um padrão
