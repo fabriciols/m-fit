@@ -19,9 +19,11 @@ características que possibilitam fazer a identificação da imagem, as
 quais são chamadas de padrões.
 
 Estas sub-imagens são como as matrizes de convolução vistas no
-tópico \ref{filtragem_espacial}, porém, diferente destas, cada
-posição da matriz guarda o valor do nível de tom de cinza do pixel
-analisado, ou o nível de brilho dos pixels.
+tópico \ref{filtragem_espacial}, visto que estas sub-imagens são um
+conjunto de pixels retirados de uma imagem maior e dispostos como
+matrizes (em geral de tamanho $3x3$), porém, ao invés de "pesos", a
+matriz pode armazenar os tons de cinza, ou brilho dos pixels da
+imagem de referência R.
 
 Definida a região (matriz) da imagem R a ser comparada, define-se a
 região (sub-imagem) de E que será a região utilizada para calcular a
@@ -43,10 +45,12 @@ imagem de pesquisa possui o mesmo tamanho da janela W, que é a
 matriz com os padrões definidos de uma imagem de referência.
 
 Visto que cada transição possui uma estrutura diferente, e ao
-realizar a detecção de bordas é gerada uma imagem com um padrão
+realizar a detecção de bordas, é gerada uma imagem com um padrão
 diferente, este trabalho pretende utilizar métodos de casamento de
 padrões para fazer a classificação do tipo das transições presentes
-no vídeo.
+no vídeo através da comparação da estrutura da transição encontrada
+no Ritmo Visual com estruturas já conhecidas que caracterizam os
+tipos de transições.
 
 Uma melhor abordagem sobre esta e outros tipos de técnicas de
 casamento de padrões pode se encontrada em \cite{FARIA_1997} e
