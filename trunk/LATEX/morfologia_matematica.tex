@@ -24,9 +24,9 @@ que é um conjunto pequeno definido e conhecido (forma, tamanho) que
 é sempre comparado a um conjunto desconhecido da imagem. O elemento
 estruturante pode ser de vários tipos conforme observado nas Figura
 \ref{img_elementos_estruturantes}. A boa escolha de um elemento
-estruturante está bastante ligada à qualidade dos resultados das
-operações. Na Figura \ref{img_morf_erosao}, pode ser observada a aplicação de uma
-erosão e dilatação respectivamente:
+estruturante está diretamente ligada à qualidade dos resultados das
+operações. Na Figura \ref{img_morf_erosao}, pode ser observada a
+aplicação de uma erosão em uma imagem:
 
 \begin{figure}[h|top]
  \centering
@@ -46,9 +46,10 @@ $ [ \varepsilon_B(f)](x)  = \min{b \in B} f(x + b) - B(b) $
 Onde $f$ é a região da imagem a ser erodida e $B$ é o elemento
 estruturante.
 
-Uma imagem erodida resulta em uma imagem com regiões escuras
-alargadas e as claras diminuídas, em relação à imagem original, como
-é possível observar na Figura \ref{img_morf_erosao} - b.
+Como é possível observar na Figura \ref{img_morf_erosao} - b, uma
+imagem erodida resulta em uma imagem com seus pontos escuros
+expandidos, enquanto os claros são diminuídos em relação à imagem
+original.
 
 \begin{figure}[h|top]
  \centering
@@ -68,9 +69,10 @@ $ [ \varepsilon_B(f)](x)  = \max{b \in B} f(x + b) $
 Onde $f$ é a região da imagem a ser dilatada e $B$ é o elemento
 estruturante.
 
-Como é possível observar na Figura \ref{img_dilatacao} - b, uma
-imagem dilatada tem seus pontos claros expandidos, enquanto os
-escuros são diminuídos em relação à imagem original.
+Como é possível observar na Figura \ref{img_dilatacao} - b, ao
+contrário da imagem erodida, uma imagem dilatada tem seus pontos
+claros expandidos, enquanto os escuros são diminuídos em relação à
+imagem original.
 
 Em nosso trabalho utilizaremos a Morfologia Matemática para analisar
 a imagem gerada a partir de técnicas de Ritmo Visual, e após a
