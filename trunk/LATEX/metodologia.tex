@@ -1,75 +1,45 @@
 \chapter{Metodologia \label{metodologia}}
 
-Nesta seção será definida a metodologia a ser utilizada para a realização da detecção de transições.
+Neste capítulo serão definidas as metodologias a serem utilizada
+para a realização da detecção de transições.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.8\linewidth]{imagens/metodologia.png}
+ \includegraphics{imagens/metodologia.png}
  \caption{Seqüência de processos utilizados na metodologia.}
  \label{img_metodologia}
 \end{figure}
 
-Neste trabalho cada tipo de transição irá usar uma metodologia diferente,
-logo as seções subsequentes serão para essa definição
+Como pode ser visto na Figura \ref{img_metodologia}, a metodologia
+consistirá basicamente na inserção do vídeo, a detecção e
+classificação das transições, porém,
 
-\section{Corte}
-123
-\subsection{1. Ritmo Visual}
-xyz
-\subsection{2. Mapa de Bordas}
-asd
-\subsection{3. Limiarização}
-qwe
-\subsection{4. Detecção das transições}
-zxc
-
-\section{Metodologia VELHA E PORCA}
-
-Nesta seção será definida a metodologia a ser utilizada para a realização da detecção de transições.
+\section{Cortes}
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.8\linewidth]{imagens/metodologia.png}
- \caption{Seqüência de processos utilizados na metodologia.}
+ \includegraphics{imagens/metodologia_cortes.png}
+ \caption{Metodologia utilizada para a detecção de Cortes.}
  \label{img_metodologia}
 \end{figure}
 
-Como pode ser observado na Figura \ref{img_metodologia},
-primeiramente será realizado o cálculo do Ritmo Visual. Dentro dele
-podem estar representados vários tipos de transições, somente
-cortes, somente dissolves, ou vários tipos misturados.
+Para a detecção de cortes, será realizado o seguinte processo:
 
-Para realizar a detecção de cortes será utilizado o seguinte
-processo:
+\subsection{Montagem do Ritmo Visual \label{RV}}
 
-Após obter o Ritmo Visual do vídeo será realizada a filtragem desta
-imagem para a diminuição de possíveis ruídos encontrados no vídeo, a
-qual se dará através da aplicação do operador de Sobel, junto com a
-aplicação de um determinado limiar. Com esta operação será obtido o
-mapa de bordas (Figura \ref{img_processo_meto} - b). Neste mapa será
-aplicado novamente o operador de Sobel com uma limiar diferente da
-primeira filtragem, fazendo com que as linhas que provavelmente
-identifiquem uma região de transição do vídeo fiquem mais realçadas
-do que aquelas que representem o fundo ou objetos da imagem.
+Para gerar o Ritmo Visual do vídeo, será utilizado o processo de
+transformação da diagonal principal de todos os frames em colunas do
+Ritmo Visual, como visto na Seção \ref{ritmo_visual}.
 
-Como já dito anteriormente (Seçao: \ref{deteccao_de_bordas}), este operador é uma boa opção para
-realizar a detecção de bordas, visto que estas possuem gradientes de
-alta magnitude. Como observado no tópico
-\ref{segmentacao_de_imagens}, a escolha do limiar é feita através da
-análise de seu histograma.
+\subsection{Suavização da imagem \label{suave_bordas}}
 
+Aplicação do filtro espacial passa-baixas, suavizando a imagem e
+eliminando ruídos indesejáveis. Com esta operação será gerado o mapa
+de bordas do Ritmo Visual.
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.8\linewidth]{imagens/processo_meto.png}
- \caption{a) Obtenção do Ritmo Visual; b) Filtragem para diminuição de ruídos e obtenção do mapa de bordas; c) detecção das bordas; d) Sobreposição do mapa de bordas na imagem do ritmo visual, dando destaque às transições.}
- \label{img_processo_meto}
-\end{figure}
+\subsection{Operador Sobel \label{sobel}}
 
-Na Figura \ref{img_processo_meto}, pode-se observar que os cortes de
-um vídeo são transições verticais na representação do Ritmo Visual.
-Através de técnicas de filtragem e uso de operadores para a detecção
-das bordas, podem ser obtidas as linhas verticais que caracterizam
-uma transição de corte, porém é importante lembrar que nem toda reta
-vertical encontrada no ritmo visual pode ser considerada uma
-transição.
+Obtido o mapa de bordas do Ritmo Visual, é possível realizar a
+detecção de bordas com a aplicação do Operador Sobel, o qual ficará
+responsável em dar destaque àquelas retas do Ritmo Visual que
+possivelmente representem uma transição de corte no vídeo. 
