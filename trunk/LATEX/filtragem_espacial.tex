@@ -34,15 +34,15 @@ imagem digital. No caso, o $ND$ a ser recalculado é do pixel X.}
  \label{img_filtragem_masc}
 \end{figure}
 
-Segundo \cite{STIVANELLO_2005} e \cite{FELGUEIRAS_2006}, o cálculo
-do novo $ND$ de um pixel é dado pelo processo de convolução, que consiste
+O cálculo do novo $ND$ de um pixel é dado pelo processo de convolução, que consiste
 na soma dos produtos entre os valores da matriz e pixels correspondentes
 da imagem, onde esta matriz percorre toda a imagem pixel a
 pixel, partindo da esquerda para a direita, tal deslocamento é
 obtido através da soma de 1 pixel na posição x atual da matriz, como
-pode ser observado na Figura \ref{img_filtragem_masc}. 
+pode ser observado na Figura \ref{img_filtragem_masc}.
 
-Seja $M$ uma matriz de convolução $3x3$ e $O$ uma imagem a ser filtrada, então:
+O cálculo do ND de um pixel, através do processo de convolução
+de uma imagem é dado por:
 
 \begin{large}
 \begin{center}
@@ -53,10 +53,8 @@ ND = \sum_{i=1}^{n}{MiOi}
 \end{center}
 \end{large}
 
-Onde n  é o número de elementos de M.
-
-Caso $\sum_{i=1}^{n}{MiOi} > 1$, então todos os valores de Mi devem
-ser divididos por $\sum_{i=1}^{n}{MiOi}$.
+Onde $M$ é uma matriz de convolução $3x3$, $O$ é a imagem a ser filtrada e $n$
+é o número de elementos de M.
 
 Entre os principais tipos de filtragem está o filtro passa-alta, que pode ser
 uma boa alternativa para fazer a detecção de bordas e o filtro
@@ -72,7 +70,7 @@ na diminuição de possíveis ruídos presentes na mesma.
 
 Como pode ser observado na Figura \ref{img_exemplos_filtragem} - b,
 ao aplicar um filtro passa-baixa na imagem, ela torna-se mais
-homogênea e também se perde nitidez, porém os ruídos são suavizados.
+homogênea e também perde-se nitidez, porém os ruídos são suavizados.
 Já na Figura \ref{img_exemplos_filtragem} - c, foi aplicado um
 filtro passa-alta na imagem, havendo um aumento do contraste entre
 os objetos e o fundo da imagem, ganha-se nitidez e caso existam
