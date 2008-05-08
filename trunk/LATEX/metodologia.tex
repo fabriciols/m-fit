@@ -5,7 +5,7 @@ para a realização da detecção de transições.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=1.0\linewidth]{imagens/metodologia.png}
+ \includegraphics[width=0.9\linewidth]{imagens/metodologia.png}
  \caption{Seqüência de processos utilizados na metodologia.}
  \label{img_metodologia}
 \end{figure}
@@ -18,7 +18,7 @@ classificação das transições, porém,
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.9\linewidth]{imagens/metodologia_cortes.png}
+ \includegraphics[width=1.0\linewidth]{imagens/metodologia_cortes.png}
  \caption{Metodologia utilizada para a detecção de Cortes.}
  \label{img_metodologia}
 \end{figure}
@@ -43,9 +43,13 @@ Obtido o mapa de bordas do Ritmo Visual, é possível realizar a
 detecção de bordas com a aplicação do Operador Sobel, o qual ficará
 responsável em dar destaque àquelas retas do Ritmo Visual que
 possivelmente representem uma transição de corte no vídeo.
+
+
 \section{Fade}
 
-Como comentado na Seçao \ref{deteccao_de_transicao}, o fade pode ocorrer de duas formas: fade-in ou fade-out, sendo que uma e o inverso da outra.
+Como comentado na Seçao \ref{deteccao_de_transicoes}, o fade pode
+ocorrer de duas formas: fade-in ou fade-out, sendo que uma e o
+inverso da outra.
 
 \subsection{Ritmo Visual}
 
@@ -60,4 +64,4 @@ que tem a maior concentracao na imagem.
 
 A derivada da reta eh realizada a fim de encontrar variacoes no padrao da reta,
 ou seja, quando a tomada mantem uma certa uniformidade, a dereviada eh 0, quando
-a tomada começa a modificar, a dericada eh =! 0, quando o fade termina (no caso do fade-out) a variacao volta a ficar 0, pois a imagem volta a ficar uniforme (no caso: um frame preto). A diferenca entre fade-in e fade-out eh que no momento que a tomada começa a modificar, a derivada fica negativa e positiva, respectivamente. 
+a tomada começa a modificar, a dericada eh =! 0, quando o fade termina (no caso do fade-out) a variacao volta a ficar 0, pois a imagem volta a ficar uniforme (no caso: um frame preto). A diferenca entre fade-in e fade-out eh que no momento que a tomada começa a modificar, a derivada fica negativa e positiva, respectivamente.
