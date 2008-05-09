@@ -33,12 +33,21 @@ vídeo em colunas do Ritmo Visual.}
 Na Figura \ref{img_rvdiagonal} pode ser observado o processo de
 transformação das diagonais principais dos frames $1$, $2$, $3$, $4$
 e $5$ nas colunas $1$, $2$, $3$, $4$, e $5$ do Ritmo Visual.
-Matematicamente, podemos definir ritmo visual como:
 
-Seja $\bigvee$ um vídeo composto por $Fi \in \bigvee, i = \{1,2,3,
-...,t\}$
+Seja $\bigvee = {I_1, I_2, ..., I_n}$ um vídeo e $I_i(x,y)$ um
+frame.
 
-Então  $RV = (Fi)$  é o seu Ritmo Visual.
+Um ponto qualquer de um frame é definido como $p(x,y)$ ou $x,y \in
+N$, sendo que $p(x,y) \in [0:L]$, onde $L$ é o valor da
+luminescência máxima. Com isso, se $p(x,y) = 0$ o ponto torna-se
+preto, e se $p(x,y) = L$, o ponto torna-se branco.
+
+Neste trabalho, será adotado $L = 255$.
+
+Portanto, para Ritmo Visual, define-se que:
+
+Seja $D_i$ uma diagonal do frame $I_i$, a sequência de todas as
+diagonais $D_i \in \bigvee$, chama-se Ritmo Visual de $\bigvee$.
 
 Cada tipo de transição gera uma coluna com características, padrões
 diferentes no ritmo visual, como podem ser observados na Figura:
