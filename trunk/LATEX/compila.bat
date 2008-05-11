@@ -1,4 +1,4 @@
-cd "C:\Documents and Settings\fabriciols\Desktop\TCC\SRC\LATEX"
+cd "C:\Documents and Settings\fabriciols\Desktop\TCC\LATEX"
 set FOLDER_EN=C:\Program Files
 set FOLDER_BR=C:\Arquivos de Programas
 set FOLDER_BASE=MiKTex 2.7\miktex\bin\
@@ -11,7 +11,7 @@ set FOLDER=%FOLDER_BR%\%FOLDER_BASE%
 goto main
 
 :en
-set FOLDER=%FOLDER_EN\%FOLDER_BASE%
+set FOLDER=%FOLDER_EN%\%FOLDER_BASE%
 goto main
 
 :main
