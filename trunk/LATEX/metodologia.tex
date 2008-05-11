@@ -52,7 +52,7 @@ Gerado o mapa de bordas, será necessário determinar quais bordas
 serão consideradas transições de cortes e quais serão ignoradas pelo
 fato de pertencerem a objetos da imagem. Tal processo será realizado
 através da contagem de pontos pertencentes às retas verticais
-detectada. Quanto maior for este número, maior a possibilidade da
+detectadas. Quanto maior for este número, maior a possibilidade da
 borda estar representando um corte. Com isso, gera-se uma limiar, o
 que possibilita realizar a classificação entre aquilo que representa
 a borda de um objeto, e daquilo que representa uma transição de
@@ -72,20 +72,26 @@ corte do vídeo.
  \label{img_metcortes}
 \end{figure}
 
-Como visto na Seçao \ref{ed_fadein}, o fade-in é uma transição de
+Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
 tomadas mais escuras para tomadas mais claras.
 
 \subsection{Ritmo Visual}
 
-O primeiro passo para a detectar um fade eh obter o ritmo visual por histograma da sequência de frames.
+O primeiro passo para a detectar um fade é obter o ritmo visual por
+histograma da seqüencia de frames.
 
-\subsection{Detecçao de pontos de Maxima}
+\subsection{Detecção de pontos de Máxima}
 
-Em cima de cada histograma, sao obtidos os pontos de maxima, que e o ponto (escala de cinza)
-que tem a maior concentracao na imagem.
+Em cima de cada histograma, sao obtidos os pontos de maxima, que e o
+ponto (escala de cinza) que tem a maior concentração na imagem.
 
 \subsection{Derivada da Reta}
 
-A derivada da reta eh realizada a fim de encontrar variacoes no padrao da reta,
-ou seja, quando a tomada mantem uma certa uniformidade, a dereviada eh 0, quando
-a tomada começa a modificar, a dericada eh =! 0, quando o fade termina (no caso do fade-out) a variacao volta a ficar 0, pois a imagem volta a ficar uniforme (no caso: um frame preto). A diferenca entre fade-in e fade-out eh que no momento que a tomada começa a modificar, a derivada fica negativa e positiva, respectivamente.
+A derivada da reta é realizada a fim de encontrar variações no
+padrão da reta, ou seja, quando a tomada mantém uma certa
+uniformidade, a derivada é 0, quando a tomada começa a modificar, a
+derivada é =! 0, quando o fade termina (no caso do fade-out) a
+variação volta a ficar 0, pois a imagem volta a ficar uniforme (no
+caso: um frame preto). A diferença entre fade-in e fade-out é que no
+momento que a tomada começa a modificar, a derivada fica negativa e
+positiva, respectivamente.
