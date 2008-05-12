@@ -14,25 +14,34 @@ enquanto a dilatação é a propagação de um determinado ponto para
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.4\linewidth]{imagens/elementos_estruturantes.png}
+ \includegraphics[width=0.4\linewidth]{imagens/morfologia_elementos_estruturantes.png}
  \caption{Elemento estruturante: a) Cruz; b) Quadrado; c) Hexágono. }
- \label{img_elementos_estruturantes}
+ \label{img:morfologia_elementos_estruturantes}
 \end{figure}
 
 Ambas as operações são sempre baseadas em um elemento estruturante
 que é um conjunto pequeno definido e conhecido (forma, tamanho) que
 é sempre comparado a um conjunto desconhecido da imagem. O elemento
 estruturante pode ser de vários tipos conforme observado nas Figura
-\ref{img_elementos_estruturantes}. A boa escolha de um elemento
+\ref{img:morfologia_elementos_estruturantes}. A boa escolha de um elemento
 estruturante está diretamente ligada à qualidade dos resultados das
-operações. Na Figura \ref{img_morf_erosao}, pode ser observada a
+operações. Na Figura \ref{img:morfologia_erosao}, pode ser observada a
 aplicação de uma erosão em uma imagem:
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.8\linewidth]{imagens/erosao.png}
- \caption{a) Imagem Original; b) Resultado da aplicação da operação de erosão na imagem.}
- \label{img_morf_erosao}
+\begin{figure}[ht]
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/morfologia_original.png}
+		\caption{Imagem Original}
+		\label{img:morfologia_original}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/morfologia_erosao.png}
+		\caption{Erosao}
+		\label{img:morfologia_erosao}
+	\end{minipage}
 \end{figure}
 
 Segundo \cite{NOGUEIRA_2002}, a erosão de um elemento é dada por:
@@ -49,16 +58,25 @@ Segundo \cite{NOGUEIRA_2002}, a erosão de um elemento é dada por:
 Onde $f$ é a região da imagem a ser erodida e $B$ é o elemento
 estruturante.
 
-Como é possível observar na Figura \ref{img_morf_erosao} - b, uma
+Como é possível observar na Figura \ref{img:morfologia_erosao}, uma
 imagem erodida resulta em uma imagem com seus pontos escuros
 expandidos, enquanto os claros são diminuídos em relação à imagem
 original.
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.8\linewidth]{imagens/dilatacao.png}
- \caption{a) Imagem Original; b) Resultado da operação de dilatação na imagem.}
- \label{img_dilatacao}
+\begin{figure}[ht]
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/morfologia_original.png}
+		\caption{Imagem Original}
+		\label{img:morfologia_original}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/morfologia_dilatacao.png}
+		\caption{Dilatação}
+		\label{img:morfologia_dilatacao}
+	\end{minipage}
 \end{figure}
 
 A dilatação, segundo \cite{NOGUEIRA_2002}, é dada por:
@@ -75,7 +93,7 @@ A dilatação, segundo \cite{NOGUEIRA_2002}, é dada por:
 Onde $f$ é a região da imagem a ser dilatada e $B$ é o elemento
 estruturante.
 
-Como é possível observar na Figura \ref{img_dilatacao} - b, ao
+Como é possível observar na Figura \ref{img:morfologia_dilatacao}, ao
 contrário da imagem erodida, uma imagem dilatada tem seus pontos
 claros expandidos, enquanto os escuros são diminuídos em relação à
 imagem original.

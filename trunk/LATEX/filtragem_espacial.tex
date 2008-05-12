@@ -61,17 +61,41 @@ uma boa alternativa para fazer a detecção de bordas e o filtro
 passa-baixa, que serve para fazer a suavização da imagem, resultando
 na diminuição de possíveis ruídos presentes na mesma.
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=1.0\linewidth]{imagens/exemplos_filtragem.png}
- \caption{a) Imagem Original; b) Imagem após filtragem passa-baixa; c) Imagem após filtragem passa-alta.}
- \label{img_exemplos_filtragem}
+%\begin{figure}[h|top]
+% \centering
+% \includegraphics[width=1.0\linewidth]{imagens/exemplos_filtragem.png}
+% \caption{a) Imagem Original; b) Imagem após filtragem passa-baixa; c) Imagem após filtragem passa-alta.}
+% \label{img_exemplos_filtragem}
+%\end{figure}
+
+\begin{figure}[ht]
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/filtragem_a.png}
+		\caption{Imagem Original}
+		\label{img_exemplos_filtragem_a}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/filtragem_b.png}
+		\caption{Passa-baixa}
+		\label{img_exemplos_filtragem_b}
+	\end{minipage}
 \end{figure}
 
-Como pode ser observado na Figura \ref{img_exemplos_filtragem} - b,
+\begin{figure}[ht]
+		\centering
+		\includegraphics[scale=0.45]{imagens/filtragem_c.png}
+		\caption{Passa-alta}
+		\label{img_exemplos_filtragem_c}
+\end{figure}
+
+
+Como pode ser observado na Figura \ref{img_exemplos_filtragem_b},
 ao aplicar um filtro passa-baixa na imagem, ela torna-se mais
 homogênea e também perde-se nitidez, porém os ruídos são suavizados.
-Já na Figura \ref{img_exemplos_filtragem} - c, foi aplicado um
+Já na Figura \ref{img_exemplos_filtragem_c}, foi aplicado um
 filtro passa-alta na imagem, havendo um aumento do contraste entre
 os objetos e o fundo da imagem, ganha-se nitidez e caso existam
 ruídos na imagem original, estes poderão ser realçados assim como as
