@@ -1,6 +1,6 @@
 \chapter{Metodologia \label{metodologia}}
 
-Neste capítulo, serão definidas as metodologias a serem utilizada
+Neste Capítulo, serão definidas as metodologias a serem utilizada
 para a realização da detecção de transições.
 
 \begin{figure}[h|top]
@@ -68,30 +68,65 @@ corte do vídeo.
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/metodologia_fades.png}
- \caption{Metodologia utilizada para a detecção de Cortes.}
+ \caption{Metodologia utilizada para a detecção de Fade.}
  \label{img_metcortes}
 \end{figure}
 
 Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
 tomadas mais escuras para tomadas mais claras.
 
-\subsection{Ritmo Visual}
+\subsection{Ritmo Visual \label{met_fadein_rv}}
 
-O primeiro passo para a detectar um fade é obter o ritmo visual por
-histograma da seqüencia de frames.
+O primeiro passo para a detectar um fade-in é a partir de um video de entrada,
+deve-se analisar cada frame, e obter deles seu histograma, montando assim um
+Ritmo Visual por Histograma.
 
-\subsection{Detecção de pontos de Máxima}
+\subsection{Detecção de pontos de Máxima \label{met_fadein_pontos_maxima}}
 
-Em cima de cada histograma, sao obtidos os pontos de maxima, que e o
-ponto (escala de cinza) que tem a maior concentração na imagem.
+Com base em cada Histograma, são obtidos os pontos de Maxima, que consiste
+no ponto (escala de cinza) que tem maior incidência na imagem. Estes pontos
+são obtidos de cada histograma, os quais irão compor uma reta.
 
-\subsection{Derivada da Reta}
+\subsection{Derivada da Reta \label{met_fadein_derivada}}
 
-A derivada da reta é realizada a fim de encontrar variações no
-padrão da reta, ou seja, quando a tomada mantém uma certa
-uniformidade, a derivada é 0, quando a tomada começa a modificar, a
-derivada é =! 0, quando o fade termina (no caso do fade-out) a
-variação volta a ficar 0, pois a imagem volta a ficar uniforme (no
-caso: um frame preto). A diferença entre fade-in e fade-out é que no
-momento que a tomada começa a modificar, a derivada fica negativa e
-positiva, respectivamente.
+A derivada é aplicada na reta afim de encontrar variações nos 
+padrõs dos histogramas previamente coletados. Ela evidenciará
+quando em uma sequência de frames houver uma modificação no padrão
+dos frames, que é representada, neste caso, por uma derivada com
+valor maior que 0.
+
+Quando a sequência de frames mantém-se normalizada, as derivadas dos pontos
+serão 0, quando fade-in se inicia, a reta começa a avançar com sentido contrário
+ao vértice, tendo derivada positiva. Chega um instante em que a reta atinge
+um pico máximo, onde este é o ponto exato do fim do fade-in. Após isto a reta
+tende a se normalizar novamente, pois neste momento a nova tomada já está 
+totalmente em cena.
+
+Para o fade-in, as derivadas são positivas quando o efeito começa.
+
+\subsection{Obtenção da Derivada Máxima \label{met_fade_derivada_maxima}}
+
+Após calcular a derivada dos pontos da reta, é necessário
+detectar o ponto máximo(pico) da derivada, este evidencia o ponto exato
+onde houve o pico de variação de padrões na tomada, o que caracteriza o
+ponto onde a transição de fade teve seu ápice. É neste ponto onde será
+delimitada a transição.
+
+\subsection{Fades Detectados \label{met_fade_detectado}}
+
+No final deste processo, tem-se o ponto para demarcação de onde a 
+transição de fade ocorreu. Basta então demarcar no video este efeito.
+
+\section{Fade-Out \label{met_fadeout}}
+
+Como visto na Seção \ref{ed_fadeout}, o fade-out é uma transição de
+tomadas mais claras para mais escuras.
+
+\subsection{Detectando o fade-out \label{met_fadeout_detectando}}
+
+A técnica utilizada para detectar um fade-out é a mesma utilizada no
+fade-in (Seção \ref{met_fadein}, porém a interpretação das derivadas da
+reta deve ser feita de um modo diferente: no momento que o fade-out começa,
+as derivadas da reta começam a ter valores negativos, pois a reta caminha em
+direção ao vértice. Nos outros passos, a metodologia é igual ao do fade-in.
+
