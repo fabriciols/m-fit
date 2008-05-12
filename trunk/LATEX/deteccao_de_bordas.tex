@@ -52,19 +52,55 @@ são operadores que aplicam o processo de convolução na imagem como visto no tópi
 Através destes cálculos é possível obter, além da magnitude, a
 direção do gradiente.
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.7\linewidth]{imagens/filtragem_sobel.png}
- \caption{a) Imagem Original; b) Imagem após sofrer filtragem com operador de Sobel.}
- \label{img_sobel}
+\begin{figure}[Ht]
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/borda_sobel_original.png}
+		\caption{Imagem Original}
+		\label{img:borda_sobel_original}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/borda_sobel_horizontal.png}
+		\caption{Sobel Horizontal}
+		\label{img:borda_sobel_horizontal}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[Ht]
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/borda_sobel_vertical.png}
+		\caption{Sobel Vertical}
+		\label{img:borda_sobel_vertical}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[scale=0.45]{imagens/borda_sobel_completo.png}
+		\caption{Sobel Completo}
+		\label{img:borda_sobel_completo}
+	\end{minipage}
 \end{figure}
 
 Este operador realiza a detecção de bordas em duas etapas,
 primeiramente fará a detecção das bordas horizontais da imagem
-(referencia imagem), utilizando a máscara $G_x$ e depois fará a
-detecção das bordas verticais (Figura X), aplicando a máscara $G_y$.
+(Figura \ref{img:borda_sobel_horizontal}), utilizando a máscara $G_x$ e depois fará a
+detecção das bordas verticais (Figura \ref{img:borda_sobel_vertical}), aplicando a máscara $G_y$.
 Com a união do resultado destes dois processos de detecção de
-bordas, obtêm-se o mapa de bordas da imagem.
+bordas, obtêm-se o mapa de bordas da imagem (Figura \ref{img:borda_sobel_completo}).
+
+
+
+
+
+
+
+
+
+
+
 
  Através da aplicação deste operador, é possível obter uma boa
 detecçao de bordas, em contrapartida este processo pode causar um
