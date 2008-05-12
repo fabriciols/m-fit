@@ -5,7 +5,9 @@
 IplImage* histogram(IplImage *src);
 void genRV(IplImage *src, IplImage *rv);
 
-IplImage* imgHistogram = 0;
+
+#define MAX_OPTIONS 30
+#define EFFECT_NAME_SIZE 30
 
 #define HIST_HEIGHT 256
 // O valor de largura tem que ser definido com cuidado
@@ -14,84 +16,237 @@ IplImage* imgHistogram = 0;
 // uma linha em branco, senão o histograma fica muito pequeno
 #define HIST_WIDTH  256
 
+void usage()
+{
+	int i;
+	char *usage_cy[] = {
+			"Use: MFIT.exe img_src -[t|d|e|s|h]  Apply filter in img_src\n",
+			"MFIT -t T  Segmentation of the image with the threshold T",
+			"MFIT -d    Dilate the image",
+			"MFIT -e    Erode the image",
+			"MFIT -sh   Apply Sobel (Horizontal) filter in the image",
+			"MFIT -sv   Apply Sobel (Vertial) filter in the image",
+			"MFIT -s    Apply Sobel (Both) filter in the image",
+			"MFIT -h    Print the histogram of the last img",
+			"MFIT -p    Print the img_src",
+			"MFIT -g    Print the img_src in gray",
+			""
+	};
+
+	for (i=0 ; usage_cy[i][0] != '\0' ; i++)
+	{
+		printf("%s\n", usage_cy[i]);
+	}
+}
+
 int main( int argc, char** argv )
 {
-	char* imgname_cy = argc >= 2 ? argv[1] : (char*)"teste1.jpg";
-	char* videoname_cy = argc >= 3 ? argv[1] : (char*)"teste1.avi";
-	IplImage* img0 = 0;
+	char* imgname_cy;
+	//char* videoname_cy = argc >= 3 ? argv[1] : (char*)"teste1.avi";
+	char *effectName;
+	char *effectsNameList[MAX_OPTIONS];
+	IplImage *effectsImgList[MAX_OPTIONS];
+	int effectCount = 0;
+
+	IplImage* imgSrc = 0;
 	IplImage* imgGray = 0;
-	IplImage* imgErode = 0;
-	IplImage* imgSobelH = 0;
-	IplImage* imgSobelV = 0;
-	IplImage* imgSobel = 0;
-	IplImage* imgHist = 0;
-	IplImage* imgRV = 0;
+	IplImage* imgEffect = 0;
 
-	if ( (img0 = cvLoadImage(imgname_cy,1)) == 0)
-		printf("Cannot open file: [%s]\n",imgname_cy);
+	int i, j;
+	int aux_i = 0;
+	char aux_cy[30];
 
-	cvNamedWindow("ImageGray", 1);
-	cvNamedWindow("ImageRV", 1);
-	//cvNamedWindow("ImageErode", 1);
-	//cvNamedWindow("ImageSobelH", 1);
-	//cvNamedWindow("ImageSobelV", 1);
-	//cvNamedWindow("ImageSobel", 1);
-	cvNamedWindow("Histogram", 1);
+	memset(effectsNameList, '\0', sizeof(char*)*MAX_OPTIONS);
+	memset(effectsImgList , '\0', sizeof(char*)*MAX_OPTIONS);
 
-	imgGray  = cvCreateImage(cvGetSize(img0),8,1);
-	imgErode = cvCreateImage(cvGetSize(img0),8,1);
-	imgSobel = cvCreateImage(cvGetSize(img0),8,1);
-	imgSobelH = cvCreateImage(cvGetSize(img0),8,1);
-	imgSobelV = cvCreateImage(cvGetSize(img0),8,1);
-	imgRV = cvCreateImage(cvGetSize(img0),8,1);
 
-	// Para a imagem nao ficar de ponta cabeca
-	imgGray->origin  = img0->origin;
-	imgErode->origin = img0->origin;
+	if (argc > 1)
+	{
 
-	// Converte pra cinza
-	cvCvtColor(img0, imgGray, CV_RGB2GRAY);
+		// Se a primeira opcao for -?, imprime o usage
+		if (!strcmp(argv[1],"-?"))
+		{
+			usage();
+			return -1;
+		}
 
-	// Cria o histograma
-	imgHist = histogram(imgGray);
+		if (argc > MAX_OPTIONS)
+			printf("WARNING :: argc >= MAX_OPTIONS,  may trunk the output\n");
 
-	// Dilata a imagem
-	cvErode(imgGray, imgErode, 0, 1);
+		// Se a primeira opcao da linha de comando jah for uma opcao de efeito
+		// entao usa nome default de figura
+		imgname_cy = argv[1][0] != '-' ? argv[1] : (char*)"teste1.jpg";
 
-	// Aplica sobel horizontal
-	cvSobel(imgGray, imgSobelH, 1, 0, 3);
+		if ( (imgSrc = cvLoadImage(imgname_cy,1)) == 0)
+		{
+			printf("Cannot open file: [%s]\n",imgname_cy);
+			return -1;
+		}
 
-	// Aplica sobel vertical
-	cvSobel(imgGray, imgSobelV, 0, 1, 3);
+		// Se na linha de comando digitarem somente o nome da imagem, entao imprime ela
+		if (argc == 2)
+		{
+			argv[2] = "-p";
+			argc++;
+		}
 
-	// Aplica ambos (h/v)
-	cvSobel(imgSobelH, imgSobel, 0, 1, 3);
+		// Para todos os filtros trabalhamos com imagens em escala de cinza
+		// entao logo no comeco jah criamos nossa imagem base
+		imgGray = cvCreateImage(cvGetSize(imgSrc),8,1);
 
-	// Gera o ritmo visual
-	genRV(imgGray, imgRV);
+		imgGray->origin  = imgSrc->origin;
 
-	//cvShowImage("Image", img0);
-	/*
-	cvShowImage("ImageErode", imgErode);
-	cvShowImage("ImageSobelH", imgSobelH);
-	cvShowImage("ImageSobelV", imgSobelV);
-	cvShowImage("ImageSobel", imgSobel);
-	*/
-	cvShowImage("ImageGray" , imgGray);
-	cvShowImage("ImageRV"   , imgRV);
-	cvShowImage("Histogram" , imgHist);
+		cvCvtColor(imgSrc, imgGray, CV_RGB2GRAY);
 
-	cvWaitKey(0);
+		for (i = 2 ; i < argc && effectCount < MAX_OPTIONS; i++)
+		{
+			if (argv[i][0] == '-')
+			{
+				// Cada efeito novo temos que alocar um espaco para o nome e para a imagem
+				effectName = (char*)malloc(sizeof(char)*EFFECT_NAME_SIZE);
+				memset(effectName, '\0', sizeof(effectName));
 
-	cvDestroyWindow("ImageGray");
-	/*
-	cvDestroyWindow("ImageErode");
-	cvDestroyWindow("ImageSobelH");
-	cvDestroyWindow("ImageSobelV");
-	//cvDestroyWindow("Imagem");
-	*/
-	cvDestroyWindow("imageRV");
-	cvDestroyWindow("Histogram");
+				imgEffect = cvCreateImage(cvGetSize(imgSrc),8,1);
+				imgEffect->origin = imgSrc->origin;
+
+				switch (argv[i][1])
+				{
+					case 't':
+
+						aux_i = atoi(argv[++i]);
+
+						sprintf(effectName, "Treshold t=%d", aux_i);
+						cvThreshold(imgGray, imgEffect, aux_i, 255, CV_THRESH_BINARY_INV);
+
+						break;
+					case 'd':
+						strcpy(effectName, "Dilate");
+						cvDilate(imgGray, imgEffect, 0, 1);
+
+						break;
+					case 'e':
+						strcpy(effectName, "Erode");
+						cvErode(imgGray, imgEffect, 0, 1);
+
+					case 'g':
+						strcpy(effectName, "Erode");
+						imgEffect = imgGray;
+
+						break;
+					case 's':
+
+						strcpy(effectName, "Sobel");
+
+						if (argv[i][2] == 'h')
+						{
+							// Aplica sobel horizontal
+							strcat(effectName, " H");
+							cvSobel(imgGray, imgEffect, 1, 0, 3);
+						}
+						else if (argv[i][2] == 'v')
+						{
+							// Aplica sobel vertical
+							strcat(effectName, " V");
+							cvSobel(imgGray, imgEffect, 0, 1, 3);
+						}
+						else
+						{
+							IplImage* imgAux = 0;
+							imgAux = cvCreateImage(cvGetSize(imgSrc),8,1);
+
+							// Aplica ambos (h/v)
+							cvSobel(imgGray, imgAux, 1, 0, 3);
+							cvSobel(imgAux, imgEffect, 0, 1, 3);
+						}
+
+						break;
+					case 'h':
+						{
+							// O histograma tem um esquema diferente, pois ele nao
+							// tem uma imagem do tamanho da imgSrc, entao faremos 
+							// um processo diferente
+							
+							IplImage* imgAux = 0;
+
+							strcpy(effectName, "Histogram of");
+
+							// Se ja tiver aplicado algum efeito, tiramos o histograma desta nova imagem
+							// somente se ela NAO for a imagem de entrada ( que tem 8 canais, e no histograma
+							// esperamos uma imagem de apenas 1 canal )
+							if (effectCount >= 1 && strcmp(effectsNameList[effectCount-1],imgname_cy))
+							{
+								
+								imgAux = histogram(effectsImgList[effectCount-1]);
+								printf("%s :: Histogram from [%s]\n", __FUNCTION__, effectsNameList[effectCount-1]);
+								sprintf(effectName, "%s %s", effectName, effectsNameList[effectCount-1]);
+							}
+							else
+							{
+								imgAux = histogram(imgGray);
+								printf("%s :: Histogram from [%s]\n", __FUNCTION__, imgname_cy);
+								sprintf(effectName, "%s %s", effectName, imgname_cy);
+							}
+
+							printf("%s :: Effect : [%s]\n", __FUNCTION__, effectName);
+
+							// Adiciona na listas
+							effectsNameList[effectCount] = effectName;
+							effectsImgList[effectCount] = imgAux;
+
+							effectCount++;
+
+
+							cvNamedWindow(effectName, 1);
+
+							cvShowImage(effectName, imgAux);
+
+							continue;
+
+						}
+						break;
+					case 'p':
+						strcpy(effectName, imgname_cy);
+						imgEffect = imgSrc;
+						break;
+
+					case '?':
+					default:
+						usage();
+						return -1;
+
+						break;
+
+				}
+
+				printf("%s :: Effect : [%s]\n", __FUNCTION__, effectName);
+
+				effectsNameList[effectCount] = effectName;
+				effectsImgList[effectCount] = imgEffect;
+
+				effectCount++;
+
+				cvNamedWindow(effectName, 1);
+				cvShowImage(effectName, imgEffect);
+			}
+		}
+
+		if (effectCount >= MAX_OPTIONS)
+			printf("WARNING :: More effects than expected, truncating (max_options = %d)",MAX_OPTIONS);
+
+		cvWaitKey(0);
+	}
+	else
+	{
+		usage();
+		return -1;
+	}
+
+	for (i=0 ; i < effectCount ; i++)
+	{
+		printf("%s :: Destroy [%s]\n", __FUNCTION__, effectsNameList[i]); 
+		cvDestroyWindow(effectsNameList[i]);
+		free(effectsNameList[i]);
+	}
 
 	return 0;
 }
@@ -101,6 +256,8 @@ IplImage* histogram(IplImage *src)
 	// Tamanho de um histograma 1D
 	int bins = HIST_WIDTH;
 	int hsize[] = {bins};
+
+	IplImage* imgHistogram = 0;
 
 	CvHistogram* hist = 0;
 
@@ -121,7 +278,7 @@ IplImage* histogram(IplImage *src)
 	hist = cvCreateHist(1, hsize, CV_HIST_ARRAY, ranges, 1);
 	cvCalcHist(planes, hist, 0, NULL);
 	cvGetMinMaxHistValue(hist, &min_value, &max_value);
-	printf("min: [%f], max: [%f]\n",min_value, max_value);
+	printf("%s :: min: [%f], max: [%f]\n",__FUNCTION__,min_value, max_value);
 
 	if (imgHistogram == NULL)
 		imgHistogram = cvCreateImage(cvSize(bins*2, HIST_HEIGHT), 8, 1);
@@ -136,7 +293,7 @@ IplImage* histogram(IplImage *src)
 		value = cvQueryHistValue_1D(hist, i-1);
 		normalized = cvRound(value*HIST_HEIGHT/max_value);
 
-		printf("i[%d], value[%-11f], normalized[%-8f]\n", i, value, normalized);
+		//printf("%s :: i[%d], value[%-11f], normalized[%-8f]\n", __FUNCTION__, i, value, normalized);
 
 		// Printa a linha do Histograma
 		cvLine(imgHistogram, cvPoint((i*2)-1,HIST_HEIGHT), cvPoint((i*2)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
@@ -145,20 +302,20 @@ IplImage* histogram(IplImage *src)
 		cvLine(imgHistogram, cvPoint(i*2,HIST_HEIGHT), cvPoint(i*2,HIST_HEIGHT-normalized), CV_RGB(0, 255, 255));
 	}
 
-	return (imgHistogram);
+	return imgHistogram;
 }
 
 void genRV(IplImage *src, IplImage *rv)
 {
 	memset(rv, sizeof(rv->nSize), '\0');
-	
+
 	int y=0;
 	int x=0;
 
 	// Varre por largura
 	for (y=0 ; y <= src->height; y++)
 	{
-		printf("x[%d], y[%d]\n",x ,y);
+		printf("%s :: x[%d], y[%d]\n", __FUNCTION__, x ,y);
 		for (x=0 ; x <= y ; x++)
 		{
 			(rv->imageData + rv->widthStep*y)[x] = \
@@ -166,107 +323,3 @@ void genRV(IplImage *src, IplImage *rv)
 		}
 	}
 }
-
-/*
-	char c;
-	CvCapture* capture = 0;
-	IplImage* frame = 0;
-	IplImage* framegray = 0;
-	IplImage* framecanny = 0;
-	IplImage* framesmooth = 0;
-	IplImage* framedilate = 0;
-
-	printf("Opening %s\n",argv[1]);
-
-	capture = cvCaptureFromAVI(argv[1]); 
-
-	cvNamedWindow("Imagem", 1);
-	cvNamedWindow("ImagemGray", 1);
-	cvNamedWindow("ImagemCanny", 1);
-	cvNamedWindow("ImagemSmooth", 1);
-	cvNamedWindow("ImagemDilate", 1);
-
-	if (!capture)
-	{
-		printf("File not found\n");
-		return -1;
-	}
-
-	while(true)
-	{
-		frame = cvQueryFrame(capture);
-
-		if (!frame)
-			break;
-
-		// Todas imagens: 8 bit por pixel, 1 canal ( RGB tem 3 ! )
-		if (!framegray)
-			framegray = cvCreateImage(cvGetSize(frame),8,1);
-
-		if (!framesmooth)
-			framesmooth = cvCreateImage(cvGetSize(frame),8,1);
-
-		if (!framecanny)
-			framecanny = cvCreateImage(cvGetSize(frame),8,1);
-
-		if (!framedilate)
-			framedilate = cvCreateImage(cvGetSize(frame),8,1);
-
-		framegray->origin = frame->origin;
-		cvCvtColor(frame, framegray, CV_RGB2GRAY);
-		framecanny->origin = frame->origin;
-		framesmooth->origin = frame->origin;
-		framedilate->origin = frame->origin;
-
-		cvCvtColor(frame, framegray, CV_RGB2GRAY);
-
-		cvCanny(framegray, framecanny, 30, 80, 3);
-
-		cvSmooth(framegray, framesmooth, CV_GAUSSIAN, 15, 0, 0, 0);
-
-		cvDilate(framecanny, framedilate, 0, 1);
-
-
-		cvShowImage("Imagem", frame);
-		cvShowImage("ImagemGray", framegray);
-		cvShowImage("ImagemCanny", framecanny);
-		cvShowImage("ImagemSmooth", framesmooth);
-		cvShowImage("ImagemDilate", framedilate);
-
-		c = cvWaitKey(30);
-		printf("Key -> %c | %d\n",c,c);
-
-		// 27 = ESC
-		if ( (char) c == 27 )
-			break;
-
-	}
-
-	cvWaitKey(10);
-
-	cvDestroyWindow("Imagem");
-	cvDestroyWindow("ImagemGray");
-	cvDestroyWindow("ImagemCanny");
-	cvDestroyWindow("ImagemSmooth");
-	cvDestroyWindow("ImagemDilate");
-
-	cvReleaseImage(&frame);
-	cvReleaseImage(&framegray);
-	cvReleaseImage(&framecanny);
-	cvReleaseImage(&framesmooth);
-	cvReleaseCapture(&capture);
-
-	return -1;
-
-}
-
-	IplImage* img;
-
-	img = cvLoadImage(argv[1], 1);
-
-	cvNamedWindow("Imagem", 1);
-	cvShowImage("Imagem", img);
-	cvWaitKey(0);
-
-	return -1;
-*/
