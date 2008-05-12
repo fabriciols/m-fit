@@ -129,7 +129,7 @@ int main( int argc, char** argv )
 						cvErode(imgGray, imgEffect, 0, 1);
 
 					case 'g':
-						strcpy(effectName, "Erode");
+						strcpy(effectName, "Gray");
 						imgEffect = imgGray;
 
 						break;
