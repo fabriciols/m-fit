@@ -20,17 +20,20 @@ void usage()
 {
 	int i;
 	char *usage_cy[] = {
-			"Use: MFIT.exe img_src -[t|d|e|s|h]  Apply filter in img_src\n",
-			"MFIT -t T  Segmentation of the image with the threshold T",
-			"MFIT -d    Dilate the image",
-			"MFIT -e    Erode the image",
-			"MFIT -sh   Apply Sobel (Horizontal) filter in the image",
-			"MFIT -sv   Apply Sobel (Vertial) filter in the image",
-			"MFIT -s    Apply Sobel (Both) filter in the image",
-			"MFIT -h    Print the histogram of the last img",
-			"MFIT -p    Print the img_src",
-			"MFIT -g    Print the img_src in gray",
-			""
+		"Use: MFIT.exe img_src -[t|d|e|s|h]  Apply filter in img_src\n",
+		"MFIT -t T  Segmentation of the image with the threshold T",
+		"MFIT -d    Dilate the image",
+		"MFIT -e    Erode the image",
+		"MFIT -sh   Apply Sobel (Horizontal) filter in the image",
+		"MFIT -sv   Apply Sobel (Vertial) filter in the image",
+		"MFIT -s    Apply Sobel (Both) filter in the image",
+		"MFIT -h    Print the histogram of the last img",
+		"MFIT -p    Print the img_src",
+		"MFIT -g    Print the img_src in gray",
+		"MFIT -lp M Apply low-pass filter with the kernel M",
+		"MFIT -hp M Apply high-pass filter with the kernel M",
+		"MFIT -w    Write the last effect on a file",
+		""
 	};
 
 	for (i=0 ; usage_cy[i][0] != '\0' ; i++)
@@ -100,72 +103,168 @@ int main( int argc, char** argv )
 
 		for (i = 2 ; i < argc && effectCount < MAX_OPTIONS; i++)
 		{
-			if (argv[i][0] == '-')
+			if (argv[i][0] != '-')
+				continue;
+
+			// Cada efeito novo temos que alocar um espaco para o nome e para a imagem
+			effectName = (char*)malloc(sizeof(char)*EFFECT_NAME_SIZE);
+			memset(effectName, '\0', sizeof(effectName));
+
+			imgEffect = cvCreateImage(cvGetSize(imgSrc),8,1);
+			imgEffect->origin = imgSrc->origin;
+
+			switch (argv[i][1])
 			{
-				// Cada efeito novo temos que alocar um espaco para o nome e para a imagem
-				effectName = (char*)malloc(sizeof(char)*EFFECT_NAME_SIZE);
-				memset(effectName, '\0', sizeof(effectName));
+				case 't':
 
-				imgEffect = cvCreateImage(cvGetSize(imgSrc),8,1);
-				imgEffect->origin = imgSrc->origin;
+					aux_i = atoi(argv[++i]);
 
-				switch (argv[i][1])
-				{
-					case 't':
+					sprintf(effectName, "Treshold t=%d", aux_i);
+					cvThreshold(imgGray, imgEffect, aux_i, 255, CV_THRESH_BINARY_INV);
 
-						aux_i = atoi(argv[++i]);
+					break;
+				case 'd':
+					strcpy(effectName, "Dilate");
+					cvDilate(imgGray, imgEffect, 0, 1);
 
-						sprintf(effectName, "Treshold t=%d", aux_i);
-						cvThreshold(imgGray, imgEffect, aux_i, 255, CV_THRESH_BINARY_INV);
+					break;
+				case 'e':
+					strcpy(effectName, "Erode");
+					cvErode(imgGray, imgEffect, 0, 1);
+					break;
 
-						break;
-					case 'd':
-						strcpy(effectName, "Dilate");
-						cvDilate(imgGray, imgEffect, 0, 1);
+				case 'g':
+					strcpy(effectName, "Gray");
+					imgEffect = imgGray;
 
-						break;
-					case 'e':
-						strcpy(effectName, "Erode");
-						cvErode(imgGray, imgEffect, 0, 1);
+					break;
+				case 's':
 
-					case 'g':
-						strcpy(effectName, "Gray");
-						imgEffect = imgGray;
+					strcpy(effectName, "Sobel");
 
-						break;
-					case 's':
+					if (argv[i][2] == 'h')
+					{
+						// Aplica sobel horizontal
+						strcat(effectName, " H");
+						cvSobel(imgGray, imgEffect, 1, 0, 3);
+					}
+					else if (argv[i][2] == 'v')
+					{
+						// Aplica sobel vertical
+						strcat(effectName, " V");
+						cvSobel(imgGray, imgEffect, 0, 1, 3);
+					}
+					else
+					{
+						IplImage* imgAux = 0;
+						imgAux = cvCreateImage(cvGetSize(imgSrc),8,1);
 
-						strcpy(effectName, "Sobel");
+						// Aplica ambos (h/v)
+						cvSobel(imgGray, imgAux, 1, 0, 3);
+						cvSobel(imgAux, imgEffect, 0, 1, 3);
+					}
 
-						if (argv[i][2] == 'h')
-						{
-							// Aplica sobel horizontal
-							strcat(effectName, " H");
-							cvSobel(imgGray, imgEffect, 1, 0, 3);
-						}
-						else if (argv[i][2] == 'v')
-						{
-							// Aplica sobel vertical
-							strcat(effectName, " V");
-							cvSobel(imgGray, imgEffect, 0, 1, 3);
-						}
-						else
+					break;
+				case 'h':
+				case 'l':
+					{
+						if (argv[i][2] == 'p') // High/Low-Pass (Passa-baixa/alta)
 						{
 							IplImage* imgAux = 0;
-							imgAux = cvCreateImage(cvGetSize(imgSrc),8,1);
+							IplImage* imgSrcCpy = 0;
 
-							// Aplica ambos (h/v)
-							cvSobel(imgGray, imgAux, 1, 0, 3);
-							cvSobel(imgAux, imgEffect, 0, 1, 3);
+							// Tamanho da Matriz
+							int cols_i = 3;
+							int rows_i = 3;
+							int kernel_i = 0;
+							double *kernel;
+
+							CvMat *filter = 0;
+							imgSrcCpy = cvCloneImage(imgGray);
+
+							if (argv[i][1] == 'h')
+							{
+								double kernel_high[][9] = {
+									{
+										-1, -1, -1,
+										-1,  8, -1,
+										-1, -1, -1,
+									},
+									{
+										0, -1,  0,
+										-1, 4, -1,
+										0, -1,  0,
+									},
+									{
+										1 , -2,  1,
+										-2,  4, -2,
+										1 , -2,  1,
+									},
+								};
+
+								cols_i = 3;
+								rows_i = 3;
+
+								if (argc > i+1)
+								{
+									if (argv[i+1][0] >= '0' && ( argv[i+1][0] <= '3' ))
+										kernel_i = atoi(argv[++i]) -1;
+								}
+
+								kernel = kernel_high[kernel_i];
+
+								sprintf(effectName, "High-Pass kernel [%d]", kernel_i+1);
+							}
+							else
+							{
+								double kernel_low[][25] = { 
+									{
+										1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+										1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+										1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+										1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+										1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+									},
+								};
+
+								cols_i = 5;
+								rows_i = 5;
+
+								if (argc > i+1)
+								{
+									if (argv[i+1][0] >= '0' && ( argv[i+1][0] <= '1' ))
+										kernel_i = atoi(argv[++i]) - 1;
+								}
+
+								kernel = kernel_low[kernel_i];
+
+								sprintf(effectName, "Low-Pass kernel [%d]", kernel_i+1);
+							}
+
+
+
+							imgAux = cvCreateImageHeader(cvGetSize(imgSrcCpy), 8, 1);
+							imgAux->imageData = imgSrcCpy->imageData;
+							imgAux->widthStep = imgSrcCpy->width;
+
+							imgEffect = cvCreateImageHeader(cvGetSize(imgSrcCpy), 8, 1);
+							imgEffect->imageData = imgAux->imageData;
+							imgEffect->widthStep = imgAux->width;
+
+							filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
+
+							cvSetData(filter, kernel, cols_i*8);
+
+							cvFilter2D(imgAux, imgEffect, filter, cvPoint(-1,-1));
+
 						}
-
-						break;
-					case 'h':
+						else // Histograma
 						{
+
 							// O histograma tem um esquema diferente, pois ele nao
 							// tem uma imagem do tamanho da imgSrc, entao faremos 
 							// um processo diferente
-							
+
 							IplImage* imgAux = 0;
 
 							strcpy(effectName, "Histogram of");
@@ -175,7 +274,7 @@ int main( int argc, char** argv )
 							// esperamos uma imagem de apenas 1 canal )
 							if (effectCount >= 1 && strcmp(effectsNameList[effectCount-1],imgname_cy))
 							{
-								
+
 								imgAux = histogram(effectsImgList[effectCount-1]);
 								printf("%s :: Histogram from [%s]\n", __FUNCTION__, effectsNameList[effectCount-1]);
 								sprintf(effectName, "%s %s", effectName, effectsNameList[effectCount-1]);
@@ -201,33 +300,54 @@ int main( int argc, char** argv )
 							cvShowImage(effectName, imgAux);
 
 							continue;
-
 						}
-						break;
-					case 'p':
-						strcpy(effectName, imgname_cy);
-						imgEffect = imgSrc;
-						break;
 
-					case '?':
-					default:
-						usage();
-						return -1;
+					}
+					break;
+				case 'w':
+					if (effectCount >= 1)
+					{
+						char filename_cy[50];
 
-						break;
+						strcpy(filename_cy, imgname_cy);
+						// Tira a extensao
+						filename_cy[strlen(filename_cy) - 4] = '\0';
 
-				}
+						sprintf(filename_cy, "%s_%s.png", filename_cy, effectsNameList[effectCount-1]);
 
-				printf("%s :: Effect : [%s]\n", __FUNCTION__, effectName);
+						printf("%s :: Writing effet [%s] in file [%s]\n", __FUNCTION__, effectsNameList[effectCount-1], filename_cy);
 
-				effectsNameList[effectCount] = effectName;
-				effectsImgList[effectCount] = imgEffect;
+						if(!cvSaveImage(filename_cy,effectsImgList[effectCount-1]))
+						{
+							printf("Could not save: %s\n",filename_cy);
+						}
+					}
 
-				effectCount++;
+					continue;
 
-				cvNamedWindow(effectName, 1);
-				cvShowImage(effectName, imgEffect);
+				case 'p':
+					strcpy(effectName, imgname_cy);
+					imgEffect = imgSrc;
+					break;
+
+				case '?':
+				default:
+					usage();
+					return -1;
+
+					break;
+
 			}
+
+			printf("%s :: Effect : [%s]\n", __FUNCTION__, effectName);
+
+			effectsNameList[effectCount] = effectName;
+			effectsImgList[effectCount] = imgEffect;
+
+			effectCount++;
+
+			cvNamedWindow(effectName, 1);
+			cvShowImage(effectName, imgEffect);
 		}
 
 		if (effectCount >= MAX_OPTIONS)
@@ -319,7 +439,7 @@ void genRV(IplImage *src, IplImage *rv)
 		for (x=0 ; x <= y ; x++)
 		{
 			(rv->imageData + rv->widthStep*y)[x] = \
-				(src->imageData + src->widthStep*y)[x];
+																(src->imageData + src->widthStep*y)[x];
 		}
 	}
 }
