@@ -1,0 +1,94 @@
+\chapter{Revisão Bibliográfica \label{revisao}}
+
+Neste capítulo, serão definidos os principais conceitos para o
+entendimento de todo o projeto e a metodologia do sistema proposto.
+
+
+\section{Edição de Vídeo \label{edicao_de_video}}
+
+    A edição de vídeos consiste em qualquer operação que modifique o
+conteúdo original de um vídeo. Tais operações podem consistir desde
+a segmentação do vídeo para futuras modificações de indexação ou
+armazenamento, até a aplicação de efeitos visuais, como por exemplo,
+uma mudança de cores, o nivelamento da luminosidade entre frames de
+uma tomada, eliminação de ruídos, equalização de som com imagem,
+entre outros, os quais são intensamente utilizados no setor
+cinematográfico, de pesquisa e entretenimento.
+
+É comum organizar a edição de vídeos através de tomadas, as quais
+são divididas por transições. Portanto, é importante que seja feita
+a detecção destas transições antes da edição do vídeo para que um
+determinado efeito aplicado, ou qualquer outra operação de edição
+possa ser delimitado a tomadas específicas e não para o vídeo todo.
+
+
+\subsection{Fade-in \label{ed_fadein}}
+
+    O fade-in é uma transição gradativa entre um frame preto e
+o primeiro frame de uma determinada tomada. Este tipo de transição
+geralmente é utilizado no início do vídeo ou no início de um bloco
+de tomadas.
+
+   Pode-se visualizar o efeito do Fade-in na Figura \ref{img_fadein}:
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/fadein.png}
+ \caption{Exemplo de fade-in em uma sequencia de frames. Como pode ser observado não se sabe exatamente onde ocorre a transição.}
+ \label{img_fadein}
+\end{figure}
+
+\subsection{Fade-out \label{ed_fadeout}}
+
+    O fade-out é como o fade-in, porém possui um efeito contrário,
+onde a transição ocorre do escurecimento de um determinado frame até
+que este frame torne-se completamente preto.
+
+Um exemplo desta transição pode ser observado na Figura
+\ref{img_fadeout}:
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/fadeout.png}
+ \caption{Exemplo de Fade-out em uma seqüência de frames}
+ \label{img_fadeout}
+\end{figure}
+
+\subsection{Corte \label{ed_corte}}
+
+    Cortes são transições bruscas e secas entre tomadas, onde o último
+frame de uma determinada tomada é concatenado ao primeiro frame da
+tomada seguinte diretamente.
+
+A Figura \ref{img_corte} mostra a ocorrência de um corte:
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/corte.png}
+ \caption{Exemplo de corte em uma seqüência de frames.}
+ \label{img_corte}
+\end{figure}
+
+    Nota-se que no exemplo da Figura \ref{img_corte} é possível ver-se
+claramente que a transição ocorre entre o terceiro e quarto frames.
+
+\subsection{Dissolve \label{ed_Dissolve}}
+
+    O dissolve é uma transição que mistura fade-out e fade-in,
+isto é, a primeira tomada dá lugar a uma segunda tomada
+gradualmente, havendo uma sobreposição dos primeiros frames da
+próxima tomada sobre os últimos da tomada anterior. Geralmente, este
+tipo de transição é usado na mudança de paisagens. Podemos
+visualizar este efeito na Figura \ref{img_dissolve}:
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/dissolve.png}
+ \caption{Exemplo de Dissolve em seqüência de frames.}
+ \label{img_dissolve}
+\end{figure}
+
+    Pode-se observar na Figura \ref{img_dissolve} a primeira tomada dando
+lugar gradativamente para a segunda tomada até que não haja mais
+sobreposição de imagens. Uma boa abordagem sobre a definição do
+dissolve pode ser encontrada em \cite{FERNANDO_1999}.
