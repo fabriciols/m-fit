@@ -1,0 +1,54 @@
+\subsection{Cenário Detecção de Transição \label{use_case_deteccao}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/use_case_transicao.png}
+ \caption{Caso de Uso para cenário geral de detecção de transições.}
+ \label{img_use_case_transicao}
+\end{figure}
+
+A Figura \ref{img_use_case_transicao}, representa o cenário geral
+para detecção de transição.
+
+\subsubsection{Caso de uso: Detecta Transições \label{use_case_detecta_geral}}
+
+\textbf{Cenário Principal:} O usuário solicita ao sistema que seja
+feita a detecção de transições do vídeo carregado. O sistema, por
+sua vez, realiza a detecção dos cortes, fades (fade-in e fade-out) e
+dissolves presentes em todo o vídeo.
+
+\textbf{Cenário Alternativo:} O usuário solicita ao sistema que seja
+feita a detecção de transições do vídeo, porém este não foi
+carregado, cabendo ao sistema emitir uma mensagem de erro e
+solicitar o carregamento de um vídeo, antes de realizar qualquer
+operação de detecção de transições.
+
+\subsubsection{Caso de uso: Gera lista de tomadas enumeradas \label{use_case_lista_tomadas}}
+
+\textbf{Cenário Principal:} Realizada a detecção de transições, o
+sistema disponibilizará ao usuário uma lista com todas as tomadas do
+vídeo indexadas por números, facilitando a navegação d usuário pelas
+tomadas do vídeo.
+
+\subsubsection{Caso de uso: Gera timeline marcada por pontos de transição \label{use_case_timeline_marcada}}
+
+\textbf{Cenário Principal:} Realizada a detecção de transições, o
+sistema exibirá a mesma timeline gerada ao carregar o vídeo no
+sistema, porém, com suas transições marcadas, como pode ser visto na
+Figura \ref{img_transicoes_detectadas2}.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1\linewidth]{imagens/transicoes_detectadas.png}
+ \caption{Transições Detectadas.}
+ \label{img_transicoes_detectadas2}
+\end{figure}
+
+
+\subsubsection{Caso de uso: Ajuste manual de pontos de transição \label{use_case_ajuste_manual}}
+
+\textbf{Cenário Principal:} Devido a possibilidade de haver uma
+pequena taxa de erros nos pontos de transição detectados pelo
+sistema, haverá a possibilidade do usuário redefinir estes pontos
+manualmente, através da simples ação de drag and drop nas linhas que
+marcarem as transições na timeline.
