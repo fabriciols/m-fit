@@ -1,0 +1,83 @@
+\section{Requisitos de Sistema \label{RQS}}
+
+\subsection{Localização de arquivo \label{RQS01}}
+
+O sistema deverá ser capaz de abrir arquivos que estejam em qualquer
+tipo de mídia de armazenamento, pen drives, HD, CD´s, entre outros,
+assim como permitir que o usuário salve seus projetos em qualquer
+local.
+
+\subsection{Montagem do Ritmo Visual \label{RQS02}}
+
+Aplicação de cálculos para extração da diagonal principal de cada frame
+do vídeo, afim de criar uma simplificação do mesmo.
+
+\subsection{Montagem de mapa de bordas \label{RQS03}}
+
+Aplicar um filtro passa-baixa, eliminando os ruídos do Ritmo Visual.
+Com isso o sistema obterá o mapa de bordas do Ritmo Visual.
+
+\subsection{Tipos de arquivo\label{RQS04}}
+
+O sistema deverá ser compatível no minimo com os containers : avi, MPEG e WMV.
+
+\subsection{Tipos de CODECs de video\label{RQS05}}
+
+O sistema deverá ser compatível no minimo com videos nos seguintes CODECS:
+
+\begin{itemize}
+    \item Uncompressed
+    \item XVID
+    \item DIVX
+    \item MPEG4
+    \item Windows Media Video (WMV)
+\end{itemize}
+
+O sistema deve ser capaz de abrir e salvar videos com estes codecs.
+
+\subsection{Compatibilidade de Sistema Operacional \label{RQS06}}
+
+O sistema deverá ser desenvolvido para rodar na plataforma Windows,
+porém deve-se visar a portalidade do sistema.
+
+\subsection{OpenCV \label{RQS08}}
+
+Necessária a inclusão da biblioteca OpenCV, biblioteca específica
+para aplicações de funções de PDI.
+
+\subsection{QT \label{RQS09}}
+
+A interface do sistema deverá ser desenvolvida através da ferramenta
+QT (biblioteca para interface gráfica).
+
+\subsection{Detecção de transições \label{RQS11}}
+
+O sistema deverá detectar automaticamente todas as transições
+presentes no vídeo.
+
+\subsection{Classificação das transições \label{RQS12}}
+
+A aplicação irá classificar automaticamente todas as transições do
+sistema. Tal classificação será dividida em:
+\begin{itemize}
+    \item Corte
+    \item Dissolve
+    \item Fade-in
+    \item Fade-out
+\end{itemize}
+
+\subsection{Limiar \label{RQS12}}
+
+Para as operações que exijam uma limiar, o sistema deverá definir
+uma limiar automaticamente para o caso do usuário não fornecer
+nenhum valor.
+
+\subsection{Arquivo de controle do projeto \label{RQS13}}
+
+Todo o projeto será salvo em um arquivo xml, o qual deverá conter
+todas as informações necessárias para que o sistema consiga retomar
+a edição do vídeo sem intervenção nenhuma do usuário, partindo do
+ponto onde exato onde o usuário interrompeu a edição. O arquivo
+deverá conter informações como: nome do projeto, diretório de
+trabalho do projeto, nome e caminho completo dos vídeos carregados,
+pontos onde houveram transições no vídeo etc.
