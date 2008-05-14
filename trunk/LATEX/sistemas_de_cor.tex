@@ -2,24 +2,24 @@
 
 O sistema de cor consiste nos padrões que definem as propriedades
  de uma determinada cor. Por exemplo, o branco é composto por todas as
-outras cores, onde um espectro de luz visível, pode então assumir
+outras cores, onde um espectro de luz visível pode então assumir
 diversas cores (desde o violeta até o vermelho), em função do
 comprimento de onda observada na Tabela \ref{tab:onda}. Três
 características básicas de um espectro de luz são, a matriz
 (definida pelo comprimento da onda), brilho (intensidade da luz
-fonte) e saturação (predominância da matriz). Existem dois processos
-de formação de cores: aditivo e subtrativo. A formação do sistema de
-cores no processo aditivo é obtida a partir de duas fontes
-luminosas, onde, cores diferentes são projetadas em duas regiões;
-sendo assim, na interseção entre as cores há a formação de uma nova
-cor. Por outro lado, no processo subtrativo, é geralmente feito com
-a utilização de slides. Um exemplo tem-se quando emite-se uma luz
-branca (que possui todos os comprimentos de onda) sobre um filtro
-verde, o qual filtra todos os comprimentos de onda deixando passar
-somente o comprimento de onda relativa à cor verde, produzindo assim
-o verde. Dentro do sistema de cores, os padrões mais conhecidos são:
-RGB, CMYK, HSV, RYB, Highcolor, Imagem binária, SRGB, Munsell, entre
-outros.
+fonte) e saturação (predominância do branco matriz). Existem dois
+processos de formação de cores: aditivo e subtrativo. A formação do
+sistema de cores no processo aditivo é obtida a partir de duas
+fontes luminosas, onde, cores diferentes são projetadas em duas
+regiões; sendo assim, na interseção entre as cores há a formação de
+uma nova cor. Por outro lado, no processo subtrativo, é geralmente
+feito com a utilização de slides. Um exemplo tem-se quando emite-se
+uma luz branca (que possui todos os comprimentos de onda) sobre um
+filtro verde, o qual filtra todos os comprimentos de onda deixando
+passar somente o comprimento de onda relativa à cor verde (absorção
+da cor), produzindo assim o verde. Dentro do sistema de cores, os
+padrões mais conhecidos são: RGB, CMYK, HSV, RYB, Highcolor, Imagem
+binária, SRGB, Munsell, entre outros.
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
@@ -53,10 +53,10 @@ outros.
 Formado pelas cores vermelha, verde e azul, o RGB é um padrão de
 cores utilizado em monitores/televisores, em tubos de raios
 catódicos, cristal liquido ou de plasma. Utiliza 8 bits de
-informação para representar cada uma de suas cores (vermelho, verde,
-azul), podendo variar de 0 a 255. É possível alcançar mais de 16
-milhões de cores com suas combinações de tons. Algumas destas cores
-estão representadas na Tabela \ref{tab:rgb}:
+informação para representar cada canal de cor (vermelho, verde,
+azul), podendo variar de 0 a 255 para cada canal. É possível
+alcançar mais de 16 milhões de cores com suas combinações de tons.
+Algumas destas cores estão representadas na Tabela \ref{tab:rgb}:
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
@@ -68,10 +68,14 @@ estão representadas na Tabela \ref{tab:rgb}:
 
         \hline Cor & R & G & B \\
         \hline Preto & 0 & 0 &  0 \\
-        \hline Azul & 0 & 0 & 255 \\
+        \hline Vermelho & 255 & 0 & 0 \\
         \hline Verde & 0 & 255 & 0 \\
+        \hline Azul & 0 & 0 & 255 \\
+        \hline Branco & 255 & 255 & 255 \\
         \hline Ciano & 0 & 255 & 255 \\
-        \hline Cinza & 128 & 128 & 128 \\
+        \hline Cinza & 190 & 190 & 190 \\
+        \hline Magenta & 255 & 0 & 255 \\
+        \hline Amarelo & 255 & 255 & 0 \\
         \hline
 
    \end{tabular}

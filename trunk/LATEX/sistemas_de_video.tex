@@ -4,9 +4,9 @@ Os sistemas de vídeo consistem na organização em que uma determinada
 informação de vídeo é armazenada em forma digital, tais como AVI,
 MPEG, entre outros. O MPEG (Movie Pictures Experts Group) é um
 padrão internacional definido pela ISO que tem como característica a
-compressão de um vídeo. Onde ao comprimir uma determinada amostragem
+compressão de um vídeo. Onde, ao comprimir uma determinada amostragem
 de um vídeo, o mesmo é passado pelo canal compressor, e ao exibir
-esta mesma amostragem o vídeo passa pelo canal expansor.
+esta mesma amostragem o vídeo passa pelo canal expansor (Figura \ref{img_mpeg}).
 
 \begin{figure}[h|top]
  \centering
@@ -17,15 +17,16 @@ esta mesma amostragem o vídeo passa pelo canal expansor.
 
 
 Audio Video Interleave, o AVI é um padrão criado pela Microsoft em
-1992, formato derivado do padrão RIFF, o qual divide os dados em
-blocos. Ao contrário dos outros padrões o AVI não possui compressão,
-resultando em arquivos com tamanhos grandes, porém, sem perda de
-qualidade. Na Figura 2 observa-se que o arquivo AVI é formado
-primeiramente pelo cabeçalho RIFF seguido pelo tamanho do bloco que
-será armazenado fisicamente no disco, isto é, o tamanho total de um
-arquivo AVI. Em seguida o bloco AVI é definido com sua respectiva
-lista de sub-blocos, que são identificados a partir de um ID e seu
-tamanho correspondente.
+1992, formato derivado do padrão RIFF (Resource Interchange File
+Format), o qual divide os dados em blocos. Ao contrário dos outros
+padrões o AVI não possui compressão, resultando em arquivos com
+tamanhos grandes, porém, sem perda de qualidade. Na Figura
+\ref{img_avi} observa-se que, da direita para a esquerda, a
+estrutura de dados de um arquivo AVI primeiramente é formado pelo
+cabeçalho RIFF, onde seus respectivos componentes são: tamanho do
+arquivo total, bloco de dados ou lista de bloco de dados. Quando o
+bloco de dados é definido em sub-blocos, cada parte é identificado
+pelo ID e em seguida o tamanho do sub-bloco correspondente.
 
 \begin{figure}[h|top]
  \centering
