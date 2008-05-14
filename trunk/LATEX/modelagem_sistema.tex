@@ -1,8 +1,8 @@
 \chapter{Modelagem do Sistema \label{modelagem}}
 
-\section{Casos de Uso \label{uc}}
+\section{Casos de Uso \label{use_case}}
 
-\subsection{Cenário Principal \label{uc:geral}}
+\subsection{Cenário Principal \label{use_case_principal}}
 
 \begin{figure}[h|top]
  \centering
@@ -14,19 +14,25 @@
 A Figura \ref{img:uc_geral}, representa o cenário principal do
 sistema.
 
-\subsubsection{Caso de Uso: Carrega Vídeo \label{uc:carrega_video}}
+\subsubsection{Caso de uso: Carrega Vídeo \label{use_case_carrega_video}}
 
-\textbf{Pontos de Extensão:} Informar diretório, Exibe timeline.
+\textbf{Pontos de Extensão:} Informar Caminho do Vídeo.
 
 \textbf{Cenário Principal:} O usuário informa ao sistema o diretório
-do vídeo a ser carregado no sistema, que por sua vez deverá montar e
-exibir ao usuário a timeline do vídeo após o carregamento do mesmo.
+do vídeo a ser carregado no sistema.
+
+O sistema realiza o carregamento do vídeo.
 
 \textbf{Cenário Alternativo:} O diretório do vídeo informado ao
 sistema é inválido ou inexistente. Com isso o sistema solicita ao
 usuário que informe novamente o diretório.
 
-\subsubsection{Caso de Uso: Edita Vídeo \label{uc:edita_geral}}
+\subsubsection{Caso de uso: Exibe timeline \label{use_case_timeline}}
+
+\textbf{Cenário Principal:} Feito o carregamento do vídeo no
+sistema, este disponibilizará ao usuário uma timeline do vídeo.
+
+\subsubsection{Caso de uso: Edita Vídeo \label{use_case_edita_geral}}
 
 \textbf{Cenário Principal:} Feito o carregamento correto do vídeo,
 estarão habilitadas ao usuário as funções de edição de vídeo.
@@ -34,7 +40,7 @@ estarão habilitadas ao usuário as funções de edição de vídeo.
 \textbf{Cenário Alternativo: } As funções para edição de vídeo ficam
 bloqueadas enquanto não houver vídeo carregado no sistema.
 
-\subsubsection{Caso de Uso: Detecta Transições \label{uc:detecta_transicao_geral}}
+\subsubsection{Caso de uso: Detecta Transições \label{use_case_detecta_transicao_geral}}
 
 \textbf{Cenário Principal:} Feito o carregamento correto do vídeo,
 estarão habilitadas ao usuário as funções para realizar a detecção e
@@ -42,60 +48,3 @@ classificação das transições de tomadas existentes no vídeo.
 
 \textbf{Cenário Alternativo:} As funções para detecção de transições
 ficam bloqueadas enquanto não houver vídeo carregado no sistema.
-
-\subsection{Cenário: Detecta Fade \label{uc:detecta_fade}}
-
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=1.0\linewidth]{imagens/use_case_fade.png}
- \caption{Caso de Uso para cenário de detecção dos fades.}
- \label{img:uc_geral}
-\end{figure}
-
-\subsubsection{Detecta Fade}
-
-\textbf{Cenário Principal:} Feito o carregamento do vídeo, um processo
-de detecção das transições do tipo fade se inicia, o qual tem os seguintes passos:
-
-\begin{itemize}
-\item{Monstagem do Ritmo Visual por Histograma}
-\item{Obtenção dos picos do Histograma}
-\item{Detecção dos Máximos}
-\item{Cálculo das derivadas da reta}
-\item{Obtenção da derivada Máxima}
-\end{itemize}
-
-No momento que se iniciaa detecção, uma janela é mostrada para o usuário
-mostrando o progresso da mesma.
-
-\textbf{Cenário Alternativo:} Caso o usuário cancela a detecção, a mesma
-é interrompida e poderá ser feita manualmente através dos menus da aplicação.
-
-\subsection{Cálculo da Diagonal do Frame}
-
-\textbf{Cenário Principal:} A partir de um frame de entrada, é calculado
-a diagonal do mesmo.
-
-\subsection{Monstagem do Ritmo Visual por Histograma}
-
-\textbf{Cenário Principal:} A partir do video de entrada é calculado o Histograma
-de cada Frame do vídeo, juntando todos em um Ritmo Visual.
-
-\subsection{Obtenção dos picos do Histograma}
-
-\textbf{Cenário Principal:} Em cima do Ritmo Visual do video, é calculado os
-picos máximos do histograma de cada frame.
-
-\subsection{Cálculo das derivadas da reta}
-
-\textbf{Cenário Principal:} A partir da reta de Máximos do video, é calculada
-a derivada dos pontos, em busca de variações em seu resultado.
-
-\textbf{Cenário Alternativo:} Caso não seja encontrado nenhuma variação que
-aparenta ser um fade, o processo interrompe-se e é exibido um sumário ao usuário 
-informando que nenhuma detecção do tipo fade foi encontrada.
-
-\subsection{Obtenção da Derivada Máxima}
-
-\textbf{Cenário Principal:} A partir das derivadas da reta, é obtido o frame onde
-a derivada tem seu maior pico. Este é o ponto onde a transição é delimitada.

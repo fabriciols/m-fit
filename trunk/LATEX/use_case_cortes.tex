@@ -11,3 +11,23 @@ A Figura \ref{img_use_case_cortes}, representa o cenário específico
 de detecção de cortes.
 
 \subsubsection{Caso de uso: Detecta Cortes \label{use_case_detecta_cortes}}
+
+\textbf{Cenário Principal:} Feito o carregamento do vídeo, o
+processo de detecção de transições se iniciará pela detecção de
+cortes.
+
+\subsubsection{Caso de uso: Montagem do Ritmo Visual por sub-amostragem \label{use_case_rv_amostra}}
+
+\textbf{Cenário Principal:} Solicitada a detecção de transições de
+cortes no vídeo, será montado o Ritmo Visual do vídeo através de
+sub-amostragens dos frames do vídeo.
+
+A sub-amostragem é retirada frame a frame de forma seqüencial.
+
+\subsubsection{Caso de uso: Cálculo da diagonal principal do frame \label{use_case_diagonal_principal}}
+
+\textbf{Cenário Principal:} Para a montagem do Ritmo Visual, deverá
+ser calculada a diagonal principal de todos os frames do vídeo. Tal
+diagonal representa a sub-amostragem dos frames.
+
+\subsubsection{Caso de uso: Detecção de Bordas: Operador Sobel \label{use_case_sobel}}

@@ -1,0 +1,63 @@
+\subsection{Cenário Detecção de Fades \label{use_case_fades}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/use_case_fade.png}
+ \caption{Caso de Uso para cenário de detecção dos fades.}
+ \label{img:uc_geral}
+\end{figure}
+
+\subsubsection{Caso de uso: Detecta Fade \label{use_case_detecta_fades}}
+
+\textbf{Cenário Principal:} Feito o carregamento do vídeo, um
+processo de detecção das transições do tipo fade se inicia, o qual
+tem os seguintes passos:
+
+\begin{itemize}
+\item{Monstagem do Ritmo Visual por Histograma}
+\item{Obtenção dos picos do Histograma}
+\item{Detecção dos Máximos}
+\item{Cálculo das derivadas da reta}
+\item{Obtenção da derivada Máxima}
+\end{itemize}
+
+No momento que se inicia a detecção, uma janela é mostrada para o
+usuário mostrando o progresso da mesma.
+
+\textbf{Cenário Alternativo:} Caso o usuário cancela a detecção, a
+mesma é interrompida e poderá ser feita manualmente através dos
+menus da aplicação.
+
+\subsubsection{Caso de uso: Cálculo da Diagonal do Frame
+\label{use_case_diagonal}}
+
+\textbf{Cenário Principal:} A partir de um frame de entrada, é
+calculado a diagonal do mesmo.
+
+\subsubsection{Caso de uso: Monstagem do Ritmo Visual por Histograma \label{use_case_histograma}}
+
+\textbf{Cenário Principal:} A partir do video de entrada é calculado
+o Histograma de cada Frame do vídeo, juntando todos em um Ritmo
+Visual.
+
+\subsubsection{Caso de uso: Obtenção dos picos do Histograma \label{use_case_picos_histograma}}
+
+\textbf{Cenário Principal:} Em cima do Ritmo Visual do video, é
+calculado os picos máximos do histograma de cada frame.
+
+\subsubsection{Caso de uso: Cálculo das derivadas da reta \label{use_case_derivadas}}
+
+\textbf{Cenário Principal:} A partir da reta de Máximos do video, é
+calculada a derivada dos pontos, em busca de variações em seu
+resultado.
+
+\textbf{Cenário Alternativo:} Caso não seja encontrado nenhuma
+variação que aparenta ser um fade, o processo interrompe-se e é
+exibido um sumário ao usuário informando que nenhuma detecção do
+tipo fade foi encontrada.
+
+\subsubsection{Caso de uso: Obtenção da Derivada Máxima \label{use_case_derivada_max}}
+
+\textbf{Cenário Principal:} A partir das derivadas da reta, é obtido
+o frame onde a derivada tem seu maior pico. Este é o ponto onde a
+transição é delimitada.
