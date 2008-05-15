@@ -38,7 +38,6 @@ Onde:
                                     -1 & -2 & -1
                 \end{bmatrix}
     $ e
-
     $G_y =  \begin{bmatrix}       -1 & 0 & 1 \\
                                   -2 & 0 & 2 \\
                                   -1 & 0 & 1
@@ -53,57 +52,50 @@ Através destes cálculos é possível obter, além da magnitude, a
 direção do gradiente.
 
 \begin{figure}[Ht]
-	\begin{minipage}[b]{0.5\linewidth}
-		\centering
-		\includegraphics[scale=0.45]{imagens/borda_sobel_original.png}
-		\caption{Imagem Original}
-		\label{img:borda_sobel_original}
-	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}[b]{0.5\linewidth}
-		\centering
-		\includegraphics[scale=0.45]{imagens/borda_sobel_horizontal.png}
-		\caption{Sobel Horizontal}
-		\label{img:borda_sobel_horizontal}
-	\end{minipage}
+\centering
+    \begin{minipage}[b]{0.40\linewidth}
+        \centering
+        \includegraphics[scale=0.35]{imagens/borda_sobel_original.png}
+        \caption{Imagem Original}
+        \label{img:borda_sobel_original}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.40\linewidth}
+        \centering
+        \includegraphics[scale=0.35]{imagens/borda_sobel_horizontal.png}
+        \caption{Sobel Horizontal}
+        \label{img:borda_sobel_horizontal}
+    \end{minipage}
 \end{figure}
 
 \begin{figure}[Ht]
-	\begin{minipage}[b]{0.5\linewidth}
-		\centering
-		\includegraphics[scale=0.45]{imagens/borda_sobel_vertical.png}
-		\caption{Sobel Vertical}
-		\label{img:borda_sobel_vertical}
-	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}[b]{0.5\linewidth}
-		\centering
-		\includegraphics[scale=0.45]{imagens/borda_sobel_completo.png}
-		\caption{Sobel Completo}
-		\label{img:borda_sobel_completo}
-	\end{minipage}
+\centering
+    \begin{minipage}[b]{0.40\linewidth}
+        \centering
+        \includegraphics[scale=0.35]{imagens/borda_sobel_vertical.png}
+        \caption{Sobel Vertical}
+        \label{img:borda_sobel_vertical}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.40\linewidth}
+        \centering
+        \includegraphics[scale=0.35]{imagens/borda_sobel_completo.png}
+        \caption{Sobel Completo}
+        \label{img:borda_sobel_completo}
+    \end{minipage}
 \end{figure}
 
 Este operador realiza a detecção de bordas em duas etapas,
 primeiramente fará a detecção das bordas horizontais da imagem
-(Figura \ref{img:borda_sobel_horizontal}), utilizando a máscara $G_x$ e depois fará a
-detecção das bordas verticais (Figura \ref{img:borda_sobel_vertical}), aplicando a máscara $G_y$.
-Com a união do resultado destes dois processos de detecção de
-bordas, obtêm-se o mapa de bordas da imagem (Figura \ref{img:borda_sobel_completo}).
-
-
-
-
-
-
-
-
-
-
-
+(Figura \ref{img:borda_sobel_horizontal}), utilizando a máscara
+$G_x$ e depois fará a detecção das bordas verticais (Figura
+\ref{img:borda_sobel_vertical}), aplicando a máscara $G_y$. Com a
+união do resultado destes dois processos de detecção de bordas,
+obtém-se o mapa de bordas da imagem (Figura
+\ref{img:borda_sobel_completo}).
 
  Através da aplicação deste operador, é possível obter uma boa
-detecçao de bordas, em contrapartida este processo pode causar um
+detecção de bordas, em contrapartida este processo pode causar um
 indesejável aumento dos ruídos na imagem. Isto se deve ao fato de
 que ao passar pelos processos de convolução e cálculo de magnitude
 do gradiente, os ruídos, assim como as bordas, retornam um valor de

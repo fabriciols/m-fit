@@ -4,9 +4,9 @@ Em visão computacional, segmentação é o processo de dividir uma
 imagem em múltiplas regiões, com a intenção de subdividir a imagem
 em areas de interesse, ou simplesmente modificá-las, ambos a fim de
 facilitar uma análise posterior. Em imagens monocromáticas
-algoritmos de segmentaçao são baseados em uma das propriedades básicas
-de valores de níveis de cinza: descontinuidade (detecção de bordas) e
-similaridade (agrupamento de regiões homogêneas).
+algoritmos de segmentação são baseados em uma das propriedades
+básicas de valores de níveis de cinza: descontinuidade (detecção de
+bordas) e similaridade (agrupamento de regiões homogêneas).
 
 Na descontinuidade, o objetivo é particionar a imagem tendo como
 regra mudanças bruscas nas escalas de cinza. A similaridade
@@ -30,40 +30,41 @@ níveis de cinza aproximados para 0, tornando-se pretos.
 \end{figure}
 
 \begin{figure}[ht]
-	\begin{minipage}[b]{0.5\linewidth}
-		\centering
-		\includegraphics[scale=0.45]{imagens/seg_limiar_original.png}
-		\caption{Imagem Original}
-		\label{img:seg_limiar_original}
-	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}[b]{0.5\linewidth}
-		\centering
-		\includegraphics[scale=0.45]{imagens/seg_limiar_50.png}
-		\caption{Limiar 50}
-		\label{img:seg_limiar_50}
-	\end{minipage}
+\centering
+    \begin{minipage}[b]{0.40\linewidth}
+        \centering
+        \includegraphics[scale=0.35]{imagens/seg_limiar_original.png}
+        \caption{Imagem Original}
+        \label{img:seg_limiar_original}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.40\linewidth}
+        \centering
+        \includegraphics[scale=0.35]{imagens/seg_limiar_50.png}
+        \caption{Limiar 50}
+        \label{img:seg_limiar_50}
+    \end{minipage}
 \end{figure}
-
 \begin{figure}[ht]
-	\begin{minipage}[b]{0.5\linewidth}
-		\centering
-		\includegraphics[scale=0.45]{imagens/seg_limiar_100.png}
-		\caption{Limiar 100}
-		\label{img:seg_limiar_100}
-	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}[b]{0.5\linewidth}
-		\centering
-		\includegraphics[scale=0.45]{imagens/seg_limiar_150.png}
-		\caption{Limiar 150}
-		\label{img:seg_limiar_150}
-	\end{minipage}
+\centering
+    \begin{minipage}[b]{0.40\linewidth}
+        \centering
+        \includegraphics[scale=0.35]{imagens/seg_limiar_100.png}
+        \caption{Limiar 100}
+        \label{img:seg_limiar_100}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.40\linewidth}
+        \centering
+        \includegraphics[scale=0.35]{imagens/seg_limiar_150.png}
+        \caption{Limiar 150}
+        \label{img:seg_limiar_150}
+    \end{minipage}
 \end{figure}
 
-Como pode ser observado nos exemplos das Figuras \ref{img:seg_limiar_50},
-\ref{img:seg_limiar_100} e \ref{img:seg_limiar_150}
-dependendo do limiar escolhido o resultado se altera. Quanto menor o
-valor da limiar mais pixels terão seus níveis de cinza aproximados
-de 255, deixando a imagem com mais pontos brancos do que pretos.
-A recíproca tambem e verdadeira. 
+Como pode ser observado nos exemplos das Figuras
+\ref{img:seg_limiar_50}, \ref{img:seg_limiar_100} e
+\ref{img:seg_limiar_150} dependendo do limiar escolhido o resultado
+se altera. Quanto menor o valor da limiar mais pixels terão seus
+níveis de cinza aproximados de 255, deixando a imagem com mais
+pontos brancos do que pretos. A recíproca também e verdadeira.
