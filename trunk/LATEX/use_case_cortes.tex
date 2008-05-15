@@ -18,16 +18,22 @@ cortes.
 
 \subsubsection{Caso de uso: Montagem do Ritmo Visual por sub-amostragem \label{use_case_rv_amostra}}
 
-\textbf{Cenário Principal:} Solicitada a detecção de transições de
-cortes no vídeo, será montado o Ritmo Visual do vídeo através de
-sub-amostragens dos frames do vídeo.
-
-A sub-amostragem é retirada frame a frame de forma seqüencial.
+\textbf{Cenário Principal:} Para a realização da detecção de cortes,
+o sistema monta o Ritmo Visual do vídeo através da extração de
+sub-amostragens de todos os frames do vídeo.
 
 \subsubsection{Caso de uso: Cálculo da diagonal principal do frame \label{use_case_diagonal_principal}}
 
-\textbf{Cenário Principal:} Para a montagem do Ritmo Visual, deverá
-ser calculada a diagonal principal de todos os frames do vídeo. Tal
-diagonal representa a sub-amostragem dos frames.
+\textbf{Cenário Principal:} É realizado o cálculo da diagonal
+principal de cada frame do vídeo devido à necessidade de montar o
+Ritmo Visual do vídeo.
+
+\subsubsection{Caso de uso: Filtragem: Diminuição de Ruídos \label{use_case_filtragem}}
+
+\textbf{Cenário Principal:} Montado o Ritmo Visual do vídeo, o
+sistema realiza a filtragem da imagem do Ritmo Visual, com o
+objetivo de eliminar possíveis ruídos existentes na imagem.
 
 \subsubsection{Caso de uso: Detecção de Bordas: Operador Sobel \label{use_case_sobel}}
+
+\textbf{Cenário Principal:}
