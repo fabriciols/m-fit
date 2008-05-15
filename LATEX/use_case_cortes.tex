@@ -33,9 +33,45 @@ Ritmo Visual do vídeo.
 \textbf{Cenário Principal:} O sistema aplica a filtragem da imagem
 do Ritmo Visual para a eliminação de ruídos indesejáveis.
 
+\subsubsection{Montagem do mapa de bordas \label{use_case_mapa_bordas}}
+
+\textbf{Cenário Principal:} O sistema gera o mapa de bordas do Ritmo
+Visual, através da união das bordas horizontais e verticais
+encontradas pelo operador Sobel.
+
 \subsubsection{Caso de uso: Detecção de Bordas: Operador Sobel \label{use_case_sobel}}
 
 \textbf{Cenário Principal:} O sistema aplica o Operador Sobel na
-imagem para a geração do mapa de bordas
+imagem para realizar a detecção de bordas da imagem do Ritmo Visual.
 
-\subsubsection{Montagem do mapa de bordas \label{use_case_mapa_bordas}}
+A detecção de bordas realizada pelo Operador Sobel é feita em duas
+fases:
+
+\begin{itemize}
+\item{Detecção de bordas horizontais}
+\item{Detecção de bordas verticais}
+\end{itemize}
+
+\subsubsection{Caso de uso: Bordas Horizontais \label{use_case_bordas_hor}}
+
+\textbf{Cenário Principal:} O sistema detecta as bordas horizontais
+da imagem através de processos de convolução com matrizes
+específicas do operador sobel.
+
+\subsubsection{Caso de uso: Bordas Verticais \label{use_case_bordas_ver}}
+
+\textbf{Cenário Principal:} Assim como as bordas horizontais, o
+sistema faz a detecção das bordas verticais através de processos de
+convolução com matrizes específicas do operador sobel.
+
+\subsubsection{Caso de uso: Definição de Limiar de Corte \label{use_case_limiar_corte}}
+
+\textbf{Pontos de extensão:} Manual.
+
+\textbf{Cenário Principal:} O sistema define por "default" um limiar
+de corte, ou seja, uma limiar que define quais bordas verticais
+(representação de transições de corte no Ritmo Visual) serão
+consideradas cortes e quais não serão.
+
+\textbf{Cenário Alternativo:} O usuário define manualmente este
+limiar de corte.
