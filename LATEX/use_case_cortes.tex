@@ -12,9 +12,9 @@ de detecção de cortes.
 
 \subsubsection{Caso de uso: Detecta Cortes \label{use_case_detecta_cortes}}
 
-\textbf{Cenário Principal:} Feito o carregamento do vídeo, o
-processo de detecção de transições se iniciará pela detecção de
-cortes.
+\textbf{Cenário Principal:} O usuário solicita ao sistema que seja
+realizada a detecção de transições, a qual se inicia pela detecção
+de cortes.
 
 \subsubsection{Caso de uso: Montagem do Ritmo Visual por sub-amostragem \label{use_case_rv_amostra}}
 
@@ -30,10 +30,12 @@ Ritmo Visual do vídeo.
 
 \subsubsection{Caso de uso: Filtragem: Diminuição de Ruídos \label{use_case_filtragem}}
 
-\textbf{Cenário Principal:} Montado o Ritmo Visual do vídeo, o
-sistema realiza a filtragem da imagem do Ritmo Visual, com o
-objetivo de eliminar possíveis ruídos existentes na imagem.
+\textbf{Cenário Principal:} O sistema aplica a filtragem da imagem
+do Ritmo Visual para a eliminação de ruídos indesejáveis.
 
 \subsubsection{Caso de uso: Detecção de Bordas: Operador Sobel \label{use_case_sobel}}
 
-\textbf{Cenário Principal:}
+\textbf{Cenário Principal:} O sistema aplica o Operador Sobel na
+imagem para a geração do mapa de bordas
+
+\subsubsection{Montagem do mapa de bordas \label{use_case_mapa_bordas}}
