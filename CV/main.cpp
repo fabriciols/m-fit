@@ -142,32 +142,27 @@ int main( int argc, char** argv )
 
 					strcpy(effectName, "Sobel");
 
-					if (argv[i][2] == 'h')
-					{
-						// Aplica sobel horizontal
-						strcat(effectName, " H");
-						cvSobel(imgGray, imgEffect, 1, 0, 3);
-					}
-					else if (argv[i][2] == 'v')
+					if (argv[i][2] == 'v')
 					{
 						// Aplica sobel vertical
 						strcat(effectName, " V");
+						cvSobel(imgGray, imgEffect, 1, 0, 3);
+					}
+					else if (argv[i][2] == 'h')
+					{
+						// Aplica sobel horizontal
+						strcat(effectName, " H");
 						cvSobel(imgGray, imgEffect, 0, 1, 3);
 					}
 					else
 					{
-						IplImage* imgAux = 0;
-						imgAux = cvCreateImage(cvGetSize(imgSrc),8,1);
-
 						// Aplica ambos (h/v)
-						cvSobel(imgGray, imgAux, 1, 0, 3);
-						cvSobel(imgAux, imgEffect, 0, 1, 3);
+						cvSobel(imgGray, imgEffect, 1, 1, 3);
 					}
 
 					break;
 				case 'h':
 				case 'l':
-					{
 						if (argv[i][2] == 'p') // High/Low-Pass (Passa-baixa/alta)
 						{
 							IplImage* imgAux = 0;
@@ -258,7 +253,7 @@ int main( int argc, char** argv )
 							cvFilter2D(imgAux, imgEffect, filter, cvPoint(-1,-1));
 
 						}
-						else // Histograma
+						else if (argv[i][1] == 'h') // Histograma
 						{
 
 							// O histograma tem um esquema diferente, pois ele nao
@@ -302,7 +297,6 @@ int main( int argc, char** argv )
 							continue;
 						}
 
-					}
 					break;
 				case 'w':
 					if (effectCount >= 1)
