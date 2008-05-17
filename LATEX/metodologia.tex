@@ -5,7 +5,7 @@ para a realização da detecção de transições.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=1.0\linewidth]{imagens/metodologia.png}
+ \includegraphics[width=0.4\linewidth]{imagens/metodologia.png}
  \caption{Diagrama esquemático da metodologia proposta.}
  \label{img_metodologia}
 \end{figure}
@@ -129,3 +129,64 @@ fade-in (Seção \ref{met_fadein}, porém a interpretação das derivadas da
 reta deve ser feita de um modo diferente: no momento que o fade-out começa,
 as derivadas da reta começam a ter valores negativos, pois a reta caminha em
 direção ao vértice. Nos outros passos, a metodologia é igual ao do fade-in.
+
+\section{Dissolve \label{met_dissolve}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/metodologia_dissolve.png}
+ \caption{Metodologia utilizada para a detecção de dissolve.}
+ \label{img_metdissolve}
+\end{figure}
+
+Como visto na Seção \ref{ed_Dissolve}, o dissolve é uma transição
+baseado na sobreposições de imagens.
+
+\subsection{Ritmo Visual \label{met_dissolve_rv}}
+
+O primeiro passo para a detectar um dissolve é a partir de um video
+de entrada, deve-se analisar cada frame, e obter deles seu
+histograma, montando assim um Ritmo Visual por Histograma.
+
+\subsection{Detecção de pontos de Máxima \label{met_dissolve_pontos_maxima}}
+
+Com base em cada Histograma, são obtidos os pontos de Maxima, que
+consiste no ponto (escala de cinza) que tem maior incidência na
+imagem. Estes pontos são obtidos de cada histograma, os quais irão
+compor uma reta.
+
+\subsection{Derivada da Reta \label{met_dissolve_derivada}}
+
+A derivada é aplicada na reta afim de encontrar variações nos padrõs
+dos histogramas previamente coletados. Ela evidenciará quando em uma
+sequência de frames houver uma modificação no padrão dos frames, que
+é representada, neste caso, por uma derivada com valor maior que 0.
+
+Quando a sequência de frames mantém-se normalizada, as derivadas dos
+pontos serão 0, quando dissolve se inicia, a reta começa a avançar
+com sentido contrário ao vértice, tendo derivada positiva. Chega um
+instante em que a reta atinge um pico máximo, onde este é o ponto
+exato do fim do dissolve. Após isto a reta tende a se normalizar
+novamente, pois neste momento a nova tomada já está totalmente em
+cena.
+
+Para o dissolve, as derivadas são positivas quando o efeito começa.
+
+\subsection{Obtenção da Derivada Máxima \label{met_dissolve_derivada_maxima}}
+
+Após calcular a derivada dos pontos da reta, é necessário detectar o
+ponto máximo(pico) da derivada, este evidencia o ponto exato onde
+houve o pico de variação de padrões na tomada, o que caracteriza o
+ponto onde a transição de dissolve teve seu ápice. É neste ponto
+onde será delimitada a transição.
+
+\subsection{Verificar variância do Limiar \label{met_dissolve_limiar}}
+
+A partir do histograma gerado através do ritmo visual, verificamos a
+variância do limiar, que identifica o tipo de transição dissolve.
+
+\subsection{Dissolves detectados \label{met_dissolve_detectado}}
+
+No final deste processo, tem-se o ponto para demarcação de onde a
+transição de dissolve ocorreu. Basta então demarcar no video este
+efeito.
