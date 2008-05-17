@@ -1,0 +1,141 @@
+\chapter{Metodologia \label{metodologia}}
+
+Neste Capítulo, serão definidas as metodologias a serem utilizada
+para a realização da detecção de transições.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.4\linewidth]{imagens/metodologia.png}
+ \caption{Diagrama esquemático da metodologia proposta.}
+ \label{img_metodologia}
+\end{figure}
+
+A Figura \ref{img_metodologia} mostra um esquema geral da
+metodologia proposta neste trabalho.
+
+\section{Cortes \label{met_cortes}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.9\linewidth]{imagens/metodologia_cortes.png}
+ \caption{Metodologia utilizada para a detecção de Cortes.}
+ \label{img_metcortes}
+\end{figure}
+
+A Figura \ref{img_metcortes} representa a metodologia utilizada para
+a detecção de transições do tipo Corte:
+
+\subsection{Montagem do Ritmo Visual \label{met_cortes_RV}}
+
+Para gerar o Ritmo Visual do vídeo, será utilizado o processo de
+transformação da diagonal principal de todos os frames em colunas do
+Ritmo Visual, como visto na Seção \ref{ritmo_visual}.
+
+\subsection{Suavização da imagem \label{met_cortes_suavizacao}}
+
+Homogeneização da imagem, através da aplicação de um filtro espacial
+do tipo passa-baixas, o qual utiliza o processo de convolução (Seção
+\ref{filtragem_espacial}), permitindo que a imagem torne-se mais
+suave e com menos ruídos.
+
+\subsection{Operador Sobel \label{met_cortes_sobel}}
+
+Uma vez suavizada a imagem, será aplicado o operador Sobel, para
+realizar a detecção das bordas. Como visto na seção
+\ref{deteccao_de_bordas}, com a aplicação deste operador é possível
+obter o mapa de bordas do Ritmo Visual, o qual irá possivelmente
+mostrar a localização de possíveis transições de cortes no vídeo.
+
+\subsection{Limiar de Corte \label{met_cortes_limiar}}
+
+Gerado o mapa de bordas, será necessário determinar quais bordas
+serão consideradas transições de cortes e quais serão ignoradas pelo
+fato de pertencerem a objetos da imagem. Tal processo será realizado
+através da contagem de pontos pertencentes às retas verticais
+detectadas. Quanto maior for este número, maior a possibilidade da
+borda estar representando um corte. Com isso, gera-se uma limiar, o
+que possibilita realizar a classificação entre aquilo que representa
+a borda de um objeto, e daquilo que representa uma transição de
+corte.
+
+\subsection{Cortes detectados \label{met_cortes_detectados}}
+
+No final deste processo, estarão identificadas as transições de
+corte do vídeo.
+
+\section{Fade-In \label{met_fadein}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/metodologia_fades.png}
+ \caption{Metodologia utilizada para a detecção de Fade.}
+ \label{img_metcortes}
+\end{figure}
+
+Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
+tomadas mais escuras para tomadas mais claras.
+
+\subsection{Ritmo Visual \label{met_fadein_rv}}
+
+O primeiro passo para a detectar um fade-in é a partir de um video de entrada,
+deve-se analisar cada frame, obter deles seu histograma e obter os Pontos Máximos deste histograma,
+montando assim um Ritmo Visual por Histograma.
+
+\subsection{Diagonal do Frame \label{mt_fadein_rvdiagonal}}
+
+A partir de cada frame extraido do vídeo, a regiao de interesse no frame eh sua diagonal, entao uma nova imagem
+eh criada a partir dela.
+
+\subsection{Histograma da Diagonal \label{met_fadein_rvhistograma}}
+
+Com esta imagem contendo somente a diagonal da imagem inicial, criamos um histograma.
+
+\subsection{Ponto Máximo do Histograma \label{met_fadein_rvmax}
+
+Com base neste Histograma, são obtidos os pontos de Maxima, que consiste
+no ponto (escala de cinza) que tem maior incidência na imagem. Estes pontos
+são obtidos de cada histograma, os quais irão compor uma reta.
+
+\subsection{Cálculo de Derivadas \label{met_fadein_derivadas}}
+
+A derivada é aplicada na reta afim de encontrar variações nos 
+padrõs dos histogramas previamente coletados. Ela evidenciará
+quando em uma sequência de frames houver uma modificação no padrão
+dos frames, que é representada, neste caso, por uma derivada com
+valor maior que 0.
+
+Quando a sequência de frames mantém-se normalizada, as derivadas dos pontos
+serão 0, quando fade-in se inicia, a reta começa a avançar com sentido contrário
+ao vértice, tendo derivada positiva. Chega um instante em que a reta atinge
+um pico máximo, onde este é o ponto exato do fim do fade-in. Após isto a reta
+tende a se normalizar novamente, pois neste momento a nova tomada já está 
+totalmente em cena.
+
+Para o fade-in, as derivadas são positivas quando o efeito começa.
+
+\subsection{Obtenção da Derivada Máxima \label{met_fade_derivada_maxima}}
+
+Após calcular a derivada dos pontos da reta, é necessário
+detectar o ponto máximo(pico) da derivada, este evidencia o ponto exato
+onde houve o pico de variação de padrões na tomada, o que caracteriza o
+ponto onde a transição de fade teve seu ápice. É neste ponto onde será
+delimitada a transição.
+
+\subsection{Fades Detectados \label{met_fade_detectado}}
+
+No final deste processo, tem-se o ponto para demarcação de onde a 
+transição de fade ocorreu. Basta então demarcar no video este efeito.
+
+\section{Fade-Out \label{met_fadeout}}
+
+Como visto na Seção \ref{ed_fadeout}, o fade-out é uma transição de
+tomadas mais claras para mais escuras.
+
+\subsection{Detectando o fade-out \label{met_fadeout_detectando}}
+
+A técnica utilizada para detectar um fade-out é a mesma utilizada no
+fade-in (Seção \ref{met_fadein}, porém a interpretação das derivadas da
+reta deve ser feita de um modo diferente: no momento que o fade-out começa,
+as derivadas da reta começam a ter valores negativos, pois a reta caminha em
+direção ao vértice. Nos outros passos, a metodologia é igual ao do fade-in.
+
