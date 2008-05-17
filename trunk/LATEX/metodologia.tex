@@ -5,7 +5,7 @@ para a realização da detecção de transições.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.4\linewidth]{imagens/metodologia.png}
+ \includegraphics[width=1.0\linewidth]{imagens/metodologia.png}
  \caption{Diagrama esquemático da metodologia proposta.}
  \label{img_metodologia}
 \end{figure}
@@ -89,7 +89,7 @@ são obtidos de cada histograma, os quais irão compor uma reta.
 
 \subsection{Derivada da Reta \label{met_fadein_derivada}}
 
-A derivada é aplicada na reta afim de encontrar variações nos 
+A derivada é aplicada na reta afim de encontrar variações nos
 padrõs dos histogramas previamente coletados. Ela evidenciará
 quando em uma sequência de frames houver uma modificação no padrão
 dos frames, que é representada, neste caso, por uma derivada com
@@ -99,7 +99,7 @@ Quando a sequência de frames mantém-se normalizada, as derivadas dos pontos
 serão 0, quando fade-in se inicia, a reta começa a avançar com sentido contrário
 ao vértice, tendo derivada positiva. Chega um instante em que a reta atinge
 um pico máximo, onde este é o ponto exato do fim do fade-in. Após isto a reta
-tende a se normalizar novamente, pois neste momento a nova tomada já está 
+tende a se normalizar novamente, pois neste momento a nova tomada já está
 totalmente em cena.
 
 Para o fade-in, as derivadas são positivas quando o efeito começa.
@@ -114,7 +114,7 @@ delimitada a transição.
 
 \subsection{Fades Detectados \label{met_fade_detectado}}
 
-No final deste processo, tem-se o ponto para demarcação de onde a 
+No final deste processo, tem-se o ponto para demarcação de onde a
 transição de fade ocorreu. Basta então demarcar no video este efeito.
 
 \section{Fade-Out \label{met_fadeout}}
@@ -129,4 +129,3 @@ fade-in (Seção \ref{met_fadein}, porém a interpretação das derivadas da
 reta deve ser feita de um modo diferente: no momento que o fade-out começa,
 as derivadas da reta começam a ter valores negativos, pois a reta caminha em
 direção ao vértice. Nos outros passos, a metodologia é igual ao do fade-in.
-
