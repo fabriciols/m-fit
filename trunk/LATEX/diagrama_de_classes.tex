@@ -6,3 +6,50 @@
  \caption{Diagrama de classes do sistema.}
  \label{img_diagrama_de_classes}
 \end{figure}
+
+\subsection{Especificação textual do diagrama de classes \label{diagrama_classes_textual}}
+
+\subsubsection{Classe: Video}
+
+\textbf{Métodos:}
+\begin{itemize}
+\item{getNextFrame()}
+
+Método responsável por obter o próximo frame em relação à posição
+atual do vídeo.
+\item{getPreviousFrame()}
+
+Método responsável por obter o frame anterior em relação à posição
+atual do vídeo.
+\item{seekFrame()}
+
+Método responsável em posicionar o cursor da timeline na posição
+desejada, a qual é parecida como parâmetro da função.
+\item{open()}
+
+Método responsável para carregamento de vídeo.
+\item{close()}
+
+Método responsável por fechar o projeto. Salva os pontos de
+transição detectados e os efeitos já aplicados no vídeo.
+
+Retorna 1 ou 0 em caso de sucesso ou fracasso, respectivamente.
+\item{getCurrentFrame()}
+
+Método que obtém o frame atual.
+\item{getCurrentPosition()}
+
+Método que obtém o tempo (HH:MM:SS) em que o frame atual se localiza
+no vídeo.
+\item{write()}
+
+Método onde ocorre a escrita das alterações no arquivo. É
+nele onde são aplicados realmente os efeitos provenientes da edição
+do vídeo.
+
+Retorna 1 ou 0 em caso de sucesso ou fracasso, respectivamente.
+\item{convertToPosition()}
+
+Método que obtém a posição (número de ordenação) do frame corrente
+no vídeo, a partir do tempo.
+\end{itemize}
