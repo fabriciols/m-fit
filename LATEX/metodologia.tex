@@ -5,7 +5,7 @@ para a realização da detecção de transições.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.4\linewidth]{imagens/metodologia.png}
+ \includegraphics[width=1.0\linewidth]{imagens/metodologia.png}
  \caption{Diagrama esquemático da metodologia proposta.}
  \label{img_metodologia}
 \end{figure}
@@ -25,11 +25,20 @@ metodologia proposta neste trabalho.
 A Figura \ref{img_metcortes} representa a metodologia utilizada para
 a detecção de transições do tipo Corte:
 
-\subsection{Montagem do Ritmo Visual \label{met_cortes_RV}}
+\subsection{Montagem do Ritmo Visual por sub-amostragem\label{met_cortes_RV}}
 
-Para gerar o Ritmo Visual do vídeo, será utilizado o processo de
-transformação da diagonal principal de todos os frames em colunas do
-Ritmo Visual, como visto na Seção \ref{ritmo_visual}.
+Para realizar a detecção das transições, o sistema irá gerar uma
+imagem 2D, representando o Ritmo Visual do vídeo.
+
+Este processo se dá a partir dos seguintes passos:
+
+\begin{itemize}
+\item{Obtenção do Frame}
+\item{Cálculo da Diagonal Principal do Frame}
+\end{itemize}
+
+Tais passos se repetem do primeiro, até o último frame do vídeo, de
+forma seqüencial.
 
 \subsection{Suavização da imagem \label{met_cortes_suavizacao}}
 
@@ -46,7 +55,7 @@ realizar a detecção das bordas. Como visto na seção
 obter o mapa de bordas do Ritmo Visual, o qual irá possivelmente
 mostrar a localização de possíveis transições de cortes no vídeo.
 
-\subsection{Limiar de Corte \label{met_cortes_limiar}}
+\subsection{Limiar de corte e contagem de pontos \label{met_cortes_limiar}}
 
 Gerado o mapa de bordas, será necessário determinar quais bordas
 serão consideradas transições de cortes e quais serão ignoradas pelo
@@ -75,7 +84,7 @@ corte do vídeo.
 Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
 tomadas mais escuras para tomadas mais claras.
 
-\subsection{Ritmo Visual \label{met_fadein_rv}}
+\subsection{Ritmo Visual por Histograma\label{met_fadein_rv}}
 
 O primeiro passo para a detectar um fade-in é a partir de um video de entrada,
 deve-se analisar cada frame, obter deles seu histograma e obter os Pontos Máximos deste histograma,
@@ -90,7 +99,7 @@ eh criada a partir dela.
 
 Com esta imagem contendo somente a diagonal da imagem inicial, criamos um histograma.
 
-\subsection{Ponto Máximo do Histograma \label{met_fadein_rvmax}
+\subsection{Ponto Máximo do Histograma \label{met_fadein_rvmax}}
 
 Com base neste Histograma, são obtidos os pontos de Maxima, que consiste
 no ponto (escala de cinza) que tem maior incidência na imagem. Estes pontos
@@ -98,7 +107,7 @@ são obtidos de cada histograma, os quais irão compor uma reta.
 
 \subsection{Cálculo de Derivadas \label{met_fadein_derivadas}}
 
-A derivada é aplicada na reta afim de encontrar variações nos 
+A derivada é aplicada na reta afim de encontrar variações nos
 padrõs dos histogramas previamente coletados. Ela evidenciará
 quando em uma sequência de frames houver uma modificação no padrão
 dos frames, que é representada, neste caso, por uma derivada com
@@ -108,7 +117,7 @@ Quando a sequência de frames mantém-se normalizada, as derivadas dos pontos
 serão 0, quando fade-in se inicia, a reta começa a avançar com sentido contrário
 ao vértice, tendo derivada positiva. Chega um instante em que a reta atinge
 um pico máximo, onde este é o ponto exato do fim do fade-in. Após isto a reta
-tende a se normalizar novamente, pois neste momento a nova tomada já está 
+tende a se normalizar novamente, pois neste momento a nova tomada já está
 totalmente em cena.
 
 Para o fade-in, as derivadas são positivas quando o efeito começa.
@@ -123,7 +132,7 @@ delimitada a transição.
 
 \subsection{Fades Detectados \label{met_fade_detectado}}
 
-No final deste processo, tem-se o ponto para demarcação de onde a 
+No final deste processo, tem-se o ponto para demarcação de onde a
 transição de fade ocorreu. Basta então demarcar no video este efeito.
 
 \section{Fade-Out \label{met_fadeout}}
@@ -151,7 +160,7 @@ direção ao vértice. Nos outros passos, a metodologia é igual ao do fade-in.
 Como visto na Seção \ref{ed_Dissolve}, o dissolve é uma transição
 baseado na sobreposições de imagens.
 
-\subsection{Ritmo Visual \label{met_dissolve_rv}}
+\subsection{Ritmo Visual por Histograma\label{met_dissolve_rv}}
 
 O primeiro passo para a detectar um dissolve é a partir de um video
 de entrada, deve-se analisar cada frame, e obter deles seu
