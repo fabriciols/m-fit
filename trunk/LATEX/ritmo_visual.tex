@@ -6,8 +6,11 @@ sendo portanto uma tentativa de tornar o trabalho de análise de
 vídeo mais simplificado.
 
 Existem dois tipos de representações do ritmo visual. Ritmo Visual
-por histograma e por sub-amostragem. Neste trabalho iremos focar no
-ritmo visual por sub-amostragem, o qual se caracteriza pela
+por histograma e por sub-amostragem.
+
+\subsection{Ritmo Visual por sub-amostragem \label{ritmo_visual_amostragem}}
+
+O Ritmo Visual port sub-amostragem caracteriza-se pela
 transformação de determinadas faixas de pixels (amostras) de cada um
 dos frames de uma tomada do vídeo em uma coluna da representação $2D$,
 como representado na Figura \ref{img_rvdiagonal}. Podemos dizer então que o Ritmo
@@ -67,10 +70,33 @@ verticais podem ser necessariamente um corte. Para resolver este
 problema, algumas técnicas de filtragem espacial podem ser
 aplicadas, diminuindo a intensidade dos ruídos.
 
+\subsection{Ritmo Visual por Histograma\label{ritmo_visual_histograma}}
+
+Como o Ritmo Visual port sub-amostragem, o Ritmo Visual por Histograma ($RVH$)
+tem como objetivo simplificar a representação de um vídeo.
+O processo de criação de um $RVH$ é :
+
+\begin{itemize}
+\item Captura da diagonal principal do frame.
+\item Calculo do histograma do frame.
+\item Calculo do pico máximo do frame.
+\item O ponto do pico máximo respresenta um ponto em nossa reta.
+\end{itemize}
+
+Matematicamente:
+
+
+Seja $Hi$ o histograma do frame $Ii$, e a função $MAX(Hi)$ o valor de luminescência com maior
+presença no frame (i.e. o pico máxmimo do histograma).
+
+A sequência de todos os $MAX(Hi) \in \bigvee$ agrupados em uma reta, é chamado de $RVH$ 
+
 Neste trabalho, as técnicas de Ritmo Visual serão utilizadas para
 transformar o nosso problema de segmentação de vídeos em um problema
 de segmentação de imagens. A partir daí, faremos uso de outras
 ferramentas de PDI como filtragem espacial e detecção de bordas,
 juntamente com a aplicação de operadores de morfologia matemática,
-sobre o RV com o objetivo de obter os pontos de transição das
-tomadas no vídeo $\bigvee$.
+sobre o $RV$ com o objetivo de obter os pontos de transição das
+tomadas no vídeo $\bigvee$
+No $RVH$ serão aplicadas derivadas para uma análise posterior, afim
+de encontrarmos alguns tipos de transições (fade,dissolve).
