@@ -30,10 +30,9 @@ desejada, a qual é parecida como parâmetro da função.
 Método responsável para carregamento de vídeo.
 \item{close()}
 
-Método responsável por fechar o projeto. Salva os pontos de
-transição detectados e os efeitos já aplicados no vídeo.
-
+Método responsável por fechar o video.
 Retorna 1 ou 0 em caso de sucesso ou fracasso, respectivamente.
+
 \item{getCurrentFrame()}
 
 Método que obtém o frame atual.
@@ -48,8 +47,101 @@ nele onde são aplicados realmente os efeitos provenientes da edição
 do vídeo.
 
 Retorna 1 ou 0 em caso de sucesso ou fracasso, respectivamente.
-\item{convertToPosition()}
 
-Método que obtém a posição (número de ordenação) do frame corrente
-no vídeo, a partir do tempo.
 \end{itemize}
+
+\subsubsection{Classe: Time}
+
+Classe que manipula o tempo do video.
+
+\textbf{Métodos:}
+\begin{itemize}
+
+\item{time2pos()}
+
+Retorna a posição relativa ao tempo.
+
+\end{itemize}
+
+\subsubsection{Classe: Transition}
+
+Classe que representa uma transição, contem informações
+especificas de uma transição.
+
+\subsubsection{Classe: DetectTransitions}
+
+Classe pai de todas as detecções de transições.
+
+\textbf{Métodos:}
+\begin{itemize}
+
+\item{detectTransitions()}
+
+Método abstrato. Cada filho desta classe implementa um processo
+diferente para este método.
+
+\end{itemize}
+
+\subsubsection{Classe: Cut}
+
+\textbf{Métodos:}
+\begin{itemize}
+
+\item{createBorderMap()}
+
+Cria o mapa de bordas do frame (RV).
+
+\item{defineTreshold()}
+
+Define um valor para o limiar.
+
+\item{countPoint()}
+
+Conta as bordas do frame (RV).
+
+\end{itemize}
+
+\subsubsection{Classe: Fade}
+
+\textbf{Métodos:}
+\begin{itemize}
+
+\item{calcDerivatives()}
+
+Calcula as derivadas da reta (RVH).
+
+\item{calcMaxDerivatives()}
+
+Calcula o ponto de derivada máxima na reta (RVH).
+
+\end{itemize}
+
+\subsubsection{Classe: Take}
+
+Contém informações sobre as tomadas em um video.
+
+\subsubsection{Classe: Histogram}
+
+Contém o histograma de um frame.
+
+\subsubsection{Classe: Interface}
+
+Contém todas as funções que interagem co a interface ao usuário.
+
+\textbf{Métodos:}
+\begin{itemize}
+
+\item{showTimeLine()}
+
+Exibe a timeline com o video na interface.
+
+\item{updateTimeline()}
+
+Atualiza a exibição da timeline, no caso de ter alguma alteração
+na mesma.
+
+\item{createListOfTakes()}
+
+A partir da detecção das tomadas de um vídeo, exibi na timeline a
+informação sobre as tomadas e gera uma lista de todas as tomadas
+do video.
