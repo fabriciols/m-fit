@@ -143,7 +143,7 @@ tomadas mais claras para mais escuras.
 \subsection{Detectando o fade-out \label{met_fadeout_detectando}}
 
 A técnica utilizada para detectar um fade-out é a mesma utilizada no
-fade-in (Seção \ref{met_fadein}, porém a interpretação das derivadas da
+fade-in (Seção \ref{met_fadein}), porém a interpretação das derivadas da
 reta deve ser feita de um modo diferente: no momento que o fade-out começa,
 as derivadas da reta começam a ter valores negativos, pois a reta caminha em
 direção ao vértice. Nos outros passos, a metodologia é igual ao do fade-in.
@@ -166,12 +166,12 @@ O primeiro passo para a detectar um dissolve é a partir de um video
 de entrada, deve-se analisar cada frame, e obter deles seu
 histograma, montando assim um Ritmo Visual por Histograma.
 
-\subsection{Cálculo da Variância para os pontos do Ritmo Visual 
+\subsection{Cálculo da Variância para os pontos do Ritmo Visual \label{met_dissolve_cariancia}}
 
 Para cada ponto do Ritmo Visual, é calculada a Variância. Podemos assim, obter
 o comportamento da Variância do frame para futura detecção do dissolve.
 
-\subsection{Derivada dos pontos da Variância 
+\subsection{Derivada dos pontos da Variância \label{met_dissolve_derivada_variancia}}
 
 A derivada é aplicada para todos os pontos de Variância calculados 
 para analisarmos os maiores intervalos formados. Caso a representação resultante
