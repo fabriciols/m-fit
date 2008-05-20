@@ -15,10 +15,9 @@ qual tem os seguintes passos:
 
 \begin{itemize}
 \item{Monstagem do Ritmo Visual por Histograma}
-\item{Obtenção dos picos do Histograma}
-\item{Detecção dos Máximos}
-\item{Cálculo das derivadas da reta}
-\item{Obtenção da derivada Máxima}
+\item{Cálculo da Variância dos pontos do Ritmo Visual}
+\item{Cálculo das derivadas dos pontos da Variância}
+\item{Análise dos "gaps" das derivadas}
 \item{Verificar variância do Limiar}
 \end{itemize}
 
@@ -41,29 +40,16 @@ calculado a diagonal do mesmo.
 o Histograma de cada Frame do vídeo, juntando todos em um Ritmo
 Visual.
 
-\subsubsection{Caso de uso: Obtenção dos picos do Histograma \label{use_case_picos_histograma}}
+\subsubsection{Caso de uso: Cálculo da Variância dos pontos do Ritmo Visual 
 
 \textbf{Cenário Principal:} Em cima do Ritmo Visual do video, é
-calculado os picos máximos do histograma de cada frame.
+calculado a Variância para cada ponto.
 
-\subsubsection{Caso de uso: Cálculo das derivadas da reta \label{use_case_derivadas}}
+\subsubsection{Caso de uso: Cálculo das derivadas da Variância \label{use_case_derivadas}}
 
-\textbf{Cenário Principal:} A partir da reta de Máximos do video, é
+\textbf{Cenário Principal:} A partir dos pontos da Variância, é
 calculada a derivada dos pontos, em busca de variações em seu
 resultado. \textbf{Cenário Alternativo:} Caso não seja encontrado
 nenhuma variação que aparenta ser um dissolve, o processo
 interrompe-se e é exibido um sumário ao usuário informando que
 nenhuma detecção do tipo dissolve foi encontrada.
-
-\subsubsection{Caso de uso: Obtenção da Derivada Máxima \label{use_case_derivada_max}}
-
-\textbf{Cenário Principal:} A partir das derivadas da reta, é obtido
-o frame onde a derivada tem seu maior pico. Este é o ponto onde a
-transição é delimitada.
-
-\subsubsection{Caso de uso: Verificar variância do Limiar \label{use_case_variancia_limiar}}
-
-\textbf{Cenário Principal:} A partir dos resultados da Derivada
-Máxima e do histograma gerado pelo Ritmo Visual, verifica-se a
-variância do limiar para identificação de uma transição do tipo
-dissolve nos pontos de transições detectados.
