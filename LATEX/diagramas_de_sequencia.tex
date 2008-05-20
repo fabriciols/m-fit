@@ -47,6 +47,8 @@ ocorrência de fades detectados;}
 \item{DT solicita à DTD a detecção de transições do tipo dissolve;}
 \item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
 ocorrência de dissolves detectados;}
+\item{Sistema solicita à VDO que reposicione o cursor da timeline na posição anterior ao processo
+de detecção de transições;}
 
 \end{enumerate}
 
@@ -58,6 +60,19 @@ ocorrência de dissolves detectados;}
  \caption{Diagrama de sequência para detecção de cortes.}
  \label{img_diagrama_de_classes}
 \end{figure}
+
+\begin{enumerate}
+\item{DTC solitica à VDO a posição atual do cursor da timeline;}
+\item{DTC solicita à VDO o posicionamento do cursor na posição 0 do vídeo, para que
+a análise seja feita em todos os frames do vídeo;}
+\item{DTC cria objeto VR;}
+\item{DTC solicita à VR a criação do Ritmo Visual do vídeo;}
+\item{VR obtém a diagonal do frame corrente;}
+\item{VR solicita à VDO o próximo frame e repete o passo anterior entrando em um loop até que
+não existam mais frames;}
+\item{VR retorna para o sistema o Ritmo Visual do vídeo;}
+\item{Sistema cria objeto FILTERS;}
+\end{enumerate}
 
 \subsection{Detecção de Fades \label{seq_fades}}
 
