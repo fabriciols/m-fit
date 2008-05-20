@@ -166,42 +166,16 @@ O primeiro passo para a detectar um dissolve é a partir de um video
 de entrada, deve-se analisar cada frame, e obter deles seu
 histograma, montando assim um Ritmo Visual por Histograma.
 
-\subsection{Detecção de pontos de Máxima \label{met_dissolve_pontos_maxima}}
+\subsection{Cálculo da Variância para os pontos do Ritmo Visual 
 
-Com base em cada Histograma, são obtidos os pontos de Maxima, que
-consiste no ponto (escala de cinza) que tem maior incidência na
-imagem. Estes pontos são obtidos de cada histograma, os quais irão
-compor uma reta.
+Para cada ponto do Ritmo Visual, é calculada a Variância. Podemos assim, obter
+o comportamento da Variância do frame para futura detecção do dissolve.
 
-\subsection{Derivada da Reta \label{met_dissolve_derivada}}
+\subsection{Derivada dos pontos da Variância 
 
-A derivada é aplicada na reta afim de encontrar variações nos padrõs
-dos histogramas previamente coletados. Ela evidenciará quando em uma
-sequência de frames houver uma modificação no padrão dos frames, que
-é representada, neste caso, por uma derivada com valor maior que 0.
-
-Quando a sequência de frames mantém-se normalizada, as derivadas dos
-pontos serão 0, quando dissolve se inicia, a reta começa a avançar
-com sentido contrário ao vértice, tendo derivada positiva. Chega um
-instante em que a reta atinge um pico máximo, onde este é o ponto
-exato do fim do dissolve. Após isto a reta tende a se normalizar
-novamente, pois neste momento a nova tomada já está totalmente em
-cena.
-
-Para o dissolve, as derivadas são positivas quando o efeito começa.
-
-\subsection{Obtenção da Derivada Máxima \label{met_dissolve_derivada_maxima}}
-
-Após calcular a derivada dos pontos da reta, é necessário detectar o
-ponto máximo(pico) da derivada, este evidencia o ponto exato onde
-houve o pico de variação de padrões na tomada, o que caracteriza o
-ponto onde a transição de dissolve teve seu ápice. É neste ponto
-onde será delimitada a transição.
-
-\subsection{Verificar variância do Limiar \label{met_dissolve_limiar}}
-
-A partir do histograma gerado através do ritmo visual, verificamos a
-variância do limiar, que identifica o tipo de transição dissolve.
+A derivada é aplicada para todos os pontos de Variância calculados 
+para analisarmos os maiores intervalos formados. Caso a representação resultante
+apresente intervalos maiores que o esperado, o dissolve está presente neste frame.
 
 \subsection{Dissolves detectados \label{met_dissolve_detectado}}
 
