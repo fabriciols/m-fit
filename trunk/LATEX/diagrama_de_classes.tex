@@ -30,7 +30,7 @@ Classe responsável por indentificar
 transições do tipo Corte. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{Frame createBorderMap() }
 		 
 Cria o mapa de bordas. 	 
@@ -44,14 +44,14 @@ corte.
 
 	\item{int countPoints() }
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: DetectTransitions \label{classe_DetectTransitions}}
 
 Classe pai de todas as detecções 
 de transições. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{Transition detectTransitions(Video vdo) }
 		 
 Função principal na detecção 	 
@@ -60,14 +60,14 @@ a chamada da função com este
 mesmo nome nos objetos 	 
 filhos. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Dissolve \label{classe_Dissolve}}
 
 Classe responsável por detectar 
 o dissolve. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{bool checkLuminance() }
 
 	\item{float calcSecondDerivative() }
@@ -85,14 +85,14 @@ Calcula a razão entre a segunda
 derivada da variância com a 	 
 derivada do RVH. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Effect \label{classe_Effect}}
 
 Classe responsável por centralizar 
 os métodos dos efeitos. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{int applyEffect() }
 		 
 Função genérica para aplicação 	 
@@ -100,19 +100,19 @@ de efeito. Será implementada
 por todas as classes filhas 	 
 deste objeto. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Fadein \label{classe_Fadein}}
 
 Classe responsável por indentificar 
 transições do tipo Fade-in. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{float calcMaxDerivative() }
 		 
 Encontra a Máxima derivada. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Fade \label{classe_Fade}}
 
 Classe responsável por 
@@ -125,19 +125,19 @@ Classe responsável por indentificar
 transições do tipo Fade-out. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{float calcMinDerivative() }
 		 
 Encontra a Mínima derivada. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Filters \label{classe_Filters}}
 
 Classe que agrupa filtros de 
 processamento de imagens digitais. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{Frame Sobel() }
 		 
 Aplica o Operador Sobel 	 
@@ -160,14 +160,14 @@ CvSmooth
 Aplica um filtro passa alta na 	 
 imagem. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Frame \label{classe_Frame}}
 
 Classe que armazena informações sobre 
 um único frame. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{Histogram createHistgram() }
 		 
 Função que cria o histograma da 	 
@@ -177,7 +177,7 @@ diagonal do frame.
 		 
 Retona a diagonal do frame. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Histogram \label{classe_Histogram}}
 
 Classe responsável por conter 
@@ -186,7 +186,7 @@ os dados do histograma de um frame.
 \subsubsection{Classe: Interface \label{classe_Interface}}
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{void showTimeLine() }
 		 
 Cria a timeline na tela. 	 
@@ -212,14 +212,14 @@ Método chamado quando o usuário
 modifica a posição de uma transição 	 
 já detectada. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Morpholical \label{classe_Morpholical}}
 
 Classe que agrupa filtros de 
 morfologia matemática. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{Morpholical erode(int Frame) }
 		 
 Aplica o efeito de Erosão em uma 	 
@@ -231,7 +231,7 @@ Aplica o efeito de dilatação em
 uma imagem 	 
 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Take \label{classe_Take}}
 
 Container para tomadas de vídeo. 
@@ -242,14 +242,14 @@ Classe que agrua informações
 e manipulação de tempo. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{int time2pos() }
 		 
 Retona o valor em POSIÇÃO no 	 
 vídeo referente ao tempo armazenado 	 
 por este objeto. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: Transition \label{classe_Transition}}
 
 Classe responsável por representar 
@@ -261,7 +261,7 @@ Classe responsável por fazer
 a manipulação de um vídeo. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{Frame getNextFrame() }
 		 
 Método responsável por obter 	 
@@ -315,14 +315,14 @@ retona:
 1 - Sucesso. 	 
 <0 - Erro. 	 
 
-\end{itemize}
+\end{enumerate}
 \subsubsection{Classe: VisualRythim \label{classe_VisualRythim}}
 
 Classe responsável por criar 
 os dois tipos de ritmo visual. 
 
 \textbf{Métodos:}
-\begin{itemize}
+\begin{enumerate}
 	\item{Frame createVR() }
 		 
 Cria o Ritmo Visual por sub-amostragem. 	 
@@ -337,4 +337,4 @@ Histograma do vídeo
 Calcula primeira derivada da curva do 	 
 gráfico do ritmo visual. 	 
 
-\end{itemize}
+\end{enumerate}
