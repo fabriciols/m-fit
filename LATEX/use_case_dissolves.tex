@@ -15,8 +15,8 @@ qual tem os seguintes passos:
 
 \begin{itemize}
 \item{Monstagem do Ritmo Visual por Histograma}
-\item{Cálculo da diagona principal do frame}
-\item{Cálculo da Variância dos pontos do Ritmo Visual}
+\item{Cálculo da diagonal principal do frame}
+\item{Cálculo da Variância dos pontos da diagonal do frame}
 \item{Cálculo das derivadas dos pontos da Variância}
 \item{Cálculo da derivada dos pontos do Ritmo Visual}
 \item{Cálculo da razão entre a segunda derivada da variância e a derifvada dos pontos do Ritmo Visual}
@@ -41,15 +41,15 @@ calculado a diagonal do mesmo.
 o Histograma de cada Frame do vídeo, juntando todos em um Ritmo
 Visual.
 
-\subsubsection{Caso de uso: Cálculo da Variância dos pontos do Ritmo Visual}
+\subsubsection{Caso de uso: Cálculo da Variância dos pontos da diagonal principal do frame}
 
 \textbf{Cenário Principal:} Em cima do Ritmo Visual do video, é
 calculado a Variância para cada ponto.
 
 \subsubsection{Caso de uso: Cálculo das derivadas da Variância \label{use_case_derivadas}}
 
-\textbf{Cenário Principal:} A partir dos pontos da Variância, é
-calculada a derivada dos pontos, em busca de variações em seu
+\textbf{Cenário Principal:} A partir dos pontos da Variância, são
+calculadas as derivadas dos pontos, em busca de variações em seu
 resultado. \textbf{Cenário Alternativo:} Caso não seja encontrado
 nenhuma variação que aparenta ser um dissolve, o processo
 interrompe-se e é exibido um sumário ao usuário informando que
