@@ -43,10 +43,10 @@ ocorrência de cortes detectados;}
 \item{DT solicita à DTF a detecção de transições do tipo fade;}
 \item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
 ocorrência de fades detectados;}
-\item{Objeto DT cria objeto DTD responsável pela de dissolves;}
+\item{Objeto DT cria objeto DTD responsável pela de dissolve;}
 \item{DT solicita à DTD a detecção de transições do tipo dissolve;}
 \item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
-ocorrência de dissolves detectados;}
+ocorrência de dissolve detectados;}
 \item{Sistema solicita à VDO que reposicione o cursor da timeline na posição anterior ao processo
 de detecção de transições;}
 
@@ -72,6 +72,17 @@ a análise seja feita em todos os frames do vídeo;}
 não existam mais frames;}
 \item{VR retorna para o sistema o Ritmo Visual do vídeo;}
 \item{Sistema cria objeto FILTERS;}
+\item{Sistema solicita à FILTERS a suavização da imagem;}
+\item{FILTERS aplica um filtro passa-baixa e devolve a imagem para o Sistema;}
+\item{Sistema solicita a criação do mapa de bordas do Ritmo Visual;}
+\item{Sistema solicita à FILTERS a aplicação do operador Sobel;}
+\item{FILTERS aplica operador Sobel e devolve o Ritmo Visual ao
+sistema;}
+\item{Mapa de bordas obtido;}
+\item{Sistema define um limiar para classificação das bordas que serão consideradas cortes;}
+\item{Sistema realiza a contagem de pontos pertencentes às retas verticais do mapa de bordas, selecionando aquelas
+que atingirem o valor do limiar;}
+\item{Sistema devolve as transições de corte detectadas;}
 \end{enumerate}
 
 \subsection{Detecção de Fades \label{seq_fades}}
@@ -83,12 +94,18 @@ não existam mais frames;}
  \label{img_diagrama_de_classes}
 \end{figure}
 
-\subsection{Detecção de Dissolves \label{seq_dissolves}}
+\item{DTF solicita à VDO a posição atual do cursor da timeline;}
+\item{DTF solicita à VDO o posicionamento do cursor na posição 0 do vídeo, para que
+a análise seja feita em todos os frames do vídeo;}
+\item{DTF cria objeto VR;}
+\item{DTF solicita à VR a criação do Ritmo Visual}
+
+\subsection{Detecção de dissolve \label{seq_dissolve}}
 
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/seq_dissolve.PNG}
- \caption{Diagrama de sequência para detecção de dissolves.}
+ \caption{Diagrama de sequência para detecção de dissolve.}
  \label{img_diagrama_de_classes}
 \end{figure}
 
