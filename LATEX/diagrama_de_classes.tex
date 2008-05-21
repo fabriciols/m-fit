@@ -9,140 +9,332 @@
 
 \subsection{Especificação textual do diagrama de classes \label{diagrama_classes_textual}}
 
-\subsubsection{Classe: Video}
+\subsubsection{Classe: Brightness \label{classe_Brightness}}
+
+Classe responsável em aplicar 
+efeitos de brilho. 
+
+\subsubsection{Classe: Color \label{classe_Color}}
+
+Classe responsável em aplicar 
+efeitos de cor. 
+
+\subsubsection{Classe: Contrast \label{classe_Contrast}}
+
+Classe responsável em aplicar 
+efeitos de contraste. 
+
+\subsubsection{Classe: Cut \label{classe_Cut}}
+
+Classe responsável por indentificar 
+transições do tipo Corte. 
 
 \textbf{Métodos:}
 \begin{itemize}
-\item{getNextFrame()}
+	\item{Frame createBorderMap() }
+		 
+Cria o mapa de bordas. 	 
 
-Método responsável por obter o próximo frame em relação à posição
-atual do vídeo.
-\item{getPreviousFrame()}
+	\item{int defineTreshold() }
+		 
+Processo para a definição da 	 
+limiar de corte para o processo 	 
+de detecção de transições do tipo 	 
+corte. 	 
 
-Método responsável por obter o frame anterior em relação à posição
-atual do vídeo.
-\item{seekFrame()}
-
-Método responsável em posicionar o cursor da timeline na posição
-desejada, a qual é parecida como parâmetro da função.
-\item{open()}
-
-Método responsável para carregamento de vídeo.
-\item{close()}
-
-Método responsável por fechar o video.
-Retorna 1 ou 0 em caso de sucesso ou fracasso, respectivamente.
-
-\item{getCurrentFrame()}
-
-Método que obtém o frame atual.
-\item{getCurrentPosition()}
-
-Método que obtém o tempo (HH:MM:SS) em que o frame atual se localiza
-no vídeo.
-\item{write()}
-
-Método onde ocorre a escrita das alterações no arquivo. É
-nele onde são aplicados realmente os efeitos provenientes da edição
-do vídeo.
-
-Retorna 1 ou 0 em caso de sucesso ou fracasso, respectivamente.
+	\item{int countPoints() }
 
 \end{itemize}
+\subsubsection{Classe: DetectTransitions \label{classe_DetectTransitions}}
 
-\subsubsection{Classe: Time}
-
-Classe que manipula o tempo do video.
+Classe pai de todas as detecções 
+de transições. 
 
 \textbf{Métodos:}
 \begin{itemize}
-
-\item{time2pos()}
-
-Retorna a posição relativa ao tempo.
+	\item{Transition detectTransitions(Video vdo) }
+		 
+Função principal na detecção 	 
+de transições. Desencadeia 	 
+a chamada da função com este 	 
+mesmo nome nos objetos 	 
+filhos. 	 
 
 \end{itemize}
+\subsubsection{Classe: Dissolve \label{classe_Dissolve}}
 
-\subsubsection{Classe: Transition}
-
-Classe que representa uma transição, contém informações especificas
-de uma transição.
-
-\subsubsection{Classe: DetectTransitions}
-
-Classe pai de todas as detecções de transições.
+Classe responsável por detectar 
+o dissolve. 
 
 \textbf{Métodos:}
 \begin{itemize}
+	\item{bool checkLuminance() }
 
-\item{detectTransitions()}
+	\item{float calcSecondDerivative() }
+		 
+Calcula a segunda derivada de 	 
+uma curva. 	 
 
-Método abstrato. Cada filho desta classe implementa um processo
-diferente para este método.
+	\item{float calcVariance() }
+		 
+Calcula a curva de variância de um vídeo. 	 
+
+	\item{float calcRatioVarianceVRH() }
+		 
+Calcula a razão entre a segunda 	 
+derivada da variância com a 	 
+derivada do RVH. 	 
 
 \end{itemize}
+\subsubsection{Classe: Effect \label{classe_Effect}}
 
-\subsubsection{Classe: Cut}
+Classe responsável por centralizar 
+os métodos dos efeitos. 
 
 \textbf{Métodos:}
 \begin{itemize}
-
-\item{createBorderMap()}
-
-Cria o mapa de bordas do Ritmo Visual.
-
-\item{defineTreshold()}
-
-Define um valor para o limiar de corte.
-
-\item{countPoint()}
-
-Conta os pontos pertencentes às retas verticais do mapa de bordas.
+	\item{int applyEffect() }
+		 
+Função genérica para aplicação 	 
+de efeito. Será implementada 	 
+por todas as classes filhas 	 
+deste objeto. 	 
 
 \end{itemize}
+\subsubsection{Classe: Fadein \label{classe_Fadein}}
 
-\subsubsection{Classe: Fade}
+Classe responsável por indentificar 
+transições do tipo Fade-in. 
 
 \textbf{Métodos:}
 \begin{itemize}
-
-\item{calcDerivatives()}
-
-Calcula as derivadas da reta (RVH).
-
-\item{calcMaxDerivatives()}
-
-Calcula o ponto de derivada máxima na reta (RVH).
+	\item{float calcMaxDerivative() }
+		 
+Encontra a Máxima derivada. 	 
 
 \end{itemize}
+\subsubsection{Classe: Fade \label{classe_Fade}}
 
-\subsubsection{Classe: Take}
+Classe responsável por 
+identificar todos os tipos de 
+fade. 
 
-Contém informações sobre as tomadas em um video.
+\subsubsection{Classe: Fadeout \label{classe_Fadeout}}
 
-\subsubsection{Classe: Histogram}
-
-Contém o histograma de um frame.
-
-\subsubsection{Classe: Interface}
-
-Contém todas as funções que interagem co a interface ao usuário.
+Classe responsável por indentificar 
+transições do tipo Fade-out. 
 
 \textbf{Métodos:}
 \begin{itemize}
+	\item{float calcMinDerivative() }
+		 
+Encontra a Mínima derivada. 	 
 
-\item{showTimeLine()}
+\end{itemize}
+\subsubsection{Classe: Filters \label{classe_Filters}}
 
-Exibe a timeline com o video na interface.
+Classe que agrupa filtros de 
+processamento de imagens digitais. 
 
-\item{updateTimeline()}
+\textbf{Métodos:}
+\begin{itemize}
+	\item{Frame Sobel() }
+		 
+Aplica o Operador Sobel 	 
+em uma imagem. 	 
+	 
+Será utilizado pelo processeo 	 
+createBorderMap da classe Cut 	 
+	 
 
-Atualiza a exibição da timeline, no caso de ter alguma alteração
-na mesma.
+	\item{Frame lowPass() }
+		 
+Aplica um filtro passa-baixa na 	 
+imagem. 	 
+	 
+CvSmooth 	 
+	 
 
-\item{createListOfTakes()}
+	\item{Frame highPass() }
+		 
+Aplica um filtro passa alta na 	 
+imagem. 	 
 
-A partir da detecção das tomadas de um vídeo, exibi na timeline a
-informação sobre as tomadas e gera uma lista de todas as tomadas
-do video.
+\end{itemize}
+\subsubsection{Classe: Frame \label{classe_Frame}}
+
+Classe que armazena informações sobre 
+um único frame. 
+
+\textbf{Métodos:}
+\begin{itemize}
+	\item{Histogram createHistgram() }
+		 
+Função que cria o histograma da 	 
+diagonal do frame. 	 
+
+	\item{Frame getDiagonal() }
+		 
+Retona a diagonal do frame. 	 
+
+\end{itemize}
+\subsubsection{Classe: Histogram \label{classe_Histogram}}
+
+Classe responsável por conter 
+os dados do histograma de um frame. 
+
+\subsubsection{Classe: Interface \label{classe_Interface}}
+
+\textbf{Métodos:}
+\begin{itemize}
+	\item{void showTimeLine() }
+		 
+Cria a timeline na tela. 	 
+
+	\item{void updateTimeline() }
+		 
+Atualiza a timeline com informações 	 
+dos vídeostomadastransições. 	 
+
+	\item{void createListofTakes() }
+		 
+Cria exibição da lista de tomadas 	 
+do vídeo. 	 
+
+	\item{void showVideo() }
+		 
+Cria container para exibição 	 
+do vídeo. 	 
+
+	\item{void redefineTakes() }
+		 
+Método chamado quando o usuário 	 
+modifica a posição de uma transição 	 
+já detectada. 	 
+
+\end{itemize}
+\subsubsection{Classe: Morpholical \label{classe_Morpholical}}
+
+Classe que agrupa filtros de 
+morfologia matemática. 
+
+\textbf{Métodos:}
+\begin{itemize}
+	\item{Morpholical erode(int Frame) }
+		 
+Aplica o efeito de Erosão em uma 	 
+imagem. 	 
+
+	\item{Frame dilate() }
+		 
+Aplica o efeito de dilatação em 	 
+uma imagem 	 
+	 
+
+\end{itemize}
+\subsubsection{Classe: Take \label{classe_Take}}
+
+Container para tomadas de vídeo. 
+
+\subsubsection{Classe: Time \label{classe_Time}}
+
+Classe que agrua informações 
+e manipulação de tempo. 
+
+\textbf{Métodos:}
+\begin{itemize}
+	\item{int time2pos() }
+		 
+Retona o valor em POSIÇÃO no 	 
+vídeo referente ao tempo armazenado 	 
+por este objeto. 	 
+
+\end{itemize}
+\subsubsection{Classe: Transition \label{classe_Transition}}
+
+Classe responsável por representar 
+uma transição. 
+
+\subsubsection{Classe: Video \label{classe_Video}}
+
+Classe responsável por fazer 
+a manipulação de um vídeo. 
+
+\textbf{Métodos:}
+\begin{itemize}
+	\item{Frame getNextFrame() }
+		 
+Método responsável por obter 	 
+o próximo frame em relação à 	 
+posição atual do vídeo. 	 
+
+	\item{Frame getPreviousFrame() }
+		 
+Método responsável por obter 	 
+o frame anterior em relação à 	 
+posição atual do vídeo. 	 
+
+	\item{int seekFrame(int pos) }
+		 
+Método responsável em 	 
+posicionar o ponteiro do vídeo 	 
+na posição desejada, a qual é 	 
+parecida como parâmetro da 	 
+função. 	 
+
+	\item{CvCapture open() }
+		 
+Função que abre o vídeo 	 
+e atualiza as variáveis do objeto. 	 
+
+	\item{int close() }
+		 
+Função que fecha o vídeo. 	 
+1 - sucesso. 	 
+0 - erro. 	 
+	 
+
+	\item{Frame getCurrentFrame() }
+		 
+Obtém o frame atual. 	 
+
+	\item{int getCurrentPosition() }
+		 
+Obtêm a posição corrente do 	 
+ponteiro do vídeo. 	 
+
+	\item{int write() }
+		 
+Processo que escreve no arquivo. 	 
+É nele onde são aplicados 	 
+realmente os efeitos provenientes 	 
+da edição do vídeo. 	 
+	 
+retona: 	 
+	 
+1 - Sucesso. 	 
+<0 - Erro. 	 
+
+\end{itemize}
+\subsubsection{Classe: VisualRythim \label{classe_VisualRythim}}
+
+Classe responsável por criar 
+os dois tipos de ritmo visual. 
+
+\textbf{Métodos:}
+\begin{itemize}
+	\item{Frame createVR() }
+		 
+Cria o Ritmo Visual por sub-amostragem. 	 
+
+	\item{int createVRH() }
+		 
+Retona o Ritmo Visual por 	 
+Histograma do vídeo 	 
+
+	\item{float calcDerivatives() }
+		 
+Calcula primeira derivada da curva do 	 
+gráfico do ritmo visual. 	 
+
 \end{itemize}
