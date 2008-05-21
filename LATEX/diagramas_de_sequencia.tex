@@ -89,27 +89,61 @@ que atingirem o valor do limiar;}
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=1.0\linewidth]{imagens/seq_fade.PNG}
+ \includegraphics[width=0.7\linewidth]{imagens/seq_fade.PNG}
  \caption{Diagrama de sequência para detecção de fades (fade-in e fade-out).}
  \label{img_diagrama_de_classes}
 \end{figure}
 
 \begin{enumerate}
-\item{DTF solicita à VDO a posição atual do cursor da timeline;}
-\item{DTF solicita à VDO o posicionamento do cursor na posição 0 do vídeo, para que
+\item{DTF solicita à VDO a posição atual do ponteiro do video;}
+\item{DTF solicita à VDO o posicionamento do ponteiro na posição 0 do vídeo, para que
 a análise seja feita em todos os frames do vídeo;}
 \item{DTF cria objeto VR;}
-\item{DTF solicita à VR a criação do Ritmo Visual}
+\item{DTF solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
+\item{VR cria objeto FRAME;}
+\item{Loop: Enquanto a posicão do frame corrente for diferente do tomanho do video}
+\item{VR solicita a VDO o próximo frame do vídeo}
+\item{VR solicita ao FRAME a diagonal do frame solicitado}
+\item{VR solicita ao FRAME o histograma do frame (diagonal)}
+\item{Loop: fim}
+\item{DTF calcula as derivadas do RVH}
+\item{DTF cria objeto DTFI}
+\item{DTF solicita à DTFI a detecção de suas transições}
+\item{DTFI calcula a derivada Máxima do RVH}
+\item{DTFI retorna as transições do tipo Fade-in}
+\item{DTF cria objeto DTFO}
+\item{DTF solicita à DTFO a detecção de suas transições}
+\item{DTFI calcula a derivada Mínima do RVH}
+\item{DTFI retorna as transições do tipo Fade-out}
+\item{DTF solicita a VDO a restauração do ponteiro do video}
 \end{enumerate}
 
 \subsection{Detecção de dissolve \label{seq_dissolve}}
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=1.0\linewidth]{imagens/seq_dissolve.PNG}
+ \includegraphics[width=0.7\linewidth]{imagens/seq_dissolve.PNG}
  \caption{Diagrama de sequência para detecção de dissolve.}
  \label{img_diagrama_de_classes}
 \end{figure}
+
+\begin{enumerate}
+\item{DTD solicita à VDO a posição atual do ponteiro do video;}
+\item{DTD solicita à VDO o posicionamento do ponteiro na posição 0 do vídeo, para que
+a análise seja feita em todos os frames do vídeo;}
+\item{DTD cria objeto VR;}
+\item{DTD solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
+\item{VR cria objeto FRAME;}
+\item{Loop: Enquanto a posicão do frame corrente for diferente do tomanho do vídeo}
+\item{VR solicita a VDO o próximo frame do vídeo}
+\item{VR solicita ao FRAME a diagonal do frame solicitado}
+\item{VR solicita ao FRAME o histograma do frame (diagonal)}
+\item{Loop: fim}
+\item{DTD calcula a variância do vídeo}
+\item{DTD calcula a segunda derivada da variância}
+\item{DTD solicita a VR o cálculo da derivada do RVH}
+\item{DTD calcula a razão entre a derivada segunda da variância e a derivada do RVH}
+\end{enumerate}
 
 \subsection{Edição de vídeo \label{seq_edicao}}
 
@@ -119,3 +153,13 @@ a análise seja feita em todos os frames do vídeo;}
  \caption{Diagrama de sequência para edição de vídeo.}
  \label{img_diagrama_de_classes}
 \end{figure}
+
+\begin{enumerate}
+\item{Editor solicita ao sistema edição de vídeo;}
+\item{Sistema cria objeto BRIGHT;}
+\item{Sistema solicita a BRIGHT a aplicação do efeito no vídeo;}
+\item{Sistema cria objeto COLOR;}
+\item{Sistema solicita a COLOR a aplicação do efeito no vídeo;}
+\item{Sistema cria objeto BRIGHT;}
+\item{Sistema solicita a CONTRAST a aplicação do efeito no vídeo;}
+\end{enumerate}
