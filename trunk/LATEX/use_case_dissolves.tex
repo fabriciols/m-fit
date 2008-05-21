@@ -15,10 +15,11 @@ qual tem os seguintes passos:
 
 \begin{itemize}
 \item{Monstagem do Ritmo Visual por Histograma}
+\item{Cálculo da diagona principal do frame}
 \item{Cálculo da Variância dos pontos do Ritmo Visual}
 \item{Cálculo das derivadas dos pontos da Variância}
-\item{Análise dos "gaps" das derivadas}
-\item{Verificar variância do Limiar}
+\item{Cálculo da derivada dos pontos do Ritmo Visual}
+\item{Cálculo da razão entre a segunda derivada da variância e a derifvada dos pontos do Ritmo Visual}
 \end{itemize}
 
 No momento que se inicia a detecção, uma janela é mostrada para o
@@ -53,3 +54,16 @@ resultado. \textbf{Cenário Alternativo:} Caso não seja encontrado
 nenhuma variação que aparenta ser um dissolve, o processo
 interrompe-se e é exibido um sumário ao usuário informando que
 nenhuma detecção do tipo dissolve foi encontrada.
+
+\subsubsection{Caso de uso: Cálculo da derivada dos pontos do Ritmo Visual}
+
+\textbf{Cenário Principal:} Em cima do Ritmo Visual do video, é
+calculado a derivada para cada ponto.
+
+
+\subsubsection{Caso de uso: Cálculo da razão entre a
+segunda derivada da variância e a derivada dos pontos do Ritmo
+Visual}
+
+\textbf{Cenário Principal:} Calcula-se a razão entre a segunda
+derivada da Variância e a derivada dos pontos do Ritmo Visual.
