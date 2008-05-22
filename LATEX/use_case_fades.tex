@@ -19,12 +19,9 @@ tem os seguintes passos:
 \item{Obtenção da derivada Máxima}
 \end{itemize}
 
-No momento que se inicia a detecção, uma janela é mostrada para o
-usuário mostrando o progresso da mesma.
-
-\textbf{Cenário Alternativo:} Caso o usuário cancela a detecção, a
-mesma é interrompida e poderá ser feita manualmente através dos
-menus da aplicação.
+\textbf{Cenário Alternativo:} O usuário cancela a operação de
+detecção de transições. A mesma poderá ser feita posteriormente
+através dos menus do sistema.
 
 \subsubsection{Caso de uso: Montagem do RV por histograma \label{use_case_rvh}}
 
@@ -49,11 +46,6 @@ incidência. Este valor representará um ponto na reta do $RVH$
 calculada a derivada dos pontos, em busca de variações em seu
 resultado.
 
-\textbf{Cenário Alternativo:} Caso não seja encontrado nenhuma
-variação que aparenta ser um fade, o processo interrompe-se e é
-exibido um sumário ao usuário informando que nenhuma detecção do
-tipo fade foi encontrada.
-
 \subsubsection{Detecta Fade-In \label{use_case_detecta_fadein}}
 
 \textbf{Cenário Principal:} Em cima das derivadas dos pontos do RVH,
@@ -61,12 +53,18 @@ tipo fade foi encontrada.
 evidencia o fade-in, e obter a derivada máxima para identificar o
 ponto de marcação da transição.
 
-\subsubsection{Detecta Fade-Out \label{use_case_detecta_fadeout}}
-
-Ver: \ref{use_case_detecta_fadein}
-
 \subsubsection{Caso de uso: Obtenção da Derivada Máxima \label{use_case_derivada_max}}
 
 \textbf{Cenário Principal:} A partir das derivadas da reta, é obtido
 o frame onde a derivada tem seu maior pico. Este é o ponto onde a
+transição é delimitada.
+
+\subsubsection{Detecta Fade-Out \label{use_case_detecta_fadeout}}
+
+Ver: \ref{use_case_detecta_fadein}
+
+\subsubsection{Caso de uso: Obtenção da Derivada Mínima \label{use_case_derivada_min}}
+
+\textbf{Cenário Principal:} A partir das derivadas da reta, é obtido
+o frame onde a derivada possui o menor valor. Este é o ponto onde a
 transição é delimitada.
