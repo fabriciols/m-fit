@@ -14,50 +14,51 @@ processo de detecção das transições do tipo dissolve se inicia, o
 qual tem os seguintes passos:
 
 \begin{itemize}
-\item{Monstagem do Ritmo Visual por Histograma}
-\item{Cálculo da diagonal principal do frame}
-\item{Cálculo da Variância dos pontos da diagonal do frame}
-\item{Cálculo das derivadas dos pontos da Variância}
-\item{Cálculo da derivada dos pontos do Ritmo Visual}
-\item{Cálculo da razão entre a segunda derivada da variância e a derivada dos pontos do Ritmo Visual}
+\item{Montagem do Ritmo Visual por Histograma}
+\item{Cálculo da Variância dos pontos da diagonal dos frames do vídeo}
+\item{Cálculo da primeira e segunda derivada dos pontos da Variância}
+\item{Cálculo da primeira derivada dos pontos do Ritmo Visual}
+\item{Cálculo da razão entre a segunda derivada da variância e a primeira derivada dos pontos do Ritmo Visual}
 \end{itemize}
 
-No momento que se inicia a detecção, uma janela é exibida para o
-usuário mostrando o progresso da mesma.
+\textbf{Cenário Alternativo:} O usuário cancela a operação de
+detecção de transições. A mesma poderá ser feita posteriormente
+através dos menus do sistema.
 
-\textbf{Cenário Alternativo:} Caso o usuário cancela a detecção, a
-mesma é interrompida e poderá ser feita manualmente através dos
-menus da aplicação.
+\subsubsection{Caso de uso: Montagem do Ritmo Visual por Histograma \label{use_case_histograma}}
 
-\subsubsection{Caso de uso: Monstagem do Ritmo Visual por Histograma \label{use_case_histograma}}
+\textbf{Cenário Principal:} A partir do vídeo de entrada, é
+calculado o Histograma de cada Frame do vídeo, juntando todos em um
+Ritmo Visual.
 
-\textbf{Cenário Principal:} A partir do video de entrada é calculado
-o Histograma de cada Frame do vídeo, juntando todos em um Ritmo
-Visual.
+\subsubsection{Caso de uso: Cálculo da diagonal principal do frame}
 
-\subsubsection{Caso de uso: Cálculo da Variância dos pontos da diagonal principal dos frames}
+Ver: \ref{use_case_diagonal_principal}
 
-\textbf{Cenário Principal:}  A partir de cada diagonal dos frames, é cálculado a variância
-do frame.
+\subsubsection{Caso de uso: Obtenção do pico do histograma}
 
-\subsubsection{Caso de uso: Cálculo das derivadas da Variância \label{use_case_derivadas}}
+Ver: \ref{use_case_pico_hist}
 
-\textbf{Cenário Principal:} A partir dos pontos da Variância, são
-calculadas as derivadas dos pontos, em busca de variações em seu
-resultado.
-\textbf{Cenário Alternativo:} Caso não seja encontrado
-nenhuma variação que aparenta ser um dissolve, o processo
-interrompe-se e é exibido um sumário ao usuário informando que
-nenhuma detecção do tipo dissolve foi encontrada.
+\subsubsection{Caso de uso: Cálculo da curva de Variância do vídeo \label{use_case_curva_variancia}}
 
-\subsubsection{Caso de uso: Cálculo da derivada dos pontos do Ritmo Visual}
+\textbf{Cenário Principal:} É calculada a curva da variância do
+vídeo, onde cada ponto desta curva é dado pelo cálculo da variância
+de cada frame do vídeo.
 
-\textbf{Cenário Principal:} Em cima do Ritmo Visual do video, é
-calculado a derivada para cada ponto.
+\subsubsection{Caso de uso: Cálculo da segunda derivada da curva de Variância \label{use_case_derivada_variancia}}
+
+\textbf{Cenário Principal:} Calcula-se a primeira e a segunda
+derivada dos pontos da curva da variância do vídeo.
+
+\subsubsection{Caso de uso: Cálculo da derivada do RVH \label{use_case_derivada_RVH}}
+
+\textbf{Cenário Principal:} A partir do Ritmo Visual por Histograma
+do video, é calculada a derivada para cada ponto deste Ritmo Visual.
 
 \subsubsection{Caso de uso: Cálculo da razão entre a
 segunda derivada da variância e a derivada dos pontos do Ritmo
 Visual}
 
 \textbf{Cenário Principal:} Calcula-se a razão entre a segunda
-derivada da Variância e a derivada dos pontos do Ritmo Visual.
+derivada da Variância e a primeira derivada dos pontos do Ritmo
+Visual.
