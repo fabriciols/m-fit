@@ -1,0 +1,112 @@
+\section{Diagrama de Estados \label{state_diagram}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/state_diagram.png}
+ \caption{Diagrama de estados do sistema.}
+ \label{img_state_diagram}
+\end{figure}
+
+\subsection{Estado: Busca Vídeo \label{st_video_search}}
+
+Sistema entra no estado de busca do vídeo informado pelo usuário.
+
+\subsection{Estado: Carrega Vídeo \label{st_load_video}}
+
+Sistema passa para o estado de carregamento do vídeo, caso o caminho
+e arquivo informado pelo usuário estejam corretos, senão volta para
+o estado de busca do vídeo.
+
+\subsection{Estado: Detecção de Transições \label{st_detect_transitions}}
+
+Caso o usuário opte por realizar a detecção de transições logo após
+o carregamento do vídeo, o sistema entra no estado de detecção de
+transições e segue para diversos outros estados internos dependendo
+da escolha do tipo de detecção a ser feita pelo usuário.
+
+O sistema entra neste estado sempre que o usuário solicitar a
+detecção de transições.
+
+\subsubsection{Estado: Detecção de Cortes \label{st_cut_detection}}
+
+Estado interno do estado Detecção de Transições.
+
+Sistema entra em estado de detecção de cortes. Neste estado são
+detectados todos os cortes do vídeo.
+
+Este estado possui os seguintes estados internos:
+
+\begin{enumerate}
+
+\item{\textbf{Obtendo RV por amostragem}
+
+Sistema entra neste estado para a geração do Ritmo Visual por
+amostragem (extração de diagonais dos frames) do vídeo.
+}
+
+\item{\textbf{Suavizando imagem}]
+
+Sistema entra no estado em que é feita a suavização da imagem
+através de filtros espaciais, no caso, o filtro passa-baixa.
+}
+
+\item{\textbf{Montando Mapa de Bordas}
+
+Sistema entra no estado de montagem do mapa de bordas. Neste estado
+é aplicado o operador Sobel no Ritmo Visual, gerando o mapa de
+bordas.
+}
+
+\item{\textbf{Definição de limiar}
+
+Sistema entra no estado onde é definido o limiar de corte para a
+contagem de pontos das verticais existentes na imagem.
+}
+
+\item{\textbf{Definição manual}
+
+Caso o limiar definido pelo sistema não seja aceito pelo usuário, o
+sistema entra em estado de definição manual do limiar de corte.
+}
+
+\item{\textbf{Contando pontos de linhas}
+
+Sistema entra no estado de contagem de pontos de linhas, onde é
+feita a contagem e seleção das retas que representam um corte no
+vídeo.
+}
+
+\end{enumerate}
+
+\subsubsection{Estado: Detecção de Fades \label{st_fade_detection}}
+
+Estado interno do estado Detecção de Transições.
+
+\subsubsection{Estado: Detecção de Dissolve \label{st_dissolve_detection}}
+
+Estado interno do estado Detecção de Transições.
+
+\subsection{Estado: Atualizando Timeline \label{st_timeline_update}}
+
+Realizadas as detecções de transições, independente do tipo de
+detecção, o sistema entra em estado de atualização da timeline do
+vídeo.
+
+\subsection{Estado: Ajuste manual \label{st_manual_adjust}}
+
+Caso os pontos de transição definidos pelo sistema não sejam aceitos
+pelo usuário, este poderá ajustá-los manualmente, fazendo com que o
+sistema entre no estado de ajuste manual das transições.
+
+\subsection{Estado: Repouso \label{st_rest}}
+
+Após o carregamento do vídeo o usuário tem a opção de realizar a
+detecção de todas as transições do vídeo. Caso opte por não realizar
+a detecção de transições o sistema entra em estado de repouso,
+aguardando alguma ação do usuário.
+
+\subsection{Estado: Em edição \label{st_edition}}
+
+Sistema entra no estado de edição do vídeo, sempre que o usuário for
+realizar qualquer tipo de edição no vídeo (aplicação de efeitos,
+alteração de luminosidade, dentre outros).
