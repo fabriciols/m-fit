@@ -82,6 +82,39 @@ vídeo.
 
 Estado interno do estado Detecção de Transições.
 
+Sistema entra em estado de detecção de fades. Neste estado são
+detectados os fade-in, fade-out ou ambos.
+
+Este estado possui os seguintes estados internos:
+
+\begin{enumerate}
+
+\item{\textbf{Obtendo RV por Histograma}
+
+Sistema entra neste estado para a geração do Ritmo Visual por
+Histograma (extração de diagonais dos frames e caluclo dos histogramas) do vídeo.
+}
+
+\item{\textbf{Calculo das Derivadas}
+
+Sistema entra no estado em que é feito o cálculo das derivadas
+do RVH
+}
+
+\item{\textbf{Obtenção da Derivada Máxima}
+
+Caso o intuito seja detectar fade-in (ou ambos), entra-se no estado de obtenção da derivada máxima.
+Este estado é necessário para definir os pontos onde ocorreram os fade-in.
+}
+
+\item{\textbf{Obtenção da Derivada Mínima}
+
+Caso o intuito seja detectar fade-out (ou ambos), entra-se no estado de obtenção da derivada mínima.
+Este estado é necessário para definir os pontos onde ocorreram os fade-out.
+}
+
+\end{enumerate}
+
 \subsubsection{Estado: Detecção de Dissolve \label{st_dissolve_detection}}
 
 Estado interno do estado Detecção de Transições.
