@@ -95,19 +95,19 @@ Sistema entra neste estado para a geração do Ritmo Visual por
 Histograma (extração de diagonais dos frames e caluclo dos histogramas) do vídeo.
 }
 
-\item{\textbf{Calculo das Derivadas}
+\item{\textbf{Calculando Derivadas}
 
 Sistema entra no estado em que é feito o cálculo das derivadas
 do RVH
 }
 
-\item{\textbf{Obtenção da Derivada Máxima}
+\item{\textbf{Obtendo Derivada Máxima}
 
 Caso o intuito seja detectar fade-in (ou ambos), entra-se no estado de obtenção da derivada máxima.
 Este estado é necessário para definir os pontos onde ocorreram os fade-in.
 }
 
-\item{\textbf{Obtenção da Derivada Mínima}
+\item{\textbf{Obtendo Derivada Mínima}
 
 Caso o intuito seja detectar fade-out (ou ambos), entra-se no estado de obtenção da derivada mínima.
 Este estado é necessário para definir os pontos onde ocorreram os fade-out.
@@ -120,7 +120,7 @@ Este estado é necessário para definir os pontos onde ocorreram os fade-out.
 Estado interno do estado Detecção de Transições.
 
 Sistema entra em estado de detecção de dissolve. Neste estado são
-detectados transisções do tipo dissolve.
+detectadas transições do tipo dissolve.
 
 Este estado possui os seguintes estados internos:
 
@@ -131,22 +131,22 @@ Este estado possui os seguintes estados internos:
 Sistema entra neste estado para a geração do Ritmo Visual por
 Histograma. }
 
-\item{\textbf{Calcula Variância}
+\item{\textbf{Calculando Variância}
 
 Sistema entra no estado em que a partir da diagonal do frame
 calcula-se o seu desvio padrão, para se obter a sua variância. }
 
-\item{\textbf{Calcula Derivada do RV}
+\item{\textbf{Calculando Derivada do RV}
 
 Sistema entra no estado em que a partir do RVH gerado, calcula-se a
 primeira derivada, para acentuação dos pontos de transições }
 
-\item{\textbf{Calcula 2. Derivada da Variância}
+\item{\textbf{Calculando Derivadas da Variância}
 
 A partir da variância, calcula-se a sua segunda derivada para
 indicar os pontos de transição. }
 
-\item{\textbf{Calcula razão entre DRV / D2V}
+\item{\textbf{Calculando razão entre DRV / D2V}
 
 Sistema entra no estado  para calcular a razão entre a 1. derivada
 do RVH e a 2. derivada da variância, retornando o trecho exato onde
