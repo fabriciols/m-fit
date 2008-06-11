@@ -1,14 +1,15 @@
 \subsection{Detecção de Bordas \label{deteccao_de_bordas}}
 
-Detecção de Bordas é uma técnica para localizar os pontos e linhas que
-dividem regiões distintas de uma determinada imagem. A detecção das
-bordas pode ser feita através do uso de diversos operadores.
-Computacionalmente, define-se uma borda como sendo uma região que possui
-um gradiente de alta magnitude. Por este fato, o operador de Sobel é uma
-interessante forma de se realizar a detecção de bordas, visto que este
-operador é baseado no cálculo do gradiente e sua magnitude.
+\hspace*{1.25cm}Detecção de Bordas é uma técnica para localizar os
+pontos e linhas que dividem regiões distintas de uma determinada
+imagem. A detecção das bordas pode ser feita através do uso de
+diversos operadores. Computacionalmente, define-se uma borda como
+sendo uma região que possui um gradiente de alta magnitude. Por este
+fato, o operador de Sobel é uma interessante forma de se realizar a
+detecção de bordas, visto que este operador é baseado no cálculo do
+gradiente e sua magnitude.
 
-O cálculo do gradiente é dado por:
+\hspace*{0.65cm}O cálculo do gradiente é dado por:
 \begin{large}
 \begin{center}
 \begin{equation}
@@ -19,7 +20,7 @@ O cálculo do gradiente é dado por:
 \end{center}
 \end{large}
 
-E sua magnitude é dada por:
+\hspace*{0.65cm}E sua magnitude é dada por:
 \begin{large}
 \begin{center}
 \begin{equation}
@@ -29,7 +30,7 @@ mag(\nabla f) = [ G_x^2 + G_y^2 ]^\frac{1}{2}
 \end{center}
 \end{large}
 
-Onde:
+\hspace*{0.65cm}Onde:
 
 \begin{large}
 \begin{center}
@@ -46,10 +47,11 @@ Onde:
 \end{center}
 \end{large}
 
-são operadores que aplicam o processo de convolução na imagem como visto no tópico anterior.
+\hspace*{0.65cm}São operadores que aplicam o processo de convolução
+na imagem como visto no tópico anterior.
 
-Através destes cálculos é possível obter, além da magnitude, a
-direção do gradiente.
+\hspace*{0.65cm}Através destes cálculos é possível obter, além da
+magnitude, a direção do gradiente.
 
 \begin{figure}[Ht]
 \centering
@@ -85,31 +87,29 @@ direção do gradiente.
     \end{minipage}
 \end{figure}
 
-Este operador realiza a detecção de bordas em duas etapas,
-primeiramente fará a detecção das bordas horizontais da imagem
-(Figura \ref{img:borda_sobel_horizontal}), utilizando a máscara
-$G_x$ e depois fará a detecção das bordas verticais (Figura
+\hspace*{0.65cm}Este operador realiza a detecção de bordas em duas
+etapas. Primeiramente, fará a detecção das bordas horizontais da
+imagem (Figura \ref{img:borda_sobel_horizontal}), utilizando a
+máscara $G_x$ e depois fará a detecção das bordas verticais (Figura
 \ref{img:borda_sobel_vertical}), aplicando a máscara $G_y$. Com a
-união do resultado destes dois processos de detecção de bordas,
-obtém-se o mapa de bordas da imagem (Figura
+união e normalização do resultado destes dois processos de detecção
+de bordas, obtém-se o mapa de bordas da imagem (Figura
 \ref{img:borda_sobel_completo}).
 
- Através da aplicação deste operador, é possível obter uma boa
-detecção de bordas, em contrapartida este processo pode causar um
-indesejável aumento dos ruídos na imagem. Isto se deve ao fato de
-que ao passar pelos processos de convolução e cálculo de magnitude
-do gradiente, os ruídos, assim como as bordas, retornam um valor de
-magnitude elevada, sendo necessário aplicar outros processos de
-filtragem para a redução dos mesmos.
+\hspace*{0.65cm}Através da aplicação deste operador, é possível
+obter uma boa detecção de bordas. Em contrapartida, este processo
+pode causar um indesejável aumento dos ruídos na imagem. Isto se
+deve ao fato de que, ao passar pelos processos de convolução e
+cálculo de magnitude do gradiente, os ruídos, assim como as bordas,
+retornam um valor de magnitude elevada, sendo necessário aplicar
+outros processos de filtragem para a redução dos mesmos.
 
-Neste trabalho serão utilizadas algumas técnicas de Filtragem
-Espacial para fazer o realce das bordas do ritmo visual,
+\hspace*{0.65cm}Neste trabalho, serão utilizadas algumas técnicas de
+Filtragem Espacial para fazer o realce das bordas do ritmo visual,
 possibilitando dar um destaque maior para as bordas que possam
 possivelmente caracterizar uma transição.
 
-Uma melhor abordagem sobre estes métodos pode ser encontrada em
-\cite{SANTOS_2005},
-\cite{MADRUGA_2005},
-\cite{BOTELHO_2007},
-\cite{FELGUEIRAS_2006}
-e \cite{STIVANELLO_2005}.
+\hspace*{0.65cm}Uma melhor abordagem sobre estes métodos pode ser
+encontrada em \cite{SANTOS_2005}, \cite{MADRUGA_2005},
+\cite{BOTELHO_2007}, \- \cite{FELGUEIRAS_2006},
+\cite{STIVANELLO_2005} e \cite{GONZALEZ_2002}.
