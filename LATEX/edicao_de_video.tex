@@ -1,35 +1,38 @@
 \chapter{REVISÃO BIBLIOGRÁFICA \label{revisao}}
 
-Neste capítulo, serão definidos os principais conceitos para o
-entendimento de todo o projeto e a metodologia do sistema proposto.
+\hspace*{1.25cm}Neste capítulo, serão definidos os principais
+conceitos para o entendimento de todo o projeto e a metodologia do
+sistema proposto.
 
 
 \section{Edição de Vídeo \label{edicao_de_video}}
 
-    A edição de vídeos consiste em qualquer operação que modifique o
-conteúdo original de um vídeo. Tais operações podem consistir desde
-a segmentação do vídeo para futuras modificações de indexação ou
-armazenamento, até a aplicação de efeitos visuais, como por exemplo,
-uma mudança de cores, o nivelamento da luminosidade entre frames de
-uma tomada, eliminação de ruídos, equalização de som com imagem,
-entre outros, os quais são intensamente utilizados no setor
-cinematográfico, de pesquisa e entretenimento.
+\hspace*{1.25cm}A edição de vídeos consiste em qualquer operação que
+modifique o conteúdo original de um vídeo. Tais operações podem
+consistir desde a segmentação do vídeo para futuras modificações de
+indexação ou armazenamento, até a aplicação de efeitos visuais, como
+por exemplo, uma mudança de cores, o nivelamento da luminosidade
+entre frames de uma tomada, eliminação de ruídos, equalização de som
+com imagem, entre outros, os quais são intensamente utilizados no
+setor cinematográfico, de pesquisa e entretenimento.
 
-É comum organizar a edição de vídeos através de tomadas, as quais
-são divididas por transições. Portanto, é importante que seja feita
-a detecção destas transições antes da edição do vídeo para que um
-determinado efeito aplicado, ou qualquer outra operação de edição
-possa ser delimitado a tomadas específicas e não para o vídeo todo.
+\hspace*{0.65cm}É comum organizar a edição de vídeos através de
+tomadas, as quais são divididas por transições. Portanto, é
+importante que seja feita a detecção destas transições antes da
+edição do vídeo para que um determinado efeito aplicado, ou qualquer
+outra operação de edição possa ser delimitado a tomadas específicas
+e não para o vídeo todo.
 
 
 \subsection{Fade-in \label{ed_fadein}}
 
-    O fade-in é uma transição gradativa entre um frame preto e
-o primeiro frame de uma determinada tomada. Este tipo de transição
-geralmente é utilizado no início do vídeo ou no início de um bloco
-de tomadas.
+\hspace*{1.25cm}O fade-in é uma transição gradativa entre um frame
+preto e o primeiro frame de uma determinada tomada. Este tipo de
+transição geralmente é utilizado no início do vídeo ou no início de
+um bloco de tomadas.
 
-   Pode-se visualizar o efeito do Fade-in na Figura \ref{img_fadein}:
+\hspace*{0.65cm}Pode-se visualizar o efeito do Fade-in na Figura
+\ref{img_fadein}:
 
 \begin{figure}[h|top]
  \centering
@@ -40,12 +43,12 @@ de tomadas.
 
 \subsection{Fade-out \label{ed_fadeout}}
 
-    O fade-out é como o fade-in, porém possui um efeito contrário,
-onde a transição ocorre do escurecimento de um determinado frame até
-que este frame torne-se completamente preto.
+\hspace*{1.25cm}O fade-out é como o fade-in, porém possui um efeito
+contrário, onde a transição ocorre do escurecimento de um
+determinado frame até que este frame torne-se completamente preto.
 
-Um exemplo desta transição pode ser observado na Figura
-\ref{img_fadeout}:
+\hspace*{0.65cm}Um exemplo desta transição pode ser observado na
+Figura \ref{img_fadeout}:
 
 \begin{figure}[h|top]
  \centering
@@ -56,11 +59,12 @@ Um exemplo desta transição pode ser observado na Figura
 
 \subsection{Corte \label{ed_corte}}
 
-    Cortes são transições bruscas e secas entre tomadas, onde o último
-frame de uma determinada tomada é concatenado ao primeiro frame da
-tomada seguinte diretamente.
+\hspace*{1.25cm}Cortes são transições bruscas e secas entre tomadas,
+onde o último frame de uma determinada tomada é concatenado ao
+primeiro frame da tomada seguinte diretamente.
 
-A Figura \ref{img_corte} mostra a ocorrência de um corte:
+\hspace*{0.65cm}A Figura \ref{img_corte} mostra a ocorrência de um
+corte:
 
 \begin{figure}[h|top]
  \centering
@@ -69,13 +73,14 @@ A Figura \ref{img_corte} mostra a ocorrência de um corte:
  \label{img_corte}
 \end{figure}
 
-    Nota-se que no exemplo da Figura \ref{img_corte} é possível ver-se
-claramente que a transição ocorre entre o terceiro e quarto frames.
+\hspace*{0.65cm}Nota-se que no exemplo da Figura \ref{img_corte} é
+possível ver-se claramente que a transição ocorre entre o frame $F3$
+e o frame $F4$.
 
 \subsection{Dissolve \label{ed_Dissolve}}
 
-    O dissolve é uma transição que mistura fade-out e fade-in,
-isto é, a primeira tomada dá lugar a uma segunda tomada
+\hspace*{1.25cm}O dissolve é uma transição que mistura fade-out e
+fade-in, isto é, a primeira tomada dá lugar a uma segunda tomada
 gradualmente, havendo uma sobreposição dos primeiros frames da
 próxima tomada sobre os últimos da tomada anterior. Geralmente, este
 tipo de transição é usado na mudança de paisagens. Podemos
@@ -88,7 +93,7 @@ visualizar este efeito na Figura \ref{img_dissolve}:
  \label{img_dissolve}
 \end{figure}
 
-    Pode-se observar na Figura \ref{img_dissolve} a primeira tomada dando
-lugar gradativamente para a segunda tomada até que não haja mais
-sobreposição de imagens. Uma boa abordagem sobre a definição do
-dissolve pode ser encontrada em \cite{FERNANDO_1999}.
+\hspace*{0.65cm}Pode-se observar na Figura \ref{img_dissolve} a
+primeira tomada dando lugar gradativamente para a segunda tomada até
+que não haja mais sobreposição de imagens. Uma boa abordagem sobre a
+definição do dissolve pode ser encontrada em \cite{FERNANDO_1999}.
