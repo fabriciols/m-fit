@@ -7,7 +7,7 @@ sistema proposto.
 
 \section{Edição de Vídeo \label{edicao_de_video}}
 
-\hspace*{1.25cm}A edição de vídeos consiste em qualquer operação que
+\hspace*{1.25cm}A edição de vídeos consiste em um conjunto de operações que
 modifique o conteúdo original de um vídeo. Tais operações podem
 consistir desde a segmentação do vídeo para futuras modificações de
 indexação ou armazenamento, até a aplicação de efeitos visuais, como
@@ -17,43 +17,46 @@ com imagem, entre outros, os quais são intensamente utilizados no
 setor cinematográfico, de pesquisa e entretenimento.
 
 \hspace*{0.65cm}É comum organizar a edição de vídeos através de
-tomadas, as quais são divididas por transições. Portanto, é
-importante que seja feita a detecção destas transições antes da
+tomadas, as quais são separadas por transições. Portanto, é
+importante que seja feita a detecção das transições antes da
 edição do vídeo para que um determinado efeito aplicado, ou qualquer
-outra operação de edição possa ser delimitado a tomadas específicas
+outra operação de edição, possa ser delimitado a tomadas específicas
 e não para o vídeo todo.
 
+\hspace*{0.65cm}Existem diversos tipos de transições. Dentre elas, as principais são
+o fade-in, fade-out, dissolve e corte. A seguir, descrevemos cada uma delas e mais tarde, 
+apresentaremos técnicas para sua detecção.
 
 \subsection{Fade-in \label{ed_fadein}}
 
 \hspace*{1.25cm}O fade-in é uma transição gradativa entre um frame
-preto e o primeiro frame de uma determinada tomada. Este tipo de
+escuro e o primeiro frame mais claro de uma determinada tomada. Este tipo de
 transição geralmente é utilizado no início do vídeo ou no início de
 um bloco de tomadas.
 
 \hspace*{0.65cm}Pode-se visualizar o efeito do Fade-in na Figura
-\ref{img_fadein}:
+\ref{img_fadein}, aproximadamente entre os frames $F3$ e $F4$.
 
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/fadein.png}
- \caption{Exemplo de fade-in em uma sequencia de frames. Como pode ser observado não se sabe exatamente onde ocorre a transição.}
+ \caption{Exemplo de fade-in em uma sequencia de frames. Fi representa o i-ésimo frame.}
  \label{img_fadein}
 \end{figure}
 
 \subsection{Fade-out \label{ed_fadeout}}
 
 \hspace*{1.25cm}O fade-out é como o fade-in, porém possui um efeito
-contrário, onde a transição ocorre do escurecimento de um
+contrário, onde a transição ocorre da parte mais clara de um
 determinado frame até que este frame torne-se completamente preto.
 
 \hspace*{0.65cm}Um exemplo desta transição pode ser observado na
-Figura \ref{img_fadeout}:
+Figura \ref{img_fadeout}, em torno dos frames $F3$ e $F4$.
 
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/fadeout.png}
- \caption{Exemplo de Fade-out em uma seqüência de frames}
+ \caption{Exemplo de Fade-out em uma seqüência de frames. Fi representa o i-ésimo frame.}
  \label{img_fadeout}
 \end{figure}
 
@@ -64,12 +67,12 @@ onde o último frame de uma determinada tomada é concatenado ao
 primeiro frame da tomada seguinte diretamente.
 
 \hspace*{0.65cm}A Figura \ref{img_corte} mostra a ocorrência de um
-corte:
+corte exatamente entre os frames $F3$ e $F4$.
 
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/corte.png}
- \caption{Exemplo de corte em uma seqüência de frames.}
+ \caption{Exemplo de corte em uma seqüência de frames. Fi representa o i-ésimo frame.}
  \label{img_corte}
 \end{figure}
 
@@ -84,16 +87,16 @@ fade-in, isto é, a primeira tomada dá lugar a uma segunda tomada
 gradualmente, havendo uma sobreposição dos primeiros frames da
 próxima tomada sobre os últimos da tomada anterior. Geralmente, este
 tipo de transição é usado na mudança de paisagens. Podemos
-visualizar este efeito na Figura \ref{img_dissolve}:
+visualizar este efeito na Figura \ref{img_dissolve}, ocorrendo aproximadamente entre os frames $F2$ a $F5$.
 
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/dissolve.png}
- \caption{Exemplo de Dissolve em seqüência de frames.}
+ \caption{Exemplo de Dissolve em seqüência de frames. Fi representa o i-ésimo frame.}
  \label{img_dissolve}
 \end{figure}
 
 \hspace*{0.65cm}Pode-se observar na Figura \ref{img_dissolve} a
-primeira tomada dando lugar gradativamente para a segunda tomada até
-que não haja mais sobreposição de imagens. Uma boa abordagem sobre a
+primeira tomada(F1) dando lugar gradativamente para a segunda tomada até
+que não haja mais sobreposição de imagens(F6). Uma boa abordagem sobre a
 definição do dissolve pode ser encontrada em \cite{FERNANDO_1999}.
