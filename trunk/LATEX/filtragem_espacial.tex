@@ -2,12 +2,12 @@
 
 \subsection{Filtragem Espacial \label{filtragem_espacial}}
 
-Filtragem Espacial é uma técnica utilizada na área de processamento
+\hspace*{1.25cm}Filtragem Espacial é uma técnica utilizada na área de processamento
 de imagens para realizar a suavização ou realce de detalhes da
 imagem, ou até mesmo a eliminação de elementos indesejáveis dessas
 imagens, como por exemplo, os ruídos.
 
-Para a aplicação de um filtro, utiliza-se o conceito de operadores
+\hspace*{0.65cm}Para a aplicação de um filtro, utiliza-se o conceito de operadores
 de vizinhança, que consiste em alterar o Nível Digital ($ND$), o qual pode
 ser o nível de tons de cinza, ou cor, de um pixel através do $ND$ de
 seus pixels vizinhos. Dependendo do filtro a ser utilizado este
@@ -23,7 +23,7 @@ determinado peso em cada uma de suas posições.
  \label{img_mascaras_convolucao}
 \end{figure}
 
-O pixel a ter seu $ND$ recalculado é sempre aquele que estiver sob a
+\hspace*{0.65cm}O pixel a ter seu $ND$ recalculado é sempre aquele que estiver sob a
 posição central da matriz, como mostrado na Figura \ref{img_filtragem_masc}:
 
 \begin{figure}[h|top]
@@ -34,14 +34,14 @@ imagem digital. No caso, o $ND$ a ser recalculado é do pixel X.}
  \label{img_filtragem_masc}
 \end{figure}
 
-O cálculo do novo $ND$ de um pixel é dado pelo processo de convolução, que consiste
+\hspace*{0.65cm}O cálculo do novo $ND$ de um pixel é dado pelo processo de convolução, que consiste
 na soma dos produtos entre os valores da matriz e pixels correspondentes
 da imagem, onde esta matriz percorre toda a imagem pixel a
 pixel, partindo da esquerda para a direita, tal deslocamento é
 obtido através da soma de 1 pixel na posição x atual da matriz, como
 pode ser observado na Figura \ref{img_filtragem_masc}.
 
-O cálculo do ND de um pixel, através do processo de convolução
+\hspace*{0.65cm}O cálculo do ND de um pixel, através do processo de convolução
 de uma imagem é dado por:
 
 \begin{large}
@@ -53,10 +53,10 @@ ND = \sum_{i=1}^{n}{MiOi}
 \end{center}
 \end{large}
 
-Onde $M$ é uma matriz de convolução $3x3$, $O$ é a imagem a ser filtrada e $n$
+\hspace*{0.65cm}Onde $M$ é uma matriz de convolução $3x3$, $O$ é a imagem a ser filtrada e $n$
 é o número de elementos de M.
 
-Entre os principais tipos de filtragem está o filtro passa-alta, que pode ser
+\hspace*{0.65cm}Entre os principais tipos de filtragem está o filtro passa-alta, que pode ser
 uma boa alternativa para fazer a detecção de bordas e o filtro
 passa-baixa, que serve para fazer a suavização da imagem, resultando
 na diminuição de possíveis ruídos presentes na mesma.
@@ -93,7 +93,7 @@ na diminuição de possíveis ruídos presentes na mesma.
 \end{figure}
 
 
-Como pode ser observado na Figura \ref{img_exemplos_filtragem_b},
+\hspace*{0.65cm}Como pode ser observado na Figura \ref{img_exemplos_filtragem_b},
 ao aplicar um filtro passa-baixa na imagem, ela torna-se mais
 homogênea e também perde-se nitidez, porém os ruídos são suavizados.
 Já na Figura \ref{img_exemplos_filtragem_c}, foi aplicado um
@@ -102,6 +102,6 @@ os objetos e o fundo da imagem, ganha-se nitidez e caso existam
 ruídos na imagem original, estes poderão ser realçados assim como as
 bordas dos objetos.
 
-Uma abordagem mais completa sobre este assunto pode ser encontrada
-em \cite{FELGUEIRAS_2006}
-e \cite{STIVANELLO_2005}.
+\hspace*{0.65cm}Uma abordagem mais completa sobre este assunto pode ser encontrada
+em \-
+\cite{FELGUEIRAS_2006}, \cite{STIVANELLO_2005} e \cite{GONZALEZ_2002}.
