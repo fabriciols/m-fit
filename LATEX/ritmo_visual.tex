@@ -18,7 +18,7 @@ representação $2D$, como representado na Figura
 \ref{img_rvdiagonal}. Podemos dizer então que o Ritmo Visual é uma
 simplificação do vídeo.
 
-\hspace*{1.25cm}O padrão desta representação pode ser alterado
+\hspace*{0.65cm}O padrão desta representação pode ser alterado
 conforme a escolha dos pixels, portanto, o padrão do ritmo visual é
 totalmente dependente do tipo da amostragem retirada do vídeo. Bons
 resultados podem ser obtidos se a sub-amostragem do frame for dada
@@ -36,31 +36,32 @@ vídeo em colunas do Ritmo Visual.}
  \label{img_rvdiagonal}
 \end{figure}
 
-\hspace*{1.25cm}Na Figura \ref{img_rvdiagonal} pode ser observado o processo de
-transformação das diagonais principais dos frames $1$, $2$, $3$, $4$
-e $5$ nas colunas $1$, $2$, $3$, $4$, e $5$ do Ritmo Visual.
+\hspace*{0.65cm}Na Figura \ref{img_rvdiagonal} pode ser observado o
+processo de transformação das diagonais principais dos frames $1$,
+$2$, $3$, $4$ e $5$ nas colunas $1$, $2$, $3$, $4$, e $5$ do Ritmo
+Visual.
 
-\hspace*{1.25cm}Formalmente, pode-se definir Ritmo Visual (RV) da
+\hspace*{0.65cm}Formalmente, pode-se definir Ritmo Visual (RV) da
 seguinte maneira:
 
-\hspace*{1.25cm}Seja $\bigvee = {I_1, I_2, ..., I_n}$ um vídeo e
+\hspace*{0.65cm}Seja $\bigvee = {I_1, I_2, ..., I_n}$ um vídeo e
 $I_i(x,y)$ um frame $\in V$.
 
-\hspace*{1.25cm}Um pixel qualquer de um frame é definido como
+\hspace*{0.65cm}Um pixel qualquer de um frame é definido como
 $p(x,y)$ com $x,y \in N$, sendo que os valores de $x$ e $y$ variam
 de 0 até o valor de largura e altura do frame, respectivamente.
 
-\hspace*{1.25cm}Cada pixel possui um valor de luminância $L$, o qual
+\hspace*{0.65cm}Cada pixel possui um valor de luminância $L$, o qual
 pode variar de 0 a 255. Sendo assim, se $L(x,y) = 0$, o pixel
 torna-se preto e caso $L(x,y) = 255$, o pixel torna-se branco.
 
-\hspace*{1.25cm}Portanto, Ritmo Visual é definido como:
+\hspace*{0.65cm}Portanto, Ritmo Visual é definido como:
 
-\hspace*{1.25cm}Seja $D_i$ uma diagonal do frame $I_i$. A sequência
+\hspace*{0.65cm}Seja $D_i$ uma diagonal do frame $I_i$. A sequência
 de todas as diagonais $D_i \in \bigvee$, chama-se Ritmo Visual do
 vídeo $\bigvee$.
 
-\hspace*{1.25cm} Na Figura \ref{ img_rv_exemplos} podem ser
+\hspace*{0.65cm} Na Figura \ref{ img_rv_exemplos} podem ser
 observados três exemplos de Ritmo Visual. Cada tipo de transição
 gera uma coluna com características, padrões diferentes no ritmo
 visual.
@@ -72,7 +73,7 @@ visual.
  \label{img_rv_exemplos}
 \end{figure}
 
-\hspace*{1.25cm}Como visto na Figura \ref{img_rv_exemplos}- a, os
+\hspace*{0.65cm}Como visto na Figura \ref{img_rv_exemplos}- a, os
 cortes são caracterizados no Ritmo Visual por linhas verticais.
 Porém, pela possível existência de ruídos na imagem gerada, nem
 todas as linhas verticais devem ser consideradas necessariamente um
@@ -95,14 +96,14 @@ representação de um vídeo. O processo de criação de um $RVH$ é :
 Matematicamente:
 
 
-\hspace*{1.25cm}Seja $Hi$ o histograma do frame $Ii$, e a função
+\hspace*{0.65cm}Seja $Hi$ o histograma do frame $Ii$, e a função
 $MAX(Hi)$ o valor de luminescência com maior presença no frame (i.e.
 o pico máxmimo do histograma).
 
-\hspace*{1.25cm}A sequência de todos os $MAX(Hi) \in \bigvee$
+\hspace*{0.65cm}A sequência de todos os $MAX(Hi) \in \bigvee$
 agrupados em uma reta, é chamado de $RVH$
 
-\hspace*{1.25cm}Neste trabalho, as técnicas de Ritmo Visual serão
+\hspace*{0.65cm}Neste trabalho, as técnicas de Ritmo Visual serão
 utilizadas para transformar o nosso problema de segmentação de
 vídeos em um problema de segmentação de imagens. A partir daí,
 faremos uso de outras ferramentas de PDI como filtragem espacial e
