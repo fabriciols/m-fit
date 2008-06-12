@@ -2,14 +2,12 @@
 \subsection{Método de Casamento de Padrões \label{casamento_de_padroes}}
 
 Casamento de padrões é uma técnica baseada na comparação de padrões
-de elementos. Tal comparação pode ser do tipo estrutural, de sinais
-ou feições. A comparação por casamento de sinais dá-se entre duas
+de elementos, a qual pode ser do tipo estrutural, de sinais ou
+feições. A comparação por casamento de sinais dá-se entre duas
 imagens (no caso de PDI), uma imagem de estudo ($E$) e uma imagem de
 referência ($R$), baseando-se na luminância de seus pixels. No
 entanto, a comparação não se dá através das duas imagens por
-inteiro. Primeiramente define-se uma região ($r$) de $R$ (sub-imagem
-de $R$), para que através desta, seja feita a busca por uma
-sub-imagem ($e$) de $E$ que seja similar à $r$.
+inteiro, e sim por sub-imagens destas imagens.
 
 Estas sub-imagens são como as matrizes de convolução vistas no
 tópico \ref{filtragem_espacial}, visto que são um conjunto de pixels
