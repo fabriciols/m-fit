@@ -1,12 +1,54 @@
 \subsection{Método Baseado em Entropia \label{entropia}}
 
-Nascida na Termodinâmica, o conceito da Entropia é medir o grau de
-desordem dos sistemas. Quanto maior for a desordem do sistema, maior
-será a sua entropia, e uma imagem com entropia $0$ tem o mais baixo
-nível de desordenação.
+\hspace*{1.25cm}Nascida na termodinâmica, a entropia tem como
+objetivo, medir o grau de desordem de um sistema, em outras
+palavras, determinar o quanto instável se encontra um determinado
+estado de um sistema.
 
-Sendo $Pi$ a probabilidade da cor $i$ ocorrer nos pixels da imagem
-$j$, a entropia $S$ é dada por :
+\hspace*{0.65cm}O conceito de instabilidade, ou desordem de um
+sistema termodinâmico está associado à quantidade de troca de calor
+entre um estado A e outro estado B. Isto porque a desordem de um
+sistema aumenta ou diminui conforme for o ganho ou perda de calor na
+passagem de um estado para outro.
+
+\hspace*{0.65cm}Por exemplo, para passar a água do estado sólido
+para o estado líquido é necessário que o estado sólido receba uma
+determinada quantidade de calor (delta)Q. Quando inicia-se o
+processo de aquecimento do cubo de gelo, suas moléculas,
+inicialmente estáveis, passam a ter um aumento da energia cinética,
+conseqüentemente tornando o sistema mais instável. Esta movimentação
+pode ser considerada como desordem, sendo assim, é possível dizer
+que no estado líquido, a entropia do sistema é maior do que quando o
+sistema se encontra no estado sólido.
+
+\hspace*{0.65cm}A idéia de desordem fica mais clara ao se considerar
+a movimentação de moléculas em dois corpos. Por exemplo, ainda
+ligado à termodinâmica, ao considerar dois corpos com temperaturas
+distintas, um mais frio e outro mais quente, pode-se dizer que o
+corpo mais quente possui moléculas com maior energia cinética do que
+as moléculas do corpo mais frio. Ao colocá-los em contato, a
+tendência é que ambos os corpos realizem troca de calor resultando
+em dois corpos com a mesma temperatura, conseqüentemente, ambos os
+corpos possuirão moléculas com a mesma energia cinética.
+
+\hspace*{0.65cm}Portanto, se considerar-mos apenas as moléculas dos
+corpos como um único sistema, inicialmente haviam X moléculas com
+uma energia cinética baixa (corpo frio) e outras Y moléculas com
+energia cinética alta (corpo quente) e, ao misturar ambas em um
+único corpo (contato dos corpos) a tendência é que o sistema chegue
+em um equilíbrio (troca de calor) até que todas as moléculas fiquem
+com a mesma energia cinética, tornando o sistema organizado. Sendo
+assim, visto que a entropia está ligada ao grau de desordem de um
+sistema, e este sistema atingiu o ponto máximo de organização (todas
+as moléculas com a mesma energia cinética), pode-se dizer que o
+sistema atingiu sua entropia máxima, onde a probabilidade de uma
+molécula ter energia cinética média é igual para todas as moléculas.
+
+\textbf{ESSA É SÓ A PORRA DA FÓRMULA! PODE SER USADO MAS MEU TEXTO
+TERMINOU AQUI EM CIMA!!!!!!!!}
+
+\hspace*{0.65cm}Sendo $Pi$ a probabilidade da cor $i$ ocorrer nos
+pixels da imagem $j$, a entropia $S$ é dada por :
 
 \begin{large}
 \begin{center}
@@ -16,65 +58,3 @@ Sj = - \sum_{i=0}^{n}{Pi * ln(Pi)}
 \end{equation}
 \end{center}
 \end{large}
-
-A entropia máxima se dá quando as cores estiverem desorganizadas,
-quando a probabilidade de encontrarmos um pixel com uma dada cor é
-igual para todas as possibilidades de cores.
-
-Por exemplo : uma imagem em tons na escala de cinza, que tem uma
-distribuição igual para cada pixel, tem a probabilidade de
-$\frac{1}{255}$ ($0,30$\%) de encontrarmos um pixel com o tom na
-escala desejada. Esta imagem teria um histograma igual ao da Figura
-\ref{img_entropia_maxima}
-
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.6\linewidth]{imagens/entropia_maxima.png}
- \caption{Histograma de uma imagem com entropia Máxima.}
- \label{img_entropia_maxima}
-\end{figure}
-
-Com isso, a entropia máxima $S$ é dada por:
-
-\begin{large}
-$ Sj = - ( \frac{1}{255} * \log{\frac{1}{255}} ) * 255 $
-
-$ Sj = - ( 0,0039 *  -2,4065 ) * 255 $
-
-$ Sj = - ( -2,4065 ) $
-
-$ Sj = 2,4065 $
-
-\end{large}
-
-que é igual a :
-
-\begin{large}
-$ Sj = - \log{\frac{1}{255}} $
-
-$ Sj = 2,4065 $
-
-\end{large}
-
-A entropia minima se da quando em todos os pixels existe somente uma
-cor, como exemplo uma imagem em branco, logo a probabilidade de
-encontrarmos uma cor é $100$\%. Esta imagem tem um histograma igual
-ao da figura \ref{img_entropia_minima}.
-
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.6\linewidth]{imagens/entropia_minima.png}
- \caption{Histograma de uma imagem com entropia Mínima.}
- \label{img_entropia_minima}
-\end{figure}
-
-Com isso, a entropia mínima $S$ é dada por:
-
-\begin{large}
-$ Sj = - ( 1 * \log{1} ) $
-
-$ Sj = 0 $
-\end{large}
-
-Neste trabalho a entropia será aplicada como método de
-dissimilaridade entre os frames
