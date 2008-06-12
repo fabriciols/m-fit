@@ -1,6 +1,6 @@
 \subsection{Segmentação de Imagens \label{segmentacao_de_imagens}}
 
-Em visão computacional, segmentação é o processo de dividir uma
+\hspace*{1.25cm}Em visão computacional, segmentação é o processo de dividir uma
 imagem em múltiplas regiões, com a intenção de subdividir a imagem
 em areas de interesse, ou simplesmente modificá-las, ambos a fim de
 facilitar uma análise posterior. Em imagens monocromáticas
@@ -8,7 +8,7 @@ algoritmos de segmentação são baseados em uma das propriedades
 básicas de valores de níveis de cinza: descontinuidade (detecção de
 bordas) e similaridade (agrupamento de regiões homogêneas).
 
-Na descontinuidade, o objetivo é particionar a imagem tendo como
+\hspace*{0.65cm}Na descontinuidade, o objetivo é particionar a imagem tendo como
 regra mudanças bruscas nas escalas de cinza. A similaridade
 baseia-se na limiarização. A limiarização ou binarização de uma
 imagem é dada a partir do nível de cinza de seus pixels. Tal
@@ -19,7 +19,7 @@ de cinza aproximados para $255$, tornando-se brancos, e aqueles que
 tiverem níveis de cinza maiores que a limiar, têm seus valores em
 níveis de cinza aproximados para 0, tornando-se pretos.
 
-É dado um exemplo de histograma com limiar na Figura
+\hspace*{0.65cm}É dado um exemplo de histograma com limiar na Figura
 \ref{img_seg_histograma}:
 
 \begin{figure}[h|top]
@@ -62,9 +62,15 @@ níveis de cinza aproximados para 0, tornando-se pretos.
     \end{minipage}
 \end{figure}
 
-Como pode ser observado nos exemplos das Figuras
+\hspace*{0.65cm}Como pode ser observado nos exemplos das Figuras
 \ref{img:seg_limiar_50}, \ref{img:seg_limiar_100} e
 \ref{img:seg_limiar_150} dependendo do limiar escolhido o resultado
 se altera. Quanto menor o valor da limiar mais pixels terão seus
 níveis de cinza aproximados de 255, deixando a imagem com mais
 pontos brancos do que pretos. A recíproca também e verdadeira.
+
+\hspace*{0.65cm}Existem diversos tipos de se estimar o limiar,
+os mais conhecidos são: limiar iterativo \cite{}, por entropia \cite{} e 
+limiar adaptativo \cite{}.
+\hspace*{0.65cm}Neste trabalho, usaremos a abordagem de \cite{PS} para o
+cálculo do limiar, o qual usa o conceito de entropia n-extensiva. Este assunto não será abordado neste trabalho.
