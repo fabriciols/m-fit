@@ -86,17 +86,24 @@ espacial podem ser aplicadas, diminuindo a intensidade dos ruídos.
 Visual por Histograma ($RVH$) tem como objetivo simplificar a
 representação de um vídeo. O processo de criação de um $RVH$ é :
 
-\begin{itemize}
+\begin{enumerate}
 \item Captura da diagonal principal do frame.
-\item Calculo do histograma do frame.
-\item Calculo do pico máximo do frame.
-\item O ponto do pico máximo respresenta um ponto em nossa reta.
-\end{itemize}
+\item Calculo do histograma desta diagonal.
+\item Obtenção do valor máximo deste histograma.
+\item Os passos 1-3 sao repetidos para todos os frames, e os pontos obtidos com o passo 3, são agrupados.
+\end{enumerate}
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/RVH.png}
+ \caption{Representações de Ritmo Visual Por Histograma}
+ \label{img_rvh}
+\end{figure}
+
+A figura \ref{img_rvh} representa os passos para a criacção do $RVH$. O passo 3 é representado pela reta horizontal vermelha no histograma da diagonal.
 
 Matematicamente:
 
-
-\hspace*{0.65cm}Seja $Hi$ o histograma do frame $Ii$, e a função
+\hspace*{0.65cm}Seja $Hi$ o histograma da diagonal $Di$ do frame $Ii$, a função
 $MAX(Hi)$ o valor de luminescência com maior presença no frame (i.e.
 o pico máxmimo do histograma).
 
@@ -109,6 +116,8 @@ vídeos em um problema de segmentação de imagens. A partir daí,
 faremos uso de outras ferramentas de PDI como filtragem espacial e
 detecção de bordas, juntamente com a aplicação de operadores de
 morfologia matemática, sobre o $RV$ com o objetivo de obter os
-pontos de transição das tomadas no vídeo $\bigvee$ No $RVH$ serão
+pontos de transição das tomadas no vídeo $\bigvee$
+
+\hspace*{0.65cm}No $RVH$ também serão
 aplicadas derivadas para uma análise posterior, afim de encontrarmos
-alguns tipos de transições (fade,dissolve).
+transições do tipo fade-in/out e dissolve.
