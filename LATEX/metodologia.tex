@@ -31,14 +31,15 @@ a detecção de transições do tipo Corte:
 
 \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos cortes.}
 
-\item{\textbf{Montagem do Ritmo Visual por sub-amostragem:} Para realizar a detecção das transições, o sistema irá gerar uma
-imagem 2D, representando o Ritmo Visual do vídeo, como definido na Seção \ref{ritmo_visual}
+\item{\textbf{Montagem do Ritmo Visual por sub-amostragem:} Para realizar a detecção das transições,
+o sistema irá gerar uma imagem 2D, representando o Ritmo Visual do
+vídeo, como definido na Seção \ref{ritmo_visual}.
 
 \hspace*{0.65cm}Este processo se dá de acordo com os seguintes passos:
 
 \begin{enumerate}
-\item{Obtenção do Frame}
-\item{Cálculo da Diagonal Principal do Frame}
+\item{Obtenção do Frame;}
+\item{Cálculo da Diagonal Principal deste Frame.}
 \end{enumerate}
 
 \hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo, de
@@ -85,36 +86,43 @@ corte do vídeo.}
 \end{figure}
 
 Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
-tomadas mais escuras para tomadas mais claras, e o fade-out, visto na Seção \ref{ed_fadeout}, 
-é ao contrário, tomada mais claras para uma tomada mais escura.
-Devido a similaridade entre estas duas transições, a abordagem feita será muito parecida, como pode
-ser visto na Figura \ref{img_metfades}.
-Primeiramente iremos falar sobre fade-in, e depois comentaremos a diferença em relação ao fade-out.
+tomadas mais escuras para tomadas mais claras, enquanto o fade-out,
+visto na Seção \ref{ed_fadeout}, possui um efeito inverso, ou seja,
+de tomadas mais claras para tomadas mais escuras.
+
+Devido à similaridade entre estas duas transições, a metodologia
+utilizada para a detecção de ambas será semelhante, como pode ser
+visto na Figura \ref{img_metfades}. Primeiramente será mostrada a
+metodologia do fade-in e posteriormente serão comentadas as
+diferenças da mesma em relação ao fade-out.
 
 \subsection{Fade-in \label{met_fadein}}
 
-O processo para detectar transições de fade-in será:
+O processo para detecção de transições do tipo fade-in será:
 
 \begin{enumerate}
 
 \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos fade-in.}
 
-\item{\textbf{Ritmo Visual por Histograma:} A partir de um vídeo de entrada, cria-se uma simplificação
-do mesmo, o Ritmo Visual por Histograma (\ref{ritmo_visual_histograma}). O processo para criar um RVH é:
+\item{\textbf{Ritmo Visual por Histograma (RVH):} A partir do vídeo de entrada, cria-se uma simplificação
+do mesmo chamada Ritmo Visual por Histograma (Seção
+\ref{ritmo_visual_histograma}).
+
+O processo para criar um RVH possui os seguintes passos:
 
 \begin{enumerate}
-\item{Obtenção do Frame}
-\item{Cálculo da Diagonal Principal deste Frame}
-\item{Histograma desta diagonal}
+\item{Obtenção do Frame;}
+\item{Cálculo da Diagonal Principal deste Frame;}
+\item{Obtenção do Histograma desta diagonal.}
 \end{enumerate}
 
-\hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo, de
-forma seqüencial.
+\hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
+até o último frame do vídeo.
 
-\hspace*{0.65cm}Um exemplo de um RVH de uma sequência de vídeo onde ocorre um fade-in pode ser encontrado 
-na Figura \ref{img_met_fadein_rvh}.
-Onde o eixo $x$ representa os valores de luminância subtraidos de cada diagonal do frame, e o eixo $y$
-representa cada frame do vídeo.
+\hspace*{0.65cm}Um exemplo de um RVH de uma sequência de vídeo onde
+ocorre um fade-in pode ser visto na Figura \ref{img_met_fadein_rvh}.
+Onde o eixo $x$ representa os valores de luminância extraídos de
+cada diagonal do frame, e o eixo $y$ representa cada frame do vídeo.
 
 }
 
@@ -126,28 +134,23 @@ representa cada frame do vídeo.
 \end{figure}
 
 
-\item{ \textbf{Cálculo da Derivadas do RVH:} Com base no RVH, calcula-se as suas derivadas. 
-Este processo é feito para que a análize feita sobre a
-variação do padrão de frames da cena seja evidenciado.
-Uma sequência que contém um fade-in será evidenciada
-por um platô inicial (momento em que a sequência está no frame escuro),
-e com o passar dos frames a tendência que a variação aumente, até que outro
-platô apareça.
+\item{\textbf{Cálculo das Derivadas do RVH:} Obtido o RVH, será
+calculada a sua primeira derivada. A partir desta nova curva, será
+possível visualizar o comportamento de um fade-in. No momento em que
+a sequência estiver com seus frames mais escuros, a curva se manterá
+mais constante, ao iniciar o processo da transição (clareamento da
+tomada), ocorrerá uma forte variação na curva, a qual se manterá até
+o momento em que a luminosidade dos frames deixe de variar, fazendo
+também com que o comportamento da curva torne-se estável novamente.}
 
--------- MELHORAR -------------
-}
+\item{\textbf{Obtenção do Ponto de Derivada Máxima:} Como visto no
+passo anterior, conforme a tomada torna-se mais clara, a curva da
+derivada passa a sofrer uma determinada variação. No momento em que
+não houver mais variação na luminosidade dos frames, a curva irá
+manter-se constante, e é neste momento em que a derivada atingirá o
+seu valor máximo, o qual caracteriza a ocorrência do fade-in.}
 
-\item{\textbf{Obtenção do Ponto de Derivada Máxima:} Para obtermos a definição exata do
-ponto onde acontece o fade-in precisamos encontrar o momento (frame) em que a derivada tem seu 
-valor maximizado, isto representa o ponto onde a variação entre os frames
-da tomada teve seu pico máximo, é onde o fade-in acabou e a tomada seguinte
-já está totalmente em cena.
-
--------- MELHORAR  -----------
-}
-
-\item{\textbf{Transições Fade-in:} No final deste processo, as transições do tipo fade-in estarão detectadas.
-}
+\item{\textbf{Transições Fade-in:} No final deste processo, as transições do tipo fade-in estarão detectadas.}
 
 \end{enumerate}
 
@@ -159,10 +162,9 @@ a captura do ponto de derivada mínima, enquanto no fade-in era o ponto de deriva
 \begin{enumerate}
 
 \item{\textbf{Obtenção do Ponto de Derivada Mínima:} Para obtermos a definição exata do
-ponto onde acontece o fade-out precisamos encontrar o momento (frame) em que a derivada tem seu 
-valor minimizado, isto representa o ponto onde a variação entre os frames
-da tomada teve seu pico mínimo, ou seja, a tomada escura já está totalmente a mostra.
-}
+ponto de ocorrência do fade-out é necessário definir o momento
+(frame) em que a derivada atinge o seu valor mínimo, o qual
+representa o ponto onde a tomada torna-se completamente escura.
 
 \item{\textbf{Transições Fade-out:} No final deste processo, as transições do tipo fade-out estarão detectadas.
 }
