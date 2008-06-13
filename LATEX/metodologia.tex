@@ -4,10 +4,10 @@
 para a realização da detecção de transições.
 
 \begin{figure}[h|top]
- \centering
- \includegraphics[width=1.0\linewidth]{imagens/metodologia.png}
- \caption{Diagrama esquemático da metodologia proposta.}
- \label{img_metodologia}
+    \centering
+    \includegraphics[width=1.0\linewidth]{imagens/metodologia.png}
+    \caption{Diagrama esquemático da metodologia proposta.}
+    \label{img_metodologia}
 \end{figure}
 
 \hspace*{0.65cm}A Figura \ref{img_metodologia} mostra um esquema geral da
@@ -18,10 +18,10 @@ o vídeo poderá ser editado, com aplicações de efeitos visuais.
 \section{Cortes \label{met_cortes}}
 
 \begin{figure}[h|top]
- \centering
- \includegraphics[width=0.9\linewidth]{imagens/metodologia_cortes.png}
- \caption{Metodologia utilizada para a detecção de Cortes.}
- \label{img_metcortes}
+    \centering
+    \includegraphics[width=0.9\linewidth]{imagens/metodologia_cortes.png}
+    \caption{Metodologia utilizada para a detecção de Cortes.}
+    \label{img_metcortes}
 \end{figure}
 
 \hspace*{1.25cm}A Figura \ref{img_metcortes} representa a metodologia utilizada para
@@ -29,60 +29,59 @@ a detecção de transições do tipo Corte:
 
 \begin{enumerate}
 
-\item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos cortes.}
+    \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos cortes.}
 
-\item{\textbf{Montagem do Ritmo Visual por sub-amostragem:} Para realizar a detecção das transições,
-o sistema irá gerar uma imagem 2D, representando o Ritmo Visual do
-vídeo, como definido na Seção \ref{ritmo_visual}.
+    \item{\textbf{Montagem do Ritmo Visual por sub-amostragem:} Para realizar a detecção das transições,
+    o sistema irá gerar uma imagem 2D, representando o Ritmo Visual do
+    vídeo, como definido na Seção \ref{ritmo_visual}.
 
-\hspace*{0.65cm}Este processo se dá de acordo com os seguintes passos:
+    \hspace*{0.65cm}Este processo se dá de acordo com os seguintes passos:
 
-\begin{enumerate}
-\item{Obtenção do Frame;}
-\item{Cálculo da Diagonal Principal deste Frame.}
-\end{enumerate}
+    \begin{enumerate}
+        \item{Obtenção do Frame;}
+        \item{Cálculo da Diagonal Principal deste Frame.}
+    \end{enumerate}
 
-\hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo, de
-forma seqüencial.}
+    \hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo, de
+    forma seqüencial.}
 
-\item{\textbf{Filtragem Espacial - Suavização da imagem por processos de convolução:} Homogeneização da imagem
-através da aplicação de um filtro espacial do tipo passa-baixas, o qual utiliza o processo de convolução (Seção
-\ref{filtragem_espacial}), permitindo que a imagem torne-se mais
-suave e com menos ruídos.}
+    \item{\textbf{Filtragem Espacial - Suavização da imagem por processos de convolução:} Homogeneização da imagem
+    através da aplicação de um filtro espacial do tipo passa-baixas, o qual utiliza o processo de convolução (Seção
+    \ref{filtragem_espacial}), permitindo que a imagem torne-se mais
+    suave e com menos ruídos.}
 
-\item{\textbf{Detecção de Bordas - Operador Sobel:} Uma vez suavizada a imagem, será aplicado o operador Sobel para
-a realização da detecção das bordas. Como visto na Seção
-\ref{deteccao_de_bordas}, com a aplicação deste operador, é possível
-obter o mapa de bordas do Ritmo Visual, o qual irá mostrar a
-localização de possíveis transições de cortes no vídeo.}
+    \item{\textbf{Detecção de Bordas - Operador Sobel:} Uma vez suavizada a imagem, será aplicado o operador Sobel para
+    a realização da detecção das bordas. Como visto na Seção
+    \ref{deteccao_de_bordas}, com a aplicação deste operador, é possível
+    obter o mapa de bordas do Ritmo Visual, o qual irá mostrar a
+    localização de possíveis transições de cortes no vídeo.}
 
-\item{\textbf{Mapa de Bordas:} Gerado com a aplicação do Operador Sobel no RV, o mapa de bordas possibilitará a definição dos pontos
-onde há a ocorrência dos cortes.}
+    \item{\textbf{Mapa de Bordas:} Gerado com a aplicação do Operador Sobel no RV, o mapa de bordas possibilitará a definição dos pontos
+    onde há a ocorrência dos cortes.}
 
-\item{\textbf{Limiar de corte e contagem de pontos:} Gerado o mapa de bordas, será necessário determinar quais bordas
-serão consideradas transições de cortes e quais serão ignoradas pelo
-fato de pertencerem a objetos da imagem. Tal processo será realizado
-através da contagem de pontos pertencentes às retas verticais
-detectadas. Quanto maior for este número, maior a possibilidade da
-borda estar representando um corte. Com isso, gera-se uma limiar, o
-que possibilita realizar a classificação entre aquilo que representa
-a borda de um objeto, e daquilo que representa uma transição de
-corte.}
+    \item{\textbf{Limiar de corte e contagem de pontos:} Gerado o mapa de bordas, será necessário determinar quais bordas
+    serão consideradas transições de cortes e quais serão ignoradas pelo
+    fato de pertencerem a objetos da imagem. Tal processo será realizado
+    através da contagem de pontos pertencentes às retas verticais
+    detectadas. Quanto maior for este número, maior a possibilidade da
+    borda estar representando um corte. Com isso, gera-se uma limiar, o
+    que possibilita realizar a classificação entre aquilo que representa
+    a borda de um objeto, e daquilo que representa uma transição de
+    corte.}
 
-\item{\textbf{Transições:}
-No final deste processo, estarão identificadas as transições do tipo
-corte do vídeo.}
-
+    \item{\textbf{Transições:}
+    No final deste processo, estarão identificadas as transições do tipo
+    corte do vídeo.}
 \end{enumerate}
 
 
 \section{Fade \label{met_fade}}
 
 \begin{figure}[h|top]
- \centering
- \includegraphics[width=1.0\linewidth]{imagens/metodologia_fades.png}
- \caption{Metodologia utilizada para a detecção de Fade.}
- \label{img_metfades}
+    \centering
+    \includegraphics[width=1.0\linewidth]{imagens/metodologia_fades.png}
+    \caption{Metodologia utilizada para a detecção de Fade.}
+    \label{img_metfades}
 \end{figure}
 
 Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
@@ -101,57 +100,54 @@ diferenças da mesma em relação ao fade-out.
 O processo para detecção de transições do tipo fade-in será:
 
 \begin{enumerate}
+    \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos fade-in.}
 
-\item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos fade-in.}
+    \item{\textbf{Ritmo Visual por Histograma (RVH):} A partir do vídeo de entrada, cria-se uma simplificação
+    do mesmo chamada Ritmo Visual por Histograma (Seção
+    \ref{ritmo_visual_histograma}).
 
-\item{\textbf{Ritmo Visual por Histograma (RVH):} A partir do vídeo de entrada, cria-se uma simplificação
-do mesmo chamada Ritmo Visual por Histograma (Seção
-\ref{ritmo_visual_histograma}).
+    O processo para criar um RVH possui os seguintes passos:
 
-O processo para criar um RVH possui os seguintes passos:
+    \begin{enumerate}
+        \item{Obtenção do Frame;}
+        \item{Cálculo da Diagonal Principal deste Frame;}
+        \item{Obtenção do Histograma desta diagonal.}
+    \end{enumerate}
 
-\begin{enumerate}
-\item{Obtenção do Frame;}
-\item{Cálculo da Diagonal Principal deste Frame;}
-\item{Obtenção do Histograma desta diagonal.}
-\end{enumerate}
+    \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
+    até o último frame do vídeo.
 
-\hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
-até o último frame do vídeo.
+    \hspace*{0.65cm}Um exemplo de um RVH de uma sequência de vídeo onde
+    ocorre um fade-in pode ser visto na Figura \ref{img_met_fadein_rvh}.
+    Onde o eixo $x$ representa os valores de luminância extraídos de
+    cada diagonal do frame, e o eixo $y$ representa cada frame do vídeo.
 
-\hspace*{0.65cm}Um exemplo de um RVH de uma sequência de vídeo onde
-ocorre um fade-in pode ser visto na Figura \ref{img_met_fadein_rvh}.
-Onde o eixo $x$ representa os valores de luminância extraídos de
-cada diagonal do frame, e o eixo $y$ representa cada frame do vídeo.
+    }
 
-}
+    \begin{figure}[h|top]
+        \centering
+        \includegraphics[width=1.0\linewidth]{imagens/metodologia_fadein_rvh.png}
+        \caption{RVH de uma sequência que contém uma transição do tipo
+        fade-in.} \label{img_met_fadein_rvh}
+    \end{figure}
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=1.0\linewidth]{imagens/metodologia_fadein_rvh.png}
- \caption{RVH de uma sequência que contém uma transição do tipo fade-in.}
- \label{img_met_fadein_rvh}
-\end{figure}
+    \item{\textbf{Cálculo das Derivadas do RVH:} Obtido o RVH, será
+    calculada a sua primeira derivada. A partir desta nova curva, será
+    possível visualizar o comportamento de um fade-in. No momento em que
+    a sequência estiver com seus frames mais escuros, a curva se manterá
+    mais constante, ao iniciar o processo da transição (clareamento da
+    tomada), ocorrerá uma forte variação na curva, a qual se manterá até
+    o momento em que a luminosidade dos frames deixe de variar, fazendo
+    também com que o comportamento da curva torne-se estável novamente.}
 
+    \item{\textbf{Obtenção do Ponto de Derivada Máxima:} Como visto no
+    passo anterior, conforme a tomada torna-se mais clara, a curva da
+    derivada passa a sofrer uma determinada variação. No momento em que
+    não houver mais variação na luminosidade dos frames, a curva irá
+    manter-se constante, e é neste momento em que a derivada atingirá o
+    seu valor máximo, o qual caracteriza a ocorrência do fade-in.}
 
-\item{\textbf{Cálculo das Derivadas do RVH:} Obtido o RVH, será
-calculada a sua primeira derivada. A partir desta nova curva, será
-possível visualizar o comportamento de um fade-in. No momento em que
-a sequência estiver com seus frames mais escuros, a curva se manterá
-mais constante, ao iniciar o processo da transição (clareamento da
-tomada), ocorrerá uma forte variação na curva, a qual se manterá até
-o momento em que a luminosidade dos frames deixe de variar, fazendo
-também com que o comportamento da curva torne-se estável novamente.}
-
-\item{\textbf{Obtenção do Ponto de Derivada Máxima:} Como visto no
-passo anterior, conforme a tomada torna-se mais clara, a curva da
-derivada passa a sofrer uma determinada variação. No momento em que
-não houver mais variação na luminosidade dos frames, a curva irá
-manter-se constante, e é neste momento em que a derivada atingirá o
-seu valor máximo, o qual caracteriza a ocorrência do fade-in.}
-
-\item{\textbf{Transições Fade-in:} No final deste processo, as transições do tipo fade-in estarão detectadas.}
-
+    \item{\textbf{Transições Fade-in:} No final deste processo, as transições do tipo fade-in estarão detectadas.}
 \end{enumerate}
 
 \section{Fade-Out \label{met_fadeout}}
@@ -160,68 +156,56 @@ A diferença na abordagem do fade-out sobre o fade-in é que: o para o fade-out é 
 a captura do ponto de derivada mínima, enquanto no fade-in era o ponto de derivada máxima.
 
 \begin{enumerate}
+    \item{\textbf{Obtenção do Ponto de Derivada Mínima:} Para obtermos a definição exata do
+    ponto de ocorrência do fade-out é necessário definir o momento
+    (frame) em que a derivada atinge o seu valor mínimo, o qual
+    representa o ponto onde a tomada torna-se completamente escura.}
 
-\item{\textbf{Obtenção do Ponto de Derivada Mínima:} Para obtermos a definição exata do
-ponto de ocorrência do fade-out é necessário definir o momento
-(frame) em que a derivada atinge o seu valor mínimo, o qual
-representa o ponto onde a tomada torna-se completamente escura.
-
-\item{\textbf{Transições Fade-out:} No final deste processo, as transições do tipo fade-out estarão detectadas.
-}
-
+    \item{\textbf{Transições Fade-out:} No final deste processo, as transições do tipo fade-out estarão detectadas.}
 \end{enumerate}
 
 \section{Dissolve \label{met_dissolve}}
 
 \begin{figure}[h|top]
- \centering
- \includegraphics[width=1.0\linewidth]{imagens/metodologia_dissolve.png}
- \caption{Metodologia utilizada para a detecção de dissolve.}
- \label{img_metdissolve}
+    \centering
+    \includegraphics[width=1.0\linewidth]{imagens/metodologia_dissolve.png}
+    \caption{Metodologia utilizada para a detecção de dissolve.}
+    \label{img_metdissolve}
 \end{figure}
 
-Como visto na Seção \ref{ed_Dissolve}, o dissolve é uma transição
-baseado na sobreposições de imagens.
+\hspace*{1.25cm}Como visto na Seção \ref{ed_Dissolve}, o dissolve é
+uma transição baseado na sobreposições de imagens.
 
-\subsection{Ritmo Visual por Histograma\label{met_dissolve_rv}}
+\begin{enumerate}
+    \item{\textbf{Ritmo Visual por Histograma:} O primeiro passo para a detectar um dissolve é a partir de um video
+    de entrada, deve-se analisar cada frame, e obter deles seu
+    histograma, montando assim um Ritmo Visual por Histograma.}
 
-O primeiro passo para a detectar um dissolve é a partir de um video
-de entrada, deve-se analisar cada frame, e obter deles seu
-histograma, montando assim um Ritmo Visual por Histograma.
+    %O RVH de uma sequência de dissolve tem uma curva parecida com
+    %a da Figura \ref{img_met_dissolve_rvh}.
 
-%O RVH de uma sequência de dissolve tem uma curva parecida com
-%a da Figura \ref{img_met_dissolve_rvh}.
+    %\begin{figure}[h|top]
+    % \centering
+    % \includegraphics[width=1.0\linewidth]{imagens/metodologia_dissolve_rvh.png}
+    % \caption{Representação do RVH de uma sequência que contém uma transição do tipo dissolve.}
+    % \label{img_met_dissolve_rvh}
+    %\end{figure}
 
-%\begin{figure}[h|top]
-% \centering
-% \includegraphics[width=1.0\linewidth]{imagens/metodologia_dissolve_rvh.png}
-% \caption{Representação do RVH de uma sequência que contém uma transição do tipo dissolve.}
-% \label{img_met_dissolve_rvh}
-%\end{figure}
+    \item{\textbf{Variância dos frames do Vídeo:} A partir de cada diagonal do frame do vídeo $V$, é calculado um desvio padrão $DP_V$.
+    A variância $VAR(V)$ é igual ao $ VAR(V) = DP_V^2 $.}
 
-\subsection{Variância dos frames do Vídeo\label{met_dissolve_variancia}}
+    \item{\textbf{Derivada Segunda da curva de Variância:} A pártir da curva do gráfico da variância, é cálculado a sua derivada segunda, com o
+    objetivo de limitar cada vez as mais os pontos de variação da
+    curva.}
 
-A partir de cada diagonal do frame do vídeo $V$, é calculado um desvio padrão $DP_V$.
-A variância $VAR(V)$ é igual ao $ VAR(V) = DP_V^2 $.
+    \item{\textbf{Derivada do RVH:} A partir do RVH, é calculado a derivada, com o objetivo de limitar
+    os pontos de variação da curva, que são os pontos representativos do
+    dissolve.}
 
-\subsection{Derivada Segunda da curva de Variância \label{met_dissolve_2derivada_variancia}}
+    \item{\textbf{Razão entre Derivada Segunda da curva de Variância e Derivada do RVH:} Com esta razão as transições de tipo dissolve ficaram expostas na
+    curva do gráfico como regiões onde o pico é muito baixo.}
 
-A pártir da curva do gráfico da variância, é cálculado a sua derivada segunda, com o
-objetivo de limitar cada vez as mais os pontos de variação da curva.
-
-\subsection{Derivada do RVH \label{met_dissolve_derivada_rvh}}
-
-A partir do RVH, é calculado a derivada, com o objetivo
-de limitar os pontos de variação da curva, que são os pontos representativos
-do dissolve.
-
-\subsection{Razão entre Derivada Segunda da curva de Variância e Derivada do RVH\label{met_dissolve_razao_rvh}}
-
-Com esta razão as transições de tipo dissolve ficaram expostas na curva do gráfico
-como regiões onde o pico é muito baixo.
-
-\subsection{Dissolve detectado \label{met_dissolve_detectado}}
-
-No final deste processo, tem-se o ponto para demarcação de onde a
-transição de dissolve ocorreu. Basta então demarcar no video este
-efeito.
+    \item{\textbf{Dissolve detectado:} No final deste processo, tem-se o ponto para demarcação de onde a
+    transição de dissolve ocorreu. Basta então demarcar no video este
+    efeito.}
+\end{enumerate}
