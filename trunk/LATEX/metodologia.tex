@@ -176,10 +176,25 @@ a captura do ponto de derivada mínima, enquanto no fade-in era o ponto de deriva
 \hspace*{1.25cm}Como visto na Seção \ref{ed_Dissolve}, o dissolve é
 uma transição baseado na sobreposições de imagens.
 
+\hspace*{0.65cm}A metodologia utilizada para a detecção do dissolve,
+pode ser visto na Figura \ref{img_metdissolve}, onde segue os
+seguintes procedimentos:
+
 \begin{enumerate}
     \item{\textbf{Ritmo Visual por Histograma:} O primeiro passo para a detectar um dissolve é a partir de um video
     de entrada, deve-se analisar cada frame, e obter deles seu
-    histograma, montando assim um Ritmo Visual por Histograma.}
+    histograma, montando assim um Ritmo Visual por Histograma (Seção \ref{ritmo_visual_histograma}).}
+
+    O processo para criar um RVH possui os seguintes passos:
+
+    \begin{enumerate}
+        \item{Obtenção do Frame;}
+        \item{Cálculo da Diagonal Principal deste Frame;}
+        \item{Obtenção do Histograma desta diagonal.}
+    \end{enumerate}
+
+    \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
+    até o último frame do vídeo.
 
     %O RVH de uma sequência de dissolve tem uma curva parecida com
     %a da Figura \ref{img_met_dissolve_rvh}.
@@ -191,11 +206,11 @@ uma transição baseado na sobreposições de imagens.
     % \label{img_met_dissolve_rvh}
     %\end{figure}
 
-    \item{\textbf{Variância dos frames do Vídeo:} A partir de cada diagonal do frame do vídeo $V$, é calculado um desvio padrão $DP_V$.
-    A variância $VAR(V)$ é igual ao $ VAR(V) = DP_V^2 $.}
+    \item{\textbf{Variância dos frames do Vídeo:} Neste ponto calcula-se a média da variância dos
+    pixels da diagonal de cada frame do vídeo.}
 
-    \item{\textbf{Derivada Segunda da curva de Variância:} A pártir da curva do gráfico da variância, é cálculado a sua derivada segunda, com o
-    objetivo de limitar cada vez as mais os pontos de variação da
+    \item{\textbf{Derivada Segunda da curva de Variância:} A partir da curva do gráfico da variância, é cálculado a
+    sua derivada segunda, com o objetivo de limitar cada vez as mais os pontos de variação da
     curva.}
 
     \item{\textbf{Derivada do RVH:} A partir do RVH, é calculado a derivada, com o objetivo de limitar
