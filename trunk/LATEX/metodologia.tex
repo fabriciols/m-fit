@@ -75,7 +75,7 @@ corte do vídeo.}
 \end{enumerate}
 
 
-\section{Fade-In \label{met_fadein}}
+\section{Fade \label{met_fade}}
 
 \begin{figure}[h|top]
  \centering
@@ -85,17 +85,38 @@ corte do vídeo.}
 \end{figure}
 
 Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
-tomadas mais escuras para tomadas mais claras.
+tomadas mais escuras para tomadas mais claras, e o fade-out, visto na Seção \ref{ed_fadeout}, 
+é ao contrário, tomada mais claras para uma tomada mais escura.
+Devido a similaridade entre estas duas transições, a abordagem feita será muito parecida, como pode
+ser visto na Figura \ref{img_metfades}.
+Primeiramente iremos falar sobre fade-in, e depois comentaremos a diferença em relação ao fade-out.
 
-\subsection{Ritmo Visual por Histograma ($RVH$)\label{met_fadein_rvh}}
+\subsection{Fade-in \label{met_fadein}}
 
-O primeiro passo para a detectar um fade-in é a partir de um video de entrada,
-deve-se analisar cada frame, obter deles seu histograma e obter os Pontos Máximos deste histograma,
-montando assim um Ritmo Visual por Histograma.
+O processo para detectar transições de fade-in será:
 
-O RVH de uma sequência que contém um fade-in ficará como a Figura \ref{img_met_fadein_rvh}.
-Onde o eixo $x$ representa a média da luminância do frame, e o eixo $y$ representa cada
-frame do vídeo.
+\begin{enumerate}
+
+\item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos fade-in.}
+
+\item{\textbf{Ritmo Visual por Histograma:} A partir de um vídeo de entrada, cria-se uma simplificação
+do mesmo, o Ritmo Visual por Histograma (\ref{ritmo_visual_histograma}). O processo para criar um RVH é:
+
+\begin{enumerate}
+\item{Obtenção do Frame}
+\item{Cálculo da Diagonal Principal deste Frame}
+\item{Histograma desta diagonal}
+\end{enumerate}
+
+\hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo, de
+forma seqüencial.
+
+\hspace*{0.65cm}Um exemplo de um RVH de uma sequência de vídeo onde ocorre um fade-in pode ser encontrado 
+na Figura \ref{img_met_fadein_rvh}.
+Onde o eixo $x$ representa os valores de luminância subtraidos de cada diagonal do frame, e o eixo $y$
+representa cada frame do vídeo.
+
+}
 
 \begin{figure}[h|top]
  \centering
@@ -104,105 +125,49 @@ frame do vídeo.
  \label{img_met_fadein_rvh}
 \end{figure}
 
-\subsection{Diagonal do Frame \label{mt_fadein_rvdiagonal}}
 
-A partir de cada frame extraido do vídeo, a regiao de interesse no frame eh sua diagonal, entao uma nova imagem
-eh criada a partir dela.
+\item{ \textbf{Cálculo da Derivadas do RVH:} Com base no RVH, calcula-se as suas derivadas. 
+Este processo é feito para que a análize feita sobre a
+variação do padrão de frames da cena seja evidenciado.
+Uma sequência que contém um fade-in será evidenciada
+por um platô inicial (momento em que a sequência está no frame escuro),
+e com o passar dos frames a tendência que a variação aumente, até que outro
+platô apareça.
 
-\subsection{Histograma da Diagonal \label{met_fadein_histograma_diagonal}}
+-------- MELHORAR -------------
+}
 
-Com esta imagem contendo somente a diagonal da imagem inicial, criamos um histograma.
+\item{\textbf{Obtenção do Ponto de Derivada Máxima:} Para obtermos a definição exata do
+ponto onde acontece o fade-in precisamos encontrar o momento (frame) em que a derivada tem seu 
+valor maximizado, isto representa o ponto onde a variação entre os frames
+da tomada teve seu pico máximo, é onde o fade-in acabou e a tomada seguinte
+já está totalmente em cena.
 
-\subsection{Ponto Máximo do Histograma \label{met_fadein_rvmax}}
+-------- MELHORAR  -----------
+}
 
-Com base neste Histograma, são obtidos os pontos de Maxima, que consiste
-no ponto (escala de cinza) que tem maior incidência na imagem. Estes pontos
-são obtidos de cada histograma, os quais irão compor a curva do gráfico.
+\item{\textbf{Transições Fade-in:} No final deste processo, as transições do tipo fade-in estarão detectadas.
+}
 
-\subsection{Cálculo de Derivadas do $RVH$\label{met_fadein_derivadas}}
-
-A derivada é aplicada na curva do gráfico afim de encontrar variações nos
-padrõs dos histogramas previamente coletados. Ela evidenciará
-quando em uma sequência de frames houver uma modificação no padrão
-dos frames, que é representada, neste caso, por uma derivada com
-valor maior que $0$.
-
-Quando a sequência de frames mantém-se normalizada, as derivadas dos pontos
-serão $0$, quando fade-in se inicia, a curva do gráfico começa a avançar com sentido contrário
-ao vértice, tendo derivada positiva. Chega um instante em que a curva do gráfico atinge
-um pico máximo, onde este é o ponto exato do fim do fade-in. Após isto a curva do gráfico
-tende a se normalizar novamente, pois neste momento a nova tomada já está
-totalmente em cena.
-
-Para o fade-in, as derivadas são positivas quando o efeito começa.
-
-%O gráfico da derivada do RVH de uma sequência com transição do tipo fade-in, ficará como
-%a Figura \ref{img_met_fadein_derivada_rvh}.
-
-%\begin{figure}[h|top]
-% \centering
-% \includegraphics[width=1.0\linewidth]{imagens/metodologia_fadein_derivada_rvh.png}
-% \caption{Derivada do RVH de uma sequência que contém uma transição do tipo fade-in.}
-% \label{img_met_fadein_derivada_rvh}
-%\end{figure}
-
-\subsection{Obtenção do Ponto de Derivada Máxima \label{met_fadein_derivada_maxima}}
-
-Após calcular a derivada dos pontos da curva do gráfico, é necessário
-detectar o ponto máximo(pico) da derivada, este evidencia o ponto exato
-onde houve o pico de variação de padrões na tomada, o que caracteriza o
-ponto onde a transição de fade teve seu ápice. É neste ponto onde será
-delimitada a transição.
-
-\subsection{Fade-In Detectado \label{met_fadein_detectado}}
-
-No final deste processo, tem-se o ponto para demarcação de onde a
-transição de fade ocorreu. Basta então demarcar no video este efeito.
+\end{enumerate}
 
 \section{Fade-Out \label{met_fadeout}}
 
-Como será visto na Seção \ref{ed_fadeout}, o fade-out é uma transição de
-tomadas mais claras para mais escuras.
+A diferença na abordagem do fade-out sobre o fade-in é que: o para o fade-out é necessário
+a captura do ponto de derivada mínima, enquanto no fade-in era o ponto de derivada máxima.
 
-\subsection{Ritmo Visual Por Histograma ($RVH$) \label{met_fadeout_rvh}}
+\begin{enumerate}
 
-O Ritmo Visaul do fade-out é calculado como visto na Seção \ref{met_fadein_rvh}.
-Apesar de ser o mesmo processo que o fade-in, a representação de um fade-out
-tem uma curva no gráfico inversa%, como a da Figura \ref{img_met_fadeout_rvh}
+\item{\textbf{Obtenção do Ponto de Derivada Mínima:} Para obtermos a definição exata do
+ponto onde acontece o fade-out precisamos encontrar o momento (frame) em que a derivada tem seu 
+valor minimizado, isto representa o ponto onde a variação entre os frames
+da tomada teve seu pico mínimo, ou seja, a tomada escura já está totalmente a mostra.
+}
 
-%\begin{figure}[h|top]
-% \centering
-% \includegraphics[width=1.0\linewidth]{imagens/metodologia_fadeout_rvh.png}
-% \caption{Representação do RVH de uma sequência que contém uma transição do tipo fade-out.}
-% \label{img_met_fadeout_rvh}
-%\end{figure}
+\item{\textbf{Transições Fade-out:} No final deste processo, as transições do tipo fade-out estarão detectadas.
+}
 
-\subsection{Detectando o fade-out \label{met_fadeout_detectando}}
-
-A técnica utilizada para detectar um fade-out é a mesma utilizada no
-fade-in (Seção \ref{met_fadein}), porém a interpretação das derivadas da
-curva do gráfico deve ser feita de um modo diferente. Ao invés de obter o
-ponto de derivada máxima, como no fade-in, o fade-out obtém o ponto de
-derivada mínima, como visto a seguir.
-
-\subsection{Obtenção do Ponto de Derivada Mínima \label{met_fadein_derivada_minima}}
-
-No momento que o fade-out começa, as derivadas da curva do gráfico começam a ter valores negativos,
-pois a curva do gráfico caminha em direção ao vértice. Nos outros passos, a metodologia é igual ao do fade-in.
-
-%Um exemplo de representação desta derivada é encontrado na Figura \ref{img_met_fadeout_derivada_rvh}.
-
-%\begin{figure}[h|top]
-% \centering
-% \includegraphics[width=1.0\linewidth]{imagens/metodologia_fadeout_derivada_rvh.png}
-% \caption{Representação do RVH de uma sequência que contém uma transição do tipo fade-out.}
-% \label{img_met_fadeout_derivada_rvh}
-%\end{figure}
-
-\subsection{Fade-Out Detectado \label{met_fadeout_detectado}}
-
-No final deste processo, tem-se o ponto para demarcação de onde a
-transição de fade ocorreu. Basta então demarcar no video este efeito.
+\end{enumerate}
 
 \section{Dissolve \label{met_dissolve}}
 
