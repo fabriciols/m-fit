@@ -55,46 +55,46 @@ magnitude, a direção do gradiente.
 
 \begin{figure}[Ht]
 \centering
-    \begin{minipage}[b]{0.40\linewidth}
+    \begin{minipage}[b]{7.0cm}
         \centering
-        \includegraphics[scale=0.35]{imagens/borda_sobel_original.png}
+        \includegraphics[width=1.0\linewidth]{imagens/borda_sobel_original.png}
         \caption{Imagem Original}
-        \label{img:borda_sobel_original}
+        (a)
     \end{minipage}
     \hspace{0.5cm}
-    \begin{minipage}[b]{0.40\linewidth}
+    \begin{minipage}[b]{7.0cm}
         \centering
-        \includegraphics[scale=0.35]{imagens/borda_sobel_horizontal.png}
+        \includegraphics[width=1.0\linewidth]{imagens/borda_sobel_horizontal.png}
         \caption{Sobel Horizontal}
-        \label{img:borda_sobel_horizontal}
+        (b)
     \end{minipage}
-\end{figure}
-
-\begin{figure}[Ht]
-\centering
-    \begin{minipage}[b]{0.40\linewidth}
+    \par
+    \centering
+    \begin{minipage}[b]{7.0cm}
         \centering
-        \includegraphics[scale=0.35]{imagens/borda_sobel_vertical.png}
+        \includegraphics[width=1.0\linewidth]{imagens/borda_sobel_vertical.png}
         \caption{Sobel Vertical}
-        \label{img:borda_sobel_vertical}
+        (c)
     \end{minipage}
     \hspace{0.5cm}
-    \begin{minipage}[b]{0.40\linewidth}
+    \begin{minipage}[b]{7.0cm}
         \centering
-        \includegraphics[scale=0.35]{imagens/borda_sobel_completo.png}
+        \includegraphics[width=1.0\linewidth]{imagens/borda_sobel_completo.png}
         \caption{Sobel Completo}
-        \label{img:borda_sobel_completo}
+        (d)
     \end{minipage}
+    \caption{a) Imagem Original; b) Sobel Horizontal; c) Sobel Vertical; d) Sobel Completo.}
+    Fonte: Autor.
+    \label{img_sobel}
 \end{figure}
 
 \hspace*{0.65cm}Este operador realiza a detecção de bordas em duas
 etapas. Primeiramente, fará a detecção das bordas horizontais da
-imagem (Figura \ref{img:borda_sobel_horizontal}), utilizando a
-máscara $G_x$ e depois fará a detecção das bordas verticais (Figura
-\ref{img:borda_sobel_vertical}), aplicando a máscara $G_y$. Com a
-união e normalização do resultado destes dois processos de detecção
-de bordas, obtém-se o mapa de bordas da imagem (Figura
-\ref{img:borda_sobel_completo}).
+imagem (Figura \ref{img_sobel} - b), utilizando a máscara $G_x$ e
+depois fará a detecção das bordas verticais (Figura \ref{img_sobel}
+- c), aplicando a máscara $G_y$. Com a união e normalização do
+resultado destes dois processos de detecção de bordas, obtém-se o
+mapa de bordas da imagem (Figura \ref{img_sobel} - c).
 
 \hspace*{0.65cm}Através da aplicação deste operador, é possível
 obter uma boa detecção de bordas. Em contrapartida, este processo
@@ -109,7 +109,8 @@ Filtragem Espacial para fazer o realce das bordas do ritmo visual,
 possibilitando dar um destaque maior para as bordas que possam
 possivelmente caracterizar uma transição.
 
-\hspace*{0.65cm}Uma melhor abordagem sobre estes métodos pode ser
-encontrada em \cite{SANTOS_2005}, \cite{MADRUGA_2005},
-\cite{BOTELHO_2007}, \\ \cite{FELGUEIRAS_2006},
-\cite{STIVANELLO_2005} e \\ \cite{GONZALEZ_2002}.
+\hspace*{0.65cm}Melhores abordagens sobre estes métodos podem ser
+encontrada
+em \cite{SANTOS_2005}, \cite{MADRUGA_2005}, \cite{BOTELHO_2007}, \\
+\cite{FELGUEIRAS_2006}, \cite{STIVANELLO_2005} e \\
+\cite{GONZALEZ_2002}.

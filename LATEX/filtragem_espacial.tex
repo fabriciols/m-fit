@@ -13,13 +13,14 @@ ser o nível de tons de cinza, ou cor, de um pixel através do $ND$ de
 seus pixels vizinhos. Dependendo do filtro a ser utilizado este
 cálculo pode ser alterado. Geralmente, cria-se uma máscara de
 convolução, que nada mais é do que uma matriz (normalmente de
-tamanho $3x3$, como na Figura \ref{img_mascaras_convolucao}) que possui um
+tamanho $3\times3$, como na Figura \ref{img_mascaras_convolucao}) que possui um
 determinado peso em cada uma de suas posições.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=1\linewidth]{imagens/mascaras.png}
+ \includegraphics[width=1.0\linewidth]{imagens/mascaras.png}
  \caption{Exemplos de Máscaras para filtro passa-alta.}
+ Fonte: Autor ``adaptado de'' \cite{FELGUEIRAS_2006}.
  \label{img_mascaras_convolucao}
 \end{figure}
 
@@ -31,13 +32,14 @@ posição central da matriz, como mostrado na Figura \ref{img_filtragem_masc}:
  \includegraphics[width=0.5\linewidth]{imagens/filtragem_masc.png}
  \caption{Máscara 3x3 sendo utilizada para a filtragem de uma
 imagem digital. No caso, o $ND$ a ser recalculado é do pixel X.}
+ Fonte: Autor ``adaptado de'' \cite{FELGUEIRAS_2006}.
  \label{img_filtragem_masc}
 \end{figure}
 
 \hspace*{0.65cm}O cálculo do novo $ND$ de um pixel é dado pelo processo de convolução, que consiste
 na soma dos produtos entre os valores da matriz e pixels correspondentes
 da imagem, onde esta matriz percorre toda a imagem pixel a
-pixel, partindo da esquerda para a direita, tal deslocamento é
+pixel, partindo da esquerda para a direita. Tal deslocamento é
 obtido através da soma de 1 pixel na posição x atual da matriz, como
 pode ser observado na Figura \ref{img_filtragem_masc}.
 
@@ -53,50 +55,43 @@ ND = \sum_{i=1}^{n}{MiOi}
 \end{center}
 \end{large}
 
-\hspace*{0.65cm}Onde $M$ é uma matriz de convolução $3x3$, $O$ é a imagem a ser filtrada e $n$
+\hspace*{0.65cm}Onde $M$ é uma matriz de convolução $3\times3$, $O$ é a imagem a ser filtrada e $n$
 é o número de elementos de M.
 
 \hspace*{0.65cm}Entre os principais tipos de filtragem está o filtro passa-alta, que pode ser
 uma boa alternativa para fazer a detecção de bordas e o filtro
-passa-baixa, que serve para fazer a suavização da imagem, resultando
+passa-baixa, com o qual é possível realizar a suavização da imagem, resultando
 na diminuição de possíveis ruídos presentes na mesma.
 
-%\begin{figure}[h|top]
-% \centering
-% \includegraphics[width=1.0\linewidth]{imagens/exemplos_filtragem.png}
-% \caption{a) Imagem Original; b) Imagem após filtragem passa-baixa; c) Imagem após filtragem passa-alta.}
-% \label{img_exemplos_filtragem}
-%\end{figure}
-
-\begin{figure}[ht]
+\begin{figure}[h|top]
 \centering
-    \begin{minipage}[b]{0.4\linewidth}
-        \centering
-        \includegraphics[scale=0.35]{imagens/filtragem_a.png}
-        \caption{Imagem Original}
-        \label{img_exemplos_filtragem_a}
-    \end{minipage}
-    \hspace{0.5cm}
-    \begin{minipage}[b]{0.4\linewidth}
-        \centering
-        \includegraphics[scale=0.35]{imagens/filtragem_b.png}
-        \caption{Passa-baixa}
-        \label{img_exemplos_filtragem_b}
-    \end{minipage}
+\begin{minipage}[b]{7.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/filtragem_a.png}
+ (a)
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{7.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/filtragem_b.png}
+ (b)
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{7.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/filtragem_c.png}
+ (c)
+\end{minipage}
+\caption{a) Imagem Original; b) Passa-baixa; c) Passa-alta.}
+Fonte: Autor.
+\label{img_exemplos_filtros}
 \end{figure}
 
-\begin{figure}[ht]
-        \centering
-        \includegraphics[scale=0.35]{imagens/filtragem_c.png}
-        \caption{Passa-alta}
-        \label{img_exemplos_filtragem_c}
-\end{figure}
 
-
-\hspace*{0.65cm}Como pode ser observado na Figura \ref{img_exemplos_filtragem_b},
+\hspace*{0.65cm}Como pode ser observado na Figura \ref{img_exemplos_filtros} - b,
 ao aplicar um filtro passa-baixa na imagem, ela torna-se mais
 homogênea e também perde-se nitidez, porém os ruídos são suavizados.
-Já na Figura \ref{img_exemplos_filtragem_c}, foi aplicado um
+Já na Figura \ref{img_exemplos_filtros} - c, foi aplicado um
 filtro passa-alta na imagem, havendo um aumento do contraste entre
 os objetos e o fundo da imagem, ganha-se nitidez e caso existam
 ruídos na imagem original, estes poderão ser realçados assim como as
