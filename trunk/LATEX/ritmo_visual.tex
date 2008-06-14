@@ -11,7 +11,7 @@ apresentados mais detalhadamente.
 
 \subsection{Ritmo Visual por sub-amostragem \label{ritmo_visual_amostragem}}
 
-\hspace*{1.25cm}O Ritmo Visual port sub-amostragem caracteriza-se
+\hspace*{1.25cm}O Ritmo Visual por sub-amostragem caracteriza-se
 pela transformação de determinadas faixas de pixels (amostras) de
 cada um dos frames de uma tomada do vídeo em uma coluna da
 representação $2D$, como representado na Figura
@@ -34,6 +34,7 @@ pode ser encontrada em \cite{GUIMARAES_2003_2} e
  \caption{Transformação da diagonal principal dos frames de um
 vídeo em colunas do Ritmo Visual.}
  \label{img_rvdiagonal}
+ Fonte: Autor ``adaptado de'' \cite{GUIMARAES_2002_2}, p.2.
 \end{figure}
 
 \hspace*{0.65cm}Na Figura \ref{img_rvdiagonal} pode ser observado o
@@ -51,9 +52,20 @@ $I_i(x,y)$ um frame $\in V$.
 $p(x,y)$ com $x,y \in N$, sendo que os valores de $x$ e $y$ variam
 de 0 até o valor de largura e altura do frame, respectivamente.
 
-\hspace*{0.65cm}Cada pixel possui um valor de luminância $L$, o qual
-pode variar de 0 a 255. Sendo assim, se $L(x,y) = 0$, o pixel
-torna-se preto e caso $L(x,y) = 255$, o pixel torna-se branco.
+\hspace*{0.65cm}Em uma imagem em tons de cinza, cada pixel possui um
+valor de luminância $L \in {0,1,...,255}$. Sendo assim, se $L(x,y) =
+0$, o pixel é definido como preto e caso $L(x,y) = 255$, o pixel é
+definido como branco.
+
+\hspace*{0.65cm}Por outro lado, em uma imagem RGB (Seção
+\ref{sc_rgb}), $L(x,y)$ é definido pelo conjunto do tom das 3 cores
+(vermelho, verde e azul) deste sistema de cores. Para cada cor
+existe um $l(x,y) \in {0,...,255}$, cuja combinação resulta em uma
+cor com uma determinada tonalidade do pixel $P(x,y)$. Sendo assim,
+em um sistema RGB, define-se que $L(x,y) = [l(x,y),l(x,y),l(x,y)]$.
+
+\hspace*{0.65cm}Neste trabalho, as imagens serão todas tratadas em
+tons de cinza.
 
 \hspace*{0.65cm}Portanto, Ritmo Visual é definido como:
 
@@ -67,13 +79,29 @@ gera uma coluna com características, padrões diferentes no ritmo
 visual.
 
 \begin{figure}[h|top]
+\centering
+\begin{minipage}[b]{5.0cm}
  \centering
- \includegraphics[width=1.0\linewidth]{imagens/rv_exemplos.png}
- \caption{Representações de Ritmo Visual: a) cortes; b) fade-out seguido de fade-in; c) duas transições do tipo dissolve consecutivas}
- \label{img_rv_exemplos}
+ \includegraphics[width=1.0\linewidth]{imagens/rv_cuts.png}
+ (a)
+\end{minipage}
+\begin{minipage}[b]{5.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/rv_fades.png}
+ (b)
+\end{minipage}
+\begin{minipage}[b]{5.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/rv_dissolve.png}
+ (c)
+\end{minipage}
+\caption{Representações de Ritmo Visual: a) cortes; b) fade-out
+seguido de fade-in; c) duas transições consecutivas do tipo
+dissolve.} Fonte: \cite{GUIMARAES_2002_2}, p.4.
+\label{img_rv_exemplos}
 \end{figure}
 
-\hspace*{0.65cm}Como visto na Figura \ref{img_rv_exemplos}- a, os
+\hspace*{0.65cm}Como visto na Figura \ref{img_rv_exemplos} - a, os
 cortes são caracterizados no Ritmo Visual por linhas verticais.
 Porém, pela possível existência de ruídos na imagem gerada, nem
 todas as linhas verticais devem ser consideradas necessariamente um
@@ -82,7 +110,7 @@ espacial podem ser aplicadas, diminuindo a intensidade dos ruídos.
 
 \subsection{Ritmo Visual por Histograma\label{ritmo_visual_histograma}}
 
-\hspace*{1.25cm}Como o Ritmo Visual port sub-amostragem, o Ritmo
+\hspace*{1.25cm}Como o Ritmo Visual por sub-amostragem, o Ritmo
 Visual por Histograma ($RVH$) tem como objetivo simplificar a
 representação de um vídeo. O processo de criação de um $RVH$ é :
 
@@ -97,14 +125,15 @@ representação de um vídeo. O processo de criação de um $RVH$ é :
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/RVH.png}
  \caption{Representações de Ritmo Visual Por Histograma}
+ Fonte: Autor.
  \label{img_rvh}
 \end{figure}
 
-\hspace*{1.25cm}A figura \ref{img_rvh} representa os passos para a
+\hspace*{0.65cm}A figura \ref{img_rvh} representa os passos para a
 criação do $RVH$. O passo 3 é representado pela reta horizontal
 vermelha no histograma da diagonal.
 
-\hspace*{1.25cm}Matematicamente:
+\hspace*{0.65cm}Matematicamente:
 
 \hspace*{0.65cm}Seja $Hi$ o histograma da diagonal $Di$ do frame $Ii$, a função
 $MAX(Hi)$ o valor de luminância maior presença no frame (i.e.

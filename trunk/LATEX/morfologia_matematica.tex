@@ -16,6 +16,7 @@ a propagação de um determinado ponto para áreas ao seu redor.
  \centering
  \includegraphics[width=0.7\linewidth]{imagens/morfologia_elementos_estruturantes.png}
  \caption{Elemento estruturante: a) Cruz; b) Quadrado; c) Hexágono. }
+ Fonte: \cite{NOGUEIRA_2002}, p.79
  \label{img:morfologia_elementos_estruturantes}
 \end{figure}
 
@@ -23,26 +24,28 @@ a propagação de um determinado ponto para áreas ao seu redor.
 elemento estruturante que é um conjunto pequeno definido e conhecido
 (forma, tamanho) que é sempre comparado a um conjunto desconhecido
 da imagem. O elemento estruturante pode ser de vários tipos conforme
-observado nas Figura \ref{img:morfologia_elementos_estruturantes}. A
+observado na Figura \ref{img:morfologia_elementos_estruturantes}. A
 boa escolha de um elemento estruturante está diretamente ligada à
 qualidade dos resultados das operações. Na Figura
-\ref{img:morfologia_erosao}, pode ser observada a aplicação de uma
-erosão em uma imagem:
+\ref{img_morfologia_erosao} - b, pode ser observada a aplicação de
+uma erosão em uma imagem:
 
-\begin{figure}[ht]
-    \begin{minipage}[b]{0.5\linewidth}
+\begin{figure}[h|top]
+\centering
+    \begin{minipage}[b]{7.0cm}
         \centering
-        \includegraphics[scale=0.45]{imagens/morfologia_original.png}
-        \caption{Imagem Original}
-        \label{img:morfologia_original}
+        \includegraphics[width=1.0\linewidth]{imagens/morfologia_original.png}
+        (a)
     \end{minipage}
     \hspace{0.5cm}
-    \begin{minipage}[b]{0.5\linewidth}
+    \begin{minipage}[b]{7.0cm}
         \centering
-        \includegraphics[scale=0.45]{imagens/morfologia_erosao.png}
-        \caption{Erosão}
-        \label{img:morfologia_erosao}
+        \includegraphics[width=1.0\linewidth]{imagens/morfologia_erosao.png}
+        (b)
     \end{minipage}
+    \caption{a) Imagem Original; b) Imagem Erodida}
+    Fonte: Autor.
+    \label{img_morfologia_erosao}
 \end{figure}
 
 \hspace*{0.65cm}Segundo \cite{NOGUEIRA_2002}, a erosão de um
@@ -61,24 +64,26 @@ elemento é dada por:
 o elemento estruturante.
 
 \hspace*{0.65cm}Como é possível observar na Figura
-\ref{img:morfologia_erosao}, uma imagem erodida resulta em uma
+\ref{img_morfologia_erosao} - b, uma imagem erodida resulta em uma
 imagem com seus pontos escuros expandidos, enquanto os claros são
 diminuídos em relação à imagem original.
 
 \begin{figure}[ht]
-    \begin{minipage}[b]{0.5\linewidth}
+\centering
+    \begin{minipage}[b]{7.0cm}
         \centering
-        \includegraphics[scale=0.45]{imagens/morfologia_original.png}
-        \caption{Imagem Original}
-        \label{img:morfologia_original_2}
+        \includegraphics[width=1.0\linewidth]{imagens/morfologia_original.png}
+        (a)
     \end{minipage}
     \hspace{0.5cm}
-    \begin{minipage}[b]{0.5\linewidth}
+    \begin{minipage}[b]{7.0cm}
         \centering
-        \includegraphics[scale=0.45]{imagens/morfologia_dilatacao.png}
-        \caption{Dilatação}
-        \label{img:morfologia_dilatacao}
+        \includegraphics[width=1.0\linewidth]{imagens/morfologia_dilatacao.png}
+        (b)
     \end{minipage}
+    \caption{a) Imagem Original; b) Imagem Dilatada.}
+    Fonte: Autor.
+    \label{img_morfologia_dilatacao}
 \end{figure}
 
 \hspace*{0.65cm}A dilatação, segundo \cite{NOGUEIRA_2002}, é dada
@@ -97,8 +102,8 @@ por:
 o elemento estruturante.
 
 \hspace*{0.65cm}Como é possível observar na Figura
-\ref{img:morfologia_dilatacao}, ao contrário da imagem erodida, uma
-imagem dilatada tem seus pontos claros expandidos, enquanto os
+\ref{img_morfologia_dilatacao} - b, ao contrário da imagem erodida,
+uma imagem dilatada tem seus pontos claros expandidos, enquanto os
 escuros são diminuídos em relação à imagem original.
 
 \hspace*{0.65cm}Neste trabalho, a Morfologia Matemática será
