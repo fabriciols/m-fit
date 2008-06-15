@@ -24,9 +24,9 @@ níveis de cinza aproximados para 0, tornando-se pretos.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=1\linewidth]{imagens/seg_histograma.png}
+ \includegraphics[width=0.7\linewidth]{imagens/seg_histograma.png}
  \caption{Exemplo de limiar com histograma.}
- \label{img_seg_histograma}
+ \label{img_seg_histograma} Fonte: Autor.
 \end{figure}
 
 \begin{figure}[ht]
@@ -34,32 +34,33 @@ níveis de cinza aproximados para 0, tornando-se pretos.
     \begin{minipage}[b]{0.40\linewidth}
         \centering
         \includegraphics[scale=0.35]{imagens/seg_limiar_original.png}
-        \caption{Imagem Original}
         \label{img:seg_limiar_original}
+ (a)
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}[b]{0.40\linewidth}
         \centering
         \includegraphics[scale=0.35]{imagens/seg_limiar_50.png}
-        \caption{Limiar 50}
         \label{img:seg_limiar_50}
+ (b)
     \end{minipage}
 \end{figure}
 \begin{figure}[ht]
 \centering
-    \begin{minipage}[b]{0.40\linewidth}
+	\begin{minipage}[b]{0.40\linewidth}
         \centering
         \includegraphics[scale=0.35]{imagens/seg_limiar_100.png}
-        \caption{Limiar 100}
         \label{img:seg_limiar_100}
-    \end{minipage}
+ (c)
+	\end{minipage}
     \hspace{0.5cm}
     \begin{minipage}[b]{0.40\linewidth}
         \centering
         \includegraphics[scale=0.35]{imagens/seg_limiar_150.png}
-        \caption{Limiar 150}
         \label{img:seg_limiar_150}
+ (d)
     \end{minipage}
+    \caption{a) Figura original; b) Limiar 50; c) Limiar 100; d) Limiar 150} Fonte: Autor.
 \end{figure}
 
 \hspace*{0.65cm}Como pode ser observado nos exemplos das Figuras
@@ -70,9 +71,10 @@ níveis de cinza aproximados de 255, deixando a imagem com mais
 pontos brancos do que pretos. A recíproca também e verdadeira.
 
 \hspace*{0.65cm}Existem diversas formas de se estimar o limiar, os
-mais conhecidos são: limiar iterativo \cite{YANG_2006}, por entropia
+mais conhecidos são: \\limiar iterativo \cite{YANG_2006}, por entropia
 \cite{KHARATE_2006} e limiar adaptativo \cite{ILYA_2001}.
-\hspace*{0.65cm}. Neste trabalho, usaremos a abordagem de
+
+\hspace*{0.65cm}Neste trabalho, usaremos a abordagem de
 \cite{RODRIGUEZ} para o cálculo do limiar, o qual usa o conceito de
 entropia não-extensiva. Este assunto não será abordado neste
 trabalho.

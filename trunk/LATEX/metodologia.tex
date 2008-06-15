@@ -7,7 +7,7 @@ para a realização da detecção de transições.
     \centering
     \includegraphics[width=1.0\linewidth]{imagens/metodologia.png}
     \caption{Diagrama esquemático da metodologia proposta.}
-    \label{img_metodologia}
+    \label{img_metodologia} Fonte: Autor.
 \end{figure}
 
 \hspace*{0.65cm}A Figura \ref{img_metodologia} mostra um esquema geral da
@@ -23,7 +23,7 @@ o vídeo poderá ser editado, com aplicações de efeitos visuais.
     \centering
     \includegraphics[width=1.0\linewidth]{imagens/metodologia_cortes.png}
     \caption{Metodologia utilizada para a detecção de Cortes.}
-    \label{img_metcortes}
+		 \label{img_metcortes} Fonte: Autor.
 \end{figure}
 
 \hspace*{1.25cm}A Figura \ref{img_metcortes} representa a metodologia utilizada para
@@ -80,7 +80,7 @@ a detecção de transições do tipo Corte:
     \centering
     \includegraphics[width=1.0\linewidth]{imagens/metodologia_fades.png}
     \caption{Metodologia utilizada para a detecção de Fade.}
-    \label{img_metfades}
+    \label{img_metfades} Fonte: Autor.
 \end{figure}
 
 Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
@@ -107,11 +107,9 @@ O processo para detecção de transições do tipo fade-in será:
 
     O processo para criar um RVH possui os seguintes passos:
 
-    \begin{enumerate}
-        \item{Obtenção do Frame;}
-        \item{Cálculo da Diagonal Principal deste Frame;}
-        \item{Obtenção do Histograma desta diagonal.}
-    \end{enumerate}
+    \subitem{Obtenção do Frame;}
+    \subitem{Cálculo da Diagonal Principal deste Frame;}
+    \subitem{Obtenção do Histograma desta diagonal.}
 
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
@@ -127,11 +125,11 @@ O processo para detecção de transições do tipo fade-in será:
         \centering
         \includegraphics[width=1.0\linewidth]{imagens/metodologia_fadein_rvh.png}
         \caption{RVH de uma sequência que contém uma transição do tipo
-        fade-in.} \label{img_met_fadein_rvh}
+        fade-in.} \label{img_met_fadein_rvh} Fonte: Autor.
     \end{figure}
 
-    \item{\textbf{Cálculo das Derivadas do RVH:} Obtido o RVH, será
-    calculada a sua primeira derivada. A partir desta nova curva, será
+    \item{\textbf{Cálculo das Derivadas do RVH:} Obtido o RVH, 
+    calcula-se a derivada primeira. A partir da função derivada, é
     possível visualizar o comportamento de um fade-in. No momento em que
     a sequência estiver com seus frames mais escuros, a curva se manterá
     mais constante, ao iniciar o processo da transição (clareamento da
@@ -143,7 +141,7 @@ O processo para detecção de transições do tipo fade-in será:
     passo anterior, conforme a tomada torna-se mais clara, a curva da
     derivada passa a sofrer uma determinada variação. No momento em que
     não houver mais variação na luminosidade dos frames, a curva irá
-    manter-se constante, e é neste momento em que a derivada atingirá o
+    manter-se aproximadamente constante, e é neste momento em que a derivada atingirá o
     seu valor máximo, o qual caracteriza a ocorrência do fade-in.}
 
     \item{\textbf{Transições Fade-in:} No final deste processo, as transições do tipo fade-in estarão detectadas.}
@@ -169,7 +167,7 @@ a captura do ponto de derivada mínima, enquanto no fade-in era o ponto de deriva
     \centering
     \includegraphics[width=1.0\linewidth]{imagens/metodologia_dissolve.png}
     \caption{Metodologia utilizada para a detecção de dissolve.}
-    \label{img_metdissolve}
+    \label{img_metdissolve} Fonte: Autor.
 \end{figure}
 
 \hspace*{1.25cm}Como visto na Seção \ref{ed_Dissolve}, o dissolve é
