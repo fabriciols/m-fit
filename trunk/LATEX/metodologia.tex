@@ -12,14 +12,16 @@ para a realização da detecção de transições.
 
 \hspace*{0.65cm}A Figura \ref{img_metodologia} mostra um esquema geral da
 metodologia proposta neste trabalho, que consiste em: a partir de um dado vídeo de entrada
-o sistema realizará a detecção de suas transições (corte/fade/dissolve). Após este processo
+o sistema realizará a detecção de suas transições (corte/fade/dissolve), sendo que para cada
+tipo de transição, será aplicada uma metodologia diferente, as quais serão
+detalhadas posteriormente. Após estes processos
 o vídeo poderá ser editado, com aplicações de efeitos visuais.
 
 \section{Cortes \label{met_cortes}}
 
 \begin{figure}[h|top]
     \centering
-    \includegraphics[width=0.9\linewidth]{imagens/metodologia_cortes.png}
+    \includegraphics[width=1.0\linewidth]{imagens/metodologia_cortes.png}
     \caption{Metodologia utilizada para a detecção de Cortes.}
     \label{img_metcortes}
 \end{figure}
@@ -37,17 +39,14 @@ a detecção de transições do tipo Corte:
 
     \hspace*{0.65cm}Este processo se dá de acordo com os seguintes passos:
 
-    \begin{enumerate}
-        \item{Obtenção do Frame;}
-        \item{Cálculo da Diagonal Principal deste Frame.}
-    \end{enumerate}
+    \subitem{Obtenção do Frame;}
+    \subitem{Cálculo da Diagonal Principal deste Frame.}
 
-    \hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo, de
-    forma seqüencial.}
+    \hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo.}
 
     \item{\textbf{Filtragem Espacial - Suavização da imagem por processos de convolução:} Homogeneização da imagem
-    através da aplicação de um filtro espacial do tipo passa-baixas, o qual utiliza o processo de convolução (Seção
-    \ref{filtragem_espacial}), permitindo que a imagem torne-se mais
+    (Ritmo Visual do vídeo) através da aplicação de um filtro espacial do tipo passa-baixas,
+    o qual utiliza o processo de convolução (Seção \ref{filtragem_espacial}), permitindo que a imagem torne-se mais
     suave e com menos ruídos.}
 
     \item{\textbf{Detecção de Bordas - Operador Sobel:} Uma vez suavizada a imagem, será aplicado o operador Sobel para
@@ -64,7 +63,7 @@ a detecção de transições do tipo Corte:
     fato de pertencerem a objetos da imagem. Tal processo será realizado
     através da contagem de pontos pertencentes às retas verticais
     detectadas. Quanto maior for este número, maior a possibilidade da
-    borda estar representando um corte. Com isso, gera-se uma limiar, o
+    borda estar representando um corte. Para isso, define-se um limiar, o
     que possibilita realizar a classificação entre aquilo que representa
     a borda de um objeto, e daquilo que representa uma transição de
     corte.}

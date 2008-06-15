@@ -7,34 +7,40 @@
  \label{img_state_diagram}
 \end{figure}
 
+\hspace*{0.65cm}A Figura \ref{img_state_diagram} apresenta os
+estados em que o sistema poderá se encontrar durante a execução da
+aplicação.
+
 \subsection{Estado: Busca Vídeo \label{st_video_search}}
 
-Sistema entra no estado de busca do vídeo informado pelo usuário.
+\hspace*{1.25cm}Sistema entra no estado de busca do vídeo informado
+pelo usuário.
 
 \subsection{Estado: Carrega Vídeo \label{st_load_video}}
 
-Sistema passa para o estado de carregamento do vídeo, caso o caminho
-e arquivo informado pelo usuário estejam corretos, senão volta para
-o estado de busca do vídeo.
+\hspace*{1.25cm}Sistema passa para o estado de carregamento do
+vídeo, caso o caminho e arquivo informado pelo usuário estejam
+corretos, senão volta para o estado de busca do vídeo.
 
 \subsection{Estado: Detecção de Transições \label{st_detect_transitions}}
 
-Caso o usuário opte por realizar a detecção de transições logo após
-o carregamento do vídeo, o sistema entra no estado de detecção de
-transições e segue para diversos outros estados internos dependendo
-da escolha do tipo de detecção a ser feita pelo usuário.
+\hspace*{1.25cm}Caso o usuário opte por realizar a detecção de
+transições logo após o carregamento do vídeo, o sistema entra no
+estado de detecção de transições e segue para diversos outros
+estados internos dependendo da escolha do tipo de detecção a ser
+feita pelo usuário.
 
-O sistema entra neste estado sempre que o usuário solicitar a
-detecção de transições.
+\hspace*{0.65cm}O sistema entra neste estado sempre que o usuário
+solicitar a detecção de transições.
 
 \subsubsection{Estado: Detecção de Cortes \label{st_cut_detection}}
 
-Estado interno do estado Detecção de Transições.
+\hspace*{1.25cm}Estado interno do estado Detecção de Transições.
 
-Sistema entra em estado de detecção de cortes. Neste estado são
-detectados todos os cortes do vídeo.
+\hspace*{0.65cm}Sistema entra em estado de detecção de cortes. Neste
+estado são detectados todos os cortes do vídeo.
 
-Este estado possui os seguintes estados internos:
+\hspace*{0.65cm}Este estado possui os seguintes estados internos:
 
 \begin{enumerate}
 
@@ -44,7 +50,7 @@ Sistema entra neste estado para a geração do Ritmo Visual por
 amostragem (extração de diagonais dos frames) do vídeo.
 }
 
-\item{\textbf{Suavizando imagem}]
+\item{\textbf{Suavizando imagem}
 
 Sistema entra no estado em que é feita a suavização da imagem
 através de filtros espaciais, no caso, o filtro passa-baixa.
@@ -80,20 +86,20 @@ vídeo.
 
 \subsubsection{Estado: Detecção de Fades \label{st_fade_detection}}
 
-Estado interno do estado Detecção de Transições.
+\hspace*{1.25cm}Estado interno do estado Detecção de Transições.
 
-Sistema entra em estado de detecção de fades. Neste estado são
-detectados os fade-in, fade-out ou ambos.
+\hspace*{0.65cm}Sistema entra em estado de detecção de fades. Neste
+estado são detectados os fade-in, fade-out ou ambos.
 
-Este estado possui os seguintes estados internos:
+\hspace*{0.65cm}Este estado possui os seguintes estados internos:
 
 \begin{enumerate}
 
 \item{\textbf{Obtendo RV por Histograma}
 
 Sistema entra neste estado para a geração do Ritmo Visual por
-Histograma (extração de diagonais dos frames e caluclo dos histogramas) do vídeo.
-}
+Histograma (extração de diagonais dos frames e cálculo dos
+histogramas) do vídeo. }
 
 \item{\textbf{Calculando Derivadas}
 
@@ -117,12 +123,12 @@ Este estado é necessário para definir os pontos onde ocorreram os fade-out.
 
 \subsubsection{Estado: Detecção de Dissolve \label{st_dissolve_detection}}
 
-Estado interno do estado Detecção de Transições.
+\hspace*{1.25cm}Estado interno do estado Detecção de Transições.
 
-Sistema entra em estado de detecção de dissolve. Neste estado são
-detectadas transições do tipo dissolve.
+\hspace*{0.65cm}Sistema entra em estado de detecção de dissolve.
+Neste estado são detectadas transições do tipo dissolve.
 
-Este estado possui os seguintes estados internos:
+\hspace*{0.65cm}Este estado possui os seguintes estados internos:
 
 \begin{enumerate}
 
@@ -156,25 +162,26 @@ ocorre o dissolve. }
 
 \subsection{Estado: Atualizando Timeline \label{st_timeline_update}}
 
-Realizadas as detecções de transições, independente do tipo de
-detecção, o sistema entra em estado de atualização da timeline do
-vídeo.
+\hspace*{1.25cm}Realizadas as detecções de transições, independente
+do tipo de detecção, o sistema entra em estado de atualização da
+timeline do vídeo.
 
 \subsection{Estado: Ajuste manual \label{st_manual_adjust}}
 
-Caso os pontos de transição definidos pelo sistema não sejam aceitos
-pelo usuário, este poderá ajustá-los manualmente, fazendo com que o
-sistema entre no estado de ajuste manual das transições.
+\hspace*{1.25cm}Caso os pontos de transição definidos pelo sistema
+não sejam aceitos pelo usuário, este poderá ajustá-los manualmente,
+fazendo com que o sistema entre no estado de ajuste manual das
+transições.
 
 \subsection{Estado: Repouso \label{st_rest}}
 
-Após o carregamento do vídeo o usuário tem a opção de realizar a
-detecção de todas as transições do vídeo. Caso opte por não realizar
-a detecção de transições o sistema entra em estado de repouso,
-aguardando alguma ação do usuário.
+\hspace*{1.25cm}Após o carregamento do vídeo o usuário tem a opção
+de realizar a detecção de todas as transições do vídeo. Caso opte
+por não realizar a detecção de transições o sistema entra em estado
+de repouso, aguardando alguma ação do usuário.
 
 \subsection{Estado: Em edição \label{st_edition}}
 
-Sistema entra no estado de edição do vídeo, sempre que o usuário for
-realizar qualquer tipo de edição no vídeo (aplicação de efeitos,
-alteração de luminosidade, dentre outros).
+\hspace*{1.25cm}Sistema entra no estado de edição do vídeo, sempre
+que o usuário for realizar qualquer tipo de edição no vídeo
+(aplicação de efeitos, alteração de luminosidade, dentre outros).

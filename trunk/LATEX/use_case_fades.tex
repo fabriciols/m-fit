@@ -9,9 +9,9 @@
 
 \subsubsection{Caso de uso: Detecta Fade \label{use_case_detecta_fades}}
 
-\textbf{Cenário Principal:} Feito o carregamento do vídeo, um
-processo de detecção das transições do tipo fade se inicia, o qual
-tem os seguintes passos:
+\hspace*{1.25cm}\textbf{Cenário Principal:} Feito o carregamento do
+vídeo, um processo de detecção das transições do tipo fade se
+inicia, o qual tem os seguintes passos:
 
 \begin{itemize}
 \item{Monstagem do Ritmo Visual por Histograma}
@@ -19,52 +19,53 @@ tem os seguintes passos:
 \item{Obtenção da derivada Máxima}
 \end{itemize}
 
-\textbf{Cenário Alternativo:} O usuário cancela a operação de
-detecção de transições. A mesma poderá ser feita posteriormente
-através dos menus do sistema.
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
+operação de detecção de transições. A mesma poderá ser feita
+posteriormente através dos menus do sistema.
 
 \subsubsection{Caso de uso: Montagem do RV por histograma \label{use_case_rvh}}
 
-\textbf{Cenário Principal:} Para a detecção de fades, O RVH será
-montado na representação de uma curva num gráfico, onde cada ponto
-da curva tem informações sobre um frame do video.
+\hspace*{1.25cm}\textbf{Cenário Principal:} Para a detecção de
+fades, O RVH será montado na representação de uma curva num gráfico,
+onde cada ponto da curva tem informações sobre um frame do video.
 
 \subsubsection{Caso de uso: Cálculo da Diagonal Principal do Frame
 \label{use_case_diagonal_fade}}
 
-Ver: \ref{use_case_diagonal_principal}
+\hspace*{1.25cm}Ver: \ref{use_case_diagonal_principal}
 
 \subsubsection{Caso de uso: Obtenção do Pico do Histograma \label{use_case_pico_hist}}
 
-\textbf{Cenário Principal:} A partir do histograma de cada amostra
-(diagonal do frame), é obtido o valor de luminância que tem maior
-incidência. Este valor representará um ponto na reta do $RVH$
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir do histograma
+de cada amostra (diagonal do frame), é obtido o valor de luminância
+que tem maior incidência. Este valor representará um ponto na reta
+do $RVH$
 
 \subsubsection{Caso de uso: Cálculo das derivadas dos pontos do RVH \label{use_case_derivadas}}
 
-\textbf{Cenário Principal:} A partir da reta RVH do video , é
-calculada a derivada dos pontos, em busca de variações em seu
-resultado.
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir da reta RVH do
+video , é calculada a derivada dos pontos, em busca de variações em
+seu resultado.
 
 \subsubsection{Detecta Fade-In \label{use_case_detecta_fadein}}
 
-\textbf{Cenário Principal:} Em cima das derivadas dos pontos do RVH,
-é necessário fazer uma análise para identificar um padrão que
-evidencia o fade-in, e obter a derivada máxima para identificar o
-ponto de marcação da transição.
+\hspace*{1.25cm}\textbf{Cenário Principal:} Em cima das derivadas
+dos pontos do RVH, é necessário fazer uma análise para identificar
+um padrão que evidencia o fade-in, e obter a derivada máxima para
+identificar o ponto de marcação da transição.
 
 \subsubsection{Caso de uso: Obtenção da Derivada Máxima \label{use_case_derivada_max}}
 
-\textbf{Cenário Principal:} A partir das derivadas da reta, é obtido
-o frame onde a derivada tem seu maior pico. Este é o ponto onde a
-transição é delimitada.
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir das derivadas
+da reta, é obtido o frame onde a derivada tem seu maior pico. Este é
+o ponto onde a transição é delimitada.
 
 \subsubsection{Detecta Fade-Out \label{use_case_detecta_fadeout}}
 
-Ver: \ref{use_case_detecta_fadein}
+\hspace*{1.25cm}Ver: \ref{use_case_detecta_fadein}
 
 \subsubsection{Caso de uso: Obtenção da Derivada Mínima \label{use_case_derivada_min}}
 
-\textbf{Cenário Principal:} A partir das derivadas da reta, é obtido
-o frame onde a derivada possui o menor valor. Este é o ponto onde a
-transição é delimitada.
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir das derivadas
+da reta, é obtido o frame onde a derivada possui o menor valor. Este
+é o ponto onde a transição é delimitada.

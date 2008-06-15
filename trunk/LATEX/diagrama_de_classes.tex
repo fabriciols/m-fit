@@ -7,334 +7,341 @@
  \label{img_diagrama_de_classes}
 \end{figure}
 
-\subsection{Especificação textual do diagrama de classes \label{diagrama_classes_textual}}
+\hspace*{0.65cm}A Figura \ref{img_diagrama_de_classes} representa o modelo do diagrama de
+estados do sistema.
 
-\subsubsection{Classe: Brightness \label{classe_Brightness}}
+\subsection{Classe: Brightness \label{classe_Brightness}}
 
-Classe responsável em aplicar 
-efeitos de brilho. 
+\hspace*{1.25cm}Classe responsável em aplicar
+efeitos de brilho.
 
-\subsubsection{Classe: Color \label{classe_Color}}
+\subsection{Classe: Color \label{classe_Color}}
 
-Classe responsável em aplicar 
-efeitos de cor. 
+\hspace*{1.25cm}Classe responsável em aplicar
+efeitos de cor.
 
-\subsubsection{Classe: Contrast \label{classe_Contrast}}
+\subsection{Classe: Contrast \label{classe_Contrast}}
 
-Classe responsável em aplicar 
-efeitos de contraste. 
+\hspace*{1.25cm}Classe responsável em aplicar
+efeitos de contraste.
 
-\subsubsection{Classe: Cut \label{classe_Cut}}
+\subsection{Classe: Cut \label{classe_Cut}}
 
-Classe responsável por indentificar 
-transições do tipo Corte. 
+\hspace*{1.25cm}Classe responsável por indentificar
+transições do tipo Corte.
 
-\textbf{Métodos:}
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{Frame createBorderMap() }
-		 
-Cria o mapa de bordas. 	 
+ \item{Frame createBorderMap() }
 
-	\item{int defineTreshold() }
-		 
-Processo para a definição da 	 
-limiar de corte para o processo 	 
-de detecção de transições do tipo 	 
-corte. 	 
+ \hspace*{0.65cm}Cria o mapa de bordas.
 
-	\item{int countPoints() }
+ \item{int defineTreshold() }
+
+ \hspace*{0.65cm}Processo para a definição da
+ limiar de corte para o processo
+ de detecção de transições do tipo
+ corte.
+ \item{int countPoints() }
+\end{enumerate}
+
+\subsection{Classe: DetectTransitions \label{classe_DetectTransitions}}
+
+\hspace*{1.25cm}Classe pai de todas as detecções
+de transições.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+    \item{Transition detectTransitions(Video vdo) }
+
+\hspace*{0.65cm}Função principal na detecção
+de transições. Desencadeia
+a chamada da função com este
+mesmo nome nos objetos
+filhos.
 
 \end{enumerate}
-\subsubsection{Classe: DetectTransitions \label{classe_DetectTransitions}}
 
-Classe pai de todas as detecções 
-de transições. 
+\subsection{Classe: Dissolve \label{classe_Dissolve}}
 
-\textbf{Métodos:}
+\hspace*{1.25cm}Classe responsável por detectar
+o dissolve.
+
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{Transition detectTransitions(Video vdo) }
-		 
-Função principal na detecção 	 
-de transições. Desencadeia 	 
-a chamada da função com este 	 
-mesmo nome nos objetos 	 
-filhos. 	 
+    \item{bool checkLuminance() }
+
+    \item{float calcSecondDerivative() }
+
+\hspace*{0.65cm}Calcula a segunda derivada de
+uma curva.
+
+    \item{float calcVariance() }
+
+\hspace*{0.65cm}Calcula a curva de variância de um vídeo.
+
+    \item{float calcRatioVarianceVRH() }
+
+\hspace*{0.65cm}Calcula a razão entre a segunda
+derivada da variância com a
+derivada do RVH.
 
 \end{enumerate}
-\subsubsection{Classe: Dissolve \label{classe_Dissolve}}
 
-Classe responsável por detectar 
-o dissolve. 
+\subsection{Classe: Effect \label{classe_Effect}}
 
-\textbf{Métodos:}
+\hspace*{1.25cm}Classe responsável por centralizar
+os métodos dos efeitos.
+
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{bool checkLuminance() }
+    \item{int applyEffect() }
 
-	\item{float calcSecondDerivative() }
-		 
-Calcula a segunda derivada de 	 
-uma curva. 	 
-
-	\item{float calcVariance() }
-		 
-Calcula a curva de variância de um vídeo. 	 
-
-	\item{float calcRatioVarianceVRH() }
-		 
-Calcula a razão entre a segunda 	 
-derivada da variância com a 	 
-derivada do RVH. 	 
+\hspace*{0.65cm}Função genérica para aplicação
+de efeito. Será implementada
+por todas as classes filhas
+deste objeto.
 
 \end{enumerate}
-\subsubsection{Classe: Effect \label{classe_Effect}}
 
-Classe responsável por centralizar 
-os métodos dos efeitos. 
+\subsection{Classe: Fadein \label{classe_Fadein}}
 
-\textbf{Métodos:}
+\hspace*{1.25cm}Classe responsável por indentificar
+transições do tipo Fade-in.
+
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{int applyEffect() }
-		 
-Função genérica para aplicação 	 
-de efeito. Será implementada 	 
-por todas as classes filhas 	 
-deste objeto. 	 
+
+    \item{float calcMaxDerivative() }
+
+\hspace*{0.65cm}Encontra a Máxima derivada.
 
 \end{enumerate}
-\subsubsection{Classe: Fadein \label{classe_Fadein}}
 
-Classe responsável por indentificar 
-transições do tipo Fade-in. 
+\subsection{Classe: Fade \label{classe_Fade}}
 
-\textbf{Métodos:}
+\hspace*{1.25cm}Classe responsável por
+identificar todos os tipos de
+fade.
+
+\subsection{Classe: Fadeout \label{classe_Fadeout}}
+
+\hspace*{1.25cm}Classe responsável por indentificar
+transições do tipo Fade-out.
+
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{float calcMaxDerivative() }
-		 
-Encontra a Máxima derivada. 	 
+    \item{float calcMinDerivative() }
+
+\hspace*{0.65cm}Encontra a Mínima derivada.
 
 \end{enumerate}
-\subsubsection{Classe: Fade \label{classe_Fade}}
 
-Classe responsável por 
-identificar todos os tipos de 
-fade. 
+\subsection{Classe: Filters \label{classe_Filters}}
 
-\subsubsection{Classe: Fadeout \label{classe_Fadeout}}
+\hspace*{1.25cm}Classe que agrupa filtros de
+processamento de imagens digitais.
 
-Classe responsável por indentificar 
-transições do tipo Fade-out. 
-
-\textbf{Métodos:}
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{float calcMinDerivative() }
-		 
-Encontra a Mínima derivada. 	 
+    \item{Frame Sobel() }
+
+\hspace*{0.65cm}Aplica o Operador Sobel
+em uma imagem.
+
+\hspace*{0.65cm}Será utilizado pelo processo
+\textit{createBorderMap} da classe Cut
+
+
+    \item{Frame lowPass() }
+
+\hspace*{0.65cm}Aplica um filtro passa-baixa na
+imagem.
+
+    \item{Frame highPass() }
+
+\hspace*{0.65cm}Aplica um filtro passa alta na
+imagem.
 
 \end{enumerate}
-\subsubsection{Classe: Filters \label{classe_Filters}}
 
-Classe que agrupa filtros de 
-processamento de imagens digitais. 
+\subsection{Classe: Frame \label{classe_Frame}}
 
-\textbf{Métodos:}
+\hspace*{1.25cm}Classe que armazena informações sobre
+um único frame.
+
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{Frame Sobel() }
-		 
-Aplica o Operador Sobel 	 
-em uma imagem. 	 
-	 
-Será utilizado pelo processeo 	 
-createBorderMap da classe Cut 	 
-	 
+    \item{Histogram createHistgram() }
 
-	\item{Frame lowPass() }
-		 
-Aplica um filtro passa-baixa na 	 
-imagem. 	 
-	 
-CvSmooth 	 
-	 
+\hspace*{0.65cm}Função que cria o histograma da
+diagonal do frame.
 
-	\item{Frame highPass() }
-		 
-Aplica um filtro passa alta na 	 
-imagem. 	 
+    \item{Frame getDiagonal() }
+
+\hspace*{0.65cm}Retorna a diagonal do frame.
 
 \end{enumerate}
-\subsubsection{Classe: Frame \label{classe_Frame}}
 
-Classe que armazena informações sobre 
-um único frame. 
+\subsection{Classe: Histogram \label{classe_Histogram}}
 
-\textbf{Métodos:}
+\hspace*{1.25cm}Classe responsável por conter
+os dados do histograma de um frame.
+
+\subsection{Classe: Interface \label{classe_Interface}}
+
+\hspace*{1.25cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{Histogram createHistgram() }
-		 
-Função que cria o histograma da 	 
-diagonal do frame. 	 
+    \item{void showTimeLine() }
 
-	\item{Frame getDiagonal() }
-		 
-Retona a diagonal do frame. 	 
+\hspace*{0.65cm}Cria a timeline na tela.
+
+    \item{void updateTimeline() }
+
+\hspace*{0.65cm}Atualiza a timeline com informações
+dos vídeostomadastransições.
+
+    \item{void createListofTakes() }
+
+\hspace*{0.65cm}Cria exibição da lista de tomadas
+do vídeo.
+
+    \item{void showVideo() }
+
+\hspace*{0.65cm}Cria container para exibição
+do vídeo.
+
+    \item{void redefineTakes() }
+
+\hspace*{0.65cm}Método chamado quando o usuário
+modifica a posição de uma transição
+já detectada.
 
 \end{enumerate}
-\subsubsection{Classe: Histogram \label{classe_Histogram}}
 
-Classe responsável por conter 
-os dados do histograma de um frame. 
+\subsection{Classe: Morpholical \label{classe_Morpholical}}
 
-\subsubsection{Classe: Interface \label{classe_Interface}}
+\hspace*{1.25cm}Classe que agrupa filtros de
+morfologia matemática.
 
-\textbf{Métodos:}
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{void showTimeLine() }
-		 
-Cria a timeline na tela. 	 
+    \item{Morpholical erode(int Frame) }
 
-	\item{void updateTimeline() }
-		 
-Atualiza a timeline com informações 	 
-dos vídeostomadastransições. 	 
+\hspace*{0.65cm}Aplica o efeito de Erosão em uma
+imagem.
 
-	\item{void createListofTakes() }
-		 
-Cria exibição da lista de tomadas 	 
-do vídeo. 	 
+    \item{Frame dilate() }
 
-	\item{void showVideo() }
-		 
-Cria container para exibição 	 
-do vídeo. 	 
+\hspace*{0.65cm}Aplica o efeito de dilatação em
+uma imagem
 
-	\item{void redefineTakes() }
-		 
-Método chamado quando o usuário 	 
-modifica a posição de uma transição 	 
-já detectada. 	 
 
 \end{enumerate}
-\subsubsection{Classe: Morpholical \label{classe_Morpholical}}
 
-Classe que agrupa filtros de 
-morfologia matemática. 
+\subsection{Classe: Take \label{classe_Take}}
 
-\textbf{Métodos:}
+\hspace*{1.25cm}Container para tomadas de vídeo.
+
+\subsection{Classe: Time \label{classe_Time}}
+
+\hspace*{1.25cm}Classe responsável por manipular informações de tempo.
+
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{Morpholical erode(int Frame) }
-		 
-Aplica o efeito de Erosão em uma 	 
-imagem. 	 
+    \item{int time2pos() }
 
-	\item{Frame dilate() }
-		 
-Aplica o efeito de dilatação em 	 
-uma imagem 	 
-	 
+\hspace*{0.65cm}Retorna o valor em POSIÇÃO no
+vídeo referente ao tempo armazenado
+por este objeto.
 
 \end{enumerate}
-\subsubsection{Classe: Take \label{classe_Take}}
 
-Container para tomadas de vídeo. 
+\subsection{Classe: Transition \label{classe_Transition}}
 
-\subsubsection{Classe: Time \label{classe_Time}}
+\hspace*{1.25cm}Classe responsável por representar
+uma transição.
 
-Classe que agrua informações 
-e manipulação de tempo. 
+\subsection{Classe: Video \label{classe_Video}}
 
-\textbf{Métodos:}
+\hspace*{1.25cm}Classe responsável por fazer
+a manipulação de um vídeo.
+
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{int time2pos() }
-		 
-Retona o valor em POSIÇÃO no 	 
-vídeo referente ao tempo armazenado 	 
-por este objeto. 	 
+    \item{Frame getNextFrame() }
+
+\hspace*{0.65cm}Método responsável por obter
+o próximo frame em relação à
+posição atual do vídeo.
+
+    \item{Frame getPreviousFrame() }
+
+\hspace*{0.65cm}Método responsável por obter
+o frame anterior em relação à
+posição atual do vídeo.
+
+    \item{int seekFrame(int pos) }
+
+\hspace*{0.65cm}Método responsável em
+posicionar o ponteiro do vídeo
+na posição desejada, a qual é
+parecida como parâmetro da
+função.
+
+    \item{CvCapture open() }
+
+\hspace*{0.65cm}Função que abre o vídeo
+e atualiza as variáveis do objeto.
+
+    \item{int close() }
+
+\hspace*{0.65cm}Função que fecha o vídeo.
+
+    \item{Frame getCurrentFrame() }
+
+\hspace*{0.65cm}Obtém o frame atual.
+
+    \item{int getCurrentPosition() }
+
+\hspace*{0.65cm}Obtém a posição corrente do
+ponteiro do vídeo.
+
+    \item{int write() }
+
+\hspace*{0.65cm}Processo que escreve no arquivo.
+É nele onde são aplicados
+realmente os efeitos provenientes
+da edição do vídeo.
+
+\hspace*{0.65cm}Retorna:
+
+\hspace*{0.65cm}1 - Sucesso.
+
+\hspace*{0.65cm}0 - Erro.
 
 \end{enumerate}
-\subsubsection{Classe: Transition \label{classe_Transition}}
 
-Classe responsável por representar 
-uma transição. 
+\subsection{Classe: VisualRythim \label{classe_VisualRythim}}
 
-\subsubsection{Classe: Video \label{classe_Video}}
+\hspace*{1.25cm}Classe responsável por criar
+os dois tipos de ritmo visual.
 
-Classe responsável por fazer 
-a manipulação de um vídeo. 
-
-\textbf{Métodos:}
+\hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-	\item{Frame getNextFrame() }
-		 
-Método responsável por obter 	 
-o próximo frame em relação à 	 
-posição atual do vídeo. 	 
+    \item{Frame createVR() }
 
-	\item{Frame getPreviousFrame() }
-		 
-Método responsável por obter 	 
-o frame anterior em relação à 	 
-posição atual do vídeo. 	 
+\hspace*{0.65cm}Cria o Ritmo Visual por sub-amostragem.
 
-	\item{int seekFrame(int pos) }
-		 
-Método responsável em 	 
-posicionar o ponteiro do vídeo 	 
-na posição desejada, a qual é 	 
-parecida como parâmetro da 	 
-função. 	 
+    \item{int createVRH() }
 
-	\item{CvCapture open() }
-		 
-Função que abre o vídeo 	 
-e atualiza as variáveis do objeto. 	 
+\hspace*{0.65cm}Retorna o Ritmo Visual por
+Histograma do vídeo
 
-	\item{int close() }
-		 
-Função que fecha o vídeo. 	 
-1 - sucesso. 	 
-0 - erro. 	 
-	 
+    \item{float calcDerivatives() }
 
-	\item{Frame getCurrentFrame() }
-		 
-Obtém o frame atual. 	 
-
-	\item{int getCurrentPosition() }
-		 
-Obtêm a posição corrente do 	 
-ponteiro do vídeo. 	 
-
-	\item{int write() }
-		 
-Processo que escreve no arquivo. 	 
-É nele onde são aplicados 	 
-realmente os efeitos provenientes 	 
-da edição do vídeo. 	 
-	 
-retona: 	 
-	 
-1 - Sucesso. 	 
-<0 - Erro. 	 
-
-\end{enumerate}
-\subsubsection{Classe: VisualRythim \label{classe_VisualRythim}}
-
-Classe responsável por criar 
-os dois tipos de ritmo visual. 
-
-\textbf{Métodos:}
-\begin{enumerate}
-	\item{Frame createVR() }
-		 
-Cria o Ritmo Visual por sub-amostragem. 	 
-
-	\item{int createVRH() }
-		 
-Retona o Ritmo Visual por 	 
-Histograma do vídeo 	 
-
-	\item{float calcDerivatives() }
-		 
-Calcula primeira derivada da curva do 	 
-gráfico do ritmo visual. 	 
+\hspace*{0.65cm}Calcula primeira derivada da curva do
+gráfico do ritmo visual.
 
 \end{enumerate}
