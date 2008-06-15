@@ -1,5 +1,7 @@
 \section{Diagramas de Sequência \label{diagramas_sequencia}}
 
+Nesta Seção serão apresentados os Diagramas de Sequência do sistema.
+
 \subsection{Carregamento do vídeo \label{seq_carrega}}
 
 \begin{figure}[h|top]
@@ -62,7 +64,7 @@ de detecção de transições;}
 \end{figure}
 
 \begin{enumerate}
-\item{DTC solitica à VDO a posição atual do cursor da timeline;}
+\item{DTC solicita à VDO a posição atual do cursor da timeline;}
 \item{DTC solicita à VDO o posicionamento do cursor na posição 0 do vídeo, para que
 a análise seja feita em todos os frames do vídeo;}
 \item{DTC cria objeto VR;}
@@ -89,7 +91,7 @@ que atingirem o valor do limiar;}
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.7\linewidth]{imagens/seq_fade.PNG}
+ \includegraphics[width=1.0\linewidth]{imagens/seq_fade.PNG}
  \caption{Diagrama de sequência para detecção de fades (fade-in e fade-out).}
  \label{img_seq_fade}
 \end{figure}
@@ -101,7 +103,7 @@ a análise seja feita em todos os frames do vídeo;}
 \item{DTF cria objeto VR;}
 \item{DTF solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
 \item{VR cria objeto FRAME;}
-\item{Loop: Enquanto a posicão do frame corrente for diferente do tomanho do video}
+\item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do video}
 \item{VR solicita a VDO o próximo frame do vídeo}
 \item{VR solicita ao FRAME a diagonal do frame solicitado}
 \item{VR solicita ao FRAME o histograma do frame (diagonal)}
@@ -122,7 +124,7 @@ a análise seja feita em todos os frames do vídeo;}
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.7\linewidth]{imagens/seq_dissolve.PNG}
+ \includegraphics[width=1.0\linewidth]{imagens/seq_dissolve.PNG}
  \caption{Diagrama de sequência para detecção de dissolve.}
  \label{img_seq_dissolve}
 \end{figure}
@@ -134,7 +136,7 @@ a análise seja feita em todos os frames do vídeo;}
 \item{DTD cria objeto VR;}
 \item{DTD solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
 \item{VR cria objeto FRAME;}
-\item{Loop: Enquanto a posicão do frame corrente for diferente do tomanho do vídeo}
+\item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do vídeo}
 \item{VR solicita a VDO o próximo frame do vídeo}
 \item{VR solicita ao FRAME a diagonal do frame solicitado}
 \item{VR solicita ao FRAME o histograma do frame (diagonal)}
