@@ -1,0 +1,254 @@
+\section{Ritmo Visual \label{ritmo_visual}}
+
+\hspace*{1.25cm}Ritmo Visual é definido como a representação de um
+segmento de imagens $2D+t$ (um vídeo) em uma única imagem na
+dimensão $2D$, sendo portanto uma tentativa de tornar o trabalho de
+análise de vídeo mais simplificado.
+
+Existem dois tipos de representações do ritmo visual. Ritmo Visual
+por histograma e por sub-amostragem. A seguir, ambos são
+apresentados mais detalhadamente.
+
+\subsection{Ritmo Visual por sub-amostragem \label{ritmo_visual_amostragem}}
+
+\hspace*{1.25cm}O Ritmo Visual por sub-amostragem caracteriza-se
+pela transformação de determinadas faixas de pixels (amostras) de
+cada um dos frames de uma tomada do vídeo em uma coluna da
+representação $2D$, como representado na Figura
+\ref{img_rvdiagonal}. Podemos dizer então que o Ritmo Visual é uma
+simplificação do vídeo.
+
+\hspace*{0.65cm}O padrão desta representação pode ser alterado
+conforme a escolha dos pixels, portanto, o padrão do ritmo visual é
+totalmente dependente do tipo da amostragem retirada do vídeo. Bons
+resultados podem ser obtidos se a sub-amostragem do frame for dada
+pela sua diagonal principal, uma vez que ela trará características
+horizontais e verticais do frame, podendo assim fazer uma boa
+representação do mesmo. Uma melhor abordagem sobre este processo
+pode ser encontrada em \cite{GUIMARAES_2003_2} e
+\cite{GUIMARAES_2001_2}.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.3\linewidth]{imagens/rv_diagonal.png}
+ \caption{Transformação da diagonal principal dos frames de um
+vídeo em colunas do Ritmo Visual.}
+ \label{img_rvdiagonal}
+ Fonte: Autor ``adaptado de'' \cite{GUIMARAES_2002_2}, p.2.
+\end{figure}
+
+\hspace*{0.65cm}Na Figura \ref{img_rvdiagonal} pode ser observado o
+processo de transformação das diagonais principais dos frames $1$,
+$2$, $3$, $4$ e $5$ nas colunas $1$, $2$, $3$, $4$, e $5$ do Ritmo
+Visual.
+
+\hspace*{0.65cm}Formalmente, pode-se definir Ritmo Visual (RV) da
+seguinte maneira:
+
+\hspace*{0.65cm}Seja $\bigvee = {I_1, I_2, ..., I_n}$ um vídeo e
+$I_i(x,y)$ um frame $\in V$.
+
+\hspace*{0.65cm}Um pixel qualquer de um frame é definido como
+$p(x,y)$ com $x,y \in N$, sendo que os valores de $x$ e $y$ variam
+de 0 até o valor de largura e altura do frame, respectivamente.
+
+\hspace*{0.65cm}Em uma imagem em tons de cinza, cada pixel possui um
+valor de luminância $L \in {0,1,...,255}$. Sendo assim, se $L(x,y) =
+0$, o pixel é definido como preto e caso $L(x,y) = 255$, o pixel é
+definido como branco.
+
+\hspace*{0.65cm}Por outro lado, em uma imagem RGB (Seção
+\ref{sc_rgb}), $L(x,y)$ é definido pelo conjunto do tom das 3 cores
+(vermelho, verde e azul) deste sistema de cores. Para cada cor
+existe um $l(x,y) \in {0,...,255}$, cuja combinação resulta em uma
+cor com uma determinada tonalidade do pixel $P(x,y)$. Sendo assim,
+em um sistema RGB, define-se que $L(x,y) = [l(x,y),l(x,y),l(x,y)]$.
+
+\hspace*{0.65cm}Neste trabalho, as imagens serão todas tratadas em
+tons de cinza.
+
+\hspace*{0.65cm}Portanto, Ritmo Visual é definido como:
+
+\hspace*{0.65cm}Seja $D_i$ uma diagonal do frame $I_i$. A sequência
+de todas as diagonais $D_i \in \bigvee$, chama-se Ritmo Visual do
+vídeo $\bigvee$.
+
+\hspace*{0.65cm} Na Figura \ref{img_rv_exemplos} podem ser
+observados três exemplos de Ritmo Visual. Cada tipo de transição
+gera uma coluna com características, padrões diferentes no ritmo
+visual.
+
+\begin{figure}[h|top]
+\centering
+\begin{minipage}[b]{5.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/rv_cuts.png}
+ (a)
+\end{minipage}
+\begin{minipage}[b]{5.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/rv_fades.png}
+ (b)
+\end{minipage}
+\begin{minipage}[b]{5.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/rv_dissolve.png}
+ (c)
+\end{minipage}
+\caption{Representações de Ritmo Visual: a) cortes; b) fade-out
+seguido de fade-in; c) duas transições consecutivas do tipo
+dissolve.} Fonte: \cite{GUIMARAES_2002_2}, p.4.
+\label{img_rv_exemplos}
+\end{figure}
+
+\hspace*{0.65cm}Como visto na Figura \ref{img_rv_exemplos} - a, os
+cortes são caracterizados no Ritmo Visual por linhas verticais.
+Porém, pela possível existência de ruídos na imagem gerada, nem
+todas as linhas verticais devem ser consideradas necessariamente um
+corte. Para resolver este problema, algumas técnicas de filtragem
+espacial podem ser aplicadas, diminuindo a intensidade dos ruídos.
+
+\subsection{Ritmo Visual por Histograma\label{ritmo_visual_histograma}}
+
+\hspace*{1.25cm}Como o Ritmo Visual por sub-amostragem, o Ritmo
+Visual por Histograma (RVH) tem como objetivo simplificar a
+representação de um vídeo. O processo de criação de um RVH é :
+
+\begin{enumerate}
+\item Captura da diagonal principal do frame.
+\item Calculo do histograma desta diagonal.
+\item Obtenção do maior valor de luminância deste histograma.
+\item Os passos 1-3 são repetidos para todos os frames, e os pontos obtidos com o passo 3, são agrupados.
+\end{enumerate}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/RVH.png}
+ \caption{Representações de Ritmo Visual Por Histograma}
+ Fonte: Autor.
+ \label{img_rvh}
+\end{figure}
+
+\hspace*{0.65cm}A Figura \ref{img_rvh} representa os passos para a
+criação do RVH. O passo 3 é representado pela reta horizontal
+vermelha no histograma da diagonal.
+
+\hspace*{0.65cm}Matematicamente:
+
+\hspace*{0.65cm}Seja $Hi$ o histograma da diagonal $Di$ do frame
+$Ii$, a função $max(Hi)$ o valor de luminância mais presente no
+frame (i.e., o pico máximo do histograma).
+
+\hspace*{0.65cm}A sequência de todos os $max(Hi) \in \bigvee$
+agrupados é chamado de RVH.
+
+\hspace*{0.65cm}Neste trabalho, as técnicas de Ritmo Visual serão
+utilizadas para transformar o nosso problema de segmentação de
+vídeos em um problema de segmentação de imagens.
+
+\section{Processamento de Baixo Nível \label{baixo_nivel}}
+
+\subsection{Filtragem Espacial \label{filtragem_espacial}}
+
+\hspace*{1.25cm}Filtragem Espacial é uma técnica utilizada na área
+de processamento de imagens para realizar a suavização ou realce de
+detalhes da imagem, ou até mesmo a eliminação de elementos
+indesejáveis dessas imagens, como por exemplo, os ruídos.
+
+\hspace*{0.65cm}Para a aplicação de um filtro, utiliza-se o conceito
+de operadores de vizinhança, que consiste em alterar o Nível Digital
+($ND$), o qual pode ser o nível de tons de cinza, ou cor, de um
+pixel através do $ND$ de seus pixels vizinhos. Dependendo do filtro
+a ser utilizado este cálculo pode ser alterado. Geralmente, cria-se
+uma máscara de convolução, que nada mais é do que uma matriz
+(normalmente de tamanho $3\times3$, como na Figura
+\ref{img_mascaras_convolucao}) que possui um determinado peso em
+cada uma de suas posições.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/mascaras.png}
+ \caption{Exemplos de Máscaras para filtro passa-alta.}
+ Fonte: Autor ``adaptado de'' \cite{FELGUEIRAS_2006}.
+ \label{img_mascaras_convolucao}
+\end{figure}
+
+\hspace*{0.65cm}O pixel a ter seu $ND$ recalculado é sempre aquele
+que estiver sob a posição central da matriz, como mostrado na Figura
+\ref{img_filtragem_masc}:
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.5\linewidth]{imagens/filtragem_masc.png}
+ \caption{Máscara 3x3 sendo utilizada para a filtragem de uma
+imagem digital. No caso, o $ND$ a ser recalculado é do pixel X.}
+ Fonte: Autor ``adaptado de'' \cite{FELGUEIRAS_2006}.
+ \label{img_filtragem_masc}
+\end{figure}
+
+\hspace*{0.65cm}O cálculo do novo $ND$ de um pixel é dado pelo
+processo de convolução, que consiste na soma dos produtos entre os
+valores da matriz e pixels correspondentes da imagem, onde esta
+matriz percorre toda a imagem pixel a pixel, partindo da esquerda
+para a direita. Tal deslocamento é obtido através da soma de 1 pixel
+na posição x atual da matriz, como pode ser observado na Figura
+\ref{img_filtragem_masc}.
+
+\hspace*{0.65cm}O cálculo do ND de um pixel, através do processo de
+convolução de uma imagem é dado por:
+
+\begin{large}
+\begin{center}
+\begin{equation}
+\label{eq:convolucao} ND = \sum_{i=1}^{n}{MiOi}
+\end{equation}
+\end{center}
+\end{large}
+
+\hspace*{0.65cm}Onde $M$ é uma matriz de convolução $3\times3$, $O$
+é a imagem a ser filtrada e $n$ é o número de elementos de M.
+
+\hspace*{0.65cm}Entre os principais tipos de filtragem está o filtro
+passa-alta, que pode ser uma boa alternativa para fazer a detecção
+de bordas e o filtro passa-baixa, com o qual é possível realizar a
+suavização da imagem, resultando na diminuição de possíveis ruídos
+presentes na mesma.
+
+\begin{figure}[h|top]
+\centering
+\begin{minipage}[b]{7.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/filtragem_a.png}
+ (a)
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{7.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/filtragem_b.png}
+ (b)
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{7.0cm}
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/filtragem_c.png}
+ (c)
+\end{minipage}
+\caption{a) Imagem Original; b) Passa-baixa; c) Passa-alta.} Fonte:
+Autor. \label{img_exemplos_filtros}
+\end{figure}
+
+
+\hspace*{0.65cm}Como pode ser observado na Figura
+\ref{img_exemplos_filtros} - b, ao aplicar um filtro passa-baixa na
+imagem, ela torna-se mais homogênea e também perde-se nitidez, porém
+os ruídos são suavizados. Já na Figura \ref{img_exemplos_filtros} -
+c, foi aplicado um filtro passa-alta na imagem, havendo um aumento
+do contraste entre os objetos e o fundo da imagem, ganha-se nitidez
+e caso existam ruídos na imagem original, estes poderão ser
+realçados assim como as bordas dos objetos.
+
+\hspace*{0.65cm}Uma abordagem mais completa sobre este assunto pode
+ser encontrada
+em \\
+\cite{FELGUEIRAS_2006}, \cite{STIVANELLO_2005} e \\
+\cite{GONZALEZ_2002}.
