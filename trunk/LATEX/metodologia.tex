@@ -39,8 +39,10 @@ a detecção de transições do tipo Corte:
 
     \hspace*{0.65cm}Este processo se dá de acordo com os seguintes passos:
 
-    \subitem{Obtenção do Frame;}
-    \subitem{Cálculo da Diagonal Principal deste Frame.}
+    \begin{enumerate}
+        \item{Obtenção do Frame;}
+        \item{Cálculo da Diagonal Principal deste Frame.}
+    \end{enumerate}
 
     \hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo.}
 
@@ -106,11 +108,11 @@ O processo para detecção de transições do tipo fade-in será:
     \ref{ritmo_visual_histograma}).
 
     O processo para criar um RVH possui os seguintes passos:
-
-    \subitem{Obtenção do Frame;}
-    \subitem{Cálculo da Diagonal Principal deste Frame;}
-    \subitem{Obtenção do Histograma desta diagonal.}
-
+    \begin{enumerate}
+    \item{Obtenção do Frame;}
+    \item{Cálculo da Diagonal Principal deste Frame;}
+    \item{Obtenção do Histograma desta diagonal.}
+    \end{enumerate}
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
 
@@ -170,54 +172,45 @@ a captura do ponto de derivada mínima, enquanto no fade-in era o ponto de deriva
     \label{img_metdissolve} Fonte: Autor.
 \end{figure}
 
-\hspace*{1.25cm}Como visto na Seção \ref{ed_Dissolve}, o dissolve é
-uma transição baseado na sobreposições de imagens.
-
-\hspace*{0.65cm}A metodologia utilizada para a detecção do dissolve,
-pode ser visto na Figura \ref{img_metdissolve}, onde segue os
-seguintes procedimentos:
+\hspace*{1.25cm}A Figura \ref{img_metcortes} representa a metodologia utilizada para
+a detecção de transições do tipo Dissolve:
 
 \begin{enumerate}
-    \item{\textbf{Ritmo Visual por Histograma:} O primeiro passo para a detectar um dissolve é a partir de um video
-    de entrada, deve-se analisar cada frame, e obter deles seu
-    histograma, montando assim um Ritmo Visual por Histograma (Seção \ref{ritmo_visual_histograma}).}
+    \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção das transições do tipo Dissolve.}
 
-    O processo para criar um RVH possui os seguintes passos:
+    \item{\textbf{Cálculo do RV por Histograma:} Para a realização da detecção de transições do tipo
+    dissolve, o sistema irá primeiramente gerar o RVH do vídeo.}
+
+    \hspace*{0.65cm}Este processo se dá através dos seguintes passos:
 
     \begin{enumerate}
         \item{Obtenção do Frame;}
         \item{Cálculo da Diagonal Principal deste Frame;}
         \item{Obtenção do Histograma desta diagonal.}
+        \item{Cálculo da Variância do Histograma.}
     \end{enumerate}
 
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
 
-    %O RVH de uma sequência de dissolve tem uma curva parecida com
-    %a da Figura \ref{img_met_dissolve_rvh}.
+    %Isso aqui tá errado.. tá repetindo coisa e eu não quero nem saber... quem fez a parte do dissolve fez errado.
+    %Vai quebrar a cabeça pra pensar no q tá errado e q se foda. (by mizu)
 
-    %\begin{figure}[h|top]
-    % \centering
-    % \includegraphics[width=1.0\linewidth]{imagens/metodologia_dissolve_rvh.png}
-    % \caption{Representação do RVH de uma sequência que contém uma transição do tipo dissolve.}
-    % \label{img_met_dissolve_rvh}
-    %\end{figure}
+    \item{\textbf{Cálculo da curva de Variância do vídeo:} Neste ponto calcula-se a média da variância dos
+    pixels da diagonal de cada frame do vídeo, e plota-se este valor na curva que representa o comportamento da variância do vídeo.}
 
-    \item{\textbf{Variância dos frames do Vídeo:} Neste ponto calcula-se a média da variância dos
-    pixels da diagonal de cada frame do vídeo.}
-
-    \item{\textbf{Derivada Segunda da curva de Variância:} A partir da curva do gráfico da variância, é calculada a
+    \item{\textbf{Cálculo da segunda derivada da curva de variância:} A partir da curva do gráfico da variância, é calculada a
     sua derivada segunda, com o objetivo de limitar cada vez as mais os pontos de variação da
     curva.}
 
-    \item{\textbf{Derivada do RVH:} A partir do RVH, é calculado a derivada, com o objetivo de limitar
-    os pontos de variação da curva, que são os pontos representativos do
+    \item{\textbf{Cálculo da derivada do RVH:} A partir do RVH, é calculado a sua derivada primeira, com o objetivo de limitar
+    os pontos de variação da curva, os quais são os pontos representativos do
     dissolve.}
 
-    \item{\textbf{Razão entre Derivada Segunda da curva de Variância e Derivada do RVH:} Com esta razão as transições de tipo dissolve ficaram expostas na
-    curva do gráfico como regiões onde o pico é muito baixo.}
+    \item{\textbf{Cálculo da razão entre a segunda derivada da variância e a derivada do RVH:}
+    O sistema gera um novo gráfico representando os valores obtidos da razão entre a derivada segunda da variância e
+    a derivada primeira do RVH. Neste gráfico será possível visualizar os pontos de ocorrência de um Dissolve. Tais pontos
+    são representados por pontos onde o valor da razão for extremamente baixo.}
 
-    \item{\textbf{Dissolve detectado:} No final deste processo, tem-se o ponto para demarcação de onde a
-    transição de dissolve ocorreu. Basta então demarcar no video este
-    efeito.}
-\end{enumerate}
+    \item{\textbf{Dissolve detectado:} No final deste processo, estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
+    \end{enumerate}
