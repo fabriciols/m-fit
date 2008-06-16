@@ -59,3 +59,1042 @@ existentes no vídeo.
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} As funções para
 detecção de transições ficam bloqueadas enquanto não houver vídeo
 carregado no sistema.
+
+\subsection{Cenário Edição \label{use_case_edicao}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/use_case_edicao.png}
+ \caption{Caso de Uso para cenário de edição de vídeo.}
+ Fonte: Autor.
+ \label{img_use_case_edicao}
+\end{figure}
+
+\hspace*{0.65cm}A Figura \ref{img_use_case_edicao} representa o
+cenário para os processo de edição de vídeo.
+
+\subsubsection{Caso de uso: Aplica efeitos \label{use_case_aplica_efeito}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário aplica um ou
+mais efeitos de edição no vídeo carregado.
+
+\subsubsection{Caso de uso: Define intervalo de aplicação \label{use_case_define_aplic}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário deve definir
+qual será o trecho do vídeo em que deverá ser aplicado o efeito
+selecionado. Por default, o sistema aplica o efeito na tomada que
+estiver selecionada, ou no vídeo todo, caso não haja nenhuma tomada
+selecionada.
+
+\subsubsection{Caso de uso: Equaliza iluminação \label{use_case_iluminacao}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário poderá
+realizar a equalização da iluminação em uma tomada do vídeo. A qual
+poderá ser automática, ou frame a frame.
+
+\subsubsection{Caso de uso: Ajuste de Contraste \label{use_case_contraste}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário poderá
+realizar ajustes de contraste em uma tomada do vídeo.
+
+\subsubsection{Caso de uso: Alteração do Esquema de Cores \label{use_case_cores}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário aplica efeitos
+para alteração do esquema de cores do vídeo carregado ou de uma
+tomada específica do vídeo.
+
+\subsection{Cenário Detecção de Transição \label{use_case_deteccao}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/use_case_deteccao.png}
+ \caption{Caso de Uso para cenário geral de detecção de transições.}
+ Fonte: Autor.
+ \label{img_use_case_transicao}
+\end{figure}
+
+\hspace*{0.65cm}A Figura \ref{img_use_case_transicao} representa o
+cenário geral para detecção de transição.
+
+\subsubsection{Caso de uso: Detecta Transições \label{use_case_detecta_geral}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
+sistema que seja feita a detecção de transições do vídeo carregado.
+O sistema, por sua vez, realiza a detecção dos cortes, fades
+(fade-in e fade-out) e dissolve presentes em todo o vídeo.
+
+\subsubsection{Caso de uso: Gera lista de tomadas enumeradas \label{use_case_lista_tomadas}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Realizada a detecção de
+transições, o sistema disponibilizará ao usuário uma lista com todas
+as tomadas do vídeo indexadas por números, facilitando a navegação
+do usuário pelas tomadas do vídeo.
+
+\subsubsection{Caso de uso: Marca timeline com pontos de transição \label{use_case_timeline_marcada}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Realizada a detecção de
+transições, o sistema exibirá a mesma timeline gerada ao carregar o
+vídeo no sistema, porém, com suas transições marcadas, como pode ser
+visto na Figura \ref{img_transicoes_detectadas2}.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1\linewidth]{imagens/transicoes_detectadas.png}
+ \caption{Transições Detectadas.}
+ Fonte: Autor.
+ \label{img_transicoes_detectadas2}
+\end{figure}
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O vídeo não possui
+nenhum tipo de transição.
+
+\subsubsection{Caso de uso: Ajuste manual de pontos de transição \label{use_case_ajuste_manual}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário altera
+manualmente os pontos de transição detectados pelo sistema.
+
+\subsection{Cenário Detecção de Cortes \label{use_case_cortes}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/use_case_cortes.png}
+ \caption{Caso de Uso para cenário de detecção de cortes.}
+ Fonte: Autor.
+ \label{img_use_case_cortes}
+\end{figure}
+
+\hspace*{0.65cm}A Figura \ref{img_use_case_cortes} representa o
+cenário específico de detecção de cortes.
+
+\subsubsection{Caso de uso: Detecta Cortes \label{use_case_detecta_cortes}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
+sistema que seja realizada a detecção de transições, a qual se
+inicia pela detecção de cortes.
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
+operação de detecção de transições. A mesma poderá ser feita
+posteriormente através dos menus do sistema.
+
+\subsubsection{Caso de uso: Montagem do Ritmo Visual \label{use_case_rv_corte}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Para a realização da
+detecção de cortes, o sistema deve montar o Ritmo Visual do vídeo.
+
+\subsubsection{Caso de uso: RV por sub-amostragem \label{use_case_rv_amostra}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Para a detecção de
+cortes, o Ritmo Visual será montado através da extração de amostras
+de todos os frames do vídeo.
+
+\hspace*{0.65cm}Esta amostra é dada pela diagonal principal do
+frame, a qual será transformada em uma coluna do Ritmo Visual de
+forma seqüencial, como visto na Figura \ref{img_rvdiagonal} da Seção
+\ref{ritmo_visual}.
+
+\subsubsection{Caso de uso: Cálculo da diagonal principal do frame \label{use_case_diagonal_principal}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} É realizado o cálculo da
+diagonal principal de cada frame do vídeo devido à necessidade de
+montar o Ritmo Visual do vídeo.
+
+\subsubsection{Caso de uso: Filtragem: Diminuição de Ruídos \label{use_case_filtragem}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema aplica a
+filtragem da imagem do Ritmo Visual para a eliminação de ruídos
+indesejáveis.
+
+\subsubsection{Montagem do mapa de bordas \label{use_case_mapa_bordas}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema gera o mapa de
+bordas do Ritmo Visual, através da união das bordas horizontais e
+verticais encontradas pelo operador Sobel.
+
+\subsubsection{Caso de uso: Detecção de Bordas: Operador Sobel \label{use_case_sobel}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema aplica o
+Operador Sobel na imagem para realizar a detecção de bordas da
+imagem do Ritmo Visual.
+
+\hspace*{0.65cm}A detecção de bordas realizada pelo Operador Sobel é
+feita em duas fases:
+
+\begin{itemize}
+\item{Detecção de bordas horizontais}
+\item{Detecção de bordas verticais}
+\end{itemize}
+
+\subsubsection{Caso de uso: Bordas Horizontais \label{use_case_bordas_hor}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema detecta as
+bordas horizontais da imagem através de processos de convolução com
+matrizes específicas do operador sobel.
+
+\subsubsection{Caso de uso: Bordas Verticais \label{use_case_bordas_ver}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Assim como as bordas
+horizontais, o sistema faz a detecção das bordas verticais através
+de processos de convolução com matrizes específicas do operador
+sobel.
+
+\subsubsection{Caso de uso: Definição de Limiar de Corte \label{use_case_limiar_corte}}
+
+\hspace*{1.25cm}\textbf{Pontos de extensão:} Manual
+
+\hspace*{0.65cm}\textbf{Cenário Principal:} O sistema define por
+"default" um limiar de corte, ou seja, uma limiar que define quais
+bordas verticais (representação de transições de corte no Ritmo
+Visual) serão consideradas cortes e quais não serão.
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário define
+manualmente este limiar de corte.
+
+\subsubsection{Caso de uso: Contagem de pontos de linha \label{use_case_contagem}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Após a definição da
+limiar de corte, o sistema conta os pontos pertencentes às retas
+verticais detectadas no mapa de bordas. As retas que obtiverem um
+número de pontos maior ou igual ao limiar são consideradas
+transições de cortes.
+
+\subsection{Cenário Detecção de Fades \label{use_case_fades}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/use_case_fade.png}
+ \caption{Caso de Uso para cenário de detecção dos fades.}
+ Fonte: Autor.
+ \label{img:uc_fade}
+\end{figure}
+
+\hspace*{0.65cm}A Figura \ref{img:uc_fade} representa o cenário para
+o processo de detecção de transições do tipo fade.
+
+\subsubsection{Caso de uso: Detecta Fade \label{use_case_detecta_fades}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Feito o carregamento do
+vídeo, um processo de detecção das transições do tipo fade se
+inicia, o qual tem os seguintes passos:
+
+\begin{itemize}
+\item{Montagem do Ritmo Visual por Histograma}
+\item{Cálculo das derivadas da reta}
+\item{Obtenção da derivada Máxima}
+\end{itemize}
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
+operação de detecção de transições. A mesma poderá ser feita
+posteriormente através dos menus do sistema.
+
+\subsubsection{Caso de uso: Montagem do RV por histograma \label{use_case_rvh}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Para a detecção de
+fades, O RVH será montado na representação de uma curva num gráfico,
+onde cada ponto da curva tem informações sobre um frame do video.
+
+\subsubsection{Caso de uso: Cálculo da Diagonal Principal do Frame
+\label{use_case_diagonal_fade}}
+
+\hspace*{1.25cm}Ver: \ref{use_case_diagonal_principal}
+
+\subsubsection{Caso de uso: Obtenção do Pico do Histograma \label{use_case_pico_hist}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir do histograma
+de cada amostra (diagonal do frame), é obtido o valor de luminância
+que tem maior incidência. Este valor representará um ponto na reta
+do $RVH$
+
+\subsubsection{Caso de uso: Cálculo das derivadas dos pontos do RVH \label{use_case_derivadas}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir da reta RVH do
+video , é calculada a derivada dos pontos, em busca de variações em
+seu resultado.
+
+\subsubsection{Detecta Fade-In \label{use_case_detecta_fadein}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Em cima das derivadas
+dos pontos do RVH, é necessário fazer uma análise para identificar
+um padrão que evidencia o fade-in, e obter a derivada máxima para
+identificar o ponto de marcação da transição.
+
+\subsubsection{Caso de uso: Obtenção da Derivada Máxima \label{use_case_derivada_max}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir das derivadas
+da reta, é obtido o frame onde a derivada tem seu maior pico. Este é
+o ponto onde a transição é delimitada.
+
+\subsubsection{Detecta Fade-Out \label{use_case_detecta_fadeout}}
+
+\hspace*{1.25cm}Ver: \ref{use_case_detecta_fadein}
+
+\subsubsection{Caso de uso: Obtenção da Derivada Mínima \label{use_case_derivada_min}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir das derivadas
+da reta, é obtido o frame onde a derivada possui o menor valor. Este
+é o ponto onde a transição é delimitada.
+
+\subsection{Cenário Detecção de dissolve \label{use_case_dissolve}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/use_case_dissolve.png}
+ \caption{Caso de Uso para cenário de detecção do dissolve.}
+ Fonte: Autor.
+ \label{img:uc_dissolve}
+\end{figure}
+
+\hspace*{0.65cm}A Figura \ref{img:uc_dissolve} representa o cenário
+para o processo de detecção de transições do tipo dissolve.
+
+\subsubsection{Caso de uso: Detecta Dissolve \label{use_case_detecta_dissolve}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Feito o carregamento do
+vídeo, um processo de detecção das transições do tipo dissolve se
+inicia, o qual tem os seguintes passos:
+
+\begin{itemize}
+\item{Montagem do Ritmo Visual por Histograma}
+\item{Cálculo da Variância dos pontos da diagonal dos frames do vídeo}
+\item{Cálculo da primeira e segunda derivada dos pontos da Variância}
+\item{Cálculo da primeira derivada dos pontos do Ritmo Visual}
+\item{Cálculo da razão entre a segunda derivada da variância e a primeira derivada dos pontos do Ritmo Visual}
+\end{itemize}
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
+operação de detecção de transições. A mesma poderá ser feita
+posteriormente através dos menus do sistema.
+
+\subsubsection{Caso de uso: Montagem do Ritmo Visual por Histograma \label{use_case_histograma}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir do vídeo de
+entrada, é calculado o Histograma de cada Frame do vídeo, juntando
+todos em um Ritmo Visual.
+
+\subsubsection{Caso de uso: Cálculo da diagonal principal do frame}
+
+\hspace*{1.25cm}Ver: \ref{use_case_diagonal_principal}
+
+\subsubsection{Caso de uso: Obtenção do pico do histograma}
+
+\hspace*{1.25cm}Ver: \ref{use_case_pico_hist}
+
+\subsubsection{Caso de uso: Cálculo da curva de Variância do vídeo \label{use_case_curva_variancia}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} É calculada a curva da
+variância do vídeo, onde cada ponto desta curva é dado pelo cálculo
+da variância de cada frame do vídeo.
+
+\subsubsection{Caso de uso: Cálculo da segunda derivada da curva de Variância \label{use_case_derivada_variancia}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Calcula-se a primeira e
+a segunda derivada dos pontos da curva da variância do vídeo.
+
+\subsubsection{Caso de uso: Cálculo da derivada do RVH \label{use_case_derivada_RVH}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir do Ritmo Visual
+por Histograma do video, é calculada a derivada para cada ponto
+deste Ritmo Visual.
+
+\subsubsection{Caso de uso: Cálculo da razão entre a
+segunda derivada da variância e a derivada dos pontos do Ritmo
+Visual}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Calcula-se a razão entre
+a segunda derivada da Variância e a primeira derivada dos pontos do
+Ritmo Visual.
+
+\section{Diagrama de Classes \label{diagrama_classes}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.8\linewidth]{imagens/diagrama_de_classe.PNG}
+ \caption{Diagrama de classes do sistema.}
+ Fonte: Autor.
+ \label{img_diagrama_de_classes}
+\end{figure}
+
+\hspace*{0.65cm}A Figura \ref{img_diagrama_de_classes} representa o
+modelo do diagrama de estados do sistema.
+
+\subsection{Classe: Brightness \label{classe_Brightness}}
+
+\hspace*{1.25cm}Classe responsável em aplicar efeitos de brilho.
+
+\subsection{Classe: Color \label{classe_Color}}
+
+\hspace*{1.25cm}Classe responsável em aplicar efeitos de cor.
+
+\subsection{Classe: Contrast \label{classe_Contrast}}
+
+\hspace*{1.25cm}Classe responsável em aplicar efeitos de contraste.
+
+\subsection{Classe: Cut \label{classe_Cut}}
+
+\hspace*{1.25cm}Classe responsável por identificar transições do
+tipo Corte.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+ \item{Frame createBorderMap() }
+
+ \hspace*{0.65cm}Cria o mapa de bordas.
+
+ \item{int defineTreshold() }
+
+ \hspace*{0.65cm}Processo para a definição da
+ limiar de corte para o processo
+ de detecção de transições do tipo
+ corte.
+ \item{int countPoints() }
+\end{enumerate}
+
+\subsection{Classe: DetectTransitions \label{classe_DetectTransitions}}
+
+\hspace*{1.25cm}Classe pai de todas as detecções de transições.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+    \item{Transition detectTransitions(Video vdo) }
+
+\hspace*{0.65cm}Função principal na detecção de transições.
+Desencadeia a chamada da função com este mesmo nome nos objetos
+filhos.
+
+\end{enumerate}
+
+\subsection{Classe: Dissolve \label{classe_Dissolve}}
+
+\hspace*{1.25cm}Classe responsável por detectar o dissolve.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{bool checkLuminance() }
+
+    \item{float calcSecondDerivative() }
+
+\hspace*{0.65cm}Calcula a segunda derivada de uma curva.
+
+    \item{float calcVariance() }
+
+\hspace*{0.65cm}Calcula a curva de variância de um vídeo.
+
+    \item{float calcRatioVarianceVRH() }
+
+\hspace*{0.65cm}Calcula a razão entre a segunda derivada da
+variância com a derivada do RVH.
+
+\end{enumerate}
+
+\subsection{Classe: Effect \label{classe_Effect}}
+
+\hspace*{1.25cm}Classe responsável por centralizar os métodos dos
+efeitos.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{int applyEffect() }
+
+\hspace*{0.65cm}Função genérica para aplicação de efeito. Será
+implementada por todas as classes filhas deste objeto.
+
+\end{enumerate}
+
+\subsection{Classe: Fadein \label{classe_Fadein}}
+
+\hspace*{1.25cm}Classe responsável por identificar transições do
+tipo Fade-in.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+
+    \item{float calcMaxDerivative() }
+
+\hspace*{0.65cm}Encontra a Máxima derivada.
+
+\end{enumerate}
+
+\subsection{Classe: Fade \label{classe_Fade}}
+
+\hspace*{1.25cm}Classe responsável por identificar todos os tipos de
+fade.
+
+\subsection{Classe: Fadeout \label{classe_Fadeout}}
+
+\hspace*{1.25cm}Classe responsável por identificar transições do
+tipo Fade-out.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{float calcMinDerivative() }
+
+\hspace*{0.65cm}Encontra a Mínima derivada.
+
+\end{enumerate}
+
+\subsection{Classe: Filters \label{classe_Filters}}
+
+\hspace*{1.25cm}Classe que agrupa filtros de processamento de
+imagens digitais.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{Frame Sobel() }
+
+\hspace*{0.65cm}Aplica o Operador Sobel em uma imagem.
+
+\hspace*{0.65cm}Será utilizado pelo processo
+\textit{createBorderMap} da classe Cut
+
+
+    \item{Frame lowPass() }
+
+\hspace*{0.65cm}Aplica um filtro passa-baixa na imagem.
+
+    \item{Frame highPass() }
+
+\hspace*{0.65cm}Aplica um filtro passa alta na imagem.
+
+\end{enumerate}
+
+\subsection{Classe: Frame \label{classe_Frame}}
+
+\hspace*{1.25cm}Classe que armazena informações sobre um único
+frame.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{Histogram createHistgram() }
+
+\hspace*{0.65cm}Função que cria o histograma da diagonal do frame.
+
+    \item{Frame getDiagonal() }
+
+\hspace*{0.65cm}Retorna a diagonal do frame.
+
+\end{enumerate}
+
+\subsection{Classe: Histogram \label{classe_Histogram}}
+
+\hspace*{1.25cm}Classe responsável por conter os dados do histograma
+de um frame.
+
+\subsection{Classe: Interface \label{classe_Interface}}
+
+\hspace*{1.25cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{void showTimeLine() }
+
+\hspace*{0.65cm}Cria a timeline na tela.
+
+    \item{void updateTimeline() }
+
+\hspace*{0.65cm}Atualiza a timeline com informações dos vídeos,
+tomadas e transições.
+
+    \item{void createListofTakes() }
+
+\hspace*{0.65cm}Cria exibição da lista de tomadas do vídeo.
+
+    \item{void showVideo() }
+
+\hspace*{0.65cm}Cria container para exibição do vídeo.
+
+    \item{void redefineTakes() }
+
+\hspace*{0.65cm}Método chamado quando o usuário modifica a posição
+de uma transição já detectada.
+
+\end{enumerate}
+
+\subsection{Classe: Morpholical \label{classe_Morpholical}}
+
+\hspace*{1.25cm}Classe que agrupa filtros de morfologia matemática.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{Morpholical erode(int Frame) }
+
+\hspace*{0.65cm}Aplica o efeito de Erosão em uma imagem.
+
+    \item{Frame dilate() }
+
+\hspace*{0.65cm}Aplica o efeito de dilatação em uma imagem
+
+
+\end{enumerate}
+
+\subsection{Classe: Take \label{classe_Take}}
+
+\hspace*{1.25cm}Container para tomadas de vídeo.
+
+\subsection{Classe: Time \label{classe_Time}}
+
+\hspace*{1.25cm}Classe responsável por manipular informações de
+tempo.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{int time2pos() }
+
+\hspace*{0.65cm}Retorna o valor em POSIÇÃO no vídeo referente ao
+tempo armazenado por este objeto.
+
+\end{enumerate}
+
+\subsection{Classe: Transition \label{classe_Transition}}
+
+\hspace*{1.25cm}Classe responsável por representar uma transição.
+
+\subsection{Classe: Video \label{classe_Video}}
+
+\hspace*{1.25cm}Classe responsável por fazer a manipulação de um
+vídeo.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{Frame getNextFrame() }
+
+\hspace*{0.65cm}Método responsável por obter o próximo frame em
+relação à posição atual do vídeo.
+
+    \item{Frame getPreviousFrame() }
+
+\hspace*{0.65cm}Método responsável por obter o frame anterior em
+relação à posição atual do vídeo.
+
+    \item{int seekFrame(int pos) }
+
+\hspace*{0.65cm}Método responsável em posicionar o ponteiro do vídeo
+na posição desejada, a qual é parecida como parâmetro da função.
+
+    \item{CvCapture open() }
+
+\hspace*{0.65cm}Função que abre o vídeo e atualiza as variáveis do
+objeto.
+
+    \item{int close() }
+
+\hspace*{0.65cm}Função que fecha o vídeo.
+
+    \item{Frame getCurrentFrame() }
+
+\hspace*{0.65cm}Obtém o frame atual.
+
+    \item{int getCurrentPosition() }
+
+\hspace*{0.65cm}Obtém a posição corrente do ponteiro do vídeo.
+
+    \item{int write() }
+
+\hspace*{0.65cm}Processo que escreve no arquivo. É nele onde são
+aplicados realmente os efeitos provenientes da edição do vídeo.
+
+\hspace*{0.65cm}Retorna:
+
+\hspace*{0.65cm}1 - Sucesso.
+
+\hspace*{0.65cm}0 - Erro.
+
+\end{enumerate}
+
+\subsection{Classe: VisualRythim \label{classe_VisualRythim}}
+
+\hspace*{1.25cm}Classe responsável por criar os dois tipos de ritmo
+visual.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+    \item{Frame createVR() }
+
+\hspace*{0.65cm}Cria o Ritmo Visual por sub-amostragem.
+
+    \item{int createVRH() }
+
+\hspace*{0.65cm}Retorna o Ritmo Visual por Histograma do vídeo
+
+    \item{float calcDerivatives() }
+
+\hspace*{0.65cm}Calcula primeira derivada da curva do gráfico do
+ritmo visual.
+
+\end{enumerate}
+
+\section{Diagramas de Sequência \label{diagramas_sequencia}}
+
+Nesta Seção serão apresentados os Diagramas de Sequência do sistema.
+
+\subsection{Carregamento do vídeo \label{seq_carrega}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/seq_main.PNG}
+ \caption{Diagrama de sequência para carregamento do vídeo.}
+ Fonte: Autor.
+ \label{img_seq_main}
+\end{figure}
+
+\hspace*{1.25cm}A Figura \ref{img_seq_main} representa a sequência
+de processos para a realização do carregamento de vídeos no sistema.
+
+\begin{enumerate}
+\item{Editor inicia a aplicação;}
+\item{Aplicação cria objeto de interface INTERFACE;}
+\item{Editor informa o diretório e o vídeo a ser carregado no sistema;}
+\item{Aplicação cria objeto VDO responsável pelo armazenamento e manipulação do vídeo carregado;}
+\item{Aplicação solicita ao objeto VDO o armazenamento das informações necessárias
+do vídeo através da função open();}
+\item{Aplicação solicita ao objeto INTERFACE que seja mostrado o vídeo, através da
+função showVideo();}
+\item{Aplicação solicita ao objeto INTERFACE que seja mostrada a timeline do vídeo, através da
+função showTimeline();}
+\item{Aplicação devolve ao usuário o vídeo e a timeline carregados na tela;}
+\end{enumerate}
+
+\subsection{Detecção de transições geral \label{seq_detecta_geral}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/seq_detecta.PNG}
+ \caption{Diagrama de sequência para detecção de transições.}
+ Fonte: Autor.
+ \label{img_seq_detecta}
+\end{figure}
+
+\hspace*{1.25cm}A Figura \ref{img_seq_detecta} representa a
+sequência de processos para a realização da detecção de todas as
+transições do vídeo.
+
+\begin{enumerate}
+\item{Usuário solicita ao sistema que seja feita a detecção de transições do vídeo;}
+\item{Sistema cria o objeto DT responsável por realizar todo tipo de detecção;}
+\item{Objeto DT cria objeto DTC responsável pelas detecções de cortes;}
+\item{DT solicita à DTC a detecção de transições do tipo corte;}
+\item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
+ocorrência de cortes detectados;}
+\item{Objeto DT cria objeto DTF responsável pelas detecções de fades (tanto fade-in, quanto fade-out);}
+\item{DT solicita à DTF a detecção de transições do tipo fade;}
+\item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
+ocorrência de fades detectados;}
+\item{Objeto DT cria objeto DTD responsável pela de dissolve;}
+\item{DT solicita à DTD a detecção de transições do tipo dissolve;}
+\item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
+ocorrência de dissolve detectados;}
+\item{Sistema solicita à VDO que reposicione o cursor da timeline na posição anterior ao processo
+de detecção de transições;}
+
+\end{enumerate}
+
+\subsection{Detecção de Cortes \label{seq_cortes}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/seq_cortes.PNG}
+ \caption{Diagrama de sequência para detecção de cortes.}
+ Fonte: Autor.
+ \label{img_seq_corte}
+\end{figure}
+
+\hspace*{1.25cm}A Figura \ref{img_seq_corte} representa a sequência
+de processos para a realização da detecção de transições do tipo
+corte presentes no vídeo.
+
+\begin{enumerate}
+\item{DTC solicita à VDO a posição atual do cursor da timeline;}
+\item{DTC solicita à VDO o posicionamento do cursor na posição 0 do vídeo, para que
+a análise seja feita em todos os frames do vídeo;}
+\item{DTC cria objeto VR;}
+\item{DTC solicita à VR a criação do Ritmo Visual do vídeo;}
+\item{VR obtém a diagonal do frame corrente;}
+\item{VR solicita à VDO o próximo frame e repete o passo anterior entrando em um loop até que
+não existam mais frames;}
+\item{VR retorna para o sistema o Ritmo Visual do vídeo;}
+\item{Sistema cria objeto FILTERS;}
+\item{Sistema solicita à FILTERS a suavização da imagem;}
+\item{FILTERS aplica um filtro passa-baixa e devolve a imagem para o Sistema;}
+\item{Sistema solicita a criação do mapa de bordas do Ritmo Visual;}
+\item{Sistema solicita à FILTERS a aplicação do operador Sobel;}
+\item{FILTERS aplica operador Sobel e devolve o Ritmo Visual ao
+sistema;}
+\item{Mapa de bordas obtido;}
+\item{Sistema define um limiar para classificação das bordas que serão consideradas cortes;}
+\item{Sistema realiza a contagem de pontos pertencentes às retas verticais do mapa de bordas, selecionando aquelas
+que atingirem o valor do limiar;}
+\item{Sistema devolve as transições de corte detectadas;}
+\end{enumerate}
+
+\subsection{Detecção de Fades \label{seq_fades}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/seq_fade.PNG}
+ \caption{Diagrama de sequência para detecção de fades (fade-in e fade-out).}
+ Fonte: Autor.
+ \label{img_seq_fade}
+\end{figure}
+
+\hspace*{1.25cm}A Figura \ref{img_seq_fade} representa a sequência
+de processos para a realização da detecção das transições do tipo
+fade presentes no vídeo.
+
+\begin{enumerate}
+\item{DTF solicita à VDO a posição atual do ponteiro do video;}
+\item{DTF solicita à VDO o posicionamento do ponteiro na posição 0 do vídeo, para que
+a análise seja feita em todos os frames do vídeo;}
+\item{DTF cria objeto VR;}
+\item{DTF solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
+\item{VR cria objeto FRAME;}
+\item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do video}
+\item{VR solicita a VDO o próximo frame do vídeo}
+\item{VR solicita ao FRAME a diagonal do frame solicitado}
+\item{VR solicita ao FRAME o histograma do frame (diagonal)}
+\item{Loop: fim}
+\item{DTF calcula as derivadas do RVH}
+\item{DTF cria objeto DTFI}
+\item{DTF solicita à DTFI a detecção de suas transições}
+\item{DTFI calcula a derivada Máxima do RVH}
+\item{DTFI retorna as transições do tipo Fade-in}
+\item{DTF cria objeto DTFO}
+\item{DTF solicita à DTFO a detecção de suas transições}
+\item{DTFI calcula a derivada Mínima do RVH}
+\item{DTFI retorna as transições do tipo Fade-out}
+\item{DTF solicita a VDO a restauração do ponteiro do video}
+\end{enumerate}
+
+\subsection{Detecção de dissolve \label{seq_dissolve}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/seq_dissolve.PNG}
+ \caption{Diagrama de sequência para detecção de dissolve.}
+ Fonte: Autor.
+ \label{img_seq_dissolve}
+\end{figure}
+
+\hspace*{1.25cm}A Figura \ref{img_seq_dissolve} representa a
+sequência de processos para a realização da detecção de transições
+do tipo dissolve presentes no vídeo.
+
+\begin{enumerate}
+\item{DTD solicita à VDO a posição atual do ponteiro do video;}
+\item{DTD solicita à VDO o posicionamento do ponteiro na posição 0 do vídeo, para que
+a análise seja feita em todos os frames do vídeo;}
+\item{DTD cria objeto VR;}
+\item{DTD solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
+\item{VR cria objeto FRAME;}
+\item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do vídeo}
+\item{VR solicita a VDO o próximo frame do vídeo}
+\item{VR solicita ao FRAME a diagonal do frame solicitado}
+\item{VR solicita ao FRAME o histograma do frame (diagonal)}
+\item{Loop: fim}
+\item{DTD calcula a variância do vídeo}
+\item{DTD calcula a segunda derivada da variância}
+\item{DTD solicita a VR o cálculo da derivada do RVH}
+\item{DTD calcula a razão entre a derivada segunda da variância e a derivada do RVH}
+\end{enumerate}
+
+\subsection{Edição de vídeo \label{seq_edicao}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/seq_edicao.PNG}
+ \caption{Diagrama de sequência para edição de vídeo.}
+ Fonte: Autor.
+ \label{img_seq_edicao}
+\end{figure}
+
+\hspace*{1.25cm}A Figura \ref{img_seq_edicao} representa a sequência
+de processos para a realização da detecção de transições do tipo
+corte do vídeo.
+
+\begin{enumerate}
+\item{Editor solicita ao sistema edição de vídeo;}
+\item{Sistema cria objeto BRIGHT;}
+\item{Sistema solicita a BRIGHT a aplicação do efeito no vídeo;}
+\item{Sistema cria objeto COLOR;}
+\item{Sistema solicita a COLOR a aplicação do efeito no vídeo;}
+\item{Sistema cria objeto BRIGHT;}
+\item{Sistema solicita a CONTRAST a aplicação do efeito no vídeo;}
+\end{enumerate}
+
+\section{Diagrama de Estados \label{state_diagram}}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/state_diagram.png}
+ \caption{Diagrama de estados do sistema.}
+ Fonte: Autor.
+ \label{img_state_diagram}
+\end{figure}
+
+\hspace*{0.65cm}A Figura \ref{img_state_diagram} apresenta os
+estados em que o sistema poderá se encontrar durante a execução da
+aplicação.
+
+\subsection{Estado: Busca Vídeo \label{st_video_search}}
+
+\hspace*{1.25cm}Sistema entra no estado de busca do vídeo informado
+pelo usuário.
+
+\subsection{Estado: Carrega Vídeo \label{st_load_video}}
+
+\hspace*{1.25cm}Sistema passa para o estado de carregamento do
+vídeo, caso o caminho e arquivo informado pelo usuário estejam
+corretos, senão volta para o estado de busca do vídeo.
+
+\subsection{Estado: Detecção de Transições \label{st_detect_transitions}}
+
+\hspace*{1.25cm}Caso o usuário opte por realizar a detecção de
+transições logo após o carregamento do vídeo, o sistema entra no
+estado de detecção de transições e segue para diversos outros
+estados internos dependendo da escolha do tipo de detecção a ser
+feita pelo usuário.
+
+\hspace*{0.65cm}O sistema entra neste estado sempre que o usuário
+solicitar a detecção de transições.
+
+\subsubsection{Estado: Detecção de Cortes \label{st_cut_detection}}
+
+\hspace*{1.25cm}Estado interno do estado Detecção de Transições.
+
+\hspace*{0.65cm}Sistema entra em estado de detecção de cortes. Neste
+estado são detectados todos os cortes do vídeo.
+
+\hspace*{0.65cm}Este estado possui os seguintes estados internos:
+
+\begin{enumerate}
+
+\item{\textbf{Obtendo RV por amostragem}
+
+Sistema entra neste estado para a geração do Ritmo Visual por
+amostragem (extração de diagonais dos frames) do vídeo. }
+
+\item{\textbf{Suavizando imagem}
+
+Sistema entra no estado em que é feita a suavização da imagem
+através de filtros espaciais, no caso, o filtro passa-baixa. }
+
+\item{\textbf{Montando Mapa de Bordas}
+
+Sistema entra no estado de montagem do mapa de bordas. Neste estado
+é aplicado o operador Sobel no Ritmo Visual, gerando o mapa de
+bordas. }
+
+\item{\textbf{Definição de limiar}
+
+Sistema entra no estado onde é definido o limiar de corte para a
+contagem de pontos das verticais existentes na imagem. }
+
+\item{\textbf{Definição manual}
+
+Caso o limiar definido pelo sistema não seja aceito pelo usuário, o
+sistema entra em estado de definição manual do limiar de corte. }
+
+\item{\textbf{Contando pontos de linhas}
+
+Sistema entra no estado de contagem de pontos de linhas, onde é
+feita a contagem e seleção das retas que representam um corte no
+vídeo. }
+
+\end{enumerate}
+
+\subsubsection{Estado: Detecção de Fades \label{st_fade_detection}}
+
+\hspace*{1.25cm}Estado interno do estado Detecção de Transições.
+
+\hspace*{0.65cm}Sistema entra em estado de detecção de fades. Neste
+estado são detectados os fade-in, fade-out ou ambos.
+
+\hspace*{0.65cm}Este estado possui os seguintes estados internos:
+
+\begin{enumerate}
+
+\item{\textbf{Obtendo RV por Histograma}
+
+Sistema entra neste estado para a geração do Ritmo Visual por
+Histograma (extração de diagonais dos frames e cálculo dos
+histogramas) do vídeo. }
+
+\item{\textbf{Calculando Derivadas}
+
+Sistema entra no estado em que é feito o cálculo das derivadas do
+RVH }
+
+\item{\textbf{Obtendo Derivada Máxima}
+
+Caso o intuito seja detectar fade-in (ou ambos), entra-se no estado
+de obtenção da derivada máxima. Este estado é necessário para
+definir os pontos onde ocorreram os fade-in. }
+
+\item{\textbf{Obtendo Derivada Mínima}
+
+Caso o intuito seja detectar fade-out (ou ambos), entra-se no estado
+de obtenção da derivada mínima. Este estado é necessário para
+definir os pontos onde ocorreram os fade-out. }
+
+\end{enumerate}
+
+\subsubsection{Estado: Detecção de Dissolve \label{st_dissolve_detection}}
+
+\hspace*{1.25cm}Estado interno do estado Detecção de Transições.
+
+\hspace*{0.65cm}Sistema entra em estado de detecção de dissolve.
+Neste estado são detectadas transições do tipo dissolve.
+
+\hspace*{0.65cm}Este estado possui os seguintes estados internos:
+
+\begin{enumerate}
+
+\item{\textbf{Obtendo RV por Histograma}
+
+Sistema entra neste estado para a geração do Ritmo Visual por
+Histograma. }
+
+\item{\textbf{Calculando Variância}
+
+Sistema entra no estado em que a partir da diagonal do frame
+calcula-se o seu desvio padrão, para se obter a sua variância. }
+
+\item{\textbf{Calculando Derivada do RV}
+
+Sistema entra no estado em que a partir do RVH gerado, calcula-se a
+primeira derivada, para acentuação dos pontos de transições }
+
+\item{\textbf{Calculando Derivadas da Variância}
+
+A partir da variância, calcula-se a sua segunda derivada para
+indicar os pontos de transição. }
+
+\item{\textbf{Calculando razão entre DRV / D2V}
+
+Sistema entra no estado  para calcular a razão entre a 1. derivada
+do RVH e a 2. derivada da variância, retornando o trecho exato onde
+ocorre o dissolve. }
+
+\end{enumerate}
+
+\subsection{Estado: Atualizando Timeline \label{st_timeline_update}}
+
+\hspace*{1.25cm}Realizadas as detecções de transições, independente
+do tipo de detecção, o sistema entra em estado de atualização da
+timeline do vídeo.
+
+\subsection{Estado: Ajuste manual \label{st_manual_adjust}}
+
+\hspace*{1.25cm}Caso os pontos de transição definidos pelo sistema
+não sejam aceitos pelo usuário, este poderá ajustá-los manualmente,
+fazendo com que o sistema entre no estado de ajuste manual das
+transições.
+
+\subsection{Estado: Repouso \label{st_rest}}
+
+\hspace*{1.25cm}Após o carregamento do vídeo o usuário tem a opção
+de realizar a detecção de todas as transições do vídeo. Caso opte
+por não realizar a detecção de transições o sistema entra em estado
+de repouso, aguardando alguma ação do usuário.
+
+\subsection{Estado: Em edição \label{st_edition}}
+
+\hspace*{1.25cm}Sistema entra no estado de edição do vídeo, sempre
+que o usuário for realizar qualquer tipo de edição no vídeo
+(aplicação de efeitos, alteração de luminosidade, dentre outros).

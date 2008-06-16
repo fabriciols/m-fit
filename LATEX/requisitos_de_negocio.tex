@@ -7,3 +7,187 @@
 \hspace*{1.25cm}Realizar a detecção de transições de um vídeo
 fornecido pelo usuário, tornando o processo automático, sem a
 necessidade de intervenções humanas.
+
+\section{Requisitos de Usuário \label{RQU}}
+
+\subsection{Carregamento do vídeo \label{RQU01}}
+
+\hspace*{1.25cm}Ao carregar o vídeo no sistema, o usuário poderá
+escolher entre realizar a detecção de transições durante o
+carregamento ou posteriormente, dando ao usuário a flexibilidade de
+realizar a detecção das transições no momento em que desejar.
+
+\subsection{Timeline \label{RQU02}}
+
+\hspace*{1.25cm}Ao realizar o carregamento do vídeo, será
+disponibilizada para o usuário a visualização de uma "timeline" do
+vídeo exibindo seus frames de forma seqüencial e sem nenhuma
+identificação, ou com as suas transições marcadas e identificadas,
+no caso da detecção das transições ter sido executada junto do
+carregamento do vídeo.
+
+\subsection{Preview de frames \label{RQU03}}
+
+\hspace*{1.25cm}O sistema deverá disponibilizar ao usuário uma
+prévia do frame em que o cursor da timeline estiver posicionando, a
+qual será exibida em uma pequena tela contida abaixo da janela
+principal do sistema.
+
+\subsection{Lista de tomadas \label{RQU04}}
+
+\hspace*{1.25cm}Realizada a detecção e identificação das transições
+do vídeo, as tomadas do vídeo deverão ser listadas para o usuário em
+uma pequena box da janela principal do sistema. Tais tomadas deverão
+ter seu primeiro frame como identificador na lista.
+
+\subsection{Seleção de tomadas \label{RQU05}}
+
+\hspace*{1.25cm}Ao selecionar uma tomada da lista de tomadas, esta
+deverá ser mostrada na janela principal do sistema, e também deverá
+ser marcado na timeline o trecho do vídeo correspondente à tomada
+selecionada.
+
+\subsection{Box personalizável com atalhos de efeitos \label{RQU06}}
+
+\hspace*{1.25cm}O sistema fornecerá ao usuário uma box com atalhos
+de determinadas ferramentas para edição, os quais poderão ser
+alterados pelo editor, ou seja, o usuário poderá incluir ou excluir
+os atalhos da box conforme houver necessidade.
+
+\subsection{Aplicação de efeitos \label{RQU07}}
+
+\hspace*{1.25cm}Para aplicar um efeito visual, o sistema deve
+permitir ao usuário que o mesmo seja aplicado em todo o vídeo, ou
+somente em uma determinada tomada, neste caso, ainda haverá a
+possibilidade do usuário aplicar o efeito em toda a tomada
+automaticamente ou aplicá-lo frame a frame, cabendo ao sistema
+realizar a aplicação do efeito conforme as opções selecionadas pelo
+usuário.
+
+\subsection{Enumeração de tomadas \label{RQU08}}
+
+\hspace*{1.25cm}Para facilitar a navegação e localização do usuário
+perante ao vídeo, as tomadas do vídeo serão enumeradas conforme a
+detecção de transições ocorrer. Por exemplo, a tomada número 1
+corresponde ao início do vídeo (tempo 0:00) até a ocorrência da
+primeira transição, a número 2 da primeira até a segunda transição e
+assim por diante.
+
+\subsection{Intervenção manual \label{RQU09}}
+
+\hspace*{1.25cm}Caso haja necessidade, os pontos de transição
+detectados pelo sistema poderão ser modificados pelo usuário
+manualmente. Para isso o usuário deverá ser capaz de mover as linhas
+de marcação de transição presentes na timeline do vídeo.
+
+\subsection{Expansão de tomadas \label{RQU10}}
+
+\hspace*{1.25cm}Ao selecionar uma tomada, a mesma será exibida em um
+pequeno quadro dentro da janela principal do sistema, dando ainda ao
+usuário, a possibilidade de expandir, desmembrar esta tomada
+exibindo todos os seus frames em quadros, os quais serão enumerados,
+facilitando a navegação do usuário.
+
+\subsection{Drag and Drop \label{RQU11}}
+
+\hspace*{1.25cm}Um efeito de edição de vídeo, uma equalização de
+luminosidade por exemplo, poderá ser aplicado no vídeo simplesmente
+pela ação de drag and drop (arrastar e soltar). O usuário escolhe a
+ferramenta do box a ser utilizada e a arrasta sobre a tomada, ou
+frame que deseja editar.
+
+
+\subsection{Controladores de reprodução de vídeo \label{RQU12}}
+
+\hspace*{1.25cm}A aplicação fornecerá ao usuário, controles de
+reprodução de vídeo, permitindo ao usuário ter uma prévia de como
+ficará a tomada após a edição.
+
+\section{Requisitos de Sistema \label{RQS}}
+
+\subsection{Localização de arquivo \label{RQS01}}
+
+\hspace*{1.25cm}O sistema deverá ser capaz de abrir arquivos que
+estejam em qualquer tipo de mídia de armazenamento, pen drives, HD,
+CD´s, entre outros, assim como permitir que o usuário salve seus
+projetos em qualquer local.
+
+\subsection{Montagem do Ritmo Visual \label{RQS02}}
+
+\hspace*{1.25cm}Aplicação de cálculos para extração da diagonal
+principal de cada frame do vídeo, afim de criar uma simplificação do
+mesmo.
+
+\subsection{Montagem de mapa de bordas \label{RQS03}}
+
+\hspace*{1.25cm}Aplicar um filtro passa-baixa, eliminando os ruídos
+do Ritmo Visual. Com isso o sistema obterá o mapa de bordas do Ritmo
+Visual.
+
+\subsection{Tipos de arquivo\label{RQS04}}
+
+\hspace*{1.25cm}O sistema deverá ser compatível no mínimo com os
+containers : avi, MPEG e WMV.
+
+\subsection{Tipos de CODECS de video\label{RQS05}}
+
+\hspace*{1.25cm}O sistema deverá ser compatível no mínimo com videos
+nos seguintes CODECS:
+
+\begin{itemize}
+    \item Uncompressed
+    \item XVID
+    \item DIVX
+    \item MPEG4
+    \item Windows Media Video (WMV)
+\end{itemize}
+
+\hspace*{0.65cm}O sistema deve ser capaz de abrir e salvar videos
+com estes codecs.
+
+\subsection{Compatibilidade de Sistema Operacional \label{RQS06}}
+
+\hspace*{1.25cm}O sistema deverá ser desenvolvido para rodar na
+plataforma Windows, porém deve-se visar a portalidade do sistema.
+
+\subsection{OpenCV \label{RQS08}}
+
+\hspace*{1.25cm}Necessária a inclusão da biblioteca OpenCV,
+biblioteca específica para aplicações de funções de PDI.
+
+\subsection{QT \label{RQS09}}
+
+\hspace*{1.25cm}A interface do sistema deverá ser desenvolvida
+através da ferramenta QT (biblioteca para interface gráfica).
+
+\subsection{Detecção de transições \label{RQS11}}
+
+\hspace*{1.25cm}O sistema deverá detectar automaticamente todas as
+transições presentes no vídeo.
+
+\subsection{Classificação das transições \label{RQS12}}
+
+\hspace*{1.25cm}A aplicação irá classificar automaticamente todas as
+transições do sistema. Tal classificação será dividida em:
+\begin{itemize}
+    \item Corte
+    \item Dissolve
+    \item Fade-in
+    \item Fade-out
+\end{itemize}
+
+\subsection{Limiar \label{RQS13}}
+
+\hspace*{0.65cm}Para as operações que exijam uma limiar, o sistema
+deverá definir uma limiar automaticamente para o caso do usuário não
+fornecer nenhum valor.
+
+\subsection{Arquivo de controle do projeto \label{RQS14}}
+
+\hspace*{1.25cm}Todo o projeto será salvo em um arquivo XML, o qual
+deverá conter todas as informações necessárias para que o sistema
+consiga retomar a edição do vídeo sem intervenção nenhuma do
+usuário, partindo do ponto onde exato onde o usuário interrompeu a
+edição. O arquivo deverá conter informações como: nome do projeto,
+diretório de trabalho do projeto, nome e caminho completo dos vídeos
+carregados, pontos onde houveram transições no vídeo etc.
