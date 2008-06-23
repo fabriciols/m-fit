@@ -6,5 +6,7 @@
  */
 class Color: public Effect
 {
+	// Construtor
+	Color();
  
 };

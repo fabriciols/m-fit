@@ -6,5 +6,7 @@
  */
 class Contrast: public Effect
 {
+	// Construtor
+	Contrast();
  
 };
