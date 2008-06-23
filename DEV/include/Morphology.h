@@ -4,7 +4,7 @@
  *Classe que agrupa filtros de 
  *morfologia matemática.
  */
-class Morpholical 
+class Morphology
 {
  
 	private:
@@ -21,6 +21,6 @@ class Morpholical
 	 *uma imagem
 	 *
 	 */
-		Frame dilate();
+		Frame* dilate(Frame* frame);
 	 
 };

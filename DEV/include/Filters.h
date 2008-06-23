@@ -8,9 +8,7 @@
 class Filters 
 {
 
-	private:
-		Frame frame;
-
+	public:
 		/**
 		 *Aplica o Operador Sobel
 		 *em uma imagem. 
@@ -19,8 +17,7 @@ class Filters
 		 *createBorderMap da classe Cut
 		 *
 		 */
-	public:
-		Frame Sobel(); 
+		Frame* Sobel(Frame* frame); 
 		/**
 		 *Aplica um filtro passa-baixa na
 		 *imagem.
@@ -28,12 +25,17 @@ class Filters
 		 *CvSmooth
 		 *
 		 */
-		Frame lowPass();
+		Frame* lowPass(Frame* frame);
 
 		/**
 		 *Aplica um filtro passa alta na 
 		 *imagem.
 		 */
-		Frame highPass();
+		Frame* highPass(Frame* frame);
+
+		/*
+		* Aplica um threshold na imagem
+		*/
+		Frame* segment(Frame* frame, int threshold);
 
 };

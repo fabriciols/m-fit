@@ -1,4 +1,5 @@
-class Interface {
+class Interface 
+{
  
 	/**
 	 *Cria a timeline na tela.
