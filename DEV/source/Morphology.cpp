@@ -6,7 +6,7 @@ Frame* Morphology::dilate(Frame* frame)
 
 	img_dst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
 
-	cvDilate(frame->data, im_dst, 0, 1);
+	cvDilate(frame->data, img_dst, 0, 1);
 
 	return (new Frame(img_dst));
 }

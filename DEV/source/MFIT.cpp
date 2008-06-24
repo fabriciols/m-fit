@@ -104,36 +104,35 @@ int main(int argc, char* argv[])
 				//frameEffect = morph.erode(frame_gray);
 
 				break;
-
+         case 's':       
+                
+            if (argv[i][2] == 'v')
+            {
+               srtcpy(effectName, "Vertival Sobel");
+               frameEffect = filters.Sobel(frameGray, 0);
+            }else if (argv[i][2] == 'h')
+            {
+               strcpy(effectName, "Horizontal Sobel");
+               frameEffect = filters.Sobel(frameGray, 1);               
+            }else
+            {
+               strcpy(effectName, "Complete Sobel");
+               frameEffect = filters.Sobel(frameGray, 2);
+            }
+            
+            break;
+         
+         case 'l':
+            strcpy(effectName, "Low-Pass Filter");
+            frameEffect = filters.lowPass(frameGray, atoi(argv[++i]));
+            break;
 				/*
 			case 'g':
 				strcpy(effectName, "Gray");
 				imgEffect = imgGray;
 
 				break;
-			case 's':
-
-				strcpy(effectName, "Sobel");
-
-				if (argv[i][2] == 'v')
-				{
-					// Aplica sobel vertical
-					strcat(effectName, " V");
-					cvSobel(imgGray, imgEffect, 1, 0, 3);
-				}
-				else if (argv[i][2] == 'h')
-				{
-					// Aplica sobel horizontal
-					strcat(effectName, " H");
-					cvSobel(imgGray, imgEffect, 0, 1, 3);
-				}
-				else
-				{
-					// Aplica ambos (h/v)
-					cvSobel(imgGray, imgEffect, 1, 1, 3);
-				}
-
-				break;
+			
 			case 'h':
 			case 'l':
 				if (argv[i][2] == 'p') // High/Low-Pass (Passa-baixa/alta)
