@@ -29,12 +29,17 @@ Frame* Filters::segment(Frame* frame, int threshold)
 * Retorno: Frame com o efeito aplicado (img_dst)
 ************************************************************************
 * Autor: Thiago Mizutani
-* 23/06/08 - Criação.
+************************************************************************
+* Histórico:
+* 23/06/08 - Thiago Mizutani
+* Criação.
 ************************************************************************/
 
 Frame* Filters::Sobel(Frame* frame, int direction)
 {
    IplImage* img_dst;
+	
+	img_dst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
    
    switch(direction)
    {
@@ -65,12 +70,20 @@ Frame* Filters::Sobel(Frame* frame, int direction)
 * Retorno: Frame com o efeito aplicado (img_dst)
 ************************************************************************
 * Autor: Thiago Mizutani
-* 23/06/08 - Criação.
+* **********************************************************************
+* Histórico
+* 24/06/08 - Thiago Mizutani
+* Alteração da montagem do kernel do filtro.
+* 23/06/08 - Thiago Mizutani
+* Criação.
 ************************************************************************/
 
 Frame* Frame::lowPass(Frame* frame, int size)
 {
    IplImage* img_dst = 0;
+
+	// Cria uma imagem com os mesmos parâmetros da original.
+	img_dst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
 
 	// Tamanho da Matriz
 	int cols_i = size;
@@ -81,11 +94,12 @@ Frame* Frame::lowPass(Frame* frame, int size)
 	
 	total_size=pow(size,2);
 	
-	double kernel[size][size];
-	
-	for (int i=0;i<size;i++)
-      for(int j=0;j<size;j++)
-         kernel[i][j] = 1/total_size;
+	// Máscara para realizar o processo de convolução.
+	double kernel[total_size];
+
+	// Monta a máscara com o tamanho que foi passado como parâmetro.
+	for (int i=0; i<total_size; i++)	
+		kernel[i] = 1.0/(double)total_size;
 
    img_dst = cvCreateImageHeader(cvGetSize(frame), 8, 1);
 	img_dst->imageData = imgAux->imageData;
