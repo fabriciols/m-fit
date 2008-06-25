@@ -49,8 +49,10 @@ Frame* Filters::Sobel(Frame* frame, int direction)
          break;
       case 1: //Horizontal
          cvSobel(frame->data,img_dst,0,1,3);
+			break;
       case 2: //Both
          cvSobel(frame->data,img_dst,1,1,3);
+			break;
    }
    
    return(new Frame(img_dst));
@@ -78,37 +80,41 @@ Frame* Filters::Sobel(Frame* frame, int direction)
 * Criação.
 ************************************************************************/
 
-Frame* Frame::lowPass(Frame* frame, int size)
+Frame* Filters::lowPass(Frame* frame, int size)
 {
-   IplImage* img_dst = 0;
+   IplImage* imgDst = 0;
+	IplImage* imgAux = 0;
 
-	// Cria uma imagem com os mesmos parâmetros da original.
-	img_dst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
 
 	// Tamanho da Matriz
 	int cols_i = size;
 	int rows_i = size;
 	int total_size = 0;
-	double *kernel;
 	CvMat *filter = 0;
-	
-	total_size=pow(size,2);
-	
+
 	// Máscara para realizar o processo de convolução.
-	double kernel[total_size];
+	double kernel[(int)pow(size,2)];
+	
+	// Cria uma imagem com os mesmos parâmetros da original.
+	imgDst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+
+	imgAux = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	
 
 	// Monta a máscara com o tamanho que foi passado como parâmetro.
 	for (int i=0; i<total_size; i++)	
-		kernel[i] = 1.0/(double)total_size;
+		kernel[i] = (double)1/(double)total_size;
 
-   img_dst = cvCreateImageHeader(cvGetSize(frame), 8, 1);
-	img_dst->imageData = imgAux->imageData;
-	img_dst->widthStep = imgAux->width;
+   imgDst = cvCreateImageHeader(cvGetSize(frame->data), 8, 1);
+	imgDst->imageData = imgAux->imageData;
+	imgDst->widthStep = imgAux->width;
 
 	filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
 
 	cvSetData(filter, kernel, cols_i*8);
 
-	cvFilter2D(frame, img_dst, filter, cvPoint(-1,-1));
+	cvFilter2D(frame->data, imgDst, filter, cvPoint(-1,-1));
+
+	return (new Frame(imgDst));
 
 }
