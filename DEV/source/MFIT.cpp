@@ -108,13 +108,15 @@ int main(int argc, char* argv[])
                 
             if (argv[i][2] == 'v')
             {
-               srtcpy(effectName, "Vertival Sobel");
+               strcpy(effectName, "Vertival Sobel");
                frameEffect = filters.Sobel(frameGray, 0);
-            }else if (argv[i][2] == 'h')
+            }
+				else if (argv[i][2] == 'h')
             {
                strcpy(effectName, "Horizontal Sobel");
                frameEffect = filters.Sobel(frameGray, 1);               
-            }else
+            }
+				else
             {
                strcpy(effectName, "Complete Sobel");
                frameEffect = filters.Sobel(frameGray, 2);
@@ -123,8 +125,10 @@ int main(int argc, char* argv[])
             break;
          
          case 'l':
+
             strcpy(effectName, "Low-Pass Filter");
             frameEffect = filters.lowPass(frameGray, atoi(argv[++i]));
+
             break;
 				/*
 			case 'g':

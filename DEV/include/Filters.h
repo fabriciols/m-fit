@@ -17,7 +17,7 @@ class Filters
 		 *createBorderMap da classe Cut
 		 *
 		 */
-		Frame* Sobel(Frame* frame); 
+		Frame* Sobel(Frame* frame, int direction);
 		/**
 		 *Aplica um filtro passa-baixa na
 		 *imagem.
@@ -25,7 +25,8 @@ class Filters
 		 *CvSmooth
 		 *
 		 */
-		Frame* lowPass(Frame* frame);
+		Frame* lowPass(Frame* frame, int size);
+
 
 		/**
 		 *Aplica um filtro passa alta na 
