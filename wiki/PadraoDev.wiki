@@ -48,10 +48,9 @@ Padrão:
 /************************************************************************
 * Função que faz X Y e depois Z
 *************************************************************************
-* param (E): param1  - representa XYZ
-* param (E): param2  - representa QWER
+* param (E): param1   - representa XYZ
+* param (S): *param2  - representa o buffer de resposta do QERTQE
 * return   : int     - retorna 0 qndo X e 1 qndo Y
-* aplicado.
 ************************************************************************
 * Histórico:
 * 26/06/08 - Fabricio Lopes de Souza
