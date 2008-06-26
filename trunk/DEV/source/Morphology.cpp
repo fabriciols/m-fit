@@ -5,6 +5,8 @@
 
 #include "../include/Morphology.h"
 
+#include "../include/Log.h"
+
 /************************************************************************
 * Função que aplica o efeito de Dilatação no Frame
 *************************************************************************
@@ -17,9 +19,14 @@
 ************************************************************************/
 Frame* Morphology::dilate(Frame* frame)
 {
+
 	IplImage *imgDst;
 
+	Log::writeLog("%s :: cvCreateImage depth[%d] Channels[%d]", __FUNCTION__, frame->data->depth, frame->data->nChannels);
+
 	imgDst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+
+	Log::writeLog("%s :: cvDilate frame[%x] imgDst[%x] IplConvKernel[%d] iterations[%d]", __FUNCTION__, frame, imgDst, 0, 1);
 
 	cvDilate(frame->data, imgDst, 0, 1);
 
@@ -40,7 +47,11 @@ Frame* Morphology::erode(Frame* frame)
 {
 	IplImage *imgDst;
 
+	Log::writeLog("%s :: cvCreateImage depth[%d] Channels[%d]", __FUNCTION__, frame->data->depth, frame->data->nChannels);
+
 	imgDst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+
+	Log::writeLog("%s :: cvErode frame[%x] imgDst[%x] IplConvKernel[%d] iterations[%d]", __FUNCTION__, frame, imgDst, 0, 1);
 
 	cvErode(frame->data, imgDst, 0, 1);
 

@@ -10,7 +10,6 @@
 * param (E): frame     - Frame a ser aplicado o efeito 
 * param (E): threshold - Valor do limiar a ser aplicado
 * return   : Frame*    - Ponteiro para um novo frame com o efeito
-* aplicado.
 ************************************************************************
 * Histórico:
 * 26/06/08 - Fabricio Lopes de Souza
