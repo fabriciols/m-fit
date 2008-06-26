@@ -1,5 +1,7 @@
 #include "cv.h"
 
+#include "../include/Log.h"
+
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 
@@ -59,16 +61,17 @@ int main(int argc, char* argv[])
 	// Tenta abrir o arquivo
 	try
 	{
+		Log::writeLog("%s :: new Frame filename[%s]", __FUNCTION__, filename_cy);
 		frame = new Frame(filename_cy);
 	}
 	catch (char *str)
 	{
-		printf("Exception: %s\n", str);
+		Log::writeLog("%s :: Exception [%s]", __FUNCTION__, str);
 		return 1;
 	}
 	catch (...)
 	{
-		printf("Unhandled exception\n");
+		Log::writeLog("%s :: Unhandled Exception", __FUNCTION__);
 		return 1;
 	}
 
@@ -347,7 +350,7 @@ int main(int argc, char* argv[])
 
 		}
 
-		printf("Effect[%d] : [%s]\n", effectCount, effectName);
+		Log::writeLog("%s :: Effect[%d] : [%s]", __FUNCTION__, effectCount, effectName);
 
 		// Salva os dados na estrutura, para poder aplicar efeitos na imagem anterior
 		effectsList[effectCount].name  = effectName;
@@ -366,7 +369,7 @@ int main(int argc, char* argv[])
 	// Limpa a memória
 	for (i=0 ; i < effectCount ; i++)
 	{
-		printf("Destroy[%d]: [%s]\n", i, effectsList[i].name); 
+		Log::writeLog("%s :: Destroy[%d] : [%s]", __FUNCTION__, i, effectsList[i].name);
 
 		cvDestroyWindow(effectsList[i].name);
 		delete effectsList[i].name;

@@ -29,6 +29,7 @@ OBJS = \
 	$(source)/Transition.o        \
 	$(source)/Video.o             \
 	$(source)/VisualRythim.o      \
+	$(source)/Log.o               \
 	$(source)/MFIT.o
 
 all: $(OBJS)
