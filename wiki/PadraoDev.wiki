@@ -2,18 +2,18 @@
 
 Este documento deverá ser utilizado como base para os padrões e regras de desenvolvimento do MFIT.
 
- # - Toda classe tem as iniciais Maiúsculas
+ * 1 - Toda classe tem as iniciais Maiúsculas
 Exemplo: MinhaClasse e não minhaclasse ou minhaClasse.
 
- # - Nome de atributos com as primeiras letras minúsculas
+ * 2 - Nome de atributos com as primeiras letras minúsculas
 Exemplo: meuAtributo
 
- # - Variáveis Locais segue o mesmo padrão dos atributos
+ * 3 - Variáveis Locais segue o mesmo padrão dos atributos
 
- # - Qualquer função/atributo/qquer coisa em INGLÊS !
+ * 4 - Qualquer função/atributo/qquer coisa em INGLÊS !
 Exemplo: Data e não Dado; Date e não Data
 
- # - Identação de funções
+ * # - Identação de funções
 Padrão VI (:) :
 {{{
 int main(void)
@@ -23,9 +23,9 @@ int main(void)
 }
 }}}
 
- # - Espaçamento: return (maria) e não return ( maria );
+ * # - Espaçamento: return (maria) e não return ( maria );
 
- # - Ifs:
+ * # - Ifs:
 TODO IF deve conter os {}
 Exemplo (Errado):
 {{{
