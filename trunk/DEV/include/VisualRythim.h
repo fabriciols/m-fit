@@ -1,5 +1,3 @@
-#include "Frame.h"
-
 /**
  *Classe responsável por criar
  *os dois tipos de ritmo visual.

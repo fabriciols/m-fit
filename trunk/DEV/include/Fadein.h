@@ -1,5 +1,3 @@
-#include "Fade.h"
-
 /**
  *Classe responsável por indentificar
  *transições do tipo Fade-in.

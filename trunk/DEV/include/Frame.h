@@ -1,9 +1,3 @@
-#include "Histogram.h"
-#include "cv.h"
-#include "highgui.h"
-
-#include <stdexcept>
-
 /**
  *Classe que armazena informações sobre
  *um único frame.

@@ -1,7 +1,21 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "cv.h"
+
+#include "../include/Histogram.h"
+#include "../include/Frame.h"
 #include "../include/Filters.h"
 
+/************************************************************************
+* Função que realiza a segmentacao da imagem usando um limiar.
+*************************************************************************
+* param (E): frame     - Frame a ser aplicado o efeito 
+* param (E): threshold - Valor do limiar a ser aplicado
+* return   : Frame*    - Ponteiro para um novo frame com o efeito
+* aplicado.
+************************************************************************
+* Histórico:
+* 26/06/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 Frame* Filters::segment(Frame* frame, int threshold)
 {
 	IplImage* img_dst;
@@ -72,7 +86,7 @@ Frame* Filters::Sobel(Frame* frame, int direction)
 * Retorno: Frame com o efeito aplicado (img_dst)
 ************************************************************************
 * Autor: Thiago Mizutani
-* **********************************************************************
+************************************************************************
 * Histórico
 * 24/06/08 - Thiago Mizutani
 * Alteração da montagem do kernel do filtro.

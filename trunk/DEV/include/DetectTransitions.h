@@ -1,5 +1,3 @@
-#include "Transition.h"
-
 /**
  *Classe pai de todas as detecções
  *de transições.

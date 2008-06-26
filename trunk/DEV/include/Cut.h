@@ -1,6 +1,3 @@
-#include "DetectTransitions.h"
-#include "Frame.h"
-
 /**
  *Classe responsável por indentificar
  *transições do tipo Corte.

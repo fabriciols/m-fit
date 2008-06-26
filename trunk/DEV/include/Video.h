@@ -1,9 +1,3 @@
-#include "Time.h"
-#include "Take.h"
-#include "Frame.h"
-#include "cv.h"
-#include "highgui.h"
-
 /**
  *Classe responsável por fazer
  *a manipulação de um vídeo.
