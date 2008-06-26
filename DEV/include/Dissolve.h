@@ -1,4 +1,3 @@
-#include "DetectTransitions.h"
 
 /**
  *Classe responsável por detectar

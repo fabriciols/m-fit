@@ -1,5 +1,3 @@
-#include "DetectTransitions.h"
-
 /**
  *Classe responsável por 
  *identificar todos os tipos de

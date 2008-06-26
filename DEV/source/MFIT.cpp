@@ -1,5 +1,10 @@
+#include "cv.h"
+
+#include "../include/Histogram.h"
+#include "../include/Frame.h"
+
 #include "../include/Filters.h"
-//#include "../include/Morphology.h"
+#include "../include/Morphology.h"
 
 #include "highgui.h"
 
@@ -26,7 +31,7 @@ int main(int argc, char* argv[])
 	char *effectName;
 
 	// Classe que aplica os filtros
-	Filters filters;
+	//Filters filters;
 
 	// Classe que aplica os filtros de morfologia matematica
 	//Morphology morph;
@@ -84,160 +89,184 @@ int main(int argc, char* argv[])
 		switch (argv[i][1])
 		{
 			case 't':
-
-				aux_i = atoi(argv[++i]);
-
-				sprintf(effectName, "Treshold t=%d", aux_i);
-
-				frameEffect = filters.segment(frameGray, aux_i);
-
-				break;
-			case 'd':
-				strcpy(effectName, "Dilate");
-
-				//frameEffect = morph.dilate(frame_gray);
-
-				break;
-			case 'e':
-				strcpy(effectName, "Erode");
-
-				//frameEffect = morph.erode(frame_gray);
-
-				break;
-         case 's':       
-                
-            if (argv[i][2] == 'v')
-            {
-               strcpy(effectName, "Vertival Sobel");
-               frameEffect = filters.Sobel(frameGray, 0);
-            }
-				else if (argv[i][2] == 'h')
-            {
-               strcpy(effectName, "Horizontal Sobel");
-               frameEffect = filters.Sobel(frameGray, 1);               
-            }
-				else
-            {
-               strcpy(effectName, "Complete Sobel");
-               frameEffect = filters.Sobel(frameGray, 2);
-            }
-            
-            break;
-         
-         case 'l':
-
-				strcpy(effectName, "Low-Pass Filter");
-				
-				//Se for passado algum argumento como valor para tamanho da máscara
-				//será = tamanho passado, senão assume por default o valor 5.
-				if (('0' <= atoi(argv[++i]) <= '9') && (i <= argc))	
-					aux_i = atoi(argv[i]); //Passo i porque já somei 1 e estou na posição desejada
-				else
-					aux_i = 5;
-
-				frameEffect = filters.lowPass(frameGray, aux_i); 
-            
-				break;
-				
-				/*
-			case 'g':
-				strcpy(effectName, "Gray");
-				imgEffect = imgGray;
-
-				break;
-			
-			case 'h':
-			case 'l':
-				if (argv[i][2] == 'p') // High/Low-Pass (Passa-baixa/alta)
 				{
-					IplImage* imgAux = 0;
-					IplImage* imgSrcCpy = 0;
 
-					// Tamanho da Matriz
-					int cols_i = 3;
-					int rows_i = 3;
-					int kernel_i = 0;
-					double *kernel;
+					Filters *filters = new Filters();
 
-					CvMat *filter = 0;
-					imgSrcCpy = cvCloneImage(imgGray);
+					aux_i = atoi(argv[++i]);
 
-					if (argv[i][1] == 'h')
+					sprintf(effectName, "Treshold t=%d", aux_i);
+
+					frameEffect = filters->segment(frameGray, aux_i);
+
+					break;
+
+				}
+			case 'd':
+				{
+					Morphology *morph = new Morphology();
+
+					strcpy(effectName, "Dilate");
+
+					frameEffect = morph->dilate(frameGray);
+
+					break;
+				}
+			case 'e':
+				{
+
+					Morphology *morph = new Morphology();
+
+					strcpy(effectName, "Erode");
+
+					frameEffect = morph->erode(frameGray);
+
+					break;
+
+				}
+			case 's':       
+				{
+
+					Filters *filters = new Filters();
+
+					if (argv[i][2] == 'v')
 					{
-						double kernel_high[][9] = {
-							{
-								-1, -1, -1,
-								-1,  8, -1,
-								-1, -1, -1,
-							},
-							{
-								0, -1,  0,
-								-1, 4, -1,
-								0, -1,  0,
-							},
-							{
-								1 , -2,  1,
-								-2,  4, -2,
-								1 , -2,  1,
-							},
-						};
-
-						cols_i = 3;
-						rows_i = 3;
-
-						if (argc > i+1)
-						{
-							if (argv[i+1][0] >= '0' && ( argv[i+1][0] <= '3' ))
-								kernel_i = atoi(argv[++i]) -1;
-						}
-
-						kernel = kernel_high[kernel_i];
-
-						sprintf(effectName, "High-Pass kernel [%d]", kernel_i+1);
+						strcpy(effectName, "Vertival Sobel");
+						frameEffect = filters->Sobel(frameGray, 0);
+					}
+					else if (argv[i][2] == 'h')
+					{
+						strcpy(effectName, "Horizontal Sobel");
+						frameEffect = filters->Sobel(frameGray, 1);               
 					}
 					else
 					{
-						double kernel_low[][25] = { 
-							{
-								1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-								1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-								1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-								1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-								1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-							},
-						};
-
-						cols_i = 5;
-						rows_i = 5;
-
-						if (argc > i+1)
-						{
-							if (argv[i+1][0] >= '0' && ( argv[i+1][0] <= '1' ))
-								kernel_i = atoi(argv[++i]) - 1;
-						}
-
-						kernel = kernel_low[kernel_i];
-
-						sprintf(effectName, "Low-Pass kernel [%d]", kernel_i+1);
+						strcpy(effectName, "Complete Sobel");
+						frameEffect = filters->Sobel(frameGray, 2);
 					}
 
-
-
-					imgAux = cvCreateImageHeader(cvGetSize(imgSrcCpy), 8, 1);
-					imgAux->imageData = imgSrcCpy->imageData;
-					imgAux->widthStep = imgSrcCpy->width;
-
-					imgEffect = cvCreateImageHeader(cvGetSize(imgSrcCpy), 8, 1);
-					imgEffect->imageData = imgAux->imageData;
-					imgEffect->widthStep = imgAux->width;
-
-					filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
-
-					cvSetData(filter, kernel, cols_i*8);
-
-					cvFilter2D(imgAux, imgEffect, filter, cvPoint(-1,-1));
-
+					break;
 				}
+
+			case 'l':
+
+				{
+
+					Filters *filters = new Filters();
+
+					strcpy(effectName, "Low-Pass Filter");
+
+					//Se for passado algum argumento como valor para tamanho da máscara
+					//será = tamanho passado, senão assume por default o valor 5.
+					if (('0' <= atoi(argv[i+1]) <= '9') && (i <= argc))	
+						aux_i = atoi(argv[++i]); //Passo i porque já somei 1 e estou na posição desejada
+					else
+						aux_i = 5;
+
+					frameEffect = filters->lowPass(frameGray, aux_i); 
+
+					break;
+				}
+
+				/*
+					case 'g':
+					strcpy(effectName, "Gray");
+					imgEffect = imgGray;
+
+					break;
+
+					case 'h':
+					case 'l':
+					if (argv[i][2] == 'p') // High/Low-Pass (Passa-baixa/alta)
+					{
+					IplImage* imgAux = 0;
+					IplImage* imgSrcCpy = 0;
+
+				// Tamanho da Matriz
+				int cols_i = 3;
+				int rows_i = 3;
+				int kernel_i = 0;
+				double *kernel;
+
+				CvMat *filter = 0;
+				imgSrcCpy = cvCloneImage(imgGray);
+
+				if (argv[i][1] == 'h')
+				{
+				double kernel_high[][9] = {
+				{
+				-1, -1, -1,
+				-1,  8, -1,
+				-1, -1, -1,
+				},
+				{
+				0, -1,  0,
+				-1, 4, -1,
+				0, -1,  0,
+				},
+				{
+				1 , -2,  1,
+				-2,  4, -2,
+				1 , -2,  1,
+				},
+				};
+
+				cols_i = 3;
+				rows_i = 3;
+
+				if (argc > i+1)
+				{
+				if (argv[i+1][0] >= '0' && ( argv[i+1][0] <= '3' ))
+				kernel_i = atoi(argv[++i]) -1;
+				}
+
+				kernel = kernel_high[kernel_i];
+
+				sprintf(effectName, "High-Pass kernel [%d]", kernel_i+1);
+				}
+				else
+				{
+				double kernel_low[][25] = { 
+				{
+				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
+				},
+				};
+
+				cols_i = 5;
+				rows_i = 5;
+
+				if (argc > i+1)
+				{
+					if (argv[i+1][0] >= '0' && ( argv[i+1][0] <= '1' ))
+						kernel_i = atoi(argv[++i]) - 1;
+				}
+
+				kernel = kernel_low[kernel_i];
+
+				sprintf(effectName, "Low-Pass kernel [%d]", kernel_i+1);
+		}
+
+
+
+		imgAux = cvCreateImageHeader(cvGetSize(imgSrcCpy), 8, 1);
+		imgAux->imageData = imgSrcCpy->imageData;
+		imgAux->widthStep = imgSrcCpy->width;
+
+		imgEffect = cvCreateImageHeader(cvGetSize(imgSrcCpy), 8, 1);
+		imgEffect->imageData = imgAux->imageData;
+		imgEffect->widthStep = imgAux->width;
+
+		filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
+
+		cvSetData(filter, kernel, cols_i*8);
+
+		cvFilter2D(imgAux, imgEffect, filter, cvPoint(-1,-1));
+
+		}
 				else if (argv[i][1] == 'h') // Histograma
 				{
 
@@ -304,17 +333,17 @@ int main(int argc, char* argv[])
 
 				continue;
 
-			*/
+				*/
 			case 'p':
-				strcpy(effectName, filename_cy);
-				frameEffect = frame;
-				break;
+					strcpy(effectName, filename_cy);
+					frameEffect = frame;
+					break;
 
 			case '?':
 			default:
-				usage();
-				return -1;
-				break;
+					usage();
+					return -1;
+					break;
 
 		}
 

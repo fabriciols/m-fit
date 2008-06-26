@@ -1,5 +1,3 @@
-#include "Frame.h"
-
 /**
  *Classe que agrupa filtros de
  *processamento de imagens digitais.

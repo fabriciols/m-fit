@@ -1,4 +1,3 @@
-#include "Frame.h"
 
 /**
  *Classe responsável por centralizar

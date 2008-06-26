@@ -1,3 +1,9 @@
+#include "cv.h"
+#include "highgui.h"
+
+#include <stdexcept>
+
+#include "../include/Histogram.h"
 #include "../include/Frame.h"
 
 Frame::Frame(char *filename_cy)

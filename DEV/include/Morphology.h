@@ -1,5 +1,3 @@
-#include "Frame.h"
-
 /**
  *Classe que agrupa filtros de 
  *morfologia matemática.
@@ -7,14 +5,13 @@
 class Morphology
 {
  
-	private:
-		Frame frame;
+	public:
 	 
 	/**
 	 *Aplica o efeito de Erosão em uma
 	 *imagem.
 	 */
-		Frame erode();
+		Frame* erode(Frame* frame);
 	 
 	/**
 	 *Aplica o efeito de dilatação em
