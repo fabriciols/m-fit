@@ -126,10 +126,19 @@ int main(int argc, char* argv[])
          
          case 'l':
 
-            strcpy(effectName, "Low-Pass Filter");
-            frameEffect = filters.lowPass(frameGray, atoi(argv[++i]));
+				strcpy(effectName, "Low-Pass Filter");
+				
+				//Se for passado algum argumento como valor para tamanho da máscara
+				//será = tamanho passado, senão assume por default o valor 5.
+				if (('0' <= atoi(argv[++i]) <= '9') && (i <= argc))	
+					aux_i = atoi(argv[i]); //Passo i porque já somei 1 e estou na posição desejada
+				else
+					aux_i = 5;
 
-            break;
+				frameEffect = filters.lowPass(frameGray, aux_i); 
+            
+				break;
+				
 				/*
 			case 'g':
 				strcpy(effectName, "Gray");
