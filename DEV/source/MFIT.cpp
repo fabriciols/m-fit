@@ -171,6 +171,40 @@ int main(int argc, char* argv[])
 					break;
 				}
 
+			case 'h':
+				{
+
+					Frame *frameAux;
+
+					// Se ja foi aplicado algum tipo de efeito, realizamo o histograma do ultimo efeito aplicado
+					if (effectCount >= 1)
+					{
+
+						frameAux = effectsList[effectCount-1].frame;
+
+						sprintf(effectName, "Histogram of %s", effectsList[effectCount-1].name);
+
+						Log::writeLog("%s :: Histogram from effect[%d] [%s]\n",
+							__FUNCTION__, effectCount-1, effectsList[effectCount-1].name);
+					}
+					else // Senão, aplicamos na imagem original mesmo
+					{
+						frameAux = frameGray;
+						sprintf(effectName, "Histogram of %s", filename_cy);
+					}
+
+
+
+					Histogram *hist = new Histogram(frameAux->data);
+
+					Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
+							__FUNCTION__, hist->getMinIdx(), hist->getMin(), hist->getMaxIdx(), hist->getMax());
+
+					frameEffect = new Frame(hist->getMatrix(), 256, hist->getMax());
+
+					break;
+				}
+
 				/*
 					case 'g':
 					strcpy(effectName, "Gray");
@@ -270,83 +304,38 @@ int main(int argc, char* argv[])
 		cvFilter2D(imgAux, imgEffect, filter, cvPoint(-1,-1));
 
 		}
-				else if (argv[i][1] == 'h') // Histograma
-				{
-
-					// O histograma tem um esquema diferente, pois ele nao
-					// tem uma imagem do tamanho da imgSrc, entao faremos 
-					// um processo diferente
-
-					IplImage* imgAux = 0;
-
-					strcpy(effectName, "Histogram of");
-
-					// Se ja tiver aplicado algum efeito, tiramos o histograma desta nova imagem
-					// somente se ela NAO for a imagem de entrada ( que tem 8 canais, e no histograma
-					// esperamos uma imagem de apenas 1 canal )
-					if (effectCount >= 1 && strcmp(effectsNameList[effectCount-1],imgname_cy))
-					{
-
-						imgAux = histogram(effectsImgList[effectCount-1]);
-						printf("%s :: Histogram from [%s]\n", __FUNCTION__, effectsNameList[effectCount-1]);
-						sprintf(effectName, "%s %s", effectName, effectsNameList[effectCount-1]);
-					}
-					else
-					{
-						imgAux = histogram(imgGray);
-						printf("%s :: Histogram from [%s]\n", __FUNCTION__, imgname_cy);
-						sprintf(effectName, "%s %s", effectName, imgname_cy);
-					}
-
-					printf("%s :: Effect : [%s]\n", __FUNCTION__, effectName);
-
-					// Adiciona na listas
-					effectsNameList[effectCount] = effectName;
-					effectsImgList[effectCount] = imgAux;
-
-					effectCount++;
-
-
-					cvNamedWindow(effectName, 1);
-
-					cvShowImage(effectName, imgAux);
-
-					continue;
-				}
-
-				break;
 			case 'w':
-				if (effectCount >= 1)
-				{
-					char filename_cy[50];
+		if (effectCount >= 1)
+		{
+			char filename_cy[50];
 
-					strcpy(filename_cy, imgname_cy);
-					// Tira a extensao
-					filename_cy[strlen(filename_cy) - 4] = '\0';
+			strcpy(filename_cy, imgname_cy);
+			// Tira a extensao
+			filename_cy[strlen(filename_cy) - 4] = '\0';
 
-					sprintf(filename_cy, "%s_%s.png", filename_cy, effectsNameList[effectCount-1]);
+			sprintf(filename_cy, "%s_%s.png", filename_cy, effectsNameList[effectCount-1]);
 
-					printf("%s :: Writing effet [%s] in file [%s]\n", __FUNCTION__, effectsNameList[effectCount-1], filename_cy);
+			printf("%s :: Writing effet [%s] in file [%s]\n", __FUNCTION__, effectsNameList[effectCount-1], filename_cy);
 
-					if(!cvSaveImage(filename_cy,effectsImgList[effectCount-1]))
-					{
-						printf("Could not save: %s\n",filename_cy);
-					}
-				}
+			if(!cvSaveImage(filename_cy,effectsImgList[effectCount-1]))
+			{
+				printf("Could not save: %s\n",filename_cy);
+			}
+		}
 
-				continue;
+		continue;
 
-				*/
+		*/
 			case 'p':
-					strcpy(effectName, filename_cy);
-					frameEffect = frame;
-					break;
+			strcpy(effectName, filename_cy);
+			frameEffect = frame;
+			break;
 
 			case '?':
 			default:
-					usage();
-					return -1;
-					break;
+			usage();
+			return -1;
+			break;
 
 		}
 
