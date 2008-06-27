@@ -42,6 +42,12 @@ class Frame
 		*/
 		Frame(Frame *frame);
 
+		/*
+		* Construtor que recebe uma matriz(histograma) e seu tamanho
+		* e faz o seu desenho
+		*/
+		Frame(double matrix[], int len_i, float max_f);
+
 		// Retorna um FRAME em escala de cinza
 		// referente a instância corrente
 		Frame* convert2Gray();
@@ -57,7 +63,7 @@ class Frame
 		*Função que cria o histograma da
 		*diagonal do frame.
 		*/
-		Histogram createHistogram();
+		//Histogram createHistogram();
 	 
 		/**
 		*Retorna a diagonal do frame.

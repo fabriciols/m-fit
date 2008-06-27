@@ -10,7 +10,8 @@
 /************************************************************************
 * Função que aplica o efeito de Dilatação no Frame
 *************************************************************************
-* param (E): frame  - Frame onde o efeito vai ser aplicado
+* param (E): Frame* frame - Frame onde o efeito vai ser aplicado
+************************************************************************
 * return   : Frame* - Ponteiro para um novo frame com o efeito aplicado
 ************************************************************************
 * Histórico:
@@ -36,7 +37,8 @@ Frame* Morphology::dilate(Frame* frame)
 /************************************************************************
 * Função que aplica o efeito de Erosão no Frame
 *************************************************************************
-* param (E): frame  - Frame onde o efeito vai ser aplicado
+* param (E): Frame* frame - Frame onde o efeito vai ser aplicado
+************************************************************************
 * return   : Frame* - Ponteiro para um novo frame com o efeito aplicado
 ************************************************************************
 * Histórico:

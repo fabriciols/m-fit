@@ -9,6 +9,17 @@
 	#include <execinfo.h>
 #endif
 
+/************************************************************************
+* Função que imprime as mensagems log da aplicação
+* ela automaticamente concatena o timestamp.
+*************************************************************************
+* param (E): fmt - Formato da impressão (printf like)
+* param (E): ... - Argumentos para a impressão (printf like)
+************************************************************************
+* Histórico:
+* 27/06/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 int Log::writeLog(const char *fmt, ...)
 {
 	va_list argList;
