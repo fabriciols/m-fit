@@ -205,29 +205,7 @@ int main(int argc, char* argv[])
 					break;
 				}
 
-				/*
-					case 'g':
-					strcpy(effectName, "Gray");
-					imgEffect = imgGray;
-
-					break;
-
-					case 'h':
-					case 'l':
-					if (argv[i][2] == 'p') // High/Low-Pass (Passa-baixa/alta)
-					{
-					IplImage* imgAux = 0;
-					IplImage* imgSrcCpy = 0;
-
-				// Tamanho da Matriz
-				int cols_i = 3;
-				int rows_i = 3;
-				int kernel_i = 0;
-				double *kernel;
-
-				CvMat *filter = 0;
-				imgSrcCpy = cvCloneImage(imgGray);
-
+/*
 				if (argv[i][1] == 'h')
 				{
 				double kernel_high[][9] = {
