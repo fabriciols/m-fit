@@ -32,12 +32,11 @@ Frame* Filters::segment(Frame* frame, int threshold)
 /************************************************************************
 * Função que aplica o Operador Sobel nas imagens.
 *************************************************************************
-* Parâmetros:
-* Frame* frame: Imagem à qual será aplicado o operador.
-* int direction:
-* 0 - Vertical
-* 1 - Horizontal
-* 2 - Both
+* param (E): Frame* frame: Imagem à qual será aplicado o operador.
+* param (E): int direction:
+* 				 0 - Vertical
+* 				 1 - Horizontal
+* 				 2 - Vertical e Horizontal
 ************************************************************************
 * Retorno: Frame com o efeito aplicado (img_dst)
 ************************************************************************
@@ -74,13 +73,12 @@ Frame* Filters::Sobel(Frame* frame, int direction)
 /************************************************************************
 * Função que aplica o filtro passa-baixa na imagem.
 *************************************************************************
-* Parâmetros:
-* Frame* frame: Imagem à qual será aplicado o operador.
-* int size: Tamanho da matriz.
-* 3 - 3x3
-* 5 - 5x5
-* 7 - 7x7
-* n - nxn
+* param (E): Frame* frame: Imagem à qual será aplicado o operador.
+* param (E): int size: Tamanho da matriz.
+* 				 3 - 3x3
+* 				 5 - 5x5
+* 				 7 - 7x7
+* 				 n - nxn
 ************************************************************************
 * Retorno: Frame com o efeito aplicado (img_dst)
 ************************************************************************
@@ -98,10 +96,7 @@ Frame* Filters::lowPass(Frame* frame, int size)
    IplImage* imgDst = 0;
 	IplImage* imgAux = 0;
 
-	// Tamanho da Matriz
-	
-	//size = size >= 11 ? 9 : size;
-	
+	//Ajuste do tamanho da matriz.
 	if (size >= 11)
 		size = 9;
 
@@ -113,7 +108,7 @@ Frame* Filters::lowPass(Frame* frame, int size)
 	total_size=(int)pow(size,2);
 
 	// Máscara para realizar o processo de convolução.
-	double kernel[total_size];
+	double convMask[total_size];
 	
 	// Cria uma imagem com os mesmos parâmetros da original.
 	imgDst = cvCreateImage(cvGetSize(frame->data), frame->data->depth, frame->data->nChannels);
@@ -121,7 +116,7 @@ Frame* Filters::lowPass(Frame* frame, int size)
 
 	// Monta a máscara com o tamanho que foi passado como parâmetro.
 	for (int i=0; i<total_size; i++)	
-		kernel[i] = (double)1/(double)total_size;
+		convMask[i] = (double)1/(double)total_size;
 
 	imgAux->imageData = frame->data->imageData;
 	imgAux->widthStep = frame->data->width;
@@ -131,10 +126,78 @@ Frame* Filters::lowPass(Frame* frame, int size)
 
 	filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
 
-	cvSetData(filter, kernel, cols_i*8);
+	cvSetData(filter, convMask, cols_i*8);
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
 	return (new Frame(imgDst));
 
+}
+
+/************************************************************************
+* Função que aplica o filtro passa-alta na imagem.
+*************************************************************************
+* param (E): Frame* frame: Imagem à qual será aplicado o operador.
+* param (E): int typeMas: Tipo da máscara a ser utilizada.
+************************************************************************
+* Retorno: Frame com o efeito aplicado (img_dst)
+************************************************************************
+* Autor: Thiago Mizutani
+************************************************************************
+* Histórico
+* 29/06/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+Frame* Filters::highPass(Frame* frame, int typeMask)
+{
+	IplImage* imgDst = 0;
+	IplImage* imgAux = 0;
+
+	int cols = 0;
+	int rows = 0;
+	CvMat *filter = 0;
+
+	// Máscaras de convolução
+	double masks[][9] = {
+		// Tipo 1
+		{ 
+			-1, -1, -1,
+			-1,  8, -1,
+			-1, -1, -1,
+		},
+		// Tipo 2
+		{
+			0, -1,  0,
+			-1, 4, -1,
+			0, -1,  0,
+		},
+		// Tipo 3
+		{
+			1 , -2,  1,
+			-2,  4, -2,
+			1 , -2,  1,
+		},
+	};
+
+	cols = 3;
+	rows = 3;
+
+//	mask = masks[typeMask];
+
+	sprintf(effectName, "High-Pass kernel [%d]", typeMask);
+
+	imgAux->imageData = frame->data->imageData;
+	imgAux->widthStep = frame->data->width;
+
+	imgDst->imageData = imgAux->imageData;
+	imgDst->widthStep = imgAux->width;
+
+	filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
+
+	cvSetData(filter, masks[typeMask], cols_i*8);
+
+	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
+
+	return (new Frame(imgDst));
 }

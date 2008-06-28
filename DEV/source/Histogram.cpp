@@ -8,7 +8,7 @@
 #define HIST_HEIGHT 256
 
 /************************************************************************
-* Construtor para Histogram que recebe uma imagem do tipo OPENCV
+* Construtor para Histogram que recebe uma imagem do tipo IplImage
 * e com isso gera o histograma, preenchedo os atributos necessários.
 *************************************************************************
 * param (E): IplImage* img - Imagem já alocada.
