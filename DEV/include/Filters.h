@@ -30,7 +30,7 @@ class Filters
 		 *Aplica um filtro passa alta na 
 		 *imagem.
 		 */
-		Frame* highPass(Frame* frame);
+		Frame* highPass(Frame* frame, int typeMask);
 
 		/*
 		* Aplica um threshold na imagem
