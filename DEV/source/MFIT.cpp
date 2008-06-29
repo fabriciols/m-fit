@@ -173,6 +173,7 @@ int main(int argc, char* argv[])
 
 			case 'H':
 				{
+					Filters *filters = new Filters();
 					// Se o usuário não escolher o tipo de matriz a ser usada o sistema adota
 					// uma como padrão.
 					
@@ -186,7 +187,8 @@ int main(int argc, char* argv[])
 					}
 
 					sprintf(effectName, "High-Pass kernel [%d]", aux_i);
-					frameEffect = filters->highPass(frameGray, aux_i)
+					frameEffect = filters->highPass(frameGray, aux_i);
+					break;
 				}
 			case 'h':
 				{
