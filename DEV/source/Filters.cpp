@@ -185,17 +185,15 @@ Frame* Filters::highPass(Frame* frame, int typeMask)
 
 //	mask = masks[typeMask];
 
-	sprintf(effectName, "High-Pass kernel [%d]", typeMask);
-
 	imgAux->imageData = frame->data->imageData;
 	imgAux->widthStep = frame->data->width;
 
 	imgDst->imageData = imgAux->imageData;
 	imgDst->widthStep = imgAux->width;
 
-	filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
+	filter = cvCreateMatHeader(rows, cols, CV_64FC1);
 
-	cvSetData(filter, masks[typeMask], cols_i*8);
+	cvSetData(filter, masks[typeMask], cols*8);
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
