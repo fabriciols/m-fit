@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
 					//Se for passado algum argumento como valor para tamanho da máscara
 					//será = tamanho passado, senão assume por default o valor 5.
 					if (('0' <= atoi(argv[i+1]) <= '9') && (i <= argc))	
-						aux_i = atoi(argv[++i]); //Passo i porque já somei 1 e estou na posição desejada
+						aux_i = atoi(argv[++i]); //Passo o valor do proximo parametro passado
 					else
 						aux_i = 5;
 
@@ -171,6 +171,23 @@ int main(int argc, char* argv[])
 					break;
 				}
 
+			case 'H':
+				{
+					// Se o usuário não escolher o tipo de matriz a ser usada o sistema adota
+					// uma como padrão.
+					
+					if (('0' <= atoi(argv[i+1]) <= '9') && (i <= argc))	
+					{
+						aux_i = atoi(argv[++i]); // Incrementa i para que a proxima analise do for não pegue o mesmo parametro
+					}
+					else
+					{
+						aux_i = 1;
+					}
+
+					sprintf(effectName, "High-Pass kernel [%d]", aux_i);
+					frameEffect = filters->highPass(frameGray, aux_i)
+				}
 			case 'h':
 				{
 
@@ -193,8 +210,6 @@ int main(int argc, char* argv[])
 						sprintf(effectName, "Histogram of %s", filename_cy);
 					}
 
-
-
 					Histogram *hist = new Histogram(frameAux->data);
 
 					Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
@@ -206,82 +221,6 @@ int main(int argc, char* argv[])
 				}
 
 /*
-				if (argv[i][1] == 'h')
-				{
-				double kernel_high[][9] = {
-				{
-				-1, -1, -1,
-				-1,  8, -1,
-				-1, -1, -1,
-				},
-				{
-				0, -1,  0,
-				-1, 4, -1,
-				0, -1,  0,
-				},
-				{
-				1 , -2,  1,
-				-2,  4, -2,
-				1 , -2,  1,
-				},
-				};
-
-				cols_i = 3;
-				rows_i = 3;
-
-				if (argc > i+1)
-				{
-				if (argv[i+1][0] >= '0' && ( argv[i+1][0] <= '3' ))
-				kernel_i = atoi(argv[++i]) -1;
-				}
-
-				kernel = kernel_high[kernel_i];
-
-				sprintf(effectName, "High-Pass kernel [%d]", kernel_i+1);
-				}
-				else
-				{
-				double kernel_low[][25] = { 
-				{
-				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-				1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0, 1.0/25.0,
-				},
-				};
-
-				cols_i = 5;
-				rows_i = 5;
-
-				if (argc > i+1)
-				{
-					if (argv[i+1][0] >= '0' && ( argv[i+1][0] <= '1' ))
-						kernel_i = atoi(argv[++i]) - 1;
-				}
-
-				kernel = kernel_low[kernel_i];
-
-				sprintf(effectName, "Low-Pass kernel [%d]", kernel_i+1);
-		}
-
-
-
-		imgAux = cvCreateImageHeader(cvGetSize(imgSrcCpy), 8, 1);
-		imgAux->imageData = imgSrcCpy->imageData;
-		imgAux->widthStep = imgSrcCpy->width;
-
-		imgEffect = cvCreateImageHeader(cvGetSize(imgSrcCpy), 8, 1);
-		imgEffect->imageData = imgAux->imageData;
-		imgEffect->widthStep = imgAux->width;
-
-		filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
-
-		cvSetData(filter, kernel, cols_i*8);
-
-		cvFilter2D(imgAux, imgEffect, filter, cvPoint(-1,-1));
-
-		}
 			case 'w':
 		if (effectCount >= 1)
 		{
@@ -305,8 +244,8 @@ int main(int argc, char* argv[])
 
 		*/
 			case 'p':
-			strcpy(effectName, filename_cy);
-			frameEffect = frame;
+				strcpy(effectName, filename_cy);
+				frameEffect = frame;
 			break;
 
 			case '?':
