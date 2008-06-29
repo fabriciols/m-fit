@@ -21,7 +21,7 @@
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-Frame::Frame(const double matrix[], const int len_i, const float max_f)
+Frame::Frame(double matrix[], int len_i, float max_f)
 {
 
 	int i;
@@ -68,7 +68,7 @@ Frame::Frame(const double matrix[], const int len_i, const float max_f)
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-Frame::Frame(const char *filename_cy)
+Frame::Frame(char *filename_cy)
 {
 	IplImage* img;
 	img = cvLoadImage(filename_cy, 1);
@@ -99,7 +99,7 @@ Frame::Frame(const char *filename_cy)
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-Frame::Frame(const IplImage *img_src)
+Frame::Frame(IplImage *img_src)
 {
 	// Guardamos a instância do IplImage na estrutura
 	// do frame.
@@ -120,7 +120,7 @@ Frame::Frame(const IplImage *img_src)
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-Frame::Frame(const Frame *frame)
+Frame::Frame(Frame *frame)
 {
 	// Faz a copia do objeto
 	IplImage *img = new IplImage();
