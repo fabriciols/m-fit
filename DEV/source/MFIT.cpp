@@ -40,6 +40,9 @@ int main(int argc, char* argv[])
 
 	int i, aux_i, effectCount = 0;
 
+	// Estrutura para armazenar a lista de efeitos aplicados
+	// possibilitando assim aplicar efeitos sobre efeitos,
+	// e aumentando a memória usada :)
 	struct 
 	{
 		Frame *frame;
@@ -67,11 +70,13 @@ int main(int argc, char* argv[])
 	catch (char *str)
 	{
 		Log::writeLog("%s :: Exception [%s]", __FUNCTION__, str);
+		usage();
 		return 1;
 	}
 	catch (...)
 	{
 		Log::writeLog("%s :: Unhandled Exception", __FUNCTION__);
+		usage();
 		return 1;
 	}
 
@@ -86,8 +91,13 @@ int main(int argc, char* argv[])
 		if (argv[i][0] != '-')
 			continue;
 
+		Log::writeLog("%s :: param: argv[%d] = [%s]", __FUNCTION__, i, argv[i]);
+
 		// Cria uma nova string para colocar na lista de efeitos
 		effectName = new char[ sizeof(char)*EFFECT_NAME_SIZE ];
+
+		// Zera a variável auxiliar
+		aux_i = 0;
 
 		switch (argv[i][1])
 		{
@@ -152,7 +162,6 @@ int main(int argc, char* argv[])
 				}
 
 			case 'l':
-
 				{
 
 					Filters *filters = new Filters();
@@ -161,10 +170,21 @@ int main(int argc, char* argv[])
 
 					//Se for passado algum argumento como valor para tamanho da máscara
 					//será = tamanho passado, senão assume por default o valor 5.
-					if (('0' <= atoi(argv[i+1]) <= '9') && (i <= argc))	
-						aux_i = atoi(argv[++i]); //Passo o valor do proximo parametro passado
-					else
+					if ( i < argc )
+					{
+						if (argv[i+1][0] <= '9' && argv[i+1][0] >= '0')
+						{
+							Log::writeLog("%s :: LowPass param[%s]", __FUNCTION__, argv[i+1]);
+
+							aux_i = atoi(argv[++i]); //Passo o valor do proximo parametro passado
+						}
+					}
+
+					// 5 é o padrão
+					if (!aux_i)
+					{
 						aux_i = 5;
+					}
 
 					frameEffect = filters->lowPass(frameGray, aux_i); 
 
@@ -176,7 +196,7 @@ int main(int argc, char* argv[])
 					Filters *filters = new Filters();
 					// Se o usuário não escolher o tipo de matriz a ser usada o sistema adota
 					// uma como padrão.
-					
+
 					if (('0' <= atoi(argv[i+1]) <= '9') && (i <= argc))	
 					{
 						aux_i = atoi(argv[++i]); // Incrementa i para que a proxima analise do for não pegue o mesmo parametro
@@ -204,7 +224,7 @@ int main(int argc, char* argv[])
 						sprintf(effectName, "Histogram of %s", effectsList[effectCount-1].name);
 
 						Log::writeLog("%s :: Histogram from effect[%d] [%s]\n",
-							__FUNCTION__, effectCount-1, effectsList[effectCount-1].name);
+								__FUNCTION__, effectCount-1, effectsList[effectCount-1].name);
 					}
 					else // Senão, aplicamos na imagem original mesmo
 					{
@@ -222,39 +242,37 @@ int main(int argc, char* argv[])
 					break;
 				}
 
-/*
 			case 'w':
-		if (effectCount >= 1)
-		{
-			char filename_cy[50];
+				if (effectCount >= 1)
+				{
+					char imgname_cy[50];
 
-			strcpy(filename_cy, imgname_cy);
-			// Tira a extensao
-			filename_cy[strlen(filename_cy) - 4] = '\0';
+					strcpy(imgname_cy, filename_cy);
+					// Tira a extensao
+					imgname_cy[strlen(imgname_cy) - 4] = '\0';
 
-			sprintf(filename_cy, "%s_%s.png", filename_cy, effectsNameList[effectCount-1]);
+					sprintf(imgname_cy, "%s_%s.png", imgname_cy, effectsList[effectCount-1]);
 
-			printf("%s :: Writing effet [%s] in file [%s]\n", __FUNCTION__, effectsNameList[effectCount-1], filename_cy);
+					Log::writeLog("%s :: Writing effect [%s] in file [%s]\n", __FUNCTION__, effectsList[effectCount-1], imgname_cy);
 
-			if(!cvSaveImage(filename_cy,effectsImgList[effectCount-1]))
-			{
-				printf("Could not save: %s\n",filename_cy);
-			}
-		}
+					if(!cvSaveImage(imgname_cy,effectsList[effectCount-1].frame->data))
+					{
+						printf("Could not save: %s\n",imgname_cy);
+					}
+				}
 
-		continue;
+				continue;
 
-		*/
 			case 'p':
 				strcpy(effectName, filename_cy);
 				frameEffect = frame;
-			break;
+				break;
 
 			case '?':
 			default:
-			usage();
-			return -1;
-			break;
+				usage();
+				return -1;
+				break;
 
 		}
 
@@ -300,8 +318,8 @@ void usage()
 		"MFIT -h    Print the histogram of the last img",
 		"MFIT -p    Print the img_src",
 		"MFIT -g    Print the img_src in gray",
-		"MFIT -lp M Apply low-pass filter with the kernel M",
-		"MFIT -hp M Apply high-pass filter with the kernel M",
+		"MFIT -l M Apply low-pass filter with the kernel M",
+		"MFIT -H M Apply high-pass filter with the kernel M",
 		"MFIT -w    Write the last effect on a file",
 		""
 	};

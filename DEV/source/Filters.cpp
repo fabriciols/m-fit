@@ -1,5 +1,7 @@
 #include "cv.h"
 
+#include "../include/Log.h"
+
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Filters.h"
@@ -19,8 +21,12 @@ Frame* Filters::segment(Frame* frame, int threshold)
 {
 	IplImage* img_dst;
 
+	Log::writeLog("%s :: param: frame[%x] threshold[%d]", __FUNCTION__, frame, threshold);
+
 	// Faz uma copia da imagem
 	img_dst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+
+	Log::writeLog("%s :: cvThreshold: frame_src[%x] frame_dst[%d] thresh[%d] maxValue[%d] CvThresh[%s]", __FUNCTION__, frame->data, img_dst, threshold, 255, "CV_THRESH_BINARY_INV");
 
 	// Aplica o limiar
 	cvThreshold(frame->data, img_dst, threshold, 255, CV_THRESH_BINARY_INV);
@@ -50,21 +56,37 @@ Frame* Filters::segment(Frame* frame, int threshold)
 Frame* Filters::Sobel(Frame* frame, int direction)
 {
    IplImage* img_dst;
+
+	Log::writeLog("%s :: param: frame[%x] direction[%d]", __FUNCTION__, frame, direction);
 	
 	img_dst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
    
    switch(direction)
    {
+
+		//origem, destino, vert, horiz, abertura.
       case 0: //Vertical
-         //origem, destino, vert, horiz, abertura.
+
+			Log::writeLog("%s :: cvSobel : frame_src[%x] frame_dst[%d] dx[%d] dy[%d] apertureSize[%d]",
+				__FUNCTION__, frame->data, img_dst, 1, 0, 3);
+
          cvSobel(frame->data,img_dst,1,0,3);
          break;
       case 1: //Horizontal
+
+			Log::writeLog("%s :: cvSobel : frame_src[%x] frame_dst[%d] dx[%d] dy[%d] apertureSize[%d]",
+					__FUNCTION__, frame->data, img_dst, 0, 1, 3);
+
          cvSobel(frame->data,img_dst,0,1,3);
 			break;
       case 2: //Both
+
+			Log::writeLog("%s :: cvSobel : frame_src[%x] frame_dst[%d] dx[%d] dy[%d] apertureSize[%d]",
+					__FUNCTION__, frame->data, img_dst, 1, 1, 3);
+
          cvSobel(frame->data,img_dst,1,1,3);
 			break;
+
    }
    
    return(new Frame(img_dst));
@@ -96,8 +118,10 @@ Frame* Filters::lowPass(Frame* frame, int size)
    IplImage* imgDst = 0;
 	IplImage* imgAux = 0;
 
+	Log::writeLog("%s :: param: frame[%x] size[%d]", __FUNCTION__, frame, size);
+
 	//Ajuste do tamanho da matriz.
-	if (size >= 11)
+	if (size > 9)
 		size = 9;
 
 	int cols_i = size;
