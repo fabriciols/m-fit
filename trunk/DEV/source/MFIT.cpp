@@ -27,6 +27,8 @@ int main(int argc, char* argv[])
 	Frame *frameGray;
 	// Frame original com o efeito aplicado
 	Frame *frameEffect;
+
+	Effect *effect = new Effect();
 	// Nome do arquivo
 	char filename_cy[20];
 	// Nome do efeito aplicado
@@ -82,7 +84,7 @@ int main(int argc, char* argv[])
 
 	// Todos os tratamentos usamos img em cinza, então vamos 
 	// transformar nosso frame em cinza.
-	frameGray = Color->convert2Gray(frame);
+	frameGray = (Color*)effect->convert2Gray(frame);
 
 	// Faço a varredura nos parametros passados pela linha de comando
 	for (i = 2 ; i < argc ; i++)
