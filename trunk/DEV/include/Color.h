@@ -11,9 +11,11 @@
 
 class Color: public Effect
 {
+	public:
+
+	Effect* Color();
 
 	// Converte um frame de RGB para escala de cinza.
 	Frame* convert2Gray(Frame*frame);
-
  
 }

@@ -15,5 +15,8 @@ class Effect
 	 *deste objeto.
 	 */
 	public:
+
+		Effect* Effect();
+
 		int applyEffect();
 };
