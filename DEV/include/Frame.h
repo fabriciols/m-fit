@@ -1,7 +1,13 @@
-/**
- *Classe que armazena informações sobre
- *um único frame.
- */
+/************************************************************************
+* Classe que armazena infomações sobre um único frame.
+*************************************************************************
+* Histórico:
+* 30/06/08 - Thiago Mizutani
+* Retirada do método convert2Gray(). Agora este faz parte da classe Color
+* 27/06/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+
 class Frame 
 {
  
@@ -47,10 +53,6 @@ class Frame
 		* e faz o seu desenho
 		*/
 		Frame(double matrix[], int len_i, float max_f);
-
-		// Retorna um FRAME em escala de cinza
-		// referente a instância corrente
-		Frame* convert2Gray();
 
 		/**
 	 	*Armazena a posição "física" do
