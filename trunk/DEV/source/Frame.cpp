@@ -134,33 +134,7 @@ Frame::Frame(Frame *frame)
 
 }
 
-/************************************************************************
-* Função que converte o frame para escala de cinza.
-*************************************************************************
-* param (E): Nenhum.
-*************************************************************************
-* return : Frame* - Retorna um ponteiro para um novo frame.
-*************************************************************************
-* Histórico:
-* 27/06/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
-Frame* Frame::convert2Gray()
-{
-	IplImage *imgGray;
 
-	// Cria a img com as mesmas dimensões da instância atual
-	// porém com 8 bits e 1 canal apenas
-	imgGray = cvCreateImage(cvGetSize(this->data),8,1);
-
-	// Ordena os bytes da imagem, senão ela ficará de ponta cabeça
-	imgGray->origin = this->data->origin;
-
-	// Converte pra cinza;
-	cvCvtColor(this->data, imgGray, CV_RGB2GRAY);
-
-	return (new Frame(imgGray));
-}
 
 /************************************************************************
 * Função que retorna a largura do frame.
