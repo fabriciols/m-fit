@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 
 	// Todos os tratamentos usamos img em cinza, então vamos 
 	// transformar nosso frame em cinza.
-	frameGray = frame->convert2Gray();
+	frameGray = Color->convert2Gray(frame);
 
 	// Faço a varredura nos parametros passados pela linha de comando
 	for (i = 2 ; i < argc ; i++)
