@@ -204,10 +204,21 @@ Frame* Filters::highPass(Frame* frame, int typeMask)
 		},
 	};
 
+	// Cria uma img com as mesmas propriedades da imagem de parâmetro
+	imgAux = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	imgDst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+
+	// Se não estiver dentro do range
+	// de máscaras válidas, atribui valor default
+	if (typeMask > 3 || typeMask < 0)
+		typeMask = 0;
+
+	Log::writeLog("%s :: param: frame[%x] typeMask[%d]", __FUNCTION__, frame, typeMask);
+
 	cols = 3;
 	rows = 3;
 
-//	mask = masks[typeMask];
+	//	mask = masks[typeMask];
 
 	imgAux->imageData = frame->data->imageData;
 	imgAux->widthStep = frame->data->width;
@@ -215,9 +226,15 @@ Frame* Filters::highPass(Frame* frame, int typeMask)
 	imgDst->imageData = imgAux->imageData;
 	imgDst->widthStep = imgAux->width;
 
+	Log::writeLog("%s :: cvCreateMatHeader: rows[%d] cols[%d] CV_64FC1", __FUNCTION__, rows, cols);
+
 	filter = cvCreateMatHeader(rows, cols, CV_64FC1);
 
+	Log::writeLog("%s :: cvSetData: filter[%x] masks[%x] cols[%d]", __FUNCTION__, filter, masks[typeMask], cols*8);
+
 	cvSetData(filter, masks[typeMask], cols*8);
+
+	Log::writeLog("%s :: cvFilter2D: imgAux[%x] imgDst[%x] filter[%x] cvPoint[%x]", __FUNCTION__, imgAux, imgDst, filter, cvPoint(-1,-1));
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
