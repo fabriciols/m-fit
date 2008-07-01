@@ -5,6 +5,9 @@
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 
+#include "../include/Effect.h"
+#include "../include/Color.h"
+
 #include "../include/Filters.h"
 #include "../include/Morphology.h"
 
@@ -28,7 +31,9 @@ int main(int argc, char* argv[])
 	// Frame original com o efeito aplicado
 	Frame *frameEffect;
 
-	Effect *effect = new Effect();
+	// Objeto de efeitos de cor
+	Color *color;
+
 	// Nome do arquivo
 	char filename_cy[20];
 	// Nome do efeito aplicado
@@ -84,7 +89,10 @@ int main(int argc, char* argv[])
 
 	// Todos os tratamentos usamos img em cinza, então vamos 
 	// transformar nosso frame em cinza.
-	frameGray = (Color*)effect->convert2Gray(frame);
+
+	color = new Color();
+
+	frameGray = color->convert2Gray(frame);
 
 	// Faço a varredura nos parametros passados pela linha de comando
 	for (i = 2 ; i < argc ; i++)
@@ -264,6 +272,11 @@ int main(int argc, char* argv[])
 				}
 
 				continue;
+
+			case 'g':
+				sprintf(effectName, "%s Gray", filename_cy);
+				frameEffect = frameGray;
+				break;
 
 			case 'p':
 				strcpy(effectName, filename_cy);

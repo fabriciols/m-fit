@@ -5,9 +5,6 @@
  */
 class Effect
 {
-	private:
-		Frame frame;
-	 
 	/**
 	 *Função genérica para aplicação
 	 *de efeito. Será implementada
@@ -15,8 +12,6 @@ class Effect
 	 *deste objeto.
 	 */
 	public:
-
-		Effect* Effect();
 
 		int applyEffect();
 };
