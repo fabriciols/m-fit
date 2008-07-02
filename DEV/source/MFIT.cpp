@@ -4,6 +4,7 @@
 
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
+#include "../include/Video.h"
 
 #include "../include/Effect.h"
 #include "../include/Color.h"
@@ -24,44 +25,51 @@ void usage();
 int main(int argc, char* argv[])
 {
 
-	// Frame original
-	Frame *frame;
-	// Frame original em escala de cinza
-	Frame *frameGray;
-	// Frame original com o efeito aplicado
-	Frame *frameEffect;
+	Frame *frame; // Frame original
 
-	// Objeto de efeitos de cor
-	Color *color;
+	Frame *frameGray;	// Frame original em escala de cinza
 
-	// Nome do arquivo
-	char filename_cy[20];
-	// Nome do efeito aplicado
-	char *effectName;
+	Frame *frameEffect; 	// Frame original com o efeito aplicado
 
-	// Classe que aplica os filtros
-	//Filters filters;
+	Color *color; 	// Objeto de efeitos de cor
 
-	// Classe que aplica os filtros de morfologia matematica
-	//Morphology morph;
+	Video *vdo;
+
+	CvCapture* video = 0; 
+
+	char filename_cy[100];	// Nome do arquivo
+
+	char extension_cy[4];
+
+	char *effectName;	// Nome do efeito aplicado
 
 	int i, aux_i, effectCount = 0;
 
-	// Estrutura para armazenar a lista de efeitos aplicados
-	// possibilitando assim aplicar efeitos sobre efeitos,
-	// e aumentando a memória usada :)
+	int eh_video = 0; // Flag para indicar se é vídeo ou imagem.
+
+	/** 
+	 * Estrutura para armazenar a lista de efeitos aplicados
+	 *  possibilitando assim aplicar efeitos sobre efeitos,
+	 *  e aumentando a memória usada :)
+	 **/
 	struct 
 	{
 		Frame *frame;
 		char  *name ;
 	} effectsList[MAX_OPTIONS];
-	
+
 
 	// Se nao mandarem o nome do arquivo como primeiro parametro
 	// adota default
 	if (argc > 1)
 	{
 		strcpy(filename_cy, argv[1]);
+		strcpy(extension_cy, &filename_cy[strlen(filename_cy)-3]);
+
+		Log::writeLog("%s :: file extension[%s]", __FUNCTION__, extension_cy);
+
+		if (extension_cy == "AVI" || extension_cy == "avi")
+			eh_video = 1;
 	}
 	else
 	{
@@ -72,7 +80,13 @@ int main(int argc, char* argv[])
 	try
 	{
 		Log::writeLog("%s :: new Frame filename[%s]", __FUNCTION__, filename_cy);
-		frame = new Frame(filename_cy);
+		if (eh_video)
+		{
+			vdo = new Video(); // Instancia um objeto da classe video
+			video = vdo->open(filename_cy); // Abre o vídeo.
+		}
+		else
+			frame = new Frame(filename_cy);
 	}
 	catch (char *str)
 	{
@@ -90,233 +104,253 @@ int main(int argc, char* argv[])
 	// Todos os tratamentos usamos img em cinza, então vamos 
 	// transformar nosso frame em cinza.
 
-	color = new Color();
-
-	frameGray = color->convert2Gray(frame);
-
-	// Faço a varredura nos parametros passados pela linha de comando
-	for (i = 2 ; i < argc ; i++)
+	if (!video) // É imagem (isso vai sumir depois... só vai servir de exemplo.)
 	{
+		color = new Color();
 
-		if (argv[i][0] != '-')
-			continue;
+		// converte a imagem para tons de cinza.
+		frameGray = color->convert2Gray(frame);
 
-		Log::writeLog("%s :: param: argv[%d] = [%s]", __FUNCTION__, i, argv[i]);
-
-		// Cria uma nova string para colocar na lista de efeitos
-		effectName = new char[ sizeof(char)*EFFECT_NAME_SIZE ];
-
-		// Zera a variável auxiliar
-		aux_i = 0;
-
-		switch (argv[i][1])
+		// Faço a varredura nos parametros passados pela linha de comando
+		for (i = 2 ; i < argc ; i++)
 		{
-			case 't':
-				{
 
-					Filters *filters = new Filters();
+			if (argv[i][0] != '-')
+				continue;
 
-					aux_i = atoi(argv[++i]);
+			Log::writeLog("%s :: param[%d]", __FUNCTION__, argc);
+			Log::writeLog("%s :: param: argv[%d] = [%s]", __FUNCTION__, i, argv[i]);
 
-					sprintf(effectName, "Treshold t=%d", aux_i);
+			// Cria uma nova string para colocar na lista de efeitos
+			effectName = new char[ sizeof(char)*EFFECT_NAME_SIZE ];
 
-					frameEffect = filters->segment(frameGray, aux_i);
+			// Zera a variável auxiliar
+			aux_i = 0;
 
-					break;
-
-				}
-			case 'd':
-				{
-					Morphology *morph = new Morphology();
-
-					strcpy(effectName, "Dilate");
-
-					frameEffect = morph->dilate(frameGray);
-
-					break;
-				}
-			case 'e':
-				{
-
-					Morphology *morph = new Morphology();
-
-					strcpy(effectName, "Erode");
-
-					frameEffect = morph->erode(frameGray);
-
-					break;
-
-				}
-			case 's':       
-				{
-
-					Filters *filters = new Filters();
-
-					if (argv[i][2] == 'v')
+			switch (argv[i][1])
+			{
+				case 't':
 					{
-						strcpy(effectName, "Vertival Sobel");
-						frameEffect = filters->Sobel(frameGray, 0);
+
+						Filters *filters = new Filters();
+
+						aux_i = atoi(argv[++i]);
+
+						sprintf(effectName, "Treshold t=%d", aux_i);
+
+						frameEffect = filters->segment(frameGray, aux_i);
+
+						break;
+
 					}
-					else if (argv[i][2] == 'h')
+				case 'd':
 					{
-						strcpy(effectName, "Horizontal Sobel");
-						frameEffect = filters->Sobel(frameGray, 1);               
+						Morphology *morph = new Morphology();
+
+						strcpy(effectName, "Dilate");
+
+						frameEffect = morph->dilate(frameGray);
+
+						break;
 					}
-					else
+				case 'e':
 					{
-						strcpy(effectName, "Complete Sobel");
-						frameEffect = filters->Sobel(frameGray, 2);
+
+						Morphology *morph = new Morphology();
+
+						strcpy(effectName, "Erode");
+
+						frameEffect = morph->erode(frameGray);
+
+						break;
+
 					}
-
-					break;
-				}
-
-			case 'l':
-				{
-
-					Filters *filters = new Filters();
-
-					strcpy(effectName, "Low-Pass Filter");
-
-					//Se for passado algum argumento como valor para tamanho da máscara
-					//será = tamanho passado, senão assume por default o valor 5.
-					if ( i < argc )
+				case 's':       
 					{
-						if (argv[i+1][0] <= '9' && argv[i+1][0] >= '0')
+
+						Filters *filters = new Filters();
+
+						if (argv[i][2] == 'v')
 						{
-							Log::writeLog("%s :: LowPass param[%s]", __FUNCTION__, argv[i+1]);
+							strcpy(effectName, "Vertival Sobel");
+							frameEffect = filters->Sobel(frameGray, 0);
+						}
+						else if (argv[i][2] == 'h')
+						{
+							strcpy(effectName, "Horizontal Sobel");
+							frameEffect = filters->Sobel(frameGray, 1);               
+						}
+						else
+						{
+							strcpy(effectName, "Complete Sobel");
+							frameEffect = filters->Sobel(frameGray, 2);
+						}
 
-							aux_i = atoi(argv[++i]); //Passo o valor do proximo parametro passado
+						break;
+					}
+
+				case 'l':
+					{
+
+						Filters *filters = new Filters();
+
+						strcpy(effectName, "Low-Pass Filter");
+
+						//Se for passado algum argumento como valor para tamanho da máscara
+						//será = tamanho passado, senão assume por default o valor 5.
+
+						if ( i < (argc-1) ) // O ultimo argumento é argc-1
+						{
+							if (argv[i+1][0] <= '9' && argv[i+1][0] >= '0')
+							{
+								Log::writeLog("%s :: LowPass param[%s]", __FUNCTION__, argv[i+1]);
+
+								aux_i = atoi(argv[++i]); //Passo o valor do proximo parametro passado
+							}
+						}
+
+						// 5 é o padrão
+						if (!aux_i)
+						{
+							aux_i = 5;
+						}
+
+						frameEffect = filters->lowPass(frameGray, aux_i); 
+
+						break;
+					}
+
+				case 'H':
+					{
+						Filters *filters = new Filters();
+						// Se o usuário não escolher o tipo de matriz a ser usada o sistema adota
+						// uma como padrão.
+
+						if (('0' <= atoi(argv[i+1]) <= '9') && (i <= argc))	
+						{
+							aux_i = atoi(argv[++i]); // Incrementa i para que a proxima analise do for não pegue o mesmo parametro
+						}
+						else
+						{
+							aux_i = 1;
+						}
+
+						sprintf(effectName, "High-Pass kernel [%d]", aux_i);
+						frameEffect = filters->highPass(frameGray, aux_i);
+						break;
+					}
+				case 'h':
+					{
+
+						Frame *frameAux;
+
+						// Se ja foi aplicado algum tipo de efeito, realizamo o histograma do ultimo efeito aplicado
+						if (effectCount >= 1)
+						{
+
+							frameAux = effectsList[effectCount-1].frame;
+
+							sprintf(effectName, "Histogram of %s", effectsList[effectCount-1].name);
+
+							Log::writeLog("%s :: Histogram from effect[%d] [%s]\n",
+									__FUNCTION__, effectCount-1, effectsList[effectCount-1].name);
+						}
+						else // Senão, aplicamos na imagem original mesmo
+						{
+							frameAux = frameGray;
+							sprintf(effectName, "Histogram of %s", filename_cy);
+						}
+
+						Histogram *hist = new Histogram(frameAux->data);
+
+						Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
+								__FUNCTION__, hist->getMinIdx(), hist->getMin(), hist->getMaxIdx(), hist->getMax());
+
+						frameEffect = new Frame(hist->getMatrix(), 256, hist->getMax());
+
+						break;
+					}
+
+				case 'w':
+					if (effectCount >= 1)
+					{
+						char imgname_cy[50];
+
+						strcpy(imgname_cy, filename_cy);
+						// Tira a extensao
+						imgname_cy[strlen(imgname_cy) - 4] = '\0';
+
+						sprintf(imgname_cy, "%s_%s.png", imgname_cy, effectsList[effectCount-1]);
+
+						Log::writeLog("%s :: Writing effect [%s] in file [%s]\n", __FUNCTION__, effectsList[effectCount-1], imgname_cy);
+
+						if(!cvSaveImage(imgname_cy,effectsList[effectCount-1].frame->data))
+						{
+							printf("Could not save: %s\n",imgname_cy);
 						}
 					}
 
-					// 5 é o padrão
-					if (!aux_i)
-					{
-						aux_i = 5;
-					}
+					continue;
 
-					frameEffect = filters->lowPass(frameGray, aux_i); 
-
+				case 'g':
+					sprintf(effectName, "%s Gray", filename_cy);
+					frameEffect = frameGray;
 					break;
-				}
 
-			case 'H':
-				{
-					Filters *filters = new Filters();
-					// Se o usuário não escolher o tipo de matriz a ser usada o sistema adota
-					// uma como padrão.
-
-					if (('0' <= atoi(argv[i+1]) <= '9') && (i <= argc))	
-					{
-						aux_i = atoi(argv[++i]); // Incrementa i para que a proxima analise do for não pegue o mesmo parametro
-					}
-					else
-					{
-						aux_i = 1;
-					}
-
-					sprintf(effectName, "High-Pass kernel [%d]", aux_i);
-					frameEffect = filters->highPass(frameGray, aux_i);
+				case 'p':
+					strcpy(effectName, filename_cy);
+					frameEffect = frame;
 					break;
-				}
-			case 'h':
-				{
 
-					Frame *frameAux;
-
-					// Se ja foi aplicado algum tipo de efeito, realizamo o histograma do ultimo efeito aplicado
-					if (effectCount >= 1)
-					{
-
-						frameAux = effectsList[effectCount-1].frame;
-
-						sprintf(effectName, "Histogram of %s", effectsList[effectCount-1].name);
-
-						Log::writeLog("%s :: Histogram from effect[%d] [%s]\n",
-								__FUNCTION__, effectCount-1, effectsList[effectCount-1].name);
-					}
-					else // Senão, aplicamos na imagem original mesmo
-					{
-						frameAux = frameGray;
-						sprintf(effectName, "Histogram of %s", filename_cy);
-					}
-
-					Histogram *hist = new Histogram(frameAux->data);
-
-					Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
-							__FUNCTION__, hist->getMinIdx(), hist->getMin(), hist->getMaxIdx(), hist->getMax());
-
-					frameEffect = new Frame(hist->getMatrix(), 256, hist->getMax());
-
+				case '?':
+				default:
+					usage();
+					return -1;
 					break;
-				}
 
-			case 'w':
-				if (effectCount >= 1)
-				{
-					char imgname_cy[50];
+			}
 
-					strcpy(imgname_cy, filename_cy);
-					// Tira a extensao
-					imgname_cy[strlen(imgname_cy) - 4] = '\0';
+			Log::writeLog("%s :: Effect[%d] : [%s]", __FUNCTION__, effectCount, effectName);
 
-					sprintf(imgname_cy, "%s_%s.png", imgname_cy, effectsList[effectCount-1]);
+			// Salva os dados na estrutura, para poder aplicar efeitos na imagem anterior
+			effectsList[effectCount].name  = effectName;
+			effectsList[effectCount].frame = frameEffect;
 
-					Log::writeLog("%s :: Writing effect [%s] in file [%s]\n", __FUNCTION__, effectsList[effectCount-1], imgname_cy);
+			// Imprime na tela
+			cvNamedWindow(effectsList[effectCount].name, 1);
+			cvShowImage(effectsList[effectCount].name, effectsList[effectCount].frame->data);
 
-					if(!cvSaveImage(imgname_cy,effectsList[effectCount-1].frame->data))
-					{
-						printf("Could not save: %s\n",imgname_cy);
-					}
-				}
-
-				continue;
-
-			case 'g':
-				sprintf(effectName, "%s Gray", filename_cy);
-				frameEffect = frameGray;
-				break;
-
-			case 'p':
-				strcpy(effectName, filename_cy);
-				frameEffect = frame;
-				break;
-
-			case '?':
-			default:
-				usage();
-				return -1;
-				break;
+			effectCount++;
 
 		}
 
-		Log::writeLog("%s :: Effect[%d] : [%s]", __FUNCTION__, effectCount, effectName);
+		cvWaitKey(0);
 
-		// Salva os dados na estrutura, para poder aplicar efeitos na imagem anterior
-		effectsList[effectCount].name  = effectName;
-		effectsList[effectCount].frame = frameEffect;
+		// Limpa a memória
+		for (i=0 ; i < effectCount ; i++)
+		{
+			Log::writeLog("%s :: Destroy[%d] : [%s]", __FUNCTION__, i, effectsList[i].name);
 
-		// Imprime na tela
-		cvNamedWindow(effectsList[effectCount].name, 1);
-		cvShowImage(effectsList[effectCount].name, effectsList[effectCount].frame->data);
-
-		effectCount++;
-
+			cvDestroyWindow(effectsList[i].name);
+			delete effectsList[i].name;
+			delete effectsList[i].frame;
+		}
 	}
-
-	cvWaitKey(0);
-
-	// Limpa a memória
-	for (i=0 ; i < effectCount ; i++)
+	else // É vídeo
 	{
-		Log::writeLog("%s :: Destroy[%d] : [%s]", __FUNCTION__, i, effectsList[i].name);
+		for (;;)
+		{
+			IplImage *frame = 0;
+			
+			frame = cvQueryFrame(video); // Pega 1 frame do video (sequencial)
 
-		cvDestroyWindow(effectsList[i].name);
-		delete effectsList[i].name;
-		delete effectsList[i].frame;
+			// Quando não houver mais frames ele pára.
+			if (!frame)
+				break;
+
+			cvShowImage("filename", frame);
+		}
 	}
-
 }
 
 void usage()
