@@ -162,7 +162,13 @@ Frame* Filters::lowPass(Frame* frame, int size)
 * Função que aplica o filtro passa-alta na imagem.
 *************************************************************************
 * param (E): Frame* frame: Imagem à qual será aplicado o operador.
-* param (E): int typeMas: Tipo da máscara a ser utilizada.
+* param (E): int typeMas: Tipo da máscara a ser utilizada (0, 1 ou 2).
+* 	==========================================================
+* 	|		opcao 0			||		opcao 1		||		opcao 2		|
+* 	|  	-1 -1 -1 		|| 	0 -1  0 		||		1 -2  1 		|
+* 	|  	-1  8 -1 		||   -1  4 -1 		||   -2  4 -2 		|
+* 	|  	-1 -1 -1 		|| 	0 -1  0 		||	   1 -2  1 		|	
+* 	==========================================================
 ************************************************************************
 * Retorno: Frame com o efeito aplicado (img_dst)
 ************************************************************************
