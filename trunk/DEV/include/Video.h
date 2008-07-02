@@ -25,7 +25,7 @@ class Video
 	/**
 	 *Armazena o tamanho do vídeo.
 	 */
-		Time length;
+//		Time length;
 	 
 	/**
 	 *Armazena o codec do video.
@@ -49,7 +49,7 @@ class Video
 	/**
 	 *Nó da lista de tomadas.
 	 */
-		Take take;
+	//	Take take;
 	 
 	public:
 	/**
@@ -57,14 +57,14 @@ class Video
 	 *o próximo frame em relação à
 	 *posição atual do vídeo.
 	 */
-		Frame getNextFrame();
+		Frame* getNextFrame();
 	 
 	/**
 	 *Método responsável por obter
 	 *o frame anterior em relação à
 	 *posição atual do vídeo.
 	 */
-		Frame getPreviousFrame();
+		Frame* getPreviousFrame();
 
 	/**
 	 *Método responsável em 
@@ -79,7 +79,7 @@ class Video
 	 *Função que abre o vídeo
 	 *e atualiza as variáveis do objeto.
 	 */
-		CvCapture open(); 
+		CvCapture* open(char *vdoSrc); 
 	 
 	/**
 	 *Função que fecha o vídeo.
@@ -92,7 +92,7 @@ class Video
 	/**
 	 *Obtém o frame atual.
 	 */
-	Frame getCurrentFrame();
+	Frame* getCurrentFrame();
 	 
 	/**
 	 *Obtêm a posição corrente do
