@@ -9,13 +9,13 @@ class Video
 	 *Armazena o nome do vídeo
 	 */
 	private:
-		char name;
+		char name[300+1];
 	 
 	/**
 	 *Armazena o endereço do vídeo 
 	 *carregado no sistema
 	 */
-		char path;
+		char path[300+1];
 	 
 	/**
 	 *Armazena o vídeo carregado.
@@ -31,27 +31,44 @@ class Video
 	 *Armazena o codec do video.
 	 *
 	 */
-		char codec;
-	 
+		double codec;
+
+		double framesHeight;
+
+		double framesWidth;
+
+		double framePos;
+
+		double framesTotal;
+
+		//Time timePos;
+
 	/**
 	 *Armazena o sistema de cores que
 	 *se encontra o vídeo.
 	 */
-		int systemColor;
+		double systemColor;
 	 
 	/**
 	 *Armazena a taxa de frames
 	 *por segundo do vídeo.
 	 *
 	 */
-		float fps;
+		double fps;
 	 
 	/**
 	 *Nó da lista de tomadas.
 	 */
 	//	Take take;
+
+	/**
+	 *Função que abre o vídeo
+	 *e atualiza as variáveis do objeto.
+	 */
+		CvCapture* open(char *vdoSrc); 
 	 
 	public:
+		Video(char *filename_cy);
 	/**
 	 *Método responsável por obter
 	 *o próximo frame em relação à
@@ -75,11 +92,6 @@ class Video
 	 */
 		int seekFrame(int pos);
 	 
-	/**
-	 *Função que abre o vídeo
-	 *e atualiza as variáveis do objeto.
-	 */
-		CvCapture* open(char *vdoSrc); 
 	 
 	/**
 	 *Função que fecha o vídeo.

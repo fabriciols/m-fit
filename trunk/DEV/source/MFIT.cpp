@@ -1,4 +1,5 @@
 #include "cv.h"
+#include "highgui.h"
 
 #include "../include/Log.h"
 
@@ -11,8 +12,6 @@
 
 #include "../include/Filters.h"
 #include "../include/Morphology.h"
-
-#include "highgui.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,8 +67,10 @@ int main(int argc, char* argv[])
 
 		Log::writeLog("%s :: file extension[%s]", __FUNCTION__, extension_cy);
 
-		if (extension_cy == "AVI" || extension_cy == "avi")
+		if (!strcmp(extension_cy,"AVI") || !strcmp(extension_cy,"avi"))
+		{
 			eh_video = 1;
+		}
 	}
 	else
 	{
@@ -79,14 +80,19 @@ int main(int argc, char* argv[])
 	// Tenta abrir o arquivo
 	try
 	{
-		Log::writeLog("%s :: new Frame filename[%s]", __FUNCTION__, filename_cy);
+
 		if (eh_video)
 		{
-			vdo = new Video(); // Instancia um objeto da classe video
-			video = vdo->open(filename_cy); // Abre o vídeo.
+			Log::writeLog("%s :: new Video filename[%s]", __FUNCTION__, filename_cy);
+			vdo = new Video(filename_cy); // Instancia um objeto da classe video
+			Log::writeLog("%s :: new Video Loaded [%x]", __FUNCTION__, vdo);
 		}
 		else
-			frame = new Frame(filename_cy);
+		{
+			Log::writeLog("%s :: new Frame filename[%s]", __FUNCTION__, filename_cy);
+			frame = new Frame(filename_cy); // Instancia um objeto da classe video
+			Log::writeLog("%s :: new Frame Loaded [%x]", __FUNCTION__, frame);
+		}
 	}
 	catch (char *str)
 	{
