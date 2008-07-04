@@ -70,7 +70,7 @@ class Frame
 		/**
 		*Retorna a diagonal do frame.
 		*/
-		Frame getDiagonal();
+		IplImage* getDiagonal(Frame* frame);
 		
 		// Gets
 
