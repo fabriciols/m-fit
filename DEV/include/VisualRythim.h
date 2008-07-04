@@ -9,7 +9,7 @@ class VisualRhythm
 		/**
 		 *Cria o Ritmo Visual por sub-amostragem.
 		 */
-		Frame createVR();
+		IplImage createVR(Video* vdo);
 
 		/**
 		 *Retorna o Ritmo Visual por 

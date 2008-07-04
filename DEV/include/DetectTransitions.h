@@ -14,6 +14,6 @@ class DetectTransitions
 	 */
 	public:
 		//Transition detectTransitions(Video vdo);
-		Transition detectTransitions();
+		Transition detectTransitions(int type, Video* vdo);
 };
  
