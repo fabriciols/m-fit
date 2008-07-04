@@ -2,6 +2,7 @@
 #include "highgui.h"
 
 #include <stdexcept>
+#include <math.h>
 
 #include "../include/Frame.h"
 #include "../include/Log.h"
@@ -166,4 +167,34 @@ int Frame::getWidth()
 int Frame::getHeight()
 {
 	return(*this->height);
+}
+
+/************************************************************************
+* Função que pega a diagonal de um frame. 
+*************************************************************************
+* param (E): Frame* frame => frame do qual sera retirada a diagonal.
+*************************************************************************
+* return : diagonal do frame.
+*************************************************************************
+* Histórico:
+* 04/07/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+IplImage* Frame::getDiagonal(Frame* frame)
+{
+	// Usar trigonometria:
+	//
+	// a²+b²=c²
+	// y = a*x+b
+	// onde a = cateto oposto/cateto adjacente
+	// ou seja, y - yo = m*(x - xo) IOIOMIXOXOOOOO
+	//
+	
+	float diagonal = 0;
+
+	// Trigonometria! a² + b² = c²
+	diagonal = sqrt(pow(frame->getHeight(),2) + pow(frame->getWidth(),2))
+
+
 }
