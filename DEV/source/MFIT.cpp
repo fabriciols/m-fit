@@ -44,6 +44,8 @@ int main(int argc, char* argv[])
 
 	int i, aux_i, effectCount = 0;
 
+	int detectNow = 0;
+
 	enum inputType { IMAGE, VIDEO }; // Tipo da entrada
 
 	inputType input;
@@ -360,7 +362,8 @@ int main(int argc, char* argv[])
 	{
 
 		cvNamedWindow(vdo->getName(), 1);
-
+	
+		// Futuramente este while some e exibe somente o primeiro frame
 		while (true)
 		{
 			IplImage *frame = 0;
@@ -377,6 +380,21 @@ int main(int argc, char* argv[])
 
 			cvShowImage(vdo->getName(), frame);
 		}
+
+		if (argc > 1)
+		{
+			// ignora o '-' e ve se eh para detectar tudo agora
+			if (argv[2][1] == 'N')
+				detectNow = 1;
+		}
+
+		if (detectNow)
+		{
+			Transition *transitions;
+
+
+		}
+
 	}
 }
 
