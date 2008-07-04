@@ -103,27 +103,27 @@ Video::Video(char *filename_cy)
 	// FPS
 	// CV_CAP_PROP_FPS - frame rate
 	this->fps = cvGetCaptureProperty(this->data, CV_CAP_PROP_FPS);
-	Log::writeLog("%s :: fps[%lf] ", __FUNCTION__, this->fps);
+	Log::writeLog("%s :: fps[%.0f] ", __FUNCTION__, this->fps);
 
 	// Largura dos frames
 	// CV_CAP_PROP_FRAME_WIDTH - width of frames in the video stream 
 	this->framesWidth = cvGetCaptureProperty(this->data, CV_CAP_PROP_FRAME_WIDTH);
-	Log::writeLog("%s :: famesWidth[%lf] ", __FUNCTION__, this->framesWidth);
+	Log::writeLog("%s :: famesWidth[%.0f] ", __FUNCTION__, this->framesWidth);
 
 	// Altura dos frames 
 	// CV_CAP_PROP_FRAME_HEIGHT - height of frames in the video stream
 	this->framesHeight = cvGetCaptureProperty(this->data, CV_CAP_PROP_FRAME_HEIGHT);
-	Log::writeLog("%s :: famesHeight[%lf] ", __FUNCTION__, this->framesHeight);
+	Log::writeLog("%s :: famesHeight[%.0f] ", __FUNCTION__, this->framesHeight);
 
 	// Codec
 	// CV_CAP_PROP_FOURCC - 4-character code of codec.
 	this->codec = cvGetCaptureProperty(this->data, CV_CAP_PROP_FOURCC);
-	Log::writeLog("%s :: codec[%lf] ", __FUNCTION__, this->codec);
+	Log::writeLog("%s :: codec[%.0f] ", __FUNCTION__, this->codec);
 
 	// Total de Frames que o video tem
 	//CV_CAP_PROP_FRAME_COUNT - number of frames in AVI file. 
 	this->framesTotal = cvGetCaptureProperty(this->data, CV_CAP_PROP_FRAME_COUNT);
-	Log::writeLog("%s :: framesTotal[%lf] ", __FUNCTION__, this->framesTotal);
+	Log::writeLog("%s :: framesTotal[%.0f] ", __FUNCTION__, this->framesTotal);
 
 	// Atributos relativos a posicao
 	// na instancia do objeto, estao todos em 0
@@ -131,3 +131,12 @@ Video::Video(char *filename_cy)
 	
 }
 
+char* Video::getName()
+{
+	return name;
+}
+
+char* Video::getPath()
+{
+	return path;
+}

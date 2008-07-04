@@ -17,10 +17,6 @@ class Video
 	 */
 		char path[300+1];
 	 
-	/**
-	 *Armazena o vídeo carregado.
-	 */
-		CvCapture* data;
 	 
 	/**
 	 *Armazena o tamanho do vídeo.
@@ -68,7 +64,16 @@ class Video
 		CvCapture* open(char *vdoSrc); 
 	 
 	public:
+
+		char* getName();
+		char* getPath();
+	/**
+	 *Armazena o vídeo carregado.
+	 */
+		CvCapture* data;
+
 		Video(char *filename_cy);
+
 	/**
 	 *Método responsável por obter
 	 *o próximo frame em relação à
