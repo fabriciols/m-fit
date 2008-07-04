@@ -44,7 +44,10 @@ int main(int argc, char* argv[])
 
 	int i, aux_i, effectCount = 0;
 
-	int eh_video = 0; // Flag para indicar se é vídeo ou imagem.
+	enum inputType { IMAGE, VIDEO }; // Tipo da entrada
+
+	inputType input;
+
 
 	/** 
 	 * Estrutura para armazenar a lista de efeitos aplicados
@@ -72,7 +75,11 @@ int main(int argc, char* argv[])
 		// Verifica se o arquivo carregado é um vídeo ou imagem.
 		if (!strcmp(extension_cy,"AVI") || !strcmp(extension_cy,"avi"))
 		{
-			eh_video = 1;
+			input = VIDEO;
+		}
+		else
+		{
+			input = IMAGE;
 		}
 	}
 	else
@@ -84,16 +91,20 @@ int main(int argc, char* argv[])
 	try
 	{
 
-		if (eh_video)
+		if (input == VIDEO)
 		{
 			Log::writeLog("%s :: new Video filename[%s]", __FUNCTION__, filename_cy);
+
 			vdo = new Video(filename_cy); // Instancia um objeto da classe video
+
 			Log::writeLog("%s :: new Video Loaded [%x]", __FUNCTION__, vdo);
 		}
 		else
 		{
 			Log::writeLog("%s :: new Frame filename[%s]", __FUNCTION__, filename_cy);
+
 			frame = new Frame(filename_cy); // Instancia um objeto da classe video
+
 			Log::writeLog("%s :: new Frame Loaded [%x]", __FUNCTION__, frame);
 		}
 	}
@@ -113,7 +124,7 @@ int main(int argc, char* argv[])
 	// Todos os tratamentos usamos img em cinza, então vamos 
 	// transformar nosso frame em cinza.
 
-	if (!video) // É imagem (isso vai sumir depois... só vai servir de exemplo.)
+	if (input == IMAGE) // É imagem (isso vai sumir depois... só vai servir de exemplo.)
 	{
 		color = new Color();
 
@@ -345,19 +356,26 @@ int main(int argc, char* argv[])
 			delete effectsList[i].frame;
 		}
 	}
-	else // É vídeo
+	else if (input == VIDEO) // É vídeo
 	{
-		for (;;)
+
+		cvNamedWindow(vdo->getName(), 1);
+
+		while (true)
 		{
 			IplImage *frame = 0;
-			
-			frame = cvQueryFrame(video); // Pega 1 frame do video (sequencial)
+
+			frame = cvQueryFrame(vdo->data); // Pega 1 frame do video (sequencial)
+
+			Log::writeLog("%s :: cvQueryFrame vdo[%x] frame[%x]", __FUNCTION__, vdo, frame);
 
 			// Quando não houver mais frames ele pára.
 			if (!frame)
 				break;
 
-			cvShowImage("filename", frame);
+			cvWaitKey(200);
+
+			cvShowImage(vdo->getName(), frame);
 		}
 	}
 }
