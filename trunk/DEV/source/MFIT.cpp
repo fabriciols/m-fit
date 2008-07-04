@@ -63,10 +63,13 @@ int main(int argc, char* argv[])
 	if (argc > 1)
 	{
 		strcpy(filename_cy, argv[1]);
+		
+		// Pega somente a extensao do arquivo
 		strcpy(extension_cy, &filename_cy[strlen(filename_cy)-3]);
 
 		Log::writeLog("%s :: file extension[%s]", __FUNCTION__, extension_cy);
 
+		// Verifica se o arquivo carregado é um vídeo ou imagem.
 		if (!strcmp(extension_cy,"AVI") || !strcmp(extension_cy,"avi"))
 		{
 			eh_video = 1;
