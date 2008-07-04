@@ -32,7 +32,7 @@ CvCapture* Video::open(char *vdoSrc)
 	{
 		throw "Open failed";
 	}
-
+	
 	return (video);
 }
 
@@ -83,6 +83,7 @@ Video::Video(char *filename_cy)
 		}
 	}
 
+	Log::writeLog("%s :: open idx_c[%c]", __FUNCTION__, idx_c);
 	
 	if (idx_c) // Se encontrou o separador, desmembra
 	{
@@ -104,12 +105,12 @@ Video::Video(char *filename_cy)
 	this->fps = cvGetCaptureProperty(this->data, CV_CAP_PROP_FPS);
 	Log::writeLog("%s :: fps[%lf] ", __FUNCTION__, this->fps);
 
-	// Altura dos frames
+	// Largura dos frames
 	// CV_CAP_PROP_FRAME_WIDTH - width of frames in the video stream 
 	this->framesWidth = cvGetCaptureProperty(this->data, CV_CAP_PROP_FRAME_WIDTH);
 	Log::writeLog("%s :: famesWidth[%lf] ", __FUNCTION__, this->framesWidth);
 
-	// Largura dos frames 
+	// Altura dos frames 
 	// CV_CAP_PROP_FRAME_HEIGHT - height of frames in the video stream
 	this->framesHeight = cvGetCaptureProperty(this->data, CV_CAP_PROP_FRAME_HEIGHT);
 	Log::writeLog("%s :: famesHeight[%lf] ", __FUNCTION__, this->framesHeight);
