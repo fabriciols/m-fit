@@ -2,14 +2,14 @@
  *Classe responsável por criar
  *os dois tipos de ritmo visual.
  */
-class VisualRhythm 
+class VisualRythim 
 {
 
 	public:
 		/**
 		 *Cria o Ritmo Visual por sub-amostragem.
 		 */
-		IplImage createVR(Video* vdo);
+		Frame createVR(Video* vdo);
 
 		/**
 		 *Retorna o Ritmo Visual por 
