@@ -12,35 +12,53 @@
 * return : Ritmo Visual do vídeo.
 *************************************************************************
 * Histórico:
+* 06/07/08 - Thiago Mizutani
+* Implementação do processo que monta as colunas do ritmo visual atraves
+* da extracao dos pixels da diagonal de um frame.
 * 04/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
 
-IplImage* VisualRythim::createVR(Video* vdo)
+Frame* VisualRythim::createVR(Video* vdo)
 {
-	Frame* vr = 0;
-	
+
+	IplImage* visualRythim; // Imagem do ritmo visual.	
+	Color* color;
+
+	int f = 0; // nro do frame corrente.
+	int max_frames = vdo->totalFrames; // Numero total de frames do video.
+	int x = 0; // Coluna que está sendo montada no RV.
+
+	// Pego o primeiro frame do video.
+	Frame frame = new Frame(vdo->getCurrentFrame(this));
+
 	/**
-	 * Visto que os frames de um mesmo video nao tem suas dimensoes
-	 * alteradas, frame->heigth e frame->width são fixos para todos
-	 * os objetos, então só altero o frame->data.
-	**/	
-	Frame frame = new Frame(cvCaptureFrame(vdo));
-	
-	vr = cvCreateImage(frame->)
-	
-	while(!frame)
+	 *  Crio a imagem do RV com largura = ao nro de frames do video (cada
+	 *  frame representa 1 coluna do RV) e altura = largura do frame.
+   **/
+	visualRythim = cvCreateImage(cvSize(max_frames,frame->width),8,1);
+
+	Frame vr = new Frame(visualRythim);
+
+	for (f=0;f<max_frames;++f)
 	{
+		// Converto o frame para escala de cinza.
+		frame = color->convert2Gray(frame);
+
 		// Pego a diagonal do frame.
-		vr->getDiagonal(frame);
+		for (x=0;x<frame->getWidth;x++)
+		{
+			// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
+    		((uchar*)(vr->data->imageData + vr->data->widthStep*x))[f] = frame->getDiagonal(this,x);
+		}
 	
 		// Pego um novo frame.	
-		frame->data = cvCaptureFrame(vdo); // trocar por getNextFrame
+		frame->data = vdo->getNextFrame(this);
 
 		// Se não houver mais frames, chegou ao fim do video.
 		if (!frame)
 			break;
 	}
 
-	return (vr->data);
+	return (vr);
 }
