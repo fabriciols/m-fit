@@ -158,7 +158,8 @@ int Frame::getWidth()
 *************************************************************************
 * param (E): Nenhum.
 *************************************************************************
-* return : int - Altura do frame.
+* return : int - Altura do frame. lum = ((uchar*)(fgray->imageData + fgray->widthStep*y))[x]; 
+     ((uchar*)(imvr->imageData + imvr->widthStep*x))[f] = lum;
 *************************************************************************
 * Histórico:
 * 27/06/08 - Fabricio Lopes de Souza
@@ -173,28 +174,53 @@ int Frame::getHeight()
 * Função que pega a diagonal de um frame. 
 *************************************************************************
 * param (E): Frame* frame => frame do qual sera retirada a diagonal.
+* 				 int column => coordenada x do pixel que será copiado.
 *************************************************************************
 * return : diagonal do frame.
 *************************************************************************
 * Histórico:
+* 06/07/08 - Thiago Mizutani
+* Ajustes para extracao dos pontos da diagonal principal do frame.
 * 04/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
 
-IplImage* Frame::getDiagonal(Frame* frame)
+int Frame::getDiagonal(Frame* frame, int column)
 {
-	// Usar trigonometria:
-	//
-	// a²+b²=c²
-	// y = a*x+b
-	// onde a = cateto oposto/cateto adjacente
-	// ou seja, y - yo = m*(x - xo) IOIOMIXOXOOOOO
-	//
+	/** y = a*x+b (equacao da reta) 
+	 * onde a = cateto oposto/cateto adjacente
+	 * ou seja, y - yo = m*(x - xo), sendo que 
+	 * y-yo = altura do frame e x - xo = largura do frame.
+   **/
 	
-	float diagonal = 0;
+	// x = x final, xo = x final, o mesmo vale para o y.
+	int x = 0;
+	int y = 0;
+	int i = 0;
+	int luminance = 0; //Valor de luminancia do pixel retirado da diagonal.
 
-	// Trigonometria! a² + b² = c²
-	diagonal = sqrt(pow(frame->getHeight(),2) + pow(frame->getWidth(),2))
+	float a = 0; // Coeficiente angular da equacao
+	int b = 0; // Ponto onde a reta cruza o eixo Y (x = 0).
 
+	// Coordenada x do ponto final (termino no canto inferior direito).
+	x = frame->getWidth();
 
+	// Calculo o coeficiente angular da reta ('a' da equacao).
+	a = ((float)frame->getHeight()/(float)frame->getWidth());
+	
+	/**
+	 *  b = frame->getHeight porque eh onde a reta cruza o eixo y,
+	 * considerando que a diagonal a ser analisada inicia-se a partir
+	 * do canto superior esquerdo.
+	**/
+	b = frame->getHeight();
+
+	// Vou pegar todos os pixels pertencentes à diagonal.
+	// Equacao da reta.
+	y = cvRound(a*column+b);
+	
+	luminance = ((uchar*)(frame->data->imageData + frame->data->widthStep*y))[column];	
+
+	return(luminance);
+				
 }

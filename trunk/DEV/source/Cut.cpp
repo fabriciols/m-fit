@@ -1,10 +1,12 @@
 #include "cv.h"
+#include "highgui.h"
 
-#include "../include/Histogram.h"
 #include "../include/Frame.h"
+#include "../include/Video.h"
 #include "../include/Transition.h"
 #include "../include/DetectTransitions.h"
 #include "../include/Cut.h"
+#include "../include/VisualRythim.h"
 
 /************************************************************************
 * Função que faz a detecção das transições do tipo corte.
@@ -17,17 +19,19 @@
 * return : Lista de transições.
 *************************************************************************
 * Histórico:
+* 06/07/08 - Thiago Mizutani
+* Ordenação das chamadas de função.
 * 04/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
 
 Transition* DetectTransitions::detectTransitions(int type, Video* vdo)
 { 
-	// Upcast!!!
-	VisualRythim* vr = 0;
-	IplImage* visualRythim = 0;
-	
-	visualRythim = vr->createVR(vdo);
+	VisualRythim *vr = 0;
 
+	Frame visualRythim = new Frame(vr->createVR(vdo));
+
+	cvNamedWindow(vdo->getName());
+	cvShowImage(vdo->getName(),visualRythim->data);
 	
 }
