@@ -184,7 +184,6 @@ int Frame::getHeight()
 * 04/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
-
 int Frame::getDiagonal(Frame* frame, int column)
 {
 	/** y = a*x+b (equacao da reta) 
@@ -224,3 +223,12 @@ int Frame::getDiagonal(Frame* frame, int column)
 	return(luminance);
 				
 }
+
+int Frame::operator[](int a)
+{
+	printf("maria\n");
+	Log::writeLog("%s :: %d - %d", a);
+	return 1;
+}
+
+

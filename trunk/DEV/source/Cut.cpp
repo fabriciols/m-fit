@@ -25,13 +25,14 @@
 * Criação.
 ************************************************************************/
 
-Transition* DetectTransitions::detectTransitions(int type, Video* vdo)
+Transition* DetectTransitions::detectTransitions(Video* vdo)
 { 
 	VisualRythim *vr = 0;
 
-	Frame visualRythim = new Frame(vr->createVR(vdo));
+	Frame *visualRythim = new Frame(vr->createVR(vdo));
 
 	cvNamedWindow(vdo->getName());
+
 	cvShowImage(vdo->getName(),visualRythim->data);
 	
 }

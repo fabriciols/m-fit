@@ -1,8 +1,13 @@
 #include "cv.h"
+#include "highgui.h"
 
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
+#include "../include/Video.h"
 #include "../include/VisualRythim.h"
+
+#include "../include/Effect.h"
+#include "../include/Color.h"
 
 /************************************************************************
 * Função que cria o Ritmo Visual por amostragem de um vídeo.
@@ -18,27 +23,24 @@
 * 04/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
-
 Frame* VisualRythim::createVR(Video* vdo)
 {
 
-	IplImage* visualRythim; // Imagem do ritmo visual.	
+	Frame *vr;
 	Color* color;
 
 	int f = 0; // nro do frame corrente.
-	int max_frames = vdo->totalFrames; // Numero total de frames do video.
+	double max_frames = vdo->getFramesTotal(); // Numero total de frames do video.
 	int x = 0; // Coluna que está sendo montada no RV.
 
 	// Pego o primeiro frame do video.
-	Frame frame = new Frame(vdo->getCurrentFrame(this));
+	Frame *frame = new Frame(vdo->getCurrentFrame());
 
 	/**
 	 *  Crio a imagem do RV com largura = ao nro de frames do video (cada
 	 *  frame representa 1 coluna do RV) e altura = largura do frame.
    **/
-	visualRythim = cvCreateImage(cvSize(max_frames,frame->width),8,1);
-
-	Frame vr = new Frame(visualRythim);
+	vr = new Frame(cvCreateImage(cvSize((int)max_frames,frame->getWidth()),8,1));
 
 	for (f=0;f<max_frames;++f)
 	{
@@ -46,14 +48,14 @@ Frame* VisualRythim::createVR(Video* vdo)
 		frame = color->convert2Gray(frame);
 
 		// Pego a diagonal do frame.
-		for (x=0;x<frame->getWidth;x++)
+		for (x=0;x<frame->getWidth();x++)
 		{
 			// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
-    		((uchar*)(vr->data->imageData + vr->data->widthStep*x))[f] = frame->getDiagonal(this,x);
+    		((uchar*)(vr->data->imageData + vr->data->widthStep*x))[f] = frame->getDiagonal(frame, x);
 		}
 	
 		// Pego um novo frame.	
-		frame->data = vdo->getNextFrame(this);
+		frame = vdo->getNextFrame();
 
 		// Se não houver mais frames, chegou ao fim do video.
 		if (!frame)

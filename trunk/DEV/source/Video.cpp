@@ -140,3 +140,22 @@ char* Video::getPath()
 {
 	return path;
 }
+
+double Video::getFramesTotal()
+{
+	return framesTotal;
+}
+
+Frame* Video::getNextFrame()
+{
+	if (!cvGrabFrame(this->data))
+	{
+		return NULL;
+	}
+	else
+	{
+		return (new Frame(cvRetrieveFrame(this->data)));
+	}
+}
+
+Frame* Video::getCurrentFrame() { }

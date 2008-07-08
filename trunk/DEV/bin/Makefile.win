@@ -16,6 +16,7 @@ OBJS = \
 	$(source)/Color.o             \
 	$(source)/Contrast.o          \
 	$(source)/Cut.o               \
+	$(source)/Transition.o        \
 	$(source)/DetectTransitions.o \
 	$(source)/Dissolve.o          \
 	$(source)/Fade.o              \
@@ -26,7 +27,6 @@ OBJS = \
 	$(source)/Morphology.o        \
 	$(source)/Take.o              \
 	$(source)/Time.o              \
-	$(source)/Transition.o        \
 	$(source)/Video.o             \
 	$(source)/VisualRythim.o      \
 	$(source)/Log.o               \

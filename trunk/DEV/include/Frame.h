@@ -30,6 +30,8 @@ class Frame
 
 	public:
 
+		int operator[](int a);
+
 		/*
 		* Construtor que recebe um caminho.
 		* Abre a imagem e preenche todos os atributos
