@@ -324,6 +324,16 @@ int main(int argc, char* argv[])
 					frameEffect = frame;
 					break;
 
+				case 'z':
+					{
+						int a;
+
+						frame[10];
+
+						exit(10);
+						break;
+					}
+
 				case '?':
 				default:
 					usage();
@@ -362,7 +372,7 @@ int main(int argc, char* argv[])
 	{
 
 		cvNamedWindow(vdo->getName(), 1);
-	
+
 		// Futuramente este while some e exibe somente o primeiro frame
 		while (true)
 		{
@@ -390,9 +400,7 @@ int main(int argc, char* argv[])
 
 		if (detectNow)
 		{
-			Transition *transitions;
-
-
+			Log::writeLog("%s :: =D");
 		}
 
 	}

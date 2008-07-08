@@ -110,6 +110,8 @@ class Video
 	 *Obtém o frame atual.
 	 */
 	Frame* getCurrentFrame();
+
+	double getFramesTotal();
 	 
 	/**
 	 *Obtêm a posição corrente do

@@ -9,7 +9,7 @@ class VisualRythim
 		/**
 		 *Cria o Ritmo Visual por sub-amostragem.
 		 */
-		Frame createVR(Video* vdo);
+		Frame *createVR(Video* vdo);
 
 		/**
 		 *Retorna o Ritmo Visual por 

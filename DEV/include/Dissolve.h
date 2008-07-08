@@ -1,4 +1,3 @@
-
 /**
  *Classe responsável por detectar
  *o dissolve.
