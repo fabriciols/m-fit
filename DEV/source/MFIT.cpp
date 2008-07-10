@@ -13,6 +13,8 @@
 #include "../include/Filters.h"
 #include "../include/Morphology.h"
 
+#include "../include/VisualRythim.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -324,6 +326,7 @@ int main(int argc, char* argv[])
 					frameEffect = frame;
 					break;
 
+
 				case 'z':
 					{
 						int a;
@@ -370,38 +373,22 @@ int main(int argc, char* argv[])
 	}
 	else if (input == VIDEO) // É vídeo
 	{
+		// Monta o ritmo-visual
+
+		VisualRythim *vr;
+		Frame *vr_frame;
+
+		Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
 
 		cvNamedWindow(vdo->getName(), 1);
 
-		// Futuramente este while some e exibe somente o primeiro frame
-		while (true)
-		{
-			IplImage *frame = 0;
+		vr = new VisualRythim();
 
-			frame = cvQueryFrame(vdo->data); // Pega 1 frame do video (sequencial)
+		Log::writeLog("%s :: createVR[%x]", __FUNCTION__, vdo);
 
-			Log::writeLog("%s :: cvQueryFrame vdo[%x] frame[%x]", __FUNCTION__, vdo, frame);
+		vr_frame = new Frame(vr->createVR(vdo));
 
-			// Quando não houver mais frames ele pára.
-			if (!frame)
-				break;
-
-			cvWaitKey(200);
-
-			cvShowImage(vdo->getName(), frame);
-		}
-
-		if (argc > 1)
-		{
-			// ignora o '-' e ve se eh para detectar tudo agora
-			if (argv[2][1] == 'N')
-				detectNow = 1;
-		}
-
-		if (detectNow)
-		{
-			Log::writeLog("%s :: =D");
-		}
+		cvShowImage(vdo->getName(), vdo->data);
 
 	}
 }
