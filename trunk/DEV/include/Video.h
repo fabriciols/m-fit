@@ -131,4 +131,6 @@ class Video
 	 *<0 - Erro.
 	 */
 	int write();
+
+	double getFramesWidth();
 };

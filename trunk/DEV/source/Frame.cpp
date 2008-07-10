@@ -102,6 +102,9 @@ Frame::Frame(char *filename_cy)
 ************************************************************************/
 Frame::Frame(IplImage *img_src)
 {
+
+	Log::writeLog("%s :: Constructor param: IplImage[%x]", __FUNCTION__, img_src);
+
 	// Guardamos a instância do IplImage na estrutura
 	// do frame.
 	this->data = img_src;
@@ -217,18 +220,11 @@ int Frame::getDiagonal(Frame* frame, int column)
 	// Vou pegar todos os pixels pertencentes à diagonal.
 	// Equacao da reta.
 	y = cvRound(a*column+b);
+
+	Log::writeLog("%s :: get the pixel value", __FUNCTION__);
 	
 	luminance = ((uchar*)(frame->data->imageData + frame->data->widthStep*y))[column];	
 
 	return(luminance);
 				
 }
-
-int Frame::operator[](int a)
-{
-	printf("maria\n");
-	Log::writeLog("%s :: %d - %d", a);
-	return 1;
-}
-
-

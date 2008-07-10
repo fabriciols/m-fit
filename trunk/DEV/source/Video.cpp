@@ -30,6 +30,7 @@ CvCapture* Video::open(char *vdoSrc)
 
 	if (video == NULL)
 	{
+		Log::writeLog("%s :: Open Failed", __FUNCTION__);
 		throw "Open failed";
 	}
 	
@@ -158,4 +159,12 @@ Frame* Video::getNextFrame()
 	}
 }
 
-Frame* Video::getCurrentFrame() { }
+Frame* Video::getCurrentFrame()
+{
+	return getNextFrame();
+}
+
+double Video::getFramesWidth()
+{
+	return framesWidth;
+}
