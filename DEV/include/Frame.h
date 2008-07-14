@@ -28,6 +28,7 @@ class Frame
 	 	*/
 		int *height;
 
+
 	public:
 
 		int operator[](int a);
@@ -78,4 +79,10 @@ class Frame
 
 		int getWidth();
 		int getHeight();
+
+		void setPixel(int x, int y, int lum);
+		unsigned char getPixel(int x, int y);
+
+		Frame* operator+(Frame frame2);
 };
+

@@ -189,6 +189,24 @@ int main(int argc, char* argv[])
 						break;
 
 					}
+				case 'c':
+					{
+
+						Frame *frame2;
+
+						strcpy(effectName, "Concatenate");
+
+						frame2 = new Frame(argv[i+1]);
+
+						Log::writeLog("%s :: frame2[%x] + frame[%x]", __FUNCTION__, frame2, frame);
+
+						frameEffect = *frame + *frame2;
+
+						Log::writeLog("%s :: frameEffect[%x]", __FUNCTION__, frameEffect);
+
+						break;
+
+					}
 				case 's':       
 					{
 

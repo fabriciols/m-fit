@@ -228,3 +228,89 @@ int Frame::getDiagonal(Frame* frame, int column)
 	return(luminance);
 				
 }
+
+/************************************************************************
+* Função que define a luminancia de um pixel
+*************************************************************************
+* param (E): int x   -> coordenada x do pixel desejado
+* param (E): int y   -> coordenada y do pixel desejado
+* param (E): int lum -> valor de luminancia a ser definido no pixel (x,y)
+*************************************************************************
+* Histórico:
+* 14/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+void Frame::setPixel(int x, int y, int lum)
+{
+	((uchar*)(this->data->imageData + this->data->widthStep*y))[x] = lum;
+}
+
+/************************************************************************
+* Função que retorna o valor de luminancia de um determinado pixel (x,y)
+*************************************************************************
+* param (E): int x   -> coordenada x do pixel desejado
+* param (E): int y   -> coordenada y do pixel desejado
+*************************************************************************
+* Histórico:
+* 14/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+unsigned char Frame::getPixel(int x, int y)
+{
+	return ((uchar*)(this->data->imageData + this->data->widthStep*y))[x];
+}
+
+/************************************************************************
+* Sobrecarga do operador '+' ele ira realizar a concatenacao dos frames
+* Obs.: Atencao para os parametros, pois o soma tem que ser a dois objetos 
+* absolutos, e nao dois ponteiros
+*************************************************************************
+* param (E): Frame frame -> Frame a ser concatenado
+*************************************************************************
+* Histórico:
+* 14/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+Frame* Frame::operator+(Frame frame2)
+{
+
+	IplImage* img_dst;
+	Frame *frameNew;
+
+	int x, y;
+	int x1, y1;
+
+	// Primeiro precisamos criar um frame
+	// que tenha como largura a soma das larguras dos dois frames
+	// para altura usamos a do frame final
+	img_dst = cvCreateImage(cvSize(this->getWidth() + frame2.getWidth(), this->getHeight()), 8, 1);
+	frameNew = new Frame(img_dst);
+
+	Log::writeLog("%s :: param: this[%x] frame2[%x]", __FUNCTION__, this->data, frame2.data);
+
+	// Primeiro copiamos o frame de origem (this) para o novo frame
+	for ( x = 0 ; x <= this->getWidth() ; x++)
+	{
+		for ( y = 0 ; y <= frame2.getHeight() ; y++ )
+		{
+			//Log::writeLog("Setting pixel x[%d],y[%d] = %d", x, y, this->getPixel(x,y));
+
+			frameNew->setPixel(x, y, this->getPixel(x, y));
+		}
+	}
+
+	// Agora concatenamos com o segundo frame passado por parametro
+	for ( x1 = 0 ; x1 <= frame2.getWidth() ; x1++, x++)
+	{
+		for ( y1 = 0 , y = 0 ; y1 <= this->getHeight() ; y1++, y++)
+		{
+			//Log::writeLog("Setting pixel x[%d],y[%d] = %d from x1[%d],y1[%d]", x, y, frame2.getPixel(x1,y1), x1, y1);
+
+			frameNew->setPixel(x, y, frame2.getPixel(x1, y1));
+		}
+	}
+
+	Log::writeLog("%s :: return frameNew[%x]", __FUNCTION__, frameNew);
+
+	return (frameNew);
+}
