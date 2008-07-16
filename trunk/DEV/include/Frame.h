@@ -73,16 +73,23 @@ class Frame
 		/**
 		*Retorna a diagonal do frame.
 		*/
-		int getDiagonal(Frame* frame, int column);
+		Frame getDiagonal(Frame* frame, int column);
 		
 		// Gets
 
+		// Retorna largura do frame
 		int getWidth();
+
+		// Retorna altura do frame
 		int getHeight();
 
+		// Seta o valor de luminancia determinado pixel.
 		void setPixel(int x, int y, int lum);
+
+		// Retorna o valor da luminancia de um pixel.
 		unsigned char getPixel(int x, int y);
 
+		// Concatena dois frames.
 		Frame* operator+(Frame frame2);
 };
 
