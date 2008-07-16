@@ -174,7 +174,10 @@ int Frame::getHeight()
 }
 
 /************************************************************************
-* Função que pega a diagonal de um frame. 
+* FUNÇÃO QUE PEGA A DIAGONAL DE UM FRAME. 
+*************************************************************************
+* Esta função utiliza as fórmulas de trigonometria para encontrar a equa
+* ção da reta a partir disto obter todos os pontos da diagonal do frame. 
 *************************************************************************
 * param (E): Frame* frame => frame do qual sera retirada a diagonal.
 * 				 int column => coordenada x do pixel que será copiado.
@@ -182,95 +185,93 @@ int Frame::getHeight()
 * return : diagonal do frame.
 *************************************************************************
 * Histórico:
+* 15/07/08 - Thiago Mizutani
+* Adequação do processo de montagem da diagonal do frame. Utilizando as
+* funções de getPixel e set Pixel.
 * 06/07/08 - Thiago Mizutani
 * Ajustes para extracao dos pontos da diagonal principal do frame.
 * 04/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
-int Frame::getDiagonal(Frame* frame, int column)
+Frame Frame::getDiagonal(Frame* frame, int column)
 {
-	/** y = a*x+b (equacao da reta) 
-	 * onde a = cateto oposto/cateto adjacente
-	 * ou seja, y - yo = m*(x - xo), sendo que 
-	 * y-yo = altura do frame e x - xo = largura do frame.
-   **/
-	
-	// x = x final, xo = x final, o mesmo vale para o y.
-	int x = 0;
-	int y = 0;
-	int i = 0;
+	int x = 0; // x da equacao da reta
+	int y = 0; // y da equacao da reta
 	int luminance = 0; //Valor de luminancia do pixel retirado da diagonal.
-
+	
 	float a = 0; // Coeficiente angular da equacao
-	int b = 0; // Ponto onde a reta cruza o eixo Y (x = 0).
+
+	IplImage* diagonal = cvCreateImage(cvSize(1,frame->getWidth()), 8, 1);
+	Frame* frameDiagonal = new Frame(diagonal);
 
 	// Coordenada x do ponto final (termino no canto inferior direito).
 	x = frame->getWidth();
 
-	// Calculo o coeficiente angular da reta ('a' da equacao).
+	/** Calculo o coeficiente angular da reta ('a' da equacao).
+	 * frame->getHeight = y - yo
+	 * frame->getWidth  = x - xo
+	 * y - yo = m*(x - xo)
+	 **/
 	a = ((float)frame->getHeight()/(float)frame->getWidth());
-	
-	/**
-	 *  b = frame->getHeight porque eh onde a reta cruza o eixo y,
-	 * considerando que a diagonal a ser analisada inicia-se a partir
-	 * do canto superior esquerdo.
-	**/
-	b = frame->getHeight();
 
 	// Vou pegar todos os pixels pertencentes à diagonal.
-	// Equacao da reta.
-	y = cvRound(a*column+b);
+	// Equacao da reta. Neste caso b = 0 porque a reta se inicia no ponto
+	// (0,0), ou seja, 
+	y = cvRound(a*column);
 
-	Log::writeLog("%s :: get the pixel value", __FUNCTION__);
-	
-	luminance = ((uchar*)(frame->data->imageData + frame->data->widthStep*y))[column];	
+	// Pego a diagonal do frame.
+	for (x=0;x<frame->getWidth();x++)
+	{
+		// Monto o frame da diagonal (já transformado em coluna).
+		frameDiagonal->setPixel(column,y,frame->getPixel(x,y));
+	}	
 
-	return(luminance);
-				
+	return(frameDiagonal);
+
 }
 
 /************************************************************************
-* Função que define a luminancia de um pixel
-*************************************************************************
-* param (E): int x   -> coordenada x do pixel desejado
-* param (E): int y   -> coordenada y do pixel desejado
-* param (E): int lum -> valor de luminancia a ser definido no pixel (x,y)
-*************************************************************************
-* Histórico:
-* 14/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Função que define a luminancia de um pixel
+ *************************************************************************
+ * param (E): int x   -> coordenada x do pixel desejado
+ * param (E): int y   -> coordenada y do pixel desejado
+ * param (E): int lum -> valor de luminancia a ser definido no pixel (x,y)
+ *************************************************************************
+ * Histórico:
+ * 14/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Frame::setPixel(int x, int y, int lum)
 {
 	((uchar*)(this->data->imageData + this->data->widthStep*y))[x] = lum;
 }
 
 /************************************************************************
-* Função que retorna o valor de luminancia de um determinado pixel (x,y)
-*************************************************************************
-* param (E): int x   -> coordenada x do pixel desejado
-* param (E): int y   -> coordenada y do pixel desejado
-*************************************************************************
-* Histórico:
-* 14/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Função que retorna o valor de luminancia de um determinado pixel (x,y)
+ *************************************************************************
+ * param (E): int x   -> coordenada x do pixel desejado
+ * param (E): int y   -> coordenada y do pixel desejado
+ *************************************************************************
+ * Histórico:
+ * 14/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 unsigned char Frame::getPixel(int x, int y)
 {
 	return ((uchar*)(this->data->imageData + this->data->widthStep*y))[x];
 }
 
 /************************************************************************
-* Sobrecarga do operador '+' ele ira realizar a concatenacao dos frames
-* Obs.: Atencao para os parametros, pois o soma tem que ser a dois objetos 
-* absolutos, e nao dois ponteiros
-*************************************************************************
-* param (E): Frame frame -> Frame a ser concatenado
-*************************************************************************
-* Histórico:
-* 14/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Sobrecarga do operador '+' ele ira realizar a concatenacao dos frames
+ * Obs.: Atencao para os parametros, pois o soma tem que ser a dois objetos 
+ * absolutos, e nao dois ponteiros
+ *************************************************************************
+ * param (E): Frame frame -> Frame a ser concatenado
+ *************************************************************************
+ * Histórico:
+ * 14/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame* Frame::operator+(Frame frame2)
 {
 
