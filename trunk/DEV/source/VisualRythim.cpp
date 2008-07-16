@@ -19,6 +19,9 @@
 * return : Ritmo Visual do vídeo.
 *************************************************************************
 * Histórico:
+* 15/07/08 - Thiago Mizutani
+* Adequação para geração do Ritmo Visual utilizando sobrecarga de opera
+* dores.
 * 06/07/08 - Thiago Mizutani
 * Implementação do processo que monta as colunas do ritmo visual atraves
 * da extracao dos pixels da diagonal de um frame.
@@ -28,7 +31,6 @@
 Frame* VisualRythim::createVR(Video* vdo)
 {
 
-	Frame *vr;
 	Color *color;
 	IplImage* img;
 	Frame* frame;
@@ -56,7 +58,7 @@ Frame* VisualRythim::createVR(Video* vdo)
 
 	img = cvCreateImage(cvSize((int)max_frames,(int)width),8,1);
 
-	vr = new Frame(img);
+	Frame vr = new Frame(img);
 
 	for (f=0;f<max_frames;++f)
 	{
@@ -67,28 +69,12 @@ Frame* VisualRythim::createVR(Video* vdo)
 		if (!frame)
 			break;
 
-		Log::writeLog("%s :: Convert2Gray [%x]", __FUNCTION__, frame);
-
 		// Converto o frame para escala de cinza.
 		frame = color->convert2Gray(frame);
 
-		// Pego a diagonal do frame.
-		for (x=0;x<frame->getWidth();x++)
-		{
+		vr = vr + frame->getDiagonal(frame,f);
 
-			Log::writeLog("%s :: get lum", __FUNCTION__);
-
-			// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
-    		lum = frame->getDiagonal(frame, x);
-
-			Log::writeLog("%s :: Diagonal x[%d] width[%d] lum [%d] frame[%x]", __FUNCTION__, x, frame->getWidth(), lum, frame);
-
-    		((uchar*)(vr->data->imageData + vr->data->widthStep*x))[f] = lum;
-
-			Log::writeLog("%s :: writePixel", __FUNCTION__);
-		}
-	
 	}
 
-	return (vr);
+	return (new Frame(vr));
 }
