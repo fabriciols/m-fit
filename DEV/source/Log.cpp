@@ -22,6 +22,7 @@
 ************************************************************************/
 int Log::writeLog(const char *fmt, ...)
 {
+
 	va_list argList;
 	// String passada por arg
 	char bufArg_cy[100];

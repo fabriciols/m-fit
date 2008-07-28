@@ -133,4 +133,5 @@ class Video
 	int write();
 
 	double getFramesWidth();
+	double getFramesHeight();
 };

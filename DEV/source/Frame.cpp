@@ -194,37 +194,41 @@ int Frame::getHeight()
 * 04/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
-Frame Frame::getDiagonal(Frame* frame, int column)
+Frame * Frame::getDiagonal()
 {
 	int x = 0; // x da equacao da reta
 	int y = 0; // y da equacao da reta
+	Frame* frameDiagonal;
+
+	double diagonalSize = 0;
+
 	int luminance = 0; //Valor de luminancia do pixel retirado da diagonal.
 	
-	float a = 0; // Coeficiente angular da equacao
+	double a = 0; // Coeficiente angular da equacao
 
-	IplImage* diagonal = cvCreateImage(cvSize(1,frame->getWidth()), 8, 1);
-	Frame* frameDiagonal = new Frame(diagonal);
+	//diagonalSize = cvRound( sqrt( this->getWidth()*this->getWidth() + this->getHeight()*this->getHeight()) );
+
+	IplImage* diagonal = cvCreateImage(cvSize(1, this->getWidth()), 8, 1);
+
+	frameDiagonal = new Frame(diagonal);
 
 	// Coordenada x do ponto final (termino no canto inferior direito).
-	x = frame->getWidth();
+	//x = this->getWidth();
 
 	/** Calculo o coeficiente angular da reta ('a' da equacao).
-	 * frame->getHeight = y - yo
-	 * frame->getWidth  = x - xo
+	 * this->getHeight = y - yo
+	 * this->getWidth  = x - xo
 	 * y - yo = m*(x - xo)
 	 **/
-	a = ((float)frame->getHeight()/(float)frame->getWidth());
+	a = (float)(this->getHeight()/(float)this->getWidth());
 
-	// Vou pegar todos os pixels pertencentes à diagonal.
-	// Equacao da reta. Neste caso b = 0 porque a reta se inicia no ponto
-	// (0,0), ou seja, 
-	y = cvRound(a*column);
-
-	// Pego a diagonal do frame.
-	for (x=0;x<frame->getWidth();x++)
+	// Pego a diagonal do this.
+	for (x=0; x < this->getWidth() ; x++)
 	{
-		// Monto o frame da diagonal (já transformado em coluna).
-		frameDiagonal->setPixel(column,y,frame->getPixel(x,y));
+		y = cvRound(a * x);
+
+		// Monto o this da diagonal (já transformado em coluna).
+		frameDiagonal->setPixel(0, x, this->getPixel(x, y));
 	}	
 
 	return(frameDiagonal);
@@ -244,7 +248,11 @@ Frame Frame::getDiagonal(Frame* frame, int column)
  ************************************************************************/
 void Frame::setPixel(int x, int y, int lum)
 {
-	((uchar*)(this->data->imageData + this->data->widthStep*y))[x] = lum;
+	CvScalar s;
+
+	s.val[0] = lum;
+
+	cvSet2D(this->data, y, x, s);
 }
 
 /************************************************************************
@@ -259,7 +267,12 @@ void Frame::setPixel(int x, int y, int lum)
  ************************************************************************/
 unsigned char Frame::getPixel(int x, int y)
 {
-	return ((uchar*)(this->data->imageData + this->data->widthStep*y))[x];
+	//return ((uchar*)(this->data->imageData + this->data->widthStep*y))[x];
+	CvScalar s;
+
+	s = cvGet2D(this->data, y, x);
+
+	return s.val[0];
 }
 
 /************************************************************************
