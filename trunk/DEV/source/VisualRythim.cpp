@@ -19,9 +19,6 @@
 * return : Ritmo Visual do vídeo.
 *************************************************************************
 * Histórico:
-* 15/07/08 - Thiago Mizutani
-* Adequação para geração do Ritmo Visual utilizando sobrecarga de opera
-* dores.
 * 06/07/08 - Thiago Mizutani
 * Implementação do processo que monta as colunas do ritmo visual atraves
 * da extracao dos pixels da diagonal de um frame.
@@ -31,16 +28,23 @@
 Frame* VisualRythim::createVR(Video* vdo)
 {
 
-	Color *color;
-	IplImage* img;
+	Frame *frameVR;
+
 	Frame* frame;
+
+	Color *color;
+	IplImage* imgVR;
+
+	Frame *frameAux;
 
 	int lum;
 
 	double width;
+	double heigth;
 	int f = 0; // nro do frame corrente.
 	int x = 0; // Coluna que está sendo montada no RV.
 	double max_frames; // Numero total de frames do video.
+	int diagonal;
 
 	Log::writeLog("%s :: param: Video[%x]", __FUNCTION__, vdo);
 
@@ -48,19 +52,25 @@ Frame* VisualRythim::createVR(Video* vdo)
 
 	// Pego o primeiro frame do video.
 	width = vdo->getFramesWidth();
+	heigth = vdo->getFramesHeight();
 	max_frames = vdo->getFramesTotal(); // Numero total de frames do video.
+
+	diagonal = (int)cvRound(sqrt( pow(width,2) + pow(heigth,2)));
 
 	/**
 	 *  Crio a imagem do RV com largura = ao nro de frames do video (cada
 	 *  frame representa 1 coluna do RV) e altura = largura do frame.
    **/
-	Log::writeLog("%s :: frame[%x] max_frames[%.f]", __FUNCTION__, img, max_frames);
 
-	img = cvCreateImage(cvSize((int)max_frames,(int)width),8,1);
+	imgVR = cvCreateImage(cvSize((int)1, (int)diagonal), 8, 1);
 
-	Frame vr = new Frame(img);
+	frame = vdo->getNextFrame();
 
-	for (f=0;f<max_frames;++f)
+	frameVR = new Frame(frame->getDiagonal());
+
+	f = 0;
+
+	for (f=0 ; f< max_frames ; f++)
 	{
 
 		frame = vdo->getNextFrame();
@@ -69,12 +79,24 @@ Frame* VisualRythim::createVR(Video* vdo)
 		if (!frame)
 			break;
 
+		Log::writeLog("%s :: Convert2Gray [%x]", __FUNCTION__, frame);
+
 		// Converto o frame para escala de cinza.
 		frame = color->convert2Gray(frame);
 
-		vr = vr + frame->getDiagonal(frame,f);
+		// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
+		frameAux = frame->getDiagonal();
 
+		*frameVR += *frameAux;
+
+		// Desaloca os temporarios
+		delete frameAux;
+		delete frame;
 	}
 
-	return (new Frame(vr));
+	Log::writeLog("%s :: frame[%x] max_frames[%.f] diagonal[%d]", __FUNCTION__, imgVR, max_frames, diagonal);
+
+	Log::writeLog("%s :: end ", __FUNCTION__);
+
+	return (frameVR);
 }

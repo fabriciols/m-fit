@@ -73,7 +73,7 @@ class Frame
 		/**
 		*Retorna a diagonal do frame.
 		*/
-		Frame getDiagonal(Frame* frame, int column);
+		Frame * getDiagonal();
 		
 		// Gets
 

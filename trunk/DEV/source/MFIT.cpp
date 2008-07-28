@@ -18,6 +18,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <time.h>
+
 #define EFFECT_NAME_SIZE 30
 #define MAX_OPTIONS 30
 
@@ -52,7 +54,6 @@ int main(int argc, char* argv[])
 
 	inputType input;
 
-
 	/** 
 	 * Estrutura para armazenar a lista de efeitos aplicados
 	 *  possibilitando assim aplicar efeitos sobre efeitos,
@@ -70,7 +71,7 @@ int main(int argc, char* argv[])
 	if (argc > 1)
 	{
 		strcpy(filename_cy, argv[1]);
-		
+
 		// Pega somente a extensao do arquivo
 		strcpy(extension_cy, &filename_cy[strlen(filename_cy)-3]);
 
@@ -177,6 +178,18 @@ int main(int argc, char* argv[])
 
 						break;
 					}
+				case 'f':
+					{
+						strcpy(effectName, "Diagonal");
+
+						Frame *frame2;
+
+						frame2 = frame->getDiagonal();
+
+						frameEffect = frame2;
+
+						break;
+					}
 				case 'e':
 					{
 
@@ -203,7 +216,7 @@ int main(int argc, char* argv[])
 						Log::writeLog("%s :: frame3[%x] + frame2[%x]", __FUNCTION__, frame3, frame2);
 						Log::writeLog("%s :: frame3->data[%x]", __FUNCTION__, frame3->data);
 
-						for (i=0 ; i <= 50 ; i++)
+						for (i=0 ; i <= 10 ; i++)
 						{
 							*frame3 += *frame2;
 						}
@@ -404,23 +417,60 @@ int main(int argc, char* argv[])
 	else if (input == VIDEO) // É vídeo
 	{
 		// Monta o ritmo-visual
+		char imgname_cy[100];
+		char bufTimeStart_cy[100];
+		char bufTimeEnd_cy[100];
+
+		struct tm *paux;
+		time_t now;
 
 		VisualRythim *vr;
 		Frame *vr_frame;
 
 		Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
-
-		cvNamedWindow(vdo->getName(), 1);
-
 		vr = new VisualRythim();
 
 		Log::writeLog("%s :: createVR[%x]", __FUNCTION__, vdo);
 
-		vr_frame = new Frame(vr->createVR(vdo));
+		// Pega a data do instante atual
+		time(&now);
+		paux = localtime(&now);
 
-		cvShowImage(vdo->getName(), vdo->data);
+		// Preenche um buffer com "dia/mes/ano : hora:min:seg ::"
+		sprintf(bufTimeStart_cy, "%02d/%02d/%d : %02d:%02d:%02d :: ",
+				paux->tm_mday ,(paux->tm_mon + 1) ,(paux->tm_year + 1900) ,paux->tm_hour ,paux->tm_min ,paux->tm_sec);
+
+		vr_frame = vr->createVR(vdo);
+
+		time(&now);
+		paux = localtime(&now);
+
+		// Preenche um buffer com "dia/mes/ano : hora:min:seg ::"
+		sprintf(bufTimeEnd_cy, "%02d/%02d/%d : %02d:%02d:%02d :: ",
+				paux->tm_mday ,(paux->tm_mon + 1) ,(paux->tm_year + 1900) ,paux->tm_hour ,paux->tm_min ,paux->tm_sec);
+
+		printf("Start : %s\n", bufTimeStart_cy);
+		printf("End   : %s\n", bufTimeEnd_cy);
+
+		cvNamedWindow(vdo->getName(), 1);
+		cvShowImage(vdo->getName(), vr_frame->data);
+
+		sprintf(imgname_cy, "vr_%s.jpg", vdo->getName());
+
+		if(!cvSaveImage(imgname_cy, vr_frame->data))
+		{
+			printf("Could not save: %s\n",imgname_cy);
+		}
+
+
+		cvWaitKey(0);
+
+		delete vr_frame;
+		delete vdo;
 
 	}
+
+	cvWaitKey(0);
 }
 
 void usage()

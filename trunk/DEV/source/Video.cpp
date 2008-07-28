@@ -168,3 +168,8 @@ double Video::getFramesWidth()
 {
 	return framesWidth;
 }
+
+double Video::getFramesHeight()
+{
+	return framesHeight;
+}
