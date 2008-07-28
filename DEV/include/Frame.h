@@ -89,7 +89,8 @@ class Frame
 		// Retorna o valor da luminancia de um pixel.
 		unsigned char getPixel(int x, int y);
 
-		// Concatena dois frames.
-		Frame* operator+(Frame frame2);
+		Frame & operator+=(Frame &frame);
+
+		~Frame();
 };
 

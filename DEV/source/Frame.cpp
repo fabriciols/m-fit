@@ -127,9 +127,10 @@ Frame::Frame(IplImage *img_src)
 Frame::Frame(Frame *frame)
 {
 	// Faz a copia do objeto
-	IplImage *img = new IplImage();
+	IplImage *img;
 
-	memcpy(img, frame->data, sizeof(IplImage));
+	img = cvCreateImage(cvSize(frame->getWidth(), frame->getHeight()), frame->data->depth, frame->data->nChannels);
+	cvCopy(frame->data, img);
 
 	this->data = img;
 
@@ -262,56 +263,88 @@ unsigned char Frame::getPixel(int x, int y)
 }
 
 /************************************************************************
- * Sobrecarga do operador '+' ele ira realizar a concatenacao dos frames
- * Obs.: Atencao para os parametros, pois o soma tem que ser a dois objetos 
- * absolutos, e nao dois ponteiros
- *************************************************************************
- * param (E): Frame frame -> Frame a ser concatenado
- *************************************************************************
- * Histórico:
- * 14/07/08 - Fabricio Lopes de Souza
- * Criação.
- ************************************************************************/
-Frame* Frame::operator+(Frame frame2)
+* Destructor da classe frame. Libera a memoria da imagem
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico:
+* 28/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+Frame::~Frame()
+{
+	if (this->data)
+	{
+		cvReleaseImage(&this->data);
+	}
+}
+
+/************************************************************************
+* Sobrecarga do operador '+=' ele ira realizar a concatenacao dos frames
+* Obs.: Atencao para os parametros, pois o soma tem que ser a dois objetos 
+* absolutos, e nao dois ponteiros
+*************************************************************************
+* param (E): Frame frame -> Frame a ser concatenado
+*************************************************************************
+* Histórico:
+* 28/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+Frame & Frame::operator+=(Frame &frame)
 {
 
-	IplImage* img_dst;
-	Frame *frameNew;
+	IplImage *imgDst;
 
-	int x, y;
-	int x1, y1;
+	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
 
-	// Primeiro precisamos criar um frame
-	// que tenha como largura a soma das larguras dos dois frames
-	// para altura usamos a do frame final
-	img_dst = cvCreateImage(cvSize(this->getWidth() + frame2.getWidth(), this->getHeight()), 8, 1);
-	frameNew = new Frame(img_dst);
+	imgDst = cvCreateImage(cvSize(this->getWidth() + frame.getWidth(), this->getHeight()), this->data->depth, this->data->nChannels);
 
-	Log::writeLog("%s :: param: this[%x] frame2[%x]", __FUNCTION__, this->data, frame2.data);
+	// As imagens tem que ter obrigatoriamente a mesma altura
+	if (this->getHeight() != frame.getHeight())
+		throw;
 
-	// Primeiro copiamos o frame de origem (this) para o novo frame
-	for ( x = 0 ; x <= this->getWidth() ; x++)
-	{
-		for ( y = 0 ; y <= frame2.getHeight() ; y++ )
-		{
-			//Log::writeLog("Setting pixel x[%d],y[%d] = %d", x, y, this->getPixel(x,y));
+	Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
 
-			frameNew->setPixel(x, y, this->getPixel(x, y));
-		}
-	}
+	Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, 0, this->getWidth(), this->getHeight());
 
-	// Agora concatenamos com o segundo frame passado por parametro
-	for ( x1 = 0 ; x1 <= frame2.getWidth() ; x1++, x++)
-	{
-		for ( y1 = 0 , y = 0 ; y1 <= this->getHeight() ; y1++, y++)
-		{
-			//Log::writeLog("Setting pixel x[%d],y[%d] = %d from x1[%d],y1[%d]", x, y, frame2.getPixel(x1,y1), x1, y1);
+	cvSetImageROI(imgDst,
+			cvRect
+			(
+			 0,
+			 0,
+			 this->getWidth(),
+			 this->getHeight())
+			);
 
-			frameNew->setPixel(x, y, frame2.getPixel(x1, y1));
-		}
-	}
+	cvCopy(this->data,imgDst);
 
-	Log::writeLog("%s :: return frameNew[%x]", __FUNCTION__, frameNew);
+	Log::writeLog("%s :: frame x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, this->getWidth(), 0, frame.getWidth(), frame.getHeight());
 
-	return (frameNew);
+	cvSetImageROI(imgDst,
+			cvRect
+			(
+			 this->getWidth(),
+			 0,
+			 frame.getWidth(),
+			 frame.getHeight())
+			);
+
+
+	// Copia a segunda parte do frame
+	cvCopy(frame.data,imgDst);
+
+	// Libera a memoria alocada em this
+	cvReleaseImage(&this->data);
+
+	// Faz apontar pra imagem nova
+	this->data = imgDst;
+
+	// Atualiza as variaveis de controle
+	this->width = &imgDst->width;
+	this->height= &imgDst->height;
+
+	cvResetImageROI(imgDst);
+
+	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
+
 }
