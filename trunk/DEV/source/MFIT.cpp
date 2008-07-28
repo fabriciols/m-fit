@@ -193,16 +193,28 @@ int main(int argc, char* argv[])
 					{
 
 						Frame *frame2;
+						Frame *frame3;
 
 						strcpy(effectName, "Concatenate");
 
 						frame2 = new Frame(argv[i+1]);
+						frame3 = new Frame(frame);
 
-						Log::writeLog("%s :: frame2[%x] + frame[%x]", __FUNCTION__, frame2, frame);
+						Log::writeLog("%s :: frame3[%x] + frame2[%x]", __FUNCTION__, frame3, frame2);
+						Log::writeLog("%s :: frame3->data[%x]", __FUNCTION__, frame3->data);
 
-						frameEffect = *frame + *frame2;
+						for (i=0 ; i <= 50 ; i++)
+						{
+							*frame3 += *frame2;
+						}
 
-						Log::writeLog("%s :: frameEffect[%x]", __FUNCTION__, frameEffect);
+						Log::writeLog("%s :: frame3[%x] + frame2[%x]", __FUNCTION__, frame3, frame2);
+						Log::writeLog("%s :: frame3->data[%x]", __FUNCTION__, frame3->data);
+
+						cvNamedWindow(effectName, 1);
+						cvShowImage(effectName, frame3->data);
+
+						frameEffect = frame3;
 
 						break;
 
