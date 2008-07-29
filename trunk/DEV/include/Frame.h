@@ -87,10 +87,13 @@ class Frame
 		void setPixel(int x, int y, int lum);
 
 		// Retorna o valor da luminancia de um pixel.
-		unsigned char getPixel(int x, int y);
+		int getPixel(int x, int y);
 
 		Frame & operator+=(Frame &frame);
 
 		~Frame();
+
+		void setImage(IplImage *imgNew);
+		void initAttr();
 };
 
