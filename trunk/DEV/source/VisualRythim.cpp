@@ -126,8 +126,8 @@ int* VisualRythim::createVRH(Video* vdo)
 	while(!frame)
 	{
 		// Gero o histograma da diagonal do frame corrente
-		histogram = new Histogram(diagonal->data);	
-		
+		frame->createHistogram(diagonal->data, histogram);
+
 		// Guardo o maior valor de luminancia do histograma.	
 		hist[posic] = histogram->getMaxLuminance();	
 	

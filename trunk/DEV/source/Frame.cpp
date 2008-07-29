@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <math.h>
 
+#include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Log.h"
 
@@ -391,3 +392,21 @@ Frame & Frame::operator+=(Frame &frame)
 	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
 
 }
+
+/************************************************************************
+* Função que chama o construtor do histograma e retorna o histograma
+* do frame. 
+*************************************************************************
+* param (E): IplImage* frame => Frame do qual será gerado o histograma
+* param (S): Histogram* &histogram => Histograma do frame de entrada
+*************************************************************************
+* Histórico:
+* 29/07/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+void Frame::createHistogram(IplImage* frame, Histogram* &histogram)
+{
+	histogram = new Histogram(frame);
+}
+
