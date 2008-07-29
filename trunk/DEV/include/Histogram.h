@@ -14,8 +14,8 @@ class Histogram
 		double* getMatrix();
 		float getMax();
 		float getMin();
-		int getMaxIdx();
-		int getMinIdx();
+		int getMaxLuminance();
+		int getMinLuminance();
 
 
 	private:
@@ -27,13 +27,13 @@ class Histogram
 	 *Guarda o maior valor
 	 *de luminância do histograma
 	 */
-		float max;
-		int idx_max;
+		float max; // Nro de pixels de valor maximo
+		int maxLum; // Valor da maior luminancia
 	 
 	/**
 	 *Armazena o menor valor
 	 *de luminância do histograma
 	 */
-		float min;
-		int idx_min;
+		float min; // Nro de pixels de menor valor
+		int minLum; // Valor da menor luminancia
 };
