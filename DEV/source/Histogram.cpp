@@ -14,6 +14,8 @@
 * param (E): IplImage* img - Imagem já alocada.
 *************************************************************************
 * Histórico:
+* 29/07/08 - Thiago Mizutani
+* Alterando o nome das variaveis maxIdx e minIdx para maxLum e minLum.
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
@@ -38,7 +40,7 @@ Histogram::Histogram(IplImage* img)
 	int i;
 
 	float max = 0, min = 0;
-	int idx_max = 0, idx_min = 0;
+	int maxLum = 0, minLum = 0;
 
 	double soma = 0;
 
@@ -51,7 +53,7 @@ Histogram::Histogram(IplImage* img)
 	cvCalcHist(planes, hist, 0, NULL);
 
 	// Pega os valores de escala de cinza mais e menos presentes na img
-	cvGetMinMaxHistValue(hist, &min, &max, &idx_min, &idx_max);
+	cvGetMinMaxHistValue(hist, &min, &max, &minLum, &maxLum);
 
 
 	// Monta a matrix com os valores do histograma
@@ -69,10 +71,10 @@ Histogram::Histogram(IplImage* img)
 
 	this->max = max;
 	this->min = min;
-	this->idx_max = idx_max;
-	this->idx_min = idx_min;
+	this->maxLum = maxLum;
+	this->minLum = minLum;
 
-	Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]", __FUNCTION__, this->idx_min, this->min, this->idx_max, this->max);
+	Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]", __FUNCTION__, this->minLum, this->min, this->maxLum, this->max);
 	Log::writeLog("%s :: soma_pixels[%.0lf] == width*height[%.0ld]", __FUNCTION__, soma, img->width * img->height);
 
 }
@@ -128,12 +130,14 @@ float Histogram::getMin()
 * param (E): Nenhum.
 *************************************************************************
 * Histórico:
+* 29/07/08 - Thiago Mizutani
+* Alterado o nome da funcao (nome antigo: getMaxIdx()).
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-int Histogram::getMaxIdx()
+int Histogram::getMaxLuminance()
 {
-	return this->idx_max;
+	return this->maxLum;
 }
 
 /************************************************************************
@@ -143,10 +147,12 @@ int Histogram::getMaxIdx()
 * param (E): Nenhum.
 *************************************************************************
 * Histórico:
+* 29/07/08 - Thiago Mizutani
+* Alterado o nome da funcao (nome antigo: getMinIdx()).
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-int Histogram::getMinIdx()
+int Histogram::getMinLuminance()
 {
-	return this->idx_min;
+	return this->minLum;
 }

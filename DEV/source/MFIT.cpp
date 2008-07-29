@@ -25,6 +25,19 @@
 
 void usage();
 
+/************************************************************************
+* Função main.
+*************************************************************************
+* param (E): argc e argv.
+*************************************************************************
+* return : nenhum.
+*************************************************************************
+* Histórico:
+* 29/07/08 - Thiago Mizutani
+* Retirando alguns parametros desnecessários.
+* Algum dia alguém criou. Coloquem historico a partir daqui.
+************************************************************************/
+
 int main(int argc, char* argv[])
 {
 
@@ -331,7 +344,7 @@ int main(int argc, char* argv[])
 						Histogram *hist = new Histogram(frameAux->data);
 
 						Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
-								__FUNCTION__, hist->getMinIdx(), hist->getMin(), hist->getMaxIdx(), hist->getMax());
+								__FUNCTION__, hist->getMinLuminance(), hist->getMin(), hist->getMaxLuminance(), hist->getMax());
 
 						frameEffect = new Frame(hist->getMatrix(), 256, hist->getMax());
 
@@ -421,33 +434,16 @@ int main(int argc, char* argv[])
 		char bufTimeStart_cy[100];
 		char bufTimeEnd_cy[100];
 
-		struct tm *paux;
-		time_t now;
-
 		VisualRythim *vr;
 		Frame *vr_frame;
 
 		Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
+		
 		vr = new VisualRythim();
 
 		Log::writeLog("%s :: createVR[%x]", __FUNCTION__, vdo);
 
-		// Pega a data do instante atual
-		time(&now);
-		paux = localtime(&now);
-
-		// Preenche um buffer com "dia/mes/ano : hora:min:seg ::"
-		sprintf(bufTimeStart_cy, "%02d/%02d/%d : %02d:%02d:%02d :: ",
-				paux->tm_mday ,(paux->tm_mon + 1) ,(paux->tm_year + 1900) ,paux->tm_hour ,paux->tm_min ,paux->tm_sec);
-
 		vr_frame = vr->createVR(vdo);
-
-		time(&now);
-		paux = localtime(&now);
-
-		// Preenche um buffer com "dia/mes/ano : hora:min:seg ::"
-		sprintf(bufTimeEnd_cy, "%02d/%02d/%d : %02d:%02d:%02d :: ",
-				paux->tm_mday ,(paux->tm_mon + 1) ,(paux->tm_year + 1900) ,paux->tm_hour ,paux->tm_min ,paux->tm_sec);
 
 		printf("Start : %s\n", bufTimeStart_cy);
 		printf("End   : %s\n", bufTimeEnd_cy);
@@ -461,7 +457,6 @@ int main(int argc, char* argv[])
 		{
 			printf("Could not save: %s\n",imgname_cy);
 		}
-
 
 		cvWaitKey(0);
 
