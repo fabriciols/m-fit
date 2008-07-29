@@ -1,7 +1,6 @@
 #include "cv.h"
 
 #include "../include/Histogram.h"
-#include "../include/Frame.h"
 #include "../include/Log.h"
 
 #define HIST_WIDTH  256
