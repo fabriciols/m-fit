@@ -129,7 +129,24 @@ Video::Video(char *filename_cy)
 	// Atributos relativos a posicao
 	// na instancia do objeto, estao todos em 0
 	this->framePos = 0;
+
+	this->timePos.setTime(0);
 	
+}
+
+void Video::updatePos()
+{
+	long msec;
+
+	//CV_CAP_PROP_POS_FRAMES - 0-based index of the frame to be decoded/captured next
+	this->framePos = cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_FRAMES);
+	Log::writeLog("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
+
+	msec = (long)cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_MSEC);
+	Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
+
+	this->timePos.setTime(msec);
+
 }
 
 char* Video::getName()
@@ -155,13 +172,42 @@ Frame* Video::getNextFrame()
 	}
 	else
 	{
-		return (new Frame(cvRetrieveFrame(this->data)));
+		Frame *frameNew = new Frame(cvRetrieveFrame(this->data));
+
+		updatePos();
+
+		return (frameNew);
 	}
+}
+
+Frame* Video::getPreviousFrame()
+{
+	seekFrame((long)this->getFramePos() - 1);
+
+	Frame *frameNew = getNextFrame();
+
+
+	seekFrame((long)this->getFramePos() - 1);
+
+	updatePos();
+
+	return (frameNew);
 }
 
 Frame* Video::getCurrentFrame()
 {
-	return getNextFrame();
+	// Pega o frame atual
+	Frame *frameCurrent = getNextFrame();
+
+	// Volta a apontar pra ele
+	if (seekFrame((long)this->getFramePos() - 1) == 1)
+	{
+		// Se retornar 1: erro FATAL!
+		throw;
+	}
+
+	return frameCurrent;
+
 }
 
 double Video::getFramesWidth()
@@ -173,3 +219,19 @@ double Video::getFramesHeight()
 {
 	return framesHeight;
 }
+
+int Video::seekFrame(unsigned long posFrame)
+{
+	if (posFrame >= this->framesTotal)
+		return 1;
+
+	cvSetCaptureProperty(this->data, CV_CAP_PROP_POS_FRAMES, (double)posFrame);
+
+	return 0;
+}
+
+double Video::getFramePos()
+{
+	return framePos;
+}
+

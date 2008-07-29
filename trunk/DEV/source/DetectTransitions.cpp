@@ -6,6 +6,7 @@
 #include "highgui.h"
 
 #include "../include/Histogram.h"
+#include "../include/Time.h"
 #include "../include/Frame.h"
 
 #include "../include/Video.h"
