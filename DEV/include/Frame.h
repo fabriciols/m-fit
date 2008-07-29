@@ -68,7 +68,7 @@ class Frame
 		*Função que cria o histograma da
 		*diagonal do frame.
 		*/
-		//Histogram createHistogram();
+		void createHistogram(IplImage* frame, Histogram* &histogram);
 	 
 		/**
 		*Retorna a diagonal do frame.
