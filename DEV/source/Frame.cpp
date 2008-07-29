@@ -11,6 +11,55 @@
 #define HIST_HEIGHT 256
 
 /************************************************************************
+* Auxiliar que atualiza as variaveis internas de um objeto Frame 
+* deve ser usada toda vez
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico:
+* 29/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+void Frame::setImage(IplImage* imgNew)
+{
+	// Nao esta funcionando
+	// precisa dar uma entendida o por que
+	if (this->data != NULL)
+	{
+		Log::writeLog("%s :: old: this->data[%x]", __FUNCTION__, this->data);
+
+		// Desaloca
+		cvReleaseImage(&this->data);
+	}
+
+	// Aponta para a img nova
+	this->data = imgNew;
+
+	// Aponta para os valores do IplImage
+	this->width =  &this->data->width;
+	this->height = &this->data->height;
+
+	Log::writeLog("%s :: new: this->data[%x]", __FUNCTION__, imgNew);
+}
+
+/************************************************************************
+* Inicializa todos os atributos com nulo
+* Esta função deve ser usada em TODOS os construtores
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico:
+* 29/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+void Frame::initAttr()
+{
+	this->data = NULL;
+	this->width =  NULL;
+	this->height = NULL;
+}
+
+/************************************************************************
 * Construtor para Frame que recebe os valores necessários para plotar
 * um histograma. Cria um objeto Frame com o desenho do histograma.
 *************************************************************************
@@ -50,11 +99,8 @@ Frame::Frame(double matrix[], int len_i, float max_f)
 
 	}
 
-	this->data = imgHistogram;
-
-	// Aponta para os valores do IplImage
-	this->width =  &this->data->width;
-	this->height = &this->data->height;
+	initAttr();
+	setImage(imgHistogram);
 
 }
 
@@ -72,6 +118,7 @@ Frame::Frame(double matrix[], int len_i, float max_f)
 Frame::Frame(char *filename_cy)
 {
 	IplImage* img;
+
 	img = cvLoadImage(filename_cy, 1);
 
 	if (img == NULL)
@@ -79,14 +126,8 @@ Frame::Frame(char *filename_cy)
 		throw "Cant open file";
 	}
 
-	// Guardamos a instância do IplImage na estrutura
-	// do frame.
-	this->data = img;
-
-	// Aponta para os valores do IplImage
-	this->width =  &this->data->width;
-	this->height = &this->data->height;
-
+	initAttr();
+	setImage(img);
 }
 
 /************************************************************************
@@ -102,16 +143,9 @@ Frame::Frame(char *filename_cy)
 ************************************************************************/
 Frame::Frame(IplImage *img_src)
 {
-
 	Log::writeLog("%s :: Constructor param: IplImage[%x]", __FUNCTION__, img_src);
-
-	// Guardamos a instância do IplImage na estrutura
-	// do frame.
-	this->data = img_src;
-
-	// Aponta para os valores do IplImage
-	this->width =  &this->data->width;
-	this->height = &this->data->height;
+	initAttr();
+	setImage(img_src);
 }
 
 /************************************************************************
@@ -126,20 +160,17 @@ Frame::Frame(IplImage *img_src)
 ************************************************************************/
 Frame::Frame(Frame *frame)
 {
-	// Faz a copia do objeto
 	IplImage *img;
 
+	// Faz a copia do objeto
 	img = cvCreateImage(cvSize(frame->getWidth(), frame->getHeight()), frame->data->depth, frame->data->nChannels);
+
 	cvCopy(frame->data, img);
 
-	this->data = img;
-
-	this->width =  &this->data->width;
-	this->height = &this->data->height;
+	initAttr();
+	setImage(img);
 
 }
-
-
 
 /************************************************************************
 * Função que retorna a largura do frame.
@@ -162,8 +193,7 @@ int Frame::getWidth()
 *************************************************************************
 * param (E): Nenhum.
 *************************************************************************
-* return : int - Altura do frame. lum = ((uchar*)(fgray->imageData + fgray->widthStep*y))[x]; 
-     ((uchar*)(imvr->imageData + imvr->widthStep*x))[f] = lum;
+* return : int - Altura do frame. 
 *************************************************************************
 * Histórico:
 * 27/06/08 - Fabricio Lopes de Souza
@@ -180,12 +210,14 @@ int Frame::getHeight()
 * Esta função utiliza as fórmulas de trigonometria para encontrar a equa
 * ção da reta a partir disto obter todos os pontos da diagonal do frame. 
 *************************************************************************
-* param (E): Frame* frame => frame do qual sera retirada a diagonal.
-* 				 int column => coordenada x do pixel que será copiado.
+* param (E): Nenhum
 *************************************************************************
-* return : diagonal do frame.
+* return : Frame* -> Frame com a diagonal
 *************************************************************************
 * Histórico:
+* 29/07/08 - Fabrício Lopes de Souza
+* 'N' alterações para fazer funcionar, precisa-se validar com perfeição
+* para verificar se está correto.
 * 15/07/08 - Thiago Mizutani
 * Adequação do processo de montagem da diagonal do frame. Utilizando as
 * funções de getPixel e set Pixel.
@@ -198,22 +230,18 @@ Frame * Frame::getDiagonal()
 {
 	int x = 0; // x da equacao da reta
 	int y = 0; // y da equacao da reta
-	Frame* frameDiagonal;
 
-	double diagonalSize = 0;
+	Frame* frameDiagonal;
 
 	int luminance = 0; //Valor de luminancia do pixel retirado da diagonal.
 	
 	double a = 0; // Coeficiente angular da equacao
 
-	//diagonalSize = cvRound( sqrt( this->getWidth()*this->getWidth() + this->getHeight()*this->getHeight()) );
+	Log::writeLog("%s :: diagonal img width[%d] height[%d]", __FUNCTION__, 1, this->getWidth());
 
-	IplImage* diagonal = cvCreateImage(cvSize(1, this->getWidth()), 8, 1);
+	IplImage* imgDiagonal = cvCreateImage(cvSize(1, this->getWidth()), 8, 1);
 
-	frameDiagonal = new Frame(diagonal);
-
-	// Coordenada x do ponto final (termino no canto inferior direito).
-	//x = this->getWidth();
+	frameDiagonal = new Frame(imgDiagonal);
 
 	/** Calculo o coeficiente angular da reta ('a' da equacao).
 	 * this->getHeight = y - yo
@@ -265,14 +293,14 @@ void Frame::setPixel(int x, int y, int lum)
  * 14/07/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-unsigned char Frame::getPixel(int x, int y)
+int Frame::getPixel(int x, int y)
 {
 	//return ((uchar*)(this->data->imageData + this->data->widthStep*y))[x];
 	CvScalar s;
 
 	s = cvGet2D(this->data, y, x);
 
-	return s.val[0];
+	return cvRound(s.val[0]);
 }
 
 /************************************************************************
@@ -286,8 +314,10 @@ unsigned char Frame::getPixel(int x, int y)
 ************************************************************************/
 Frame::~Frame()
 {
+	// Se o ponteiro para a imagem nao for nulo
 	if (this->data)
 	{
+		// Libera a memoria alocada para ele
 		cvReleaseImage(&this->data);
 	}
 }
@@ -310,16 +340,18 @@ Frame & Frame::operator+=(Frame &frame)
 
 	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
 
-	imgDst = cvCreateImage(cvSize(this->getWidth() + frame.getWidth(), this->getHeight()), this->data->depth, this->data->nChannels);
-
 	// As imagens tem que ter obrigatoriamente a mesma altura
 	if (this->getHeight() != frame.getHeight())
 		throw;
+
+	// Crio uma imagem com a largura igual a soma das larguras
+	imgDst = cvCreateImage(cvSize(this->getWidth() + frame.getWidth(), this->getHeight()), this->data->depth, this->data->nChannels);
 
 	Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
 
 	Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, 0, this->getWidth(), this->getHeight());
 
+	// Na imagem destino, seto a area de interesse o espaco que a primeira imagem ira ocupar
 	cvSetImageROI(imgDst,
 			cvRect
 			(
@@ -329,10 +361,12 @@ Frame & Frame::operator+=(Frame &frame)
 			 this->getHeight())
 			);
 
+	// então copio esta imagem para esta área
 	cvCopy(this->data,imgDst);
 
 	Log::writeLog("%s :: frame x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, this->getWidth(), 0, frame.getWidth(), frame.getHeight());
 
+	// Agora, seto a area de interesse o espaco que a segunda imagem irá ocupar
 	cvSetImageROI(imgDst,
 			cvRect
 			(
@@ -342,21 +376,17 @@ Frame & Frame::operator+=(Frame &frame)
 			 frame.getHeight())
 			);
 
-
 	// Copia a segunda parte do frame
 	cvCopy(frame.data,imgDst);
 
-	// Libera a memoria alocada em this
+	// Libera a memoria alocada pela imagem anterior
 	cvReleaseImage(&this->data);
 
-	// Faz apontar pra imagem nova
-	this->data = imgDst;
-
-	// Atualiza as variaveis de controle
-	this->width = &imgDst->width;
-	this->height= &imgDst->height;
-
+	// Removo as áreas de interesse da imagem
 	cvResetImageROI(imgDst);
+
+	// Seta pra imagem nova
+	setImage(imgDst);
 
 	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
 
