@@ -2,6 +2,7 @@
 #include "highgui.h"
 
 #include "../include/Log.h"
+#include "../include/Time.h"
 
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
@@ -429,39 +430,93 @@ int main(int argc, char* argv[])
 	}
 	else if (input == VIDEO) // É vídeo
 	{
-		// Monta o ritmo-visual
-		char imgname_cy[100];
-		char bufTimeStart_cy[100];
-		char bufTimeEnd_cy[100];
-
-		VisualRythim *vr;
-		Frame *vr_frame;
-
-		Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
-		
-		vr = new VisualRythim();
-
-		Log::writeLog("%s :: createVR[%x]", __FUNCTION__, vdo);
-
-		vr_frame = vr->createVR(vdo);
-
-		printf("Start : %s\n", bufTimeStart_cy);
-		printf("End   : %s\n", bufTimeEnd_cy);
-
 		cvNamedWindow(vdo->getName(), 1);
-		cvShowImage(vdo->getName(), vr_frame->data);
 
-		sprintf(imgname_cy, "vr_%s.jpg", vdo->getName());
-
-		if(!cvSaveImage(imgname_cy, vr_frame->data))
+		for (i = 2 ; i < argc ; i++)
 		{
-			printf("Could not save: %s\n",imgname_cy);
+
+			if (argv[i][0] != '-')
+				continue;
+
+			Log::writeLog("%s :: param[%d]", __FUNCTION__, argc);
+			Log::writeLog("%s :: param: argv[%d] = [%s]", __FUNCTION__, i, argv[i]);
+
+			// Zera a variável auxiliar
+			aux_i = 0;
+
+			switch (argv[i][1])
+			{
+				case 'r':
+					// Monta o ritmo-visual
+					char imgname_cy[100];
+
+					VisualRythim *vr;
+					Frame *vr_frame;
+
+					Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
+
+					vr = new VisualRythim();
+
+					Log::writeLog("%s :: createVR[%x]", __FUNCTION__, vdo);
+
+					vr_frame = vr->createVR(vdo);
+
+					cvShowImage(vdo->getName(), vr_frame->data);
+
+					sprintf(imgname_cy, "vr_%s.jpg", vdo->getName());
+
+					if(!cvSaveImage(imgname_cy, vr_frame->data))
+					{
+						printf("Could not save: %s\n",imgname_cy);
+					}
+
+					cvWaitKey(0);
+
+					delete vr_frame;
+					delete vdo;
+
+					break;
+				case 'n':
+					{
+						char c;
+						Frame *frameVideo;
+
+						while(true)
+						{
+							c = cvWaitKey(0);
+
+							Log::writeLog("%s :: pressed[%d][%c]", __FUNCTION__, c, c);
+
+							// 44 = "<"
+							if (c == 44)
+							{
+								frameVideo = vdo->getPreviousFrame();
+							} // 46 = ">"
+							else if (c == 46)
+							{
+								frameVideo = vdo->getNextFrame();
+							} // -1 = Fechar a janela 27 = ESC
+							else if (c == -1 || c == 27)
+							{
+								break;
+							}
+							else
+							{
+								continue;
+							}
+
+							cvShowImage(vdo->getName(), frameVideo->data);
+
+						}
+
+						break;
+					}
+			}
+
+			break;
 		}
 
-		cvWaitKey(0);
-
-		delete vr_frame;
-		delete vdo;
+		cvDestroyWindow(vdo->getName());
 
 	}
 

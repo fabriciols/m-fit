@@ -37,7 +37,7 @@ class Video
 
 		double framesTotal;
 
-		//Time timePos;
+		Time timePos;
 
 	/**
 	 *Armazena o sistema de cores que
@@ -95,7 +95,7 @@ class Video
 	 *parecida como parâmetro da 
 	 *função.
 	 */
-		int seekFrame(int pos);
+		int seekFrame(unsigned long posFrame);
 	 
 	 
 	/**
@@ -134,4 +134,6 @@ class Video
 
 	double getFramesWidth();
 	double getFramesHeight();
+	void updatePos();
+	double getFramePos();
 };

@@ -1,6 +1,8 @@
 #include "cv.h"
 #include "highgui.h"
 
+#include "../include/Time.h"
+
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Video.h"
@@ -54,7 +56,7 @@ Frame* VisualRythim::createVR(Video* vdo)
 	frame = vdo->getNextFrame();
 	frameVR = new Frame(frame->getDiagonal());
 
-	while(!frame)
+	while(frame != NULL)
 	{
 
 		Log::writeLog("%s :: Convert2Gray [%x]", __FUNCTION__, frame);

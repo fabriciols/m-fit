@@ -9,6 +9,8 @@ class Time
 		int hour;
 		int min;
 		int sec;
+
+		int msec;
 	 
 	public:
 	/**
@@ -17,4 +19,6 @@ class Time
 	 *por este objeto.
 	 */
 		int time2pos();
+
+		void setTime(unsigned long msec);
 };
