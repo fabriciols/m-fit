@@ -322,7 +322,8 @@ int main(int argc, char* argv[])
 					}
 				case 'h':
 					{
-
+						
+						Histogram *hist;
 						Frame *frameAux;
 
 						// Se ja foi aplicado algum tipo de efeito, realizamo o histograma do ultimo efeito aplicado
@@ -342,7 +343,8 @@ int main(int argc, char* argv[])
 							sprintf(effectName, "Histogram of %s", filename_cy);
 						}
 
-						Histogram *hist = new Histogram(frameAux->data);
+					//	Histogram *hist = new Histogram(frameAux->data);
+						frameAux->createHistogram(frameAux->data, hist);
 
 						Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
 								__FUNCTION__, hist->getMinLuminance(), hist->getMin(), hist->getMaxLuminance(), hist->getMax());
@@ -446,6 +448,34 @@ int main(int argc, char* argv[])
 
 			switch (argv[i][1])
 			{
+				case 'h':
+				{
+					// Monta o ritmo visual por histograma
+
+					VisualRythim *vrh;
+					Frame *frameVRH;
+
+					int vdoSize = 0;
+					int *visual;
+					int maxLum = 0;
+
+					visual = vrh->createVRH(vdo);
+					vdoSize = cvRound(vdo->getFramesTotal());
+
+					maxLum = visual[0];
+
+					for (int i=1; i<vdoSize; i++)
+					{
+						if( visual[i] > maxLum)
+							maxLum = visual[i];
+					}
+
+					frameVRH = new Frame((double*)visual, vdoSize, maxLum);
+
+					cvShowImage(vdo->getName(), frameVRH->data);
+
+					break;
+				}
 				case 'r':
 					// Monta o ritmo-visual
 					char imgname_cy[100];
