@@ -28,7 +28,6 @@ Histogram::Histogram(IplImage* img)
 
 	CvHistogram* hist = 0;
 
-
 	float value;
 	int normalized;
 
@@ -53,7 +52,6 @@ Histogram::Histogram(IplImage* img)
 
 	// Pega os valores de escala de cinza mais e menos presentes na img
 	cvGetMinMaxHistValue(hist, &min, &max, &minLum, &maxLum);
-
 
 	// Monta a matrix com os valores do histograma
 	for (i=0 ; i < bins ; i++)

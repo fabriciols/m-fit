@@ -72,7 +72,7 @@ void Frame::initAttr()
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-Frame::Frame(double matrix[], int len_i, float max_f)
+Frame::Frame(double *matrix, int len_i, float max_f)
 {
 
 	int i;
@@ -82,8 +82,10 @@ Frame::Frame(double matrix[], int len_i, float max_f)
 
 	imgHistogram = cvCreateImage(cvSize(len_i*2, HIST_HEIGHT), 8, 1);
 
+	cvZero(imgHistogram);
+
 	// Desenha a area de trabalho do histograma
-	cvRectangle(imgHistogram, cvPoint(0,0), cvPoint(HIST_WIDTH*2,HIST_HEIGHT), CV_RGB(255,255,255), -1);
+	cvRectangle(imgHistogram, cvPoint(0,0), cvPoint(len_i*2,HIST_HEIGHT), CV_RGB(255,255,255), -1);
 
 	// Desenhar as linhas do histograma
 	for (i=0 ; i < len_i ; i++)
@@ -132,7 +134,8 @@ Frame::Frame(char *filename_cy)
 }
 
 /************************************************************************
-* Construtor para Frame que recebe uma imagem já carregada.
+* Construtor para Frame que recebe uma imagem já carregada
+* faz uma copia dessa imagem, e deixa o endereco no frame.
 * Cria um Frame com base nos dados da imagem passada.
 *************************************************************************
 * param (E): IplImage* img_src - Imagem a ser usada como base para a
@@ -144,9 +147,16 @@ Frame::Frame(char *filename_cy)
 ************************************************************************/
 Frame::Frame(IplImage *img_src)
 {
+	IplImage *imgNew;
+
 	Log::writeLog("%s :: Constructor param: IplImage[%x]", __FUNCTION__, img_src);
 	initAttr();
-	setImage(img_src);
+
+	imgNew = cvCreateImage(cvSize(img_src->width, img_src->height), img_src->depth, img_src->nChannels);
+
+	cvCopy(img_src, imgNew);
+
+	setImage(imgNew);
 }
 
 /************************************************************************
@@ -405,8 +415,15 @@ Frame & Frame::operator+=(Frame &frame)
 * Criação.
 ************************************************************************/
 
-void Frame::createHistogram(IplImage* frame, Histogram* histogram)
+Histogram* Frame::createHistogram()
 {
-	histogram = new Histogram(frame);
+	return new Histogram(this->data);
 }
 
+void Frame::write(char *filename_cy)
+{
+	if(!cvSaveImage(filename_cy, this->data))
+	{
+		printf("Could not save: %s\n",filename_cy);
+	}
+}

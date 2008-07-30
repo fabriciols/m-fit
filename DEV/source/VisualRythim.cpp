@@ -99,12 +99,12 @@ Frame* VisualRythim::createVR(Video* vdo)
 * Criação.
 ************************************************************************/
 
-int* VisualRythim::createVRH(Video* vdo)
+double* VisualRythim::createVRH(Video* vdo)
 {
 	Frame* frame = 0; 
 	Frame* diagonal = 0;
-	
 	Histogram* histogram = 0;	
+	Color *color = 0;
 
 	double totalFrames = vdo->getFramesTotal();
 	int posic = 0;
@@ -114,25 +114,36 @@ int* VisualRythim::createVRH(Video* vdo)
 	 * para guardar o valor máximo de cada histograma que será gerado.
 	 * Obs.: Será gerado 1 histograma por frame.
 	**/
-	int* hist; // Este é o RVH.
+	double* hist; // Este é o RVH.
 
-	hist = (int*)malloc(sizeof(int)*cvRound(totalFrames));
-	memset(hist,'0',cvRound(totalFrames));
+	color = new Color();
+
+	hist = (double*)malloc(sizeof(double)*cvRound(totalFrames));
+
+	memset(hist, '\0',     sizeof(double)*cvRound(totalFrames));
 
 	// Pego o primeiro frame e sua diagonal
-
 	frame = vdo->getNextFrame();	
-	diagonal = new Frame(frame->getDiagonal());
 	
-	while(!frame)
+	while(frame != NULL)
 	{
+
+		if (posic >= totalFrames)
+		{
+			Log::writeLog("%s :: BOOOOOOM!", __FUNCTION__);
+		}
+
+		diagonal = frame->getDiagonal();
+
+		Log::writeLog("%s :: createHistogram", __FUNCTION__);
+
 		// Gero o histograma da diagonal do frame corrente
-		frame->createHistogram(diagonal->data, histogram);
+		histogram = diagonal->createHistogram();
 
 		// Guardo o maior valor de luminancia do histograma.	
-		hist[posic] = histogram->getMaxLuminance();	
+		hist[posic] = (double)histogram->getMaxLuminance();	
 	
-		Log::writeLog("%s :: hist[%d] = %d", __FUNCTION__, posic, hist[posic]);
+		Log::writeLog("%s :: hist[%d] = %lf", __FUNCTION__, posic, hist[posic]);
 
 		/**
 		 * Deleto os objetos criados anteriormente para desalocamento de
@@ -143,11 +154,18 @@ int* VisualRythim::createVRH(Video* vdo)
 		delete diagonal;
 		
 		// Pego o proximo frame e sua diagonal
+		Log::writeLog("%s :: getNextFrame", __FUNCTION__);
+
 		frame = vdo->getNextFrame();
-		diagonal = frame->getDiagonal();
+
+		Log::writeLog("%s :: getDiagonal", __FUNCTION__);
 
 		posic++;
+
+		Log::writeLog("%s :: end while", __FUNCTION__);
 	}
+
+	Log::writeLog("%s :: end", __FUNCTION__);
 
 	// Retorno o array com os valores do RVH
 	return (hist);

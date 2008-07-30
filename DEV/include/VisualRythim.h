@@ -15,7 +15,7 @@ class VisualRythim
 		 *Retorna o Ritmo Visual por 
 		 *Histograma  do vídeo
 		 */
-		int* createVRH(Video* vdo); 
+		double* createVRH(Video* vdo); 
 
 		/**
 		 *Calcula primeira derivada da curva do
