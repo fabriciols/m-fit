@@ -21,7 +21,6 @@
 * 01/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
-
 CvCapture* Video::open(char *vdoSrc)
 {
 	CvCapture *video = 0;
@@ -127,13 +126,22 @@ Video::Video(char *filename_cy)
 	Log::writeLog("%s :: framesTotal[%.0f] ", __FUNCTION__, this->framesTotal);
 
 	// Atributos relativos a posicao
-	// na instancia do objeto, estao todos em 0
-	this->framePos = 0;
-
-	this->timePos.setTime(0);
+	updatePos();
 	
 }
-
+ 
+/************************************************************************
+* Atualiza os controles internos referente a posição atual do ponteiro
+* de video
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: Nenhum
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 void Video::updatePos()
 {
 	long msec;
@@ -149,21 +157,65 @@ void Video::updatePos()
 
 }
 
+/************************************************************************
+* Get para a variável name
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: char* name
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 char* Video::getName()
 {
 	return name;
 }
 
+/************************************************************************
+* Get para a variável path
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: char* path
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 char* Video::getPath()
 {
 	return path;
 }
 
+/************************************************************************
+* Get para a variável framesTotal
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: double framesTotal
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 double Video::getFramesTotal()
 {
 	return framesTotal;
 }
 
+/************************************************************************
+* Captura o frame corrente e aponta para o próximo
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: Frame* - frame capturado.
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 Frame* Video::getNextFrame()
 {
 	if (!cvGrabFrame(this->data))
@@ -180,20 +232,42 @@ Frame* Video::getNextFrame()
 	}
 }
 
+/************************************************************************
+* Captura o frame anterior e passa a apontar para ele
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: Frame* - frame capturado.
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 Frame* Video::getPreviousFrame()
 {
+	// Posiciono no frame anterior
 	seekFrame((long)this->getFramePos() - 1);
 
+	// Capturo este frame
 	Frame *frameNew = getNextFrame();
 
-
+	// Posiciono no frame capturado
 	seekFrame((long)this->getFramePos() - 1);
-
-	updatePos();
 
 	return (frameNew);
 }
 
+/************************************************************************
+* Captura o frame corrente e não move o ponteiro para o próximo
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: Frame* - frame capturado.
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 Frame* Video::getCurrentFrame()
 {
 	// Pega o frame atual
@@ -210,16 +284,50 @@ Frame* Video::getCurrentFrame()
 
 }
 
+/************************************************************************
+* Get para a variavel framesWidth
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: double framesWidth
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 double Video::getFramesWidth()
 {
 	return framesWidth;
 }
 
+/************************************************************************
+* Get para a variavel framesHeight
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: double framesHeight
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 double Video::getFramesHeight()
 {
 	return framesHeight;
 }
 
+/************************************************************************
+* Posiciona o ponteiro do video.
+*************************************************************************
+* param (E): unsigned long posFrame - Numero do frame em questão
+************************************************************************
+* return: 	1 - Erro: parametro passado é invalido
+*				0 - Sucesso
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 int Video::seekFrame(unsigned long posFrame)
 {
 	if (posFrame >= this->framesTotal)
@@ -227,11 +335,23 @@ int Video::seekFrame(unsigned long posFrame)
 
 	cvSetCaptureProperty(this->data, CV_CAP_PROP_POS_FRAMES, (double)posFrame);
 
+	updatePos();
+
 	return 0;
 }
 
+/************************************************************************
+* Get para a variavel framePos
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: double framePos
+************************************************************************
+* Histórico
+* 30/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 double Video::getFramePos()
 {
 	return framePos;
 }
-
