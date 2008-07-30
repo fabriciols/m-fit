@@ -92,7 +92,7 @@ Frame* VisualRythim::createVR(Video* vdo)
 *************************************************************************
 * param (E): Video* vdo => vídeo do qual será montado o ritmo visual.
 *************************************************************************
-* return : Ritmo Visual por histograma do vídeo.
+* return : Ritmo visual por histograma (um array).
 *************************************************************************
 * Histórico:
 * 29/07/08 - Thiago Mizutani
@@ -101,7 +101,6 @@ Frame* VisualRythim::createVR(Video* vdo)
 
 int* VisualRythim::createVRH(Video* vdo)
 {
-	Frame* frameVRH = 0;	// Ritmo visual por histograma
 	Frame* frame = 0; 
 	Frame* diagonal = 0;
 	
@@ -115,7 +114,7 @@ int* VisualRythim::createVRH(Video* vdo)
 	 * para guardar o valor máximo de cada histograma que será gerado.
 	 * Obs.: Será gerado 1 histograma por frame.
 	**/
-	int* hist;
+	int* hist; // Este é o RVH.
 
 	hist = (int*)malloc(sizeof(int)*cvRound(totalFrames));
 	memset(hist,'0',cvRound(totalFrames));
