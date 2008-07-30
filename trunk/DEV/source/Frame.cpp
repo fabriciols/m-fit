@@ -405,7 +405,7 @@ Frame & Frame::operator+=(Frame &frame)
 * Criação.
 ************************************************************************/
 
-void Frame::createHistogram(IplImage* frame, Histogram* &histogram)
+void Frame::createHistogram(IplImage* frame, Histogram* histogram)
 {
 	histogram = new Histogram(frame);
 }
