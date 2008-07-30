@@ -344,7 +344,7 @@ int main(int argc, char* argv[])
 						}
 
 					//	Histogram *hist = new Histogram(frameAux->data);
-						frameAux->createHistogram(frameAux->data, hist);
+						hist = frameAux->createHistogram();
 
 						Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
 								__FUNCTION__, hist->getMinLuminance(), hist->getMin(), hist->getMaxLuminance(), hist->getMax());
@@ -450,33 +450,38 @@ int main(int argc, char* argv[])
 			{
 				case 'h':
 				{
-					// Monta o ritmo visual por histograma
+					char imgname_cy[100];
 
+					// Monta o ritmo visual por histograma
 					VisualRythim *vrh;
 					Frame *frameVRH;
 
 					int vdoSize = 0;
-					int *visual;
-					int maxLum = 0;
+					double *visual;
+
+					Log::writeLog("%s :: createVRH", __FUNCTION__);
 
 					visual = vrh->createVRH(vdo);
+
 					vdoSize = cvRound(vdo->getFramesTotal());
 
-					maxLum = visual[0];
+					Log::writeLog("%s :: create VRH frame", __FUNCTION__);
 
-					for (int i=1; i<vdoSize; i++)
-					{
-						if( visual[i] > maxLum)
-							maxLum = visual[i];
-					}
+					//frameVRH = new Frame((double*)visual, vdoSize, 256);
+					frameVRH = new Frame(visual, vdoSize, 256);
 
-					frameVRH = new Frame((double*)visual, vdoSize, maxLum);
+					sprintf(imgname_cy, "vrh_%s.jpg", vdo->getName());
+
+					frameVRH->write(imgname_cy);
 
 					cvShowImage(vdo->getName(), frameVRH->data);
+
+					cvWaitKey(0);
 
 					break;
 				}
 				case 'r':
+				{
 					// Monta o ritmo-visual
 					char imgname_cy[100];
 
@@ -495,10 +500,7 @@ int main(int argc, char* argv[])
 
 					sprintf(imgname_cy, "vr_%s.jpg", vdo->getName());
 
-					if(!cvSaveImage(imgname_cy, vr_frame->data))
-					{
-						printf("Could not save: %s\n",imgname_cy);
-					}
+					vr_frame->write(imgname_cy);
 
 					cvWaitKey(0);
 
@@ -506,6 +508,7 @@ int main(int argc, char* argv[])
 					delete vdo;
 
 					break;
+				}
 				case 'n':
 					{
 						char c;

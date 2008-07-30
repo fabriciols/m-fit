@@ -55,7 +55,7 @@ class Frame
 		* Construtor que recebe uma matriz(histograma) e seu tamanho
 		* e faz o seu desenho
 		*/
-		Frame(double matrix[], int len_i, float max_f);
+		Frame(double *matrix, int len_i, float max_f);
 
 		/**
 	 	*Armazena a posição "física" do
@@ -68,7 +68,7 @@ class Frame
 		*Função que cria o histograma da
 		*diagonal do frame.
 		*/
-		void createHistogram(IplImage* frame, Histogram* histogram);
+		Histogram* createHistogram();
 	 
 		/**
 		*Retorna a diagonal do frame.
@@ -95,5 +95,6 @@ class Frame
 
 		void setImage(IplImage *imgNew);
 		void initAttr();
+		void write(char *filename_cy);
 };
 
