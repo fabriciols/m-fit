@@ -21,7 +21,7 @@ class Histogram
 	private:
 
 
-		double data[255];
+		double data[256];
 	 
 	/**
 	 *Guarda o maior valor
