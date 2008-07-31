@@ -80,12 +80,12 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 
 	IplImage* imgHistogram = 0;
 
-	imgHistogram = cvCreateImage(cvSize(len_i*2, HIST_HEIGHT), 8, 1);
-
-	cvZero(imgHistogram);
+	//imgHistogram = cvCreateImage(cvSize(len_i*2, HIST_HEIGHT), 8, 1);
+	imgHistogram = cvCreateImage(cvSize(len_i, HIST_HEIGHT), 8, 1);
 
 	// Desenha a area de trabalho do histograma
-	cvRectangle(imgHistogram, cvPoint(0,0), cvPoint(len_i*2,HIST_HEIGHT), CV_RGB(255,255,255), -1);
+	//cvRectangle(imgHistogram, cvPoint(0,0), cvPoint(len_i*2,HIST_HEIGHT), CV_RGB(255,255,255), -1);
+	cvRectangle(imgHistogram, cvPoint(0,0), cvPoint(len_i,HIST_HEIGHT), CV_RGB(255,255,255), -1);
 
 	// Desenhar as linhas do histograma
 	for (i=0 ; i < len_i ; i++)
@@ -95,10 +95,11 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 		Log::writeLog("%s :: Plot Value[%3d] = [%4.0lf] Normalized = [%3d]", __FUNCTION__, i, matrix[i], normalized);
 
 		// Printa a linha do Histograma
-		cvLine(imgHistogram, cvPoint((i*2)-1,HIST_HEIGHT), cvPoint((i*2)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
+		//cvLine(imgHistogram, cvPoint((i*2)-1,HIST_HEIGHT), cvPoint((i*2)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
+		cvLine(imgHistogram, cvPoint((i)-1,HIST_HEIGHT), cvPoint((i)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
 
 		// Print uma linha em branco, pro histograma nao ficar todo grudado
-		cvLine(imgHistogram, cvPoint(i*2,HIST_HEIGHT), cvPoint(i*2,HIST_HEIGHT-normalized), CV_RGB(0, 255, 255));
+		//cvLine(imgHistogram, cvPoint(i*2,HIST_HEIGHT), cvPoint(i*2,HIST_HEIGHT-normalized), CV_RGB(0, 255, 255));
 
 	}
 

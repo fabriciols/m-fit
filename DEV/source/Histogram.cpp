@@ -59,6 +59,8 @@ Histogram::Histogram(IplImage* img)
 		// Pega o quantas vezes a escala de cinza 'i' aparece na imagem
 		this->data[i] = cvQueryHistValue_1D(hist, i);
 
+		//Log::writeLog("%s :: data[%d] = %.lf", __FUNCTION__, i, this->data[i]);
+
 		// Variavel criada apenas para ter um controle
 		// pois a soma de todos os pixels tem que bater
 		// com a quantidade de pixels que tem na imagem (obvio?)
