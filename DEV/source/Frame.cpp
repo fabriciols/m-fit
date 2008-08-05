@@ -61,6 +61,20 @@ void Frame::initAttr()
 }
 
 /************************************************************************
+* Construtor que somente inicializa as variavies de controle com nulo 
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico:
+* 29/07/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+Frame::Frame()
+{
+	initAttr();
+}
+
+/************************************************************************
 * Construtor para Frame que recebe os valores necessários para plotar
 * um histograma. Cria um objeto Frame com o desenho do histograma.
 *************************************************************************
@@ -421,10 +435,63 @@ Histogram* Frame::createHistogram()
 	return new Histogram(this->data);
 }
 
+/************************************************************************
+* Escreve a imagem em arquivo
+*************************************************************************
+* param (E): char *filename_cy -> nome do arquivo ser gravado
+*************************************************************************
+* Histórico:
+* 05/08/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 void Frame::write(char *filename_cy)
 {
-	if(!cvSaveImage(filename_cy, this->data))
+	Log::writeLog("%s :: write file = [%s]", __FUNCTION__, filename_cy);
+
+	if (this->data)
 	{
-		printf("Could not save: %s\n",filename_cy);
+		if(!cvSaveImage(filename_cy, this->data))
+		{
+			printf("Could not save: %s\n",filename_cy);
+		}
 	}
+	else
+	{
+		Log::writeLog("%s :: No image to save", __FUNCTION__);
+	}
+}
+
+/************************************************************************
+ * Sobrecarga do operador '='
+ *************************************************************************
+ * param (E): Frame frame -> Frame a ser copiado
+ *************************************************************************
+ * Histórico:
+ * 05/08/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+Frame & Frame::operator=(Frame &frame)
+{
+	IplImage *imgNew;
+
+	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
+
+	imgNew = cvCreateImage(cvSize(frame.getWidth(), frame.getHeight()), frame.data->depth, frame.data->nChannels);
+
+	cvCopy(frame.data, imgNew);
+
+	initAttr();
+
+	setImage(imgNew);
+
+	cvNamedWindow("MARIA", 1);
+	cvShowImage("MARIA", this->data);
+
+	cvWaitKey(0);
+
+	cvNamedWindow("MARIA2", 1);
+	cvShowImage("MARIA2", imgNew);
+
+	cvWaitKey(0);
+
 }
