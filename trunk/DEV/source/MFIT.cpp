@@ -204,6 +204,25 @@ int main(int argc, char* argv[])
 
 						break;
 					}
+				case 'z':
+					{
+						Frame *a;
+						Frame b;
+
+						strcpy(effectName, "Marieta.jpg");
+
+						a = new Frame(frame);
+
+						b = *a;
+
+						Log::writeLog("%s :: b[%x]", __FUNCTION__, &b);
+
+						frameEffect = &b;
+
+						frameEffect->write(effectName);
+
+						break;
+					}
 				case 'e':
 					{
 
@@ -237,9 +256,6 @@ int main(int argc, char* argv[])
 
 						Log::writeLog("%s :: frame3[%x] + frame2[%x]", __FUNCTION__, frame3, frame2);
 						Log::writeLog("%s :: frame3->data[%x]", __FUNCTION__, frame3->data);
-
-						cvNamedWindow(effectName, 1);
-						cvShowImage(effectName, frame3->data);
 
 						frameEffect = frame3;
 
@@ -385,17 +401,6 @@ int main(int argc, char* argv[])
 					frameEffect = frame;
 					break;
 
-
-				case 'z':
-					{
-						int a;
-
-						frame[10];
-
-						exit(10);
-						break;
-					}
-
 				case '?':
 				default:
 					usage();
@@ -404,7 +409,8 @@ int main(int argc, char* argv[])
 
 			}
 
-			Log::writeLog("%s :: Effect[%d] : [%s]", __FUNCTION__, effectCount, effectName);
+
+			Log::writeLog("%s :: Effect[%d] : [%s] = [%x]", __FUNCTION__, effectCount, effectName, frameEffect);
 
 			// Salva os dados na estrutura, para poder aplicar efeitos na imagem anterior
 			effectsList[effectCount].name  = effectName;

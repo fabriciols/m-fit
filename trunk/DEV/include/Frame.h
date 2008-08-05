@@ -31,8 +31,6 @@ class Frame
 
 	public:
 
-		int operator[](int a);
-
 		/*
 		* Construtor que recebe um caminho.
 		* Abre a imagem e preenche todos os atributos
@@ -90,8 +88,10 @@ class Frame
 		int getPixel(int x, int y);
 
 		Frame & operator+=(Frame &frame);
+		Frame & operator=(Frame &frame);
 
 		~Frame();
+		Frame();
 
 		void setImage(IplImage *imgNew);
 		void initAttr();
