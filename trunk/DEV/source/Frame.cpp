@@ -169,11 +169,10 @@ Frame::Frame(IplImage *img_src)
 
 	imgNew = cvCreateImage(cvSize(img_src->width, img_src->height), img_src->depth, img_src->nChannels);
 
-	cvCopy(img_src, imgNew);
+	imgCopy(img_src, imgNew);
 
 	setImage(imgNew);
 }
-
 /************************************************************************
 * Construtor para Frame que recebe um frame já instanciado.
 * Clona o frame.
@@ -191,7 +190,7 @@ Frame::Frame(Frame *frame)
 	// Faz a copia do objeto
 	img = cvCreateImage(cvSize(frame->getWidth(), frame->getHeight()), frame->data->depth, frame->data->nChannels);
 
-	cvCopy(frame->data, img);
+	imgCopy(frame->data, img);
 
 	initAttr();
 	setImage(img);
@@ -388,7 +387,7 @@ Frame & Frame::operator+=(Frame &frame)
 			);
 
 	// então copio esta imagem para esta área
-	cvCopy(this->data,imgDst);
+	imgCopy(this->data,imgDst);
 
 	Log::writeLog("%s :: frame x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, this->getWidth(), 0, frame.getWidth(), frame.getHeight());
 
@@ -403,7 +402,7 @@ Frame & Frame::operator+=(Frame &frame)
 			);
 
 	// Copia a segunda parte do frame
-	cvCopy(frame.data,imgDst);
+	imgCopy(frame.data,imgDst);
 
 	// Libera a memoria alocada pela imagem anterior
 	cvReleaseImage(&this->data);
@@ -478,20 +477,28 @@ Frame & Frame::operator=(Frame &frame)
 
 	imgNew = cvCreateImage(cvSize(frame.getWidth(), frame.getHeight()), frame.data->depth, frame.data->nChannels);
 
-	cvCopy(frame.data, imgNew);
+	imgCopy(frame.data, imgNew);
 
 	initAttr();
 
 	setImage(imgNew);
 
-	cvNamedWindow("MARIA", 1);
-	cvShowImage("MARIA", this->data);
-
-	cvWaitKey(0);
-
-	cvNamedWindow("MARIA2", 1);
-	cvShowImage("MARIA2", imgNew);
-
-	cvWaitKey(0);
-
 }
+
+/************************************************************************
+* Funcao que realiza a copia de uma imagem
+*************************************************************************
+* param (E): IplImage* imgSrc -> Imagem de origem
+* param (S): IplImage* imgDst -> Imagem de saida 
+*************************************************************************
+* Histórico:
+* 12/08/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+void Frame::imgCopy(IplImage *imgSrc, IplImage *imgDst)
+{
+	cvCopy(imgSrc, imgDst);
+
+	imgDst->origin = imgSrc->origin;
+}
+
