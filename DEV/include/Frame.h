@@ -96,5 +96,7 @@ class Frame
 		void setImage(IplImage *imgNew);
 		void initAttr();
 		void write(char *filename_cy);
+		void imgCopy(IplImage *imgSrc, IplImage *imgDst);
+
 };
 

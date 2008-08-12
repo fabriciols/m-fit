@@ -209,7 +209,7 @@ int main(int argc, char* argv[])
 						Frame *a;
 						Frame b;
 
-						strcpy(effectName, "Marieta.jpg");
+						strcpy(effectName, "operator=");
 
 						a = new Frame(frame);
 
@@ -517,12 +517,19 @@ int main(int argc, char* argv[])
 				}
 				case 'n':
 					{
+						// Navigate
 						char c;
 						Frame *frameVideo;
 
-						while(true)
+						frameVideo = vdo->getCurrentFrame();
+
+						do
 						{
+							cvShowImage(vdo->getName(), frameVideo->data);
+
 							c = cvWaitKey(0);
+
+							delete frameVideo;
 
 							Log::writeLog("%s :: pressed[%d][%c]", __FUNCTION__, c, c);
 
@@ -543,10 +550,8 @@ int main(int argc, char* argv[])
 							{
 								continue;
 							}
-
-							cvShowImage(vdo->getName(), frameVideo->data);
-
 						}
+						while(true);
 
 						break;
 					}
@@ -566,19 +571,24 @@ void usage()
 {
 	int i;
 	char *usage_cy[] = {
-		"Use: MFIT.exe img_src -[t|d|e|s|h]  Apply filter in img_src\n",
-		"MFIT -t T  Segmentation of the image with the threshold T",
-		"MFIT -d    Dilate the image",
-		"MFIT -e    Erode the image",
-		"MFIT -sh   Apply Sobel (Horizontal) filter in the image",
-		"MFIT -sv   Apply Sobel (Vertial) filter in the image",
-		"MFIT -s    Apply Sobel (Both) filter in the image",
-		"MFIT -h    Print the histogram of the last img",
-		"MFIT -p    Print the img_src",
-		"MFIT -g    Print the img_src in gray",
-		"MFIT -l M Apply low-pass filter with the kernel M",
-		"MFIT -H M Apply high-pass filter with the kernel M",
-		"MFIT -w    Write the last effect on a file",
+		"Use: MFIT.exe img/video -[t|d|e|s|h|p|g|l|H|w|n|z|f]  - Apply filter in img/video\n",
+		"MFIT image -t T Segmentation of the image with the threshold T",
+		"MFIT image -d   Dilate the image",
+		"MFIT image -e   Erode the image",
+		"MFIT image -sh  Apply Sobel (Horizontal) filter in the image",
+		"MFIT image -sv  Apply Sobel (Vertial) filter in the image",
+		"MFIT image -s   Apply Sobel (Both) filter in the image",
+		"MFIT image -h   Print the histogram of the last img",
+		"MFIT image -p   Print the img_src",
+		"MFIT image -g   Print the img_src in gray",
+		"MFIT image -l M Apply low-pass filter with the kernel M",
+		"MFIT image -H M Apply high-pass filter with the kernel M",
+		"MFIT image -w   Write the last effect on a file",
+		"MFIT image -z   Simulate a '=' operation with frame",
+		"MFIT image -f   Get a image diagonal",
+		"MFIT video -n   Navigate using '<' and '>' in a video file",
+		"MFIT video -v   Generate a Visual Rythm",
+		"MFIT video -h   Generate a Visual Rythm Histogram",
 		""
 	};
 
