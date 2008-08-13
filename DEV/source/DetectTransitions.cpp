@@ -27,6 +27,8 @@
 * return : Lista de transições.
 *************************************************************************
 * Histórico:
+* 13/08/08 - Thiago Mizutani
+* Implementação dos procedimentos de detecção das transições
 * 04/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
@@ -36,12 +38,11 @@ Transition* DetectTransitions::detectTransitions(Video* vdo, int type)
 	Transition* transitions;
 
 	// Detecção de cortes ou todas. 
-	// Quando for deteccao de todos os tipos inicia-se pelo corte.
-	//
 	Cut* DTC;
 //		Fade* DTF;
 //		Dissolve* DTD;
 	
+	// Quando for deteccao de todos os tipos (0) inicia-se pelo corte.
 	if (type == 0 || type == 1)
 		transitions = DTC->detectTransitions(vdo, type); // Cortes
 //	else if (type == 2)
