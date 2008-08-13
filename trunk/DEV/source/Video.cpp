@@ -246,13 +246,13 @@ Frame* Video::getNextFrame()
 Frame* Video::getPreviousFrame()
 {
 	// Posiciono no frame anterior
-	seekFrame((long)this->getFramePos() - 1);
+	seekFrame((long)this->getCurrentPosition() - 1);
 
 	// Capturo este frame
 	Frame *frameNew = getNextFrame();
 
 	// Posiciono no frame capturado
-	seekFrame((long)this->getFramePos() - 1);
+	seekFrame((long)this->getCurrentPosition() - 1);
 
 	return (frameNew);
 }
@@ -274,7 +274,7 @@ Frame* Video::getCurrentFrame()
 	Frame *frameCurrent = getNextFrame();
 
 	// Volta a apontar pra ele
-	if (seekFrame((long)this->getFramePos() - 1) == 1)
+	if (seekFrame((long)this->getCurrentPosition() - 1) == 1)
 	{
 		// Se retornar 1: erro FATAL!
 		throw;
@@ -341,17 +341,21 @@ int Video::seekFrame(unsigned long posFrame)
 }
 
 /************************************************************************
-* Get para a variavel framePos
+* Retorna valor da posição atual do video (em qual frame está)
 *************************************************************************
 * param (E): Nenhum
 ************************************************************************
 * return: double framePos
 ************************************************************************
 * Histórico
+* 13/08/08 - Thiago Mizutani
+* Renomeando a função de acordo com aquilo que estava na especificação.
 * 30/07/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-double Video::getFramePos()
+double Video::getCurrentPosition()
 {
 	return framePos;
 }
+
+

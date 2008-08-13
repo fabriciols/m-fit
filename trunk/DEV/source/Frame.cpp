@@ -469,7 +469,7 @@ void Frame::write(char *filename_cy)
  * 05/08/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-Frame & Frame::operator=(Frame &frame)
+/*Frame & Frame::operator=(Frame &frame)
 {
 	IplImage *imgNew;
 
@@ -484,7 +484,7 @@ Frame & Frame::operator=(Frame &frame)
 	setImage(imgNew);
 
 }
-
+*/
 /************************************************************************
 * Funcao que realiza a copia de uma imagem
 *************************************************************************

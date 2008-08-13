@@ -34,11 +34,11 @@
 Frame* VisualRythim::createVR(Video* vdo)
 {
 
-	Frame *frameVR;
-	Frame* frame;
-	Frame *frameAux;
+	Frame *frameVR = 0;
+	Frame* frame = 0;
+	Frame *frameAux = 0;
 
-	Color *color;
+	Color *color = 0;
 
 	int lum;
 
@@ -62,6 +62,7 @@ Frame* VisualRythim::createVR(Video* vdo)
 		Log::writeLog("%s :: Convert2Gray [%x]", __FUNCTION__, frame);
 
 		// Converto o frame para escala de cinza.
+		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
 		frame = color->convert2Gray(frame);
 
 		// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
