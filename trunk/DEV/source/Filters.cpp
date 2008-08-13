@@ -20,19 +20,25 @@
 Frame* Filters::segment(Frame* frame, int threshold)
 {
 	IplImage* img_dst;
+	Frame *frameNew;
 
 	Log::writeLog("%s :: param: frame[%x] threshold[%d]", __FUNCTION__, frame, threshold);
 
 	// Faz uma copia da imagem
-	img_dst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	img_dst = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
 
 	Log::writeLog("%s :: cvThreshold: frame_src[%x] frame_dst[%d] thresh[%d] maxValue[%d] CvThresh[%s]", __FUNCTION__, frame->data, img_dst, threshold, 255, "CV_THRESH_BINARY_INV");
 
 	// Aplica o limiar
 	cvThreshold(frame->data, img_dst, threshold, 255, CV_THRESH_BINARY_INV);
 
+	frameNew = new Frame(img_dst);
+
+	// Nao preciso mais da imagem, posso (devo) desalocar
+	Frame::imgDealloc(img_dst);
+
 	// Retorna um objeto encapsulado do tipo frame
-	return (new Frame(img_dst));
+	return (frameNew);
 }
 
 /************************************************************************
@@ -56,10 +62,11 @@ Frame* Filters::segment(Frame* frame, int threshold)
 Frame* Filters::Sobel(Frame* frame, int direction)
 {
    IplImage* img_dst;
+	Frame *frameNew;
 
 	Log::writeLog("%s :: param: frame[%x] direction[%d]", __FUNCTION__, frame, direction);
 	
-	img_dst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	img_dst = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
    
    switch(direction)
    {
@@ -88,8 +95,14 @@ Frame* Filters::Sobel(Frame* frame, int direction)
 			break;
 
    }
+
+	// Transformo em frame
+	frameNew = new Frame(img_dst);
+
+	// Jah posso desalocar a img
+	Frame::imgDealloc(img_dst);
    
-   return(new Frame(img_dst));
+   return(frameNew);
 }
 
 /************************************************************************
@@ -117,6 +130,7 @@ Frame* Filters::lowPass(Frame* frame, int size)
 {
    IplImage* imgDst = 0;
 	IplImage* imgAux = 0;
+	Frame *frameNew;
 
 	Log::writeLog("%s :: param: frame[%x] size[%d]", __FUNCTION__, frame, size);
 
@@ -135,8 +149,8 @@ Frame* Filters::lowPass(Frame* frame, int size)
 	double convMask[total_size];
 	
 	// Cria uma imagem com os mesmos parâmetros da original.
-	imgDst = cvCreateImage(cvGetSize(frame->data), frame->data->depth, frame->data->nChannels);
-	imgAux = cvCreateImage(cvGetSize(frame->data), frame->data->depth, frame->data->nChannels);
+	imgDst = Frame::imgAlloc(cvGetSize(frame->data), frame->data->depth, frame->data->nChannels);
+	imgAux = Frame::imgAlloc(cvGetSize(frame->data), frame->data->depth, frame->data->nChannels);
 
 	// Monta a máscara com o tamanho que foi passado como parâmetro.
 	for (int i=0; i<total_size; i++)	
@@ -154,7 +168,14 @@ Frame* Filters::lowPass(Frame* frame, int size)
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
-	return (new Frame(imgDst));
+	// Cria um objeto frame
+	frameNew = new Frame(imgDst);
+
+	// Desaloca os temporários
+	Frame::imgDealloc(imgDst);
+	Frame::imgDealloc(imgAux);
+
+	return (frameNew);
 
 }
 
@@ -183,6 +204,7 @@ Frame* Filters::highPass(Frame* frame, int typeMask)
 {
 	IplImage* imgDst = 0;
 	IplImage* imgAux = 0;
+	Frame *frameNew = 0;
 
 	int cols = 0;
 	int rows = 0;
@@ -211,8 +233,8 @@ Frame* Filters::highPass(Frame* frame, int typeMask)
 	};
 
 	// Cria uma img com as mesmas propriedades da imagem de parâmetro
-	imgAux = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
-	imgDst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	imgAux = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	imgDst = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
 
 	// Se não estiver dentro do range
 	// de máscaras válidas, atribui valor default
@@ -244,5 +266,10 @@ Frame* Filters::highPass(Frame* frame, int typeMask)
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
-	return (new Frame(imgDst));
+	frameNew = new Frame(imgDst);
+
+	Frame::imgDealloc(imgDst);
+	Frame::imgDealloc(imgAux);
+
+	return (frameNew);
 }

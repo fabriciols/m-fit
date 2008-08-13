@@ -36,6 +36,7 @@ Frame* VisualRythim::createVR(Video* vdo)
 
 	Frame *frameVR = 0;
 	Frame* frame = 0;
+	Frame* frameGray = 0;
 	Frame *frameAux = 0;
 
 	Color *color = 0;
@@ -56,17 +57,21 @@ Frame* VisualRythim::createVR(Video* vdo)
 	frame = vdo->getNextFrame();
 	frameVR = new Frame(frame->getDiagonal());
 
-	while(frame != NULL)
+	while(true)
 	{
+		frame = vdo->getNextFrame();
 
-		Log::writeLog("%s :: Convert2Gray [%x]", __FUNCTION__, frame);
+		if (frame == NULL)
+			break;
+
+		Log::writeLog("%s :: Convert2Gray Frame[%x] Frame->data[%x]", __FUNCTION__, frame, frame->data);
 
 		// Converto o frame para escala de cinza.
 		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
-		frame = color->convert2Gray(frame);
+		frameGray = color->convert2Gray(frame);
 
 		// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
-		frameAux = frame->getDiagonal();
+		frameAux = frameGray->getDiagonal();
 
 		/** Utilizando sobrecarga de operador para concatenar uma nova coluna ao frame
 		 * do Ritmo Visual.
@@ -77,14 +82,11 @@ Frame* VisualRythim::createVR(Video* vdo)
 		// Desaloca os temporarios
 		delete frameAux;
 		delete frame;
-		
-		frame = vdo->getNextFrame();
+		delete frameGray;
+
 	}
 
 	Log::writeLog("%s :: max_frames[%.f]", __FUNCTION__, vdo->getFramesTotal());
-
-	Log::writeLog("%s :: end ", __FUNCTION__);
-
 	return (frameVR);
 }
 
@@ -158,8 +160,6 @@ double* VisualRythim::createVRH(Video* vdo)
 		Log::writeLog("%s :: getNextFrame", __FUNCTION__);
 
 		frame = vdo->getNextFrame();
-
-		Log::writeLog("%s :: getDiagonal", __FUNCTION__);
 
 		posic++;
 
