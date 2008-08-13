@@ -2,7 +2,7 @@
  *Classe responsável por indentificar
  *transições do tipo Corte.
  */
-class Cut: public DetectTransitions
+class Cut:DetectTransitions
 {
  
 	private:
@@ -14,6 +14,7 @@ class Cut: public DetectTransitions
 	public:
 		Frame createBorderMap();
 	 
+		Transition* detectTransitions(Video* vdo, int type);
 	/**
 	 *Processo para a definição da 
 	 *limiar de corte para o processo
@@ -23,5 +24,6 @@ class Cut: public DetectTransitions
 	int defineTreshold();
 	 
 	int countPoints();
-	 
+
+
 };
