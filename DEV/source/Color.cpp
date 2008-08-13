@@ -18,16 +18,18 @@
 Frame* Color::convert2Gray(Frame* frame)
 {
 	IplImage *imgGray;
+	Frame *frameNew;
 
 	// Cria a img com as mesmas dimensões da instância atual
 	// porém com 8 bits e 1 canal apenas
-	imgGray = cvCreateImage(cvGetSize(frame->data),8,1);
-
-	// Ordena os bytes da imagem, senão ela ficará de ponta cabeça
-	imgGray->origin = frame->data->origin;
+	imgGray = Frame::imgAlloc(cvGetSize(frame->data),8,1);
 
 	// Converte pra cinza;
 	cvCvtColor(frame->data, imgGray, CV_RGB2GRAY);
 
-	return (new Frame(imgGray));
+	frameNew = new Frame(imgGray);
+
+	Frame::imgDealloc(imgGray);
+
+	return (frameNew);
 }

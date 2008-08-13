@@ -20,18 +20,20 @@
 ************************************************************************/
 Frame* Morphology::dilate(Frame* frame)
 {
-
 	IplImage *imgDst;
+	Frame *frameNew;
 
-	Log::writeLog("%s :: cvCreateImage depth[%d] Channels[%d]", __FUNCTION__, frame->data->depth, frame->data->nChannels);
-
-	imgDst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	imgDst = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
 
 	Log::writeLog("%s :: cvDilate frame[%x] imgDst[%x] IplConvKernel[%d] iterations[%d]", __FUNCTION__, frame, imgDst, 0, 1);
 
 	cvDilate(frame->data, imgDst, 0, 1);
 
-	return (new Frame(imgDst));
+	frameNew = new Frame(imgDst);
+
+	Frame::imgDealloc(imgDst);
+
+	return (frameNew);
 }
 
 /************************************************************************
@@ -48,14 +50,17 @@ Frame* Morphology::dilate(Frame* frame)
 Frame* Morphology::erode(Frame* frame)
 {
 	IplImage *imgDst;
+	Frame *frameNew;
 
-	Log::writeLog("%s :: cvCreateImage depth[%d] Channels[%d]", __FUNCTION__, frame->data->depth, frame->data->nChannels);
-
-	imgDst = cvCreateImage(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	imgDst = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
 
 	Log::writeLog("%s :: cvErode frame[%x] imgDst[%x] IplConvKernel[%d] iterations[%d]", __FUNCTION__, frame, imgDst, 0, 1);
 
 	cvErode(frame->data, imgDst, 0, 1);
 
-	return (new Frame(imgDst));
+	frameNew = new Frame(imgDst);
+
+	Frame::imgDealloc(imgDst);
+
+	return (frameNew);
 }

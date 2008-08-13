@@ -87,8 +87,8 @@ class Frame
 		// Retorna o valor da luminancia de um pixel.
 		int getPixel(int x, int y);
 
-		Frame & operator+=(Frame &frame);
-		Frame & operator=(Frame &frame);
+		Frame& operator+=(Frame& frame);
+		Frame&  operator=(Frame& frame);
 
 		~Frame();
 		Frame();
@@ -97,6 +97,8 @@ class Frame
 		void initAttr();
 		void write(char *filename_cy);
 		void imgCopy(IplImage *imgSrc, IplImage *imgDst);
+		static IplImage* imgAlloc(CvSize size, int depth, int channels);
+		static void imgDealloc(IplImage* img);
 
 };
 

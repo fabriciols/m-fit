@@ -27,10 +27,8 @@ void Frame::setImage(IplImage* imgNew)
 	// precisa dar uma entendida o por que
 	if (this->data != NULL)
 	{
-		Log::writeLog("%s :: old: this->data[%x]", __FUNCTION__, this->data);
-
 		// Desaloca
-		cvReleaseImage(&this->data);
+		imgDealloc(this->data);
 	}
 
 	// Aponta para a img nova
@@ -95,7 +93,7 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 	IplImage* imgHistogram = 0;
 
 	//imgHistogram = cvCreateImage(cvSize(len_i*2, HIST_HEIGHT), 8, 1);
-	imgHistogram = cvCreateImage(cvSize(len_i, HIST_HEIGHT), 8, 1);
+	imgHistogram = imgAlloc(cvSize(len_i, HIST_HEIGHT), 8, 1);
 
 	// Desenha a area de trabalho do histograma
 	//cvRectangle(imgHistogram, cvPoint(0,0), cvPoint(len_i*2,HIST_HEIGHT), CV_RGB(255,255,255), -1);
@@ -167,7 +165,7 @@ Frame::Frame(IplImage *img_src)
 	Log::writeLog("%s :: Constructor param: IplImage[%x]", __FUNCTION__, img_src);
 	initAttr();
 
-	imgNew = cvCreateImage(cvSize(img_src->width, img_src->height), img_src->depth, img_src->nChannels);
+	imgNew = imgAlloc(cvSize(img_src->width, img_src->height), img_src->depth, img_src->nChannels);
 
 	imgCopy(img_src, imgNew);
 
@@ -188,7 +186,7 @@ Frame::Frame(Frame *frame)
 	IplImage *img;
 
 	// Faz a copia do objeto
-	img = cvCreateImage(cvSize(frame->getWidth(), frame->getHeight()), frame->data->depth, frame->data->nChannels);
+	img = imgAlloc(cvSize(frame->getWidth(), frame->getHeight()), frame->data->depth, frame->data->nChannels);
 
 	imgCopy(frame->data, img);
 
@@ -264,9 +262,11 @@ Frame * Frame::getDiagonal()
 
 	Log::writeLog("%s :: diagonal img width[%d] height[%d]", __FUNCTION__, 1, this->getWidth());
 
-	IplImage* imgDiagonal = cvCreateImage(cvSize(1, this->getWidth()), 8, 1);
+	IplImage* imgDiagonal = imgAlloc(cvSize(1, this->getWidth()), 8, 1);
 
 	frameDiagonal = new Frame(imgDiagonal);
+
+	imgDealloc(imgDiagonal);
 
 	/** Calculo o coeficiente angular da reta ('a' da equacao).
 	 * this->getHeight = y - yo
@@ -283,6 +283,7 @@ Frame * Frame::getDiagonal()
 		// Monto o this da diagonal (já transformado em coluna).
 		frameDiagonal->setPixel(0, x, this->getPixel(x, y));
 	}	
+
 
 	return(frameDiagonal);
 
@@ -343,7 +344,7 @@ Frame::~Frame()
 	if (this->data)
 	{
 		// Libera a memoria alocada para ele
-		cvReleaseImage(&this->data);
+		imgDealloc(this->data);
 	}
 }
 
@@ -370,7 +371,7 @@ Frame & Frame::operator+=(Frame &frame)
 		throw;
 
 	// Crio uma imagem com a largura igual a soma das larguras
-	imgDst = cvCreateImage(cvSize(this->getWidth() + frame.getWidth(), this->getHeight()), this->data->depth, this->data->nChannels);
+	imgDst = imgAlloc(cvSize(this->getWidth() + frame.getWidth(), this->getHeight()), this->data->depth, this->data->nChannels);
 
 	Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
 
@@ -403,9 +404,6 @@ Frame & Frame::operator+=(Frame &frame)
 
 	// Copia a segunda parte do frame
 	imgCopy(frame.data,imgDst);
-
-	// Libera a memoria alocada pela imagem anterior
-	cvReleaseImage(&this->data);
 
 	// Removo as áreas de interesse da imagem
 	cvResetImageROI(imgDst);
@@ -469,13 +467,17 @@ void Frame::write(char *filename_cy)
  * 05/08/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-/*Frame & Frame::operator=(Frame &frame)
+Frame & Frame::operator=(Frame &frame)
 {
 	IplImage *imgNew;
 
-	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
+	if (this->data)
+	{
+		Log::writeLog("%s :: Release: this->data[%x]", __FUNCTION__, this->data);
+		imgDealloc(this->data);
+	}
 
-	imgNew = cvCreateImage(cvSize(frame.getWidth(), frame.getHeight()), frame.data->depth, frame.data->nChannels);
+	imgNew = imgAlloc(cvSize(frame.getWidth(), frame.getHeight()), frame.data->depth, frame.data->nChannels);
 
 	imgCopy(frame.data, imgNew);
 
@@ -483,8 +485,9 @@ void Frame::write(char *filename_cy)
 
 	setImage(imgNew);
 
+	return *this;
+
 }
-*/
 /************************************************************************
 * Funcao que realiza a copia de uma imagem
 *************************************************************************
@@ -500,5 +503,43 @@ void Frame::imgCopy(IplImage *imgSrc, IplImage *imgDst)
 	cvCopy(imgSrc, imgDst);
 
 	imgDst->origin = imgSrc->origin;
+}
+
+/************************************************************************
+* Funcao que centraliza a alocacao de memoria e criacao de uma imagem
+*************************************************************************
+* param (E): CvSize  size     -> Altura e largura da imagem
+* param (E): int		depth    -> Quantidade de bits para as cores
+* param (E): int		channels -> Quantidades de canais possiveis
+*************************************************************************
+* Histórico:
+* 12/08/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+IplImage* Frame::imgAlloc(CvSize size, int depth, int channels)
+{
+	IplImage *imgNew;
+
+	imgNew = cvCreateImage(size, depth, channels);
+	
+	Log::writeLog("%s :: New image: [%x]", __FUNCTION__, imgNew);
+
+	return imgNew;
+}
+
+/************************************************************************
+* Funcao que centraliza a desaalocacao de memoria de imagens
+*************************************************************************
+* param (E): IplImage* img -> Imagem a ser desalocada
+*************************************************************************
+* Histórico:
+* 12/08/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+void Frame::imgDealloc(IplImage *img)
+{
+	Log::writeLog("%s :: Delete image: [%x]", __FUNCTION__, img);
+
+	cvReleaseImage(&img);
 }
 
