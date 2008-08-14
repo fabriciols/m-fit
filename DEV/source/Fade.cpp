@@ -28,7 +28,7 @@
 double* Fade::calcDerivative(double *array, int size_i)
 {
 	// Para calcular a derivada no eixo y , calculamos para cada ponto fy:
-	// dy = ( f(y+1) - f(y-1) ) / 2
+	// dy = ((f(y+1) - f(y-1)) / 2)
 
 	double dy;
 	int i = 0;
@@ -45,7 +45,7 @@ double* Fade::calcDerivative(double *array, int size_i)
 	for ( i = 1 ; i < size_i ; i++ )
 	{
 			array_dy[i] = (( array[i-1] - array[i+1] ) / 2);
-			Log::writeLog("%s :: array_dy[%d] = %ld", i, array_dy[i]);
+			Log::writeLog("%s :: array_dy[%d] = %lf", __FUNCTION__, i, array_dy[i]);
 	}
 
 	return array_dy;

@@ -606,11 +606,8 @@ int main(int argc, char* argv[])
 
 						do
 						{
-							cvShowImage(vdo->getName(), frameVideo->data);
 
 							c = cvWaitKey(0);
-
-							delete frameVideo;
 
 							Log::writeLog("%s :: pressed[%d][%c]", __FUNCTION__, c, c);
 
@@ -622,19 +619,70 @@ int main(int argc, char* argv[])
 							else if (c == 46)
 							{
 								frameVideo = vdo->getNextFrame();
-							} // -1 = Fechar a janela 27 = ESC
-							else if (c == -1 || c == 27)
+							} // 103 - g - go to
+							else if ( c == 103 )
 							{
+								char d = 0;
+								int  i = 0;
+								char qnt_cy[10];
+								int  z = 0;
+								int pos;
+								int pos_max;
+
+								pos_max = cvRound(vdo->getFramesTotal());
+
+								// Digitar a seguir o numero desejado e dar enter
+								printf("Please type the pos and press enter\n");
+
+								while ( d != 13 && d != -1 && d != 27) // 13 = ENTER 
+								{
+
+									if (i == 9)
+									{
+										break;
+									}
+
+									d = cvWaitKey(0);
+									qnt_cy[i] = d;
+									Log::writeLog("%s :: Entered : [%d] [%c] total [%d]", __FUNCTION__, d, d, z);
+
+									i++;
+								}
+
+								qnt_cy[i-1] = 0;
+
+								pos = atoi(qnt_cy);
+
+								Log::writeLog("%s :: GoTo [%d] [%s] max[%d]", __FUNCTION__, pos, qnt_cy, pos_max);
+
+								// Se for digitado mais do que tem, truncamos para o ultimo frame
+								if (pos >= pos_max)
+								{
+									Log::writeLog("%s :: pos = pos_max", __FUNCTION__);
+									pos = pos_max - 1;
+								}
+
+								vdo->seekFrame(pos);
+
+								frameVideo = vdo->getCurrentFrame();
+
+							} // -1 = Fechar a janela 27 = ESC 3 = CTRL+C
+							else if (c == -1 || c == 27 || c == 3)
+							{
+								Log::writeLog("%s :: End key pressed [%d]", __FUNCTION__, c);
 								break;
 							}
 							else
 							{
 								continue;
 							}
+
+							cvShowImage(vdo->getName(), frameVideo->data);
+							delete frameVideo;
+
 						}
 						while(true);
 
-						delete frameVideo;
 
 						break;
 					}
@@ -645,6 +693,7 @@ int main(int argc, char* argv[])
 						VisualRythim *vrh;
 						int len_i;
 						double *array_dy;
+						double *array_dydy;
 						double *array_vrh;
 
 						char imgname_cy[50];
@@ -657,19 +706,15 @@ int main(int argc, char* argv[])
 
 						array_dy = fade->calcDerivative(array_vrh, len_i);
 
-						frameFADE = new Frame(array_dy, len_i, 256);
+						array_dydy = fade->calcDerivative(array_dy, len_i);
+
+						frameFADE = new Frame(array_dydy, len_i, 256);
 
 						cvShowImage(vdo->getName(), frameFADE->data);
 
 						sprintf(imgname_cy, "vrh_derivative_%s.jpg", vdo->getName());
 
 						frameFADE->write(imgname_cy);
-
-						for (i=0 ; i < len_i ; i++)
-						{
-							delete &array_vrh[i];
-							delete &array_dy[i];
-						}
 
 						delete array_vrh;
 						delete array_dy;
