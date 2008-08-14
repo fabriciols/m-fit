@@ -5,10 +5,14 @@
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Video.h"
+
 #include "../include/Transition.h"
 #include "../include/VisualRythim.h"
+
 #include "../include/DetectTransitions.h"
+
 #include "../include/Cut.h"
+
 #include "../include/Filters.h"
 #include "../include/Log.h"
 
@@ -31,7 +35,7 @@
 * Criação.
 ************************************************************************/
 
-Transition* Cut::detectTransitions(Video* vdo, int type)
+void Cut::detectTransitions(Video* vdo, Transition *transitions)
 { 
    Frame* vrLow= 0;
 	Frame* borderMap = 0;

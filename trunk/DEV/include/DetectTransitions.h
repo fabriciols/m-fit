@@ -13,5 +13,5 @@ class DetectTransitions
 	 *filhos.
 	 */
 	public:
-		Transition* detectTransitions(Video* vdo, int type);
+		void detectTransitions(Video* vdo, Transition *transitions);
 };

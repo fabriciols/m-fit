@@ -16,6 +16,14 @@
 
 #include "../include/VisualRythim.h"
 
+#include "../include/Transition.h"
+#include "../include/DetectTransitions.h"
+#include "../include/Cut.h"
+#include "../include/Fade.h"
+#include "../include/Fadein.h"
+#include "../include/Fadeout.h"
+#include "../include/Dissolve.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -182,6 +190,80 @@ int main(int argc, char* argv[])
 						break;
 
 					}
+				case 'v':
+					{
+
+						Frame *frame2;
+						Frame *frame3;
+						Frame *frameNew;
+						IplImage *imgDst;
+						char filename_cy[100];
+
+						strcpy(effectName, "Concatenate Vertical");
+
+						frame2 = new Frame(frame);
+						frame3 = new Frame(argv[i+1]);
+
+
+
+						imgDst = Frame::imgAlloc(
+								cvSize(frame2->getWidth(), frame2->getHeight() + 3 + frame3->getHeight()),
+								frame2->data->depth,
+								frame2->data->nChannels);
+
+						Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
+
+						Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, 0, frame2->getWidth(), frame2->getHeight());
+
+						// Na imagem destino, seto a area de interesse o espaco que a primeira imagem ira ocupar
+						cvSetImageROI(imgDst,
+								cvRect
+								(
+								 0,
+								 0,
+								 frame2->getWidth(),
+								 frame2->getHeight())
+								);
+
+						// então copio esta imagem para esta área
+						frame2->imgCopy(frame2->data,imgDst);
+
+						Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, frame3->getHeight()+2, frame3->getWidth(), frame3->getHeight());
+
+						// Agora, seto a area de interesse o espaco que a segunda imagem irá ocupar
+						cvSetImageROI(imgDst,
+								cvRect
+								(
+								 0,
+								 frame2->getHeight()+2,
+								 frame3->getWidth(),
+								 frame3->getHeight())
+								);
+
+						// Copia a segunda parte do frame
+						frame2->imgCopy(frame3->data,imgDst);
+
+						// Removo as áreas de interesse da imagem
+						cvResetImageROI(imgDst);
+
+						cvLine(imgDst, cvPoint(0,frame2->getHeight()+2), cvPoint(frame2->getWidth(),frame2->getHeight()+2), CV_RGB(0, 0, 0));
+
+						frameNew = new Frame(imgDst);
+
+						frameEffect = frameNew;
+
+						Frame::imgDealloc(imgDst);
+
+						strcpy(filename_cy, argv[i-1]);
+						strcat(filename_cy, " x ");
+						strcat(filename_cy, argv[i+1]);
+
+						frameNew->write(filename_cy);
+
+						break;
+
+					}
+
 				case 'd':
 					{
 						Morphology *morph = new Morphology();
@@ -338,7 +420,7 @@ int main(int argc, char* argv[])
 					}
 				case 'h':
 					{
-						
+
 						Histogram *hist;
 						Frame *frameAux;
 
@@ -359,7 +441,7 @@ int main(int argc, char* argv[])
 							sprintf(effectName, "Histogram of %s", filename_cy);
 						}
 
-					//	Histogram *hist = new Histogram(frameAux->data);
+						//	Histogram *hist = new Histogram(frameAux->data);
 						hist = frameAux->createHistogram();
 
 						Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
@@ -455,66 +537,65 @@ int main(int argc, char* argv[])
 			switch (argv[i][1])
 			{
 				case 'h':
-				{
-					char imgname_cy[100];
+					{
+						char imgname_cy[100];
 
-					// Monta o ritmo visual por histograma
-					VisualRythim *vrh;
-					Frame *frameVRH;
+						// Monta o ritmo visual por histograma
+						VisualRythim *vrh;
+						Frame *frameVRH;
 
-					int vdoSize = 0;
-					double *visual;
+						int vdoSize = 0;
+						double *visual;
 
-					Log::writeLog("%s :: createVRH", __FUNCTION__);
+						Log::writeLog("%s :: createVRH", __FUNCTION__);
 
-					visual = vrh->createVRH(vdo);
+						visual = vrh->createVRH(vdo);
 
-					vdoSize = cvRound(vdo->getFramesTotal());
+						vdoSize = cvRound(vdo->getFramesTotal());
 
-					Log::writeLog("%s :: create VRH frame", __FUNCTION__);
+						Log::writeLog("%s :: create VRH frame", __FUNCTION__);
 
-					//frameVRH = new Frame((double*)visual, vdoSize, 256);
-					frameVRH = new Frame(visual, vdoSize, 256);
+						frameVRH = new Frame(visual, vdoSize, 256);
 
-					sprintf(imgname_cy, "vrh_%s.jpg", vdo->getName());
+						sprintf(imgname_cy, "vrh_%s.jpg", vdo->getName());
 
-					frameVRH->write(imgname_cy);
+						frameVRH->write(imgname_cy);
 
-					cvShowImage(vdo->getName(), frameVRH->data);
+						cvShowImage(vdo->getName(), frameVRH->data);
 
-					cvWaitKey(0);
+						cvWaitKey(0);
 
-					break;
-				}
+						break;
+					}
 				case 'r':
-				{
-					// Monta o ritmo-visual
-					char imgname_cy[100];
+					{
+						// Monta o ritmo-visual
+						char imgname_cy[100];
 
-					VisualRythim *vr;
-					Frame *vr_frame;
+						VisualRythim *vr;
+						Frame *vr_frame;
 
-					Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
+						Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
 
-					vr = new VisualRythim();
+						vr = new VisualRythim();
 
-					Log::writeLog("%s :: createVR[%x]", __FUNCTION__, vdo);
+						Log::writeLog("%s :: createVR[%x]", __FUNCTION__, vdo);
 
-					vr_frame = vr->createVR(vdo);
+						vr_frame = vr->createVR(vdo);
 
-					cvShowImage(vdo->getName(), vr_frame->data);
+						cvShowImage(vdo->getName(), vr_frame->data);
 
-					sprintf(imgname_cy, "vr_%s.jpg", vdo->getName());
+						sprintf(imgname_cy, "vr_%s.jpg", vdo->getName());
 
-					vr_frame->write(imgname_cy);
+						vr_frame->write(imgname_cy);
 
-					cvWaitKey(0);
+						cvWaitKey(0);
 
-					delete vr_frame;
-					delete vdo;
+						delete vr_frame;
+						delete vdo;
 
-					break;
-				}
+						break;
+					}
 				case 'n':
 					{
 						// Navigate
@@ -557,6 +638,44 @@ int main(int argc, char* argv[])
 
 						break;
 					}
+				case 'f':
+					{
+						Fade *fade;
+						Frame *frameFADE;
+						VisualRythim *vrh;
+						int len_i;
+						double *array_dy;
+						double *array_vrh;
+
+						char imgname_cy[50];
+
+						fade = new Fade();
+
+						array_vrh = vrh->createVRH(vdo);
+
+						len_i = cvRound(vdo->getFramesTotal());
+
+						array_dy = fade->calcDerivative(array_vrh, len_i);
+
+						frameFADE = new Frame(array_dy, len_i, 256);
+
+						cvShowImage(vdo->getName(), frameFADE->data);
+
+						sprintf(imgname_cy, "vrh_derivative_%s.jpg", vdo->getName());
+
+						frameFADE->write(imgname_cy);
+
+						for (i=0 ; i < len_i ; i++)
+						{
+							delete &array_vrh[i];
+							delete &array_dy[i];
+						}
+
+						delete array_vrh;
+						delete array_dy;
+						delete frameFADE;
+						delete vrh;
+					}
 			}
 
 			break;
@@ -588,6 +707,8 @@ void usage()
 		"MFIT image -w   Write the last effect on a file",
 		"MFIT image -z   Simulate a '=' operation with frame",
 		"MFIT image -f   Get a image diagonal",
+		"MFIT image -c image2 Concatenate image and image2 (horizontal)",
+		"MFIT image -v image2 Concatenate image and image2 (Vertical)",
 		"MFIT video -n   Navigate using '<' and '>' in a video file",
 		"MFIT video -v   Generate a Visual Rythm",
 		"MFIT video -h   Generate a Visual Rythm Histogram",
