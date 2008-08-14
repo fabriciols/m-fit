@@ -89,6 +89,12 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 
 	int i;
 	int normalized;
+	char *frame_cy;
+	CvFont font;
+
+	cvInitFont(&font, CV_FONT_HERSHEY_PLAIN, 0.5, 0.5, 0, 1, CV_AA);
+
+	frame_cy = (char*)malloc(sizeof(char)*10);
 
 	IplImage* imgHistogram = 0;
 
@@ -109,6 +115,15 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 		// Printa a linha do Histograma
 		//cvLine(imgHistogram, cvPoint((i*2)-1,HIST_HEIGHT), cvPoint((i*2)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
 		cvLine(imgHistogram, cvPoint((i)-1,HIST_HEIGHT), cvPoint((i)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
+
+		if (i % 32 == 0)
+		{
+			sprintf(frame_cy, "%d", i);
+			Log::writeLog("%s :: i[%d] == cvPutText :[%s] cvPoint(%d,%d)", __FUNCTION__, i, frame_cy, i-1, HIST_HEIGHT);
+			cvPutText(imgHistogram, frame_cy, cvPoint(i-1,10), &font, CV_RGB(0,0,0));
+			cvLine(imgHistogram, cvPoint((i)-1,0), cvPoint((i)-1,HIST_HEIGHT), CV_RGB(0, 0, 0));
+		}
+
 
 		// Print uma linha em branco, pro histograma nao ficar todo grudado
 		//cvLine(imgHistogram, cvPoint(i*2,HIST_HEIGHT), cvPoint(i*2,HIST_HEIGHT-normalized), CV_RGB(0, 255, 255));
