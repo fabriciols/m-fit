@@ -12,7 +12,12 @@
 #include "../include/Video.h"
 #include "../include/Transition.h"
 #include "../include/DetectTransitions.h"
+
 #include "../include/Cut.h"
+#include "../include/Fade.h"
+#include "../include/Fadein.h"
+#include "../include/Fadeout.h"
+#include "../include/Dissolve.h"
 
 /************************************************************************
 * Função que faz a detecção das transições.
@@ -33,23 +38,14 @@
 * Criação.
 ************************************************************************/
 
-Transition* DetectTransitions::detectTransitions(Video* vdo, int type)
+void DetectTransitions::detectTransitions(Video* vdo, Transition *transitions)
 {
-	Transition* transitions;
-
-	// Detecção de cortes ou todas. 
+	// Detecção todas as transições
 	Cut* DTC;
-//		Fade* DTF;
-//		Dissolve* DTD;
+	Fade* DTF;
+	Dissolve* DTD;
 	
-	// Quando for deteccao de todos os tipos (0) inicia-se pelo corte.
-	if (type == 0 || type == 1)
-		transitions = DTC->detectTransitions(vdo, type); // Cortes
-//	else if (type == 2)
-//		DTF->detectTransitions(type,vdo); // Fades
-//	else if (type == 3)
-//		DTD->detectTransitions(type,vdo); // Dissolve
-
-
-	return (transitions);
+	DTC->detectTransitions(vdo, transitions); // Cortes
+	//DTF->detectTransitions(vdo, transitions); // Fade
+	//DTD->detectTransitions(vdo, transitions); // Dissolve
 }

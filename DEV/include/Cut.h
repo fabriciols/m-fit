@@ -2,7 +2,7 @@
  *Classe responsável por indentificar
  *transições do tipo Corte.
  */
-class Cut:DetectTransitions
+class Cut: public DetectTransitions
 {
  
 	private:
@@ -14,7 +14,7 @@ class Cut:DetectTransitions
 	public:
 		Frame* createBorderMap(Frame* visualRythim);
 	 
-		Transition* detectTransitions(Video* vdo, int type);
+		void detectTransitions(Video *vdo, Transition *transitions);
 
 		int getTreshould();
 
