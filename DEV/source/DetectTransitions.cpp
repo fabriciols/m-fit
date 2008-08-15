@@ -23,11 +23,7 @@
 * Função que faz a detecção das transições.
 *************************************************************************
 * param (E): Video* vdo => video em qual será feita a detecção
-* param (E): int type => tipo de detecção de transição a ser feita.
-* 								 0 -> todas
-* 								 1 -> só cortes
-* 								 2 -> só fades
-* 								 3 -> só dissolve
+* param (E): Transition* transitions => lista de transições
 *************************************************************************
 * return : Lista de transições.
 *************************************************************************
@@ -40,10 +36,9 @@
 
 void DetectTransitions::detectTransitions(Video* vdo, Transition *transitions)
 {
-	// Detecção todas as transições
-	Cut* DTC;
-	Fade* DTF;
-	Dissolve* DTD;
+	Cut* DTC = new Cut();
+//	Fade* DTF;
+//	Dissolve* DTD;
 	
 	DTC->detectTransitions(vdo, transitions); // Cortes
 	//DTF->detectTransitions(vdo, transitions); // Fade

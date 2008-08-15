@@ -7,6 +7,25 @@
 #define HIST_HEIGHT 256
 
 /************************************************************************
+* Construtor. inicializa as variaveis com 0.
+*************************************************************************
+* param (E): nenhum
+*************************************************************************
+* Histórico:
+* 15/08/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+Histogram::Histogram()
+{
+	memset(this->data,'\0',256);
+	this->max = 0;
+	this->maxLum = 0;
+	this->min = 0;
+	this->minLum = 0;
+}
+
+/************************************************************************
 * Construtor para Histogram que recebe uma imagem do tipo IplImage
 * e com isso gera o histograma, preenchedo os atributos necessários.
 *************************************************************************

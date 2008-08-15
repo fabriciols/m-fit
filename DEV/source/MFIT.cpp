@@ -541,7 +541,7 @@ int main(int argc, char* argv[])
 						char imgname_cy[100];
 
 						// Monta o ritmo visual por histograma
-						VisualRythim *vrh;
+						VisualRythim *vrh = new VisualRythim();
 						Frame *frameVRH;
 
 						int vdoSize = 0;
@@ -572,7 +572,7 @@ int main(int argc, char* argv[])
 						// Monta o ritmo-visual
 						char imgname_cy[100];
 
-						VisualRythim *vr;
+						VisualRythim *vr = new VisualRythim();
 						Frame *vr_frame;
 
 						Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
