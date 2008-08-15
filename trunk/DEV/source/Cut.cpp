@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "cv.h"
 #include "highgui.h"
 
@@ -17,12 +18,27 @@
 #include "../include/Log.h"
 
 /************************************************************************
+* Construtor
+*************************************************************************
+* param (E): nenhum
+*************************************************************************
+* return : nenhum
+*************************************************************************
+* Histórico:
+* 15/08/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+Cut::Cut()
+{
+	this->threshold = 0;	
+}
+
+/************************************************************************
 * Função que faz a detecção das transições do tipo corte.
 *************************************************************************
-* param (E): int type => tipo de detecção de transição a ser feita.
-* 								 0 -> todas
-* 								 1 -> só cortes
-*				 Video* vdo => vídeo onde será feita a detecção
+* param (E): Video* vdo => vídeo onde será feita a detecção
+* param (E): Transition *transitions => lista de transições
 *************************************************************************
 * return : Lista de transições.
 *************************************************************************
@@ -37,18 +53,43 @@
 
 void Cut::detectTransitions(Video* vdo, Transition *transitions)
 { 
-   Frame* vrLow= 0;
-	Frame* borderMap = 0;
-	Filters* filters = 0;
-	int treshould = 0;
+   Frame* vrLow = new Frame(); // Ritmo Visual suavizado
+	Frame* borderMap = new Frame(); // Mapa de bordas
+	Frame* binFrame = new Frame(); // Imagem binarizada
+	Frame* frameAux = new Frame();
+	Frame* visual= new Frame();
+
+	Filters* filters = new Filters();
+
+	VisualRythim *vr = new VisualRythim();
+
+	Histogram* hist = new Histogram();
+
+	Time* time = new Time();
+
+	/**
+	 *  Este objeto não poderá ser deletado no final da função, senão
+	 *  irei deletar a última e a penúltima posição da lista.
+	**/
+	Transition* oldTransition = new Transition(); 
+	
+	char* label; 
+	int threshold = 0;
+	int thresholdBin = 0;
+	int *trans = 0;
+	double fps = vdo->getFPS();
+	double totalFrames = vdo->getFramesTotal();
+
+	label = (char*)malloc(sizeof(char)*19);
 
 	// Se a posicao do video não for a inicial, aponto para o primeiro frame.
 	if (vdo->getCurrentPosition() != 0)
 		vdo->seekFrame(0);
 
-	VisualRythim *vr = 0;
+	visual = vr->createVR(vdo);
 
-	Frame *visualRythim = new Frame(vr->createVR(vdo));
+	Frame *visualRythim = new Frame(visual);
+	hist = visualRythim->createHistogram();
 
 	// Faço a suavização do RV para retirada de ruídos.
 	vrLow = filters->lowPass(visualRythim, 5);
@@ -57,9 +98,62 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 	borderMap = this->createBorderMap(vrLow);
 
 	// Pergunto ao usuario se deseja alterar a limiar para detecção.
-	treshould = this->defineTreshould(visualRythim->getHeight());
+	threshold = this->defineThreshold(visualRythim->getHeight());
+
+	// Defino o limiar para binarização da imagem.
+	thresholdBin = (hist->getMaxLuminance())/4;
+
+	binFrame = frameAux->binarizeImage(borderMap,thresholdBin);
+
+	trans = countPoints(binFrame, threshold);
 	
-	//countPoints(borderMap, treshould);
+	for( int i=0; i<(int)totalFrames; i++ )
+	{
+		if(trans[i])
+			// É o primeiro
+			if (!(transitions->previous))
+			{
+				transitions->previous = 0; // Se for o primeiro, não tem previous
+				transitions->next = 0; // A nova transição da lista nunca tem next
+				transitions->setPosTransition(i); // Informo a posição física (frame) em que ocorre a transição
+				
+				time->pos2time(i,fps); // Converto de posição física para tempo
+				
+				sprintf(label,"Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
+				
+				transitions->setLabel(label); //Salvo a label de exibição da transição
+				
+				oldTransition = transitions; // Salvo a transição anterior
+			}
+			else // A lista já foi iniciada
+			{
+				Transition* newTransition = new Transition();
+
+				oldTransition->next = newTransition;
+
+				newTransition->next = 0;
+				newTransition->previous = oldTransition;
+				newTransition->setPosTransitions(i,fps);
+
+				sprintf(label,"Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMSec())
+				
+				newTransitions->setLabel(label); //Salvo a label de exibição da transição
+				
+				oldTransition = newTransitions; // Salvo a transição anterior
+			}
+		}
+	}
+
+	delete vrLow;
+	delete borderMap;
+	delete binFrame;
+	delete frameAux;
+	delete visualRythim;
+	delete filters;
+	delete vr;
+	delete hist;
+	delete time;
+
 }
 
 /************************************************************************
@@ -77,12 +171,16 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 
 Frame* Cut::createBorderMap(Frame* visualRythim)
 {
-	Filters* sobel = 0;
-	Frame* borderMap = 0;
+	Filters* sobel = new Filters();
+	Frame* borderMap = new Frame();
 
 	Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
 
+	// Crio o mapa de bordas do RV com o operador Sobel.
 	borderMap = sobel->Sobel(visualRythim,5);
+
+	delete sobel;
+	delete borderMap;
 
 	return (borderMap);
 }
@@ -102,18 +200,20 @@ Frame* Cut::createBorderMap(Frame* visualRythim)
 * Criação.
 ************************************************************************/
 
-int Cut::defineTreshould(int height)
+int Cut::defineThreshold(int height)
 {
-	int treshould = 0;
+	int threshold = 0;
 	Cut* cut = 0;
 
-	// Would you like to set a new treshould? precisaremos do QT pra fazer isso
+	// Would you like to set a new threshold? precisaremos do QT pra fazer isso
 	// mas podemos fazer o msm esquema q a gnt faz com coletaED. só preciso
 	// ver como faz q eu nao sei. waitKey?
 	
-	setTreshould(treshould > 0 ? treshould : height/2);
+	setThreshold(threshold > 0 ? threshold : height/2);
 	
-	return (getTreshould());
+	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, threshold);
+	
+	return (getThreshold());
 
 }
 
@@ -122,7 +222,7 @@ int Cut::defineTreshould(int height)
 *************************************************************************
 * param (E): Frame* borderMap => mapa de bordas do qual será feita a 
 * 											contagem dos pontos
-* param (E): int treshould => Valor do limiar para considerações de onde
+* param (E): int threshold => Valor do limiar para considerações de onde
 * 										existem cortes
 *************************************************************************
 * return : array preenchido com 1 ou 0, onde houver corte será preenchido
@@ -134,20 +234,47 @@ int Cut::defineTreshould(int height)
 * Criação.
 ************************************************************************/
 
-int Cut::countPoints(Frame* borderMap, int treshould)
+int* Cut::countPoints(Frame* borderMap, int threshold)
 {
 	// Coluna do mapa de bordas que estou analisando.
-/*	int column = 0;
+	int column = 0;
+	int points = 0;
+	int width = borderMap->getWidth();
+	int height = borderMap->getHeight();
 
-	for (column = 0; column<borderMap->getWidth(); column++)	
+	int* transitions;
+	int luminance = 0;	
+
+	transitions = (int*)malloc(sizeof(int)*width);
+	memset(transitions,'\0',width);
+	
+	Log::writeLog("%s :: threshold[%d] ", __FUNCTION__, threshold);
+
+	/**
+	 *	Varro toda a imagem coluna por coluna, pixel a pixel, verificando se
+	 *	o pixel é branco. Se for branco, significa que faz parte da borda.
+	 *	Ao término da contagem de pontos de uma coluna, verifico se o numero
+	 *	de pontos da borda é maior ou igual ao valor do limiar. Se for marco 
+	 *	no vetor transitions que aquela coluna representa um corte.	
+	 * **/
+	for (column = 0; column < width; column++)	
 	{
-		for (int y=0; y<borderMap->getHeight(); y++)
+		for (int y=0; y < height; y++)
 		{
-			if(borderMap->getPixel(column,y)	);
+			luminance = borderMap->getPixel(column,y);
+			if(luminance == 255);
+			{
+				Log::writeLog("%s :: luminance[%d] ", __FUNCTION__, luminance);
+				points++;	
+			}
 		}
+		Log::writeLog("%s :: tamanho da reta[%d] ", __FUNCTION__, points);
+		// Se o nro de pontos da reta for > que o limiar, então é corte.
+		transitions[column] = points >= threshold ? 1 : 0;
+		points = 0;
 	}
-*/
-	return 0;	
+	
+	return (transitions);	
 }
 
 /*************************************************************************
@@ -162,17 +289,17 @@ int Cut::countPoints(Frame* borderMap, int treshould)
 * Criação.
 *************************************************************************/
 
-int Cut::getTreshould(void)
+int Cut::getThreshold(void)
 {
 
-	return (this->treshould);
+	return (this->threshold);
 
 }
 
 /************************************************************************
-* Função que seta o valor do limiar (private treshould) da classe CUT
+* Função que seta o valor do limiar (private threshold) da classe CUT
 *************************************************************************
-* param (E): int treshould => Valor do limiar
+* param (E): int threshold => Valor do limiar
 *************************************************************************
 * return :  nenhum.
 *************************************************************************
@@ -181,9 +308,9 @@ int Cut::getTreshould(void)
 * Criação.
 ************************************************************************/
 
-int Cut::setTreshould(int treshould)
+int Cut::setThreshold(int threshold)
 {
-	this->treshould = treshould;
+	this->threshold = threshold;
 
 	return 0;
 }

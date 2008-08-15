@@ -558,3 +558,33 @@ void Frame::imgDealloc(IplImage *img)
 	cvReleaseImage(&img);
 }
 
+/************************************************************************
+* Funcao que realiza a binarização de uma imagem
+*************************************************************************
+* param (E): Frame* frame => imagem a ser binarizada.
+* param (E): Int threshold => Limiar para binarização
+*************************************************************************
+* Histórico:
+* 15/08/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+Frame* binarizeImage(Frame* frame, int threshold)
+{
+	int column = 0;
+	int y = 0;
+
+	for( column=0; column<frame->getWidth(); column++ )
+	{
+		for( y=0; y<frame->getHeight(); y++ )
+		{
+			// Se a luminancia for maior q o limiar, o pixel fica branco (é borda)
+			if( frame->getPixel(column,y) >= threshold )
+				frame->setPixel(column,y,255);
+			else // senao fica preto (é fundo)
+				frame->setPixel(column,y,0);
+		}
+	}
+
+	return (frame);
+}
