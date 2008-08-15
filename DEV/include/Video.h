@@ -123,4 +123,6 @@ class Video
 		double getFramesHeight();
 		void updatePos();
 		//	double getFramePos();
+		
+		double getFPS();
 };

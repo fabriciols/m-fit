@@ -2,6 +2,12 @@
  *Classe responsável por representar
  *uma transição.
  */
+
+#define CUT 		1
+#define FADEIN 	2
+#define FADEOUT 	3
+#define DISSOLVE 	4
+
 class Transition
 {
 
@@ -21,7 +27,7 @@ class Transition
 		 *marca exatamente o ponto da 
 		 *transição no vídeo.
 		 */
-		int posFrame;
+		int posTransition;
 
 		/**
 		 *Posição do frame (em hh:mm:ss)que 
@@ -29,11 +35,48 @@ class Transition
 		 *transição no vídeo, que foi
 		 *redefinido pelo editor.
 		 */
-		int posUserFrame;
+		int posUserTransition;
 
 		/**
 		 *Identificador da transição na 
 		 *timeline do vídeo.
 		 */
 		char* label;
+
+		Time* time;
+
+	public:
+
+		Transition();
+
+		// Próxima transição detectada na lista 
+		Transition* next;
+
+		// Transição detectada anterior da lista
+		Transition* previous;
+
+		// Seta tipo da transição
+		void setType(int type);
+		
+		// Retorna tipo da transição
+		int getType();
+	
+		// Seta posição da transição (encontrada pelo sistema)
+		void setPosTransition(int posTransition);
+	
+		// Retorna a posição da transição (encontrada pelo sistema)
+		int getPosTransition();
+
+		// Salva a posição da transição (modificada pelo usuário)
+		void setPosUserTransition(int posUser);
+
+		// Retorna a posição da transição (modificada pelo usuário)	
+		int getPosUserTransition();
+
+		// Define a label que irá identificar a transição na timeline
+		void setLabel(char *label);
+
+		// Retorna a label de definição da transição na timeline
+		char* getLabel();
+
 };
