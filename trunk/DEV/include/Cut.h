@@ -6,27 +6,30 @@ class Cut: public DetectTransitions
 {
  
 	private:
-		int treshould;
+		int threshold;
 	 
 	/**
 	 *Cria o mapa de bordas.
 	 */
 	public:
+
+		Cut(); // Construtor
+
 		Frame* createBorderMap(Frame* visualRythim);
 	 
 		void detectTransitions(Video *vdo, Transition *transitions);
 
-		int getTreshould();
+		int getThreshold();
 
-		int setTreshould(int treshould);
+		int setThreshold(int threshold);
 	/**
 	 *Processo para a definição da 
 	 *limiar de corte para o processo
 	 *de detecção de transições do tipo
 	 *corte.
 	 */
-	int defineTreshould(int height);
+	int defineThreshold(int height);
 	 
-	int countPoints(Frame* borderMap, int treshould);
+	int* countPoints(Frame* borderMap, int threshold);
 
 };

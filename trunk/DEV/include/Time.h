@@ -9,16 +9,20 @@ class Time
 		int hour;
 		int min;
 		int sec;
-
 		int msec;
 	 
 	public:
-	/**
-	 *Retorna o valor em POSIÇÃO no 
-	 *vídeo referente ao tempo armazenado
-	 *por este objeto.
-	 */
-		int time2pos();
+		
+		Time();
+		/**
+		 *  Retorna o tempo (milisegundos) da ocorrencia da transição a
+		 *  partir da posicao do frame.
+		**/
+		void pos2time(int position, double fps); 
 
-		void setTime(unsigned long msec);
+		int getHour();
+		int getMin();
+		int getSec();
+		int getMsec();
+
 };

@@ -4,19 +4,6 @@
  */
 class Histogram 
 {
- 
-	/**
-	 *Armazena os dados do histograma
-	 *da imagem.
-	 */
-	public:
-		Histogram(IplImage* img);
-		double* getMatrix();
-		float getMax();
-		float getMin();
-		int getMaxLuminance();
-		int getMinLuminance();
-
 
 	private:
 
@@ -36,4 +23,20 @@ class Histogram
 	 */
 		float min; // Nro de pixels de menor valor
 		int minLum; // Valor da menor luminancia
+
+	/**
+	 *Armazena os dados do histograma
+	 *da imagem.
+	 */
+
+	public:
+		
+		Histogram();
+		Histogram(IplImage* img);
+		double* getMatrix();
+		float getMax();
+		float getMin();
+		int getMaxLuminance();
+		int getMinLuminance();
+
 };

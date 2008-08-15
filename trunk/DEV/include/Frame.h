@@ -73,6 +73,13 @@ class Frame
 		*/
 		Frame * getDiagonal();
 		
+		/**
+		 *	Binariza a imagem de entrada baseando-se em um limiar.
+		 *	O limiar será = a 1/4 da maior luminancia presente na imagem.
+		 *	Este critério é baseado em um artigo
+		 * **/
+		Frame* binarizeImage(Frame* frame, int treshold);	
+
 		// Gets
 
 		// Retorna largura do frame
@@ -90,9 +97,10 @@ class Frame
 		Frame& operator+=(Frame& frame);
 		Frame&  operator=(Frame& frame);
 
-		~Frame();
-		Frame();
+		~Frame(); // Destrutor????
+		Frame();  // Construtor: inicializa as variaveis tds com 0.
 
+		// FABRICIO COMENTA ESSAS FUNÇÕES!!!!
 		void setImage(IplImage *imgNew);
 		void initAttr();
 		void write(char *filename_cy);

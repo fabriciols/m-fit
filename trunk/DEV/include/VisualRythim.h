@@ -6,6 +6,7 @@ class VisualRythim
 {
 
 	public:
+
 		/**
 		 *Cria o Ritmo Visual por sub-amostragem.
 		 */
