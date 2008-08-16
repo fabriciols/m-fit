@@ -20,6 +20,9 @@ class Time
 		**/
 		void pos2time(int position, double fps); 
 
+		// Passa o tempo de milisegundos para HH:MM:SS:MS
+		void setTime(unsigned long msec);
+
 		int getHour();
 		int getMin();
 		int getSec();

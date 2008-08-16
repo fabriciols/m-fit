@@ -43,8 +43,6 @@ class Transition
 		 */
 		char* label;
 
-		Time* time;
-
 	public:
 
 		Transition();
