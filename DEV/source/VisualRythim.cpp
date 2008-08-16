@@ -104,10 +104,10 @@ Frame* VisualRythim::createVR(Video* vdo)
 
 double* VisualRythim::createVRH(Video* vdo)
 {
-	Frame* frame = 0; 
-	Frame* diagonal = 0;
-	Histogram* histogram = 0;	
-	Color *color = 0;
+	Frame* frame = new Frame(); 
+	Frame* diagonal = new Frame();
+	Histogram* histogram = new Histogram();	
+	Color *color = new Color();
 
 	double totalFrames = vdo->getFramesTotal();
 	int posic = 0;
@@ -118,8 +118,6 @@ double* VisualRythim::createVRH(Video* vdo)
 	 * Obs.: Será gerado 1 histograma por frame.
 	**/
 	double* hist; // Este é o RVH.
-
-	color = new Color();
 
 	hist = (double*)malloc(sizeof(double)*cvRound(totalFrames));
 
@@ -168,6 +166,7 @@ double* VisualRythim::createVRH(Video* vdo)
 
 	Log::writeLog("%s :: end", __FUNCTION__);
 
+	delete color;
 	// Retorno o array com os valores do RVH
 	return (hist);
 }

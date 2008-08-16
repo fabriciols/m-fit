@@ -666,6 +666,10 @@ int main(int argc, char* argv[])
 
 								frameVideo = vdo->getCurrentFrame();
 
+								// Se for o untimo frame tem q parar.
+								if (!frameVideo)
+									continue;
+
 							} // -1 = Fechar a janela 27 = ESC 3 = CTRL+C
 							else if (c == -1 || c == 27 || c == 3)
 							{
@@ -720,6 +724,19 @@ int main(int argc, char* argv[])
 						delete array_dy;
 						delete frameFADE;
 						delete vrh;
+
+						break;
+					}
+				case 'c':
+					{
+						// Detecção de cortes
+						
+						Transition* transitions = new Transition();
+						Cut* DTC = new Cut();
+						
+						DTC->detectTransitions(vdo, transitions);
+						
+						break;
 					}
 			}
 
@@ -757,6 +774,7 @@ void usage()
 		"MFIT video -n   Navigate using '<' and '>' in a video file",
 		"MFIT video -v   Generate a Visual Rythm",
 		"MFIT video -h   Generate a Visual Rythm Histogram",
+		"MFIT video -c   Detect cut transitions",
 		""
 	};
 

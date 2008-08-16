@@ -370,7 +370,7 @@ double Video::getCurrentPosition()
 * Criação.
 ************************************************************************/
 
-double getFPS()
+double Video::getFPS()
 {
 	return (this->fps);
 }
