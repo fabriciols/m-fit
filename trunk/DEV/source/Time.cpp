@@ -1,5 +1,46 @@
 #include "../include/time.h"
 
+/************************************************************************
+* Construtor da classe: inicializa as variaveis da classe com 0.
+*************************************************************************
+* param (E): Nenhum.
+************************************************************************
+* return: Nenhum.
+************************************************************************
+* Histórico
+* 16/08/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+Time::Time()
+{
+	this->hour = 0;
+	this->min = 0;
+	this->sec = 0;
+	this->msec = 0;
+}
+
+/************************************************************************
+* Transforma de milesegundos para o formato HH:MM:SS.MMM
+*************************************************************************
+* param (E): unsigned long msec - Tempo em milisegundos
+************************************************************************
+* return: Nenhum.
+************************************************************************
+* Histórico
+* 30/07/08 - Fabrício Lopes de Souza
+* Criação.
+************************************************************************/
+void Time::setTime(unsigned long msec)
+{
+	this->msec = (int)( msec % 1000);
+	this->sec  = (int)((msec /1000) % 60);
+	this->min  = (int)((msec /60000) % 60);
+	this->hour = (int)( msec /3600000);
+
+	return;
+}
+
 /***********************************************************************
 * transforma de posição física para o formato hh:mm:ss.mmm
 ************************************************************************
@@ -13,17 +54,13 @@
 * criação.
 ************************************************************************/
 
-void time::pos2time(int position, double fps)
+void Time::pos2time(int position, double fps)
 {
 	long milisec = 0;
 
-	milisec = position/fps;
+	milisec = position/(int)fps;
 
-	this->msec = (int)( milisec % 1000);
-	this->sec  = (int)((milisec /1000) % 60);
-	this->min  = (int)((milisec /60000) % 60);
-	this->hour = (int)( milisec /3600000);
-
+	this->setTime(milisec);
 }
 
 /***********************************************************************
@@ -38,7 +75,7 @@ void time::pos2time(int position, double fps)
 * criação.
 ************************************************************************/
 
-int getHour()
+int Time::getHour()
 {
 	return (this->hour);
 }
@@ -55,7 +92,7 @@ int getHour()
 * criação.
 ************************************************************************/
 
-int getMin()
+int Time::getMin()
 {
 	return (this->min);
 }
@@ -72,7 +109,7 @@ int getMin()
 * criação.
 ************************************************************************/
 
-int getSec()
+int Time::getSec()
 {
 	return (this->sec);
 }
@@ -89,7 +126,7 @@ int getSec()
 * criação.
 ************************************************************************/
 
-int getMsec()
+int Time::getMsec()
 {
 	return (this->msec);
 }

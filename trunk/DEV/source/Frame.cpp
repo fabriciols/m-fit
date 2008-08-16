@@ -559,7 +559,10 @@ void Frame::imgDealloc(IplImage *img)
 }
 
 /************************************************************************
-* Funcao que realiza a binarização de uma imagem
+* Funcao que realiza a binarização de uma imagem. Tudo aquilo que
+* possuir luminancia menor do que o limiar passado, terá seu valor 
+* alterado para 0 e tudo aquilo que tiver luminancia acima do valor do 
+* limiar terá seu valor alterado para 255.
 *************************************************************************
 * param (E): Frame* frame => imagem a ser binarizada.
 * param (E): Int threshold => Limiar para binarização
@@ -569,11 +572,12 @@ void Frame::imgDealloc(IplImage *img)
 * Criação.
 ************************************************************************/
 
-Frame* binarizeImage(Frame* frame, int threshold)
+Frame* Frame::binarizeImage(Frame* frame, int threshold)
 {
 	int column = 0;
 	int y = 0;
 
+	// Percorro todo o frame coluna a coluna, pixel a pixel.
 	for( column=0; column<frame->getWidth(); column++ )
 	{
 		for( y=0; y<frame->getHeight(); y++ )

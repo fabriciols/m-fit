@@ -43,6 +43,10 @@ Cut::Cut()
 * return : Lista de transições.
 *************************************************************************
 * Histórico:
+* 16/08/08 - Thiago Mizutani
+* Inclusão das chamadas das funções para processamento da imagem do RV.
+* Criação do RV, suavização, mapa de bordas, binarização e contagem dos
+* pontos.
 * 13/08/08 - Thiago Mizutani
 * Chamadas das funções que completam o processo de detecção de cortes.
 * 06/07/08 - Thiago Mizutani
@@ -86,9 +90,15 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 	if (vdo->getCurrentPosition() != 0)
 		vdo->seekFrame(0);
 
+	// Crio o Ritmo VIsual do vídeo
 	visual = vr->createVR(vdo);
 
 	Frame *visualRythim = new Frame(visual);
+
+	/**
+	 * Gero o histograma do RV para saber qual a maior luminancia presente 
+	 * no RV para cálculo do limiar da contagem de pontos.
+	**/
 	hist = visualRythim->createHistogram();
 
 	// Faço a suavização do RV para retirada de ruídos.
@@ -103,13 +113,16 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 	// Defino o limiar para binarização da imagem.
 	thresholdBin = (hist->getMaxLuminance())/4;
 
+	// Binarizo a imagem (transformo tudo em preto e branco)
 	binFrame = frameAux->binarizeImage(borderMap,thresholdBin);
 
+	// Realizo a contagem dos pontos das bordas que foram encontradas
 	trans = countPoints(binFrame, threshold);
 	
 	for( int i=0; i<(int)totalFrames; i++ )
 	{
 		if(trans[i])
+		{
 			// É o primeiro
 			if (!(transitions->previous))
 			{
@@ -127,19 +140,26 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 			}
 			else // A lista já foi iniciada
 			{
-				Transition* newTransition = new Transition();
+				Transition* newTransition = new Transition(); //Crio um novo objeto para inserir na lista
 
-				oldTransition->next = newTransition;
+				// Este novo item é o próximo do item anterior
+				oldTransition->next = newTransition; 
 
-				newTransition->next = 0;
-				newTransition->previous = oldTransition;
-				newTransition->setPosTransitions(i,fps);
+				newTransition->next = 0; // O novo item não tem próximo
+				newTransition->previous = oldTransition; // O anterior do novo é o item anterior (comentário inútil...)
+				newTransition->setPosTransition(i); // Guardo a posição (física) da ocorrência da transição
 
-				sprintf(label,"Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMSec())
+				// Monto a label para exibir na timeline
+				sprintf(label,"Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
 				
-				newTransitions->setLabel(label); //Salvo a label de exibição da transição
+				newTransition->setLabel(label); //Salvo a label de exibição da transição
 				
-				oldTransition = newTransitions; // Salvo a transição anterior
+				/**
+				 *  Esta transição será a transição antiga da próxima transição (se houver). Por isso
+				 *  não posso dar um delete na memória do oldTransition, senão limpo a área de memória que este
+				 *  ponteiro está apontando, fazendo com que eu perca a última transição.
+				**/
+				oldTransition = newTransition; 
 			}
 		}
 	}
