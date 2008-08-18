@@ -4,8 +4,17 @@
  */
 class Dissolve: public DetectTransitions
 {
- 
+	private:
+		char *tmp;
+		char tmp1[255];
+		int itmp;
+		Video *video;
+
 	public:
+		Dissolve();
+		Dissolve(char *video);
+		Dissolve(Video *vdo);
+
 		bool checkLuminance();
 	 
 	/**
