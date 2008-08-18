@@ -42,6 +42,8 @@ void usage();
 * return : nenhum.
 *************************************************************************
 * Histórico:
+* 18/08/08 - Ivan Shiguenori Machida
+* Criando parametro 'd' para modo video (dissolve).
 * 29/07/08 - Thiago Mizutani
 * Retirando alguns parametros desnecessários.
 * Algum dia alguém criou. Coloquem historico a partir daqui.
@@ -735,6 +737,16 @@ int main(int argc, char* argv[])
 						Cut* DTC = new Cut();
 						
 						DTC->detectTransitions(vdo, transitions);
+						
+						break;
+					}
+				case 'd':
+					{
+						// Detecção de dissolve
+						
+						Dissolve* dissolve = new Dissolve(vdo);
+						
+						dissolve->calcVariance();
 						
 						break;
 					}
