@@ -98,6 +98,8 @@ Frame* VisualRythim::createVR(Video* vdo)
 * return : Ritmo visual por histograma (um array).
 *************************************************************************
 * Histórico:
+* 18/08/08 - Ivan Shiguenori Machida
+* Convertendo o frame para tons de cinza antes de obter a diagonal
 * 29/07/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
@@ -108,6 +110,7 @@ double* VisualRythim::createVRH(Video* vdo)
 	Frame* diagonal = new Frame();
 	Histogram* histogram = new Histogram();	
 	Color *color = new Color();
+	Frame* frameGray = 0;
 
 	double totalFrames = vdo->getFramesTotal();
 	int posic = 0;
@@ -134,7 +137,12 @@ double* VisualRythim::createVRH(Video* vdo)
 			Log::writeLog("%s :: BOOOOOOM!", __FUNCTION__);
 		}
 
-		diagonal = frame->getDiagonal();
+		// Converto o frame para escala de cinza.
+		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
+		frameGray = color->convert2Gray(frame);
+
+		// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
+		diagonal = frameGray->getDiagonal();
 
 		Log::writeLog("%s :: createHistogram", __FUNCTION__);
 
