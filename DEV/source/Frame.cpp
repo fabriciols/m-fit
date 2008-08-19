@@ -38,7 +38,7 @@ void Frame::setImage(IplImage* imgNew)
 	this->width =  &this->data->width;
 	this->height = &this->data->height;
 
-	Log::writeLog("%s :: new: this->data[%x]", __FUNCTION__, imgNew);
+//	Log::writeLog("%s :: new: this->data[%x]", __FUNCTION__, imgNew);
 }
 
 /************************************************************************
@@ -546,7 +546,7 @@ IplImage* Frame::imgAlloc(CvSize size, int depth, int channels)
 
 	imgNew = cvCreateImage(size, depth, channels);
 	
-	Log::writeLog("%s :: New image: [%x]", __FUNCTION__, imgNew);
+//	Log::writeLog("%s :: New image: [%x]", __FUNCTION__, imgNew);
 
 	return imgNew;
 }
@@ -562,7 +562,7 @@ IplImage* Frame::imgAlloc(CvSize size, int depth, int channels)
 ************************************************************************/
 void Frame::imgDealloc(IplImage *img)
 {
-	Log::writeLog("%s :: Delete image: [%x]", __FUNCTION__, img);
+//	Log::writeLog("%s :: Delete image: [%x]", __FUNCTION__, img);
 
 	cvReleaseImage(&img);
 }
