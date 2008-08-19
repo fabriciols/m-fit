@@ -101,6 +101,8 @@ int main(int argc, char* argv[])
 
 		Log::writeLog("%s :: file extension[%s]", __FUNCTION__, extension_cy);
 
+		effectCount = argc-1;
+
 		// Verifica se o arquivo carregado é um vídeo ou imagem.
 		if (!strcmp(extension_cy,"AVI") || !strcmp(extension_cy,"avi"))
 		{
@@ -349,7 +351,7 @@ int main(int argc, char* argv[])
 				case 's':       
 					{
 
-						Filters *filters = new Filters();
+/*						Filters *filters = new Filters();
 
 						if (argv[i][2] == 'v')
 						{
@@ -366,6 +368,10 @@ int main(int argc, char* argv[])
 							strcpy(effectName, "Complete Sobel");
 							frameEffect = filters->Sobel(frameGray, 2);
 						}
+*/
+						Cut* cut = new Cut();
+
+						frameEffect = cut->createBorderMap(frameGray);
 
 						break;
 					}
@@ -454,6 +460,18 @@ int main(int argc, char* argv[])
 						break;
 					}
 
+				case 'b':
+					{
+						Frame* bin = new Frame();
+						Histogram* hist = new Histogram();
+
+						hist = frameGray->createHistogram();
+
+						frameEffect = bin->binarizeImage(frameGray,(hist->getMaxLuminance())/4);
+
+						break;
+					}
+
 				case 'w':
 					if (effectCount >= 1)
 					{
@@ -465,7 +483,7 @@ int main(int argc, char* argv[])
 
 						sprintf(imgname_cy, "%s_%s.png", imgname_cy, effectsList[effectCount-1]);
 
-						Log::writeLog("%s :: Writing effect [%s] in file [%s]\n", __FUNCTION__, effectsList[effectCount-1], imgname_cy);
+//						Log::writeLog("%s :: Writing effect [%s] in file [%s]\n", __FUNCTION__, effectsList[effectCount-1], imgname_cy);
 
 						if(!cvSaveImage(imgname_cy,effectsList[effectCount-1].frame->data))
 						{
