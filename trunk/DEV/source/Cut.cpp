@@ -197,7 +197,7 @@ Frame* Cut::createBorderMap(Frame* visualRythim)
 	Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
 
 	// Crio o mapa de bordas do RV com o operador Sobel.
-	borderMap = sobel->Sobel(visualRythim,5);
+	borderMap = sobel->Sobel(visualRythim,2);
 
 	delete sobel;
 	delete borderMap;
