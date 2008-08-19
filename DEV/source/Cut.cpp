@@ -200,7 +200,6 @@ Frame* Cut::createBorderMap(Frame* visualRythim)
 	borderMap = sobel->Sobel(visualRythim,2);
 
 	delete sobel;
-	delete borderMap;
 
 	return (borderMap);
 }
