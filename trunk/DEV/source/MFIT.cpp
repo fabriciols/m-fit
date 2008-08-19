@@ -101,8 +101,6 @@ int main(int argc, char* argv[])
 
 		Log::writeLog("%s :: file extension[%s]", __FUNCTION__, extension_cy);
 
-		effectCount = argc-1;
-
 		// Verifica se o arquivo carregado é um vídeo ou imagem.
 		if (!strcmp(extension_cy,"AVI") || !strcmp(extension_cy,"avi"))
 		{
@@ -371,6 +369,7 @@ int main(int argc, char* argv[])
 */
 						Cut* cut = new Cut();
 
+						strcpy(effectName, "Sobel");
 						frameEffect = cut->createBorderMap(frameGray);
 
 						break;
@@ -517,6 +516,8 @@ int main(int argc, char* argv[])
 			// Salva os dados na estrutura, para poder aplicar efeitos na imagem anterior
 			effectsList[effectCount].name  = effectName;
 			effectsList[effectCount].frame = frameEffect;
+
+			Log::writeLog("effectsList[%d].frame = %x", effectCount, effectsList[0].frame);
 
 			// Imprime na tela
 			cvNamedWindow(effectsList[effectCount].name, 1);
