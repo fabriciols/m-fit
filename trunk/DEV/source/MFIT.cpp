@@ -718,7 +718,6 @@ int main(int argc, char* argv[])
 						VisualRythim *vrh;
 						int len_i;
 						double *array_dy;
-						double *array_dydy;
 						double *array_vrh;
 
 						char imgname_cy[50];
@@ -731,9 +730,7 @@ int main(int argc, char* argv[])
 
 						array_dy = fade->calcDerivative(array_vrh, len_i);
 
-						array_dydy = fade->calcDerivative(array_dy, len_i);
-
-						frameFADE = new Frame(array_dydy, len_i, 256);
+						frameFADE = new Frame(array_dy, len_i, 256);
 
 						cvShowImage(vdo->getName(), frameFADE->data);
 
@@ -745,6 +742,7 @@ int main(int argc, char* argv[])
 						delete array_dy;
 						delete frameFADE;
 						delete vrh;
+						delete fade;
 
 						break;
 					}
