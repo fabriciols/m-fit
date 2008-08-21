@@ -57,10 +57,10 @@ Cut::Cut()
 
 void Cut::detectTransitions(Video* vdo, Transition *transitions)
 { 
-   Frame* vrLow = new Frame(); // Ritmo Visual suavizado
-	Frame* borderMap = new Frame(); // Mapa de bordas
-	Frame* binFrame = new Frame(); // Imagem binarizada
-	Frame* frameAux = new Frame();
+//   Frame* vrLow = new Frame(); // Ritmo Visual suavizado
+//	Frame* borderMap = new Frame(); // Mapa de bordas
+//	Frame* binFrame = new Frame(); // Imagem binarizada
+//	Frame* frameAux = new Frame();
 	Frame* visual= new Frame();
 
 	Filters* filters = new Filters();
@@ -93,6 +93,7 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 	// Crio o Ritmo VIsual do vídeo
 	visual = vr->createVR(vdo);
 
+	// Como vou aplicar varios efeitos no RV, faço uma cópia e mantenho o original (visual)
 	Frame *visualRythim = new Frame(visual);
 
 	/**
@@ -102,10 +103,12 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 	hist = visualRythim->createHistogram();
 
 	// Faço a suavização do RV para retirada de ruídos.
-	vrLow = filters->lowPass(visualRythim, 5);
+	//vrLow = filters->lowPass(visualRythim, 5);
+	filters->lowPass(visualRythim, 5);
 
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
-	borderMap = this->createBorderMap(vrLow);
+	//borderMap = this->createBorderMap(vrLow);
+	this->createBorderMap(visualRythim);
 
 	// Pergunto ao usuario se deseja alterar a limiar para detecção.
 	threshold = this->defineThreshold(visualRythim->getHeight());
@@ -114,10 +117,10 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 	thresholdBin = (hist->getMaxLuminance())/4;
 
 	// Binarizo a imagem (transformo tudo em preto e branco)
-	binFrame = frameAux->binarizeImage(borderMap,thresholdBin);
+	visual->binarizeImage(visualRythim,thresholdBin);
 
 	// Realizo a contagem dos pontos das bordas que foram encontradas
-	trans = countPoints(binFrame, threshold);
+	trans = countPoints(visualRythim, threshold);
 	
 	for( int i=0; i<(int)totalFrames; i++ )
 	{
@@ -164,10 +167,10 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 		}
 	}
 
-	delete vrLow;
-	delete borderMap;
-	delete binFrame;
-	delete frameAux;
+//	delete vrLow;
+//	delete borderMap;
+//	delete binFrame;
+//	delete frameAux;
 	delete visualRythim;
 	delete filters;
 	delete vr;
@@ -189,19 +192,20 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 * Criação.
 ************************************************************************/
 
-Frame* Cut::createBorderMap(Frame* visualRythim)
+void Cut::createBorderMap(Frame* visualRythim)
 {
 	Filters* sobel = new Filters();
-	Frame* borderMap = new Frame();
+//	Frame* borderMap = new Frame();
 
 	Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
 
 	// Crio o mapa de bordas do RV com o operador Sobel.
-	borderMap = sobel->Sobel(visualRythim,2);
+	//borderMap = sobel->Sobel(visualRythim,2);
+   sobel->Sobel(visualRythim,2);
 
 	delete sobel;
 
-	return (borderMap);
+//	return (borderMap);
 }
 
 /************************************************************************

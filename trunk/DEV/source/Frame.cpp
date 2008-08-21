@@ -581,7 +581,7 @@ void Frame::imgDealloc(IplImage *img)
 * Criação.
 ************************************************************************/
 
-Frame* Frame::binarizeImage(Frame* frame, int threshold)
+void Frame::binarizeImage(Frame* frame, int threshold)
 {
 	int column = 0;
 	int y = 0;
@@ -598,6 +598,4 @@ Frame* Frame::binarizeImage(Frame* frame, int threshold)
 				frame->setPixel(column,y,0);
 		}
 	}
-
-	return (frame);
 }
