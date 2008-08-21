@@ -17,10 +17,10 @@
 * 26/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-Frame* Filters::segment(Frame* frame, int threshold)
+void Filters::segment(Frame* frame, int threshold)
 {
 	IplImage* img_dst;
-	Frame *frameNew;
+//	Frame *frameNew;
 
 	Log::writeLog("%s :: param: frame[%x] threshold[%d]", __FUNCTION__, frame, threshold);
 
@@ -32,13 +32,15 @@ Frame* Filters::segment(Frame* frame, int threshold)
 	// Aplica o limiar
 	cvThreshold(frame->data, img_dst, threshold, 255, CV_THRESH_BINARY_INV);
 
-	frameNew = new Frame(img_dst);
+//	frameNew = new Frame(img_dst);
+
+	frame->data = img_dst;
 
 	// Nao preciso mais da imagem, posso (devo) desalocar
 	Frame::imgDealloc(img_dst);
 
 	// Retorna um objeto encapsulado do tipo frame
-	return (frameNew);
+//	return (frameNew);
 }
 
 /************************************************************************
@@ -59,10 +61,10 @@ Frame* Filters::segment(Frame* frame, int threshold)
 * Criação.
 ************************************************************************/
 
-Frame* Filters::Sobel(Frame* frame, int direction)
+void Filters::Sobel(Frame* frame, int direction)
 {
    IplImage* img_dst;
-	Frame *frameNew;
+//	Frame *frameNew;
 
 	Log::writeLog("%s :: param: frame[%x] direction[%d]", __FUNCTION__, frame, direction);
 	
@@ -97,12 +99,12 @@ Frame* Filters::Sobel(Frame* frame, int direction)
    }
 
 	// Transformo em frame
-	frameNew = new Frame(img_dst);
+//	frameNew = new Frame(img_dst);
 
 	// Jah posso desalocar a img
 	Frame::imgDealloc(img_dst);
    
-   return(frameNew);
+//   return(frameNew);
 }
 
 /************************************************************************
@@ -126,11 +128,10 @@ Frame* Filters::Sobel(Frame* frame, int direction)
 * Criação.
 ************************************************************************/
 
-Frame* Filters::lowPass(Frame* frame, int size)
+void Filters::lowPass(Frame* frame, int size)
 {
    IplImage* imgDst = 0;
 	IplImage* imgAux = 0;
-	Frame *frameNew;
 
 	Log::writeLog("%s :: param: frame[%x] size[%d]", __FUNCTION__, frame, size);
 
@@ -168,14 +169,12 @@ Frame* Filters::lowPass(Frame* frame, int size)
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
-	// Cria um objeto frame
-	frameNew = new Frame(imgDst);
+	frame->data = imgDst;
 
 	// Desaloca os temporários
 	Frame::imgDealloc(imgDst);
 	Frame::imgDealloc(imgAux);
 
-	return (frameNew);
 
 }
 
@@ -196,15 +195,18 @@ Frame* Filters::lowPass(Frame* frame, int size)
 * Autor: Thiago Mizutani
 ************************************************************************
 * Histórico
+* 21/08/08 - Thiago Mizutani
+* Função não retorna mais um ponteiro para Frames. Recebe o frame de 
+* retorno como parâmetro.
 * 29/06/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
 
-Frame* Filters::highPass(Frame* frame, int typeMask)
+void Filters::highPass(Frame* frame, int typeMask)
 {
 	IplImage* imgDst = 0;
 	IplImage* imgAux = 0;
-	Frame *frameNew = 0;
+//	Frame *frameNew = 0;
 
 	int cols = 0;
 	int rows = 0;
@@ -266,10 +268,11 @@ Frame* Filters::highPass(Frame* frame, int typeMask)
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
-	frameNew = new Frame(imgDst);
+	//frameNew = new Frame(imgDst);
+	frame->data = imgDst;
 
 	Frame::imgDealloc(imgDst);
 	Frame::imgDealloc(imgAux);
 
-	return (frameNew);
+//	return (frameNew);
 }

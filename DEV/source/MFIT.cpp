@@ -187,7 +187,9 @@ int main(int argc, char* argv[])
 
 						sprintf(effectName, "Treshold t=%d", aux_i);
 
-						frameEffect = filters->segment(frameGray, aux_i);
+						frameEffect = frameGray;
+						
+						filters->segment(frameEffect, aux_i);
 
 						break;
 
@@ -370,7 +372,8 @@ int main(int argc, char* argv[])
 						Cut* cut = new Cut();
 
 						strcpy(effectName, "Sobel");
-						frameEffect = cut->createBorderMap(frameGray);
+						frameEffect = frameGray;
+						cut->createBorderMap(frameEffect);
 
 						break;
 					}
@@ -401,7 +404,9 @@ int main(int argc, char* argv[])
 							aux_i = 5;
 						}
 
-						frameEffect = filters->lowPass(frameGray, aux_i); 
+						frameEffect = frameGray;
+						
+						filters->lowPass(frameEffect, aux_i); 
 
 						break;
 					}
@@ -422,7 +427,10 @@ int main(int argc, char* argv[])
 						}
 
 						sprintf(effectName, "High-Pass kernel [%d]", aux_i);
-						frameEffect = filters->highPass(frameGray, aux_i);
+						frameEffect = frameGray;
+							
+						filters->highPass(frameEffect, aux_i);
+
 						break;
 					}
 				case 'h':
@@ -461,12 +469,13 @@ int main(int argc, char* argv[])
 
 				case 'b':
 					{
-						Frame* bin = new Frame();
 						Histogram* hist = new Histogram();
 
 						hist = frameGray->createHistogram();
 
-						frameEffect = bin->binarizeImage(frameGray,(hist->getMaxLuminance())/4);
+						frameEffect = frameGray;
+							
+						frameGray->binarizeImage(frameEffect,(hist->getMaxLuminance())/4);
 
 						break;
 					}
