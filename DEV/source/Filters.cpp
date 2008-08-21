@@ -98,13 +98,8 @@ void Filters::Sobel(Frame* frame, int direction)
 
    }
 
-	// Transformo em frame
-//	frameNew = new Frame(img_dst);
-
-	// Jah posso desalocar a img
-	Frame::imgDealloc(img_dst);
+	frame->setImage(img_dst);
    
-//   return(frameNew);
 }
 
 /************************************************************************
@@ -174,7 +169,6 @@ void Filters::lowPass(Frame* frame, int size)
 	// Desaloca os temporários
 	Frame::imgDealloc(imgDst);
 	Frame::imgDealloc(imgAux);
-
 
 }
 
@@ -269,9 +263,8 @@ void Filters::highPass(Frame* frame, int typeMask)
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
 	//frameNew = new Frame(imgDst);
-	frame->data = imgDst;
+	frame->setImage(imgDst);
 
-	Frame::imgDealloc(imgDst);
 	Frame::imgDealloc(imgAux);
 
 //	return (frameNew);
