@@ -15,7 +15,7 @@ class Cut: public DetectTransitions
 
 		Cut(); // Construtor
 
-		Frame* createBorderMap(Frame* visualRythim);
+		void createBorderMap(Frame* visualRythim);
 	 
 		void detectTransitions(Video *vdo, Transition *transitions);
 

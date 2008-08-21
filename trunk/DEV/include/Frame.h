@@ -78,7 +78,7 @@ class Frame
 		 *	O limiar será = a 1/4 da maior luminancia presente na imagem.
 		 *	Este critério é baseado em um artigo
 		 * **/
-		Frame* binarizeImage(Frame* frame, int treshold);	
+		void binarizeImage(Frame* frame, int treshold);	
 
 		// Gets
 
