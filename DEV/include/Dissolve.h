@@ -12,7 +12,6 @@ class Dissolve: public DetectTransitions
 
 	public:
 		Dissolve();
-		Dissolve(char *video);
 		Dissolve(Video *vdo);
 
 		bool checkLuminance();

@@ -80,6 +80,8 @@ class Frame
 		 * **/
 		void binarizeImage(Frame* frame, int treshold);	
 
+		double mediaBin(Frame* frame);
+
 		// Gets
 
 		// Retorna largura do frame
