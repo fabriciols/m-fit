@@ -599,3 +599,38 @@ void Frame::binarizeImage(Frame* frame, int threshold)
 		}
 	}
 }
+
+/************************************************************************
+* Funcao que calcula a média de luminancia de uma imagem.
+*************************************************************************
+* param (E): Frame* frame => Imagem a ser calculada média.
+*************************************************************************
+* Histórico:
+* 18/08/08 - Ivan Shiguenori Machida
+* Criação.
+************************************************************************/
+
+double Frame::mediaBin(Frame* frame)
+{
+	int x = 0;
+	int y = 0;
+	double mean=0;
+
+	// Percorro todo o frame coluna a coluna, pixel a pixel.
+	for( x=0; x<frame->getWidth(); x++ )
+	{
+		for( y=0; y<frame->getHeight(); y++ )
+		{
+			// Somatoria de pixel do frame;
+			mean += frame->getPixel(x,y);
+//			Log::writeLog("%s :: mean[%.lf]", __FUNCTION__, mean);
+		}
+	}
+
+	// Calcula-se a média dos pixels somados.
+	mean = mean / (frame->getWidth()*frame->getHeight());
+
+//	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
+
+	return (mean);
+}
