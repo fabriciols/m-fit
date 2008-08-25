@@ -1,4 +1,5 @@
 #include "cv.h"
+#include "highgui.h"
 
 #include "../include/Log.h"
 
@@ -126,7 +127,10 @@ void Filters::Sobel(Frame* frame, int direction)
 void Filters::lowPass(Frame* frame, int size)
 {
    IplImage* imgDst = 0;
-	IplImage* imgAux = 0;
+   IplImage* imgAux = 0;
+	IplImage* imgNew = 0;
+
+	Frame* frameAux;
 
 	Log::writeLog("%s :: param: frame[%x] size[%d]", __FUNCTION__, frame, size);
 
@@ -145,15 +149,18 @@ void Filters::lowPass(Frame* frame, int size)
 	double convMask[total_size];
 	
 	// Cria uma imagem com os mesmos parâmetros da original.
-	imgDst = Frame::imgAlloc(cvGetSize(frame->data), frame->data->depth, frame->data->nChannels);
-	imgAux = Frame::imgAlloc(cvGetSize(frame->data), frame->data->depth, frame->data->nChannels);
+	frameAux = new Frame(frame);
+
+	imgDst = Frame::imgAlloc(frameAux);
+	imgAux = Frame::imgAlloc(frameAux);
+	imgNew = Frame::imgAlloc(frameAux);
 
 	// Monta a máscara com o tamanho que foi passado como parâmetro.
 	for (int i=0; i<total_size; i++)	
 		convMask[i] = (double)1/(double)total_size;
 
-	imgAux->imageData = frame->data->imageData;
-	imgAux->widthStep = frame->data->width;
+	imgAux->imageData = frameAux->data->imageData;
+	imgAux->widthStep = frameAux->data->width;
 
 	imgDst->imageData = imgAux->imageData;
 	imgDst->widthStep = imgAux->width;
@@ -164,11 +171,15 @@ void Filters::lowPass(Frame* frame, int size)
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
-	frame->data = imgDst;
+	Frame::imgCopy(imgDst, imgNew);
+
+	frame->setImage(imgNew);
 
 	// Desaloca os temporários
-	Frame::imgDealloc(imgDst);
 	Frame::imgDealloc(imgAux);
+	Frame::imgDealloc(imgDst);
+
+	delete frameAux;
 
 }
 
@@ -200,7 +211,9 @@ void Filters::highPass(Frame* frame, int typeMask)
 {
 	IplImage* imgDst = 0;
 	IplImage* imgAux = 0;
-//	Frame *frameNew = 0;
+	IplImage* imgNew = 0;
+
+	Frame* frameAux = 0;
 
 	int cols = 0;
 	int rows = 0;
@@ -229,8 +242,11 @@ void Filters::highPass(Frame* frame, int typeMask)
 	};
 
 	// Cria uma img com as mesmas propriedades da imagem de parâmetro
-	imgAux = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
-	imgDst = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
+	imgAux = Frame::imgAlloc(frame);
+	imgDst = Frame::imgAlloc(frame);
+	imgNew = Frame::imgAlloc(frame);
+
+	frameAux = new Frame(frame);
 
 	// Se não estiver dentro do range
 	// de máscaras válidas, atribui valor default
@@ -242,10 +258,8 @@ void Filters::highPass(Frame* frame, int typeMask)
 	cols = 3;
 	rows = 3;
 
-	//	mask = masks[typeMask];
-
-	imgAux->imageData = frame->data->imageData;
-	imgAux->widthStep = frame->data->width;
+	imgAux->imageData = frameAux->data->imageData;
+	imgAux->widthStep = frameAux->data->width;
 
 	imgDst->imageData = imgAux->imageData;
 	imgDst->widthStep = imgAux->width;
@@ -262,10 +276,14 @@ void Filters::highPass(Frame* frame, int typeMask)
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 
-	//frameNew = new Frame(imgDst);
-	frame->setImage(imgDst);
+	// Faço uma cópia, por segurança pois alteramos muito as referências
+	Frame::imgCopy(imgDst, imgNew);
 
+	frame->setImage(imgNew);
+
+	// Desaloco tudo
 	Frame::imgDealloc(imgAux);
+	Frame::imgDealloc(imgDst);
+	delete frameAux;
 
-//	return (frameNew);
 }

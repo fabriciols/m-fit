@@ -106,8 +106,9 @@ class Frame
 		void setImage(IplImage *imgNew);
 		void initAttr();
 		void write(char *filename_cy);
-		void imgCopy(IplImage *imgSrc, IplImage *imgDst);
+		static void imgCopy(IplImage *imgSrc, IplImage *imgDst);
 		static IplImage* imgAlloc(CvSize size, int depth, int channels);
+		static IplImage* imgAlloc(Frame *frame);
 		static void imgDealloc(IplImage* img);
 
 };
