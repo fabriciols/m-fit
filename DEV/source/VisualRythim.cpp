@@ -139,18 +139,17 @@ double* VisualRythim::createVRH(Video* vdo)
 
 		// Converto o frame para escala de cinza.
 		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
+		Log::writeLog("%s :: conver2Gray!", __FUNCTION__);
 		frameGray = color->convert2Gray(frame);
 
 		// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
+		Log::writeLog("%s :: getDiagonal!", __FUNCTION__);
 		diagonal = frameGray->getDiagonal();
 
-		Log::writeLog("%s :: createHistogram", __FUNCTION__);
 
 		// Gero o histograma da diagonal do frame corrente
+		Log::writeLog("%s :: createHistogram!", __FUNCTION__);
 		histogram = diagonal->createHistogram();
-
-		// Guardo o maior valor de luminancia do histograma.	
-//		hist[posic] = (double)histogram->getMaxLuminance();	
 
 		// Guardo a media do valor de luminancia da diagonal.
 		hist[posic] = (double)diagonal->mediaBin(diagonal);	
@@ -161,6 +160,7 @@ double* VisualRythim::createVRH(Video* vdo)
 		 * Deleto os objetos criados anteriormente para desalocamento de
 		 * memoria.
 		**/
+		delete frameGray;
 		delete histogram;
 		delete frame;
 		delete diagonal;
@@ -172,12 +172,11 @@ double* VisualRythim::createVRH(Video* vdo)
 
 		posic++;
 
-		Log::writeLog("%s :: end while", __FUNCTION__);
+		Log::writeLog("%s :: end end while", __FUNCTION__);
 	}
-
-	Log::writeLog("%s :: end", __FUNCTION__);
 
 	delete color;
 	// Retorno o array com os valores do RVH
+
 	return (hist);
 }
