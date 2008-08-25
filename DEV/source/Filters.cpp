@@ -34,10 +34,10 @@ void Filters::segment(Frame* frame, int threshold)
 
 //	frameNew = new Frame(img_dst);
 
-	frame->data = img_dst;
+	frame->setImage(img_dst);
 
 	// Nao preciso mais da imagem, posso (devo) desalocar
-	Frame::imgDealloc(img_dst);
+	//Frame::imgDealloc(img_dst);
 
 	// Retorna um objeto encapsulado do tipo frame
 //	return (frameNew);
