@@ -290,7 +290,6 @@ Frame * Frame::getDiagonal()
 
 	frameDiagonal = new Frame(imgDiagonal);
 
-	imgDealloc(imgDiagonal);
 
 	/** Calculo o coeficiente angular da reta ('a' da equacao).
 	 * this->getHeight = y - yo
@@ -308,6 +307,7 @@ Frame * Frame::getDiagonal()
 		frameDiagonal->setPixel(0, x, this->getPixel(x, y));
 	}	
 
+	imgDealloc(imgDiagonal);
 
 	return(frameDiagonal);
 
