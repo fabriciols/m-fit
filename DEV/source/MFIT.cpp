@@ -383,6 +383,8 @@ int main(int argc, char* argv[])
 
 						Filters *filters = new Filters();
 
+						Frame *frameLP = new Frame(frameGray);
+
 						strcpy(effectName, "Low-Pass Filter");
 
 						//Se for passado algum argumento como valor para tamanho da máscara
@@ -404,9 +406,10 @@ int main(int argc, char* argv[])
 							aux_i = 5;
 						}
 
-						frameEffect = frameGray;
 						
-						filters->lowPass(frameEffect, aux_i); 
+						filters->lowPass(frameLP, aux_i); 
+
+						frameEffect = frameLP;
 
 						break;
 					}
@@ -526,7 +529,7 @@ int main(int argc, char* argv[])
 			effectsList[effectCount].name  = effectName;
 			effectsList[effectCount].frame = frameEffect;
 
-			Log::writeLog("effectsList[%d].frame = %x", effectCount, effectsList[0].frame);
+			Log::writeLog("%s :: effectsList[%d].frame = [%x] img [%x]", __FUNCTION__, effectCount, effectsList[effectCount].frame, effectsList[effectCount].frame->data);
 
 			// Imprime na tela
 			cvNamedWindow(effectsList[effectCount].name, 1);

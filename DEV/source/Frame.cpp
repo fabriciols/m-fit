@@ -23,8 +23,9 @@
 ************************************************************************/
 void Frame::setImage(IplImage* imgNew)
 {
-	// Nao esta funcionando
-	// precisa dar uma entendida o por que
+	Log::writeLog("%s :: old [%x] new [%x]", __FUNCTION__, this->data, imgNew);
+
+	// Se ja tiver algum alocado
 	if (this->data != NULL)
 	{
 		// Desaloca
@@ -38,7 +39,6 @@ void Frame::setImage(IplImage* imgNew)
 	this->width =  &this->data->width;
 	this->height = &this->data->height;
 
-//	Log::writeLog("%s :: new: this->data[%x]", __FUNCTION__, imgNew);
 }
 
 /************************************************************************
@@ -524,11 +524,30 @@ Frame & Frame::operator=(Frame &frame)
 ************************************************************************/
 void Frame::imgCopy(IplImage *imgSrc, IplImage *imgDst)
 {
+	Log::writeLog("%s :: Copy : [%x] to [%x]", __FUNCTION__, imgSrc, imgDst);
+
 	cvCopy(imgSrc, imgDst);
 
 	imgDst->origin = imgSrc->origin;
 }
 
+/************************************************************************
+* Funcao que centraliza a alocacao de memoria e criacao de uma imagem
+*************************************************************************
+* param (E): Frame* frame -> Frame o qual sera copiado as propriedades
+*************************************************************************
+* Histórico:
+* 25/08/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+IplImage* Frame::imgAlloc(Frame* frame)
+{
+	IplImage *imgNew;
+
+	imgNew = imgAlloc(cvGetSize(frame->data), frame->data->depth, frame->data->nChannels);
+
+	return imgNew;
+}
 /************************************************************************
 * Funcao que centraliza a alocacao de memoria e criacao de uma imagem
 *************************************************************************
@@ -546,7 +565,7 @@ IplImage* Frame::imgAlloc(CvSize size, int depth, int channels)
 
 	imgNew = cvCreateImage(size, depth, channels);
 	
-//	Log::writeLog("%s :: New image: [%x]", __FUNCTION__, imgNew);
+	Log::writeLog("%s :: New image: [%x]", __FUNCTION__, imgNew);
 
 	return imgNew;
 }
@@ -562,8 +581,7 @@ IplImage* Frame::imgAlloc(CvSize size, int depth, int channels)
 ************************************************************************/
 void Frame::imgDealloc(IplImage *img)
 {
-//	Log::writeLog("%s :: Delete image: [%x]", __FUNCTION__, img);
-
+	Log::writeLog("%s :: Delete image: [%x]", __FUNCTION__, img);
 	cvReleaseImage(&img);
 }
 
