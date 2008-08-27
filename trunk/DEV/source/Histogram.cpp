@@ -58,6 +58,7 @@ Histogram::Histogram(IplImage* img)
 
 	float max = 0, min = 0;
 	int maxLum = 0, minLum = 0;
+	int maxLuminance = 0;
 
 	double soma = 0;
 
@@ -77,6 +78,9 @@ Histogram::Histogram(IplImage* img)
 	{
 		// Pega o quantas vezes a escala de cinza 'i' aparece na imagem
 		this->data[i] = cvQueryHistValue_1D(hist, i);
+		
+		if (this->data[i] > maxLuminance)
+			maxLuminance = this->data[i];
 
 		//Log::writeLog("%s :: data[%d] = %.lf", __FUNCTION__, i, this->data[i]);
 
@@ -174,3 +178,5 @@ int Histogram::getMinLuminance()
 {
 	return this->minLum;
 }
+
+

@@ -13,7 +13,7 @@
 
 /************************************************************************
 * Auxiliar que atualiza as variaveis internas de um objeto Frame 
-* deve ser usada toda vez
+* deve ser usada toda vez que for alterar a imagem de um frame.
 *************************************************************************
 * param (E): Nenhum
 *************************************************************************
@@ -628,6 +628,8 @@ void Frame::binarizeImage(Frame* frame, int threshold)
 * Criação.
 ************************************************************************/
 
+// Ivan... pq mediaBin e nao mediaLum se eh a media da luminancia? aheuahe
+
 double Frame::mediaBin(Frame* frame)
 {
 	int x = 0;
@@ -651,4 +653,37 @@ double Frame::mediaBin(Frame* frame)
 //	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
 
 	return (mean);
+}
+
+/************************************************************************
+* Funcao que retorna a maior luminancia de um frame.
+*************************************************************************
+* param (E): Frame* frame => Frame do qual será retornada a maior 
+* 									  luminancia
+*************************************************************************
+* Histórico:
+* 27/08/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+int Frame::getMaxLum(Frame* frame)
+{
+	Frame* frameAux = new Frame(frame);
+
+	int height = frameAux->getHeight();
+	int width = frameAux->getWidth();
+	int auxLum = 0;
+	int maxLuminance = 0;
+
+	for (int x=0; x<width; x++)
+	{
+		for (int y=0; y<height; y++)
+		{
+			auxLum = frameAux->getPixel(x,y);
+			if( auxLum > maxLuminance )
+				maxLuminance = auxLum;
+		}
+	}
+
+	return (maxLuminance);
 }

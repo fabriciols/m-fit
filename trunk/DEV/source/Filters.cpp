@@ -167,7 +167,7 @@ void Filters::lowPass(Frame* frame, int size)
 
 	filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
 
-	cvSetData(filter, convMask, cols_i*8);
+	cvSetData(filter, convMask, imgAux->widthStep);
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 

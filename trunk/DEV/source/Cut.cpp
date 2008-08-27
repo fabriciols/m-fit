@@ -57,17 +57,11 @@ Cut::Cut()
 
 void Cut::detectTransitions(Video* vdo, Transition *transitions)
 { 
-//   Frame* vrLow = new Frame(); // Ritmo Visual suavizado
-//	Frame* borderMap = new Frame(); // Mapa de bordas
-//	Frame* binFrame = new Frame(); // Imagem binarizada
-//	Frame* frameAux = new Frame();
 	Frame* visual= new Frame();
 
 	Filters* filters = new Filters();
 
 	VisualRythim *vr = new VisualRythim();
-
-	Histogram* hist = new Histogram();
 
 	Time* time = new Time();
 
@@ -96,25 +90,17 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 	// Como vou aplicar varios efeitos no RV, faço uma cópia e mantenho o original (visual)
 	Frame *visualRythim = new Frame(visual);
 
-	/**
-	 * Gero o histograma do RV para saber qual a maior luminancia presente 
-	 * no RV para cálculo do limiar da contagem de pontos.
-	**/
-	hist = visualRythim->createHistogram();
-
 	// Faço a suavização do RV para retirada de ruídos.
-	//vrLow = filters->lowPass(visualRythim, 5);
 	filters->lowPass(visualRythim, 5);
 
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
-	//borderMap = this->createBorderMap(vrLow);
 	this->createBorderMap(visualRythim);
 
 	// Pergunto ao usuario se deseja alterar a limiar para detecção.
 	threshold = this->defineThreshold(visualRythim->getHeight());
 
 	// Defino o limiar para binarização da imagem.
-	thresholdBin = (hist->getMaxLuminance())/4;
+	thresholdBin = (visual->getMaxLum(visualRythim))/4;
 
 	// Binarizo a imagem (transformo tudo em preto e branco)
 	visual->binarizeImage(visualRythim,thresholdBin);
@@ -167,14 +153,9 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 		}
 	}
 
-//	delete vrLow;
-//	delete borderMap;
-//	delete binFrame;
-//	delete frameAux;
 	delete visualRythim;
 	delete filters;
 	delete vr;
-	delete hist;
 	delete time;
 
 }
