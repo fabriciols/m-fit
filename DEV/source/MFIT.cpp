@@ -392,7 +392,7 @@ int main(int argc, char* argv[])
 
 						if ( i < (argc-1) ) // O ultimo argumento é argc-1
 						{
-							if (argv[i+1][0] <= '9' && argv[i+1][0] >= '0')
+							if (argv[i+1][0] <= '9' && argv[i+1][0] >= '3')
 							{
 								Log::writeLog("%s :: LowPass param[%s]", __FUNCTION__, argv[i+1]);
 
@@ -478,7 +478,7 @@ int main(int argc, char* argv[])
 
 						frameEffect = frameGray;
 							
-						frameGray->binarizeImage(frameEffect,(hist->getMaxLuminance())/4);
+						frameGray->binarizeImage(frameEffect,(frameGray->getMaxLum(frameEffect))/4);
 
 						break;
 					}
