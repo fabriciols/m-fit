@@ -15,14 +15,14 @@ class Histogram
 	 *de luminância do histograma
 	 */
 		float max; // Nro de pixels de valor maximo
-		int maxLum; // Valor da maior luminancia
+		int maxLum; // Valor da luminancia mais presente no histograma
 	 
 	/**
 	 *Armazena o menor valor
 	 *de luminância do histograma
 	 */
 		float min; // Nro de pixels de menor valor
-		int minLum; // Valor da menor luminancia
+		int minLum; // Valor da luminancia menos presente no histograma
 
 	/**
 	 *Armazena os dados do histograma
