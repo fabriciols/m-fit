@@ -28,7 +28,6 @@ class Frame
 	 	*/
 		int *height;
 
-
 	public:
 
 		/*
@@ -102,14 +101,26 @@ class Frame
 		~Frame(); // Destrutor????
 		Frame();  // Construtor: inicializa as variaveis tds com 0.
 
-		// FABRICIO COMENTA ESSAS FUNÇÕES!!!!
+		// Altera a imagem de um determinado frame, utilizando imgAlloc e imgDealloc		
 		void setImage(IplImage *imgNew);
-		void initAttr();
-		void write(char *filename_cy);
-		static void imgCopy(IplImage *imgSrc, IplImage *imgDst);
-		static IplImage* imgAlloc(CvSize size, int depth, int channels);
+
+		void initAttr(); // Inicializa os atributos do frame
+
+		void write(char *filename_cy); // Salva a imagem em arquivo
+
+		static void imgCopy(IplImage *imgSrc, IplImage *imgDst); // Copia uma imagem
+
+		// Aloca uma imagem passando como parametro a imagem e suas propriedades
+		static IplImage* imgAlloc(CvSize size, int depth, int channels); 
+
+		// Aloca uma imagem a partir de um frame
 		static IplImage* imgAlloc(Frame *frame);
+
+		// Desaloca uma imagem.
 		static void imgDealloc(IplImage* img);
+
+		// Retorna o valor da maior luminancia presente na imagem
+		int getMaxLum(Frame* frame);
 
 };
 
