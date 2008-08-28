@@ -286,3 +286,15 @@ void Filters::highPass(Frame* frame, int typeMask)
 	delete frameAux;
 
 }
+void Filters::lowPass_Smooth(Frame* frame)
+{
+	IplImage *imgAux;
+
+	imgAux = Frame::imgAlloc(frame);
+
+	//cvSmooth(frame->data, imgAux, CV_BLUR,3,3); //2x2 gaussian kernel
+	cvSmooth(frame->data, imgAux, CV_GAUSSIAN, 5, 5, 0, 0);
+
+	frame->setImage(imgAux);
+
+}
