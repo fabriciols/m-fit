@@ -65,7 +65,6 @@ void Filters::segment(Frame* frame, int threshold)
 void Filters::Sobel(Frame* frame, int direction)
 {
    IplImage* img_dst;
-//	Frame *frameNew;
 
 	Log::writeLog("%s :: param: frame[%x] direction[%d]", __FUNCTION__, frame, direction);
 	
@@ -167,7 +166,7 @@ void Filters::lowPass(Frame* frame, int size)
 
 	filter = cvCreateMatHeader(rows_i, cols_i, CV_64FC1);
 
-	cvSetData(filter, convMask, imgAux->widthStep);
+	cvSetData(filter, convMask, cols_i*8);
 
 	cvFilter2D(imgAux, imgDst, filter, cvPoint(-1,-1));
 

@@ -90,17 +90,19 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 	// Como vou aplicar varios efeitos no RV, faço uma cópia e mantenho o original (visual)
 	Frame *visualRythim = new Frame(visual);
 
-	// Faço a suavização do RV para retirada de ruídos.
-	filters->lowPass(visualRythim, 5);
-
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);
 
 	// Pergunto ao usuario se deseja alterar a limiar para detecção.
 	threshold = this->defineThreshold(visualRythim->getHeight());
 
+	Log::writeLog("%s :: threshold[%d]", __FUNCTION__, threshold);	
+
 	// Defino o limiar para binarização da imagem.
 	thresholdBin = (visual->getMaxLum(visualRythim))/4;
+	
+	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visual->getMaxLum(visualRythim));	
+	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
 
 	// Binarizo a imagem (transformo tudo em preto e branco)
 	visual->binarizeImage(visualRythim,thresholdBin);
@@ -123,6 +125,8 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 				
 				sprintf(label,"Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
 				
+				Log::writeLog("%s :: %s", __FUNCTION__, label);		
+
 				transitions->setLabel(label); //Salvo a label de exibição da transição
 				
 				oldTransition = transitions; // Salvo a transição anterior
@@ -141,6 +145,8 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 				// Monto a label para exibir na timeline
 				sprintf(label,"Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
 				
+				Log::writeLog("%s :: %s", __FUNCTION__, label);		
+
 				newTransition->setLabel(label); //Salvo a label de exibição da transição
 				
 				/**
@@ -182,7 +188,7 @@ void Cut::createBorderMap(Frame* visualRythim)
 
 	// Crio o mapa de bordas do RV com o operador Sobel.
 	//borderMap = sobel->Sobel(visualRythim,2);
-   sobel->Sobel(visualRythim,2);
+   sobel->Sobel(visualRythim,0);
 
 	delete sobel;
 
@@ -213,9 +219,9 @@ int Cut::defineThreshold(int height)
 	// mas podemos fazer o msm esquema q a gnt faz com coletaED. só preciso
 	// ver como faz q eu nao sei. waitKey?
 	
-	setThreshold(threshold > 0 ? threshold : height/2);
+	setThreshold(threshold > 0 ? threshold : height*0.7);
 	
-	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, threshold);
+	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
 	
 	return (getThreshold());
 
@@ -253,6 +259,8 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 	memset(transitions,'\0',width);
 	
 	Log::writeLog("%s :: threshold[%d] ", __FUNCTION__, threshold);
+	Log::writeLog("%s :: width[%d] ", __FUNCTION__, width);
+	Log::writeLog("%s :: height[%d] ", __FUNCTION__, height);
 
 	/**
 	 *	Varro toda a imagem coluna por coluna, pixel a pixel, verificando se
@@ -266,13 +274,12 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 		for (int y=0; y < height; y++)
 		{
 			luminance = borderMap->getPixel(column,y);
-			if(luminance == 255);
+			if(luminance == 255)
 			{
-				Log::writeLog("%s :: luminance[%d] ", __FUNCTION__, luminance);
 				points++;	
 			}
 		}
-		Log::writeLog("%s :: tamanho da reta[%d] ", __FUNCTION__, points);
+		Log::writeLog("%s :: tamanho da reta_%d[%d] ", __FUNCTION__, column, points);
 		// Se o nro de pontos da reta for > que o limiar, então é corte.
 		transitions[column] = points >= threshold ? 1 : 0;
 		points = 0;
