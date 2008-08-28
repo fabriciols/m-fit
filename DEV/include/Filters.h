@@ -24,6 +24,8 @@ class Filters
 		 *
 		 */
 		void lowPass(Frame* frame, int size);
+		void lowPass_Smooth(Frame* frame);
+
 
 
 		/**

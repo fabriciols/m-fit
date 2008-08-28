@@ -378,6 +378,21 @@ int main(int argc, char* argv[])
 						break;
 					}
 
+				case 'm':
+					{
+
+						Filters *filters = new Filters();
+
+						Frame *frameLP = new Frame(frameGray);
+
+						strcpy(effectName, "Low-Pass Filter 2");
+
+						filters->lowPass_Smooth(frameLP); 
+
+						frameEffect = frameLP;
+
+						break;
+					}
 				case 'l':
 					{
 
@@ -648,10 +663,13 @@ int main(int argc, char* argv[])
 							if (c == 44)
 							{
 								frameVideo = vdo->getPreviousFrame();
+								
 							} // 46 = ">"
 							else if (c == 46)
 							{
 								frameVideo = vdo->getNextFrame();
+
+
 							} // 103 - g - go to
 							else if ( c == 103 )
 							{
@@ -714,6 +732,9 @@ int main(int argc, char* argv[])
 								continue;
 							}
 
+							if (frameVideo == NULL)
+								continue;
+
 							cvShowImage(vdo->getName(), frameVideo->data);
 							delete frameVideo;
 
@@ -742,6 +763,11 @@ int main(int argc, char* argv[])
 
 						array_dy = fade->calcDerivative(array_vrh, len_i);
 
+						// Ideia do ivan
+						// para que fique visivel as partes negativas
+						for (int i=0 ; i<len_i ; i++)
+							array_dy[i]+= 50;
+
 						frameFADE = new Frame(array_dy, len_i, 256);
 
 						cvShowImage(vdo->getName(), frameFADE->data);
@@ -750,9 +776,10 @@ int main(int argc, char* argv[])
 
 						frameFADE->write(imgname_cy);
 
+						frameEffect = frameFADE;
+
 						delete array_vrh;
 						delete array_dy;
-						delete frameFADE;
 						delete vrh;
 						delete fade;
 
