@@ -621,11 +621,9 @@ int main(int argc, char* argv[])
 						char imgname_cy[100];
 
 						VisualRythim *vr = new VisualRythim();
-						Frame *vr_frame;
+						Frame *vr_frame = new Frame();
 
 						Log::writeLog("%s :: VisualRythim video[%s]", __FUNCTION__, vdo->getName());
-
-						vr = new VisualRythim();
 
 						Log::writeLog("%s :: createVR[%x]", __FUNCTION__, vdo);
 
@@ -640,7 +638,7 @@ int main(int argc, char* argv[])
 						cvWaitKey(0);
 
 						delete vr_frame;
-						delete vdo;
+						delete vr;
 
 						break;
 					}
@@ -812,6 +810,7 @@ int main(int argc, char* argv[])
 		}
 
 		cvDestroyWindow(vdo->getName());
+		delete vdo;
 
 	}
 
