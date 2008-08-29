@@ -219,7 +219,7 @@ int Cut::defineThreshold(int height)
 	// mas podemos fazer o msm esquema q a gnt faz com coletaED. só preciso
 	// ver como faz q eu nao sei. waitKey?
 	
-	setThreshold(threshold > 0 ? threshold : height*0.7);
+	setThreshold(threshold > 0 ? threshold : height/2);
 	
 	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
 	
