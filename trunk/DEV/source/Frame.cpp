@@ -26,7 +26,7 @@ void Frame::setImage(IplImage* imgNew)
 	Log::writeLog("%s :: old [%x] new [%x]", __FUNCTION__, this->data, imgNew);
 
 	// Se ja tiver algum alocado
-	if (this->data != NULL)
+	if (this->data)
 	{
 		// Desaloca
 		imgDealloc(this->data);
@@ -143,7 +143,6 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 	setImage(imgHistogram);
 
 }
-
 
 /************************************************************************
 * Construtor para Frame que recebe um caminho para um arquivo no disco.
@@ -310,7 +309,6 @@ Frame * Frame::getDiagonal()
 	imgDealloc(imgDiagonal);
 
 	return(frameDiagonal);
-
 }
 
 /************************************************************************
@@ -367,6 +365,7 @@ Frame::~Frame()
 	// Se o ponteiro para a imagem nao for nulo
 	if (this->data)
 	{
+		Log::writeLog("%s :: Deleting [%x]", __FUNCTION__, this->data);
 		// Libera a memoria alocada para ele
 		imgDealloc(this->data);
 	}

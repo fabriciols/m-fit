@@ -26,6 +26,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <cmath>
 
 #include <time.h>
 
@@ -568,7 +569,7 @@ int main(int argc, char* argv[])
 	}
 	else if (input == VIDEO) // É vídeo
 	{
-		cvNamedWindow(vdo->getName(), 1);
+		//cvNamedWindow(vdo->getName(), 1);
 
 		for (i = 2 ; i < argc ; i++)
 		{
@@ -647,8 +648,11 @@ int main(int argc, char* argv[])
 						// Navigate
 						char c;
 						Frame *frameVideo;
+						Frame *frameHistogram;
+						Histogram *hist;
 
 						frameVideo = vdo->getCurrentFrame();
+						cvNamedWindow("Histograma", 1);
 
 						do
 						{
@@ -733,8 +737,21 @@ int main(int argc, char* argv[])
 							if (frameVideo == NULL)
 								continue;
 
+							frameGray = color->convert2Gray(frameVideo);
+
+							hist = frameGray->createHistogram();
+
+							Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
+								__FUNCTION__, hist->getMinLuminance(), hist->getMin(), hist->getMaxLuminance(), hist->getMax());
+
+							frameHistogram = new Frame(hist->getMatrix(), 256, hist->getMax());
+
 							cvShowImage(vdo->getName(), frameVideo->data);
+							cvShowImage("Histograma", frameHistogram->data);
+
 							delete frameVideo;
+							delete frameGray;
+							delete frameHistogram;
 
 						}
 						while(true);
@@ -743,13 +760,38 @@ int main(int argc, char* argv[])
 						break;
 					}
 				case 'f':
+
+						Transition* transitions = new Transition();
+						Fade* DTF = new Fade();
+						
+						DTF->detectTransitions(vdo, transitions);
+
+						/*
 					{
 						Fade *fade;
 						Frame *frameFADE;
 						VisualRythim *vrh;
 						int len_i;
+						int i;
+						int j;
 						double *array_dy;
 						double *array_vrh;
+
+						double *array_fade;
+
+						// Fade
+						//
+						
+
+						double last_point = 0;
+						int equal_points = 0;
+						int plateau = 0 ;
+						int fade_start = 0;
+						int fade_end = 0 ;
+						int variacao = 0;
+						double fade_max = 0;
+						int fade_max_idx = 0;
+						double aux = 0;
 
 						char imgname_cy[50];
 
@@ -763,26 +805,97 @@ int main(int argc, char* argv[])
 
 						// Ideia do ivan
 						// para que fique visivel as partes negativas
-						for (int i=0 ; i<len_i ; i++)
-							array_dy[i]+= 50;
+						//for (i=0 ; i<len_i ; i++)
+						//	array_dy[i]+= 50;
 
-						frameFADE = new Frame(array_dy, len_i, 256);
+						//frameFADE = new Frame(array_dy, len_i, 256);
 
-						cvShowImage(vdo->getName(), frameFADE->data);
+						//cvShowImage(vdo->getName(), frameFADE->data);
 
-						sprintf(imgname_cy, "vrh_derivative_%s.jpg", vdo->getName());
+						for ( i=0 ; i < len_i ; i++)
+						{
 
-						frameFADE->write(imgname_cy);
+							Log::writeLog("%s :: last_point [%lf] = array_dy[%d][%lf]", __FUNCTION__, last_point, i, array_dy[i]);
 
-						frameEffect = frameFADE;
+							if (last_point == array_dy[i])
+							{
+
+								if (fade_start == 1)
+									fade_start = 0;
+
+								equal_points++;
+							}
+							else
+							{
+								if (fade_start == 0)
+								{
+									Log::writeLog("%s :: comecou uma variacao em : %d", __FUNCTION__, i);
+									fade_start = i;
+								}
+								else if (array_dy[i] == 0.0)
+								{
+									fade_end = i;
+
+									variacao = fade_end - fade_start;
+
+									Log::writeLog("%s :: variacao de %d ateh %d, total de %d pontos", __FUNCTION__, fade_start, fade_end, variacao);
+
+									// Se for maior que um limiar
+									// esse limiar foi definido realizando alguns experimentos onde apareciam
+									// transicoes diferentes de fade.
+									if (variacao> 5)
+									{
+
+										for (j=fade_start ; j<fade_end; j++)
+										{
+											if (fabs(array_dy[j]) > fade_max)
+											{
+												fade_max = array_dy[j];
+												fade_max_idx = j;
+											}
+
+										}
+
+										Log::writeLog("%s :: pico do fade : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
+
+										if (fade_max < 0)
+											Log::writeLog("%s :: fade in em : %d", __FUNCTION__, fade_max_idx);
+										else
+											Log::writeLog("%s :: fade out em : %d", __FUNCTION__, fade_max_idx);
+
+										fade_max = 0;
+										fade_max_idx = 0;
+
+									}
+									else
+									{
+											Log::writeLog("%s :: Variacao muito pequena para ser considerada um fade [%d] < [%d]", __FUNCTION__, variacao, 5);
+									}
+
+									fade_start = fade_end = variacao = 0;
+								}
+							}
+
+							last_point = array_dy[i];
+						}
+
+						//sprintf(imgname_cy, "vrh_derivative_%s.jpg", vdo->getName());
+
+						//frameFADE->write(imgname_cy);
+
+						//cvShowImage(vdo->getName(), frameFADE->data);
+
+						//cvWaitKey(0);
 
 						delete array_vrh;
 						delete array_dy;
 						delete vrh;
 						delete fade;
-
 						break;
+
 					}
+					*/
+						break;
 				case 'c':
 					{
 						// Detecção de cortes

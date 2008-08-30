@@ -8,7 +8,6 @@ class Histogram
 	private:
 
 
-		double data[256];
 	 
 	/**
 	 *Guarda o maior valor
@@ -31,6 +30,7 @@ class Histogram
 
 	public:
 		
+		double data[256];
 		Histogram();
 		Histogram(IplImage* img);
 		double* getMatrix();
