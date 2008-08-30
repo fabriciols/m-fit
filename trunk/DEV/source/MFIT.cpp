@@ -755,7 +755,7 @@ int main(int argc, char* argv[])
 						break;
 					}
 				case 'f':
-
+					{
 						Transition* transitions = new Transition();
 						Fade* DTF = new Fade();
 						
@@ -789,7 +789,7 @@ int main(int argc, char* argv[])
 						double aux = 0;
 
 						char imgname_cy[50];
-
+Cançao do Alien.avi
 						fade = new Fade();
 
 						array_vrh = vrh->createVRH(vdo);
@@ -891,6 +891,7 @@ int main(int argc, char* argv[])
 					}
 					*/
 						break;
+					}
 				case 'c':
 					{
 						// Detecção de cortes
