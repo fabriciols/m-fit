@@ -204,7 +204,7 @@ int main(int argc, char* argv[])
 						IplImage *imgDst;
 						char filename_cy[100];
 
-						strcpy(effectName, "Concatenate Vertical");
+						strcpy(effectName, "Concatenate_Vertical");
 
 						frame2 = new Frame(frame);
 						frame3 = new Frame(argv[i+1]);
@@ -352,48 +352,42 @@ int main(int argc, char* argv[])
 				case 's':       
 					{
 
-/*						Filters *filters = new Filters();
+						Filters *filters = new Filters();
+
+						frameEffect = frameGray;
 
 						if (argv[i][2] == 'v')
 						{
 							strcpy(effectName, "Vertival Sobel");
-							frameEffect = filters->Sobel(frameGray, 0);
+							filters->Sobel(frameEffect, SOBEL_VERTICAL);
 						}
 						else if (argv[i][2] == 'h')
 						{
 							strcpy(effectName, "Horizontal Sobel");
-							frameEffect = filters->Sobel(frameGray, 1);               
+							filters->Sobel(frameEffect, SOBEL_HORIZONTAL);               
 						}
 						else
 						{
 							strcpy(effectName, "Complete Sobel");
-							frameEffect = filters->Sobel(frameGray, 2);
+							filters->Sobel(frameEffect, SOBEL_COMPLETE);
 						}
-*/
-						Cut* cut = new Cut();
-
-						strcpy(effectName, "Sobel");
-						frameEffect = frameGray;
-						cut->createBorderMap(frameEffect);
 
 						break;
 					}
 
-				case 'm':
+				case 'C':
 					{
+						Filters* filters = new Filters();
 
-						Filters *filters = new Filters();
+						strcpy(effectName, "Canny");
 
-						Frame *frameLP = new Frame(frameGray);
+						frameEffect = frameGray;
 
-						strcpy(effectName, "Low-Pass Filter 2");
-
-						filters->lowPass_Smooth(frameLP); 
-
-						frameEffect = frameLP;
+						filters->Canny(frameEffect, 120, 160, 3);
 
 						break;
 					}
+
 				case 'l':
 					{
 
@@ -508,7 +502,7 @@ int main(int argc, char* argv[])
 						// Tira a extensao
 						imgname_cy[strlen(imgname_cy) - 4] = '\0';
 
-						sprintf(imgname_cy, "%s_%s.png", imgname_cy, effectsList[effectCount-1]);
+						sprintf(imgname_cy, "%s_%s.jpg", imgname_cy, effectsList[effectCount-1].name);
 
 //						Log::writeLog("%s :: Writing effect [%s] in file [%s]\n", __FUNCTION__, effectsList[effectCount-1], imgname_cy);
 
@@ -545,7 +539,8 @@ int main(int argc, char* argv[])
 			effectsList[effectCount].name  = effectName;
 			effectsList[effectCount].frame = frameEffect;
 
-			Log::writeLog("%s :: effectsList[%d].frame = [%x] img [%x]", __FUNCTION__, effectCount, effectsList[effectCount].frame, effectsList[effectCount].frame->data);
+			Log::writeLog("%s :: effectsList[%d].frame = [%x]", __FUNCTION__, effectCount, effectsList[effectCount].frame);
+			Log::writeLog("%s :: effectsList[%d].name= [%s]", __FUNCTION__, effectCount, effectsList[effectCount].name);
 
 			// Imprime na tela
 			cvNamedWindow(effectsList[effectCount].name, 1);

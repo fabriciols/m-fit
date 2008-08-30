@@ -69,7 +69,7 @@ void Filters::Sobel(Frame* frame, int direction)
 	Log::writeLog("%s :: param: frame[%x] direction[%d]", __FUNCTION__, frame, direction);
 	
 	img_dst = Frame::imgAlloc(cvGetSize(frame->data),frame->data->depth,frame->data->nChannels);
-   
+
    switch(direction)
    {
 
@@ -96,10 +96,43 @@ void Filters::Sobel(Frame* frame, int direction)
          cvSobel(frame->data,img_dst,1,1,3);
 			break;
 
-   }
+   }	
 
 	frame->setImage(img_dst);
    
+}
+
+/************************************************************************
+* Função que aplica o Filtro de Canny nas imagens.
+*************************************************************************
+* cvCanny( const CvArr* image, CvArr* edges, double threshold1, 
+* 			  double threshold2, int aperture_size=3 );
+*************************************************************************
+* param (E): Frame* frame: Imagem à qual será aplicado o operador.
+* param (E): double thresholdMin: menor limiar para comparação de bordas
+* param (E): double thresholdMax: maior limiar para comparação de bordas
+* param (E): int size: abertura da máscara
+*************************************************************************
+* Retorno: Frame com a detecção de bordas realizada.
+*************************************************************************
+* Autor: Thiago Mizutani
+*************************************************************************
+* Histórico:
+* 30/08/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+void Filters::Canny(Frame* frame, double thresholdMin, double thresholdMax, int size)
+{
+	IplImage* img_dst;
+
+	img_dst = Frame::imgAlloc(frame);
+
+	Log::writeLog("%s :: thresholdMin[%lf], thresholdMax[%lf], size[%d]", __FUNCTION__, thresholdMin, thresholdMax, size);
+
+	cvCanny(frame->data, img_dst, thresholdMin, thresholdMax, size);
+
+	frame->setImage(img_dst);
 }
 
 /************************************************************************
@@ -286,15 +319,4 @@ void Filters::highPass(Frame* frame, int typeMask)
 	delete frameAux;
 
 }
-void Filters::lowPass_Smooth(Frame* frame)
-{
-	IplImage *imgAux;
 
-	imgAux = Frame::imgAlloc(frame);
-
-	//cvSmooth(frame->data, imgAux, CV_BLUR,3,3); //2x2 gaussian kernel
-	cvSmooth(frame->data, imgAux, CV_GAUSSIAN, 5, 5, 0, 0);
-
-	frame->setImage(imgAux);
-
-}
