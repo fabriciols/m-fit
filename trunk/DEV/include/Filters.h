@@ -3,6 +3,10 @@
  *processamento de imagens digitais.
  */
 
+#define SOBEL_VERTICAL	  0
+#define SOBEL_HORIZONTAL  1
+#define SOBEL_COMPLETE	  2
+
 class Filters 
 {
 
@@ -20,13 +24,8 @@ class Filters
 		 *Aplica um filtro passa-baixa na
 		 *imagem.
 		 *
-		 *CvSmooth
-		 *
 		 */
 		void lowPass(Frame* frame, int size);
-		void lowPass_Smooth(Frame* frame);
-
-
 
 		/**
 		 *Aplica um filtro passa alta na 
@@ -38,5 +37,7 @@ class Filters
 		* Aplica um threshold na imagem
 		*/
 		void segment(Frame* frame, int threshold);
+
+		void Canny(Frame* frame, double thresholdMin, double thresholdMax, int size);
 
 };
