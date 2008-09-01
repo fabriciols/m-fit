@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "cv.h"
 #include "highgui.h"
+#include <vector>
 
 #include "../include/Time.h"
 #include "../include/Histogram.h"
@@ -55,7 +56,7 @@ Cut::Cut()
 * Criação.
 ************************************************************************/
 
-void Cut::detectTransitions(Video* vdo, Transition *transitions)
+void Cut::detectTransitions(Video* vdo, std::vector<Transition>* tansitionList)
 { 
 	Frame* visual= new Frame();
 
@@ -115,6 +116,7 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 		if(trans[i])
 		{
 			// É o primeiro
+			/*
 			if (!(transitions->previous))
 			{
 				transitions->previous = 0; // Se for o primeiro, não tem previous
@@ -154,8 +156,10 @@ void Cut::detectTransitions(Video* vdo, Transition *transitions)
 				 *  não posso dar um delete na memória do oldTransition, senão limpo a área de memória que este
 				 *  ponteiro está apontando, fazendo com que eu perca a última transição.
 				**/
+		/*
 				oldTransition = newTransition; 
 			}
+		*/
 		}
 	}
 

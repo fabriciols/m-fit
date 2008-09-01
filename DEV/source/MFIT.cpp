@@ -1,5 +1,6 @@
 #include "cv.h"
 #include "highgui.h"
+#include <vector>
 
 #include "../include/Log.h"
 #include "../include/Time.h"
@@ -64,6 +65,8 @@ int main(int argc, char* argv[])
 	Video *vdo;
 
 	CvCapture* video = 0; 
+
+	std::vector<Transition> transitionList;
 
 	char filename_cy[100];	// Nome do arquivo
 
@@ -642,12 +645,17 @@ int main(int argc, char* argv[])
 					{
 						// Navigate
 						char c;
+						char frame_cy[20];
 						Frame *frameVideo;
 						Frame *frameHistogram;
 						Histogram *hist;
+						CvFont font;
+
+						cvInitFont(&font, CV_FONT_HERSHEY_PLAIN, 0.5, 0.5, 0, 1, CV_AA);
 
 						frameVideo = vdo->getCurrentFrame();
-						cvNamedWindow("Histograma", 1);
+						cvNamedWindow("Histograma"  , 1);
+						cvNamedWindow(vdo->getName(), 1);
 
 						do
 						{
@@ -737,11 +745,30 @@ int main(int argc, char* argv[])
 							hist = frameGray->createHistogram();
 
 							Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]",
-								__FUNCTION__, hist->getMinLuminance(), hist->getMin(), hist->getMaxLuminance(), hist->getMax());
+		 						__FUNCTION__, hist->getMinLuminance(), hist->getMin(), hist->getMaxLuminance(), hist->getMax());
+
+
+							// Printa no frame a posicao corrente
+							// os valores dos pontos foram colocados mediante tentativa e erro
+							//---
+							cvRectangle(frameVideo->data,
+									cvPoint(frameVideo->getWidth()-51 ,20),
+									cvPoint(frameVideo->getWidth()-26 ,35),
+									CV_RGB(255,255,255), -1);
+
+							sprintf(frame_cy, "%0.0lf", vdo->getCurrentPosition());
+
+							cvPutText(frameVideo->data, frame_cy,
+									cvPoint(frameVideo->getWidth()-44,25),
+									&font,
+									CV_RGB(0,0,0));
+							//---
+
 
 							frameHistogram = new Frame(hist->getMatrix(), 256, hist->getMax());
 
 							cvShowImage(vdo->getName(), frameVideo->data);
+
 							cvShowImage("Histograma", frameHistogram->data);
 
 							delete frameVideo;
@@ -759,7 +786,7 @@ int main(int argc, char* argv[])
 						Transition* transitions = new Transition();
 						Fade* DTF = new Fade();
 						
-						DTF->detectTransitions(vdo, transitions);
+						DTF->detectTransitions(vdo, &transitionList);
 
 						/*
 					{
@@ -899,7 +926,7 @@ Cançao do Alien.avi
 						Transition* transitions = new Transition();
 						Cut* DTC = new Cut();
 						
-						DTC->detectTransitions(vdo, transitions);
+						DTC->detectTransitions(vdo, &transitionList);
 						
 						break;
 					}
@@ -920,6 +947,23 @@ Cançao do Alien.avi
 
 		cvDestroyWindow(vdo->getName());
 		delete vdo;
+
+		if (transitionList.size() > 0)
+		{
+			int i = 0;
+			Transition *transition;
+
+			for (i = 0 ; i < transitionList.size() ; i++)
+			{
+				transition = &(transitionList.at(i));
+
+				Log::writeLog("%s :: Find a transiction    ", __FUNCTION__);
+				Log::writeLog("%s :: type :              %d", __FUNCTION__, transition->getType());
+				Log::writeLog("%s :: posTransition :     %d", __FUNCTION__, transition->getPosTransition());
+				Log::writeLog("%s :: posUserTransition : %d", __FUNCTION__, transition->getPosUserTransition());
+				Log::writeLog("%s :: label :             %s", __FUNCTION__, transition->getLabel());
+			}
+		}
 
 	}
 

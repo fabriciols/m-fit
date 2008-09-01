@@ -1,9 +1,6 @@
-/*
-
-#include "../include/Video.h"
-*/
 #include "cv.h"
 #include "highgui.h"
+#include <vector>
 
 #include "../include/Histogram.h"
 #include "../include/Time.h"
@@ -34,13 +31,14 @@
 * Criação.
 ************************************************************************/
 
-void DetectTransitions::detectTransitions(Video* vdo, Transition *transitions)
+void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
+
 {
 	Cut* DTC = new Cut();
-//	Fade* DTF;
+	Fade* DTF = new Fade();
 //	Dissolve* DTD;
 	
-	DTC->detectTransitions(vdo, transitions); // Cortes
-	//DTF->detectTransitions(vdo, transitions); // Fade
+	DTC->detectTransitions(vdo, transitionList); // Cortes
+	DTF->detectTransitions(vdo, transitionList); // Fade
 	//DTD->detectTransitions(vdo, transitions); // Dissolve
 }

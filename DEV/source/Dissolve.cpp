@@ -1,6 +1,7 @@
 #include "cv.h"
 #include "highgui.h"
 #include <stdexcept>
+#include <vector>
 
 #include "../include/Time.h"
 #include "../include/Histogram.h"

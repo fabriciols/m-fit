@@ -1,5 +1,6 @@
 #include "cv.h"
 #include "highgui.h"
+#include <vector>
 
 #include "../include/Time.h"
 #include "../include/Histogram.h"
@@ -64,7 +65,7 @@ double* Fade::calcDerivative(double *array, int size_i)
 * 14/08/08 - Fabrício Lopes de Souza
 * Criação.
 ************************************************************************/
-void Fade::detectTransitions(Video* vdo, Transition *transitions)
+void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 	Fade *fade;
 	Frame *frameFADE;
@@ -83,10 +84,12 @@ void Fade::detectTransitions(Video* vdo, Transition *transitions)
 	double last_point = 0;
 	int fade_start = 0;
 	int fade_end = 0 ;
-	int variacao = 0;
+	int var = 0;
 	double fade_max = 0;
 	int fade_max_idx = 0;
 	double aux = 0;
+
+	Transition *transition;
 
 	// Processo de detecção de transições do tipo FADE
 	
@@ -100,12 +103,33 @@ void Fade::detectTransitions(Video* vdo, Transition *transitions)
 	// 2- Tiramos a derivada
 	array_dy = fade->calcDerivative(array_vrh, len_i);
 
+	{
+		int i;
+		double *array_dy_aux = 0;
+
+		array_dy_aux = (double*)malloc(sizeof(double)*len_i);
+
+
+		// DUMP - cria a imagem do rvh, somente para analizarmos
+		for (i = 0 ; i < len_i ; i ++)
+		{
+			array_dy_aux[i] = array_dy[i] + 50;
+		}
+
+		Frame *frameVRH = new Frame(array_dy_aux, len_i, 256);
+
+		frameVRH->write("vrh_dump.jpg");
+
+		delete frameVRH;
+		delete array_dy_aux;
+	}
+
 	// A partir dai é necessário fazer uma análize na função derivada.
 	// O que iremos fazer é o seguinte:
 	// Varreremos todo o array em buscas de variações muito que tenham uma duração relativamente grande
 	// essa é a característica de um fade.
 	// Se essa variação for toda positiva, então temos um fade-out, caso contrário, temos um fade-in.
-	
+
 	for ( i=0 ; i < len_i ; i++)
 	{
 
@@ -122,22 +146,25 @@ void Fade::detectTransitions(Video* vdo, Transition *transitions)
 		{
 			if (fade_start == 0)
 			{
-				Log::writeLog("%s :: comecou uma variacao em : %d", __FUNCTION__, i);
+				Log::writeLog("%s :: fade_start in %d", __FUNCTION__, i);
 				fade_start = i;
 			}
-			else if (array_dy[i] == 0.0)
+			else if (array_dy[i] == 0.0 || i+1 >= len_i)
 			{
 				fade_end = i;
 
-				variacao = fade_end - fade_start;
+				var = fade_end - fade_start;
 
-				Log::writeLog("%s :: variacao de %d ateh %d, total de %d pontos", __FUNCTION__, fade_start, fade_end, variacao);
+				Log::writeLog("%s :: %d - %d, total points : %d", __FUNCTION__, fade_start, fade_end, var);
 
 				// Se for maior que um limiar
 				// esse limiar foi definido realizando alguns experimentos onde apareciam
 				// transicoes diferentes de fade.
-				if (variacao> 5)
+				if (var> 5)
 				{
+					int type;
+					char label[100];
+
 
 					for (j=fade_start ; j<fade_end; j++)
 					{
@@ -149,26 +176,41 @@ void Fade::detectTransitions(Video* vdo, Transition *transitions)
 
 					}
 
-					Log::writeLog("%s :: pico do fade : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
+					Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
 
 					if (fade_max < 0)
-						Log::writeLog("%s :: fade in em : %d", __FUNCTION__, fade_max_idx);
+					{
+						type = TRANSITION_FADEIN;
+						strcpy(label, "Fade In");
+						Log::writeLog("%s :: fade in in : %d", __FUNCTION__, fade_max_idx);
+					}
 					else
-						Log::writeLog("%s :: fade out em : %d", __FUNCTION__, fade_max_idx);
+					{
+						type = TRANSITION_FADEOUT;
+						strcpy(label, "Fade Out");
+						Log::writeLog("%s :: fade out in : %d", __FUNCTION__, fade_max_idx);
+					}
 
-					fade_max = 0;
-					fade_max_idx = 0;
+					// Cria o objeto da transição
+					transition = new Transition(type, fade_max_idx, label);
+
+					// Adiciona no container
+					transitionList->push_back(*transition);
 
 				}
 				else
 				{
-					Log::writeLog("%s :: Variacao muito pequena para ser considerada um fade [%d] < [%d]", __FUNCTION__, variacao, 5);
+					Log::writeLog("%s :: [%d] < [%d] - not a fade", __FUNCTION__, var, 5);
 				}
 
-				fade_start = fade_end = variacao = 0;
+				// Reseta controles
+				fade_max = 0;
+				fade_max_idx = 0;
+				fade_start = fade_end = var = 0;
 			}
 		}
 
+		// Ultimo ponto, igual a ponto corrente
 		last_point = array_dy[i];
 	}
 

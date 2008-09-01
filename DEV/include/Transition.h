@@ -3,10 +3,10 @@
  *uma transição.
  */
 
-#define CUT 		1
-#define FADEIN 	2
-#define FADEOUT 	3
-#define DISSOLVE 	4
+#define TRANSITION_CUT        1
+#define TRANSITION_FADEIN     2
+#define TRANSITION_FADEOUT    3
+#define TRANSITION_DISSOLVE   4
 
 class Transition
 {
@@ -46,12 +46,7 @@ class Transition
 	public:
 
 		Transition();
-
-		// Próxima transição detectada na lista 
-		Transition* next;
-
-		// Transição detectada anterior da lista
-		Transition* previous;
+		Transition(int, int, char*);
 
 		// Seta tipo da transição
 		void setType(int type);

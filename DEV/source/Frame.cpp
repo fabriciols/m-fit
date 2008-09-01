@@ -112,7 +112,7 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 	{
 		normalized = cvRound((matrix[i]*HIST_HEIGHT)/max_f);
 
-		Log::writeLog("%s :: Plot Value[%3d] = [%4.0lf] Normalized = [%3d]", __FUNCTION__, i, matrix[i], normalized);
+		//Log::writeLog("%s :: Plot Value[%3d] = [%4.0lf] Normalized = [%3d]", __FUNCTION__, i, matrix[i], normalized);
 
 		// Printa a linha do Histograma
 		//cvLine(imgHistogram, cvPoint((i*2)-1,HIST_HEIGHT), cvPoint((i*2)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
@@ -128,7 +128,7 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 		if (i % 32 == 0)
 		{
 			sprintf(frame_cy, "%d", i);
-			Log::writeLog("%s :: i[%d] == cvPutText :[%s] cvPoint(%d,%d)", __FUNCTION__, i, frame_cy, i-1, HIST_HEIGHT);
+			//Log::writeLog("%s :: i[%d] == cvPutText :[%s] cvPoint(%d,%d)", __FUNCTION__, i, frame_cy, i-1, HIST_HEIGHT);
 			cvPutText(imgHistogram, frame_cy, cvPoint(i-1,10), &font, CV_RGB(0,0,0));
 			//cvLine(imgHistogram, cvPoint((i)-1,0), cvPoint((i)-1,HIST_HEIGHT), CV_RGB(0, 0, 0));
 		}
