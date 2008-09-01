@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <string.h>
+
 #include "../include/Transition.h"
 
 /************************************************************************
@@ -16,7 +19,10 @@ Transition::Transition()
 	this->type = 0;
 	this->posTransition = 0;
 	this->posUserTransition = 0;
-	this->label = "";
+
+	this->label = (char*)malloc(sizeof(char)*100);
+	strcpy(this->label, "");
+
 }
 
 /************************************************************************
@@ -36,7 +42,8 @@ Transition::Transition(int type, int posTransition, char *label)
 	this->type = type;
 	this->posTransition = posTransition;
 	this->posUserTransition = 0;
-	this->label = label;
+	this->label = (char*)malloc(sizeof(char)*100);
+	strcpy(this->label, label);
 }
 
 /************************************************************************
@@ -159,7 +166,7 @@ int Transition::getPosUserTransition()
 
 void Transition::setLabel(char* label)
 {
-	this->label = label;
+	strcpy(this->label, label);
 }
 
 /************************************************************************
