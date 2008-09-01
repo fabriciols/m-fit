@@ -7,5 +7,6 @@ class Fade: public DetectTransitions
 {
 	public:
 		double* calcDerivative(double *array, int size_i);
-		void detectTransitions(Video* vdo, Transition *transitions);
+		void detectTransitions(Video* vdo, std::vector<Transition>* transitionList);
+
 };

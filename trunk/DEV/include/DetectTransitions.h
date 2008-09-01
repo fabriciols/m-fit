@@ -13,5 +13,6 @@ class DetectTransitions
 	 *filhos.
 	 */
 	public:
-		void detectTransitions(Video* vdo, Transition *transitions);
+		void detectTransitions(Video* vdo, std::vector<Transition>* tansitionList);
+
 };

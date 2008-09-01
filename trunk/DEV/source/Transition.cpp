@@ -1,7 +1,7 @@
 #include "../include/Transition.h"
 
 /************************************************************************
-* Cosntrutor
+* Construtor
 *************************************************************************
 * param (E): nenhum
 *************************************************************************
@@ -11,15 +11,32 @@
 * 15/08/08 - Thiago Mizutani
 * Criação.
 ************************************************************************/
-
 Transition::Transition()
 {
 	this->type = 0;
 	this->posTransition = 0;
 	this->posUserTransition = 0;
 	this->label = "";
-	this->next = 0;
-	this->previous = 0;
+}
+
+/************************************************************************
+* Construtor que recebe os argumentos via parâmetro
+*************************************************************************
+* param (E): int type      -> tipo da transição
+* param (E): posTransition -> posição onde ela ocorreu
+* param (E): label         -> label desta transição
+*************************************************************************
+*************************************************************************
+* Histórico:
+* 01/09/08 - Fabrício Lopes de Souza
+* Criação.
+************************************************************************/
+Transition::Transition(int type, int posTransition, char *label)
+{
+	this->type = type;
+	this->posTransition = posTransition;
+	this->posUserTransition = 0;
+	this->label = label;
 }
 
 /************************************************************************

@@ -17,7 +17,8 @@ class Cut: public DetectTransitions
 
 		void createBorderMap(Frame* visualRythim);
 	 
-		void detectTransitions(Video *vdo, Transition *transitions);
+		void detectTransitions(Video* vdo, std::vector<Transition>* tansitionList);
+
 
 		int getThreshold();
 

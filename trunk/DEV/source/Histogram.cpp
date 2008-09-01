@@ -58,7 +58,7 @@ Histogram::Histogram(IplImage* img)
 
 	float max = 0, min = 0;
 	int maxLum = 0, minLum = 0;
-	int maxLuminance = 0;
+	double maxLuminance = 0;
 
 	double soma = 0;
 
