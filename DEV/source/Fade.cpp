@@ -169,7 +169,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			fade_end = var = 0;
 		}
-		else if ( fade_start > 0 && ( array_dy[i] == 0.0 || i+1 >= len_i))
+		else if ( fade_start > 0 && ( array_dy[i] == 0.0 || ( i+1 >= len_i && var_d < 2.0 )))
 		{
 			fade_end = i - 1;
 
