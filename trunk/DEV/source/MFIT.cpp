@@ -967,18 +967,9 @@ Cançao do Alien.avi
 
 	}
 
-		if (transitionList.size() > 0)
-		{
-			int i = 0;
-			Transition *transition;
-
-			for (i = 0 ; i < transitionList.size() ; i++)
-			{
-				transitionList.
-			}
-		}
-
 	cvWaitKey(0);
+
+	transitionList.clear();
 }
 
 void usage()

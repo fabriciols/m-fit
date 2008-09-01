@@ -82,7 +82,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	double *array_dy;
 
 	double last_point = 0;
-	int last_zero = 0;
+	int last_zero = -99;
 	int fade_start = 0;
 	int fade_end = 0 ;
 	int var = 0;
@@ -135,7 +135,11 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	// essa é a característica de um fade.
 	// Se essa variação for toda positiva, então temos um fade-out, caso contrário, temos um fade-in.
 
-	for ( i=0 ; i < len_i ; i++)
+	// Desconsideramos o primeiro ponto da derivada
+	// pois ele sempre será '0'
+	last_point = array_dy[1];
+
+	for ( i=2 ; i < len_i ; i++)
 	{
 
 		Log::writeLog("%s :: last_point [%lf] = array_dy[%d][%lf]", __FUNCTION__, last_point, i, array_dy[i]);
