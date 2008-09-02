@@ -183,3 +183,85 @@ double* VisualRythim::createVRH(Video* vdo)
 
 	return (hist);
 }
+
+/************************************************************************
+* Função que retira as tarjas widescreen do ritmo visual do vídeo.
+*************************************************************************
+* param (E): Frame* visualRythim : Ritmo visual a ser tratado
+*************************************************************************
+* return : Ritmo visual sem wide.
+*************************************************************************
+* Histórico:
+* 01/09/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+void VisualRythim::removeWide(Frame* visualRythim)
+{
+
+	int height = 0;
+	int width = 0;
+
+	int sizeWide = 0;
+	int oldSize = 0;
+	int repete = 0;
+
+	Frame* visual = new Frame();
+
+	visual = visualRythim;
+
+	height = visual->getHeight();
+	width = visual->getWidth();
+
+	for( int x=0; x<width; x++ )
+	{
+		// Quando encontrar o pixel diferente de preto eu entro e guardo a altura.
+		for( int y=0; y<height || visual->getPixel(x,y) != 0; y++)
+		{
+			// Se logo o primeiro pixel não for preto, não tenho wide.
+			if(y == 1)
+			{
+				sizeWide = 0;
+				return;
+			}
+
+			sizeWide = y;
+		}
+
+		// Se a nova altura for igual à altura anterior, incremento um contador.
+		if ( sizeWide == oldSize)
+			repete++;
+
+		oldSize = sizeWide;
+
+		// Se a mesma altura se repetiu por metade do RV, significa que aquela é a altura 
+		// do wide, então não preciso mais analisar o resto. Mas se não se repetiu é porque
+		// não existe wide entao zero o valor do wide.
+		if (repete > height/2)
+			break;
+		else
+			sizeWide = 0;
+
+	}
+
+	// Se houver widescreen
+	if (sizeWide)
+	{
+		
+		IplImage* img_dst;
+
+		img_dst = Frame::imgAlloc(cvSize(width,(height-sizeWide)), visual->data->depth, visual->data->nChannels);
+
+		// Pego somente a parte de interesse (sem o wide)
+		cvSetImageROI(img_dst,
+			cvRect
+			(
+			 0,
+			 sizeWide,
+			 visual->getWidth(),
+			 (visual->getHeight()-sizeWide))
+			);
+
+		(visual->data,img_dst);
+	}
+}
