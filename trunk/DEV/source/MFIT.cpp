@@ -182,6 +182,16 @@ int main(int argc, char* argv[])
 
 			switch (argv[i][1])
 			{
+				case 'r':
+					{
+						frameEffect = frameGray;
+
+						sprintf(effectName, "Wide_Removed");
+
+						frameGray->removeWide(frameEffect);
+
+						break;
+					}
 				case 't':
 					{
 
