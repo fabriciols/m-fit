@@ -686,3 +686,105 @@ int Frame::getMaxLum(Frame* frame)
 
 	return (maxLuminance);
 }
+
+/************************************************************************
+* Função que retira as tarjas widescreen do ritmo visual do vídeo.
+*************************************************************************
+* param (E): Frame* visualRythim : Ritmo visual a ser tratado
+*************************************************************************
+* return : Ritmo visual sem wide.
+*************************************************************************
+* Histórico:
+* 01/09/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+void Frame::removeWide(Frame* visualRythim)
+{
+
+	int height = 0;
+	int width = 0;
+
+	int sizeWide = 0;
+	int minSize = 0;
+
+	Frame* visual = new Frame();
+
+	visual = visualRythim;
+
+	Log::writeLog("%s :: visualRythim[%x], visual[%x]", __FUNCTION__, visualRythim, visual);
+
+	height = visual->getHeight();
+	width = visual->getWidth();
+		
+	Log::writeLog("%s :: height = %d, width = %d ", __FUNCTION__, height, width);
+
+	for( int x=0; x<width; x++ )
+	{	
+		// Quando encontrar o pixel diferente de preto eu entro e guardo a altura.
+		for( int y=0; y<height; y++)
+		{
+			// Se o pixel for diferente de preto eu atribuo a altura do pixel como
+			// sendo a altura do wide.
+			if(visual->getPixel(x,y))
+			{
+				sizeWide = y;
+				break;
+			}
+		}
+		
+		// Se logo de cara encontrarmos um pixel não preto, significa que não tem Wide.
+		if(!sizeWide)
+			break;
+
+		// Se minSize = 0, ainda não encontrou nenhum ponto não preto é porque ainda não encontrei
+		// nenhuma altura candidata à altura do wide. Então atribuo a primeira que eu encontrar.
+		if (!minSize) 
+			minSize = sizeWide;
+
+		Log::writeLog("%s :: sizeWide = %d", __FUNCTION__, sizeWide);
+
+		/**
+		 * Se a nova altura do wide encontrada for menor que a encontrada anteriormente, 
+		 * atribuo esta como sendo a menor altura de wide. Caso contrário ignoro esta 
+		 * nova altura.
+		 * **/
+		if (sizeWide < minSize )
+			minSize = sizeWide;
+		else
+			sizeWide = minSize;
+
+	}
+
+	// Se houver widescreen
+	if (sizeWide)
+	{
+		
+		Log::writeLog("%s :: sizeWide_final = %d", __FUNCTION__, sizeWide);
+
+		IplImage* img_dst;
+
+		// Crio uma imagem nova com o tamanho do RV sem as faixas de widescreen
+		img_dst = Frame::imgAlloc(cvSize(width,(height-(sizeWide*2))), visual->data->depth, visual->data->nChannels);
+
+		// Pego somente a parte de interesse (sem o wide) do RV.
+		cvSetImageROI(visual->data,
+			cvRect
+			(
+			 0,
+			 sizeWide,
+			 visual->getWidth(),
+			 (visual->getHeight()-(sizeWide*2))
+			)
+		);
+
+		// Copio para uma imagem nova
+		imgCopy(visual->data,img_dst);
+
+		// Seto o frame com o Ritmo Visual sem o wide 
+		visual->setImage(img_dst);
+
+		cvResetImageROI(visual->data);
+
+	}
+}

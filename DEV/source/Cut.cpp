@@ -56,7 +56,7 @@ Cut::Cut()
 * Criação.
 ************************************************************************/
 
-void Cut::detectTransitions(Video* vdo, std::vector<Transition>* tansitionList)
+void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 { 
 	Frame* visual= new Frame();
 
@@ -91,6 +91,8 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* tansitionList)
 	// Como vou aplicar varios efeitos no RV, faço uma cópia e mantenho o original (visual)
 	Frame *visualRythim = new Frame(visual);
 
+	visual->removeWide(visualRythim);
+
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);
 
@@ -113,10 +115,21 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* tansitionList)
 	
 	for( int i=0; i<(int)totalFrames; i++ )
 	{
-		if(trans[i])
+		if(trans[i]) 
 		{
+			
+			sprintf(label, "Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
+
+			Log::writeLog("%s :: Cut in: %d", __FUNCTION__, i);
+
+			Transition* newTransition = new Transition(TRANSITION_CUT,i,label);
+
+			// Adiciona no container
+			transitionList->push_back(*newTransition);
+
+			/*  MODO ANTIGO (LISTA LIGADA!!!)
+	
 			// É o primeiro
-			/*
 			if (!(transitions->previous))
 			{
 				transitions->previous = 0; // Se for o primeiro, não tem previous
@@ -151,13 +164,12 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* tansitionList)
 
 				newTransition->setLabel(label); //Salvo a label de exibição da transição
 				
-				/**
-				 *  Esta transição será a transição antiga da próxima transição (se houver). Por isso
+				/ *  Esta transição será a transição antiga da próxima transição (se houver). Por isso
 				 *  não posso dar um delete na memória do oldTransition, senão limpo a área de memória que este
 				 *  ponteiro está apontando, fazendo com que eu perca a última transição.
-				**/
+				 */
 		/*
-				oldTransition = newTransition; 
+			oldTransition = newTransition; 
 			}
 		*/
 		}
