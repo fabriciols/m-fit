@@ -23,4 +23,8 @@ class VisualRythim
 		 *gráfico do ritmo visual.
 		 */
 		float calcDerivatives();
+
+		// Remove as tarjas de wide screen, se estas existirem.
+		void removeWide(Frame* visualRythim);
+
 };
