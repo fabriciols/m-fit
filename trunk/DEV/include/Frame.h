@@ -124,6 +124,6 @@ class Frame
 		int getMaxLum(Frame* frame);
 
 		// Remove as tarjas de wide screen, se estas existirem.
-		void removeWide(Frame* visualRythim);
+		void removeWide();
 };
 
