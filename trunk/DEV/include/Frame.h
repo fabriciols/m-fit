@@ -71,6 +71,7 @@ class Frame
 		*Retorna a diagonal do frame.
 		*/
 		Frame * getDiagonal();
+
 		
 		/**
 		 *	Binariza a imagem de entrada baseando-se em um limiar.
@@ -122,5 +123,7 @@ class Frame
 		// Retorna o valor da maior luminancia presente na imagem
 		int getMaxLum(Frame* frame);
 
+		// Remove as tarjas de wide screen, se estas existirem.
+		void removeWide(Frame* visualRythim);
 };
 
