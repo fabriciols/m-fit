@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <vector>
 #include "cv.h"
 #include "highgui.h"
-#include <vector>
 
 #include "../include/Time.h"
 #include "../include/Histogram.h"
@@ -91,7 +91,7 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	// Como vou aplicar varios efeitos no RV, faço uma cópia e mantenho o original (visual)
 	Frame *visualRythim = new Frame(visual);
 
-	visual->removeWide(visualRythim);
+	visualRythim->removeWide();
 
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);

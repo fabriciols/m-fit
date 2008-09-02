@@ -43,6 +43,7 @@ Transition::Transition(int type, int posTransition, char *label)
 	this->posTransition = posTransition;
 	this->posUserTransition = 0;
 	this->label = (char*)malloc(sizeof(char)*100);
+
 	strcpy(this->label, label);
 }
 

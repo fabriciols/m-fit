@@ -129,6 +129,7 @@ double* VisualRythim::createVRH(Video* vdo)
 
 	// Pego o primeiro frame e sua diagonal
 	frame = vdo->getNextFrame();	
+
 	
 	while(frame != NULL)
 	{
@@ -175,7 +176,6 @@ double* VisualRythim::createVRH(Video* vdo)
 
 		posic++;
 
-		Log::writeLog("%s :: end end while", __FUNCTION__);
 	}
 
 	delete color;

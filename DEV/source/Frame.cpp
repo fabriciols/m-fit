@@ -699,7 +699,7 @@ int Frame::getMaxLum(Frame* frame)
 * Criação.
 ************************************************************************/
 
-void Frame::removeWide(Frame* visualRythim)
+void Frame::removeWide()
 {
 
 	int height = 0;
@@ -708,14 +708,8 @@ void Frame::removeWide(Frame* visualRythim)
 	int sizeWide = 0;
 	int minSize = 0;
 
-	Frame* visual = new Frame();
-
-	visual = visualRythim;
-
-	Log::writeLog("%s :: visualRythim[%x], visual[%x]", __FUNCTION__, visualRythim, visual);
-
-	height = visual->getHeight();
-	width = visual->getWidth();
+	height = this->getHeight();
+	width = this->getWidth();
 		
 	Log::writeLog("%s :: height = %d, width = %d ", __FUNCTION__, height, width);
 
@@ -726,7 +720,7 @@ void Frame::removeWide(Frame* visualRythim)
 		{
 			// Se o pixel for diferente de preto eu atribuo a altura do pixel como
 			// sendo a altura do wide.
-			if(visual->getPixel(x,y))
+			if(this->getPixel(x,y))
 			{
 				sizeWide = y;
 				break;
@@ -765,26 +759,25 @@ void Frame::removeWide(Frame* visualRythim)
 		IplImage* img_dst;
 
 		// Crio uma imagem nova com o tamanho do RV sem as faixas de widescreen
-		img_dst = Frame::imgAlloc(cvSize(width,(height-(sizeWide*2))), visual->data->depth, visual->data->nChannels);
+		img_dst = Frame::imgAlloc(cvSize(width,(height-(sizeWide*2))), this->data->depth, this->data->nChannels);
 
 		// Pego somente a parte de interesse (sem o wide) do RV.
-		cvSetImageROI(visual->data,
+		cvSetImageROI(this->data,
 			cvRect
 			(
 			 0,
 			 sizeWide,
-			 visual->getWidth(),
-			 (visual->getHeight()-(sizeWide*2))
+			 this->getWidth(),
+			 (this->getHeight()-(sizeWide*2))
 			)
 		);
 
 		// Copio para uma imagem nova
-		imgCopy(visual->data,img_dst);
+		imgCopy(this->data,img_dst);
+
+		cvResetImageROI(this->data);
 
 		// Seto o frame com o Ritmo Visual sem o wide 
-		visual->setImage(img_dst);
-
-		cvResetImageROI(visual->data);
-
+		this->setImage(img_dst);
 	}
 }

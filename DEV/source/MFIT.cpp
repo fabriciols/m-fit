@@ -184,11 +184,13 @@ int main(int argc, char* argv[])
 			{
 				case 'r':
 					{
-						frameEffect = frameGray;
+						Frame* frameWide = new Frame(frameGray);
 
-						sprintf(effectName, "Wide_Removed");
+						sprintf(effectName, "Remove Wide");
 
-						frameGray->removeWide(frameEffect);
+						frameWide->removeWide();
+
+						frameEffect = frameWide;
 
 						break;
 					}

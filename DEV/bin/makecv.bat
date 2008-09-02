@@ -1,4 +1,5 @@
 set PATH=%PATH%;C:\Dev-Cpp\bin
+set MAKE=mingw32-make.exe
 taskkill /IM "MFIT.EXE"
-make.exe -f "Makefile.win" clean
-make.exe -f "Makefile.win" all
+%MAKE% -f "Makefile.win" clean
+%MAKE% -f "Makefile.win" all

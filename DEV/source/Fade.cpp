@@ -90,6 +90,10 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	double fade_max = 0;
 	int fade_max_idx = 0;
 	double aux = 0;
+	int signal = 0;
+	int no_var = 0;
+	int fade_center = 0;
+	int signal_changed = 0;
 	// media
 	double avarage = 0;
 	// desvio padrão
@@ -142,23 +146,66 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	for ( i=2 ; i < len_i ; i++)
 	{
 
-		Log::writeLog("%s :: last_point [%lf] = array_dy[%d][%lf]", __FUNCTION__, last_point, i, array_dy[i]);
 
 		// Reseta controles
 		fade_max = 0;
 		fade_max_idx = 0;
 		fade_end = var = 0;
+		signal_changed = 0;
 
 		var_d = fabs(fabs(array_dy[i]) - fabs(last_point));
 
-		if (array_dy[i] == 0.0)
+		Log::writeLog("%s :: last_point [%lf] = array_dy[%d][%lf] var_d[%lf]", __FUNCTION__, last_point, i, array_dy[i], var_d);
+
+		if (fade_start > 0)
+		{
+			if (var_d <= 0.0000009)
+			{
+				no_var++;
+			}
+		}
+		else
+		{
+			no_var = 0;
+		}
+
+		if (fade_start > 0)
+		{
+			int signal_last = 0;
+			int signal_new  = 0;
+
+			signal_last = last_point > 0.0 ? 1 : 2;
+			signal_new  = array_dy[i]> 0.0 ? 1 : 2;
+
+			/*
+				Log::writeLog("%s :: signal_last [%s] signal_last [%s]",
+				__FUNCTION__,
+				( signal_last  == 1 ? "+" : "-" ),
+				( signal_new   == 1 ? "+" : "-" ));
+			 */
+
+			if (signal_last != signal_new)
+			{
+				signal_changed = 1;
+
+				if (i - fade_start < 10 )
+				{
+					fade_start = 0;
+					Log::writeLog("%s :: signal changed in midle of fade detection, so, not a FADE!", __FUNCTION__);
+				}
+			}
+		}
+
+
+
+		if (fabs(array_dy[i]) < 0.009)
 			last_zero = i;
 
 		if (
 				fade_start == 0 &&
-				var_d > 0 &&
-				i - last_zero < 4 &&
-				fabs(array_dy[i]) <= 10.0 &&
+				var_d > 0.0 &&
+				(i - last_zero <= 5 || i <= 5) &&
+				var_d <= 4.0 &&
 				array_dy[i] != 0.0
 			)
 		{
@@ -169,7 +216,14 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			fade_end = var = 0;
 		}
-		else if ( fade_start > 0 && ( array_dy[i] == 0.0 || ( i+1 >= len_i && var_d < 2.0 )))
+		else if ( 
+				fade_start > 0 &&
+				( 
+				 array_dy[i] == 0.0 ||
+				 ( i+1 >= len_i && var_d < 2.0 ) ||
+				 signal_changed ||
+				 var_d >= 4.0)
+				)
 		{
 			fade_end = i - 1;
 
@@ -177,16 +231,26 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			Log::writeLog("%s :: %d - %d, total points : %d", __FUNCTION__, fade_start, fade_end, var);
 
+			Log::writeLog("%s :: no_var [%d] var/2 [%d]", __FUNCTION__, no_var, var/2);
+			if (no_var >= ( var / 2 ) )
+			{
+				no_var = 0;
+				fade_start = 0;
+				Log::writeLog("%s :: to many 0 var, not a fade ( no_var [%d] var/2 [%d]", __FUNCTION__, no_var, var/2);
+				continue;
+			}
+
 			// Se for maior que um limiar
 			// esse limiar foi definido realizando alguns experimentos onde apareciam
 			// transicoes diferentes de fade.
-			if (var > 5)
+			if (var > 8)
 			{
 				int type;
 				char label[100];
 
 				for (j = fade_start ; j <= fade_end; j++)
 				{
+
 					if (fabs(array_dy[j]) > fabs(fade_max))
 					{
 						fade_max = array_dy[j];
@@ -213,12 +277,14 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 				deviation = sqrt(( 1.0 / ( var - 1.0 ) ) * deviation);
 
-				if (deviation > 5.0)
+				if (deviation > 1.0)
 				{
-					Log::writeLog("%s :: deviation more than threshold [%lf] > [%lf]", __FUNCTION__, deviation, 5.0);
+					Log::writeLog("%s :: deviation more than threshold [%lf] > [%lf]", __FUNCTION__, deviation, 1.0);
 					Log::writeLog("%s :: this isn't a fade", __FUNCTION__);
 
 					fade_start = 0;
+
+					no_var = 0;
 
 					continue;
 				}
@@ -226,31 +292,37 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 				Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
 				Log::writeLog("%s :: avarage %lf deviation %lf" , __FUNCTION__, avarage, deviation);
 
+				// Cria o objeto da transição
+				fade_center = ( fade_end - fade_start ) / 2 + fade_start;
+
 				if (fade_max < 0)
 				{
 					type = TRANSITION_FADEIN;
 					strcpy(label, "Fade In");
-					Log::writeLog("%s :: fade in in : %d", __FUNCTION__, fade_max_idx);
+					Log::writeLog("%s :: fade in in : %d", __FUNCTION__, fade_center);
 				}
 				else
 				{
 					type = TRANSITION_FADEOUT;
 					strcpy(label, "Fade Out");
-					Log::writeLog("%s :: fade out in : %d", __FUNCTION__, fade_max_idx);
+					Log::writeLog("%s :: fade out in : %d", __FUNCTION__, fade_center);
 				}
 
-				// Cria o objeto da transição
-				transition = new Transition(type, fade_max_idx, label);
+				transition = new Transition(type, fade_center, label);
 
 				// Adiciona no container
 				transitionList->push_back(*transition);
 
 				fade_start = 0;
 
+				no_var = 0;
+
 			}
 			else
 			{
-				Log::writeLog("%s :: [%d] < [%d] - not a fade", __FUNCTION__, var, 5);
+				fade_start = 0;
+				no_var = 0;
+				Log::writeLog("%s :: [%d] < [%d] - not a fade", __FUNCTION__, var, 8);
 			}
 
 		}
