@@ -93,6 +93,8 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	visualRythim->removeWide();
 
+	Log::writeLog("%s :: new height = %d", __FUNCTION__, visualRythim->getHeight());
+
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);
 
@@ -197,18 +199,17 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 void Cut::createBorderMap(Frame* visualRythim)
 {
-	Filters* sobel = new Filters();
-//	Frame* borderMap = new Frame();
+	Filters* canny = new Filters();
 
 	Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
 
 	// Crio o mapa de bordas do RV com o operador Sobel.
-	//borderMap = sobel->Sobel(visualRythim,2);
-   sobel->Sobel(visualRythim,0);
+//   sobel->Sobel(visualRythim,0);
 
-	delete sobel;
+	canny->Canny(visualRythim, 20, 200, 3);
 
-//	return (borderMap);
+	delete canny;
+
 }
 
 /************************************************************************
