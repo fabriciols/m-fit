@@ -627,8 +627,6 @@ void Frame::binarizeImage(Frame* frame, int threshold)
 * Criação.
 ************************************************************************/
 
-// Ivan... pq mediaBin e nao mediaLum se eh a media da luminancia? aheuahe
-
 double Frame::mediaBin(Frame* frame)
 {
 	int x = 0;
@@ -707,6 +705,7 @@ void Frame::removeWide()
 
 	int sizeWide = 0;
 	int minSize = 0;
+	int y = 0;
 
 	height = this->getHeight();
 	width = this->getWidth();
@@ -716,7 +715,7 @@ void Frame::removeWide()
 	for( int x=0; x<width; x++ )
 	{	
 		// Quando encontrar o pixel diferente de preto eu entro e guardo a altura.
-		for( int y=0; y<height; y++)
+		for( y=0; y<height; y++)
 		{
 			// Se o pixel for diferente de preto eu atribuo a altura do pixel como
 			// sendo a altura do wide.
@@ -727,9 +726,13 @@ void Frame::removeWide()
 			}
 		}
 		
-		// Se logo de cara encontrarmos um pixel não preto, significa que não tem Wide.
-		if(!sizeWide)
-			break;
+		/**
+		 * Se logo de cara encontrarmos um pixel não preto, significa que não tem Wide.
+		 * Se a linha for toda preta sizeWide vai ser 0, mas não posso parar por causa disso,
+		 * então só paro se sizeWide = 0 e a altura do wide for menor que a altura do frame.
+		 **/
+		if(!sizeWide && y<height)
+				break;
 
 		// Se minSize = 0, ainda não encontrou nenhum ponto não preto é porque ainda não encontrei
 		// nenhuma altura candidata à altura do wide. Então atribuo a primeira que eu encontrar.

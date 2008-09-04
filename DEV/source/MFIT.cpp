@@ -398,7 +398,7 @@ int main(int argc, char* argv[])
 
 						frameEffect = frameGray;
 
-						filters->Canny(frameEffect, 120, 160, 3);
+						filters->Canny(frameEffect, 20, 200, 3);
 
 						break;
 					}
@@ -498,6 +498,8 @@ int main(int argc, char* argv[])
 				case 'b':
 					{
 						Histogram* hist = new Histogram();
+
+						sprintf(effectName,"Binarize");
 
 						hist = frameGray->createHistogram();
 
@@ -990,6 +992,7 @@ void usage()
 	char *usage_cy[] = {
 		"Use: MFIT.exe img/video -[t|d|e|s|h|p|g|l|H|w|n|z|f]  - Apply filter in img/video\n",
 		"MFIT image -t T Segmentation of the image with the threshold T",
+		"MFIT image -C   Apply Canny in the image",
 		"MFIT image -d   Dilate the image",
 		"MFIT image -e   Erode the image",
 		"MFIT image -sh  Apply Sobel (Horizontal) filter in the image",
@@ -1005,8 +1008,9 @@ void usage()
 		"MFIT image -f   Get a image diagonal",
 		"MFIT image -c image2 Concatenate image and image2 (horizontal)",
 		"MFIT image -v image2 Concatenate image and image2 (Vertical)",
+
 		"MFIT video -n   Navigate using '<' and '>' in a video file",
-		"MFIT video -v   Generate a Visual Rythm",
+		"MFIT video -r   Generate a Visual Rythm",
 		"MFIT video -h   Generate a Visual Rythm Histogram",
 		"MFIT video -c   Detect cut transitions",
 		""
