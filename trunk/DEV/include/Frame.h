@@ -78,7 +78,7 @@ class Frame
 		 *	O limiar será = a 1/4 da maior luminancia presente na imagem.
 		 *	Este critério é baseado em um artigo
 		 * **/
-		void binarizeImage(Frame* frame, int treshold);	
+		void binarizeImage(int treshold);	
 
 		double mediaBin(Frame* frame);
 
@@ -121,7 +121,7 @@ class Frame
 		static void imgDealloc(IplImage* img);
 
 		// Retorna o valor da maior luminancia presente na imagem
-		int getMaxLum(Frame* frame);
+		int getMaxLum();
 
 		// Remove as tarjas de wide screen, se estas existirem.
 		void removeWide();
