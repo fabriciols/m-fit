@@ -58,7 +58,7 @@ Cut::Cut()
 
 void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 { 
-	Frame* visual= new Frame();
+	Frame* visualRythim= new Frame();
 
 	Filters* filters = new Filters();
 
@@ -86,10 +86,7 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 		vdo->seekFrame(0);
 
 	// Crio o Ritmo VIsual do vídeo
-	visual = vr->createVR(vdo);
-
-	// Como vou aplicar varios efeitos no RV, faço uma cópia e mantenho o original (visual)
-	Frame *visualRythim = new Frame(visual);
+	visualRythim = vr->createVR(vdo);
 
 	visualRythim->removeWide();
 
@@ -104,13 +101,13 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	Log::writeLog("%s :: threshold[%d]", __FUNCTION__, threshold);	
 
 	// Defino o limiar para binarização da imagem.
-	thresholdBin = (visual->getMaxLum(visualRythim))/4;
+	thresholdBin = (visualRythim->getMaxLum())/4;
 	
-	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visual->getMaxLum(visualRythim));	
+	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
 	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
 
 	// Binarizo a imagem (transformo tudo em preto e branco)
-	visual->binarizeImage(visualRythim,thresholdBin);
+	visualRythim->binarizeImage(thresholdBin);
 
 	// Realizo a contagem dos pontos das bordas que foram encontradas
 	trans = countPoints(visualRythim, threshold);

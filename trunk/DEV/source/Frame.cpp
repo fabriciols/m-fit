@@ -598,21 +598,21 @@ void Frame::imgDealloc(IplImage *img)
 * Criação.
 ************************************************************************/
 
-void Frame::binarizeImage(Frame* frame, int threshold)
+void Frame::binarizeImage(int threshold)
 {
 	int column = 0;
 	int y = 0;
 
 	// Percorro todo o frame coluna a coluna, pixel a pixel.
-	for( column=0; column<frame->getWidth(); column++ )
+	for( column=0; column<this->getWidth(); column++ )
 	{
-		for( y=0; y<frame->getHeight(); y++ )
+		for( y=0; y<this->getHeight(); y++ )
 		{
 			// Se a luminancia for maior q o limiar, o pixel fica branco (é borda)
-			if( frame->getPixel(column,y) >= threshold )
-				frame->setPixel(column,y,255);
+			if( this->getPixel(column,y) >= threshold )
+				this->setPixel(column,y,255);
 			else // senao fica preto (é fundo)
-				frame->setPixel(column,y,0);
+				this->setPixel(column,y,0);
 		}
 	}
 }
@@ -663,12 +663,11 @@ double Frame::mediaBin(Frame* frame)
 * Criação.
 ************************************************************************/
 
-int Frame::getMaxLum(Frame* frame)
+int Frame::getMaxLum()
 {
-	Frame* frameAux = new Frame(frame);
 
-	int height = frameAux->getHeight();
-	int width = frameAux->getWidth();
+	int height = this->getHeight();
+	int width = this->getWidth();
 	int auxLum = 0;
 	int maxLuminance = 0;
 
@@ -676,7 +675,7 @@ int Frame::getMaxLum(Frame* frame)
 	{
 		for (int y=0; y<height; y++)
 		{
-			auxLum = frameAux->getPixel(x,y);
+			auxLum = this->getPixel(x,y);
 			if( auxLum > maxLuminance )
 				maxLuminance = auxLum;
 		}
@@ -707,9 +706,17 @@ void Frame::removeWide()
 	int minSize = 0;
 	int y = 0;
 
+	int maxLum = 0;
+
 	height = this->getHeight();
 	width = this->getWidth();
-		
+
+	Frame* frameAux = new Frame(this);
+
+	maxLum = frameAux->getMaxLum();
+
+	frameAux->binarizeImage(maxLum/4);
+
 	Log::writeLog("%s :: height = %d, width = %d ", __FUNCTION__, height, width);
 
 	for( int x=0; x<width; x++ )
@@ -719,27 +726,25 @@ void Frame::removeWide()
 		{
 			// Se o pixel for diferente de preto eu atribuo a altura do pixel como
 			// sendo a altura do wide.
-			if(this->getPixel(x,y))
+			if(frameAux->getPixel(x,y))
 			{
 				sizeWide = y;
 				break;
 			}
 		}
-		
+
 		/**
 		 * Se logo de cara encontrarmos um pixel não preto, significa que não tem Wide.
 		 * Se a linha for toda preta sizeWide vai ser 0, mas não posso parar por causa disso,
 		 * então só paro se sizeWide = 0 e a altura do wide for menor que a altura do frame.
 		 **/
 		if(!sizeWide && y<height)
-				break;
+			break;
 
 		// Se minSize = 0, ainda não encontrou nenhum ponto não preto é porque ainda não encontrei
 		// nenhuma altura candidata à altura do wide. Então atribuo a primeira que eu encontrar.
 		if (!minSize) 
 			minSize = sizeWide;
-
-		Log::writeLog("%s :: sizeWide = %d", __FUNCTION__, sizeWide);
 
 		/**
 		 * Se a nova altura do wide encontrada for menor que a encontrada anteriormente, 
@@ -752,6 +757,8 @@ void Frame::removeWide()
 			sizeWide = minSize;
 
 	}
+
+	Log::writeLog("%s :: sizeWide = %d", __FUNCTION__, sizeWide);
 
 	// Se houver widescreen
 	if (sizeWide)
@@ -783,4 +790,6 @@ void Frame::removeWide()
 		// Seto o frame com o Ritmo Visual sem o wide 
 		this->setImage(img_dst);
 	}
+
+	delete frameAux;
 }

@@ -398,7 +398,7 @@ int main(int argc, char* argv[])
 
 						frameEffect = frameGray;
 
-						filters->Canny(frameEffect, 20, 200, 3);
+						filters->Canny(frameEffect, 120, 121, 3);
 
 						break;
 					}
@@ -499,13 +499,17 @@ int main(int argc, char* argv[])
 					{
 						Histogram* hist = new Histogram();
 
+						int maxLum = 0;
+
 						sprintf(effectName,"Binarize");
 
 						hist = frameGray->createHistogram();
 
 						frameEffect = frameGray;
 							
-						frameGray->binarizeImage(frameEffect,(frameGray->getMaxLum(frameEffect))/4);
+						maxLum = frameEffect->getMaxLum();
+
+						frameEffect->binarizeImage(maxLum/4);
 
 						break;
 					}
