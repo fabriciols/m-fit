@@ -8,6 +8,10 @@ class Video
 	private:
 		char name[300+1];
 
+		// Regiao de interesse que é aplicada
+		// a todo frame capturado deste video
+		CvRect ROI;
+
 		/**
 		 *Armazena o endereço do vídeo 
 		 *carregado no sistema
@@ -125,4 +129,7 @@ class Video
 		//	double getFramePos();
 		
 		double getFPS();
+		void removeWide();
+		void removeBorder();
+		
 };

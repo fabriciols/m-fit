@@ -189,6 +189,7 @@ int main(int argc, char* argv[])
 						sprintf(effectName, "Remove Wide");
 
 						frameWide->removeWide();
+						frameWide->removeBorder();
 
 						frameEffect = frameWide;
 
@@ -601,6 +602,11 @@ int main(int argc, char* argv[])
 
 			switch (argv[i][1])
 			{
+				case 'w':
+					{
+						vdo->removeWide();
+						break;
+					}
 				case 'h':
 					{
 						char imgname_cy[100];
@@ -670,6 +676,8 @@ int main(int argc, char* argv[])
 						CvFont font;
 
 						cvInitFont(&font, CV_FONT_HERSHEY_PLAIN, 0.5, 0.5, 0, 1, CV_AA);
+						vdo->removeWide();
+						vdo->removeBorder();
 
 						frameVideo = vdo->getCurrentFrame();
 						cvNamedWindow("Histograma"  , 1);

@@ -124,6 +124,7 @@ class Frame
 		int getMaxLum();
 
 		// Remove as tarjas de wide screen, se estas existirem.
-		void removeWide();
+		int removeWide();
+		int removeBorder();
 };
 

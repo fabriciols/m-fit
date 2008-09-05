@@ -285,7 +285,7 @@ Frame * Frame::getDiagonal()
 
 	Log::writeLog("%s :: diagonal img width[%d] height[%d]", __FUNCTION__, 1, this->getWidth());
 
-	IplImage* imgDiagonal = imgAlloc(cvSize(1, this->getWidth()), 8, 1);
+	IplImage* imgDiagonal = imgAlloc(cvSize(1, this->getWidth()-1), 8, 1);
 
 	frameDiagonal = new Frame(imgDiagonal);
 
@@ -298,7 +298,7 @@ Frame * Frame::getDiagonal()
 	a = (float)(this->getHeight()/(float)this->getWidth());
 
 	// Pego a diagonal do this.
-	for (x=0; x < this->getWidth() ; x++)
+	for (x=0; x < this->getWidth()-1 ; x++)
 	{
 		y = cvRound(a * x);
 
@@ -684,6 +684,113 @@ int Frame::getMaxLum()
 	return (maxLuminance);
 }
 
+int Frame::removeBorder()
+{
+
+	int height = 0;
+	int width = 0;
+
+	int sizeWide = 0;
+	int minSize = 0;
+	int y = 0;
+	int x = 0;
+
+	int maxLum = 0;
+
+	height = this->getHeight();
+	width = this->getWidth();
+
+	Frame* frameAux = new Frame(this);
+
+	maxLum = frameAux->getMaxLum();
+
+	frameAux->binarizeImage(maxLum/4);
+
+	Log::writeLog("%s :: height = %d, width = %d ", __FUNCTION__, height, width);
+
+	for( x=0; x<height-1; x++)
+	{	
+		// Quando encontrar o pixel diferente de preto eu entro e guardo a altura.
+		for( y=0; y<width-1 ;y++)
+		{
+			Log::writeLog("%s :: x[%d] y[%d", __FUNCTION__, x , y);
+			// Se o pixel for diferente de preto eu atribuo a altura do pixel como
+			// sendo a altura do wide.
+			if(frameAux->getPixel(y,x))
+			{
+				sizeWide = y;
+				break;
+			}
+		}
+
+		/**
+		 * Se logo de cara encontrarmos um pixel não preto, significa que não tem Wide.
+		 * Se a linha for toda preta sizeWide vai ser 0, mas não posso parar por causa disso,
+		 * então só paro se sizeWide = 0 e a altura do wide for menor que a altura do frame.
+		 **/
+		if(!sizeWide && y<width)
+			break;
+
+		// Se minSize = 0, ainda não encontrou nenhum ponto não preto é porque ainda não encontrei
+		// nenhuma altura candidata à altura do wide. Então atribuo a primeira que eu encontrar.
+		if (!minSize) 
+			minSize = sizeWide;
+
+		/**
+		 * Se a nova altura do wide encontrada for menor que a encontrada anteriormente, 
+		 * atribuo esta como sendo a menor altura de wide. Caso contrário ignoro esta 
+		 * nova altura.
+		 * **/
+		if (sizeWide < minSize )
+			minSize = sizeWide;
+		else
+			sizeWide = minSize;
+
+		// Se o tamanho do wide que achamos, for maior 
+		// que metade da altura do frame, non ecziste
+		if (sizeWide >= width/2)
+			sizeWide = 0;
+	}
+
+	Log::writeLog("%s :: sizeWide = %d", __FUNCTION__, sizeWide);
+
+	// Se houver widescreen
+	if (sizeWide)
+	{
+		
+		Log::writeLog("%s :: sizeWide_final = %d", __FUNCTION__, sizeWide);
+
+		IplImage* img_dst;
+
+		// Crio uma imagem nova com o tamanho do RV sem as faixas de widescreen
+		img_dst = Frame::imgAlloc(cvSize(width-(sizeWide*2),height), this->data->depth, this->data->nChannels);
+
+		// Pego somente a parte de interesse (sem o wide) do RV.
+		cvSetImageROI(this->data,
+			cvRect
+			(
+			 0,
+			 sizeWide,
+			 this->getWidth()-(sizeWide*2),
+			 this->getHeight()
+			)
+		);
+
+		// Copio para uma imagem nova
+		imgCopy(this->data,img_dst);
+
+		cvResetImageROI(this->data);
+
+		// Seto o frame com o Ritmo Visual sem o wide 
+		this->setImage(img_dst);
+
+	}
+
+	delete frameAux;
+
+	return sizeWide;
+}
+
 /************************************************************************
 * Função que retira as tarjas widescreen do ritmo visual do vídeo.
 *************************************************************************
@@ -696,7 +803,7 @@ int Frame::getMaxLum()
 * Criação.
 ************************************************************************/
 
-void Frame::removeWide()
+int Frame::removeWide()
 {
 
 	int height = 0;
@@ -756,6 +863,10 @@ void Frame::removeWide()
 		else
 			sizeWide = minSize;
 
+		// Se o tamanho do wide que achamos, for maior 
+		// que metade da altura do frame, non ecziste
+		if (sizeWide >= height/2)
+			sizeWide = 0;
 	}
 
 	Log::writeLog("%s :: sizeWide = %d", __FUNCTION__, sizeWide);
@@ -789,7 +900,10 @@ void Frame::removeWide()
 
 		// Seto o frame com o Ritmo Visual sem o wide 
 		this->setImage(img_dst);
+
 	}
 
 	delete frameAux;
+
+	return sizeWide;
 }
