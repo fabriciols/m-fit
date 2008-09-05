@@ -127,7 +127,13 @@ Video::Video(char *filename_cy)
 
 	// Atributos relativos a posicao
 	updatePos();
-	
+
+	// Inicializa o ROI
+	this->ROI.x      = -1;
+	this->ROI.y      = -1;
+	this->ROI.width  = -1; 
+	this->ROI.height = -1;
+
 }
  
 /************************************************************************
@@ -228,21 +234,42 @@ Frame* Video::getNextFrame()
 
 		updatePos();
 
+		if (this->ROI.x != -1 && this->ROI.y != 1)
+		{
+			IplImage* imgWide;
+
+			// Crio uma imagem nova com o tamanho do RV sem as faixas de widescreen
+			imgWide = Frame::imgAlloc(cvSize(this->ROI.width,this->ROI.height), frameNew->data->depth, frameNew->data->nChannels);
+
+			// Pego somente a parte de interesse (sem o wide) do Frame.
+			cvSetImageROI(frameNew->data,this->ROI);
+
+			// Copio para uma imagem nova
+			Frame::imgCopy(frameNew->data,imgWide);
+
+			cvResetImageROI(frameNew->data);
+
+			// Seto o frame sem o wide 
+			frameNew->setImage(imgWide);
+
+			Log::writeLog("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
+		}
+
 		return (frameNew);
 	}
 }
 
 /************************************************************************
-* Captura o frame anterior e passa a apontar para ele
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* return: Frame* - frame capturado.
-************************************************************************
-* Histórico
-* 30/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Captura o frame anterior e passa a apontar para ele
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: Frame* - frame capturado.
+ ************************************************************************
+ * Histórico
+ * 30/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame* Video::getPreviousFrame()
 {
 	// Posiciono no frame anterior
@@ -258,16 +285,16 @@ Frame* Video::getPreviousFrame()
 }
 
 /************************************************************************
-* Captura o frame corrente e não move o ponteiro para o próximo
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* return: Frame* - frame capturado.
-************************************************************************
-* Histórico
-* 30/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Captura o frame corrente e não move o ponteiro para o próximo
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: Frame* - frame capturado.
+ ************************************************************************
+ * Histórico
+ * 30/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame* Video::getCurrentFrame()
 {
 	// Pega o frame atual
@@ -285,49 +312,49 @@ Frame* Video::getCurrentFrame()
 }
 
 /************************************************************************
-* Get para a variavel framesWidth
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* return: double framesWidth
-************************************************************************
-* Histórico
-* 30/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Get para a variavel framesWidth
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: double framesWidth
+ ************************************************************************
+ * Histórico
+ * 30/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 double Video::getFramesWidth()
 {
 	return framesWidth;
 }
 
 /************************************************************************
-* Get para a variavel framesHeight
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* return: double framesHeight
-************************************************************************
-* Histórico
-* 30/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Get para a variavel framesHeight
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: double framesHeight
+ ************************************************************************
+ * Histórico
+ * 30/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 double Video::getFramesHeight()
 {
 	return framesHeight;
 }
 
 /************************************************************************
-* Posiciona o ponteiro do video.
-*************************************************************************
-* param (E): unsigned long posFrame - Numero do frame em questão
-************************************************************************
-* return: 	1 - Erro: parametro passado é invalido
-*				0 - Sucesso
-************************************************************************
-* Histórico
-* 30/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Posiciona o ponteiro do video.
+ *************************************************************************
+ * param (E): unsigned long posFrame - Numero do frame em questão
+ ************************************************************************
+ * return: 	1 - Erro: parametro passado é invalido
+ *				0 - Sucesso
+ ************************************************************************
+ * Histórico
+ * 30/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 int Video::seekFrame(unsigned long posFrame)
 {
 	if (posFrame >= this->framesTotal)
@@ -341,36 +368,162 @@ int Video::seekFrame(unsigned long posFrame)
 }
 
 /************************************************************************
-* Retorna valor da posição atual do video (em qual frame está)
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* return: double framePos
-************************************************************************
-* Histórico
-* 13/08/08 - Thiago Mizutani
-* Renomeando a função de acordo com aquilo que estava na especificação.
-* 30/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Retorna valor da posição atual do video (em qual frame está)
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: double framePos
+ ************************************************************************
+ * Histórico
+ * 13/08/08 - Thiago Mizutani
+ * Renomeando a função de acordo com aquilo que estava na especificação.
+ * 30/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 double Video::getCurrentPosition()
 {
 	return framePos;
 }
 
 /************************************************************************
-* Retorna o valor do FPS do vídeo
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* return: double FPS 
-************************************************************************
-* Histórico
-* 15/08/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Retorna o valor do FPS do vídeo
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: double FPS 
+ ************************************************************************
+ * Histórico
+ * 15/08/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 double Video::getFPS()
 {
 	return (this->fps);
+}
+
+/************************************************************************
+ * Remove o wide de um video inteiro, usando a funcao de remocao
+ * de wide de um frame.
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * Histórico
+ * 05/09/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
+void Video::removeWide()
+{
+	double currentPosition = 0;
+
+	int sizeWide    = 0;
+	int minSizeWide = 9999;
+
+	Frame *frame = 0;
+
+	int npoints = 0;
+	int i = 0;
+
+
+	npoints = cvRound(0.2 * this->getFramesTotal()); // Vou scanear 10% dos frames do video
+
+	currentPosition = this->getCurrentPosition();
+
+	// Aponta pro comeco do video
+	this->seekFrame(0);
+
+	for (i = 0 ; i < this->getFramesWidth() ; i += npoints)
+	{
+		this->seekFrame(i);
+
+		frame = this->getCurrentFrame();
+
+		sizeWide = frame->removeWide();
+
+		Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
+
+		if (sizeWide)
+		{
+			if (sizeWide < minSizeWide)
+				minSizeWide = sizeWide;
+		}
+
+		delete frame;
+
+	}
+
+	Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
+
+	// Devolve ele pra posição que estava
+	this->seekFrame(cvRound(currentPosition));
+
+	if (sizeWide > 0)
+	{
+		this->ROI.x = 0;
+		this->ROI.y = minSizeWide;
+		this->ROI.width =  cvRound(this->getFramesWidth());
+		this->ROI.height = cvRound(this->getFramesHeight()-(minSizeWide*2));
+	}
+}
+
+/************************************************************************
+ * Remove o wide de um video inteiro, usando a funcao de remocao
+ * de wide de um frame.
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * Histórico
+ * 05/09/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
+void Video::removeBorder()
+{
+	double currentPosition = 0;
+
+	int sizeWide    = 0;
+	int minSizeWide = 9999;
+
+	Frame *frame = 0;
+
+	int npoints = 0;
+	int i = 0;
+
+
+	npoints = cvRound(0.2 * this->getFramesTotal()); // Vou scanear 10% dos frames do video
+
+	currentPosition = this->getCurrentPosition();
+
+	// Aponta pro comeco do video
+	this->seekFrame(0);
+
+	for (i = 0 ; i < this->getFramesWidth() ; i += npoints)
+	{
+		this->seekFrame(i);
+
+		frame = this->getCurrentFrame();
+
+		sizeWide = frame->removeBorder();
+
+		Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
+
+		if (sizeWide)
+		{
+			if (sizeWide < minSizeWide)
+				minSizeWide = sizeWide;
+		}
+
+		delete frame;
+
+	}
+
+	Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
+
+	// Devolve ele pra posição que estava
+	this->seekFrame(cvRound(currentPosition));
+
+	if (sizeWide > 0)
+	{
+		this->ROI.x = minSizeWide;
+		this->ROI.width = cvRound(this->getFramesWidth()-(minSizeWide*2));
+	}
 }
