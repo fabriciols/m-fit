@@ -12,15 +12,15 @@
 #define HIST_HEIGHT 256
 
 /************************************************************************
-* Auxiliar que atualiza as variaveis internas de um objeto Frame 
-* deve ser usada toda vez que for alterar a imagem de um frame.
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico:
-* 29/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Auxiliar que atualiza as variaveis internas de um objeto Frame 
+ * deve ser usada toda vez que for alterar a imagem de um frame.
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico:
+ * 29/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Frame::setImage(IplImage* imgNew)
 {
 	Log::writeLog("%s :: old [%x] new [%x]", __FUNCTION__, this->data, imgNew);
@@ -42,15 +42,15 @@ void Frame::setImage(IplImage* imgNew)
 }
 
 /************************************************************************
-* Inicializa todos os atributos com nulo
-* Esta função deve ser usada em TODOS os construtores
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico:
-* 29/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Inicializa todos os atributos com nulo
+ * Esta função deve ser usada em TODOS os construtores
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico:
+ * 29/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Frame::initAttr()
 {
 	this->data = NULL;
@@ -59,31 +59,31 @@ void Frame::initAttr()
 }
 
 /************************************************************************
-* Construtor que somente inicializa as variavies de controle com nulo 
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico:
-* 29/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Construtor que somente inicializa as variavies de controle com nulo 
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico:
+ * 29/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame::Frame()
 {
 	initAttr();
 }
 
 /************************************************************************
-* Construtor para Frame que recebe os valores necessários para plotar
-* um histograma. Cria um objeto Frame com o desenho do histograma.
-*************************************************************************
-* param (E): double matrix[] - Valores do Histograma
-* param (E): int len_i       - Quantidade de valores em 'matrix'
-* param (E): float max_f     - Valor máximo do histograma
-*************************************************************************
-* Histórico:
-* 27/06/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Construtor para Frame que recebe os valores necessários para plotar
+ * um histograma. Cria um objeto Frame com o desenho do histograma.
+ *************************************************************************
+ * param (E): double matrix[] - Valores do Histograma
+ * param (E): int len_i       - Quantidade de valores em 'matrix'
+ * param (E): float max_f     - Valor máximo do histograma
+ *************************************************************************
+ * Histórico:
+ * 27/06/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame::Frame(double *matrix, int len_i, float max_f)
 {
 
@@ -145,15 +145,15 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 }
 
 /************************************************************************
-* Construtor para Frame que recebe um caminho para um arquivo no disco.
-* Tenta abrir o arquivo de imagem e constroi um objeto Frame a partir dele
-*************************************************************************
-* param (E): char* filename_cy - String com o caminho para a imagem.
-*************************************************************************
-* Histórico:
-* 27/06/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Construtor para Frame que recebe um caminho para um arquivo no disco.
+ * Tenta abrir o arquivo de imagem e constroi um objeto Frame a partir dele
+ *************************************************************************
+ * param (E): char* filename_cy - String com o caminho para a imagem.
+ *************************************************************************
+ * Histórico:
+ * 27/06/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame::Frame(char *filename_cy)
 {
 	IplImage* img;
@@ -170,17 +170,17 @@ Frame::Frame(char *filename_cy)
 }
 
 /************************************************************************
-* Construtor para Frame que recebe uma imagem já carregada
-* faz uma copia dessa imagem, e deixa o endereco no frame.
-* Cria um Frame com base nos dados da imagem passada.
-*************************************************************************
-* param (E): IplImage* img_src - Imagem a ser usada como base para a
-* criação de um Frame
-*************************************************************************
-* Histórico:
-* 27/06/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Construtor para Frame que recebe uma imagem já carregada
+ * faz uma copia dessa imagem, e deixa o endereco no frame.
+ * Cria um Frame com base nos dados da imagem passada.
+ *************************************************************************
+ * param (E): IplImage* img_src - Imagem a ser usada como base para a
+ * criação de um Frame
+ *************************************************************************
+ * Histórico:
+ * 27/06/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame::Frame(IplImage *img_src)
 {
 	IplImage *imgNew;
@@ -195,15 +195,15 @@ Frame::Frame(IplImage *img_src)
 	setImage(imgNew);
 }
 /************************************************************************
-* Construtor para Frame que recebe um frame já instanciado.
-* Clona o frame.
-*************************************************************************
-* param (E): Frame *frame - Frame a ser clonado.
-*************************************************************************
-* Histórico:
-* 27/06/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Construtor para Frame que recebe um frame já instanciado.
+ * Clona o frame.
+ *************************************************************************
+ * param (E): Frame *frame - Frame a ser clonado.
+ *************************************************************************
+ * Histórico:
+ * 27/06/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame::Frame(Frame *frame)
 {
 	IplImage *img;
@@ -219,59 +219,59 @@ Frame::Frame(Frame *frame)
 }
 
 /************************************************************************
-* Função que retorna a largura do frame.
-*************************************************************************
-* param (E): Nenhum.
-*************************************************************************
-* return : int - Largura do frame.
-*************************************************************************
-* Histórico:
-* 27/06/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Função que retorna a largura do frame.
+ *************************************************************************
+ * param (E): Nenhum.
+ *************************************************************************
+ * return : int - Largura do frame.
+ *************************************************************************
+ * Histórico:
+ * 27/06/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 int Frame::getWidth()
 {
 	return(*this->width);
 }
 
 /************************************************************************
-* Função que retorna a altura do frame.
-*************************************************************************
-* param (E): Nenhum.
-*************************************************************************
-* return : int - Altura do frame. 
-*************************************************************************
-* Histórico:
-* 27/06/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Função que retorna a altura do frame.
+ *************************************************************************
+ * param (E): Nenhum.
+ *************************************************************************
+ * return : int - Altura do frame. 
+ *************************************************************************
+ * Histórico:
+ * 27/06/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 int Frame::getHeight()
 {
 	return(*this->height);
 }
 
 /************************************************************************
-* FUNÇÃO QUE PEGA A DIAGONAL DE UM FRAME. 
-*************************************************************************
-* Esta função utiliza as fórmulas de trigonometria para encontrar a equa
-* ção da reta a partir disto obter todos os pontos da diagonal do frame. 
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* return : Frame* -> Frame com a diagonal
-*************************************************************************
-* Histórico:
-* 29/07/08 - Fabrício Lopes de Souza
-* 'N' alterações para fazer funcionar, precisa-se validar com perfeição
-* para verificar se está correto.
-* 15/07/08 - Thiago Mizutani
-* Adequação do processo de montagem da diagonal do frame. Utilizando as
-* funções de getPixel e set Pixel.
-* 06/07/08 - Thiago Mizutani
-* Ajustes para extracao dos pontos da diagonal principal do frame.
-* 04/07/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * FUNÇÃO QUE PEGA A DIAGONAL DE UM FRAME. 
+ *************************************************************************
+ * Esta função utiliza as fórmulas de trigonometria para encontrar a equa
+ * ção da reta a partir disto obter todos os pontos da diagonal do frame. 
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : Frame* -> Frame com a diagonal
+ *************************************************************************
+ * Histórico:
+ * 29/07/08 - Fabrício Lopes de Souza
+ * 'N' alterações para fazer funcionar, precisa-se validar com perfeição
+ * para verificar se está correto.
+ * 15/07/08 - Thiago Mizutani
+ * Adequação do processo de montagem da diagonal do frame. Utilizando as
+ * funções de getPixel e set Pixel.
+ * 06/07/08 - Thiago Mizutani
+ * Ajustes para extracao dos pontos da diagonal principal do frame.
+ * 04/07/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 Frame * Frame::getDiagonal()
 {
 	int x = 0; // x da equacao da reta
@@ -280,7 +280,7 @@ Frame * Frame::getDiagonal()
 	Frame* frameDiagonal;
 
 	int luminance = 0; //Valor de luminancia do pixel retirado da diagonal.
-	
+
 	double a = 0; // Coeficiente angular da equacao
 
 	Log::writeLog("%s :: diagonal img width[%d] height[%d]", __FUNCTION__, 1, this->getWidth());
@@ -352,14 +352,14 @@ int Frame::getPixel(int x, int y)
 }
 
 /************************************************************************
-* Destructor da classe frame. Libera a memoria da imagem
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico:
-* 28/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Destructor da classe frame. Libera a memoria da imagem
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico:
+ * 28/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame::~Frame()
 {
 	// Se o ponteiro para a imagem nao for nulo
@@ -372,16 +372,16 @@ Frame::~Frame()
 }
 
 /************************************************************************
-* Sobrecarga do operador '+=' ele ira realizar a concatenacao dos frames
-* Obs.: Atencao para os parametros, pois o soma tem que ser a dois objetos 
-* absolutos, e nao dois ponteiros
-*************************************************************************
-* param (E): Frame frame -> Frame a ser concatenado
-*************************************************************************
-* Histórico:
-* 28/07/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Sobrecarga do operador '+=' ele ira realizar a concatenacao dos frames
+ * Obs.: Atencao para os parametros, pois o soma tem que ser a dois objetos 
+ * absolutos, e nao dois ponteiros
+ *************************************************************************
+ * param (E): Frame frame -> Frame a ser concatenado
+ *************************************************************************
+ * Histórico:
+ * 28/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame & Frame::operator+=(Frame &frame)
 {
 
@@ -439,16 +439,16 @@ Frame & Frame::operator+=(Frame &frame)
 }
 
 /************************************************************************
-* Função que chama o construtor do histograma e retorna o histograma
-* do frame. 
-*************************************************************************
-* param (E): IplImage* frame => Frame do qual será gerado o histograma
-* param (S): Histogram* &histogram => Histograma do frame de entrada
-*************************************************************************
-* Histórico:
-* 29/07/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Função que chama o construtor do histograma e retorna o histograma
+ * do frame. 
+ *************************************************************************
+ * param (E): IplImage* frame => Frame do qual será gerado o histograma
+ * param (S): Histogram* &histogram => Histograma do frame de entrada
+ *************************************************************************
+ * Histórico:
+ * 29/07/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 Histogram* Frame::createHistogram()
 {
@@ -456,14 +456,14 @@ Histogram* Frame::createHistogram()
 }
 
 /************************************************************************
-* Escreve a imagem em arquivo
-*************************************************************************
-* param (E): char *filename_cy -> nome do arquivo ser gravado
-*************************************************************************
-* Histórico:
-* 05/08/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Escreve a imagem em arquivo
+ *************************************************************************
+ * param (E): char *filename_cy -> nome do arquivo ser gravado
+ *************************************************************************
+ * Histórico:
+ * 05/08/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Frame::write(char *filename_cy)
 {
 	Log::writeLog("%s :: write file = [%s]", __FUNCTION__, filename_cy);
@@ -512,15 +512,15 @@ Frame & Frame::operator=(Frame &frame)
 
 }
 /************************************************************************
-* Funcao que realiza a copia de uma imagem
-*************************************************************************
-* param (E): IplImage* imgSrc -> Imagem de origem
-* param (S): IplImage* imgDst -> Imagem de saida 
-*************************************************************************
-* Histórico:
-* 12/08/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Funcao que realiza a copia de uma imagem
+ *************************************************************************
+ * param (E): IplImage* imgSrc -> Imagem de origem
+ * param (S): IplImage* imgDst -> Imagem de saida 
+ *************************************************************************
+ * Histórico:
+ * 12/08/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Frame::imgCopy(IplImage *imgSrc, IplImage *imgDst)
 {
 	Log::writeLog("%s :: Copy : [%x] to [%x]", __FUNCTION__, imgSrc, imgDst);
@@ -531,14 +531,14 @@ void Frame::imgCopy(IplImage *imgSrc, IplImage *imgDst)
 }
 
 /************************************************************************
-* Funcao que centraliza a alocacao de memoria e criacao de uma imagem
-*************************************************************************
-* param (E): Frame* frame -> Frame o qual sera copiado as propriedades
-*************************************************************************
-* Histórico:
-* 25/08/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Funcao que centraliza a alocacao de memoria e criacao de uma imagem
+ *************************************************************************
+ * param (E): Frame* frame -> Frame o qual sera copiado as propriedades
+ *************************************************************************
+ * Histórico:
+ * 25/08/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 IplImage* Frame::imgAlloc(Frame* frame)
 {
 	IplImage *imgNew;
@@ -548,36 +548,36 @@ IplImage* Frame::imgAlloc(Frame* frame)
 	return imgNew;
 }
 /************************************************************************
-* Funcao que centraliza a alocacao de memoria e criacao de uma imagem
-*************************************************************************
-* param (E): CvSize  size     -> Altura e largura da imagem
-* param (E): int		depth    -> Quantidade de bits para as cores
-* param (E): int		channels -> Quantidades de canais possiveis
-*************************************************************************
-* Histórico:
-* 12/08/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Funcao que centraliza a alocacao de memoria e criacao de uma imagem
+ *************************************************************************
+ * param (E): CvSize  size     -> Altura e largura da imagem
+ * param (E): int		depth    -> Quantidade de bits para as cores
+ * param (E): int		channels -> Quantidades de canais possiveis
+ *************************************************************************
+ * Histórico:
+ * 12/08/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 IplImage* Frame::imgAlloc(CvSize size, int depth, int channels)
 {
 	IplImage *imgNew;
 
 	imgNew = cvCreateImage(size, depth, channels);
-	
+
 	Log::writeLog("%s :: New image: [%x]", __FUNCTION__, imgNew);
 
 	return imgNew;
 }
 
 /************************************************************************
-* Funcao que centraliza a desaalocacao de memoria de imagens
-*************************************************************************
-* param (E): IplImage* img -> Imagem a ser desalocada
-*************************************************************************
-* Histórico:
-* 12/08/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Funcao que centraliza a desaalocacao de memoria de imagens
+ *************************************************************************
+ * param (E): IplImage* img -> Imagem a ser desalocada
+ *************************************************************************
+ * Histórico:
+ * 12/08/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Frame::imgDealloc(IplImage *img)
 {
 	Log::writeLog("%s :: Delete image: [%x]", __FUNCTION__, img);
@@ -585,18 +585,18 @@ void Frame::imgDealloc(IplImage *img)
 }
 
 /************************************************************************
-* Funcao que realiza a binarização de uma imagem. Tudo aquilo que
-* possuir luminancia menor do que o limiar passado, terá seu valor 
-* alterado para 0 e tudo aquilo que tiver luminancia acima do valor do 
-* limiar terá seu valor alterado para 255.
-*************************************************************************
-* param (E): Frame* frame => imagem a ser binarizada.
-* param (E): Int threshold => Limiar para binarização
-*************************************************************************
-* Histórico:
-* 15/08/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Funcao que realiza a binarização de uma imagem. Tudo aquilo que
+ * possuir luminancia menor do que o limiar passado, terá seu valor 
+ * alterado para 0 e tudo aquilo que tiver luminancia acima do valor do 
+ * limiar terá seu valor alterado para 255.
+ *************************************************************************
+ * param (E): Frame* frame => imagem a ser binarizada.
+ * param (E): Int threshold => Limiar para binarização
+ *************************************************************************
+ * Histórico:
+ * 15/08/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 void Frame::binarizeImage(int threshold)
 {
@@ -618,14 +618,14 @@ void Frame::binarizeImage(int threshold)
 }
 
 /************************************************************************
-* Funcao que calcula a média de luminancia de uma imagem.
-*************************************************************************
-* param (E): Frame* frame => Imagem a ser calculada média.
-*************************************************************************
-* Histórico:
-* 18/08/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
+ * Funcao que calcula a média de luminancia de uma imagem.
+ *************************************************************************
+ * param (E): Frame* frame => Imagem a ser calculada média.
+ *************************************************************************
+ * Histórico:
+ * 18/08/08 - Ivan Shiguenori Machida
+ * Criação.
+ ************************************************************************/
 
 double Frame::mediaBin(Frame* frame)
 {
@@ -638,30 +638,30 @@ double Frame::mediaBin(Frame* frame)
 	{
 		for( y=0; y<frame->getHeight(); y++ )
 		{
-			// Somatoria de pixel do frame;
+			// Somaeoria de pixel do frame;
 			mean += frame->getPixel(x,y);
-//			Log::writeLog("%s :: mean[%.lf]", __FUNCTION__, mean);
+			//			Log::writeLog("%s :: mean[%.lf]", __FUNCTION__, mean);
 		}
 	}
 
 	// Calcula-se a média dos pixels somados.
 	mean = mean / (frame->getWidth()*frame->getHeight());
 
-//	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
+	//	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
 
 	return (mean);
 }
 
 /************************************************************************
-* Funcao que retorna a maior luminancia de um frame.
-*************************************************************************
-* param (E): Frame* frame => Frame do qual será retornada a maior 
-* 									  luminancia
-*************************************************************************
-* Histórico:
-* 27/08/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Funcao que retorna a maior luminancia de um frame.
+ *************************************************************************
+ * param (E): Frame* frame => Frame do qual será retornada a maior 
+ * 									  luminancia
+ *************************************************************************
+ * Histórico:
+ * 27/08/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 int Frame::getMaxLum()
 {
@@ -708,12 +708,12 @@ int Frame::removeBorder()
 
 	Log::writeLog("%s :: height = %d, width = %d ", __FUNCTION__, height, width);
 
-	for( x=0; x<height-1; x++)
+	for( x=0; x<height; x++)
 	{	
 		// Quando encontrar o pixel diferente de preto eu entro e guardo a altura.
-		for( y=0; y<width-1 ;y++)
+		for( y=0; y<width ;y++)
 		{
-			Log::writeLog("%s :: x[%d] y[%d", __FUNCTION__, x , y);
+			//Log::writeLog("%s :: x[%d] y[%d]", __FUNCTION__, x , y);
 			// Se o pixel for diferente de preto eu atribuo a altura do pixel como
 			// sendo a altura do wide.
 			if(frameAux->getPixel(y,x))
@@ -757,24 +757,24 @@ int Frame::removeBorder()
 	// Se houver widescreen
 	if (sizeWide)
 	{
-		
+
 		Log::writeLog("%s :: sizeWide_final = %d", __FUNCTION__, sizeWide);
 
 		IplImage* img_dst;
 
 		// Crio uma imagem nova com o tamanho do RV sem as faixas de widescreen
-		img_dst = Frame::imgAlloc(cvSize(width-(sizeWide*2),height), this->data->depth, this->data->nChannels);
+		img_dst = Frame::imgAlloc(cvSize(this->getWidth()-(sizeWide*2),this->getHeight()), this->data->depth, this->data->nChannels);
 
 		// Pego somente a parte de interesse (sem o wide) do RV.
 		cvSetImageROI(this->data,
-			cvRect
-			(
-			 0,
-			 sizeWide,
-			 this->getWidth()-(sizeWide*2),
-			 this->getHeight()
-			)
-		);
+				cvRect
+				(
+				 sizeWide,
+				 0,
+				 this->getWidth()-(sizeWide*2),
+				 this->getHeight()
+				)
+				);
 
 		// Copio para uma imagem nova
 		imgCopy(this->data,img_dst);
@@ -792,16 +792,16 @@ int Frame::removeBorder()
 }
 
 /************************************************************************
-* Função que retira as tarjas widescreen do ritmo visual do vídeo.
-*************************************************************************
-* param (E): Frame* visualRythim : Ritmo visual a ser tratado
-*************************************************************************
-* return : Ritmo visual sem wide.
-*************************************************************************
-* Histórico:
-* 01/09/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Função que retira as tarjas widescreen do ritmo visual do vídeo.
+ *************************************************************************
+ * param (E): Frame* visualRythim : Ritmo visual a ser tratado
+ *************************************************************************
+ * return : Ritmo visual sem wide.
+ *************************************************************************
+ * Histórico:
+ * 01/09/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 int Frame::removeWide()
 {
@@ -874,7 +874,7 @@ int Frame::removeWide()
 	// Se houver widescreen
 	if (sizeWide)
 	{
-		
+
 		Log::writeLog("%s :: sizeWide_final = %d", __FUNCTION__, sizeWide);
 
 		IplImage* img_dst;
@@ -884,14 +884,14 @@ int Frame::removeWide()
 
 		// Pego somente a parte de interesse (sem o wide) do RV.
 		cvSetImageROI(this->data,
-			cvRect
-			(
-			 0,
-			 sizeWide,
-			 this->getWidth(),
-			 (this->getHeight()-(sizeWide*2))
-			)
-		);
+				cvRect
+				(
+				 0,
+				 sizeWide,
+				 this->getWidth(),
+				 (this->getHeight()-(sizeWide*2))
+				)
+				);
 
 		// Copio para uma imagem nova
 		imgCopy(this->data,img_dst);
