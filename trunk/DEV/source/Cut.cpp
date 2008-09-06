@@ -90,6 +90,9 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	visualRythim->removeWide();
 
+	// Crio uma cópia do frame original para realizar a validação dos cortes detectados posteriormente.
+	Frame* visual = new Frame(visualRythim);
+
 	Log::writeLog("%s :: new height = %d", __FUNCTION__, visualRythim->getHeight());
 
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
@@ -105,7 +108,6 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	
 	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
 	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
-
 	// Binarizo a imagem (transformo tudo em preto e branco)
 	visualRythim->binarizeImage(thresholdBin);
 
@@ -117,6 +119,8 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 		if(trans[i]) 
 		{
 			
+			validateCut(visual, i);
+
 			sprintf(label, "Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
 
 			Log::writeLog("%s :: Cut in: %d", __FUNCTION__, i);
@@ -201,7 +205,7 @@ void Cut::createBorderMap(Frame* visualRythim)
 	Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
 
 	// Crio o mapa de bordas do RV com o operador Sobel.
-//   sobel->Sobel(visualRythim,0);
+
 
 	canny->Canny(visualRythim, 20, 200, 3);
 
@@ -336,6 +340,38 @@ int Cut::getThreshold(void)
 int Cut::setThreshold(int threshold)
 {
 	this->threshold = threshold;
+
+	return 0;
+}
+
+int Cut::validateCut(Frame* visual, int position)
+{
+	Frame* visualRythim = new Frame(visual);
+
+	int width = visualRythim->getWidth();
+	int height = visualRythim->getHeight();
+
+	long totalPixels = height*2;
+	long totalNextLum = 0; // Soma total da luminancia dos pixels dos proximos 2 frames.
+	long totalPreviousLum = 0;
+	
+	long nextAvarage = 0;
+	long previousAvarage = 0;
+
+	//########### INICIO VERIFICAÇÃO FADE-IN ###################
+
+	// Verifico os próximos 2 frames
+	for(int x=position+1; x<=position+2 && x<width; x++)
+	{
+		for(int y=0; y<height; y++)
+		{
+			totalNextLum = totalNextLum + visualRythim->getPixel(x,y);
+		}
+	}
+	
+	// Se for Fade-In, totalNextLum = 0, ou valor muito baixo.
+
+	
 
 	return 0;
 }
