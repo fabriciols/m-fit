@@ -119,17 +119,17 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 		if(trans[i]) 
 		{
 			
-			validateCut(visual, i);
+			if(validateCut(visual, i))
+			{
+				sprintf(label, "Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
 
-			sprintf(label, "Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
+				Log::writeLog("%s :: Cut in: %d", __FUNCTION__, i);
 
-			Log::writeLog("%s :: Cut in: %d", __FUNCTION__, i);
+				Transition* newTransition = new Transition(TRANSITION_CUT,i,label);
 
-			Transition* newTransition = new Transition(TRANSITION_CUT,i,label);
-
-			// Adiciona no container
-			transitionList->push_back(*newTransition);
-
+				// Adiciona no container
+				transitionList->push_back(*newTransition);
+			}
 			/*  MODO ANTIGO (LISTA LIGADA!!!)
 	
 			// É o primeiro
@@ -207,7 +207,7 @@ void Cut::createBorderMap(Frame* visualRythim)
 	// Crio o mapa de bordas do RV com o operador Sobel.
 
 
-	canny->Canny(visualRythim, 20, 200, 3);
+	canny->Canny(visualRythim, 100, 200, 3);
 
 	delete canny;
 
@@ -344,6 +344,19 @@ int Cut::setThreshold(int threshold)
 	return 0;
 }
 
+/************************************************************************
+* Função que valida se a transição encontrada é realmente um corte.
+*************************************************************************
+* param (E): Frame* visual : Ritmo Visual original para análise
+* param (E): int position : Posição em que foi encontrado o suposto corte
+*************************************************************************
+* return :  TRUE OU FALSE.
+*************************************************************************
+* Histórico:
+* 06/08/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
 int Cut::validateCut(Frame* visual, int position)
 {
 	Frame* visualRythim = new Frame(visual);
@@ -358,20 +371,59 @@ int Cut::validateCut(Frame* visual, int position)
 	long nextAvarage = 0;
 	long previousAvarage = 0;
 
-	//########### INICIO VERIFICAÇÃO FADE-IN ###################
+	long difference = 0;
 
+	Log::writeLog("%s :: position[%d]", __FUNCTION__, position);	
+	
 	// Verifico os próximos 2 frames
 	for(int x=position+1; x<=position+2 && x<width; x++)
 	{
 		for(int y=0; y<height; y++)
 		{
+//			Log::writeLog("%s :: next[%d]->luminance[%d]", __FUNCTION__, x, visualRythim->getPixel(x,y));	
 			totalNextLum = totalNextLum + visualRythim->getPixel(x,y);
 		}
 	}
 	
 	// Se for Fade-In, totalNextLum = 0, ou valor muito baixo.
 
-	
+	nextAvarage = totalNextLum/totalPixels;
 
-	return 0;
+	Log::writeLog("%s :: totalNextLum = %ld, nextAvarage = %ld", __FUNCTION__, totalNextLum, nextAvarage);	
+	
+		for(int x=position-1; x>=position-2 && x>0; x--)
+	{
+		for(int y=0; y<height; y++)
+		{
+//			Log::writeLog("%s :: previous[%d]->luminance[%d]", __FUNCTION__, x, visualRythim->getPixel(x,y));	
+			totalPreviousLum = totalPreviousLum + visualRythim->getPixel(x,y);
+		}
+	}
+
+	previousAvarage = totalPreviousLum/totalPixels;
+
+	Log::writeLog("%s :: totalPreviousLum = %ld, previousAvarage = %ld", __FUNCTION__, totalPreviousLum, previousAvarage);	
+
+	difference = nextAvarage - previousAvarage;
+
+	Log::writeLog("%s :: difference = %ld", __FUNCTION__, difference);	
+
+	if( difference < 0 )
+	{
+		// Saiu de uma cena e foi para um FADE-IN
+		return (FALSE);
+	}
+	else if( difference > 200 )
+	{
+		// Veio de fade-out
+		return (FALSE);
+	}
+	else if(difference > 0 && difference < 20)
+	{
+		// Objeto de cena
+		return (FALSE);
+	}
+
+	return (TRUE);
+
 }
