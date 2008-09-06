@@ -33,4 +33,7 @@ class Cut: public DetectTransitions
 	 
 	int* countPoints(Frame* borderMap, int threshold);
 
+	// Valida se aquilo que foi detectado é realmente um corte.
+	int validateCut(Frame* visual, int position);
+
 };
