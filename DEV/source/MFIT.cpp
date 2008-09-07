@@ -189,7 +189,6 @@ int main(int argc, char* argv[])
 						sprintf(effectName, "Remove Wide");
 
 						frameWide->removeWide();
-						frameWide->removeBorder();
 
 						frameEffect = frameWide;
 
