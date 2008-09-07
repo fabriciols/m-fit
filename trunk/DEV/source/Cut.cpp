@@ -95,6 +95,21 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	Log::writeLog("%s :: new height = %d", __FUNCTION__, visualRythim->getHeight());
 
+	// Defino o limiar para binarização da imagem.
+	thresholdBin = (visualRythim->getMaxLum())/4;
+	
+	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
+ 
+
+	/**
+	 *  PEGAR A MÉDIA DA LUMINÂNCIA DOS PIXELS DO RITMO VISUAL!!!
+	 *  PASSAR ISSO COMO PARÂMETRO PARA O createBorderMap E FAZER
+	 *  TRATAMENTO NESTA FUNÇÃO. SE A MÉDIA FOR MUITO ALTO (VÍDEO MTO CLARO)
+	 *  DEVE UTILIZAR LIMIARES ALTOS PARA DETECÇÃO DAS BORDAS, CASO CONTRARIO USA
+	 *  100 - 200. TESTAR MUITO!
+	 * **/
+
+
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);
 
@@ -103,10 +118,6 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	Log::writeLog("%s :: threshold[%d]", __FUNCTION__, threshold);	
 
-	// Defino o limiar para binarização da imagem.
-	thresholdBin = (visualRythim->getMaxLum())/4;
-	
-	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
 	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
 	// Binarizo a imagem (transformo tudo em preto e branco)
 	visualRythim->binarizeImage(thresholdBin);
@@ -231,13 +242,16 @@ void Cut::createBorderMap(Frame* visualRythim)
 int Cut::defineThreshold(int height)
 {
 	int threshold = 0;
+	double newThreshold;
 	Cut* cut = 0;
 
 	// Would you like to set a new threshold? precisaremos do QT pra fazer isso
 	// mas podemos fazer o msm esquema q a gnt faz com coletaED. só preciso
 	// ver como faz q eu nao sei. waitKey?
 	
-	setThreshold(threshold > 0 ? threshold : height/2);
+	newThreshold = height * 0.45;
+	
+	setThreshold(threshold > 0 ? threshold : (int)newThreshold);
 	
 	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
 	
@@ -279,7 +293,7 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 	Log::writeLog("%s :: threshold[%d] ", __FUNCTION__, threshold);
 	Log::writeLog("%s :: width[%d] ", __FUNCTION__, width);
 	Log::writeLog("%s :: height[%d] ", __FUNCTION__, height);
-
+	
 	/**
 	 *	Varro toda a imagem coluna por coluna, pixel a pixel, verificando se
 	 *	o pixel é branco. Se for branco, significa que faz parte da borda.
@@ -408,22 +422,52 @@ int Cut::validateCut(Frame* visual, int position)
 
 	Log::writeLog("%s :: difference = %ld", __FUNCTION__, difference);	
 
-	if( difference < 0 )
+	/**
+	*  Como posso ter a transição de uma cena mais clara para uma mais escura
+	*  ainda preciso considerar estas diferenças. Portanto se a diferença for
+	*  negativa, até certo ponto ainda é válida, por exemplo, uma cena possui média
+	*  50 e vai para uma em que a média da luminosidade é 40, a diferença será -10,
+	*  porém isto não é um fade-in, então considero como corte.
+	**/
+	if( difference < -15 )
 	{
+		/**
+		 *	Como posso ter o corte entre uma cena extremamente clara (media da luminancia 
+		 *	acima de 200) para uma em que a média é extremamente baixa, devo considerar 
+		 *	que a diferença vai ser absurda, porém não deixa de ser um corte.
+		 *	Os valores aqui usados foram baseados em testes deste trabalho. Não há menção disso
+		 *	em nenhum dos trabalhos relacionados estudados.
+		 * **/
+		if (previousAvarage >= 200 && nextAvarage >= 15)		
+		{
+			return (TRUE);
+		}
 		// Saiu de uma cena e foi para um FADE-IN
 		return (FALSE);
 	}
-	else if( difference > 200 )
+	/**
+	 *	Se a diferença entre as médias for muito alta, ou a média da luminância dos frames
+	 *	anteriores for muito baixa, significa que está vindo de um fade-out, portanto não
+	 *	podemos considerar isto como um corte.
+	 * **/
+	else if( difference >= 100 || previousAvarage < 15 ) // Setar um limiar pra isso.
 	{
 		// Veio de fade-out
 		return (FALSE);
 	}
-	else if(difference > 0 && difference < 20)
+	/**
+	 *	Se a diferença das luminâncias for 0 ou muito baixa, a probabilidade de ter
+	 *	ocorrido um erro é significamente alta, visto que em uma única cena a luz não
+	 *	varia tanto (com excessão de alguns casos), portanto não podemos considerar
+	 *	um corte se a alteração da luminância não for significativa.
+	 * **/
+	else if(difference >= 0 && difference <= 30) // Chute!
 	{
 		// Objeto de cena
 		return (FALSE);
 	}
 
+	// Diferença de luminâncias válida se encontra entre 31,99.
 	return (TRUE);
 
 }
