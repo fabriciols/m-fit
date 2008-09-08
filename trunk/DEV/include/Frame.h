@@ -80,7 +80,7 @@ class Frame
 		 * **/
 		void binarizeImage(int treshold);	
 
-		double mediaBin(Frame* frame);
+		double mediaBin();
 
 		// Gets
 
