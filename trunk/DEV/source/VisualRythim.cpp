@@ -141,16 +141,12 @@ double* VisualRythim::createVRH(Video* vdo)
 
 		// Converto o frame para escala de cinza.
 		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
-		Log::writeLog("%s :: conver2Gray!", __FUNCTION__);
 		frameGray = color->convert2Gray(frame);
 
 		// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
-		Log::writeLog("%s :: getDiagonal!", __FUNCTION__);
 		diagonal = frameGray->getDiagonal();
 
-
 		// Gero o histograma da diagonal do frame corrente
-		Log::writeLog("%s :: createHistogram!", __FUNCTION__);
 		histogram = diagonal->createHistogram();
 		//histogram = frameGray->createHistogram();
 
@@ -169,9 +165,7 @@ double* VisualRythim::createVRH(Video* vdo)
 		delete frame;
 		delete diagonal;
 		
-		// Pego o proximo frame e sua diagonal
-		Log::writeLog("%s :: getNextFrame", __FUNCTION__);
-
+		// Pego o proximo
 		frame = vdo->getNextFrame();
 
 		posic++;

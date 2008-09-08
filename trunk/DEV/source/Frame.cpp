@@ -884,7 +884,7 @@ int Frame::removeWide()
 		IplImage* img_dst;
 
 		// Crio uma imagem nova com o tamanho do RV sem as faixas de widescreen
-		img_dst = Frame::imgAlloc(cvSize(width,(height-(sizeWide*2))), this->data->depth, 1);
+		img_dst = Frame::imgAlloc(cvSize(width,(height-(sizeWide*2))), this->data->depth, this->data->nChannels);
 
 		// Pego somente a parte de interesse (sem o wide) do RV.
 		cvSetImageROI(this->data,
@@ -892,8 +892,8 @@ int Frame::removeWide()
 				(
 				 0,
 				 sizeWide,
-				 this->getWidth(),
-				 (this->getHeight()-(sizeWide*2))
+				 width,
+				 height-(sizeWide*2)
 				)
 				);
 
