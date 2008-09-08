@@ -95,29 +95,25 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	Log::writeLog("%s :: new height = %d", __FUNCTION__, visualRythim->getHeight());
 
-	// Defino o limiar para binarização da imagem.
-	thresholdBin = (visualRythim->getMaxLum())/4;
-	
-	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
- 
+	Log::writeLog("%s :: media luminancia = %lf", __FUNCTION__, visualRythim->mediaBin());
 
-	/**
-	 *  PEGAR A MÉDIA DA LUMINÂNCIA DOS PIXELS DO RITMO VISUAL!!!
-	 *  PASSAR ISSO COMO PARÂMETRO PARA O createBorderMap E FAZER
-	 *  TRATAMENTO NESTA FUNÇÃO. SE A MÉDIA FOR MUITO ALTO (VÍDEO MTO CLARO)
-	 *  DEVE UTILIZAR LIMIARES ALTOS PARA DETECÇÃO DAS BORDAS, CASO CONTRARIO USA
-	 *  100 - 200. TESTAR MUITO!
-	 * **/
-
+	cvSaveImage("rv.jpg",visualRythim->data);
 
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);
 
+	cvSaveImage("mapaBordas.jpg",visualRythim->data);
+	
 	// Pergunto ao usuario se deseja alterar a limiar para detecção.
 	threshold = this->defineThreshold(visualRythim->getHeight());
 
 	Log::writeLog("%s :: threshold[%d]", __FUNCTION__, threshold);	
 
+	// Defino o limiar para binarização da imagem.
+	thresholdBin = (visualRythim->getMaxLum())/4;
+	
+	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
+ 
 	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
 	// Binarizo a imagem (transformo tudo em preto e branco)
 	visualRythim->binarizeImage(thresholdBin);
@@ -216,7 +212,6 @@ void Cut::createBorderMap(Frame* visualRythim)
 	Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
 
 	// Crio o mapa de bordas do RV com o operador Sobel.
-
 
 	canny->Canny(visualRythim, 100, 200, 3);
 
@@ -433,12 +428,12 @@ int Cut::validateCut(Frame* visual, int position)
 	{
 		/**
 		 *	Como posso ter o corte entre uma cena extremamente clara (media da luminancia 
-		 *	acima de 200) para uma em que a média é extremamente baixa, devo considerar 
+		 *	acima de 150) para uma em que a média é extremamente baixa, devo considerar 
 		 *	que a diferença vai ser absurda, porém não deixa de ser um corte.
 		 *	Os valores aqui usados foram baseados em testes deste trabalho. Não há menção disso
 		 *	em nenhum dos trabalhos relacionados estudados.
 		 * **/
-		if (previousAvarage >= 200 && nextAvarage >= 15)		
+		if (previousAvarage >= 140 && nextAvarage >= 15)		
 		{
 			return (TRUE);
 		}
@@ -450,7 +445,7 @@ int Cut::validateCut(Frame* visual, int position)
 	 *	anteriores for muito baixa, significa que está vindo de um fade-out, portanto não
 	 *	podemos considerar isto como um corte.
 	 * **/
-	else if( difference >= 100 || previousAvarage < 15 ) // Setar um limiar pra isso.
+	else if( previousAvarage < 15 ) // Setar um limiar pra isso.
 	{
 		// Veio de fade-out
 		return (FALSE);
