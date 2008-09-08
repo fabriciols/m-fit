@@ -627,25 +627,25 @@ void Frame::binarizeImage(int threshold)
  * Criação.
  ************************************************************************/
 
-double Frame::mediaBin(Frame* frame)
+double Frame::mediaBin()
 {
 	int x = 0;
 	int y = 0;
 	double mean=0;
 
 	// Percorro todo o frame coluna a coluna, pixel a pixel.
-	for( x=0; x<frame->getWidth(); x++ )
+	for( x=0; x<this->getWidth(); x++ )
 	{
-		for( y=0; y<frame->getHeight(); y++ )
+		for( y=0; y<this->getHeight(); y++ )
 		{
 			// Somaeoria de pixel do frame;
-			mean += frame->getPixel(x,y);
+			mean += this->getPixel(x,y);
 			//			Log::writeLog("%s :: mean[%.lf]", __FUNCTION__, mean);
 		}
 	}
 
 	// Calcula-se a média dos pixels somados.
-	mean = mean / (frame->getWidth()*frame->getHeight());
+	mean = mean / (this->getWidth()*this->getHeight());
 
 	//	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
 
@@ -821,7 +821,7 @@ int Frame::removeWide()
 	Frame* frameAux = new Frame(this);
 
 	maxLum = frameAux->getMaxLum();
-
+	
 	frameAux->binarizeImage(maxLum/4);
 
 	Log::writeLog("%s :: height = %d, width = %d ", __FUNCTION__, height, width);
@@ -870,7 +870,11 @@ int Frame::removeWide()
 	}
 
 	Log::writeLog("%s :: sizeWide = %d", __FUNCTION__, sizeWide);
-
+	
+	// Não existe wideScreen menor do que 10 pixels.
+	if (sizeWide < 10)
+		sizeWide = 0;
+	
 	// Se houver widescreen
 	if (sizeWide)
 	{
@@ -880,7 +884,7 @@ int Frame::removeWide()
 		IplImage* img_dst;
 
 		// Crio uma imagem nova com o tamanho do RV sem as faixas de widescreen
-		img_dst = Frame::imgAlloc(cvSize(width,(height-(sizeWide*2))), this->data->depth, this->data->nChannels);
+		img_dst = Frame::imgAlloc(cvSize(width,(height-(sizeWide*2))), this->data->depth, 1);
 
 		// Pego somente a parte de interesse (sem o wide) do RV.
 		cvSetImageROI(this->data,
