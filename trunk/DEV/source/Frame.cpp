@@ -279,7 +279,7 @@ Frame * Frame::getDiagonal()
 
 	Frame* frameDiagonal;
 
-	int luminance = 0; //Valor de luminancia do pixel retirado da diagonal.
+	//int luminance = 0; //Valor de luminancia do pixel retirado da diagonal.
 
 	double a = 0; // Coeficiente angular da equacao
 
@@ -435,7 +435,6 @@ Frame & Frame::operator+=(Frame &frame)
 	setImage(imgDst);
 
 	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
-
 }
 
 /************************************************************************

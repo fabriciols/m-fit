@@ -32,7 +32,7 @@ double* Fade::calcDerivative(double *array, int size_i)
 	// Para calcular a derivada no eixo y , calculamos para cada ponto fy:
 	// dy = ((f(y+1) - f(y-1)) / 2)
 
-	double dy;
+	//double dy;
 	int i = 0;
 	double *array_dy;
 
@@ -68,7 +68,7 @@ double* Fade::calcDerivative(double *array, int size_i)
 void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 	Fade *fade;
-	Frame *frameFADE;
+	//Frame *frameFADE;
 	VisualRythim *vrh;
 
 	int len_i;
@@ -88,11 +88,11 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	int var = 0;
 	double var_d = 0.0;
 	double fade_max = 0;
-	int type;
-	char label[100];
+	//int type;
+	//char label[100];
 	int fade_max_idx = 0;
-	double aux = 0;
-	int signal = 0;
+	//double aux = 0;
+	//int signal = 0;
 	int no_var = 0;
 	int fade_center = 0;
 	int signal_changed = 0;
@@ -193,6 +193,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			{
 				//fade_start = 0;
 				Log::writeLog("%s :: signal changed in midle of fade detection, so, not a FADE!", __FUNCTION__);
+				fade_start = 0;
 			}
 		}
 
@@ -204,9 +205,8 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 		if (
 				fade_start == 0 &&
 				var_d > 0.0 &&
-				(i - last_zero <= 5 || i <= 5 || signal_changed) &&
-				//var_d <= 4.0 &&
-				array_dy[i] != 0.0
+				(i - last_zero <= 4 || i <= 4 ) &&
+				array_dy[i] != 0.0 && !signal_changed
 			)
 		{
 			Log::writeLog("%s :: fade_start in %d", __FUNCTION__, i);
@@ -219,8 +219,8 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 				fade_start > 0 &&
 				( 
 				 array_dy[i] == 0.0 ||
-				 ( i+1 >= len_i && var_d < 2.0 ) ||
-				 signal_changed //||
+				 ( i+1 >= len_i && var_d < 2.0 )
+				 //signal_changed //||
 				 //var_d >= 4.0
 				 )
 				)
@@ -232,11 +232,12 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			Log::writeLog("%s :: %d - %d, total points : %d", __FUNCTION__, fade_start, fade_end, var);
 
 			Log::writeLog("%s :: no_var [%d] var/2 [%d]", __FUNCTION__, no_var, var/2);
-			if (no_var >= ( var / 2 ) )
+
+			if (no_var >= ( var / 3 ) )
 			{
+				Log::writeLog("%s :: to many 0 var, not a fade ( no_var [%d] var/3 [%d]", __FUNCTION__, no_var, var/3);
 				no_var = 0;
 				fade_start = 0;
-				Log::writeLog("%s :: to many 0 var, not a fade ( no_var [%d] var/2 [%d]", __FUNCTION__, no_var, var/2);
 				continue;
 			}
 

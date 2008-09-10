@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 
 	Video *vdo;
 
-	CvCapture* video = 0; 
+	//CvCapture* video = 0; 
 
 	std::vector<Transition> transitionList;
 
@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
 
 	int i, aux_i, effectCount = 0;
 
-	int detectNow = 0;
+	//int detectNow = 0;
 
 	enum inputType { IMAGE, VIDEO }; // Tipo da entrada
 
@@ -806,7 +806,7 @@ int main(int argc, char* argv[])
 					}
 				case 'f':
 					{
-						Transition* transitions = new Transition();
+						//Transition* transitions = new Transition();
 						Fade* DTF = new Fade();
 						
 						DTF->detectTransitions(vdo, &transitionList);
@@ -946,7 +946,7 @@ Cançao do Alien.avi
 					{
 						// Detecção de cortes
 						
-						Transition* transitions = new Transition();
+						//Transition* transitions = new Transition();
 						Cut* DTC = new Cut();
 						
 						DTC->detectTransitions(vdo, &transitionList);
@@ -973,7 +973,7 @@ Cançao do Alien.avi
 
 		if (transitionList.size() > 0)
 		{
-			int i = 0;
+			unsigned int i = 0;
 			Transition *transition;
 
 			for (i = 0 ; i < transitionList.size() ; i++)

@@ -1,12 +1,14 @@
 source = ../source
-DEVCPP_PATH = C:/Dev-Cpp
+DEVCPP_PATH = "C:/Dev-Cpp"
 OPENCV_PATH = "C:/Arquivos de Programas/OpenCV"
 
-LIBS =  -L$(DEVCPP_PATH)/lib -L$(OPENCV_PATH)/bin -L$(OPENCV_PATH)/lib $(OPENCV_PATH)/lib/ml.lib $(OPENCV_PATH)/lib/cv.lib $(OPENCV_PATH)/lib/cvaux.lib $(OPENCV_PATH)/lib/cvcam.lib $(OPENCV_PATH)/lib/cxcore.lib $(OPENCV_PATH)/lib/highgui.lib  -g3 
-INCS =  -I$(DEVCPP_PATH)/include  -I$(OPENCV_PATH)/cv/include  -I$(OPENCV_PATH)/cvaux/include  -I$(OPENCV_PATH)/cxcore/include  -I$(OPENCV_PATH)/otherlibs/highgui 
+LIBS =  -L$(DEVCPP_PATH)/lib -L$(OPENCV_PATH)/bin -L$(OPENCV_PATH)/lib $(OPENCV_PATH)/lib/ml.lib $(OPENCV_PATH)/lib/cv.lib $(OPENCV_PATH)/lib/cvaux.lib $(OPENCV_PATH)/lib/cvcam.lib $(OPENCV_PATH)/lib/cxcore.lib $(OPENCV_PATH)/lib/highgui.lib  -g3 $(LIBS_QT)
+
+INCS =  -I$(DEVCPP_PATH)/include  -I$(OPENCV_PATH)/cv/include  -I$(OPENCV_PATH)/cvaux/include  -I$(OPENCV_PATH)/cxcore/include  -I$(OPENCV_PATH)/otherlibs/highgui  $(INCS_QT)
+
 CXXINCS =  -I$(DEVCPP_PATH)/lib/gcc/mingw32/3.4.2/include  -I$(DEVCPP_PATH)/include/c++/3.4.2/backward  -I$(DEVCPP_PATH)/include/c++/3.4.2/mingw32  -I$(DEVCPP_PATH)/include/c++/3.4.2  -I$(DEVCPP_PATH)/include  -I$(OPENCV_PATH)/cv/include  -I$(OPENCV_PATH)/cvaux/include  -I$(OPENCV_PATH)/cxcore/include  -I$(OPENCV_PATH)/otherlibs/highgui 
 
-CPP  = g++.exe -D__DEBUG__ -ggdb
+CPP  = g++.exe -D__DEBUG__ -ggdb -fexceptions -Wall
 
 BIN = MFIT.exe
 

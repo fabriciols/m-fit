@@ -51,8 +51,8 @@ CvCapture* Video::open(char *vdoSrc)
 Video::Video(char *filename_cy)
 {
 	
-	char file_cy;
-	char path_cy;
+	//char file_cy;
+	//char path_cy;
 	char idx_c = 0;
 	char char_c;
 	int i;

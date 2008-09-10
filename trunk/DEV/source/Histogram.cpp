@@ -47,8 +47,8 @@ Histogram::Histogram(IplImage* img)
 
 	CvHistogram* hist = 0;
 
-	float value;
-	int normalized;
+	//float value;
+	//int normalized;
 
 	// Ranges, escala de cinza: 0-255
 	float xranges[] = {0, 256};
