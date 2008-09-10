@@ -41,11 +41,11 @@ Frame* VisualRythim::createVR(Video* vdo)
 
 	Color *color = 0;
 
-	int lum;
+	//int lum;
 
 	double width;
 	double heigth;
-	int x = 0; // Coluna que está sendo montada no RV.
+	//int x = 0; // Coluna que está sendo montada no RV.
 
 	Log::writeLog("%s :: param: Video[%x]", __FUNCTION__, vdo);
 

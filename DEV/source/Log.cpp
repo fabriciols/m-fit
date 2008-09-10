@@ -80,4 +80,6 @@ int Log::writeLog(const char *fmt, ...)
 	//writetty(bufLog_cy);
 	printf("%s\n",bufLog_cy);
 
+	return 0;
+
 }
