@@ -96,6 +96,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	int no_var = 0;
 	int fade_center = 0;
 	int signal_changed = 0;
+	int last_signal_changed = 0;
 	// media
 	double avarage = 0;
 	// desvio padrão
@@ -157,6 +158,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 		fade_max = 0;
 		fade_max_idx = 0;
 		fade_end = var = 0;
+		last_signal_changed = signal_changed;
 		signal_changed = 0;
 
 		var_d = fabs(fabs(array_dy[i]) - fabs(last_point));
@@ -197,16 +199,16 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			}
 		}
 
-		if (fabs(array_dy[i]) < 0.09)
+		if (fabs(array_dy[i]) <= 0.009)
 			last_zero = i;
 
-		Log::writeLog("%s :: vrh[%.4lf] = array_dy[%d][%.4lf] var_d[%.4lf] last_zero[%d] signal[%d]", __FUNCTION__, array_vrh[i], i, array_dy[i], var_d, last_zero, signal_changed);
+		Log::writeLog("%s :: vrh[%.4lf] = dy[%d][%.4lf] var[%.4lf] zero[%d] signal[%d] lsignal[%d]", __FUNCTION__, array_vrh[i], i, array_dy[i], var_d, last_zero, signal_changed, last_signal_changed);
 
 		if (
 				fade_start == 0 &&
 				var_d > 0.0 &&
 				(i - last_zero <= 4 || i <= 4 ) &&
-				array_dy[i] != 0.0 && !signal_changed
+				array_dy[i] != 0.0 //&& !signal_changed
 			)
 		{
 			Log::writeLog("%s :: fade_start in %d", __FUNCTION__, i);
@@ -219,8 +221,8 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 				fade_start > 0 &&
 				( 
 				 array_dy[i] == 0.0 ||
-				 ( i+1 >= len_i && var_d < 2.0 )
-				 //signal_changed //||
+				 ( i+1 >= len_i && var_d < 2.0 ) ||
+				 signal_changed  //||
 				 //var_d >= 4.0
 				 )
 				)
@@ -278,10 +280,9 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 				deviation = sqrt(( 1.0 / ( var - 1.0 ) ) * deviation);
 
-				/*
-				if (deviation > 1.0)
+				if (deviation > 7.0)
 				{
-					Log::writeLog("%s :: deviation more than threshold [%lf] > [%lf]", __FUNCTION__, deviation, 1.0);
+					Log::writeLog("%s :: deviation more than threshold [%lf] > [%lf]", __FUNCTION__, deviation, 7.0);
 					Log::writeLog("%s :: this isn't a fade", __FUNCTION__);
 
 					fade_start = 0;
@@ -290,7 +291,6 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 					continue;
 				}
-				*/
 
 				Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
 				Log::writeLog("%s :: avarage %lf deviation %lf" , __FUNCTION__, avarage, deviation);
@@ -300,15 +300,15 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 				if (fade_max < 0)
 				{
-					type = TRANSITION_FADEIN;
-					strcpy(label, "Fade In");
-					Log::writeLog("%s :: fade in in : %d", __FUNCTION__, fade_center);
+					type = TRANSITION_FADEOUT;
+					strcpy(label, "Fade Out");
+					Log::writeLog("%s :: fade out: %d", __FUNCTION__, fade_center);
 				}
 				else
 				{
-					type = TRANSITION_FADEOUT;
-					strcpy(label, "Fade Out");
-					Log::writeLog("%s :: fade out in : %d", __FUNCTION__, fade_center);
+					type = TRANSITION_FADEIN;
+					strcpy(label, "Fade Int");
+					Log::writeLog("%s :: fade in: %d", __FUNCTION__, fade_center);
 				}
 
 				transition = new Transition(type, fade_center, label);
