@@ -1,71 +1,86 @@
 <ui version="4.0" >
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow" >
+  <property name="windowModality" >
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>891</width>
-    <height>632</height>
+    <width>968</width>
+    <height>621</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>MainWindow</string>
   </property>
-  <property name="autoFillBackground" >
-   <bool>false</bool>
-  </property>
-  <property name="toolButtonStyle" >
-   <enum>Qt::ToolButtonIconOnly</enum>
-  </property>
   <widget class="QWidget" name="centralwidget" >
-   <widget class="QTabWidget" name="tabWidget" >
+   <widget class="QTabWidget" name="tabTransEffect" >
     <property name="geometry" >
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>171</width>
+      <width>191</width>
       <height>411</height>
      </rect>
-    </property>
-    <property name="styleSheet" >
-     <string>QTabWidget{
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
-     border: 2px solid gray;
-     border-radius: 5px;
-     margin-top: 1ex; /* leave space at the top for the title */
-}</string>
     </property>
     <property name="currentIndex" >
      <number>0</number>
     </property>
-    <widget class="QWidget" name="Tab_Transitions" >
+    <widget class="QWidget" name="tabTransitions" >
      <attribute name="title" >
-      <string>Transition List</string>
+      <string>Transitions List</string>
      </attribute>
      <layout class="QVBoxLayout" >
       <item>
-       <widget class="QTreeWidget" name="treeWidget" >
+       <widget class="QTreeWidget" name="transitionsTree" >
+        <property name="frameShape" >
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow" >
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="allColumnsShowFocus" >
+         <bool>true</bool>
+        </property>
         <column>
          <property name="text" >
-          <string>[Video_Name]</string>
+          <string>Number</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Type</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Position</string>
          </property>
         </column>
        </widget>
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="Tab_Effects" >
+    <widget class="QWidget" name="tabEffects" >
      <attribute name="title" >
-      <string>Effect List</string>
+      <string>Effects List</string>
      </attribute>
      <layout class="QVBoxLayout" >
       <item>
-       <widget class="QTreeWidget" name="treeWidget_2" >
+       <widget class="QTreeWidget" name="treeEffects" >
+        <property name="allColumnsShowFocus" >
+         <bool>true</bool>
+        </property>
         <column>
          <property name="text" >
-          <string>[Video_Name]</string>
+          <string>Frames</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Effect</string>
          </property>
         </column>
        </widget>
@@ -73,79 +88,32 @@
      </layout>
     </widget>
    </widget>
-   <widget class="Q3GroupBox" name="groupBox" >
+   <widget class="QFrame" name="frameVideo" >
     <property name="geometry" >
      <rect>
-      <x>0</x>
-      <y>410</y>
-      <width>651</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="styleSheet" >
-     <string> QGroupBox {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
-     border: 2px solid gray;
-/*     border-radius: 5px;*/
-     margin-top: 2ex; /* leave space at the top for the title */
- }
-
- QGroupBox::title {
-     subcontrol-origin: margin;
-     subcontrol-position: top center; /* position at the top center */
-     padding: 0 3px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #FFOECE, stop: 1 #FFFFFF);
- } </string>
-    </property>
-    <property name="title" >
-     <string>Timeline</string>
-    </property>
-   </widget>
-   <widget class="QDockWidget" name="dock_frame" >
-    <property name="windowModality" >
-     <enum>Qt::WindowModal</enum>
-    </property>
-    <property name="geometry" >
-     <rect>
-      <x>650</x>
+      <x>190</x>
       <y>0</y>
-      <width>241</width>
-      <height>201</height>
+      <width>541</width>
+      <height>411</height>
      </rect>
     </property>
-    <property name="layoutDirection" >
-     <enum>Qt::LeftToRight</enum>
+    <property name="contextMenuPolicy" >
+     <enum>Qt::ActionsContextMenu</enum>
+    </property>
+    <property name="acceptDrops" >
+     <bool>true</bool>
     </property>
     <property name="autoFillBackground" >
      <bool>true</bool>
     </property>
-    <property name="floating" >
-     <bool>false</bool>
-    </property>
-    <property name="windowTitle" >
-     <string>Frame preview</string>
-    </property>
-    <widget class="QWidget" name="dockWidgetContents" >
-     <widget class="Q3Frame" name="framePreview" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>241</width>
-        <height>171</height>
-       </rect>
-      </property>
-      <property name="styleSheet" >
-       <string>QFrame{
-background-color: #FFFFFF;
-border: 2px solid gray;
-
+    <property name="styleSheet" >
+     <string>QFrame{
+border: 2px solid gray
 }</string>
-      </property>
-     </widget>
-    </widget>
+    </property>
+    <property name="frameShape" >
+     <enum>QFrame::StyledPanel</enum>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar" >
@@ -153,7 +121,7 @@ border: 2px solid gray;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>891</width>
+     <width>968</width>
      <height>21</height>
     </rect>
    </property>
@@ -186,15 +154,29 @@ border: 2px solid gray;
     <property name="title" >
      <string>Detect</string>
     </property>
+    <widget class="QMenu" name="menuOnly_Fades" >
+     <property name="title" >
+      <string>Only Fades</string>
+     </property>
+     <addaction name="actionOnly_Fade_in" />
+     <addaction name="actionOnly_Fade_Out" />
+    </widget>
     <addaction name="actionAll_Transitions" />
-    <addaction name="actionOnly_Cut" />
-    <addaction name="actionOnly_Fades" />
-    <addaction name="actionOnly_Dissolves" />
+    <addaction name="actionOnly_Cuts" />
+    <addaction name="menuOnly_Fades" />
+    <addaction name="actionOnly_Dissolve" />
    </widget>
    <widget class="QMenu" name="menuTools" >
     <property name="title" >
      <string>Tools</string>
     </property>
+   </widget>
+   <widget class="QMenu" name="menuWindow" >
+    <property name="title" >
+     <string>Window</string>
+    </property>
+    <addaction name="actionHistogram" />
+    <addaction name="actionTimeline" />
    </widget>
    <widget class="QMenu" name="menuHelp" >
     <property name="title" >
@@ -205,18 +187,13 @@ border: 2px solid gray;
    <addaction name="menuEdit" />
    <addaction name="menuDetect" />
    <addaction name="menuTools" />
+   <addaction name="menuWindow" />
    <addaction name="menuHelp" />
   </widget>
   <widget class="QStatusBar" name="statusbar" />
   <widget class="QToolBar" name="toolBar" >
-   <property name="windowModality" >
-    <enum>Qt::WindowModal</enum>
-   </property>
    <property name="windowTitle" >
-    <string>frame_preview</string>
-   </property>
-   <property name="autoFillBackground" >
-    <bool>false</bool>
+    <string>toolBar</string>
    </property>
    <attribute name="toolBarArea" >
     <enum>TopToolBarArea</enum>
@@ -234,34 +211,64 @@ border: 2px solid gray;
    <addaction name="actionCopy" />
    <addaction name="actionPaste" />
    <addaction name="separator" />
-   <addaction name="actionOnly_Cut" />
+   <addaction name="actionOnly_Cuts" />
   </widget>
-  <action name="actionAll_Transitions" >
-   <property name="text" >
-    <string>All Transitions</string>
+  <widget class="QDockWidget" name="widgetHistogram" >
+   <property name="floating" >
+    <bool>true</bool>
    </property>
-  </action>
-  <action name="actionOnly_Cut" >
+   <property name="windowTitle" >
+    <string>Histogram</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <widget class="Q3Frame" name="frameHistogram" />
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_2" >
+   <property name="floating" >
+    <bool>true</bool>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3" />
+  </widget>
+  <widget class="QDockWidget" name="widgetTimeline" >
+   <property name="allowedAreas" >
+    <set>Qt::AllDockWidgetAreas</set>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4" />
+  </widget>
+  <action name="actionNew_Project" >
    <property name="icon" >
-    <iconset>Icons/editcut.png</iconset>
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/filenew.png</iconset>
    </property>
    <property name="text" >
-    <string>Only Cut</string>
+    <string>New Project...</string>
    </property>
-  </action>
-  <action name="actionOnly_Fades" >
-   <property name="text" >
-    <string>Only Fades</string>
+   <property name="shortcut" >
+    <string>Ctrl+N</string>
    </property>
-  </action>
-  <action name="actionOnly_Dissolves" >
-   <property name="text" >
-    <string>Only Dissolves</string>
+   <property name="shortcutContext" >
+    <enum>Qt::WindowShortcut</enum>
    </property>
   </action>
   <action name="actionOpen_Project" >
+   <property name="checkable" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
-    <iconset>Icons/fileopen.png</iconset>
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/fileopen.png</iconset>
    </property>
    <property name="text" >
     <string>Open Project...</string>
@@ -272,25 +279,46 @@ border: 2px solid gray;
     <string>Load Video...</string>
    </property>
   </action>
+  <action name="actionSave_As" >
+   <property name="text" >
+    <string>Save As...</string>
+   </property>
+  </action>
   <action name="actionSave" >
    <property name="icon" >
-    <iconset>Icons/filesave.png</iconset>
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/filesave.png</iconset>
    </property>
    <property name="text" >
     <string>Save</string>
    </property>
   </action>
+  <action name="actionRecent_Files" >
+   <property name="text" >
+    <string>Recent Files</string>
+   </property>
+  </action>
   <action name="actionExit" >
+   <property name="icon" >
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/exit.png</iconset>
+   </property>
    <property name="text" >
     <string>Exit</string>
    </property>
   </action>
   <action name="actionUndo" >
    <property name="icon" >
-    <iconset resource="../../../../../../../../../../Qt/4.3.3/demos/undo/undo.qrc" >:/icons/undo.png</iconset>
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/linguist-editundo.png</iconset>
    </property>
    <property name="text" >
     <string>Undo</string>
+   </property>
+  </action>
+  <action name="actionRedo" >
+   <property name="icon" >
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/linguist-editredo.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Redo</string>
    </property>
   </action>
   <action name="actionCut" >
@@ -303,7 +331,7 @@ border: 2px solid gray;
   </action>
   <action name="actionPaste" >
    <property name="icon" >
-    <iconset>Icons/paste.png</iconset>
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/editpaste.png</iconset>
    </property>
    <property name="text" >
     <string>Paste</string>
@@ -311,46 +339,52 @@ border: 2px solid gray;
   </action>
   <action name="actionCopy" >
    <property name="icon" >
-    <iconset>Icons/linguist-editcopy.png</iconset>
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/linguist-editcopy.png</iconset>
    </property>
    <property name="text" >
     <string>Copy</string>
    </property>
   </action>
-  <action name="actionRecent_Files" >
+  <action name="actionAll_Transitions" >
    <property name="text" >
-    <string>Recent Files...</string>
+    <string>All Transitions</string>
    </property>
   </action>
-  <action name="actionRedo" >
+  <action name="actionOnly_Cuts" >
    <property name="icon" >
-    <iconset resource="../../../../../../../../../../Qt/4.3.3/demos/undo/undo.qrc" >:/icons/redo.png</iconset>
+    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/editcut.png</iconset>
    </property>
    <property name="text" >
-    <string>Redo</string>
+    <string>Only Cuts</string>
    </property>
   </action>
-  <action name="actionSave_As" >
+  <action name="actionOnly_Dissolve" >
    <property name="text" >
-    <string>Save As...</string>
+    <string>Only Dissolve</string>
    </property>
   </action>
-  <action name="actionNew_Project" >
-   <property name="icon" >
-    <iconset resource="../../../../../../../../../../Qt/4.3.3/demos/undo/undo.qrc" >:/icons/filenew.png</iconset>
-   </property>
+  <action name="actionOnly_Fade_in" >
    <property name="text" >
-    <string>New Project...</string>
+    <string>Only Fade-In</string>
+   </property>
+  </action>
+  <action name="actionOnly_Fade_Out" >
+   <property name="text" >
+    <string>Only Fade-Out</string>
+   </property>
+  </action>
+  <action name="actionHistogram" >
+   <property name="text" >
+    <string>Histogram</string>
+   </property>
+  </action>
+  <action name="actionTimeline" >
+   <property name="text" >
+    <string>Timeline</string>
    </property>
   </action>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>Q3Frame</class>
    <extends>QFrame</extends>
@@ -358,12 +392,6 @@ border: 2px solid gray;
    <container>1</container>
   </customwidget>
  </customwidgets>
- <includes>
-  <include location="local" >#include QDockWidget.h</include>
- </includes>
- <resources>
-  <include location="../../../../../../../Qt/4.3.3/demos/mainwindow/mainwindow.qrc" />
-  <include location="../../../../../../../Qt/4.3.3/demos/undo/undo.qrc" />
- </resources>
+ <resources/>
  <connections/>
 </ui>
