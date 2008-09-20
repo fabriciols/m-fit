@@ -2,126 +2,134 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow" >
   <property name="windowModality" >
-   <enum>Qt::NonModal</enum>
+   <enum>Qt::ApplicationModal</enum>
   </property>
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>968</width>
-    <height>621</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="mouseTracking" >
+   <bool>false</bool>
   </property>
   <property name="windowTitle" >
    <string>MainWindow</string>
   </property>
+  <property name="dockOptions" >
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac" >
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget" >
-   <widget class="QTabWidget" name="tabTransEffect" >
-    <property name="geometry" >
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>191</width>
-      <height>411</height>
-     </rect>
-    </property>
-    <property name="currentIndex" >
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="tabTransitions" >
-     <attribute name="title" >
-      <string>Transitions List</string>
-     </attribute>
-     <layout class="QVBoxLayout" >
-      <item>
-       <widget class="QTreeWidget" name="transitionsTree" >
-        <property name="frameShape" >
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow" >
-         <enum>QFrame::Sunken</enum>
-        </property>
-        <property name="allColumnsShowFocus" >
-         <bool>true</bool>
-        </property>
-        <column>
-         <property name="text" >
-          <string>Number</string>
-         </property>
-        </column>
-        <column>
-         <property name="text" >
-          <string>Type</string>
-         </property>
-        </column>
-        <column>
-         <property name="text" >
-          <string>Position</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="tabEffects" >
-     <attribute name="title" >
-      <string>Effects List</string>
-     </attribute>
-     <layout class="QVBoxLayout" >
-      <item>
-       <widget class="QTreeWidget" name="treeEffects" >
-        <property name="allColumnsShowFocus" >
-         <bool>true</bool>
-        </property>
-        <column>
-         <property name="text" >
-          <string>Frames</string>
-         </property>
-        </column>
-        <column>
-         <property name="text" >
-          <string>Effect</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QFrame" name="frameVideo" >
-    <property name="geometry" >
-     <rect>
-      <x>190</x>
-      <y>0</y>
-      <width>541</width>
-      <height>411</height>
-     </rect>
-    </property>
-    <property name="contextMenuPolicy" >
-     <enum>Qt::ActionsContextMenu</enum>
-    </property>
-    <property name="acceptDrops" >
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground" >
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet" >
-     <string>QFrame{
-border: 2px solid gray
+   <layout class="QGridLayout" >
+    <item row="0" column="0" >
+     <widget class="QFrame" name="frameVideo" >
+      <property name="windowModality" >
+       <enum>Qt::WindowModal</enum>
+      </property>
+      <property name="minimumSize" >
+       <size>
+        <width>400</width>
+        <height>300</height>
+       </size>
+      </property>
+      <property name="contextMenuPolicy" >
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
+      <property name="acceptDrops" >
+       <bool>true</bool>
+      </property>
+      <property name="autoFillBackground" >
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet" >
+       <string>QFrame{
+border: 1px solid gray
 }</string>
-    </property>
-    <property name="frameShape" >
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-   </widget>
+      </property>
+      <property name="frameShape" >
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" colspan="2" >
+        <widget class="Q3Frame" name="videoFrame" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="mouseTracking" >
+          <bool>true</bool>
+         </property>
+         <property name="acceptDrops" >
+          <bool>true</bool>
+         </property>
+         <property name="autoFillBackground" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QSlider" name="horizontalSlider" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QTimeEdit" name="videoTime" >
+         <property name="windowModality" >
+          <enum>Qt::ApplicationModal</enum>
+         </property>
+         <property name="minimumSize" >
+          <size>
+           <width>83</width>
+           <height>21</height>
+          </size>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>65</width>
+           <height>21</height>
+          </size>
+         </property>
+         <property name="layoutDirection" >
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="currentSection" >
+          <enum>QDateTimeEdit::SecondSection</enum>
+         </property>
+         <property name="displayFormat" >
+          <string>HH:mm:ss</string>
+         </property>
+         <property name="currentSectionIndex" >
+          <number>2</number>
+         </property>
+         <property name="time" >
+          <time>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+          </time>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>968</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>
@@ -177,6 +185,7 @@ border: 2px solid gray
     </property>
     <addaction name="actionHistogram" />
     <addaction name="actionTimeline" />
+    <addaction name="actionROC_Curve" />
    </widget>
    <widget class="QMenu" name="menuHelp" >
     <property name="title" >
@@ -190,7 +199,6 @@ border: 2px solid gray
    <addaction name="menuWindow" />
    <addaction name="menuHelp" />
   </widget>
-  <widget class="QStatusBar" name="statusbar" />
   <widget class="QToolBar" name="toolBar" >
    <property name="windowTitle" >
     <string>toolBar</string>
@@ -213,9 +221,111 @@ border: 2px solid gray
    <addaction name="separator" />
    <addaction name="actionOnly_Cuts" />
   </widget>
+  <widget class="QDockWidget" name="widgetTrees" >
+   <property name="windowTitle" >
+    <string>Lists</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_5" >
+    <layout class="QGridLayout" >
+     <item row="0" column="0" >
+      <widget class="QTabWidget" name="tabTransEffect" >
+       <property name="currentIndex" >
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tabTransitions" >
+        <attribute name="title" >
+         <string>Transitions List</string>
+        </attribute>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" >
+          <widget class="QTreeWidget" name="transitionsTree" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="frameShape" >
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow" >
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="allColumnsShowFocus" >
+            <bool>true</bool>
+           </property>
+           <column>
+            <property name="text" >
+             <string>Number</string>
+            </property>
+           </column>
+           <column>
+            <property name="text" >
+             <string>Type</string>
+            </property>
+           </column>
+           <column>
+            <property name="text" >
+             <string>Position</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tabEffects" >
+        <attribute name="title" >
+         <string>Effects List</string>
+        </attribute>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" >
+          <widget class="QTreeWidget" name="treeEffects" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="allColumnsShowFocus" >
+            <bool>true</bool>
+           </property>
+           <column>
+            <property name="text" >
+             <string>Frames</string>
+            </property>
+           </column>
+           <column>
+            <property name="text" >
+             <string>Effect</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QDockWidget" name="widgetHistogram" >
+   <property name="sizePolicy" >
+    <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+     <horstretch>4</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize" >
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
    <property name="floating" >
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="windowTitle" >
     <string>Histogram</string>
@@ -224,34 +334,95 @@ border: 2px solid gray
     <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2" >
-    <layout class="QVBoxLayout" >
-     <item>
-      <widget class="Q3Frame" name="frameHistogram" />
+    <layout class="QGridLayout" >
+     <item row="0" column="0" >
+      <widget class="Q3Frame" name="frame_2" >
+       <property name="styleSheet" >
+        <string/>
+       </property>
+       <property name="frameShape" >
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow" >
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_2" >
+  <widget class="QDockWidget" name="widgetROC" >
    <property name="floating" >
-    <bool>true</bool>
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle" >
+    <string>ROC Curve</string>
    </property>
    <attribute name="dockWidgetArea" >
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_3" />
+   <widget class="QWidget" name="dockWidgetContents_3" >
+    <layout class="QGridLayout" >
+     <item row="0" column="0" >
+      <widget class="Q3Frame" name="frame" >
+       <property name="frameShape" >
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow" >
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QDockWidget" name="widgetTimeline" >
    <property name="allowedAreas" >
     <set>Qt::AllDockWidgetAreas</set>
    </property>
+   <property name="windowTitle" >
+    <string>Timeline</string>
+   </property>
    <attribute name="dockWidgetArea" >
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_4" />
+   <widget class="QWidget" name="dockWidgetContents_4" >
+    <layout class="QGridLayout" >
+     <item row="0" column="0" >
+      <widget class="Q3IconView" name="iconView" />
+     </item>
+    </layout>
+   </widget>
   </widget>
+  <widget class="QDockWidget" name="widgetProperties" >
+   <property name="windowTitle" >
+    <string>Video Properties</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents" >
+    <layout class="QGridLayout" >
+     <item row="0" column="0" >
+      <widget class="Q3ListView" name="listProperties" >
+       <property name="selectionMode" >
+        <enum>Q3ListView::Single</enum>
+       </property>
+       <property name="allColumnsShowFocus" >
+        <bool>false</bool>
+       </property>
+       <property name="resizeMode" >
+        <enum>Q3ListView::NoColumn</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar" />
   <action name="actionNew_Project" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/filenew.png</iconset>
+    <iconset>Icons/filenew.png</iconset>
    </property>
    <property name="text" >
     <string>New Project...</string>
@@ -268,7 +439,7 @@ border: 2px solid gray
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/fileopen.png</iconset>
+    <iconset>Icons/fileopen.png</iconset>
    </property>
    <property name="text" >
     <string>Open Project...</string>
@@ -286,7 +457,7 @@ border: 2px solid gray
   </action>
   <action name="actionSave" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/filesave.png</iconset>
+    <iconset>Icons/filesave.png</iconset>
    </property>
    <property name="text" >
     <string>Save</string>
@@ -299,7 +470,7 @@ border: 2px solid gray
   </action>
   <action name="actionExit" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/exit.png</iconset>
+    <iconset>Icons/exit.png</iconset>
    </property>
    <property name="text" >
     <string>Exit</string>
@@ -307,7 +478,7 @@ border: 2px solid gray
   </action>
   <action name="actionUndo" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/linguist-editundo.png</iconset>
+    <iconset>Icons/linguist-editundo.png</iconset>
    </property>
    <property name="text" >
     <string>Undo</string>
@@ -315,7 +486,7 @@ border: 2px solid gray
   </action>
   <action name="actionRedo" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/linguist-editredo.png</iconset>
+    <iconset>Icons/linguist-editredo.png</iconset>
    </property>
    <property name="text" >
     <string>Redo</string>
@@ -323,7 +494,7 @@ border: 2px solid gray
   </action>
   <action name="actionCut" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/cut.png</iconset>
+    <iconset>Icons/cut.png</iconset>
    </property>
    <property name="text" >
     <string>Cut</string>
@@ -331,7 +502,7 @@ border: 2px solid gray
   </action>
   <action name="actionPaste" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/editpaste.png</iconset>
+    <iconset>Icons/editpaste.png</iconset>
    </property>
    <property name="text" >
     <string>Paste</string>
@@ -339,7 +510,7 @@ border: 2px solid gray
   </action>
   <action name="actionCopy" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/linguist-editcopy.png</iconset>
+    <iconset>Icons/linguist-editcopy.png</iconset>
    </property>
    <property name="text" >
     <string>Copy</string>
@@ -352,7 +523,7 @@ border: 2px solid gray
   </action>
   <action name="actionOnly_Cuts" >
    <property name="icon" >
-    <iconset>../../../../../../../DOCUME~1/Mizu/Meus documentos/FEI/TCC/DEV/Interface/Icons/editcut.png</iconset>
+    <iconset>Icons/editcut.png</iconset>
    </property>
    <property name="text" >
     <string>Only Cuts</string>
@@ -383,13 +554,28 @@ border: 2px solid gray
     <string>Timeline</string>
    </property>
   </action>
+  <action name="actionROC_Curve" >
+   <property name="text" >
+    <string>ROC Curve</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>Q3IconView</class>
+   <extends>Q3Frame</extends>
+   <header>q3iconview.h</header>
+  </customwidget>
   <customwidget>
    <class>Q3Frame</class>
    <extends>QFrame</extends>
    <header>Qt3Support/Q3Frame</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3ListView</class>
+   <extends>Q3Frame</extends>
+   <header>q3listview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
