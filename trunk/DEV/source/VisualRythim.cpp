@@ -1,4 +1,5 @@
 #include "cv.h"
+#include <QImage>
 #include "highgui.h"
 
 #include "../include/Time.h"

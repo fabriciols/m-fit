@@ -30,49 +30,52 @@ class Frame
 
 	public:
 
-		/*
-		* Construtor que recebe um caminho.
-		* Abre a imagem e preenche todos os atributos
-		*/
-		Frame(char *filename_cy);
+		QImage* IplImageToQImage(double mini = 0.0, double maxi = 0.0);
+
+
+			/*
+			 * Construtor que recebe um caminho.
+			 * Abre a imagem e preenche todos os atributos
+			 */
+			Frame(char *filename_cy);
 
 		/*
-		* Construtor que recebe uma imagem ja aberta
-		* Preenche todos os atributos
-		*/
+		 * Construtor que recebe uma imagem ja aberta
+		 * Preenche todos os atributos
+		 */
 		Frame(IplImage *img_src);
 
 		/*
-		* Construtor que recebe um frame ja instanciado
-		* Faz a copia da instancia
-		*/
+		 * Construtor que recebe um frame ja instanciado
+		 * Faz a copia da instancia
+		 */
 		Frame(Frame *frame);
 
 		/*
-		* Construtor que recebe uma matriz(histograma) e seu tamanho
-		* e faz o seu desenho
-		*/
+		 * Construtor que recebe uma matriz(histograma) e seu tamanho
+		 * e faz o seu desenho
+		 */
 		Frame(double *matrix, int len_i, float max_f);
 
 		/**
-	 	*Armazena a posição "física" do
-	 	*frame no vídeo.
-	 	*/
+		 *Armazena a posição "física" do
+		 *frame no vídeo.
+		 */
 
 		IplImage* data;
 
 		/**
-		*Função que cria o histograma da
-		*diagonal do frame.
-		*/
+		 *Função que cria o histograma da
+		 *diagonal do frame.
+		 */
 		Histogram* createHistogram();
-	 
+
 		/**
-		*Retorna a diagonal do frame.
-		*/
+		 *Retorna a diagonal do frame.
+		 */
 		Frame * getDiagonal();
 
-		
+
 		/**
 		 *	Binariza a imagem de entrada baseando-se em um limiar.
 		 *	O limiar será = a 1/4 da maior luminancia presente na imagem.

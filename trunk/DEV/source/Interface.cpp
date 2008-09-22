@@ -1,9 +1,14 @@
 #include "../ui_mfit.h" 
+#include "cv.h"
+
 #include "../include/Interface.h"
 
 #include "QWidget.h"
 #include <QImage>
 #include <QPainter>
+
+#include "../include/Histogram.h"
+#include "../include/Frame.h"
 
 
 mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
@@ -13,7 +18,11 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 
 void mfit::on_okButton_clicked()
 {
- 	QImage image("C:\\TCC\\SRC\\DEV\\bin\\lena.jpg");
+	Frame *frame = new Frame("C:\\TCC\\SRC\\DEV\\bin\\lena.jpg");
 
- 	ui.videoLabel->setPixmap(QPixmap::fromImage(image));
+ 	QImage *img;
+
+	img = frame->IplImageToQImage();
+
+ 	ui.videoLabel->setPixmap(QPixmap::fromImage(*img));
 }
