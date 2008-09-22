@@ -1,35 +1,18 @@
-class Interface 
+#include <QObject>
+#include "QMainWindow"
+#include "../ui_mfit.h" 
+
+
+class mfit: public QMainWindow
 {
- 
-	/**
-	 *Cria a timeline na tela.
-	 */
+	Q_OBJECT
+
 	public:
-		void showTimeLine();
-	 
-	/**
-	 *Atualiza a timeline com informações
-	 *dos vídeos/tomadas/transições.
-	 */
-		void updateTimeline();
-	 
-	/**
-	 *Cria exibição da lista de tomadas
-	 *do vídeo.
-	 */
-		void createListofTakes();
-	 
-	/**
-	 *Cria container para exibição
-	 *do vídeo.
-	 */
-		void showVideo();
-	 
-	/**
-	 *Método chamado quando o usuário
-	 *modifica a posição de uma transição
-	 *já detectada.
-	 */
-		void redefineTakes();
-	 
+		mfit(QMainWindow *parent = 0);
+
+	private slots:
+		void on_okButton_clicked();
+
+	private:
+		Ui::MainWindow ui;
 };

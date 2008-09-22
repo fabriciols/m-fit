@@ -8,6 +8,10 @@ TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
 INCLUDEPATH += .
+QT += qt3support
+
+FORMS   = Interface/mfit.ui
+
 LIBS =  -L$$OPENCV_PATH/bin  \
 		  -L$$OPENCV_PATH/lib  \
 		  $$OPENCV_PATH/lib/ml.lib \
