@@ -26,7 +26,7 @@
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QGridLayout" >
-    <item row="0" column="0" >
+    <item row="1" column="0" >
      <widget class="QFrame" name="frameVideo" >
       <property name="windowModality" >
        <enum>Qt::WindowModal</enum>
@@ -44,7 +44,7 @@
        <bool>true</bool>
       </property>
       <property name="autoFillBackground" >
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="styleSheet" >
        <string>QFrame{
@@ -55,25 +55,6 @@ border: 1px solid gray
        <enum>QFrame::StyledPanel</enum>
       </property>
       <layout class="QGridLayout" >
-       <item row="0" column="0" colspan="2" >
-        <widget class="Q3Frame" name="videoFrame" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="mouseTracking" >
-          <bool>true</bool>
-         </property>
-         <property name="acceptDrops" >
-          <bool>true</bool>
-         </property>
-         <property name="autoFillBackground" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0" >
         <widget class="QSlider" name="horizontalSlider" >
          <property name="orientation" >
@@ -119,7 +100,21 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
+       <item row="0" column="0" colspan="2" >
+        <widget class="QLabel" name="videoLabel" >
+         <property name="text" >
+          <string/>
+         </property>
+        </widget>
+       </item>
       </layout>
+     </widget>
+    </item>
+    <item row="0" column="0" >
+     <widget class="QPushButton" name="okButton" >
+      <property name="text" >
+       <string>PushButton</string>
+      </property>
      </widget>
     </item>
    </layout>
@@ -345,6 +340,13 @@ border: 1px solid gray
        </property>
        <property name="frameShadow" >
         <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="histLabel" >
+       <property name="text" >
+        <string/>
        </property>
       </widget>
      </item>
