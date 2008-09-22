@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <vector>
+#include <QImage>
 #include "cv.h"
 #include "highgui.h"
 
