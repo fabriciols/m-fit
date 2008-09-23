@@ -132,8 +132,8 @@ border: 1px solid gray
     <property name="title" >
      <string>File</string>
     </property>
-    <addaction name="actionNew_Project" />
-    <addaction name="actionOpen_Project" />
+    <addaction name="actionNewProject" />
+    <addaction name="actionOpenProject" />
     <addaction name="actionLoad_Video" />
     <addaction name="actionSave_As" />
     <addaction name="actionSave" />
@@ -204,8 +204,8 @@ border: 1px solid gray
    <attribute name="toolBarBreak" >
     <bool>false</bool>
    </attribute>
-   <addaction name="actionNew_Project" />
-   <addaction name="actionOpen_Project" />
+   <addaction name="actionNewProject" />
+   <addaction name="actionOpenProject" />
    <addaction name="actionSave" />
    <addaction name="separator" />
    <addaction name="actionUndo" />
@@ -422,7 +422,7 @@ border: 1px solid gray
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar" />
-  <action name="actionNew_Project" >
+  <action name="actionNewProject" >
    <property name="icon" >
     <iconset>Icons/filenew.png</iconset>
    </property>
@@ -436,7 +436,7 @@ border: 1px solid gray
     <enum>Qt::WindowShortcut</enum>
    </property>
   </action>
-  <action name="actionOpen_Project" >
+  <action name="actionOpenProject" >
    <property name="checkable" >
     <bool>false</bool>
    </property>
