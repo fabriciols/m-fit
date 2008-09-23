@@ -12,6 +12,7 @@ class mfit: public QMainWindow
 
 	private slots:
 		void on_okButton_clicked();
+		void on_actionOpenProject_triggered();
 
 	private:
 		Ui::MainWindow ui;
