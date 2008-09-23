@@ -9,6 +9,7 @@ class Project
 	public:
 		Project(Video *vdo);
 		Project(char *filename_cy);
+
 		Video *getVideo();
 		Frame *getFrame();
 		char  *getPath();
