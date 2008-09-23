@@ -45,3 +45,14 @@ void mfit::on_actionOpenProject_triggered()
 		currentProject = new Project((char*)&fileName);
 	}
 }
+
+void mfit::on_actionSaveAs_triggered()
+{
+	QString fileName = QFileDialog::getSaveFileName(this);
+
+	if (!fileName.isEmpty())
+	{
+		return;
+	}
+}
+
