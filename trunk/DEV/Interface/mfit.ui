@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>940</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="mouseTracking" >
@@ -55,6 +55,13 @@ border: 1px solid gray
        <enum>QFrame::StyledPanel</enum>
       </property>
       <layout class="QGridLayout" >
+       <item row="0" column="0" colspan="3" >
+        <widget class="QLabel" name="videoLabel" >
+         <property name="text" >
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0" >
         <widget class="QSlider" name="horizontalSlider" >
          <property name="orientation" >
@@ -63,6 +70,25 @@ border: 1px solid gray
         </widget>
        </item>
        <item row="1" column="1" >
+        <widget class="QToolButton" name="toolButton" >
+         <property name="windowModality" >
+          <enum>Qt::NonModal</enum>
+         </property>
+         <property name="text" >
+          <string>...</string>
+         </property>
+         <property name="icon" >
+          <iconset>Icons/stop_press.png</iconset>
+         </property>
+         <property name="autoRaise" >
+          <bool>true</bool>
+         </property>
+         <property name="arrowType" >
+          <enum>Qt::NoArrow</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" >
         <widget class="QTimeEdit" name="videoTime" >
          <property name="windowModality" >
           <enum>Qt::ApplicationModal</enum>
@@ -100,13 +126,6 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
-       <item row="0" column="0" colspan="2" >
-        <widget class="QLabel" name="videoLabel" >
-         <property name="text" >
-          <string/>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
     </item>
@@ -124,7 +143,7 @@ border: 1px solid gray
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>940</width>
      <height>21</height>
     </rect>
    </property>
@@ -163,6 +182,7 @@ border: 1px solid gray
      </property>
      <addaction name="actionOnly_Fade_in" />
      <addaction name="actionOnly_Fade_Out" />
+     <addaction name="actionAll_Fades" />
     </widget>
     <addaction name="actionAll_Transitions" />
     <addaction name="actionOnly_Cuts" />
@@ -173,6 +193,11 @@ border: 1px solid gray
     <property name="title" >
      <string>Tools</string>
     </property>
+    <addaction name="actionPlay" />
+    <addaction name="actionPause" />
+    <addaction name="actionStop" />
+    <addaction name="actionBackward" />
+    <addaction name="actionForward" />
    </widget>
    <widget class="QMenu" name="menuWindow" >
     <property name="title" >
@@ -210,11 +235,16 @@ border: 1px solid gray
    <addaction name="separator" />
    <addaction name="actionUndo" />
    <addaction name="actionRedo" />
-   <addaction name="actionCut" />
+   <addaction name="actionOnly_Cuts" />
    <addaction name="actionCopy" />
    <addaction name="actionPaste" />
    <addaction name="separator" />
-   <addaction name="actionOnly_Cuts" />
+   <addaction name="actionCut" />
+   <addaction name="actionOnly_Fade_in" />
+   <addaction name="actionOnly_Fade_Out" />
+   <addaction name="actionAll_Fades" />
+   <addaction name="actionOnly_Dissolve" />
+   <addaction name="actionStop" />
   </widget>
   <widget class="QDockWidget" name="widgetTrees" >
    <property name="windowTitle" >
@@ -232,7 +262,7 @@ border: 1px solid gray
        </property>
        <widget class="QWidget" name="tabTransitions" >
         <attribute name="title" >
-         <string>Transitions List</string>
+         <string>Transitions</string>
         </attribute>
         <layout class="QGridLayout" >
          <item row="0" column="0" >
@@ -273,7 +303,7 @@ border: 1px solid gray
        </widget>
        <widget class="QWidget" name="tabEffects" >
         <attribute name="title" >
-         <string>Effects List</string>
+         <string>Effects</string>
         </attribute>
         <layout class="QGridLayout" >
          <item row="0" column="0" >
@@ -353,31 +383,6 @@ border: 1px solid gray
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="widgetROC" >
-   <property name="floating" >
-    <bool>false</bool>
-   </property>
-   <property name="windowTitle" >
-    <string>ROC Curve</string>
-   </property>
-   <attribute name="dockWidgetArea" >
-    <number>2</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents_3" >
-    <layout class="QGridLayout" >
-     <item row="0" column="0" >
-      <widget class="Q3Frame" name="frame" >
-       <property name="frameShape" >
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="frameShadow" >
-        <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
   <widget class="QDockWidget" name="widgetTimeline" >
    <property name="allowedAreas" >
     <set>Qt::AllDockWidgetAreas</set>
@@ -391,7 +396,11 @@ border: 1px solid gray
    <widget class="QWidget" name="dockWidgetContents_4" >
     <layout class="QGridLayout" >
      <item row="0" column="0" >
-      <widget class="Q3IconView" name="iconView" />
+      <widget class="Q3IconView" name="timelineView" >
+       <property name="hScrollBarMode" >
+        <enum>Q3ScrollView::AlwaysOn</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -401,12 +410,12 @@ border: 1px solid gray
     <string>Video Properties</string>
    </property>
    <attribute name="dockWidgetArea" >
-    <number>8</number>
+    <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents" >
     <layout class="QGridLayout" >
      <item row="0" column="0" >
-      <widget class="Q3ListView" name="listProperties" >
+      <widget class="Q3ListView" name="videoProperties" >
        <property name="selectionMode" >
         <enum>Q3ListView::Single</enum>
        </property>
@@ -532,16 +541,25 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionOnly_Dissolve" >
+   <property name="icon" >
+    <iconset>Icons/dissolve.png</iconset>
+   </property>
    <property name="text" >
     <string>Only Dissolve</string>
    </property>
   </action>
   <action name="actionOnly_Fade_in" >
+   <property name="icon" >
+    <iconset>Icons/fadein.png</iconset>
+   </property>
    <property name="text" >
     <string>Only Fade-In</string>
    </property>
   </action>
   <action name="actionOnly_Fade_Out" >
+   <property name="icon" >
+    <iconset>Icons/fadeout.png</iconset>
+   </property>
    <property name="text" >
     <string>Only Fade-Out</string>
    </property>
@@ -559,6 +577,51 @@ border: 1px solid gray
   <action name="actionROC_Curve" >
    <property name="text" >
     <string>ROC Curve</string>
+   </property>
+  </action>
+  <action name="actionAll_Fades" >
+   <property name="icon" >
+    <iconset>Icons/fades.png</iconset>
+   </property>
+   <property name="text" >
+    <string>All Fades</string>
+   </property>
+  </action>
+  <action name="actionPlay" >
+   <property name="icon" >
+    <iconset>Icons/play.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Play</string>
+   </property>
+  </action>
+  <action name="actionPause" >
+   <property name="text" >
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionStop" >
+   <property name="icon" >
+    <iconset>Icons/stop_press.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Stop</string>
+   </property>
+  </action>
+  <action name="actionBackward" >
+   <property name="icon" >
+    <iconset>Icons/backward.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Backward</string>
+   </property>
+  </action>
+  <action name="actionForward" >
+   <property name="icon" >
+    <iconset>Icons/forward.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Forward</string>
    </property>
   </action>
  </widget>
