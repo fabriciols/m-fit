@@ -639,7 +639,7 @@ double Frame::mediaBin()
 	{
 		for( y=0; y<this->getHeight(); y++ )
 		{
-			// Somaeoria de pixel do frame;
+			// Somatoria de pixel do frame;
 			mean += this->getPixel(x,y);
 			//			Log::writeLog("%s :: mean[%.lf]", __FUNCTION__, mean);
 		}

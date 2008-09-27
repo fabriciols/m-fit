@@ -125,6 +125,7 @@ class Video
 
 		double getFramesWidth();
 		double getFramesHeight();
+		double getCodec();
 		void updatePos();
 		//	double getFramePos();
 		

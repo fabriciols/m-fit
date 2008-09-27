@@ -65,12 +65,7 @@ Video::Video(char *filename_cy)
 	this->data = open(filename_cy);
 
 	// Atualiza as variaveis internas do objeto video
-
-	#ifdef __linux__
-		char_c = '/';
-	#else
-		char_c = '\\';
-	#endif
+	char_c = '/';
 
 	// Desmembra nome de arquivo - path
 
@@ -310,6 +305,22 @@ Frame* Video::getCurrentFrame()
 
 	return frameCurrent;
 
+}
+
+/************************************************************************
+ * Get para a variavel codec 
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: double framesWidth
+ ************************************************************************
+ * Histórico
+ * 30/07/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+double Video::getCodec()
+{
+	return codec;
 }
 
 /************************************************************************

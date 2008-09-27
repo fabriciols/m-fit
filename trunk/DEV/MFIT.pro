@@ -3,7 +3,7 @@
 ######################################################################
 
 DEVCPP_PATH = "C:/Dev-Cpp"
-OPENCV_PATH = "C:/Arquivos de Programas/OpenCV"
+OPENCV_PATH = "C:/Program Files/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
