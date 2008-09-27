@@ -10,6 +10,7 @@ class Project
 		Project();
 
 		int openProject(char *filename_cy);
+		int openVideo(QString fileName);
 
 		std::vector<Transition> transitionList;
 
