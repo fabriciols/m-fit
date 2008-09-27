@@ -8,15 +8,17 @@
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Video.h"
+#include "../include/Transition.h"
 #include "../include/Project.h"
 
 // Variaveis globais da aplicacao
-Project *currentProject = 0;
+Project currentProject;
+mfit *mfit_ui;
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    mfit mfit_ui;
-    mfit_ui.show();
+	 mfit_ui = new mfit();
+    mfit_ui->show();
     return app.exec();
 }
