@@ -3,12 +3,15 @@ class Project
 	private:
 		Video *vdo;
 		Frame *frame;
-		char *path_cy;
-		char *filename_cy;
+		char path_cy[256];
+		char filename_cy[256];
 
 	public:
-		Project(Video *vdo);
-		Project(char *filename_cy);
+		Project();
+
+		int openProject(char *filename_cy);
+
+		std::vector<Transition> transitionList;
 
 		Video *getVideo();
 		Frame *getFrame();

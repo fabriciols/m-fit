@@ -13,10 +13,10 @@
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Video.h"
+#include "../include/Transition.h"
 #include "../include/Project.h"
 
 extern Project *currentProject;
-
 
 mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 {
@@ -25,15 +25,15 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 
 void mfit::on_okButton_clicked()
 {
+	/* Exemplo de como abrir uma imagem em um QLabel 
 	Frame *frame = new Frame("C:\\TCC\\SRC\\DEV\\bin\\lena.jpg");
-
  	QImage *img;
-
 	img = frame->IplImageToQImage();
-
  	ui.videoLabel->setPixmap(QPixmap::fromImage(*img));
+	*/
 
-	QString fileName = QFileDialog::getOpenFileName(this);
+	return;
+
 }
 
 void mfit::on_actionOpenProject_triggered()
@@ -42,7 +42,11 @@ void mfit::on_actionOpenProject_triggered()
 
 	if (!fileName.isEmpty())
 	{
-		currentProject = new Project((char*)&fileName);
+		currentProject->openProject((char*)&fileName);
+	}
+	else
+	{
+		return;
 	}
 }
 
@@ -56,3 +60,33 @@ void mfit::on_actionSaveAs_triggered()
 	}
 }
 
+void mfit::on_openVideoButton_clicked()
+{
+	QString fileName = QFileDialog::getOpenFileName(this);
+
+	if (!fileName.isEmpty())
+	{
+		if (currentProject == NULL)
+			currentProject->openProject((char*)&fileName);
+	}
+	else
+	{
+		return;
+	}
+}
+
+void mfit::changeWindowTitle(char *string)
+{
+	// Se tiver algum caracter na string
+	if (string[0])
+	{
+		QString title(string);
+
+		// Preenche o titulo
+		this->setWindowTitle(title);
+	}
+	else
+	{
+		return;
+	}
+}
