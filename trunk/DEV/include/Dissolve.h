@@ -1,3 +1,5 @@
+#ifndef DISSOLVE_INCLUDE
+#define DISSOLVE_INCLUDE
 /**
  *Classe responsável por detectar
  *o dissolve.
@@ -35,3 +37,4 @@ class Dissolve: public DetectTransitions
 		float calcRatioVarianceVRH();
 	 
 };
+#endif

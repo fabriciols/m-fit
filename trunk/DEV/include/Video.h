@@ -1,3 +1,6 @@
+#ifndef VIDEO_INCLUDE
+#define VIDEO_INCLUDE
+
 // Classe responsável por fazer a manipulação de um vídeo.
 class Video
 {
@@ -134,3 +137,4 @@ class Video
 		void removeBorder();
 		
 };
+#endif

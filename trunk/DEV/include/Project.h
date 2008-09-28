@@ -1,3 +1,5 @@
+#ifndef PROJECT_INCLUDE
+#define PROJECT_INCLUDE
 class Project
 {
 	private:
@@ -19,3 +21,4 @@ class Project
 		char  *getPath();
 		char  *getFileName();
 };
+#endif

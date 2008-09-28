@@ -7,7 +7,7 @@
 #include "../include/Take.h"
 #include "../include/Frame.h"
 
-#include "../include/Log.h"
+#include "../include///Log.h"
 
 #include "../include/Video.h"
 
@@ -30,7 +30,7 @@ CvCapture* Video::open(char *vdoSrc)
 
 	if (video == NULL)
 	{
-		Log::writeLog("%s :: Open Failed", __FUNCTION__);
+		//Log::write//Log("%s :: Open Failed", __FUNCTION__);
 		throw "Open failed";
 	}
 	
@@ -60,7 +60,7 @@ Video::Video(char *filename_cy)
 
 	// Abre o arquivo
 
-	Log::writeLog("%s :: open filename[%s]", __FUNCTION__, filename_cy);
+	//Log::write//Log("%s :: open filename[%s]", __FUNCTION__, filename_cy);
 
 	this->data = open(filename_cy);
 
@@ -79,7 +79,7 @@ Video::Video(char *filename_cy)
 		}
 	}
 
-	Log::writeLog("%s :: open idx_c[%c]", __FUNCTION__, idx_c);
+	//Log::write//Log("%s :: open idx_c[%c]", __FUNCTION__, idx_c);
 	
 	if (idx_c) // Se encontrou o separador, desmembra
 	{
@@ -92,34 +92,34 @@ Video::Video(char *filename_cy)
 		strcpy(this->name, filename_cy);
 	}
 
-	Log::writeLog("%s :: path[%s] name[%s]", __FUNCTION__, this->path, this->name);
+	//Log::write//Log("%s :: path[%s] name[%s]", __FUNCTION__, this->path, this->name);
 
 	// Pega as propriedades do video
 
 	// FPS
 	// CV_CAP_PROP_FPS - frame rate
 	this->fps = cvGetCaptureProperty(this->data, CV_CAP_PROP_FPS);
-	Log::writeLog("%s :: fps[%.0f] ", __FUNCTION__, this->fps);
+	//Log::write//Log("%s :: fps[%.0f] ", __FUNCTION__, this->fps);
 
 	// Largura dos frames
 	// CV_CAP_PROP_FRAME_WIDTH - width of frames in the video stream 
 	this->framesWidth = cvGetCaptureProperty(this->data, CV_CAP_PROP_FRAME_WIDTH);
-	Log::writeLog("%s :: famesWidth[%.0f] ", __FUNCTION__, this->framesWidth);
+	//Log::write//Log("%s :: famesWidth[%.0f] ", __FUNCTION__, this->framesWidth);
 
 	// Altura dos frames 
 	// CV_CAP_PROP_FRAME_HEIGHT - height of frames in the video stream
 	this->framesHeight = cvGetCaptureProperty(this->data, CV_CAP_PROP_FRAME_HEIGHT);
-	Log::writeLog("%s :: famesHeight[%.0f] ", __FUNCTION__, this->framesHeight);
+	//Log::write//Log("%s :: famesHeight[%.0f] ", __FUNCTION__, this->framesHeight);
 
 	// Codec
 	// CV_CAP_PROP_FOURCC - 4-character code of codec.
 	this->codec = cvGetCaptureProperty(this->data, CV_CAP_PROP_FOURCC);
-	Log::writeLog("%s :: codec[%.0f] ", __FUNCTION__, this->codec);
+	//Log::write//Log("%s :: codec[%.0f] ", __FUNCTION__, this->codec);
 
 	// Total de Frames que o video tem
 	//CV_CAP_PROP_FRAME_COUNT - number of frames in AVI file. 
 	this->framesTotal = cvGetCaptureProperty(this->data, CV_CAP_PROP_FRAME_COUNT);
-	Log::writeLog("%s :: framesTotal[%.0f] ", __FUNCTION__, this->framesTotal);
+	//Log::write//Log("%s :: framesTotal[%.0f] ", __FUNCTION__, this->framesTotal);
 
 	// Atributos relativos a posicao
 	updatePos();
@@ -150,10 +150,10 @@ void Video::updatePos()
 
 	//CV_CAP_PROP_POS_FRAMES - 0-based index of the frame to be decoded/captured next
 	this->framePos = cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_FRAMES);
-	Log::writeLog("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
+	//Log::write//Log("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
 
 	msec = (long)cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_MSEC);
-	Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
+	//Log::write//Log("%s :: timePos[%.0f] ", __FUNCTION__, msec);
 
 	this->timePos.setTime(msec);
 
@@ -248,7 +248,7 @@ Frame* Video::getNextFrame()
 			// Seto o frame sem o wide 
 			frameNew->setImage(imgWide);
 
-			Log::writeLog("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
+			//Log::write//Log("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
 		}
 
 		return (frameNew);
@@ -452,7 +452,7 @@ void Video::removeWide()
 
 		sizeWide = frame->removeWide();
 
-		Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
+		//Log::write//Log("%s :: Wide [%d]", __FUNCTION__, sizeWide);
 
 		if (sizeWide)
 		{
@@ -464,7 +464,7 @@ void Video::removeWide()
 
 	}
 
-	Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
+	//Log::write//Log("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
 
 	// Devolve ele pra posição que estava
 	this->seekFrame(cvRound(currentPosition));
@@ -516,7 +516,7 @@ void Video::removeBorder()
 
 		sizeWide = frame->removeBorder();
 
-		Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
+		//Log::write//Log("%s :: Wide [%d]", __FUNCTION__, sizeWide);
 
 		if (sizeWide)
 		{
@@ -528,7 +528,7 @@ void Video::removeBorder()
 
 	}
 
-	Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
+	//Log::write//Log("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
 
 	// Devolve ele pra posição que estava
 	this->seekFrame(cvRound(currentPosition));

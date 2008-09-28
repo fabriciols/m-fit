@@ -1,3 +1,5 @@
+#ifndef MORPHOLOGY_INCLUDE
+#define MORPHOLOGY_INCLUDE
 /**
  *Classe que agrupa filtros de 
  *morfologia matemática.
@@ -21,3 +23,4 @@ class Morphology
 		Frame* dilate(Frame* frame);
 	 
 };
+#endif

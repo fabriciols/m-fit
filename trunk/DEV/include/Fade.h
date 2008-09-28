@@ -1,3 +1,5 @@
+#ifndef FADE_INCLUDE
+#define FADE_INCLUDE
 /**
  *Classe responsável por 
  *identificar todos os tipos de
@@ -10,3 +12,4 @@ class Fade: public DetectTransitions
 		void detectTransitions(Video* vdo, std::vector<Transition>* transitionList);
 
 };
+#endif

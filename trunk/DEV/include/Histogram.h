@@ -1,3 +1,5 @@
+#ifndef HISTOGRAM_INCLUDE
+#define HISTOGRAM_INCLUDE
 /**
  *Classe responsável por conter
  *os dados do histograma de um frame.
@@ -40,3 +42,4 @@ class Histogram
 		int getMinLuminance();
 
 };
+#endif

@@ -13,34 +13,49 @@
 #include "../include/Transition.h"
 #include "../include/Project.h"
 
+#include "../include/VideoPlayer.h"
+
 
 extern Project *currentProject;
+extern VideoPlayer *vdo_player;
 
 mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
+
+	qRegisterMetaType<Frame>("Frame");
+	connect(vdo_player, SIGNAL(renderedImage(Frame *)),
+			this, SLOT(updateVideoPlayer(Frame *)));
 }
 
 void mfit::on_playButton_clicked()
 {
 	// Exemplo de como abrir uma imagem em um QLabel 
 	// Frame *frame = new Frame("C:\\TCC\\SRC\\DEV\\bin\\lena.jpg");
- 	//QImage *img;
+	//QImage *img;
 	//img = frame->IplImageToQImage();
- 	//ui.videoLabel->setPixmap(QPixmap::fromImage(*img));
+	//ui.videoLabel->setPixmap(QPixmap::fromImage(*img));
 	//
+	vdo_player->start();
 
-	Video *video;
-	video = currentProject->getVideo();
+}
 
-	if (video == NULL)
-		return;
+void mfit::on_pauseButton_clicked()
+{
+	if (vdo_player->isRunning())
+		vdo_player->terminate();
+}
 
-	if (video->getCurrentPosition() < video->getFramesTotal())
-		this->updateVideoPlayer(video->getNextFrame());
+void mfit::on_stopButton_clicked()
+{
+	Video *vdo;
 
-	return;
+	vdo = currentProject->getVideo();
 
+	vdo->seekFrame(0);
+
+	if (vdo_player->isRunning())
+		vdo_player->terminate();
 }
 
 void mfit::on_actionOpenProject_triggered()
@@ -117,12 +132,68 @@ void mfit::insertVideoProperty(char *param_cy, char *value_cy)
 	this->ui.transitionsTree->insertTopLevelItems(0, items);
 }
 
-void mfit::updateVideoPlayer(Frame* frame)
-{
+/*
+	void mfit::updateVideoPlayer(Frame* frame)
+	{
 	QImage *image;
 	image = frame->IplImageToQImage();
 
-  	ui.videoLabel->setScaledContents(true);
- 	ui.videoLabel->setPixmap(QPixmap::fromImage(*image));
-	
+	QPixmap pix_image = QPixmap::fromImage(*image);
+
+	ui.videoLabel->setScaledContents(true);
+	ui.videoLabel->setPixmap(pix_image);
+
+	}
+	*/
+
+/*
+	void mfit::updateVideoPlayer()
+	{
+
+	Video *vdo = currentProject->getVideo();
+	Frame *frame;
+
+	if ((vdo->getCurrentPosition() >= vdo->getFramesTotal())
+	|| vdo == 0x0 )
+	{
+	vdo_player->terminate();
+	return;
+	}
+
+	frame = vdo->getNextFrame();
+
+	if (frame == 0x0)
+	{
+	vdo_player->terminate();
+	return;
+	}
+
+	updateVideoPlayer(frame);
+
+	delete frame;
+	}
+	*/
+
+void mfit::updateVideoPlayer(Frame *frame)
+{
+	QImage *image;
+
+	image = frame->IplImageToQImage();
+
+	QPixmap pix_image = QPixmap::fromImage(*image);
+
+	ui.videoLabel->setScaledContents(true);
+	ui.videoLabel->setPixmap(pix_image);
+
+	delete image;
 }
+
+/*
+void mfit::updateVideoPlayer(QImage *image)
+{
+	QPixmap pix_image = QPixmap::fromImage(*image);
+
+	ui.videoLabel->setScaledContents(true);
+	ui.videoLabel->setPixmap(pix_image);
+}
+*/

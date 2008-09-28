@@ -1,3 +1,5 @@
+#ifndef TIME_INCLUDE
+#define TIME_INCLUDE
 /**
  *Classe que agrua informações
  *e manipulação de tempo.
@@ -29,3 +31,4 @@ class Time
 		int getMsec();
 
 };
+#endif
