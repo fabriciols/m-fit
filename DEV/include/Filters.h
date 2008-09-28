@@ -2,6 +2,8 @@
  *Classe que agrupa filtros de
  *processamento de imagens digitais.
  */
+#ifndef FILTERS_INCLUDE
+#define FILTERS_INCLUDE
 
 #define SOBEL_VERTICAL	  0
 #define SOBEL_HORIZONTAL  1
@@ -41,3 +43,4 @@ class Filters
 		void Canny(Frame* frame, double thresholdMin, double thresholdMax, int size);
 
 };
+#endif

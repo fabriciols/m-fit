@@ -1,5 +1,7 @@
 #include "Transition.h"
 
+#ifndef TAKE_INCLUDE
+#define TAKE_INCLUDE
 /**
  *Container para tomadas de vídeo.
  */
@@ -41,3 +43,4 @@ class Take
 		Take* prev;
 
 };
+#endif

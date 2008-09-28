@@ -1,3 +1,5 @@
+#ifndef TRANSITION_INCLUDE
+#define TRANSITION_INCLUDE
 /**
  *Classe responsável por representar
  *uma transição.
@@ -73,3 +75,4 @@ class Transition
 		char* getLabel();
 
 };
+#endif

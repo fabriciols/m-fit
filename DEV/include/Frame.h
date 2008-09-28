@@ -7,7 +7,8 @@
 * 27/06/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-
+#ifndef FRAME_INCLUDE
+#define FRAME_INCLUDE
 class Frame 
 {
  
@@ -130,4 +131,4 @@ class Frame
 		int removeWide();
 		int removeBorder();
 };
-
+#endif

@@ -1,3 +1,5 @@
+#ifndef DETECTTRANSITIONS_INCLUDE
+#define DETECTTRANSITIONS_INCLUDE
 /**
  *Classe pai de todas as detecções
  *de transições.
@@ -16,3 +18,4 @@ class DetectTransitions
 		void detectTransitions(Video* vdo, std::vector<Transition>* tansitionList);
 
 };
+#endif

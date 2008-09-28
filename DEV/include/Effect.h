@@ -1,4 +1,5 @@
-
+#ifndef EFFECT_INCLUDE
+#define EFFECT_INCLUDE
 /**
  *Classe responsável por centralizar
  *os métodos dos efeitos.
@@ -15,3 +16,4 @@ class Effect
 
 		int applyEffect();
 };
+#endif

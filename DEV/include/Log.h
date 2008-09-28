@@ -1,3 +1,5 @@
+#ifndef LOG_INCLUDE
+#define LOG_INCLUDE
 class Log
 {
 	public:
@@ -5,3 +7,4 @@ class Log
 		static int writetty(char* buf_cy);
 		static int writeLog(const char *fmt, ...);
 };
+#endif

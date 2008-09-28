@@ -1,3 +1,5 @@
+#ifndef VISUALRYTHIM
+#define VISUALRYTHIM
 /**
  *Classe responsável por criar
  *os dois tipos de ritmo visual.
@@ -24,3 +26,4 @@ class VisualRythim
 		 */
 		float calcDerivatives();
 };
+#endif

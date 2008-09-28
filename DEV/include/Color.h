@@ -1,3 +1,5 @@
+#ifndef COLOR_INCLUDE
+#define COLOR_INCLUDE
 /************************************************************************
 * Classe responsável em aplicar efeitos de cor.
 *************************************************************************
@@ -17,3 +19,4 @@ class Color: public Effect
 		Frame* convert2Gray(Frame *frame);
  
 };
+#endif

@@ -1,3 +1,5 @@
+#ifndef CUT_INCLUDE
+#define CUT_INCLUDE
 /**
  *Classe responsável por indentificar
  *transições do tipo Corte.
@@ -37,3 +39,4 @@ class Cut: public DetectTransitions
 	int validateCut(Frame* visual, int position);
 
 };
+#endif

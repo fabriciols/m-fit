@@ -10,6 +10,8 @@
 #include "../include/Frame.h"
 #include "../include/Video.h"
 
+#ifndef INTERFACE_INCLUDE
+#define INTERFACE_INCLUDE
 class mfit: public QMainWindow
 {
 	Q_OBJECT
@@ -19,7 +21,6 @@ class mfit: public QMainWindow
 
 		void changeWindowTitle(char *string);
 		void insertVideoProperty(char *param_cy, char *value_cy);
-		void updateVideoPlayer(Frame* frame);
 
 		Ui::MainWindow ui;
 
@@ -29,4 +30,10 @@ class mfit: public QMainWindow
 		void on_actionSaveAs_triggered();
 		void on_actionLoadVideo_triggered();
 
+		void on_pauseButton_clicked();
+		void on_stopButton_clicked();
+
+		void updateVideoPlayer(Frame *frame);
+		
 };
+#endif
