@@ -34,6 +34,8 @@ int Log::writeLog(const char *fmt, ...)
 	struct tm *paux;
 	time_t now;
 
+	FILE *fd;
+
 	memset(bufArg_cy , '\0',  sizeof(bufArg_cy));
 	memset(bufLog_cy , '\0',  sizeof(bufLog_cy));
 	memset(bufTime_cy, '\0', sizeof(bufTime_cy));
@@ -60,6 +62,11 @@ int Log::writeLog(const char *fmt, ...)
 #endif
 */
 
+	fd = fopen("MFIT.log", "ab");
+
+	if (fd == NULL)
+		return false;
+
 	// Transforma os "..."
 	va_start(argList, fmt);
 	vsprintf(bufArg_cy, fmt ,argList);
@@ -78,7 +85,7 @@ int Log::writeLog(const char *fmt, ...)
 	strcat(bufLog_cy, bufArg_cy);
 
 	//writetty(bufLog_cy);
-	printf("%s\n",bufLog_cy);
+	fprintf(fd, "%s\n",bufLog_cy);
 
 	return 0;
 
