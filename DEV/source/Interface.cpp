@@ -185,6 +185,7 @@ void mfit::updateVideoPlayer(Frame *frame)
 	ui.videoLabel->setScaledContents(true);
 	ui.videoLabel->setPixmap(pix_image);
 
+	delete frame;
 	delete image;
 }
 

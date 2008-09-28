@@ -16,6 +16,8 @@ void VideoPlayer::run()
 			break;
 		}
 
+		if (frame != 0x0)
+
 		frame = vdo->getNextFrame();
 
 		if (frame == 0x0)
@@ -26,5 +28,6 @@ void VideoPlayer::run()
 		emit renderedImage(frame);
 
 		usleep(1000);
+
 	}
 }
