@@ -122,5 +122,7 @@ void mfit::updateVideoPlayer(Frame* frame)
 	QImage *image;
 	image = frame->IplImageToQImage();
 
+  	ui.videoLabel->setScaledContents(true);
  	ui.videoLabel->setPixmap(QPixmap::fromImage(*image));
+	
 }

@@ -3,10 +3,8 @@
 #include "highgui.h"
 
 #include "../include/Interface.h"
-
 #include "../include/Transition.h"
 #include "../include/Project.h"
-
 
 // Variaveis globais da aplicacao
 Project *currentProject;
