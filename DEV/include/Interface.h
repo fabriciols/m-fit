@@ -21,12 +21,12 @@ class mfit: public QMainWindow
 		void insertVideoProperty(char *param_cy, char *value_cy);
 		void updateVideoPlayer(Frame* frame);
 
+		Ui::MainWindow ui;
+
 	private slots:
 		void on_playButton_clicked();
 		void on_actionOpenProject_triggered();
 		void on_actionSaveAs_triggered();
 		void on_actionLoadVideo_triggered();
 
-	private:
-		Ui::MainWindow ui;
 };
