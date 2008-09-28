@@ -72,7 +72,7 @@ border: 1px solid gray
           <string>...</string>
          </property>
          <property name="icon" >
-          <iconset>Icons/play.png</iconset>
+          <iconset>../Interface/Icons/play.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -97,7 +97,7 @@ border: 1px solid gray
           <string>...</string>
          </property>
          <property name="icon" >
-          <iconset>Icons/pause.png</iconset>
+          <iconset>../Interface/Icons/pause.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -116,7 +116,7 @@ border: 1px solid gray
           <string>...</string>
          </property>
          <property name="icon" >
-          <iconset>Icons/back.png</iconset>
+          <iconset>../Interface/Icons/back.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -135,7 +135,7 @@ border: 1px solid gray
           <string>...</string>
          </property>
          <property name="icon" >
-          <iconset>Icons/forward.png</iconset>
+          <iconset>../Interface/Icons/forward.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -154,7 +154,7 @@ border: 1px solid gray
           <string>...</string>
          </property>
          <property name="icon" >
-          <iconset>Icons/stop.png</iconset>
+          <iconset>../Interface/Icons/stop.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -551,7 +551,7 @@ border: 1px solid gray
   </widget>
   <action name="actionNewProject" >
    <property name="icon" >
-    <iconset>Icons/filenew.png</iconset>
+    <iconset>../Interface/Icons/filenew.png</iconset>
    </property>
    <property name="text" >
     <string>New Project...</string>
@@ -568,7 +568,7 @@ border: 1px solid gray
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset>Icons/fileopen.png</iconset>
+    <iconset>../Interface/Icons/fileopen.png</iconset>
    </property>
    <property name="text" >
     <string>Open Project...</string>
@@ -579,7 +579,7 @@ border: 1px solid gray
   </action>
   <action name="actionLoadVideo" >
    <property name="icon" >
-    <iconset>Icons/load_video.png</iconset>
+    <iconset>../Interface/Icons/load_video.png</iconset>
    </property>
    <property name="text" >
     <string>Load Video...</string>
@@ -598,7 +598,7 @@ border: 1px solid gray
   </action>
   <action name="actionSave" >
    <property name="icon" >
-    <iconset>Icons/filesave.png</iconset>
+    <iconset>../Interface/Icons/filesave.png</iconset>
    </property>
    <property name="text" >
     <string>Save</string>
@@ -614,7 +614,7 @@ border: 1px solid gray
   </action>
   <action name="actionExit" >
    <property name="icon" >
-    <iconset>Icons/exit.png</iconset>
+    <iconset>../Interface/Icons/exit.png</iconset>
    </property>
    <property name="text" >
     <string>Exit</string>
@@ -622,7 +622,7 @@ border: 1px solid gray
   </action>
   <action name="actionUndo" >
    <property name="icon" >
-    <iconset>Icons/undo.png</iconset>
+    <iconset>../Interface/Icons/undo.png</iconset>
    </property>
    <property name="text" >
     <string>Undo</string>
@@ -633,7 +633,7 @@ border: 1px solid gray
   </action>
   <action name="actionRedo" >
    <property name="icon" >
-    <iconset>Icons/redo.png</iconset>
+    <iconset>../Interface/Icons/redo.png</iconset>
    </property>
    <property name="text" >
     <string>Redo</string>
@@ -644,7 +644,7 @@ border: 1px solid gray
   </action>
   <action name="actionCut" >
    <property name="icon" >
-    <iconset>Icons/editcut.png</iconset>
+    <iconset>../Interface/Icons/editcut.png</iconset>
    </property>
    <property name="text" >
     <string>Cut</string>
@@ -652,7 +652,7 @@ border: 1px solid gray
   </action>
   <action name="actionPaste" >
    <property name="icon" >
-    <iconset>Icons/editpaste.png</iconset>
+    <iconset>../Interface/Icons/editpaste.png</iconset>
    </property>
    <property name="text" >
     <string>Paste</string>
@@ -660,7 +660,7 @@ border: 1px solid gray
   </action>
   <action name="actionCopy" >
    <property name="icon" >
-    <iconset>Icons/copy.png</iconset>
+    <iconset>../Interface/Icons/copy.png</iconset>
    </property>
    <property name="text" >
     <string>Copy</string>
@@ -668,7 +668,7 @@ border: 1px solid gray
   </action>
   <action name="actionAllTransitions" >
    <property name="icon" >
-    <iconset>Icons/all.png</iconset>
+    <iconset>../Interface/Icons/all.png</iconset>
    </property>
    <property name="text" >
     <string>All Transitions</string>
@@ -676,7 +676,7 @@ border: 1px solid gray
   </action>
   <action name="actionOnlyCuts" >
    <property name="icon" >
-    <iconset>Icons/cut.png</iconset>
+    <iconset>../Interface/Icons/cut.png</iconset>
    </property>
    <property name="text" >
     <string>Only Cuts</string>
@@ -684,7 +684,7 @@ border: 1px solid gray
   </action>
   <action name="actionOnlyDissolve" >
    <property name="icon" >
-    <iconset>Icons/dissolve.png</iconset>
+    <iconset>../Interface/Icons/dissolve.png</iconset>
    </property>
    <property name="text" >
     <string>Only Dissolve</string>
@@ -692,7 +692,7 @@ border: 1px solid gray
   </action>
   <action name="actionOnlyFadeIn" >
    <property name="icon" >
-    <iconset>Icons/fadein.png</iconset>
+    <iconset>../Interface/Icons/fadein.png</iconset>
    </property>
    <property name="text" >
     <string>Only Fade-In</string>
@@ -700,7 +700,7 @@ border: 1px solid gray
   </action>
   <action name="actionOnlyFadeOut" >
    <property name="icon" >
-    <iconset>Icons/fadeout.png</iconset>
+    <iconset>../Interface/Icons/fadeout.png</iconset>
    </property>
    <property name="text" >
     <string>Only Fade-Out</string>
@@ -723,7 +723,7 @@ border: 1px solid gray
   </action>
   <action name="actionAllFades" >
    <property name="icon" >
-    <iconset>Icons/fades.png</iconset>
+    <iconset>../Interface/Icons/fades.png</iconset>
    </property>
    <property name="text" >
     <string>All Fades</string>
@@ -731,7 +731,7 @@ border: 1px solid gray
   </action>
   <action name="actionPlay" >
    <property name="icon" >
-    <iconset>Icons/play.png</iconset>
+    <iconset>../Interface/Icons/play.png</iconset>
    </property>
    <property name="text" >
     <string>Play</string>
@@ -739,7 +739,7 @@ border: 1px solid gray
   </action>
   <action name="actionPause" >
    <property name="icon" >
-    <iconset>Icons/pause.png</iconset>
+    <iconset>../Interface/Icons/pause.png</iconset>
    </property>
    <property name="text" >
     <string>Pause</string>
@@ -747,7 +747,7 @@ border: 1px solid gray
   </action>
   <action name="actionStop" >
    <property name="icon" >
-    <iconset>Icons/stop.png</iconset>
+    <iconset>../Interface/Icons/stop.png</iconset>
    </property>
    <property name="text" >
     <string>Stop</string>
@@ -755,7 +755,7 @@ border: 1px solid gray
   </action>
   <action name="actionBackward" >
    <property name="icon" >
-    <iconset>Icons/back.png</iconset>
+    <iconset>../Interface/Icons/back.png</iconset>
    </property>
    <property name="text" >
     <string>Backward</string>
@@ -763,7 +763,7 @@ border: 1px solid gray
   </action>
   <action name="actionForward" >
    <property name="icon" >
-    <iconset>Icons/forward.png</iconset>
+    <iconset>../Interface/Icons/forward.png</iconset>
    </property>
    <property name="text" >
     <string>Forward</string>
