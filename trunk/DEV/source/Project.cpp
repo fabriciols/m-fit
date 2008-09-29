@@ -12,6 +12,17 @@
 
 #include "../include/main.h"
 
+/************************************************************************
+* Abre um arquivo de projeto, que eh um XML, parsea ele e sobe as
+* estruturas.
+* TODO: ParserXML
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico
+* 29/09/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 int Project::openProject(char *filename_cy)
 {
 	// Abre um projeto ja existente
@@ -22,9 +33,21 @@ int Project::openProject(char *filename_cy)
 	return true;
 }
 
+/************************************************************************
+* Inicia um novo projeto
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico
+* 29/09/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 Project::Project(void)
 {
 	// Inicializa os ponteiros com 0
+	this->vdo = '\0';
+	this->frame = '\0';
+
 	strcpy(this->filename_cy, "NewProject.mfit");
 
 	// Troca o titulo da janela
@@ -32,23 +55,38 @@ Project::Project(void)
 
 }
 
+/************************************************************************
+* Realiza a abertura de um video novo.
+* Preenche a videoPropertiesTree com informacoes do video.
+* Caso ja tenha um video aberto, mata ele e limpa a videoPropertiesTree.
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico
+* 29/09/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 int Project::openVideo(QString fileName)
 {
-	/*
-		if (this->vdo != NULL)
-		return false;
-		*/
 	char param_cy[50];
 	char *filename_cy;
 
+	Log::writeLog("%s :: vdo[%x]", __FUNCTION__, this->vdo);
+
+	if (this->vdo != 0x0)
+	{
+		Log::writeLog("%s :: cleaning vdo[%x]", __FUNCTION__, this->vdo);
+		delete this->vdo;
+		mfit_ui->clearVideoProperty();
+	}
+
+	// Transformando QString em char*
 	QByteArray ba = fileName.toLatin1();
 	filename_cy = ba.data(); 
 
 	this->vdo = new Video(filename_cy);
 
 	// Pega as propriedades do video e exibe na lista
-	//
-	//
 	memset(param_cy, '\0', sizeof(param_cy));
 	
 	// Nome
@@ -82,11 +120,20 @@ int Project::openVideo(QString fileName)
 	sprintf(param_cy, "%.0lf", this->vdo->getFramesTotal());
 	mfit_ui->insertVideoProperty("Frames",  param_cy);
 
-	//mfit_ui->updateVideoPlayer(this->vdo->getCurrentFrame());
-
 	return true;
 }
 
+/************************************************************************
+* Retorna o video corrente do projeto
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* return : Video* -> video do projeto
+*************************************************************************
+* Histórico
+* 29/09/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 Video* Project::getVideo()
 {
 	return vdo;
