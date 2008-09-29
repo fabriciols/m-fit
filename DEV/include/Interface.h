@@ -21,6 +21,7 @@ class mfit: public QMainWindow
 
 		void changeWindowTitle(char *string);
 		void insertVideoProperty(char *param_cy, char *value_cy);
+		void clearVideoProperty();
 
 		Ui::MainWindow ui;
 
