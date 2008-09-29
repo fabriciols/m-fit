@@ -1,4 +1,5 @@
 #include <QThread>
+#include <QMutex>
 #include "QMainWindow"
 
 #include "../include/Interface.h"
@@ -17,6 +18,9 @@ class VideoPlayer: public QThread
 
 	signals:
 		void renderedImage(Frame *frame);
+
+	public:
+		QMutex mutex;
 		
 };
 #endif

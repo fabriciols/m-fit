@@ -285,6 +285,10 @@ void mfit::updateVideoPlayer(Frame *frame)
 {
 	QImage *image;
 
+	// Trava a thread do video_player
+	vdo_player->mutex.lock();
+
+	// Converte a imagem
 	image = frame->IplImageToQImage();
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
@@ -294,6 +298,9 @@ void mfit::updateVideoPlayer(Frame *frame)
 
 	delete frame;
 	delete image;
+
+	// Destrava
+	vdo_player->mutex.unlock();
 }
 
 /*
