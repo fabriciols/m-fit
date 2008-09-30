@@ -17,10 +17,12 @@ class VideoPlayer: public QThread
 		void run();
 
 	signals:
-		void renderedImage(Frame *frame);
+		void renderedImage(QImage *image);
 
 	public:
 		QMutex mutex;
-		
+		uchar* imageData;
+		int imgWidth, imgHeight;
+
 };
 #endif

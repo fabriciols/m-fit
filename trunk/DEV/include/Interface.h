@@ -22,6 +22,7 @@ class mfit: public QMainWindow
 		void changeWindowTitle(char *string);
 		void insertVideoProperty(char *param_cy, char *value_cy);
 		void clearVideoProperty();
+		void updateVideoPlayer(Frame *frame);
 
 		Ui::MainWindow ui;
 
@@ -34,7 +35,7 @@ class mfit: public QMainWindow
 		void on_pauseButton_clicked();
 		void on_stopButton_clicked();
 
-		void updateVideoPlayer(Frame *frame);
+		void updateVideoPlayer(QImage *image);
 		
 };
 #endif

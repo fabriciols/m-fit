@@ -929,11 +929,11 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 {
 	uchar *qImageBuffer = NULL; 
 	int width = this->data->width; 
-	/* Note here that OpenCV image is stored so that each lined is 
-		32-bits aligned thus 
-	 * explaining the necessity to "skip" the few last bytes of each 
-	 line of OpenCV image buffer. 
-	 */ 
+	// Note here that OpenCV image is stored so that each lined is 
+	// 32-bits aligned thus 
+	// explaining the necessity to "skip" the few last bytes of each 
+	// line of OpenCV image buffer. 
+	// 
 	int widthStep = this->data->widthStep; 
 	int height = this->data->height; 
 
@@ -942,9 +942,9 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 		case IPL_DEPTH_8U: 
 			if (this->data->nChannels == 1) 
 			{ 
-				/* OpenCV image is stored with one byte grey pixel. We convert it 
-					to an 8 bit depth QImage. 
-				 */ 
+				// OpenCV image is stored with one byte grey pixel. We convert it 
+				// to an 8 bit depth QImage. 
+				// 
 				qImageBuffer = (uchar *) malloc(width*height*sizeof(uchar)); 
 				uchar *QImagePtr = qImageBuffer; 
 				const uchar *iplImagePtr = (const uchar *) this->data->imageData; 
@@ -958,9 +958,8 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 			}
 			else if (this->data->nChannels == 3)
 			{ 
-				/* OpenCV image is stored with 3 byte color pixels (3 channels). 
-					We convert it to a 32 bit depth QImage. 
-				 */ 
+				// OpenCV image is stored with 3 byte color pixels (3 channels). 
+				// We convert it to a 32 bit depth QImage. 
 				qImageBuffer = (uchar *) malloc(width*height*4*sizeof(uchar)); 
 				uchar *QImagePtr = qImageBuffer; 
 				const uchar *iplImagePtr = (const uchar *) this->data->imageData; 
@@ -988,9 +987,8 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 		case IPL_DEPTH_16U: 
 			if (this->data->nChannels == 1)
 			{ 
-				/* OpenCV image is stored with 2 bytes grey pixel. We convert it 
-					to an 8 bit depth QImage. 
-				 */ 
+				// OpenCV image is stored with 2 bytes grey pixel. We convert it 
+				//	to an 8 bit depth QImage. 
 				qImageBuffer = (uchar *) malloc(width*height*sizeof(uchar)); 
 				uchar *QImagePtr = qImageBuffer; 
 				const uint16_t *iplImagePtr = (const uint16_t *) 
@@ -1015,9 +1013,8 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 		case IPL_DEPTH_32F: 
 			if (this->data->nChannels == 1) 
 			{ 
-				/* OpenCV image is stored with float (4 bytes) grey pixel. We 
-					convert it to an 8 bit depth QImage. 
-				 */ 
+				// OpenCV image is stored with float (4 bytes) grey pixel. We 
+				// convert it to an 8 bit depth QImage. 
 				qImageBuffer = (uchar *) malloc(width*height*sizeof(uchar)); 
 				uchar *QImagePtr = qImageBuffer; 
 				const float *iplImagePtr = (const float *) this->data->imageData; 
@@ -1042,10 +1039,196 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 		case IPL_DEPTH_64F: 
 			if (this->data->nChannels == 1)
 			{ 
-				/* OpenCV image is stored with double (8 bytes) grey pixel. We 
-					convert it to an 8 bit depth QImage. 
-				 */ 
+				// OpenCV image is stored with double (8 bytes) grey pixel. We 
+				// convert it to an 8 bit depth QImage. 
 				qImageBuffer = (uchar *) malloc(width*height*sizeof(uchar)); 
+				uchar *QImagePtr = qImageBuffer; 
+				const double *iplImagePtr = (const double *) this->data->imageData; 
+				for (int y = 0; y < height; y++) 
+				{ 
+					for (int x = 0; x < width; x++) 
+					{ 
+						uchar p; 
+						double pf = 255 * ((*iplImagePtr++) - mini) / (maxi - mini); 
+						if (pf < 0) p = 0; 
+						else if (pf > 255) p = 255; 
+						else p = (uchar) pf; 
+						*QImagePtr++ = p; 
+					} 
+					iplImagePtr += widthStep/sizeof(double)-width; 
+				} 
+			}
+			else
+		  	{ 
+				printf("IplImageToQImage: image format is not supported : depth=64F and %d channels\n",
+						this->data->nChannels); 
+			} 
+			break; 
+		default: 
+			printf("IplImageToQImage: image format is not supported : depth=%d and %d channels\n",
+					this->data->depth, this->data->nChannels); 
+	} 
+	QImage *qImage; 
+	QImage *imageFinal;
+
+	if (this->data->nChannels == 1)
+	{ 
+		// We should check who is going to destroy this allocation. 
+		QRgb *colorTable = new QRgb[256]; 
+		for (int i = 0; i < 256; i++) 
+			colorTable[i] = qRgb(i, i, i); 
+		qImage = new QImage(qImageBuffer, width, height, 8, colorTable, 256, 
+				QImage::IgnoreEndian); 
+	} 
+	else 
+	{ 
+		qImage = new QImage(qImageBuffer, width, height, 32, NULL, 256, 
+				QImage::IgnoreEndian); 
+	} 
+
+	imageFinal = new QImage(*qImage);
+
+	delete qImage;
+	free(qImageBuffer);
+
+	return imageFinal; 
+}
+
+QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_height,
+		double mini, double maxi)
+{
+	uchar *qImageBuffer;
+	int width = this->data->width; 
+	// Note here that OpenCV image is stored so that each lined is 
+	// 32-bits aligned thus 
+	// explaining the necessity to "skip" the few last bytes of each 
+	// line of OpenCV image buffer. 
+	// 
+	int widthStep = this->data->widthStep; 
+	int height = this->data->height; 
+
+	if (*imageData == NULL)
+	{
+		*imageData = (uchar *) malloc(width*height*4*sizeof(uchar)); 
+	}
+	else
+	{
+		if (*last_witdh != width || *last_height != height)
+		{
+			delete [] *imageData;
+			*imageData = (uchar *) malloc(width*height*4*sizeof(uchar)); 
+		}
+	}
+
+	*last_witdh = width;
+	*last_height = height;
+
+	qImageBuffer = *imageData;
+
+	switch (this->data->depth) 
+	{ 
+		case IPL_DEPTH_8U: 
+			if (this->data->nChannels == 1) 
+			{ 
+				// OpenCV image is stored with one byte grey pixel. We convert it 
+				// to an 8 bit depth QImage. 
+				// 
+				uchar *QImagePtr = qImageBuffer; 
+				const uchar *iplImagePtr = (const uchar *) this->data->imageData; 
+				for (int y = 0; y < height; y++)
+				{ 
+					// Copy line by line 
+					memcpy(QImagePtr, iplImagePtr, width); 
+					QImagePtr += width; 
+					iplImagePtr += widthStep; 
+				} 
+			}
+			else if (this->data->nChannels == 3)
+			{ 
+				// OpenCV image is stored with 3 byte color pixels (3 channels). 
+				// We convert it to a 32 bit depth QImage. 
+				//qImageBuffer = (uchar *) malloc(width*height*4*sizeof(uchar)); 
+				uchar *QImagePtr = qImageBuffer; 
+				const uchar *iplImagePtr = (const uchar *) this->data->imageData; 
+				for (int y = 0; y < height; y++)
+				{ 
+					for (int x = 0; x < width; x++)
+					{ 
+						// We cannot help but copy manually. 
+						QImagePtr[0] = iplImagePtr[0]; 
+						QImagePtr[1] = iplImagePtr[1]; 
+						QImagePtr[2] = iplImagePtr[2]; 
+						QImagePtr[3] = 0; 
+						QImagePtr += 4; 
+						iplImagePtr += 3; 
+					} 
+					iplImagePtr += widthStep-3*width; 
+				} 
+			} 
+			else
+			{ 
+				printf("IplImageToQImage: image format is not supported : depth=8U and %d channels\n",
+						this->data->nChannels); 
+			} 
+			break; 
+		case IPL_DEPTH_16U: 
+			if (this->data->nChannels == 1)
+			{ 
+				// OpenCV image is stored with 2 bytes grey pixel. We convert it 
+				//	to an 8 bit depth QImage. 
+				//qImageBuffer = (uchar *) malloc(width*height*sizeof(uchar)); 
+				uchar *QImagePtr = qImageBuffer; 
+				const uint16_t *iplImagePtr = (const uint16_t *) 
+					this->data->imageData; 
+				for (int y = 0; y < height; y++)
+				{ 
+					for (int x = 0; x < width; x++)
+					{ 
+						// We take only the highest part of the 16 bit value. It is 
+						// similar to dividing by 256. 
+							*QImagePtr++ = ((*iplImagePtr++) >> 8); 
+					} 
+					iplImagePtr += widthStep/sizeof(uint16_t)-width; 
+				} 
+			}
+			else
+			{ 
+				printf("IplImageToQImage: image format is not supported : depth=16U and %d channels\n",
+						this->data->nChannels); 
+			} 
+			break; 
+		case IPL_DEPTH_32F: 
+			if (this->data->nChannels == 1) 
+			{ 
+				// OpenCV image is stored with float (4 bytes) grey pixel. We 
+				// convert it to an 8 bit depth QImage. 
+				//qImageBuffer = (uchar *) malloc(width*height*sizeof(uchar)); 
+				uchar *QImagePtr = qImageBuffer; 
+				const float *iplImagePtr = (const float *) this->data->imageData; 
+				for (int y = 0; y < height; y++) { 
+					for (int x = 0; x < width; x++) { 
+						uchar p; 
+						float pf = 255 * ((*iplImagePtr++) - mini) / (maxi - mini); 
+						if (pf < 0) p = 0; 
+						else if (pf > 255) p = 255; 
+						else p = (uchar) pf; 
+						*QImagePtr++ = p; 
+					} 
+					iplImagePtr += widthStep/sizeof(float)-width; 
+				} 
+			} 
+			else 
+			{ 
+				printf("IplImageToQImage: image format is not supported : depth=32F and %d channels\n",
+						this->data->nChannels); 
+			} 
+			break; 
+		case IPL_DEPTH_64F: 
+			if (this->data->nChannels == 1)
+			{ 
+				// OpenCV image is stored with double (8 bytes) grey pixel. We 
+				// convert it to an 8 bit depth QImage. 
+				//qImageBuffer = (uchar *) malloc(width*height*sizeof(uchar)); 
 				uchar *QImagePtr = qImageBuffer; 
 				const double *iplImagePtr = (const double *) this->data->imageData; 
 				for (int y = 0; y < height; y++) 
@@ -1082,11 +1265,12 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 			colorTable[i] = qRgb(i, i, i); 
 		qImage = new QImage(qImageBuffer, width, height, 8, colorTable, 256, 
 				QImage::IgnoreEndian); 
-	} else 
+	} 
+	else 
 	{ 
 		qImage = new QImage(qImageBuffer, width, height, 32, NULL, 256, 
 				QImage::IgnoreEndian); 
 	} 
 
-	return qImage; 
+	return qImage;
 }
