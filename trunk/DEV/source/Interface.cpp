@@ -275,7 +275,7 @@ void mfit::insertVideoProperty(char *param_cy, char *value_cy)
 /************************************************************************
 * Printa um Frame no videoLabel (Video Player)
 *************************************************************************
-* param (E): Nenhum
+* param (E): Frame *frame -> Frame a ser impresso no video player
 *************************************************************************
 * Histórico
 * 29/09/08 - Fabricio Lopes de Souza
@@ -291,10 +291,7 @@ void mfit::updateVideoPlayer(Frame *frame)
 	// Converte a imagem
 	image = frame->IplImageToQImage();
 
-	QPixmap pix_image = QPixmap::fromImage(*image);
-
-	ui.videoLabel->setScaledContents(true);
-	ui.videoLabel->setPixmap(pix_image);
+	updateVideoPlayer(image);
 
 	delete frame;
 	delete image;
@@ -303,6 +300,15 @@ void mfit::updateVideoPlayer(Frame *frame)
 	vdo_player->mutex.unlock();
 }
 
+/************************************************************************
+* Printa um QImage no videoLabel (Video Player)
+*************************************************************************
+* param (E): QImage *image -> Imagem a ser impressa no video player
+*************************************************************************
+* Histórico
+* 29/09/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 void mfit::updateVideoPlayer(QImage *image)
 {
 	// Trava a thread do video_player
