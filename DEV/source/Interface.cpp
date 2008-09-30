@@ -34,8 +34,8 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 	ui.setupUi(this);
 
 	qRegisterMetaType<Frame>("Frame");
-	connect(vdo_player, SIGNAL(renderedImage(Frame *)),
-			this, SLOT(updateVideoPlayer(Frame *)));
+	connect(vdo_player, SIGNAL(renderedImage(QImage *)),
+			this, SLOT(updateVideoPlayer(QImage *)));
 }
 
 /************************************************************************
@@ -303,12 +303,15 @@ void mfit::updateVideoPlayer(Frame *frame)
 	vdo_player->mutex.unlock();
 }
 
-/*
 void mfit::updateVideoPlayer(QImage *image)
 {
+	// Trava a thread do video_player
+	vdo_player->mutex.lock();
+
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
 	ui.videoLabel->setScaledContents(true);
 	ui.videoLabel->setPixmap(pix_image);
+
+	vdo_player->mutex.unlock();
 }
-*/

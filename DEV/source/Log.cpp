@@ -87,6 +87,8 @@ int Log::writeLog(const char *fmt, ...)
 	//writetty(bufLog_cy);
 	fprintf(fd, "%s\n",bufLog_cy);
 
+	fclose(fd);
+
 	return 0;
 
 }

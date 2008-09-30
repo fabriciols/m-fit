@@ -80,6 +80,9 @@ Video::Video(char *filename_cy)
 	}
 
 	Log::writeLog("%s :: open idx_c[%c]", __FUNCTION__, idx_c);
+
+	memset(this->path, '\0', sizeof(this->path));
+	memset(this->name, '\0', sizeof(this->name));
 	
 	if (idx_c) // Se encontrou o separador, desmembra
 	{
