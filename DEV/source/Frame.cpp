@@ -1094,6 +1094,21 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 	return imageFinal; 
 }
 
+/************************************************************************
+ * Função que converte uma IplImage em uma QImage
+ * porem esta tem um controle de reutilizar o buffer e só modificá-lo
+ * qndo as dimensões da imagem mudar.
+ *************************************************************************
+ * param (E): QImage*  - Imagem convertida 
+ *************************************************************************
+ * return : Ritmo visual sem wide.
+ *************************************************************************
+ * Histórico:
+ * 01/09/08 - Fabricio Lopes de Souza
+ * Adaptação para funcionar com o MFIT
+ * 23/03/03 - RONFARD Remi, KNOSSOW David, GUILBERT Matthieu 
+ * Criação.
+ ************************************************************************/
 QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_height,
 		double mini, double maxi)
 {
