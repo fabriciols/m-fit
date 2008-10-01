@@ -1,4 +1,5 @@
 #include "../include/time.h"
+#include "cv.h"
 
 /************************************************************************
 * Construtor da classe: inicializa as variaveis da classe com 0.
@@ -21,24 +22,39 @@ Time::Time()
 }
 
 /************************************************************************
-* Transforma de milesegundos para o formato HH:MM:SS.MMM
+* Construtor da classe: inicializa as variaveis.
 *************************************************************************
-* param (E): unsigned long msec - Tempo em milisegundos
+* param (E): int hora, int min, int sec, int msec
 ************************************************************************
 * return: Nenhum.
 ************************************************************************
 * Histórico
-* 30/07/08 - Fabrício Lopes de Souza
+* 16/08/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-void Time::setTime(unsigned long msec)
+Time::Time(int hour, int min, int sec, int msec = 0)
 {
-	this->msec = (int)( msec % 1000);
-	this->sec  = (int)((msec /1000) % 60);
-	this->min  = (int)((msec /60000) % 60);
-	this->hour = (int)( msec /3600000);
+	this->hour = hour;
+	this->min = min;
+	this->sec = sec;
+	this->msec = msec;
+}
 
-	return;
+/************************************************************************
+* Construtor da classe: converte de posicao de frame para time
+*************************************************************************
+* param (E): Nenhum.
+************************************************************************
+* return: Nenhum.
+************************************************************************
+* Histórico
+* 16/08/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+Time::Time(double framePos, double fps)
+{
+	// Converte pra segundos, depois pra mili-segundos
+	this->setTime(cvRound((framePos / fps)*1000));
 }
 
 /***********************************************************************
@@ -63,6 +79,26 @@ void Time::pos2time(int position, double fps)
 	this->setTime(milisec);
 }
 
+/************************************************************************
+* Transforma de milesegundos para o formato HH:MM:SS.MMM
+*************************************************************************
+* param (E): unsigned long msec - Tempo em milisegundos
+************************************************************************
+* return: Nenhum.
+************************************************************************
+* Histórico
+* 30/07/08 - Fabrício Lopes de Souza
+* Criação.
+************************************************************************/
+void Time::setTime(unsigned long msec)
+{
+	this->msec = (int)( msec % 1000);
+	this->sec  = (int)((msec /1000) % 60);
+	this->min  = (int)((msec /60000) % 60);
+	this->hour = (int)( msec /3600000);
+
+	return;
+}
 /***********************************************************************
 * Retorna o campo hora do tempo da transição.
 ************************************************************************
@@ -129,4 +165,32 @@ int Time::getSec()
 int Time::getMsec()
 {
 	return (this->msec);
+}
+
+/***********************************************************************
+* Retorna o numero do frame referente ao tempo.
+************************************************************************
+* param (e) : double fps -> Fps referente ao tempo
+************************************************************************
+* return: Posicao em frame de video
+************************************************************************
+* histórico
+* 15/08/08 - Fabricio Lopes de Souza
+* criação.
+************************************************************************/
+unsigned long Time::getFramePos(double fps)
+{
+	unsigned long total;
+	unsigned long pos;
+
+	total = 0;
+
+	total =  this->sec;
+	total += this->min  * 60;
+	total += this->hour * 60 * 60;
+
+	pos = cvRound(total * fps);
+
+	return pos;
+
 }

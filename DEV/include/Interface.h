@@ -23,17 +23,22 @@ class mfit: public QMainWindow
 		void insertVideoProperty(char *param_cy, char *value_cy);
 		void clearVideoProperty();
 		void updateVideoPlayer(Frame *frame);
+		void setVideoTime(double framePos, double fps);
+
+
 
 		Ui::MainWindow ui;
 
 	private slots:
-		void on_playButton_clicked();
 		void on_actionOpenProject_triggered();
 		void on_actionSaveAs_triggered();
 		void on_actionLoadVideo_triggered();
 
+		void on_playButton_clicked();
 		void on_pauseButton_clicked();
 		void on_stopButton_clicked();
+
+		void on_videoTime_timeChanged(const QTime & time);
 
 		void updateVideoPlayer(QImage *image);
 		

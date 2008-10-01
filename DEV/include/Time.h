@@ -16,11 +16,13 @@ class Time
 	public:
 		
 		Time();
-		/**
-		 *  Retorna o tempo (milisegundos) da ocorrencia da transição a
-		 *  partir da posicao do frame.
-		**/
+		Time(unsigned long msec);
+		Time(double framePos, double fps);
+		Time(int hour, int min, int sec, int msec);
+
 		void pos2time(int position, double fps); 
+		unsigned long getFramePos(double fps);
+
 
 		// Passa o tempo de milisegundos para HH:MM:SS:MS
 		void setTime(unsigned long msec);

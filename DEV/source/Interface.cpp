@@ -9,6 +9,7 @@
 #include <QtGui>
 
 #include "../include/Interface.h"
+#include "../include/Time.h"
 
 #include "../include/Transition.h"
 #include "../include/Project.h"
@@ -49,7 +50,9 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 ************************************************************************/
 void mfit::on_playButton_clicked()
 {
-	vdo_player->start();
+	if (!vdo_player->isRunning())
+		vdo_player->start();
+
 	return;
 }
 
@@ -82,24 +85,27 @@ void mfit::on_stopButton_clicked()
 {
 	Video *vdo;
 
-	vdo = currentProject->getVideo();
-
-	vdo->seekFrame(0);
-
 	if (vdo_player->isRunning())
+	{
 		vdo_player->terminate();
+
+		vdo = currentProject->getVideo();
+
+		vdo->seekFrame(0);
+	}
+
 }
 
 /************************************************************************
-* Tratar o evento do botão OpenProject.
-* TODO: Ler o XML e subir os membros da estrutura Project.
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Tratar o evento do botão OpenProject.
+ * TODO: Ler o XML e subir os membros da estrutura Project.
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::on_actionOpenProject_triggered()
 {
 	QString fileName = QFileDialog::getOpenFileName(this);
@@ -115,15 +121,15 @@ void mfit::on_actionOpenProject_triggered()
 }
 
 /************************************************************************
-* Tratar o evento do botão LoadVideo.
-* Abre o objeto Video, atualiza a videoProperties
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Tratar o evento do botão LoadVideo.
+ * Abre o objeto Video, atualiza a videoProperties
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::on_actionLoadVideo_triggered()
 {
 	// Segundo  parametro - Mensagem que ira aparecer no topo da imagem
@@ -145,15 +151,15 @@ void mfit::on_actionLoadVideo_triggered()
 }
 
 /************************************************************************
-* Tratar o evento do botão SaveAs.
-* TODO: Nao faz porra nenhuma pq nao temos o ParserXML
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Tratar o evento do botão SaveAs.
+ * TODO: Nao faz porra nenhuma pq nao temos o ParserXML
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::on_actionSaveAs_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this);
@@ -165,14 +171,14 @@ void mfit::on_actionSaveAs_triggered()
 }
 
 /************************************************************************
-* Altera o Title da janela principal.
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Altera o Title da janela principal.
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::changeWindowTitle(char *string)
 {
 	// Se tiver algum caracter na string
@@ -190,14 +196,14 @@ void mfit::changeWindowTitle(char *string)
 }
 
 /************************************************************************
-* Limpa as entradas da videoPropertiesTree
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Limpa as entradas da videoPropertiesTree
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::clearVideoProperty()
 {
 	Log::writeLog("%s :: clear videoPropertiesTree", __FUNCTION__); 
@@ -205,14 +211,14 @@ void mfit::clearVideoProperty()
 }
 
 /************************************************************************
-* Adiciona uma entrada na videoPropertiesTree
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Adiciona uma entrada na videoPropertiesTree
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::insertVideoProperty(char *param_cy, char *value_cy)
 {
 	// Cria o item referente a Tree
@@ -230,63 +236,18 @@ void mfit::insertVideoProperty(char *param_cy, char *value_cy)
 	this->ui.transitionsTree->insertTopLevelItems(0, items);
 }
 
-/*
-	void mfit::updateVideoPlayer(Frame* frame)
-	{
-	QImage *image;
-	image = frame->IplImageToQImage();
-
-	QPixmap pix_image = QPixmap::fromImage(*image);
-
-	ui.videoLabel->setScaledContents(true);
-	ui.videoLabel->setPixmap(pix_image);
-
-	}
-	*/
-
-/*
-	void mfit::updateVideoPlayer()
-	{
-
-	Video *vdo = currentProject->getVideo();
-	Frame *frame;
-
-	if ((vdo->getCurrentPosition() >= vdo->getFramesTotal())
-	|| vdo == 0x0 )
-	{
-	vdo_player->terminate();
-	return;
-	}
-
-	frame = vdo->getNextFrame();
-
-	if (frame == 0x0)
-	{
-	vdo_player->terminate();
-	return;
-	}
-
-	updateVideoPlayer(frame);
-
-	delete frame;
-	}
-	*/
-
 /************************************************************************
-* Printa um Frame no videoLabel (Video Player)
-*************************************************************************
-* param (E): Frame *frame -> Frame a ser impresso no video player
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Printa um Frame no videoLabel (Video Player)
+ *************************************************************************
+ * param (E): Frame *frame -> Frame a ser impresso no video player
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::updateVideoPlayer(Frame *frame)
 {
 	QImage *image;
-
-	// Trava a thread do video_player
-	vdo_player->mutex.lock();
 
 	// Converte a imagem
 	image = frame->IplImageToQImage();
@@ -296,28 +257,70 @@ void mfit::updateVideoPlayer(Frame *frame)
 	delete frame;
 	delete image;
 
-	// Destrava
-	vdo_player->mutex.unlock();
 }
 
 /************************************************************************
-* Printa um QImage no videoLabel (Video Player)
-*************************************************************************
-* param (E): QImage *image -> Imagem a ser impressa no video player
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Printa um QImage no videoLabel (Video Player)
+ *************************************************************************
+ * param (E): QImage *image -> Imagem a ser impressa no video player
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::updateVideoPlayer(QImage *image)
 {
 	// Trava a thread do video_player
-	vdo_player->mutex.lock();
+	Video *vdo = 0;
+	vdo = currentProject->getVideo();
+
+	setVideoTime(vdo->getCurrentPosition(), vdo->getFPS());
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
 	ui.videoLabel->setScaledContents(true);
 	ui.videoLabel->setPixmap(pix_image);
 
-	vdo_player->mutex.unlock();
+	// Destrava
+	//	vdo_player->mutex.unlock();
+}
+
+void mfit::setVideoTime(double framePos, double fps)
+{
+	Time *cvTime = new Time(framePos, fps);
+
+	const QTime *time = new QTime(
+			cvTime->getHour(),
+			cvTime->getMin(),
+			cvTime->getSec(),
+			cvTime->getMsec());
+
+	ui.videoTime->setTime(*time) ;
+
+	delete cvTime;
+	delete time;
+
+}
+
+
+void mfit::on_videoTime_timeChanged(const QTime & time)
+{
+	return;
+
+	/*
+	Video *vdo;
+	Time *cvTime;
+
+	if (vdo_player->isRunning())
+		return;
+
+	vdo = currentProject->getVideo();
+
+	cvTime = new Time(time.hour(), time.minute(), time.second(), time.msec());
+
+	vdo->seekFrame(cvTime->getFramePos(vdo->getFPS()));
+
+	updateVideoPlayer(vdo->getCurrentFrame());
+	*/
+
 }
