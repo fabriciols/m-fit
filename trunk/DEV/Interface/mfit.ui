@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>955</width>
-    <height>628</height>
+    <width>959</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="mouseTracking" >
@@ -230,7 +230,7 @@ border: 1px solid gray
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>955</width>
+     <width>959</width>
      <height>23</height>
     </rect>
    </property>
@@ -414,6 +414,8 @@ border: 1px solid gray
       </widget>
      </item>
     </layout>
+    <zorder>tabTransEffect</zorder>
+    <zorder>timelineLabel</zorder>
    </widget>
   </widget>
   <widget class="QDockWidget" name="widgetHistogram" >
@@ -465,7 +467,7 @@ border: 1px solid gray
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="widgetTimeline" >
+  <widget class="QDockWidget" name="widgetDockTimeline" >
    <property name="allowedAreas" >
     <set>Qt::AllDockWidgetAreas</set>
    </property>
@@ -477,30 +479,47 @@ border: 1px solid gray
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_4" >
     <layout class="QGridLayout" >
-     <item row="0" column="0" >
-      <widget class="Q3IconView" name="timelineView" >
-       <property name="autoFillBackground" >
-        <bool>false</bool>
+     <item rowspan="2" row="0" column="0" >
+      <widget class="QScrollArea" name="scrollArea" >
+       <property name="widgetResizable" >
+        <bool>true</bool>
        </property>
-       <property name="frameShape" >
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="frameShadow" >
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="hScrollBarMode" >
-        <enum>Q3ScrollView::AlwaysOn</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" >
-      <widget class="QScrollBar" name="horizontalScrollBar_2" >
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents" >
+        <property name="geometry" >
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>939</width>
+          <height>98</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2" >
+         <item row="0" column="0" >
+          <widget class="QWidgetTimeline" native="1" name="widgetTimeline" >
+           <layout class="QGridLayout" name="gridLayout" >
+            <item row="0" column="0" >
+             <widget class="QLabel" name="timelineLabel" >
+              <property name="text" >
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
     </layout>
+    <zorder>timelineView</zorder>
+    <zorder>horizontalScrollBar_2</zorder>
+    <zorder>timelineLabel</zorder>
+    <zorder>horizontalScrollBar</zorder>
+    <zorder>scrollArea</zorder>
+    <zorder>widget</zorder>
+    <zorder>widgetTimeline</zorder>
+    <zorder>scrollArea</zorder>
    </widget>
   </widget>
   <widget class="QDockWidget" name="widgetProperties" >
@@ -807,9 +826,10 @@ border: 1px solid gray
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Q3IconView</class>
-   <extends>Q3Frame</extends>
-   <header>q3iconview.h</header>
+   <class>QWidgetTimeline</class>
+   <extends>QWidget</extends>
+   <header location="global" >../include/QWidgetTimeline.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

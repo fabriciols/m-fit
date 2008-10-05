@@ -41,6 +41,9 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 	connect(vdo_player, SIGNAL(renderedImage(QImage *)),
 			this, SLOT(updateVideoPlayer(QImage *)));
 
+	connect(vdo_player, SIGNAL(renderedImage(QImage *, int)),
+			this, SLOT(updateVideoPlayer(QImage *, int)));
+
 	connect(vdo_player, SIGNAL(renderedImage(QImage *, QImage *)),
 			this, SLOT(updateVideoPlayer(QImage *, QImage *)));
 }
@@ -304,6 +307,22 @@ void mfit::updateHist(QImage *image)
 	vdo_player->mutex.unlock();
 }
 
+void mfit::updateVideoPlayer(QImage *image, int type)
+{
+	// Atualiza o VideoPlayer
+	if (type == 0)
+	{
+		updateVideoPlayer(image);
+	}
+	else // Atualiza o Histogram
+	{
+		updateHist(image);
+	}
+
+	return;
+
+}
+
 void mfit::updateVideoPlayer(QImage *image, QImage *imageHist)
 {
 
@@ -352,5 +371,73 @@ void mfit::on_videoTime_timeChanged(const QTime & time)
 
 		updateVideoPlayer(vdo->getCurrentFrame());
 	 */
+
+}
+
+void mfit::createTimeline(void)
+{
+	Video *vdo = 0x0;
+	vdo = currentProject->getVideo();
+
+	int iter_i = 0x0;
+	Frame *frameTimeline = 0x0;
+	Frame *frame = 0x0;
+	Frame *frameResized = 0x0;
+	int i = 0;
+
+	// Timeline sera 10x menor que a imagem
+	int width = 75;
+	int height = 75;
+
+	// Vamos pegar de 1 em 1 segundo
+	int sec_i = 1;
+
+	iter_i = cvRound(sec_i * vdo->getFPS());
+
+	vdo->seekFrame(0);
+	
+	frame = vdo->getNextFrame();	
+	frameTimeline = frame->resize(width, height);
+
+	delete frame;
+
+	for (i = iter_i ; i < vdo->getFramesTotal() ; i += iter_i)
+	{
+		vdo->seekFrame(i);
+
+		frame = vdo->getNextFrame();
+		frameResized = frame->resize(width, height);
+
+		*frameTimeline += *frameResized;
+
+		delete frame;
+		delete frameResized;
+	}
+
+	this->setTimeline(frameTimeline);
+
+	delete frameTimeline;
+
+	vdo->seekFrame(0);
+}
+
+
+void mfit::setTimeline(Frame *frameTimeline)
+{
+	QImage *image;
+
+	unsigned char *imageData;
+	int width;
+	int height;
+
+	// Converte a imagem
+	image = frameTimeline->IplImageToQImage(&imageData, &width, &height);
+
+	QPixmap pix_image = QPixmap::fromImage(*image);
+
+	ui.histogramLabel->setScaledContents(true);
+	ui.timelineLabel->setPixmap(pix_image);
+
+	delete image;
 
 }

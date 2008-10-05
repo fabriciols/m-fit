@@ -55,7 +55,8 @@ HEADERS += include/Brightness.h \
            include/Video.h \
            include/VisualRythim.h \
            include/Project.h \
-           include/VideoPlayer.h
+           include/VideoPlayer.h \
+           include/QWidgetTimeline.h 
 
 SOURCES += source/main.cpp \
            source/Brightness.cpp \
@@ -80,6 +81,7 @@ SOURCES += source/main.cpp \
            source/Video.cpp \
            source/VisualRythim.cpp \
            source/Project.cpp \
-           source/VideoPlayer.cpp
+           source/VideoPlayer.cpp \
+           source/QWidgetTimeline.cpp
 
 CONFIG -= incremental_off
