@@ -18,11 +18,16 @@ class VideoPlayer: public QThread
 
 	signals:
 		void renderedImage(QImage *image);
+		void renderedImage(QImage *image, QImage *imageHist);
 
 	public:
 		QMutex mutex;
 		uchar* imageData;
+		uchar* histData;
+		VideoPlayer();
+
 		int imgWidth, imgHeight;
+		int histWidth, histHeight;
 
 };
 #endif

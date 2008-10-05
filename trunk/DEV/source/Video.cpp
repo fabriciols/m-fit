@@ -375,6 +375,9 @@ int Video::seekFrame(unsigned long posFrame)
 	if (posFrame >= this->framesTotal)
 		return 1;
 
+	if (framePos == posFrame)
+		return 0;
+
 	cvSetCaptureProperty(this->data, CV_CAP_PROP_POS_FRAMES, (double)posFrame);
 
 	updatePos();

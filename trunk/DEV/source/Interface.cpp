@@ -8,12 +8,15 @@
 #include <QPainter>
 #include <QtGui>
 
+#include "../include/Effect.h"
 #include "../include/Interface.h"
 #include "../include/Time.h"
 
 #include "../include/Transition.h"
 #include "../include/Project.h"
 #include "../include/Log.h"
+#include "../include/Color.h"
+#include "../include/Histogram.h"
 
 #include "../include/VideoPlayer.h"
 
@@ -37,6 +40,9 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 	qRegisterMetaType<Frame>("Frame");
 	connect(vdo_player, SIGNAL(renderedImage(QImage *)),
 			this, SLOT(updateVideoPlayer(QImage *)));
+
+	connect(vdo_player, SIGNAL(renderedImage(QImage *, QImage *)),
+			this, SLOT(updateVideoPlayer(QImage *, QImage *)));
 }
 
 /************************************************************************
@@ -85,14 +91,14 @@ void mfit::on_stopButton_clicked()
 {
 	Video *vdo;
 
+	// Independente de estar rodando ou nao
+	// seek no frame 0
+	vdo = currentProject->getVideo();
+
+	vdo->seekFrame(0);
+
 	if (vdo_player->isRunning())
-	{
 		vdo_player->terminate();
-
-		vdo = currentProject->getVideo();
-
-		vdo->seekFrame(0);
-	}
 
 }
 
@@ -271,6 +277,8 @@ void mfit::updateVideoPlayer(Frame *frame)
 void mfit::updateVideoPlayer(QImage *image)
 {
 	// Trava a thread do video_player
+	vdo_player->mutex.lock();
+
 	Video *vdo = 0;
 	vdo = currentProject->getVideo();
 
@@ -281,8 +289,30 @@ void mfit::updateVideoPlayer(QImage *image)
 	ui.videoLabel->setScaledContents(true);
 	ui.videoLabel->setPixmap(pix_image);
 
-	// Destrava
-	//	vdo_player->mutex.unlock();
+	vdo_player->mutex.unlock();
+}
+
+void mfit::updateHist(QImage *image)
+{
+	vdo_player->mutex.lock();
+
+	QPixmap pix_image = QPixmap::fromImage(*image);
+
+	ui.histogramLabel->setScaledContents(true);
+	ui.histogramLabel->setPixmap(pix_image);
+
+	vdo_player->mutex.unlock();
+}
+
+void mfit::updateVideoPlayer(QImage *image, QImage *imageHist)
+{
+
+	if (image != 0x0)
+		this->updateVideoPlayer(image);
+
+	if (imageHist != 0x0)
+		this->updateHist(imageHist);
+
 }
 
 void mfit::setVideoTime(double framePos, double fps)
@@ -308,19 +338,19 @@ void mfit::on_videoTime_timeChanged(const QTime & time)
 	return;
 
 	/*
-	Video *vdo;
-	Time *cvTime;
+		Video *vdo;
+		Time *cvTime;
 
-	if (vdo_player->isRunning())
+		if (vdo_player->isRunning())
 		return;
 
-	vdo = currentProject->getVideo();
+		vdo = currentProject->getVideo();
 
-	cvTime = new Time(time.hour(), time.minute(), time.second(), time.msec());
+		cvTime = new Time(time.hour(), time.minute(), time.second(), time.msec());
 
-	vdo->seekFrame(cvTime->getFramePos(vdo->getFPS()));
+		vdo->seekFrame(cvTime->getFramePos(vdo->getFPS()));
 
-	updateVideoPlayer(vdo->getCurrentFrame());
-	*/
+		updateVideoPlayer(vdo->getCurrentFrame());
+	 */
 
 }
