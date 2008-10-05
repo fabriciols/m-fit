@@ -120,6 +120,8 @@ int Project::openVideo(QString fileName)
 	sprintf(param_cy, "%.0lf", this->vdo->getFramesTotal());
 	mfit_ui->insertVideoProperty("Frames",  param_cy);
 
+	mfit_ui->createTimeline();
+
 	return true;
 }
 

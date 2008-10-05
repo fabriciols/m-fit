@@ -528,7 +528,8 @@ void Frame::imgCopy(IplImage *imgSrc, IplImage *imgDst)
 
 	cvCopy(imgSrc, imgDst);
 
-	imgDst->origin = imgSrc->origin;
+	//imgDst->origin = imgSrc->origin;
+	imgDst->origin = 1;
 }
 
 /************************************************************************
@@ -1167,9 +1168,12 @@ QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_h
 				uchar *QImagePtr = qImageBuffer; 
 				for (int y = 0; y < height; y++)
 				{ 
+					QImagePtr += width*4;
+
 					for (int x = 0; x < width; x++)
 					{ 
 						iplImagePtr -= 3; 
+						QImagePtr -= 4; 
 
 						// We cannot help but copy manually. 
 						QImagePtr[0] = iplImagePtr[0]; 
@@ -1177,8 +1181,8 @@ QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_h
 						QImagePtr[2] = iplImagePtr[2]; 
 						QImagePtr[3] = 0; 
 
-						QImagePtr += 4; 
 					} 
+					QImagePtr += width*4;
 					iplImagePtr -= widthStep-3*width; 
 				} 
 			}
@@ -1289,5 +1293,21 @@ QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_h
 				QImage::IgnoreEndian); 
 	} 
 
+	//QImage *mirror = new QImage(qImage->mirrored(true, false));
+	//*qImage = *(new QImage(qImage->mirrored(true, false)));
+
 	return qImage;
+}
+
+Frame* Frame::resize(int width, int height)
+{
+	IplImage *imgResized;
+
+	imgResized = Frame::imgAlloc(cvSize(width,height),
+			this->data->depth, this->data->nChannels);
+
+	cvResize(this->data, imgResized);
+
+	return new Frame(imgResized);
+	
 }

@@ -18,6 +18,7 @@ class VideoPlayer: public QThread
 
 	signals:
 		void renderedImage(QImage *image);
+		void renderedImage(QImage *image, int type);
 		void renderedImage(QImage *image, QImage *imageHist);
 
 	public:
@@ -28,6 +29,9 @@ class VideoPlayer: public QThread
 
 		int imgWidth, imgHeight;
 		int histWidth, histHeight;
+		void updateHist(Frame *frame);
+		void updateVideo(Frame *frame);
+
 
 };
 #endif

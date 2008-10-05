@@ -26,6 +26,8 @@ class mfit: public QMainWindow
 		void updateHist(QImage *image);
 		void setVideoTime(double framePos, double fps);
 
+		void createTimeline(void);
+		void setTimeline(Frame *timeLine);
 
 
 		Ui::MainWindow ui;
@@ -43,7 +45,9 @@ class mfit: public QMainWindow
 
 		void updateVideoPlayer(QImage *image);
 		void updateVideoPlayer(QImage *image, QImage *imageHist);
+		void updateVideoPlayer(QImage *image, int type);
 
-		
+
 };
+
 #endif
