@@ -23,6 +23,7 @@ class mfit: public QMainWindow
 		void insertVideoProperty(char *param_cy, char *value_cy);
 		void clearVideoProperty();
 		void updateVideoPlayer(Frame *frame);
+		void updateHist(QImage *image);
 		void setVideoTime(double framePos, double fps);
 
 
@@ -41,6 +42,8 @@ class mfit: public QMainWindow
 		void on_videoTime_timeChanged(const QTime & time);
 
 		void updateVideoPlayer(QImage *image);
+		void updateVideoPlayer(QImage *image, QImage *imageHist);
+
 		
 };
 #endif
