@@ -7,7 +7,7 @@ OPENCV_PATH = "C:/Program Files/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
-INCLUDEPATH += .
+INCLUDEPATH += include/sys include/sys/libxml .
 QT += qt3support
 
 FORMS   = Interface/mfit.ui
@@ -19,7 +19,8 @@ LIBS =  -L$$OPENCV_PATH/bin  \
 		  $$OPENCV_PATH/lib/cvaux.lib \
 		  $$OPENCV_PATH/lib/cvcam.lib \
 		  $$OPENCV_PATH/lib/cxcore.lib\
-		  $$OPENCV_PATH/lib/highgui.lib 
+		  $$OPENCV_PATH/lib/highgui.lib \
+		  xml/libxml2.lib
 
 INCPATH += $$DEVCPP_PATH/lib/gcc/mingw32/3.4.2/include \
 		  $$DEVCPP_PATH/include/c++/3.4.2/backward \
@@ -56,7 +57,8 @@ HEADERS += include/Brightness.h \
            include/VisualRythim.h \
            include/Project.h \
            include/VideoPlayer.h \
-           include/QWidgetTimeline.h 
+           include/QWidgetTimeline.h \
+           include/Xml.h
 
 SOURCES += source/main.cpp \
            source/Brightness.cpp \
@@ -82,6 +84,7 @@ SOURCES += source/main.cpp \
            source/VisualRythim.cpp \
            source/Project.cpp \
            source/VideoPlayer.cpp \
-           source/QWidgetTimeline.cpp
+           source/QWidgetTimeline.cpp \
+           source/Xml.cpp
 
 CONFIG -= incremental_off
