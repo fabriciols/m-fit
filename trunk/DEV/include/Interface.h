@@ -28,6 +28,8 @@ class mfit: public QMainWindow
 
 		void createTimeline(void);
 		void setTimeline(Frame *timeLine);
+		void updateTimeline();
+
 
 
 		Ui::MainWindow ui;

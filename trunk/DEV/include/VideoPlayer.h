@@ -25,12 +25,17 @@ class VideoPlayer: public QThread
 		QMutex mutex;
 		uchar* imageData;
 		uchar* histData;
+		uchar* timelineData;
 		VideoPlayer();
 
 		int imgWidth, imgHeight;
 		int histWidth, histHeight;
+		int timelineWidth, timelineHeight;
 		void updateHist(Frame *frame);
 		void updateVideo(Frame *frame);
+
+		Frame* frameTimeline;
+		Frame* frameTimelineEdited;
 
 
 };
