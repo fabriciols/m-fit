@@ -17,6 +17,13 @@ VideoPlayer::VideoPlayer(void)
 	this->histData = 0x0;
 	this->histWidth  = 0x0;
 	this->histHeight = 0x0;
+
+	this->timelineData = 0x0;
+	this->timelineWidth = 0x0;
+	this->timelineHeight = 0x0;
+
+	this->frameTimeline = 0x0;
+	this->frameTimelineEdited = 0x0;
 }
 
 

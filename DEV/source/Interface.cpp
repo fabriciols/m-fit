@@ -292,6 +292,8 @@ void mfit::updateVideoPlayer(QImage *image)
 	ui.videoLabel->setScaledContents(true);
 	ui.videoLabel->setPixmap(pix_image);
 
+	updateTimeline();
+
 	vdo_player->mutex.unlock();
 }
 
@@ -380,7 +382,6 @@ void mfit::createTimeline(void)
 	vdo = currentProject->getVideo();
 
 	int iter_i = 0x0;
-	Frame *frameTimeline = 0x0;
 	Frame *frame = 0x0;
 	Frame *frameResized = 0x0;
 	int i = 0;
@@ -397,7 +398,7 @@ void mfit::createTimeline(void)
 	vdo->seekFrame(0);
 	
 	frame = vdo->getNextFrame();	
-	frameTimeline = frame->resize(width, height);
+	vdo_player->frameTimeline = frame->resize(width, height);
 
 	delete frame;
 
@@ -408,15 +409,13 @@ void mfit::createTimeline(void)
 		frame = vdo->getNextFrame();
 		frameResized = frame->resize(width, height);
 
-		*frameTimeline += *frameResized;
+		*vdo_player->frameTimeline += *frameResized;
 
 		delete frame;
 		delete frameResized;
 	}
 
-	this->setTimeline(frameTimeline);
-
-	delete frameTimeline;
+	this->setTimeline(vdo_player->frameTimeline);
 
 	vdo->seekFrame(0);
 }
@@ -426,12 +425,8 @@ void mfit::setTimeline(Frame *frameTimeline)
 {
 	QImage *image;
 
-	unsigned char *imageData;
-	int width;
-	int height;
-
 	// Converte a imagem
-	image = frameTimeline->IplImageToQImage(&imageData, &width, &height);
+	image = frameTimeline->IplImageToQImage(&vdo_player->timelineData, &vdo_player->timelineWidth, &vdo_player->timelineWidth);
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
@@ -440,4 +435,28 @@ void mfit::setTimeline(Frame *frameTimeline)
 
 	delete image;
 
+}
+
+void mfit::updateTimeline()
+{
+	Video *vdo = 0x0;
+	double pos = 0x0;
+	int rect_point = 0x0;
+
+	vdo = currentProject->getVideo();
+	pos = vdo->getCurrentPosition();
+
+	rect_point  = cvRound((75 * pos) / vdo->getFPS());
+
+	if (vdo_player->frameTimelineEdited != 0x0)
+		delete vdo_player->frameTimelineEdited;
+
+	vdo_player->frameTimelineEdited = new Frame(vdo_player->frameTimeline);
+
+	CvPoint p1 = {rect_point,0};
+	CvPoint p2 = {rect_point,75};
+
+	cvLine(vdo_player->frameTimelineEdited->data, p1, p2, cvScalar(0,0,0), 1);
+
+	setTimeline(vdo_player->frameTimelineEdited);
 }
