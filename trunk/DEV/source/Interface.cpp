@@ -238,15 +238,15 @@ void mfit::insertVideoProperty(char *param_cy, char *value_cy)
 	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.videoPropertiesTree);
 
 	// Cria a lista de items
-	QList<QTreeWidgetItem *> items;
+	QList<QTreeWidgetItem *> itens;
 
 	// Adiciona as colunas
 	item->setText(0, param_cy);
 	item->setText(1, value_cy);
 
-	items.append(item);
+	itens.append(item);
 
-	this->ui.transitionsTree->insertTopLevelItems(0, items);
+	this->ui.videoPropertiesTree->insertTopLevelItems(0, itens);
 }
 
 /************************************************************************
@@ -579,4 +579,29 @@ void mfit::on_actionOnlyDissolve_triggered()
 
 }
 
+/*************************************************************************
+ * Adiciona uma entrada na transitionsTree
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+void mfit::insertVideoProperty(char *param_cy, char *value_cy)
+{
+	// Cria o item referente a Tree
+	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.videoPropertiesTree);
+
+	// Cria a lista de items
+	QList<QTreeWidgetItem *> itens;
+
+	// Adiciona as colunas
+	item->setText(0, param_cy);
+	item->setText(1, value_cy);
+
+	itens.append(item);
+
+	this->ui.videoPropertiesTree->insertTopLevelItems(0, itens);
+}
 
