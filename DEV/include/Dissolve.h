@@ -1,5 +1,3 @@
-#ifndef DISSOLVE_INCLUDE
-#define DISSOLVE_INCLUDE
 /**
  *Classe responsável por detectar
  *o dissolve.
@@ -15,6 +13,8 @@ class Dissolve: public DetectTransitions
 	public:
 		Dissolve();
 		Dissolve(Video *vdo);
+		
+		void detectTransitions(Video* vdo, std::vector<Transition>* transitionList);
 
 		bool checkLuminance();
 	 
@@ -37,4 +37,3 @@ class Dissolve: public DetectTransitions
 		float calcRatioVarianceVRH();
 	 
 };
-#endif
