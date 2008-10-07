@@ -50,7 +50,7 @@ class mfit: public QMainWindow
 		void setTimeline(Frame *timeLine);
 		void updateTimeline();
 
-
+		void updateTransitionList(Transition* transition);
 
 		Ui::MainWindow ui;
 
