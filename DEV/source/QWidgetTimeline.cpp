@@ -34,29 +34,28 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 	if (pointEvent.x() >= 9 && pointEvent.x() <= rect.width() - 9)
 	{
 		Video *vdo;
-		int n;
-		int o;
-		int pos;
-		int p1;
-		int p2;
+
+		int posFrame;
 		int x;
 
+		// A widget tem 9 pixels antes de comecar realmente
+		// a imagem da timeline
 		x = pointEvent.x() - 9 ;
-
-		n = rect.width() / 75;
-		o = rect.width() % 75;
 
 		vdo = currentProject->getVideo();
 
-		p1 = rect.width() - o ;
-		p2 = (o == 0 ? n : n-1) * cvRound(vdo->getFPS()) ;
+		// A ideia aqui e a seguinte:
+		// Tendo em maos as seguintes variaveis:
+		// Todo FRAME da timeline tem o tamanho fixo de SIZE_FRAME_TIMELINE
+		// E cada um desse FRAME compreende SIZE_SEC_FRAME segundos do video
+		// captando a posicao em que o kr clicou, podemos fazer a seguinte regra de 3:
+		// SIZE_FRAME_TIMELINE ---------- SIZE_SEC_FRAME*vdo->getFPS()
+		// Posicao clicada (x) ---------- X (posicao no frame)
+		posFrame = cvRound(SIZE_SEC_FRAME*vdo->getFPS())*x / SIZE_FRAME_TIMELINE;
 
-		pos = ( x * p2 ) / p1;
+		Log::writeLog("%s :: setting frame to pos [%d]", __FUNCTION__, posFrame);
 
-		Log::writeLog("%s :: setting frame to pos [%d]", __FUNCTION__, pos);
-
-		vdo->seekFrame(pos);
-
+		vdo->seekFrame(posFrame);
 
 		if (!vdo_player->isRunning())
 		{

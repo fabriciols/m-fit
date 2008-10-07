@@ -353,7 +353,6 @@ void mfit::setVideoTime(double framePos, double fps)
 
 }
 
-
 void mfit::on_videoTime_timeChanged(const QTime & time)
 {
 	return;
@@ -387,11 +386,11 @@ void mfit::createTimeline(void)
 	int i = 0;
 
 	// Timeline sera 10x menor que a imagem
-	int width = 75;
-	int height = 75;
+	int width =  SIZE_FRAME_TIMELINE;
+	int height = SIZE_FRAME_TIMELINE;
 
 	// Vamos pegar de 1 em 1 segundo
-	int sec_i = 1;
+	int sec_i = SIZE_SEC_FRAME;
 
 	iter_i = cvRound(sec_i * vdo->getFPS());
 
@@ -408,6 +407,18 @@ void mfit::createTimeline(void)
 
 		frame = vdo->getNextFrame();
 		frameResized = frame->resize(width, height);
+
+		if (i+iter_i >= vdo->getFramesTotal())
+		{
+			// O ultimo frame tem que ser proporcional a quantidade de 
+			// frames restantes no video
+			delete frameResized;
+			int posFrame;
+
+			posFrame = iter_i*(cvRound(vdo->getFramesTotal())-i) / SIZE_FRAME_TIMELINE;
+
+			frameResized = frame->resize(posFrame, height);
+		}
 
 		*vdo_player->frameTimeline += *frameResized;
 
@@ -426,7 +437,7 @@ void mfit::setTimeline(Frame *frameTimeline)
 	QImage *image;
 
 	// Converte a imagem
-	image = frameTimeline->IplImageToQImage(&vdo_player->timelineData, &vdo_player->timelineWidth, &vdo_player->timelineWidth);
+		image = frameTimeline->IplImageToQImage(&vdo_player->timelineData, &vdo_player->timelineWidth, &vdo_player->timelineHeight);
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
@@ -441,20 +452,23 @@ void mfit::updateTimeline()
 {
 	Video *vdo = 0x0;
 	double pos = 0x0;
-	int rect_point = 0x0;
+	int line_point = 0x0;
 
 	vdo = currentProject->getVideo();
 	pos = vdo->getCurrentPosition();
 
-	rect_point  = cvRound((75 * pos) / vdo->getFPS());
+	// A formula para saber em que ponto plotar o indicador é:
+	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
+	// pos (ponto timeline) ---- pos (ponto no video)
+	line_point  = (SIZE_FRAME_TIMELINE*cvRound(pos)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
 
 	if (vdo_player->frameTimelineEdited != 0x0)
 		delete vdo_player->frameTimelineEdited;
 
 	vdo_player->frameTimelineEdited = new Frame(vdo_player->frameTimeline);
 
-	CvPoint p1 = {rect_point,0};
-	CvPoint p2 = {rect_point,75};
+	CvPoint p1 = {line_point,0};
+	CvPoint p2 = {line_point,75};
 
 	cvLine(vdo_player->frameTimelineEdited->data, p1, p2, cvScalar(0,0,0), 1);
 

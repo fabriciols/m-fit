@@ -2,6 +2,12 @@
 #define QWIDGETIMELINE_INCLUDE
 #include <QtGui>
 
+// Tamanho de um frame na timeline
+#define SIZE_FRAME_TIMELINE 75
+
+// Quanto 1 frame da timeline representa em segundos no video
+#define SIZE_SEC_FRAME 1
+
 class QWidgetTimeline : public QWidget
 {
 	Q_OBJECT
