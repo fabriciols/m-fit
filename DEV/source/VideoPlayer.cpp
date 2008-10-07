@@ -72,7 +72,7 @@ void VideoPlayer::run()
 
 		delete frame;
 
-		usleep(vdo->getFPS()*100);
+		usleep(cvRound(vdo->getFPS()*100));
 
 	}
 }
