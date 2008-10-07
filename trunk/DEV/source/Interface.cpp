@@ -20,6 +20,10 @@
 
 #include "../include/VideoPlayer.h"
 
+#include "../include/DetectTransitions.h"
+#include "../include/Cut.h"
+#include "../include/Fade.h"
+#include "../include/Dissolve.h"
 
 extern Project *currentProject;
 extern VideoPlayer *vdo_player;
@@ -474,3 +478,105 @@ void mfit::updateTimeline()
 
 	setTimeline(vdo_player->frameTimelineEdited);
 }
+
+/************************************************************************
+ * Trata o evento gerado pelo botão para detecção de todas as transições
+ *************************************************************************
+ * param (E): Não há
+ * return : não há
+ *************************************************************************
+ * Histórico
+ * 06/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+void mfit::on_actionAllTransitions_triggered()
+{
+
+	Video* vdo = 0x0;
+	DetectTransitions* DT = new DetectTransitions();
+
+	vdo = currentProject->getVideo();
+
+	DT->detectTransitions(vdo, &currentProject->transitionList);
+
+	delete DT;
+
+}
+
+/************************************************************************
+ * Trata o evento gerado pelo botão para detecção de todos os cortes
+ *************************************************************************
+ * param (E): Não há
+ * return : não há
+ *************************************************************************
+ * Histórico
+ * 06/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+void mfit::on_actionOnlyCuts_triggered()
+{
+
+	Video* vdo = 0x0;
+	Cut* DTC = new Cut();
+
+	vdo = currentProject->getVideo();
+
+	DTC->detectTransitions(vdo, &currentProject->transitionList);
+
+	delete DTC;
+
+}
+
+/************************************************************************
+ * Trata o evento gerado pelo botão para detecção de todos os fades
+ *************************************************************************
+ * param (E): Não há
+ * return : não há
+ *************************************************************************
+ * Histórico
+ * 06/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+void mfit::on_actionAllFades_triggered()
+{
+
+	Video* vdo = 0x0;
+	Fade* DTF = new Fade();
+
+	vdo = currentProject->getVideo();
+
+	DTF->detectTransitions(vdo, &currentProject->transitionList);
+
+	delete DTF;
+
+}
+
+/*************************************************************************
+ * Trata o evento gerado pelo botão para detecção de todos os dissolve
+ *************************************************************************
+ * param (E): Não há
+ * return : não há
+ *************************************************************************
+ * Histórico
+ * 06/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+void mfit::on_actionOnlyDissolve_triggered()
+{
+
+	Video* vdo = 0x0;
+	Dissolve* DTD = new Dissolve();
+
+	vdo = currentProject->getVideo();
+
+//	DTD->detectTransitions(vdo, currentProject->transitionList);
+
+	delete DTD;
+
+}
+
+
