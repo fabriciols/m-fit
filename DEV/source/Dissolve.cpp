@@ -1,8 +1,8 @@
 #include "cv.h"
 #include "highgui.h"
-#include <QImage>
 #include <stdexcept>
 #include <vector>
+#include <QImage>
 
 #include "../include/Time.h"
 #include "../include/Histogram.h"
@@ -14,6 +14,8 @@
 #include "../include/VisualRythim.h"
 
 #include "../include/Dissolve.h"
+#include "../include/Effect.h"
+#include "../include/Color.h"
 
 /************************************************************************
 * Construtor que somente inicializa as variavies de controle com nulo 
@@ -44,6 +46,105 @@ Dissolve::Dissolve(Video *vdo)
 }
 
 /************************************************************************
+* Função que detecta as transições do tipo Dissolve
+*************************************************************************
+* param (E): Video* vdo -> video à detectar as transições
+* param (S): Transition* transitions -> Posicão corrente da lista de transições
+*************************************************************************
+* return : Nenhum
+*************************************************************************
+* Histórico:
+* 19/08/08 - Ivan Shiguenori Machida
+* Criação.
+************************************************************************/
+void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
+{
+	Transition *transition;
+	Frame* visual = new Frame();
+	double media=0, variancia, *array_dvrh;
+	int len_i, i, j, k;
+
+	Color *color = new Color();
+	Frame* frameGray = 0;
+	double *pontos, *pontos_anterior;
+	int tamanho_pontos, *valor_pontos, *detecta;
+
+	double *calculo_pontos=0;
+
+	char pri[4],seg[4],ter[4],qua[4];
+
+	len_i = cvRound(vdo->getFramesTotal());
+
+	visual = vdo->getCurrentFrame();
+
+	tamanho_pontos = (visual->getWidth()*visual->getHeight());
+
+	pontos = (double *)malloc(sizeof(double)*tamanho_pontos);
+	pontos_anterior = (double *)malloc(sizeof(double)*tamanho_pontos);
+	valor_pontos = (int *)malloc(sizeof(int)*len_i);
+	calculo_pontos = (double *)malloc(sizeof(double)*len_i);
+	array_dvrh = (double *) malloc(sizeof(double)*len_i);
+	detecta = (int *) malloc(sizeof(int)*len_i);
+
+	memset(pontos,0,tamanho_pontos);
+	memset(pontos_anterior,0,tamanho_pontos);
+
+	memset(detecta,0,sizeof(detecta));
+
+	for(k=0;k<len_i;k++)
+	{
+		visual = vdo->getNextFrame();
+		frameGray = color->convert2Gray(visual);
+
+		media = array_dvrh[k] = frameGray->mediaBin();
+
+		j=0;
+		for(i=0;i<tamanho_pontos;i++)
+		{
+			variancia += (pontos[i] - media) * (pontos[i] - media);
+		}
+
+		variancia = variancia / (tamanho_pontos-1);
+
+		valor_pontos[k] = j;
+
+		variancia=0;
+	}
+
+	for(i=0;i<len_i;i++)
+	{
+		sprintf(pri,"%03.0lf",array_dvrh[i]);
+		sprintf(seg,"%03.0lf",array_dvrh[i+1]);
+		sprintf(ter,"%03.0lf",array_dvrh[i+2]);
+		sprintf(qua,"%03.0lf",array_dvrh[i+3]);
+
+		if(((atoi(seg)-atoi(pri))==1) && ((atoi(ter)-atoi(seg))==1) && ((atoi(qua)-atoi(ter))==1))
+			detecta[i]=1;
+		else
+			detecta[i]=0;
+	}
+
+	for(i=0;i<len_i;i++)
+	{
+		if(detecta[i]==1 && detecta[i+1]==1 && detecta[i+2]==1)
+		{
+			transition = new Transition(TRANSITION_DISSOLVE, i+1, "Dissolve");
+			transitionList->push_back(*transition);
+			detecta[i]=1;
+		}
+		else
+			detecta[i]=0;
+	}
+
+	delete detecta;
+	delete valor_pontos;
+	delete array_dvrh;
+	delete pontos;
+	delete pontos_anterior;
+	delete calculo_pontos;
+}
+
+/************************************************************************
 * Função que calcula a variancia através do histograma do ritmo visual
 *************************************************************************
 * param (E): nenhum
@@ -58,85 +159,7 @@ Dissolve::Dissolve(Video *vdo)
 ************************************************************************/
 float Dissolve::calcVariance()
 {
-	VisualRythim *vr = new VisualRythim();
-	Video *vdo = this->video;
-	Frame* visual = new Frame();
-	Frame* frameVRH;
-	double *array_vrh, media=0, variancia, variancia1[255], desviopadrao=0, 
-		   array_dvrh[255], array_ddvrh[255], ratio[255], ddvariancia[255];
-	int len_i, i, j;
-
-	array_vrh = vr->createVRH(vdo);
-//	visual = vr->createVR(vdo);
-
-	len_i = cvRound(vdo->getFramesTotal());
-
-	printf("len_i[%d]\n", len_i);
-
-	memset(array_dvrh, 0, sizeof(array_dvrh));
-
-	i=0;
-	media += array_vrh[i];
-	array_dvrh[i] = array_vrh[i+1] - array_vrh[i] +50;
-	printf("vrh[%lf]\n", array_vrh[i]);
-
-	for(i=1;i<len_i-1;i++)
-	{
-		media += array_vrh[i];
-		array_dvrh[i] = array_vrh[i+1] - array_vrh[i] +50;
-		array_ddvrh[i] = (array_vrh[i+1] + array_vrh[i-1]) - (2*array_vrh[i]);
-	}
-
-	i=len_i-1;
-	media += array_vrh[i];
-	array_dvrh[i] = array_vrh[i+1] - array_vrh[i] +50;
-	printf("vrh[%lf]\n", array_vrh[i]);
-
-	media = media / len_i;
-
-	printf("media[%lf]\n", media);
-
-	for(i=0;i<len_i;i++)
-	{
-		variancia += (array_vrh[i] - media) * (array_vrh[i] - media);
-		variancia1[i] = ((array_vrh[i] - media) * (array_vrh[i] - media))/(len_i-1);
-	}
-
-	printf("A-variancia[%lf]\n", variancia);
-
-	variancia = variancia / (len_i-1);
-
-	printf("D-variancia[%lf]\n", variancia);
-
-	desviopadrao = sqrt(variancia);
-
-	printf("desviopadrao[%lf]\n", desviopadrao);
-
-	for(i=1;i<len_i-1;i++)
-	{
-		ddvariancia[i] = (variancia1[i+1] + variancia1[i-1]) - (2*variancia1[i]);
-		ratio[i] = array_dvrh[i] / ddvariancia[i];
-		printf("vrh[%lf] - dvrh[%lf] - ddvrh[%lf] - ratio[%lf]\n", array_vrh[i], array_dvrh[i], array_ddvrh[i], ratio[i]);
-	}
-
-	frameVRH = new Frame(array_vrh, len_i, 256);
-	cvShowImage(vdo->getName(), frameVRH->data);
-
-	sprintf(this->tmp1, "nova1_%s.jpg", vdo->getName());
-	frameVRH->write(this->tmp1);
-
-	cvWaitKey(0);
-/*
-	frameVRH = new Frame(ratio, len_i, 256);
-	cvShowImage(vdo->getName(), frameVRH->data);
-
-	cvWaitKey(0);
-
-	frameVRH = new Frame(array_dvrh, len_i, 256);
-	cvShowImage(vdo->getName(), frameVRH->data);
-
-	cvWaitKey(0);
-*/
+	return(0);
 }
 
 /************************************************************************
@@ -154,7 +177,7 @@ float Dissolve::calcVariance()
 ************************************************************************/
 float Dissolve::calcSecondDerivative()
 {
-	
+	return(0);	
 }
 
 /************************************************************************
@@ -172,5 +195,5 @@ float Dissolve::calcSecondDerivative()
 ************************************************************************/
 float Dissolve::calcRatioVarianceVRH()
 {
-
+	return(0);
 }
