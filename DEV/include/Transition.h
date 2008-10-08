@@ -29,7 +29,7 @@ class Transition
 		 *marca exatamente o ponto da 
 		 *transição no vídeo.
 		 */
-		int posTransition;
+		long posTransition;
 
 		/**
 		 *Posição do frame (em hh:mm:ss)que 
@@ -37,7 +37,7 @@ class Transition
 		 *transição no vídeo, que foi
 		 *redefinido pelo editor.
 		 */
-		int posUserTransition;
+		long posUserTransition;
 
 		/**
 		 *Identificador da transição na 
