@@ -9,6 +9,7 @@
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Video.h"
+#include "../include/Transition.h"
 
 #ifndef INTERFACE_INCLUDE
 #define INTERFACE_INCLUDE
@@ -50,7 +51,8 @@ class mfit: public QMainWindow
 		void setTimeline(Frame *timeLine);
 		void updateTimeline();
 
-		void updateTransitionList(Transition* transition);
+		void insertTransitionsTree(Transition* transition); // Insere um item na lista de transições
+		void updateTransitionList(Transition* transition); // Atualiza a lista de transições com todas as transições detectadas
 
 		Ui::MainWindow ui;
 
