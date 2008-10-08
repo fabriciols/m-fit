@@ -54,6 +54,13 @@ class mfit: public QMainWindow
 		void insertTransitionsTree(Transition* transition); // Insere um item na lista de transições
 		void updateTransitionList(Transition* transition); // Atualiza a lista de transições com todas as transições detectadas
 
+		void posDetectTransition();
+		void updateTransitionsTree();
+		void clearTransitionsTree();
+
+
+
+
 		Ui::MainWindow ui;
 
 
