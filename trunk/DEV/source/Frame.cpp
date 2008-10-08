@@ -1296,6 +1296,9 @@ QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_h
 	//QImage *mirror = new QImage(qImage->mirrored(true, false));
 	//*qImage = *(new QImage(qImage->mirrored(true, false)));
 
+	this->write("iplimage.jpg");
+	qImage->save ("qimage.jpg");
+
 	return qImage;
 }
 

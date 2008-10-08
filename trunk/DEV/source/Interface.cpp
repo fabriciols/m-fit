@@ -448,6 +448,8 @@ void mfit::setTimeline(Frame *frameTimeline)
 	ui.histogramLabel->setScaledContents(true);
 	ui.timelineLabel->setPixmap(pix_image);
 
+	frameTimeline->write("timeline.jpg");
+
 	delete image;
 
 }
@@ -502,6 +504,8 @@ void mfit::on_actionAllTransitions_triggered()
 
 	delete DT;
 
+	posDetectTransition();
+
 }
 
 /************************************************************************
@@ -526,6 +530,8 @@ void mfit::on_actionOnlyCuts_triggered()
 	DTC->detectTransitions(vdo, &currentProject->transitionList);
 
 	delete DTC;
+
+	posDetectTransition();
 
 }
 
@@ -552,6 +558,8 @@ void mfit::on_actionAllFades_triggered()
 
 	delete DTF;
 
+	posDetectTransition();
+
 }
 
 /*************************************************************************
@@ -576,6 +584,8 @@ void mfit::on_actionOnlyDissolve_triggered()
 //	DTD->detectTransitions(vdo, currentProject->transitionList);
 
 	delete DTD;
+
+	posDetectTransition();
 
 }
 
@@ -603,8 +613,8 @@ void mfit::insertTransitionsTree(Transition* transition)
 	long posTransition_l = transition->getPosTransition(); // Posição da transição detectada pelo sistema
 	long posUserTransition_l = transition->getPosUserTransition(); // Posição da transição detectada
 
-	char* posTransition_cy = 0;
-	char* posUserTransition_cy = 0;
+	char posTransition_cy[10];
+	char posUserTransition_cy[10];
 	
 	// Adiciona as colunas
 	switch(type_i)
@@ -636,6 +646,18 @@ void mfit::insertTransitionsTree(Transition* transition)
 	this->ui.transitionsTree->insertTopLevelItems(0, itens);
 }
 
+void mfit::posDetectTransition()
+{
+	updateTransitionsTree();
+}
+
+void mfit::clearTransitionsTree()
+{
+	Log::writeLog("%s :: clear transitionsTree", __FUNCTION__); 
+	this->ui.transitionsTree->clear();
+}
+
+
 /*************************************************************************
  * Atualiza a lista de transições - transitionsTree
  *************************************************************************
@@ -648,7 +670,14 @@ void mfit::insertTransitionsTree(Transition* transition)
  * Criação.
  ************************************************************************/
 
-//void mfit::updateTransitionsTree()
-//{
-	
-//}
+void mfit::updateTransitionsTree()
+{
+	unsigned int i = 0;
+
+	clearTransitionsTree();
+
+	for (i = 0 ; i < currentProject->transitionList.size() ; i ++)
+	{
+		insertTransitionsTree(&currentProject->transitionList.at(i));
+	}
+}
