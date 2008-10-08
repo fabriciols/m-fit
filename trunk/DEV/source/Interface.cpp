@@ -504,7 +504,7 @@ void mfit::on_actionAllTransitions_triggered()
 
 	delete DT;
 
-	posDetectTransition();
+	updateTransitions();
 
 }
 
@@ -531,7 +531,7 @@ void mfit::on_actionOnlyCuts_triggered()
 
 	delete DTC;
 
-	posDetectTransition();
+	updateTransitions();
 
 }
 
@@ -558,7 +558,7 @@ void mfit::on_actionAllFades_triggered()
 
 	delete DTF;
 
-	posDetectTransition();
+	updateTransitions();
 
 }
 
@@ -585,21 +585,21 @@ void mfit::on_actionOnlyDissolve_triggered()
 
 	delete DTD;
 
-	posDetectTransition();
+	updateTransitions();
 
 }
 
-/*************************************************************************
+/**************************************************************************
  * Adiciona uma transição na transitionsTree
- *************************************************************************
- * param (E): Nenhum
- *************************************************************************
+ **************************************************************************
+ * param (E): Transition* transition -> transição a ser inserida na árovore 
+ **************************************************************************
  * return : Não há
- *************************************************************************
+ **************************************************************************
  * Histórico
  * 08/10/08 - Thiago Mizutani
  * Criação.
- ************************************************************************/
+ *************************************************************************/
 
 void mfit::insertTransitionsTree(Transition* transition)
 {
@@ -646,20 +646,43 @@ void mfit::insertTransitionsTree(Transition* transition)
 	this->ui.transitionsTree->insertTopLevelItems(0, itens);
 }
 
-void mfit::posDetectTransition()
-{
-	updateTransitionsTree();
-}
+/**************************************************************************
+ * Marca na timeline os pontos onde ocorrem as transições
+ **************************************************************************
+ * param (E): Transition* transition -> Transição a ser marcada na timeline 
+ **************************************************************************
+ * return : Não há
+ **************************************************************************
+ * Histórico
+ * 08/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
 
-void mfit::clearTransitionsTree()
+void mfit::insertTransitionsTimeline(Transition* transition)
 {
-	Log::writeLog("%s :: clear transitionsTree", __FUNCTION__); 
-	this->ui.transitionsTree->clear();
-}
 
+	Video* vdo = currentProject->getVideo();
+
+	long posTransition_l = 0;
+	long posTimeline_l = 0;
+	
+	// A formula para saber em que ponto plotar o indicador é:
+	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
+	// pos (ponto timeline) ---- pos (ponto no video)
+	
+	posTimeline_l = (SIZE_FRAME_TIMELINE*cvRound(posTransition_l)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
+
+	CvPoint p1 = {posTimeline_l,0};
+	CvPoint p2 = {posTimeline_l,75};
+
+	cvLine(vdo_player->frameTimelineEdited->data, p1, p2, cvScalar(255,0,0), 2);
+
+	setTimeline(vdo_player->frameTimelineEdited);
+	
+}
 
 /*************************************************************************
- * Atualiza a lista de transições - transitionsTree
+ * Atualiza a lista de transições e marca pontos de transição na timeline
  *************************************************************************
  * param (E): Nenhum
  *************************************************************************
@@ -670,7 +693,7 @@ void mfit::clearTransitionsTree()
  * Criação.
  ************************************************************************/
 
-void mfit::updateTransitionsTree()
+void mfit::updateTransitions()
 {
 	unsigned int i = 0;
 
@@ -679,5 +702,24 @@ void mfit::updateTransitionsTree()
 	for (i = 0 ; i < currentProject->transitionList.size() ; i ++)
 	{
 		insertTransitionsTree(&currentProject->transitionList.at(i));
+		insertTransitionsTimeline(&currentProject->transitionList.at(i));
 	}
+}
+
+/*************************************************************************
+ * Limpa a lista de transições - transitionsTree
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : Não há
+ *************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+void mfit::clearTransitionsTree()
+{
+	Log::writeLog("%s :: clear transitionsTree", __FUNCTION__); 
+	this->ui.transitionsTree->clear();
 }
