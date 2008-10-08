@@ -580,28 +580,75 @@ void mfit::on_actionOnlyDissolve_triggered()
 }
 
 /*************************************************************************
- * Adiciona uma entrada na transitionsTree
+ * Adiciona uma transição na transitionsTree
  *************************************************************************
  * param (E): Nenhum
  *************************************************************************
+ * return : Não há
+ *************************************************************************
  * Histórico
- * 29/09/08 - Fabricio Lopes de Souza
+ * 08/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-void mfit::insertVideoProperty(char *param_cy, char *value_cy)
+
+void mfit::insertTransitionsTree(Transition* transition)
 {
 	// Cria o item referente a Tree
-	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.videoPropertiesTree);
+	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.transitionsTree);
 
 	// Cria a lista de items
 	QList<QTreeWidgetItem *> itens;
 
+	int type_i = transition->getType(); // Tipo da transição
+	long posTransition_l = transition->getPosTransition(); // Posição da transição detectada pelo sistema
+	long posUserTransition_l = transition->getPosUserTransition(); // Posição da transição detectada
+
+	char* posTransition_cy = 0;
+	char* posUserTransition_cy = 0;
+	
 	// Adiciona as colunas
-	item->setText(0, param_cy);
-	item->setText(1, value_cy);
+	switch(type_i)
+	{
+		case TRANSITION_CUT:
+			item->setText(0, "Cut");
+			break;
+		case TRANSITION_FADEIN:
+			item->setText(0, "Fade-In");
+			break;
+		case TRANSITION_FADEOUT:
+			item->setText(0, "Fade-Out");
+			break;
+		case TRANSITION_DISSOLVE:
+			item->setText(0, "Dissolve");
+			break;
+		default:
+			break;
+	}
+	
+	sprintf(posTransition_cy, "%ld", posTransition_l);
+	sprintf(posUserTransition_cy, "%ld", posUserTransition_l);
+
+	item->setText(1, posTransition_cy);
+	item->setText(2, posUserTransition_cy);
 
 	itens.append(item);
 
-	this->ui.videoPropertiesTree->insertTopLevelItems(0, itens);
+	this->ui.transitionsTree->insertTopLevelItems(0, itens);
 }
 
+/*************************************************************************
+ * Atualiza a lista de transições - transitionsTree
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : Não há
+ *************************************************************************
+ * Histórico
+ * 08/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+//void mfit::updateTransitionsTree()
+//{
+	
+//}
