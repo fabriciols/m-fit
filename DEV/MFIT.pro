@@ -7,8 +7,8 @@ OPENCV_PATH = "C:/Program Files/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
-INCLUDEPATH += include/sys include/sys/libxml .
-QT += qt3support
+INCLUDEPATH += .
+QT += qt3support xml
 
 FORMS   = Interface/mfit.ui
 
@@ -19,8 +19,7 @@ LIBS =  -L$$OPENCV_PATH/bin  \
 		  $$OPENCV_PATH/lib/cvaux.lib \
 		  $$OPENCV_PATH/lib/cvcam.lib \
 		  $$OPENCV_PATH/lib/cxcore.lib\
-		  $$OPENCV_PATH/lib/highgui.lib \
-		  xml/libxml2.lib
+		  $$OPENCV_PATH/lib/highgui.lib
 
 INCPATH += $$DEVCPP_PATH/lib/gcc/mingw32/3.4.2/include \
 		  $$DEVCPP_PATH/include/c++/3.4.2/backward \
