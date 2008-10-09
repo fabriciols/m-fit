@@ -61,7 +61,7 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 		{
 			Frame *frame;
 			frame = vdo->getCurrentFrame();
-			vdo_player->updateVideo(frame);
+			vdo_player->updatePlayer(frame);
 
 			delete frame;
 		}

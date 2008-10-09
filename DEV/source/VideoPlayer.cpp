@@ -6,6 +6,15 @@
 extern Project *currentProject;
 extern mfit *mfit_ui;
 
+/************************************************************************
+ * Construtor
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 VideoPlayer::VideoPlayer(void)
 {
@@ -27,10 +36,9 @@ VideoPlayer::VideoPlayer(void)
 	this->frameTimelineEdited = 0x0;
 }
 
-
 /************************************************************************
- * Metodo que e executado quando a thread do VideoPlayer for iniciada.
- * Pega frame a frame e emite via signal para a interface desenhar.
+ * Metodo que é executado quando a thread do VideoPlayer for iniciada.
+ * Pega frame a frame e emite sinal para a interface desenhar.
  *************************************************************************
  * param (E): Nenhum
  *************************************************************************
@@ -38,6 +46,7 @@ VideoPlayer::VideoPlayer(void)
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
+
 void VideoPlayer::run()
 {
 	Video *vdo = currentProject->getVideo();
@@ -57,7 +66,7 @@ void VideoPlayer::run()
 	{
 
 		// Atualiza o frame do player
-		updateVideo(frame);
+		updatePlayer(frame);
 
 		// Se o histograma estiver visivel, atualiza 
 		if (mfit_ui->ui.histogramLabel->isVisible())
@@ -67,6 +76,7 @@ void VideoPlayer::run()
 
 		delete frame;
 
+		// Damos um tempo para fazer o vídeo passar mais devagar. Parecendo um player real.
 		usleep(cvRound(vdo->getFPS()*100));
 		
 		// Pega o proximo frame.
@@ -75,19 +85,44 @@ void VideoPlayer::run()
 	}
 }
 
-void VideoPlayer::updateVideo(Frame *frame)
+/*************************************************************************
+ * Método que emite um sinal para o connect da interface fazer a alteração
+ * do frame a ser exibido no player
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani
+ * Revisão - Alterado o nome da função e separação e exclusão de funções
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+
+void VideoPlayer::updatePlayer(Frame *frame)
 {
-	QImage *image = 0x0;
 	// Se nao vir nada, aborta
 	if (!frame)
-	{
 		return;
-	}
+
+	QImage *image = 0x0;
 
 	image = frame->IplImageToQImage(&imageData, &imgWidth, &imgHeight);
 
-	emit renderedImage(image, 0);
+	emit setNewFrame(image);
 }
+
+/*************************************************************************
+ * Método que envia um sinal para o connect da interface fazer a atualiza
+ * ção do histograma.
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani
+ * Diminuindo o número de funções e separando as coisas.
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 void VideoPlayer::updateHist(Frame *frame)
 {
@@ -105,7 +140,7 @@ void VideoPlayer::updateHist(Frame *frame)
 	imageHist = frameHistogram->IplImageToQImage(&histData, &histWidth, &histHeight);
 
 	// Manda exibir o histograma
-	emit renderedImage(imageHist, 1);
+	emit setHistogram(imageHist);
 
 	delete frameGray;
 	delete frameHistogram;

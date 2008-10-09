@@ -37,6 +37,9 @@ extern VideoPlayer *vdo_player;
 * param (E): QMainWindow -> referencia da janela que criou o objeto
 ************************************************************************
 * Histórico
+* 09/10/08 - Thiago Mizutani
+* Agora utilizo um connect para cada coisa. Um para o player outro para
+* o histograma.
 * 29/09/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
@@ -46,14 +49,14 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 
 	qRegisterMetaType<Frame>("Frame");
 
-	connect(vdo_player, SIGNAL(renderedImage(QImage *)),
-			this, SLOT(updateVideoPlayer(QImage *)));
+	// Atualiza a imagem do player assim que receber um sinal da thread
+	connect(vdo_player, SIGNAL(setNewFrame(QImage *)),
+			this, SLOT(updatePlayer(QImage *)));
+	
+	// Atualiza a imagem do histograma assim que receber um sinal da thread
+	connect(vdo_player, SIGNAL(setHistogram(QImage *)),
+			this, SLOT(updateHist(QImage *)));
 
-	connect(vdo_player, SIGNAL(renderedImage(QImage *, int)),
-			this, SLOT(updateVideoPlayer(QImage *, int)));
-
-	connect(vdo_player, SIGNAL(renderedImage(QImage *, QImage *)),
-			this, SLOT(updateVideoPlayer(QImage *, QImage *)));
 }
 
 /************************************************************************
@@ -164,14 +167,11 @@ void mfit::on_actionLoadVideo_triggered()
 	{
 		currentProject->openVideo(fileName);
 
-		if (askUser())
-		{
-			Log::writeLog("%s :: Vai detectar as transicoes", __FUNCTION__);
-
-//			DetectTransitions* DT = new DetectTransitions();
-			Cut* DTC = new Cut();			
-			DTC->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
-			delete DTC;
+		if (askUser()) // Gero a box perguntando se deseja detectar as transições
+		{  
+			DetectTransitions* DT = new DetectTransitions();
+			DT->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
+			delete DT;
 		}
 	}
 	else
@@ -226,7 +226,7 @@ void mfit::changeWindowTitle(char *string)
 }
 
 /************************************************************************
- * Limpa as entradas da videoPropertiesTree
+ * Limpa a lista de propriedades do video (videoPropertiesTree)
  *************************************************************************
  * param (E): Nenhum
  *************************************************************************
@@ -241,7 +241,7 @@ void mfit::clearVideoProperty()
 }
 
 /************************************************************************
- * Adiciona uma entrada na videoPropertiesTree
+ * Insere uma linha na lista de propriedades do vídeo.
  *************************************************************************
  * param (E): Nenhum
  *************************************************************************
@@ -267,95 +267,71 @@ void mfit::insertVideoProperty(char *param_cy, char *value_cy)
 }
 
 /************************************************************************
- * Printa um Frame no videoLabel (Video Player)
- *************************************************************************
- * param (E): Frame *frame -> Frame a ser impresso no video player
- *************************************************************************
- * Histórico
- * 29/09/08 - Fabricio Lopes de Souza
- * Criação.
- ************************************************************************/
-void mfit::updateVideoPlayer(Frame *frame)
-{
-	QImage *image;
-
-	// Converte a imagem
-	image = frame->IplImageToQImage();
-
-	updateVideoPlayer(image);
-
-	delete frame;
-	delete image;
-
-}
-
-/************************************************************************
- * Printa um QImage no videoLabel (Video Player)
+ * Atualiza o frame exibido na label do player
  *************************************************************************
  * param (E): QImage *image -> Imagem a ser impressa no video player
  *************************************************************************
  * Histórico
+ * 09/10/08 - Thiago Mizutani
+ * Revisão - alterado o nome da função para diminuir o nro de funcoes
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-void mfit::updateVideoPlayer(QImage *image)
+void mfit::updatePlayer(QImage *image)
 {
 	// Trava a thread do video_player
 	vdo_player->mutex.lock();
 
-	Video *vdo = 0;
-	vdo = currentProject->getVideo();
+	Video *vdo = currentProject->getVideo();
 
 	setVideoTime(vdo->getCurrentPosition(), vdo->getFPS());
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
+	// Permite ajute da imagem em relação ao tamanho da janela
 	ui.videoLabel->setScaledContents(true);
-	ui.videoLabel->setPixmap(pix_image);
+	ui.videoLabel->setPixmap(pix_image); // Pinta a imagem
 
 	updateTimeline();
 
 	vdo_player->mutex.unlock();
 }
 
-void mfit::updateHist(QImage *image)
+/************************************************************************
+ * Atualiza o histograma da widgetHistogram.
+ *************************************************************************
+ * param (E): QImage *hist-> Novo histograma 
+ *************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani
+ * Revisão - alterado o nome da função para diminuir o nro de funcoes e
+ * e inserção dos comentários
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+
+void mfit::updateHist(QImage *hist)
 {
 	vdo_player->mutex.lock();
 
-	QPixmap pix_image = QPixmap::fromImage(*image);
+	QPixmap pix_image = QPixmap::fromImage(*hist);
 
+	// Permite ajute da imagem em relação ao tamanho da janela
 	ui.histogramLabel->setScaledContents(true);
-	ui.histogramLabel->setPixmap(pix_image);
+	ui.histogramLabel->setPixmap(pix_image); // Pinta a imagem
 
 	vdo_player->mutex.unlock();
 }
 
-void mfit::updateVideoPlayer(QImage *image, int type)
-{
-	// Atualiza o VideoPlayer
-	if (type == 0)
-	{
-		updateVideoPlayer(image);
-	}
-	else // Atualiza o Histogram
-	{
-		updateHist(image);
-	}
-
-	return;
-
-}
-
-void mfit::updateVideoPlayer(QImage *image, QImage *imageHist)
-{
-
-	if (image != 0x0)
-		this->updateVideoPlayer(image);
-
-	if (imageHist != 0x0)
-		this->updateHist(imageHist);
-
-}
+/************************************************************************
+ * ??????????
+ *************************************************************************
+ * param (E): QImage *hist-> Novo histograma 
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 void mfit::setVideoTime(double framePos, double fps)
 {
@@ -396,12 +372,24 @@ void mfit::on_videoTime_timeChanged(const QTime & time)
 
 }
 
+/************************************************************************
+ * Cria a timeline do vídeo carregado
+ *************************************************************************
+ * param (E): Não há
+ *************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani 
+ * Revisão de código. E inserção de comentários
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+
 void mfit::createTimeline(void)
 {
 	Video *vdo = 0x0;
 	vdo = currentProject->getVideo();
 
-	int iter_i = 0x0;
+	int iter_i = 0x0; // Passo da timeline (qtos frames eu devo pular para plotar o próximo na timeline)
 	Frame *frame = 0x0;
 	Frame *frameResized = 0x0;
 	Frame *frameHeader = 0x0;
@@ -485,8 +473,8 @@ void mfit::setTimeline(Frame *frameTimeline)
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
-	ui.histogramLabel->setScaledContents(false);
-	ui.timelineLabel->setPixmap(pix_image);
+	ui.timelineLabel->setScaledContents(false); // Não permite que a imagem sofra distorções conforme o tamanho da janela
+	ui.timelineLabel->setPixmap(pix_image); // Pinta a timeline na labelTimeline
 
 	frameTimeline->write("timeline.jpg");
 
@@ -510,8 +498,6 @@ void mfit::updateTimeline()
 
 	if (vdo_player->frameTimelineEdited != 0x0)
 		delete vdo_player->frameTimelineEdited;
-
-	vdo_player->frameTimelineEdited = new Frame(vdo_player->frameTimeline);
 
 	CvPoint p1 = {line_point,0};
 	CvPoint p2 = {line_point,75};
@@ -728,8 +714,6 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 		setTimeline(vdo_player->frameTimeline);
 	}
 
-
-
 	updateTimeline();
 }
 
@@ -750,6 +734,8 @@ void mfit::updateTransitions()
 	unsigned int i = 0;
 
 	clearTransitionsTree();
+
+	Log::writeLog("%s :: updating Transitions", __FUNCTION__);
 
 	for (i = 0 ; i < currentProject->transitionList.size() ; i ++)
 	{

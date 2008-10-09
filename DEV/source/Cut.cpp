@@ -194,16 +194,16 @@ void Cut::createBorderMap(Frame* visualRythim)
 
 int Cut::defineThreshold(int height)
 {
-	int threshold = 0;
-	double newThreshold;
+	int userThreshold = 0;
+	double sysThreshold;
 
 	// Would you like to set a new threshold? precisaremos do QT pra fazer isso
 	// mas podemos fazer o msm esquema q a gnt faz com coletaED. só preciso
 	// ver como faz q eu nao sei. waitKey?
 	
-	newThreshold = height * 0.45;
+	sysThreshold = height * 0.45;
 	
-	setThreshold(threshold > 0 ? threshold : (int)newThreshold);
+	setThreshold(threshold > 0 ? userThreshold : (int)sysThreshold);
 	
 	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
 	

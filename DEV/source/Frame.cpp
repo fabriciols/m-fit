@@ -1315,6 +1315,17 @@ Frame* Frame::resize(int width, int height)
 	return new Frame(imgResized);
 	
 }
+/************************************************************************
+ * Concatena dois frames verticalmente
+ *************************************************************************
+ * param (E): Frame* frame -> frame a ser concatenado
+ *************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani
+ * Revisão - Inserção dos comentários
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 Frame* Frame::verticalCat(Frame* frame)
 {
