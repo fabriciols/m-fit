@@ -1314,3 +1314,62 @@ Frame* Frame::resize(int width, int height)
 	return new Frame(imgResized);
 	
 }
+
+Frame* Frame::verticalCat(Frame* frame)
+{
+	Frame *frameDown;
+	Frame *frameUp;
+	Frame *frameNew;
+	IplImage *imgDst;
+
+	frameDown = new Frame(this);
+	frameUp = new Frame(frame);
+
+	imgDst = Frame::imgAlloc(
+			cvSize(frameDown->getWidth(), frameDown->getHeight() + 3 + frameUp->getHeight()),
+			frameDown->data->depth,
+			frameDown->data->nChannels);
+
+	Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
+
+	Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, 0, frameDown->getWidth(), frameDown->getHeight());
+
+	// Na imagem destino, seto a area de interesse o espaco que a primeira imagem ira ocupar
+	cvSetImageROI(imgDst,
+			cvRect
+			(
+			 0,
+			 0,
+			 frameDown->getWidth(),
+			 frameDown->getHeight())
+			);
+
+	// então copio esta imagem para esta área
+	frameDown->imgCopy(frameDown->data,imgDst);
+
+	Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, frameUp->getHeight()+2, frameUp->getWidth(), frameUp->getHeight());
+
+	// Agora, seto a area de interesse o espaco que a segunda imagem irá ocupar
+	cvSetImageROI(imgDst,
+			cvRect
+			(
+			 0,
+			 frameDown->getHeight()+2,
+			 frameUp->getWidth(),
+			 frameUp->getHeight())
+			);
+
+	// Copia a segunda parte do frame
+	frameDown->imgCopy(frameUp->data,imgDst);
+
+	// Removo as áreas de interesse da imagem
+	cvResetImageROI(imgDst);
+
+	cvLine(imgDst, cvPoint(0,frameDown->getHeight()+2), cvPoint(frameDown->getWidth(),frameDown->getHeight()+2), CV_RGB(0, 0, 0));
+
+	frameNew = new Frame(imgDst);
+
+	Frame::imgDealloc(imgDst);
+
+	return frameNew;
+}
