@@ -12,18 +12,25 @@
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-xmlDocPtr Xml::openXml(char *xmlName)
+int  Xml::openXml(char *xmlName)
 {
-	this->doc = xmlParseFile(xmlName);
+	QDomDocument doc("mydocument");
+	QFile file(xmlName);
 
-	if(doc != NULL)
+	if (!file.open(QIODevice::ReadOnly))
+		return(1);
+
+	if (doc.setContent(&file))
 	{
 		this->xmlName = xmlName;
-		this->doc->children = doc->children;
-		return (this->doc);
+		this->doc = doc;
+		return (0);
 	}
 	else
-		return (NULL);
+	{
+		file.close();
+		return(1);
+	}
 }
 
 /************************************************************************
@@ -37,12 +44,22 @@ xmlDocPtr Xml::openXml(char *xmlName)
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-xmlDocPtr Xml::createXml(char *xmlName)
+int Xml::createXml(char *xmlName)
 {
-	this->doc = xmlNewDoc((const xmlChar*)"1.0");
-	this->xmlName = xmlName;
-	
-	return (this->doc);
+	QDomDocument doc(xmlName);
+
+	QDomElement root = doc.createElement("MyML");
+	doc.appendChild(root);
+
+	QDomElement tag = doc.createElement("Greeting");
+	root.appendChild(tag);
+
+	QDomText t = doc.createTextNode("Hello World");
+	tag.appendChild(t);
+
+	QString xml = doc.toString();
+	 
+	return (0);
 }
 
 /************************************************************************
@@ -56,39 +73,16 @@ xmlDocPtr Xml::createXml(char *xmlName)
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-xmlNodePtr Xml::findNextTag(xmlNodePtr cur, int type, char *name, char *data)
+int Xml::findNextTag(char *tag)
 {
-	if(cur != NULL)
-	{
-		memcpy(name, 0, sizeof(name));
-		memcpy(data, 0, sizeof(data));
+/*
+	int ret;
+	QXmlSimpleReader xmlReader();
 
-		switch(type)
-		{
-			case 1:
-				cur = cur->next;
-			break;
-			case 2:
-				cur = cur->prev;
-			break;
-			case 3:
-				cur = cur->parent;
-			break;
-			case 4:
-				cur = cur->last;
-			break;
-		}
-	
-		if (cur->type == XML_ELEMENT_NODE || cur->type == XML_TEXT_NODE)		
-		{
-				strcpy(name, (char *)cur->name);
-				strcpy(name, (char *)cur->content);
-		}
+	ret = xmlReader.parse(&this->doc);
 
-		return (cur);
-	}
-	else
-		return(0);
+	return(ret);
+*/
 }
 
 /************************************************************************
@@ -102,27 +96,12 @@ xmlNodePtr Xml::findNextTag(xmlNodePtr cur, int type, char *name, char *data)
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-xmlNodePtr Xml::writeTag(char *name, char *data, int type, xmlDocPtr doc, xmlNodePtr tree)
+int Xml::writeTag(char *name, char *data)
 {
-	xmlNodePtr retTree;
-	if(this->doc != NULL)
-	{
-		switch(type)
-		{
-			case 1:
-				retTree = xmlNewDocNode(doc, NULL, (const xmlChar*)name, NULL);
-			break;
-			case 2:
-				xmlSetProp(tree, (const xmlChar*)name, (const xmlChar*)data);
-			break;
-			case 3:
-				retTree = xmlNewChild(tree, NULL, (const xmlChar*)name, (const xmlChar*)data);
-			break;
-		}
-		return(retTree);
-	}
-	else
-		return(0);
+
+	QDomText t = this->doc.createTextNode("Hello World");
+
+	return(0);
 }
 
 /************************************************************************
@@ -136,19 +115,7 @@ xmlNodePtr Xml::writeTag(char *name, char *data, int type, xmlDocPtr doc, xmlNod
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::closeXml(xmlDocPtr doc)
+int Xml::closeXml()
 {
-	if(this->doc != NULL)
-	{
-		xmlSaveFormatFile (this->xmlName, doc, 0);
-
-		xmlFreeDoc(doc);
-		xmlFreeDoc(this->doc);
-
-		xmlCleanupParser();
-		xmlMemoryDump();
 		return (0);
-	}
-	else
-		return(-1);
 }
