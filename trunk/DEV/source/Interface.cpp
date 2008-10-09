@@ -2,11 +2,14 @@
 #include "cv.h"
 #include "highgui.h"
 
-
 #include "QWidget.h"
+#include "QDialog.h"
 #include <QImage>
 #include <QPainter>
 #include <QtGui>
+#include <QDialog>
+#include <QMessageBox>
+#include <QPushButton>
 
 #include "../include/Effect.h"
 #include "../include/Interface.h"
@@ -141,6 +144,9 @@ void mfit::on_actionOpenProject_triggered()
  * param (E): Nenhum
  *************************************************************************
  * Histórico
+ * 09/10/08 - Thiago Mizutani
+ * Pergunta para usuário se deseja detectar todas as transições após o
+ * carregamento do vídeo.
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
@@ -157,6 +163,16 @@ void mfit::on_actionLoadVideo_triggered()
 	if (!fileName.isEmpty())
 	{
 		currentProject->openVideo(fileName);
+
+		if (askUser())
+		{
+			Log::writeLog("%s :: Vai detectar as transicoes", __FUNCTION__);
+
+//			DetectTransitions* DT = new DetectTransitions();
+			Cut* DTC = new Cut();			
+			DTC->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
+			delete DTC;
+		}
 	}
 	else
 	{
@@ -698,15 +714,23 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 	
 	posTimeline_l = (SIZE_FRAME_TIMELINE*cvRound(posTransition_l)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
 
-	CvPoint p1 = {posTimeline_l,0};
-	CvPoint p2 = {posTimeline_l,SIZE_FRAME_TIMELINE+10};
+	CvPoint p1 = {posTimeline_l,0}; // Ponto inicial
+	CvPoint p2 = {posTimeline_l,SIZE_FRAME_TIMELINE+10}; // Ponto final da reta + 10 (pois deve ser maior que a timeline)
 
-	cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 2);
+	if (vdo_player->frameTimelineEdited->data)
+	{
+		cvLine(vdo_player->frameTimelineEdited->data, p1, p2, cvScalar(255,0,0), 2);
+		setTimeline(vdo_player->frameTimelineEdited);
+	}
+	else
+	{
+		cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 2);
+		setTimeline(vdo_player->frameTimeline);
+	}
 
-	setTimeline(vdo_player->frameTimeline);
+
 
 	updateTimeline();
-	
 }
 
 /*************************************************************************
@@ -750,4 +774,38 @@ void mfit::clearTransitionsTree()
 {
 	Log::writeLog("%s :: clear transitionsTree", __FUNCTION__); 
 	this->ui.transitionsTree->clear();
+}
+
+/**************************************************************************
+ * Cria uma caixa de diálogo perguntando ao usuário se este deseja realizar
+ * a detecção de transições logo após o carregamento do vídeo.
+ **************************************************************************
+ * param (E): Nenhum
+ **************************************************************************
+ * return : Não há
+ **************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+int mfit::askUser()
+{
+	int reply = 0; // Resposta do usuário
+	
+	// Crio uma box com o ícone "?"
+	reply = QMessageBox::question(
+					this,
+					tr("MFIT"),
+					tr("<p><b>Detect all transitions now?</b>" \
+						"<p>This action can take several minutes."),
+					QMessageBox::Yes | QMessageBox::No
+			  );
+
+	// Se clickei em detectNow, chamo a detecção de transições
+	if (reply == QMessageBox::Yes)
+		return (TRUE);
+	else
+		return (FALSE);
+
 }
