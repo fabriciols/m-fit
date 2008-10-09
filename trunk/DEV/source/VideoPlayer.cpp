@@ -42,29 +42,23 @@ void VideoPlayer::run()
 	Video *vdo = currentProject->getVideo();
 	Frame *frame = 0x0;
 
-	if (vdo == 0x0)
+	if (!vdo)
 		return;
 
 	if ((vdo->getCurrentPosition() >= vdo->getFramesTotal()))
 	{
 		vdo->seekFrame(0);
 	}
+		
+	frame = vdo->getNextFrame();
 
-	while (true)
+	while (frame) // Enquanto houver frame vai passando o vídeo.
 	{
 
-		// Condições de parada
-		if ((vdo->getCurrentPosition() >= vdo->getFramesTotal()))
-		{
-			break;
-		}
-
-		// Pega o proximo frame.
-		frame = vdo->getNextFrame();
-
+		// Atualiza o frame do player
 		updateVideo(frame);
 
-		// Se o histograma estiver visivel, manda ele tb
+		// Se o histograma estiver visivel, atualiza 
 		if (mfit_ui->ui.histogramLabel->isVisible())
 		{
 			updateHist(frame);
@@ -73,16 +67,18 @@ void VideoPlayer::run()
 		delete frame;
 
 		usleep(cvRound(vdo->getFPS()*100));
+		
+		// Pega o proximo frame.
+		frame = vdo->getNextFrame();
 
 	}
 }
-
 
 void VideoPlayer::updateVideo(Frame *frame)
 {
 	QImage *image = 0x0;
 	// Se nao vir nada, aborta
-	if (frame == 0x0)
+	if (!frame)
 	{
 		return;
 	}
@@ -107,7 +103,7 @@ void VideoPlayer::updateHist(Frame *frame)
 
 	imageHist = frameHistogram->IplImageToQImage(&histData, &histWidth, &histHeight);
 
-	// Manda exibir ambos: imagem e histograma
+	// Manda exibir o histograma
 	emit renderedImage(imageHist, 1);
 
 	delete frameGray;
