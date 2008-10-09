@@ -388,6 +388,8 @@ void mfit::createTimeline(void)
 	int iter_i = 0x0;
 	Frame *frame = 0x0;
 	Frame *frameResized = 0x0;
+	Frame *frameHeader = 0x0;
+	IplImage *imgHeader = 0x0;
 	int i = 0;
 
 	// Timeline sera 10x menor que a imagem
@@ -430,6 +432,25 @@ void mfit::createTimeline(void)
 		delete frame;
 		delete frameResized;
 	}
+
+	// Coloca o frame acima da timeline
+
+	imgHeader = Frame::imgAlloc(
+			cvSize(vdo_player->frameTimeline->getWidth(), vdo_player->frameTimeline->getHeight() / 4 ),
+			vdo_player->frameTimeline->data->depth,
+			vdo_player->frameTimeline->data->nChannels);
+
+	frameHeader = new Frame(imgHeader);
+
+	Frame::imgDealloc(imgHeader);
+
+	cvFillImage(frameHeader->data, 0xF4F4F4); // Preenche da cor de fundo das janelas
+
+	frameResized = vdo_player->frameTimeline->verticalCat(frameHeader);
+
+	delete vdo_player->frameTimeline;
+
+	vdo_player->frameTimeline = frameResized;
 
 	this->setTimeline(vdo_player->frameTimeline);
 
