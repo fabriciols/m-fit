@@ -23,6 +23,7 @@ VideoPlayer::VideoPlayer(void)
 	this->timelineHeight = 0x0;
 
 	this->frameTimeline = 0x0;
+	this->frameTimelineOriginal = 0x0;
 	this->frameTimelineEdited = 0x0;
 }
 

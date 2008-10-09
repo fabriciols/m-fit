@@ -34,6 +34,7 @@ class VideoPlayer: public QThread
 		void updateHist(Frame *frame);
 		void updateVideo(Frame *frame);
 
+		Frame* frameTimelineOriginal;
 		Frame* frameTimeline;
 		Frame* frameTimelineEdited;
 

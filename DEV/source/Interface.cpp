@@ -433,8 +433,7 @@ void mfit::createTimeline(void)
 		delete frameResized;
 	}
 
-	// Coloca o frame acima da timeline
-
+	// Coloca o header da timeline
 	imgHeader = Frame::imgAlloc(
 			cvSize(vdo_player->frameTimeline->getWidth(), vdo_player->frameTimeline->getHeight() / 4 ),
 			vdo_player->frameTimeline->data->depth,
@@ -448,9 +447,12 @@ void mfit::createTimeline(void)
 
 	frameResized = vdo_player->frameTimeline->verticalCat(frameHeader);
 
+	// Vamos desenha o contorno da timeline
+
 	delete vdo_player->frameTimeline;
 
 	vdo_player->frameTimeline = frameResized;
+	vdo_player->frameTimelineOriginal = new Frame(vdo_player->frameTimeline);
 
 	this->setTimeline(vdo_player->frameTimeline);
 
@@ -467,7 +469,7 @@ void mfit::setTimeline(Frame *frameTimeline)
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
-	ui.histogramLabel->setScaledContents(true);
+	ui.histogramLabel->setScaledContents(false);
 	ui.timelineLabel->setPixmap(pix_image);
 
 	frameTimeline->write("timeline.jpg");
@@ -699,9 +701,11 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 	CvPoint p1 = {posTimeline_l,0};
 	CvPoint p2 = {posTimeline_l,SIZE_FRAME_TIMELINE+10};
 
-	cvLine(vdo_player->frameTimelineEdited->data, p1, p2, cvScalar(255,0,0), 2);
+	cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 2);
 
-	setTimeline(vdo_player->frameTimelineEdited);
+	setTimeline(vdo_player->frameTimeline);
+
+	updateTimeline();
 	
 }
 
