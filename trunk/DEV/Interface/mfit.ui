@@ -112,26 +112,6 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
-       <item row="2" column="2" >
-        <widget class="QToolButton" name="backButton" >
-         <property name="text" >
-          <string>...</string>
-         </property>
-         <property name="icon" >
-          <iconset>
-           <normaloff>../Interface/Icons/back.png</normaloff>../Interface/Icons/back.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="autoRaise" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="3" >
         <widget class="QToolButton" name="forwardButton" >
          <property name="text" >
@@ -220,7 +200,35 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
+       <item row="2" column="2" >
+        <widget class="QToolButton" name="backButton" >
+         <property name="text" >
+          <string>...</string>
+         </property>
+         <property name="icon" >
+          <iconset>
+           <normaloff>../Interface/Icons/back.png</normaloff>../Interface/Icons/back.png</iconset>
+         </property>
+         <property name="iconSize" >
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="autoRaise" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
+      <zorder>videoLabel</zorder>
+      <zorder>videoSlider</zorder>
+      <zorder>playButton</zorder>
+      <zorder>pauseButton</zorder>
+      <zorder>forwardButton</zorder>
+      <zorder>stopButton</zorder>
+      <zorder>videoTime</zorder>
+      <zorder>backButton</zorder>
      </widget>
     </item>
    </layout>
@@ -254,10 +262,6 @@ border: 1px solid gray
     </property>
     <addaction name="actionUndo" />
     <addaction name="actionRedo" />
-    <addaction name="separator" />
-    <addaction name="actionCut" />
-    <addaction name="actionPaste" />
-    <addaction name="actionCopy" />
    </widget>
    <widget class="QMenu" name="menuDetect" >
     <property name="title" >
@@ -286,13 +290,6 @@ border: 1px solid gray
     <addaction name="actionBackward" />
     <addaction name="actionForward" />
    </widget>
-   <widget class="QMenu" name="menuWindow" >
-    <property name="title" >
-     <string>Window</string>
-    </property>
-    <addaction name="actionHistogram" />
-    <addaction name="actionTimeline" />
-   </widget>
    <widget class="QMenu" name="menuHelp" >
     <property name="title" >
      <string>Help</string>
@@ -302,7 +299,6 @@ border: 1px solid gray
    <addaction name="menuEdit" />
    <addaction name="menuDetect" />
    <addaction name="menuTools" />
-   <addaction name="menuWindow" />
    <addaction name="menuHelp" />
   </widget>
   <widget class="QToolBar" name="mainToolBar" >
@@ -322,9 +318,6 @@ border: 1px solid gray
    <addaction name="separator" />
    <addaction name="actionUndo" />
    <addaction name="actionRedo" />
-   <addaction name="actionCut" />
-   <addaction name="actionCopy" />
-   <addaction name="actionPaste" />
   </widget>
   <widget class="QDockWidget" name="widgetTrees" >
    <property name="windowTitle" >
@@ -338,7 +331,7 @@ border: 1px solid gray
      <item row="0" column="0" >
       <widget class="QTabWidget" name="tabTransEffect" >
        <property name="currentIndex" >
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tabTransitions" >
         <attribute name="title" >
@@ -475,13 +468,13 @@ border: 1px solid gray
    <property name="minimumSize" >
     <size>
      <width>80</width>
-     <height>160</height>
+     <height>200</height>
     </size>
    </property>
    <property name="maximumSize" >
     <size>
      <width>524287</width>
-     <height>160</height>
+     <height>200</height>
     </size>
    </property>
    <property name="allowedAreas" >
@@ -506,7 +499,7 @@ border: 1px solid gray
           <x>0</x>
           <y>0</y>
           <width>939</width>
-          <height>118</height>
+          <height>158</height>
          </rect>
         </property>
         <layout class="QGridLayout" >
@@ -521,9 +514,13 @@ border: 1px solid gray
              </widget>
             </item>
            </layout>
+           <zorder>timelineLabel</zorder>
+           <zorder>timelineLabel</zorder>
           </widget>
          </item>
         </layout>
+        <zorder>widgetTimeline</zorder>
+        <zorder>widgetTimeline</zorder>
        </widget>
       </widget>
      </item>
@@ -688,33 +685,6 @@ border: 1px solid gray
    </property>
    <property name="shortcut" >
     <string>Ctrl+Y</string>
-   </property>
-  </action>
-  <action name="actionCut" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>../Interface/Icons/editcut.png</normaloff>../Interface/Icons/editcut.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Cut</string>
-   </property>
-  </action>
-  <action name="actionPaste" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>../Interface/Icons/editpaste.png</normaloff>../Interface/Icons/editpaste.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Paste</string>
-   </property>
-  </action>
-  <action name="actionCopy" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>../Interface/Icons/copy.png</normaloff>../Interface/Icons/copy.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Copy</string>
    </property>
   </action>
   <action name="actionAllTransitions" >
