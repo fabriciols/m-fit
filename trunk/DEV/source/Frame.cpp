@@ -1108,6 +1108,7 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_height,
 		double mini, double maxi)
 {
+
 	uchar *qImageBuffer;
 	int width = this->data->width; 
 	// Note here that OpenCV image is stored so that each lined is 
@@ -1326,7 +1327,7 @@ Frame* Frame::verticalCat(Frame* frame)
 	frameUp = new Frame(frame);
 
 	imgDst = Frame::imgAlloc(
-			cvSize(frameDown->getWidth(), frameDown->getHeight() + 3 + frameUp->getHeight()),
+			cvSize(frameDown->getWidth(), frameDown->getHeight() + frameUp->getHeight()),
 			frameDown->data->depth,
 			frameDown->data->nChannels);
 
@@ -1354,18 +1355,16 @@ Frame* Frame::verticalCat(Frame* frame)
 			cvRect
 			(
 			 0,
-			 frameDown->getHeight()+2,
+			 frameDown->getHeight(),
 			 frameUp->getWidth(),
 			 frameUp->getHeight())
 			);
 
 	// Copia a segunda parte do frame
-	frameDown->imgCopy(frameUp->data,imgDst);
+	Frame::imgCopy(frameUp->data,imgDst);
 
 	// Removo as áreas de interesse da imagem
 	cvResetImageROI(imgDst);
-
-	cvLine(imgDst, cvPoint(0,frameDown->getHeight()+2), cvPoint(frameDown->getWidth(),frameDown->getHeight()+2), CV_RGB(0, 0, 0));
 
 	frameNew = new Frame(imgDst);
 
