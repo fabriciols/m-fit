@@ -37,6 +37,8 @@ class mfit: public QMainWindow
 		void on_actionAllFades_triggered();
 		void on_actionOnlyDissolve_triggered();
 
+		int askUser();
+
 	public:
 		mfit(QMainWindow *parent = 0);
 
