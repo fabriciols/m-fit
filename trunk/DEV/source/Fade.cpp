@@ -105,7 +105,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	int signal_last = 0;
 	int signal_new  = 0;
 
-	Transition *transition;
+	Transition *transition = new Transition();
 
 	// Processo de detecção de transições do tipo FADE
 	vrh = new VisualRythim();
