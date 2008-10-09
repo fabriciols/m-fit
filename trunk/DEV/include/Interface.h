@@ -28,15 +28,18 @@ class mfit: public QMainWindow
 
 		void on_videoTime_timeChanged(const QTime & time);
 
-		void updateVideoPlayer(QImage *image);
-		void updateVideoPlayer(QImage *image, QImage *imageHist);
-		void updateVideoPlayer(QImage *image, int type);
+		//void updateVideoPlayer(QImage *image);
+		//void updateVideoPlayer(QImage *image, QImage *imageHist);
+
+		void updatePlayer(QImage *image);
+		void updateHist(QImage *image);
 
 		void on_actionAllTransitions_triggered();
 		void on_actionOnlyCuts_triggered();
 		void on_actionAllFades_triggered();
 		void on_actionOnlyDissolve_triggered();
 
+		void on_transitionsTree_itemDoubleClicked(QTreeWidgetItem * item, int column);
 		int askUser();
 
 	public:
@@ -45,9 +48,6 @@ class mfit: public QMainWindow
 		void changeWindowTitle(char *string);
 		void insertVideoProperty(char *param_cy, char *value_cy);
 		void clearVideoProperty();
-		
-		void updatePlayer(QImage *image);
-		void updateHist(QImage *image);
 		
 		void setVideoTime(double framePos, double fps);
 
