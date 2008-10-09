@@ -81,8 +81,8 @@ int Xml::findNextTag(char *tag)
 
 	ret = xmlReader.parse(&this->doc);
 
-	return(ret);
 */
+	return(0);
 }
 
 /************************************************************************
