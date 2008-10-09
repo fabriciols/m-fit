@@ -762,6 +762,40 @@ void mfit::clearTransitionsTree()
 	this->ui.transitionsTree->clear();
 }
 
+void mfit::on_transitionsTree_itemDoubleClicked( QTreeWidgetItem * item, int column )
+{
+	char *pos;
+	QString text = item->text(0);
+
+	QByteArray ba = text.toLatin1();
+	pos = ba.data(); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**************************************************************************
  * Cria uma caixa de diálogo perguntando ao usuário se este deseja realizar
  * a detecção de transições logo após o carregamento do vídeo.
