@@ -140,51 +140,6 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 				// Adiciona no container
 				transitionList->push_back(*newTransition);
 			}
-			/*  MODO ANTIGO (LISTA LIGADA!!!)
-	
-			// É o primeiro
-			if (!(transitions->previous))
-			{
-				transitions->previous = 0; // Se for o primeiro, não tem previous
-				transitions->next = 0; // A nova transição da lista nunca tem next
-				transitions->setPosTransition(i); // Informo a posição física (frame) em que ocorre a transição
-				
-				time->pos2time(i,fps); // Converto de posição física para tempo
-				
-				sprintf(label,"Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
-				
-				Log::writeLog("%s :: %s", __FUNCTION__, label);		
-
-				transitions->setLabel(label); //Salvo a label de exibição da transição
-				
-				oldTransition = transitions; // Salvo a transição anterior
-			}
-			else // A lista já foi iniciada
-			{
-				Transition* newTransition = new Transition(); //Crio um novo objeto para inserir na lista
-
-				// Este novo item é o próximo do item anterior
-				oldTransition->next = newTransition; 
-
-				newTransition->next = 0; // O novo item não tem próximo
-				newTransition->previous = oldTransition; // O anterior do novo é o item anterior (comentário inútil...)
-				newTransition->setPosTransition(i); // Guardo a posição (física) da ocorrência da transição
-
-				// Monto a label para exibir na timeline
-				sprintf(label,"Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
-				
-				Log::writeLog("%s :: %s", __FUNCTION__, label);		
-
-				newTransition->setLabel(label); //Salvo a label de exibição da transição
-				
-				/ *  Esta transição será a transição antiga da próxima transição (se houver). Por isso
-				 *  não posso dar um delete na memória do oldTransition, senão limpo a área de memória que este
-				 *  ponteiro está apontando, fazendo com que eu perca a última transição.
-				 */
-		/*
-			oldTransition = newTransition; 
-			}
-		*/
 		}
 	}
 
