@@ -17,9 +17,8 @@ class VideoPlayer: public QThread
 		void run();
 
 	signals:
-		void renderedImage(QImage *image);
-		void renderedImage(QImage *image, int type);
-		void renderedImage(QImage *image, QImage *imageHist);
+		void setNewFrame(QImage *image); // emite sinal para interface atualizar o frame do player
+		void setHistogram(QImage *image); // emite sinal para interface atualziar o histograma
 
 	public:
 		QMutex mutex;
@@ -32,7 +31,7 @@ class VideoPlayer: public QThread
 		int histWidth, histHeight;
 		int timelineWidth, timelineHeight;
 		void updateHist(Frame *frame);
-		void updateVideo(Frame *frame);
+		void updatePlayer(Frame *frame);
 
 		Frame* frameTimelineOriginal;
 		Frame* frameTimeline;

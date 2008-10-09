@@ -45,8 +45,10 @@ class mfit: public QMainWindow
 		void changeWindowTitle(char *string);
 		void insertVideoProperty(char *param_cy, char *value_cy);
 		void clearVideoProperty();
-		void updateVideoPlayer(Frame *frame);
+		
+		void updatePlayer(QImage *image);
 		void updateHist(QImage *image);
+		
 		void setVideoTime(double framePos, double fps);
 
 		void createTimeline(void);
