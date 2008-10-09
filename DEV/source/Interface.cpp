@@ -42,6 +42,7 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 	ui.setupUi(this);
 
 	qRegisterMetaType<Frame>("Frame");
+
 	connect(vdo_player, SIGNAL(renderedImage(QImage *)),
 			this, SLOT(updateVideoPlayer(QImage *)));
 
@@ -581,7 +582,7 @@ void mfit::on_actionOnlyDissolve_triggered()
 
 	vdo = currentProject->getVideo();
 
-//	DTD->detectTransitions(vdo, currentProject->transitionList);
+	DTD->detectTransitions(vdo, &currentProject->transitionList);
 
 	delete DTD;
 
@@ -657,7 +658,6 @@ void mfit::insertTransitionsTree(Transition* transition)
  * 08/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void mfit::insertTransitionsTimeline(Transition* transition)
 {
 
@@ -665,6 +665,9 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 
 	long posTransition_l = 0;
 	long posTimeline_l = 0;
+
+	// Pega o ponto da transicao
+	posTransition_l = transition->getPosTransition();
 	
 	// A formula para saber em que ponto plotar o indicador é:
 	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
@@ -673,7 +676,7 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 	posTimeline_l = (SIZE_FRAME_TIMELINE*cvRound(posTransition_l)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
 
 	CvPoint p1 = {posTimeline_l,0};
-	CvPoint p2 = {posTimeline_l,75};
+	CvPoint p2 = {posTimeline_l,SIZE_FRAME_TIMELINE+10};
 
 	cvLine(vdo_player->frameTimelineEdited->data, p1, p2, cvScalar(255,0,0), 2);
 
