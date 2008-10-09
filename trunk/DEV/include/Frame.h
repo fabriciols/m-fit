@@ -135,5 +135,9 @@ class Frame
 		// Remove as tarjas de wide screen, se estas existirem.
 		int removeWide();
 		int removeBorder();
+
+		// Concatena verticalmente o frame this com o passado por parametro
+		Frame* verticalCat(Frame* frame);
+
 };
 #endif
