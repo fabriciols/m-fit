@@ -167,7 +167,7 @@ void mfit::on_actionLoadVideo_triggered()
 	{
 		currentProject->openVideo(fileName);
 
-		if (askUser()) // Gero a box perguntando se deseja detectar as transições
+		if (askDetection()) // Gero a box perguntando se deseja detectar as transições
 		{  
 			DetectTransitions* DT = new DetectTransitions();
 			DT->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
@@ -467,6 +467,17 @@ void mfit::createTimeline(void)
 	vdo->seekFrame(0);
 }
 
+/************************************************************************
+ * Printa a imagem da timeline em sua label.
+ *************************************************************************
+ * param (E): Não há
+ *************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani 
+ * Revisão de código. E inserção de comentários
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 void mfit::setTimeline(Frame *frameTimeline)
 {
@@ -483,6 +494,18 @@ void mfit::setTimeline(Frame *frameTimeline)
 	delete image;
 
 }
+
+/*************************************************************************
+ * Atualiza a posição do cursor da timeline conforme a passagem do vídeo
+ *************************************************************************
+ * param (E): Não há
+ *************************************************************************
+ * Histórico
+ * 09/10/08 - Thiago Mizutani 
+ * Revisão de código. E inserção de comentários
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 void mfit::updateTimeline()
 {
@@ -782,7 +805,7 @@ void mfit::on_transitionsTree_itemDoubleClicked( QTreeWidgetItem * item, int col
  * Criação.
  *************************************************************************/
 
-int mfit::askUser()
+int mfit::askDetection()
 {
 	int reply = 0; // Resposta do usuário
 	
@@ -802,3 +825,4 @@ int mfit::askUser()
 		return (FALSE);
 
 }
+
