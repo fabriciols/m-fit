@@ -11,8 +11,8 @@ class Project
 	public:
 		Project();
 
-		int openProject(char *filename_cy);
-		int openVideo(QString fileName);
+		int openProject(QString);
+		int openVideo(QString);
 
 		std::vector<Transition> transitionList;
 

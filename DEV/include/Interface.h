@@ -19,6 +19,7 @@ class mfit: public QMainWindow
 
 	private slots:
 		void on_actionOpenProject_triggered();
+		void on_actionSave_triggered();
 		void on_actionSaveAs_triggered();
 		void on_actionLoadVideo_triggered();
 
