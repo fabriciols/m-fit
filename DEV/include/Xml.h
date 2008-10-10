@@ -20,8 +20,10 @@ class Xml
 		char *xmlName;
 
 	public:
+		QFile *file;
+
 		int openXml(char *);
-		int createXml(char *);
+		int saveXml();
 		int findNextTag(char *);
 		int writeTag(char *, char *);
 		int closeXml();
