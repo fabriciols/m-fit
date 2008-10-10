@@ -1,3 +1,5 @@
+#include <QMessageBox>
+
 #include "../include/Xml.h"
 #include "../include///Log.h"
 
@@ -14,29 +16,26 @@
 ************************************************************************/
 int  Xml::openXml(char *xmlName)
 {
-	QDomDocument doc("mydocument");
 	QFile file(xmlName);
 
-	if (!file.open(QIODevice::ReadOnly))
-		return(1);
-
-	if (doc.setContent(&file))
+	if (file.open(QIODevice::ReadWrite))
 	{
+		this->file = &file;
 		this->xmlName = xmlName;
-		this->doc = doc;
 		return (0);
 	}
 	else
 	{
 		file.close();
+        QMessageBox::information(0, "Error", "Error opening file");
 		return(1);
 	}
 }
 
 /************************************************************************
-* Função que realiza o carregamento do arquivo xml. 
+* Função que salva o documento xml. 
 *************************************************************************
-* param (E): char *xmlName => nome do xml.
+* param (E): nenhum.
 ************************************************************************
 * Retorno: Sucesso
 ************************************************************************
@@ -44,20 +43,10 @@ int  Xml::openXml(char *xmlName)
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::createXml(char *xmlName)
+int Xml::saveXml()
 {
-	QDomDocument doc(xmlName);
-
-	QDomElement root = doc.createElement("MyML");
-	doc.appendChild(root);
-
-	QDomElement tag = doc.createElement("Greeting");
-	root.appendChild(tag);
-
-	QDomText t = doc.createTextNode("Hello World");
-	tag.appendChild(t);
-
-	QString xml = doc.toString();
+	QTextStream fileStream(this->file);
+	this->doc.save(fileStream, 1);
 	 
 	return (0);
 }
@@ -98,7 +87,6 @@ int Xml::findNextTag(char *tag)
 ************************************************************************/
 int Xml::writeTag(char *name, char *data)
 {
-
 	QDomText t = this->doc.createTextNode("Hello World");
 
 	return(0);
@@ -117,5 +105,6 @@ int Xml::writeTag(char *name, char *data)
 ************************************************************************/
 int Xml::closeXml()
 {
+        this->file->close();
 		return (0);
 }
