@@ -171,7 +171,11 @@ void mfit::on_actionLoadVideo_triggered()
 		{  
 			DetectTransitions* DT = new DetectTransitions();
 			DT->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
+
+			updateTransitions();
+
 			delete DT;
+
 		}
 	}
 	else
@@ -476,8 +480,6 @@ void mfit::setTimeline(Frame *frameTimeline)
 	ui.timelineLabel->setScaledContents(false); // Não permite que a imagem sofra distorções conforme o tamanho da janela
 	ui.timelineLabel->setPixmap(pix_image); // Pinta a timeline na labelTimeline
 
-	frameTimeline->write("timeline.jpg");
-
 	delete image;
 
 }
@@ -501,6 +503,8 @@ void mfit::updateTimeline()
 
 	CvPoint p1 = {line_point,0};
 	CvPoint p2 = {line_point,75};
+
+	vdo_player->frameTimelineEdited = new Frame(vdo_player->frameTimeline);
 
 	cvLine(vdo_player->frameTimelineEdited->data, p1, p2, cvScalar(0,0,0), 1);
 
@@ -703,18 +707,10 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 	CvPoint p1 = {posTimeline_l,0}; // Ponto inicial
 	CvPoint p2 = {posTimeline_l,SIZE_FRAME_TIMELINE+10}; // Ponto final da reta + 10 (pois deve ser maior que a timeline)
 
-	if (vdo_player->frameTimelineEdited->data)
-	{
-		cvLine(vdo_player->frameTimelineEdited->data, p1, p2, cvScalar(255,0,0), 2);
-		setTimeline(vdo_player->frameTimelineEdited);
-	}
-	else
-	{
-		cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 2);
-		setTimeline(vdo_player->frameTimeline);
-	}
+	// Sempre trem que ser aplicado ao frameTimeline
+	cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 2);
+	setTimeline(vdo_player->frameTimeline);
 
-	updateTimeline();
 }
 
 /*************************************************************************
@@ -742,6 +738,8 @@ void mfit::updateTransitions()
 		insertTransitionsTree(&currentProject->transitionList.at(i));
 		insertTransitionsTimeline(&currentProject->transitionList.at(i));
 	}
+
+	updateTimeline();
 }
 
 /*************************************************************************
@@ -770,31 +768,6 @@ void mfit::on_transitionsTree_itemDoubleClicked( QTreeWidgetItem * item, int col
 	QByteArray ba = text.toLatin1();
 	pos = ba.data(); 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**************************************************************************
  * Cria uma caixa de diálogo perguntando ao usuário se este deseja realizar
