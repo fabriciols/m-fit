@@ -8,6 +8,7 @@
 #include "../include/VisualRythim.h"
 #include "../include/Transition.h"
 #include "../include/Project.h"
+#include "../include/Xml.h"
 #include "../include/Log.h"
 
 #include "../include/main.h"
@@ -23,13 +24,25 @@
 * 29/09/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-int Project::openProject(char *filename_cy)
+int Project::openProject(QString fileName)
 {
+	char *filename_cy;
+	Xml *fileXml = new Xml();
 	// Abre um projeto ja existente
+
+	QByteArray ba = fileName.toLatin1();
+	filename_cy = ba.data(); 
 
 	// Troca o titulo da janela
 	mfit_ui->changeWindowTitle(this->filename_cy);
 
+	fileXml->openXml(filename_cy);
+	
+	fileXml->readXml(filename_cy);
+
+//	fileXml->closeXml();
+	
+	delete fileXml;
 	return true;
 }
 

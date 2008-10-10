@@ -1,6 +1,12 @@
 #ifndef XML_INCLUDE
 #define XML_INCLUDE
 
+#define	NODE		1
+#define	ATTR		2
+#define	VALUE		3
+#define	ROOTNAME	5
+
+#include <QXmlSimpleReader>
 #include <QIODevice>
 #include <QXmlInputSource>
 #include <QtXml>
@@ -24,7 +30,7 @@ class Xml
 
 		int openXml(char *);
 		int saveXml();
-		int findNextTag(char *);
+		int readXml(char *);
 		int writeTag(char *, char *);
 		int closeXml();
 };

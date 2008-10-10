@@ -20,14 +20,28 @@ int  Xml::openXml(char *xmlName)
 
 	if (file.open(QIODevice::ReadWrite))
 	{
-		this->file = &file;
+		QDomDocument doc;
+		QXmlSimpleReader xmlReader;
+		QXmlInputSource *source = new QXmlInputSource(file);
+
+		QString errmsg;	
+		int errline, errcol;
+	
+		bool ok = this->doc.setContent(source, &xmlReader, &errmsg, &errline, &errcol);
+
+		if (!ok)
+		{
+	        QMessageBox::information(0, "openXml", errmsg);
+			return(1);
+		}
+	 
 		this->xmlName = xmlName;
 		return (0);
 	}
 	else
 	{
 		file.close();
-        QMessageBox::information(0, "Error", "Error opening file");
+        QMessageBox::information(0, "Erro", "Erro ao abrir arquivo XML");
 		return(1);
 	}
 }
@@ -62,15 +76,15 @@ int Xml::saveXml()
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::findNextTag(char *tag)
+int Xml::readXml(char *tag)
 {
-/*
-	int ret;
-	QXmlSimpleReader xmlReader();
+	QDomNodeList nodeList;
+	QDomNode node;
 
-	ret = xmlReader.parse(&this->doc);
+	nodeList = this->doc.elementsByTagName("name");
+	node = nodeList.item(0);
+	QMessageBox::information(0, "Information", node.nodeValue());
 
-*/
 	return(0);
 }
 
@@ -105,6 +119,6 @@ int Xml::writeTag(char *name, char *data)
 ************************************************************************/
 int Xml::closeXml()
 {
-        this->file->close();
+//        this->file->close();
 		return (0);
 }

@@ -123,16 +123,23 @@ void mfit::on_stopButton_clicked()
  * param (E): Nenhum
  *************************************************************************
  * Histórico
- * 29/09/08 - Fabricio Lopes de Souza
+ * 10/10/08 - Ivan Shiguenori Machida
  * Criação.
  ************************************************************************/
 void mfit::on_actionOpenProject_triggered()
 {
-	QString fileName = QFileDialog::getOpenFileName(this);
+	// Segundo  parametro - Mensagem que ira aparecer no topo da imagem
+	// Terceiro parametro - Diretorio inicial
+	// Quarto   parametro - Mensagem q ira aparecer la embaixo, e as extensões suportadas
+
+	QString fileName = QFileDialog::getOpenFileName(this,
+			"Open Video",
+			".",
+			"MFIT Project File (*.mfit)");
 
 	if (!fileName.isEmpty())
 	{
-		currentProject->openProject((char*)&fileName);
+		currentProject->openProject(fileName);
 	}
 	else
 	{
@@ -195,6 +202,26 @@ void mfit::on_actionLoadVideo_triggered()
  * Criação.
  ************************************************************************/
 void mfit::on_actionSaveAs_triggered()
+{
+	QString fileName = QFileDialog::getSaveFileName(this);
+
+	if (!fileName.isEmpty())
+	{
+		return;
+	}
+}
+
+/************************************************************************
+ * Tratar o evento do botão Save.
+ * TODO: Nao faz porra nenhuma pq nao temos o ParserXML
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 10/10/08 - Ivan Shiguenori Machida
+ * Criação.
+ ************************************************************************/
+void mfit::on_actionSave_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this);
 
