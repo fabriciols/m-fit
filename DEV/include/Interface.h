@@ -40,7 +40,8 @@ class mfit: public QMainWindow
 		void on_actionOnlyDissolve_triggered();
 
 		void on_transitionsTree_itemDoubleClicked(QTreeWidgetItem * item, int column);
-		int askUser();
+
+		int askDetection();
 
 	public:
 		mfit(QMainWindow *parent = 0);
