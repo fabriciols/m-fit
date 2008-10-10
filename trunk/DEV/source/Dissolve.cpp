@@ -113,12 +113,15 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 
 	for(i=0;i<len_i;i++)
 	{
+		float trsMax = 1.4, trsMin = 0.6;
 		sprintf(pri,"%03.0lf",array_dvrh[i]);
 		sprintf(seg,"%03.0lf",array_dvrh[i+1]);
 		sprintf(ter,"%03.0lf",array_dvrh[i+2]);
 		sprintf(qua,"%03.0lf",array_dvrh[i+3]);
-
-		if(((atoi(seg)-atoi(pri))==1) && ((atoi(ter)-atoi(seg))==1) && ((atoi(qua)-atoi(ter))==1))
+		
+		if((((atoi(seg)-atoi(pri))>=trsMin)&&((atoi(seg)-atoi(pri))<=trsMax))  && 
+		((atoi(ter)-atoi(seg))>=trsMin) && ((atoi(ter)-atoi(seg))<=trsMax) && 
+		((atoi(qua)-atoi(ter)) >= trsMin) && ((atoi(qua)-atoi(ter)) <= trsMax))
 			detecta[i]=1;
 		else
 			detecta[i]=0;
@@ -147,7 +150,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 /************************************************************************
 * Função que calcula a variancia através do histograma do ritmo visual
 *************************************************************************
-* param (E): nenhum
+* param (E): vetor de média
 *************************************************************************
 * return : float -> valor da variância do histograma do ritmo visual
 *************************************************************************
@@ -157,16 +160,31 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 * 17/08/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-float Dissolve::calcVariance()
+double Dissolve::calcVariance(double *arrayM, int size_i )
 {
-	return(0);
+	int i;
+	double media, var2=0, soma=0;
+	// faz a média
+	for (i=1; i<=size_i; i++)
+	{
+		soma=soma + arrayM[i];
+	}
+	media = soma / size_i;
+	
+	// faz variancia
+	for (i=1; i<=size_i; i++)
+	{
+		var2 = var2 + ((arrayM[i] - media) * (arrayM[i] - media));
+	}
+	var2 = var2 / (size_i+1);
+	return(var2);
 }
 
 /************************************************************************
 * Função que calcula a segunda derivada através do histograma do ritmo 
 * visual
 *************************************************************************
-* param (E): nenhum
+* param (E): vetor de entrada
 *************************************************************************
 * return : float -> valor da segunda derivada do histograma do ritmo 
 * visual
@@ -175,16 +193,26 @@ float Dissolve::calcVariance()
 * 18/08/08 - Ivan Shiguenori machida
 * Criação.
 ************************************************************************/
-float Dissolve::calcSecondDerivative()
+double* Dissolve::calcSecondDerivative(double *array, int size)
 {
-	return(0);	
+	double *der2 = (double *)malloc(sizeof(double)*size);
+	int i;
+	// Calcula segunda derivada, se for primeiro ou ultimo frame, derivada  = 0
+	for (i=1; i<=size; i++)
+	{
+		if (i == 1 || i == size)
+			der2[i] = 0;
+		else
+			der2[i] = (array[i+1] + array[i-1]) - (2 * array[i]);
+	}
+	return(der2);	
 }
 
 /************************************************************************
 * Função que calcula a razão entre variancia e a segunda derivada gerada 
 * através do histograma do ritmo visual
 *************************************************************************
-* param (E): nenhum
+* param (E): variancia e segunda derivada
 *************************************************************************
 * return : float -> valor razão entre variancia e a segunda derivada 
 * gerada através do histograma do ritmo visual
@@ -193,7 +221,7 @@ float Dissolve::calcSecondDerivative()
 * 18/08/08 - Ivan Shiguenori machida
 * Criação.
 ************************************************************************/
-float Dissolve::calcRatioVarianceVRH()
+double Dissolve::calcRatioVarianceVRH(double var, double der2)
 {
-	return(0);
+	return(var / der2);
 }
