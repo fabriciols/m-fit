@@ -22,18 +22,18 @@ class Dissolve: public DetectTransitions
 	 *Calcula a segunda derivada de
 	 *uma curva.
 	 */
-		float calcSecondDerivative();
+		double* calcSecondDerivative(double *, int);
 	 
 	/**
 	 *Calcula a curva de variância de um vídeo.
 	 */
-		float calcVariance();
+		double calcVariance(double *, int );
 	 
 	/**
 	 *Calcula a razão entre a segunda
 	 *derivada da variância com a 
 	 *derivada do RVH.
 	 */
-		float calcRatioVarianceVRH();
+		double calcRatioVarianceVRH(double, double);
 	 
 };
