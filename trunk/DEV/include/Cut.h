@@ -6,37 +6,34 @@
  */
 class Cut: public DetectTransitions
 {
- 
+
 	private:
 		int threshold;
-	 
-	/**
-	 *Cria o mapa de bordas.
-	 */
+		int userThreshold;
+
 	public:
 
 		Cut(); // Construtor
 
 		void createBorderMap(Frame* visualRythim);
-	 
-		void detectTransitions(Video* vdo, std::vector<Transition>* tansitionList);
 
+		void detectTransitions(Video* vdo, std::vector<Transition>* tansitionList);
 
 		int getThreshold();
 
 		int setThreshold(int threshold);
-	/**
-	 *Processo para a definição da 
-	 *limiar de corte para o processo
-	 *de detecção de transições do tipo
-	 *corte.
-	 */
-	int defineThreshold(int height);
-	 
-	int* countPoints(Frame* borderMap, int threshold);
+		/**
+		 *Processo para a definição da 
+		 *limiar de corte para o processo
+		 *de detecção de transições do tipo
+		 *corte.
+		 */
+		int defineThreshold(int height);
 
-	// Valida se aquilo que foi detectado é realmente um corte.
-	int validateCut(Frame* visual, int position);
+		int* countPoints(Frame* borderMap, int threshold);
+
+		// Valida se aquilo que foi detectado é realmente um corte.
+		int validateCut(Frame* visual, int position);
 
 };
 #endif

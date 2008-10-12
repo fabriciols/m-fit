@@ -29,9 +29,6 @@ class mfit: public QMainWindow
 
 		void on_videoTime_timeChanged(const QTime & time);
 
-		//void updateVideoPlayer(QImage *image);
-		//void updateVideoPlayer(QImage *image, QImage *imageHist);
-
 		void updatePlayer(QImage *image);
 		void updateHist(QImage *image);
 
@@ -43,6 +40,7 @@ class mfit: public QMainWindow
 		void on_transitionsTree_itemDoubleClicked(QTreeWidgetItem * item, int column);
 
 		int askDetection();
+		int askCutThreshold(int threshold);
 
 	public:
 		mfit(QMainWindow *parent = 0);
