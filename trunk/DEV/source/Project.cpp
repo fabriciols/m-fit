@@ -91,6 +91,7 @@ int Project::openVideo(QString fileName)
 		Log::writeLog("%s :: cleaning vdo[%x]", __FUNCTION__, this->vdo);
 		delete this->vdo;
 		mfit_ui->clearVideoProperty();
+		mfit_ui->clearTransitionsTree();
 	}
 
 	// Transformando QString em char*

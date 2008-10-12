@@ -17,17 +17,17 @@
 #include "../include/Log.h"
 
 /************************************************************************
-* Função que calcula a derivada no exito y de um dado array
-* retorna um array com esta derivada.
-*************************************************************************
-* param (E): double array -> array a ser derivado no eixo y
-*************************************************************************
-* return : double* -> array com seus valores derivados
-*************************************************************************
-* Histórico:
-* 14/08/08 - Fabrício Lopes de Souza
-* Criação.
-************************************************************************/
+ * Função que calcula a derivada no exito y de um dado array
+ * retorna um array com esta derivada.
+ *************************************************************************
+ * param (E): double array -> array a ser derivado no eixo y
+ *************************************************************************
+ * return : double* -> array com seus valores derivados
+ *************************************************************************
+ * Histórico:
+ * 14/08/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
 double* Fade::calcDerivative(double *array, int size_i)
 {
 	// Para calcular a derivada no eixo y , calculamos para cada ponto fy:
@@ -47,25 +47,25 @@ double* Fade::calcDerivative(double *array, int size_i)
 
 	for ( i = 1 ; i < size_i ; i++ )
 	{
-			array_dy[i] = (( array[i+1] - array[i-1] ) / 2);
-			Log::writeLog("%s :: array_y[%d] = %lf array_dy[%d] = %lf", __FUNCTION__, i, array[i], i, array_dy[i]);
+		array_dy[i] = (( array[i+1] - array[i-1] ) / 2);
+		Log::writeLog("%s :: array_y[%d] = %lf array_dy[%d] = %lf", __FUNCTION__, i, array[i], i, array_dy[i]);
 	}
 
 	return array_dy;
 }
 
 /************************************************************************
-* Função que detecta as transições do tipo FADE (i.e. : fade-in e fade-out)
-*************************************************************************
-* param (E): Video* vdo -> video à detectar as transições
-* param (S): Transition* transitions -> Posicão corrente da lista de transições
-*************************************************************************
-* return : Nenhum
-*************************************************************************
-* Histórico:
-* 14/08/08 - Fabrício Lopes de Souza
-* Criação.
-************************************************************************/
+ * Função que detecta as transições do tipo FADE (i.e. : fade-in e fade-out)
+ *************************************************************************
+ * param (E): Video* vdo -> video à detectar as transições
+ * param (S): Transition* transitions -> Posicão corrente da lista de transições
+ *************************************************************************
+ * return : Nenhum
+ *************************************************************************
+ * Histórico:
+ * 14/08/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 	Fade *fade;
@@ -192,18 +192,21 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 		{
 			signal_changed = 1;
 
+			/*
 			if (i - fade_start < 10 )
 			{
 				//fade_start = 0;
 				Log::writeLog("%s :: signal changed in midle of fade detection, so, not a FADE!", __FUNCTION__);
 				fade_start = 0;
 			}
+			*/
 		}
 
 		if (fabs(array_dy[i]) <= 0.009)
 			last_zero = i;
 
-		Log::writeLog("%s :: vrh[%.4lf] = dy[%d][%.4lf] var[%.4lf] zero[%d] signal[%d] lsignal[%d]", __FUNCTION__, array_vrh[i], i, array_dy[i], var_d, last_zero, signal_changed, last_signal_changed);
+		Log::writeLog("%s :: vrh[%.4lf] = dy[%d][%.4lf] var[%.4lf] zero[%d] signal[%d] lsignal[%d]", __FUNCTION__,
+				array_vrh[i], i, array_dy[i], var_d, last_zero, signal_changed, last_signal_changed);
 
 		if (
 				fade_start == 0 &&
@@ -225,7 +228,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 				 ( i+1 >= len_i && var_d < 2.0 ) ||
 				 signal_changed  //||
 				 //var_d >= 4.0
-				 )
+				)
 				)
 		{
 			fade_end = i - 1;
@@ -281,6 +284,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 				deviation = sqrt(( 1.0 / ( var - 1.0 ) ) * deviation);
 
+				/*
 				if (deviation > 7.0)
 				{
 					Log::writeLog("%s :: deviation more than threshold [%lf] > [%lf]", __FUNCTION__, deviation, 7.0);
@@ -292,6 +296,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 					continue;
 				}
+				*/
 
 				Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
 				Log::writeLog("%s :: avarage %lf deviation %lf" , __FUNCTION__, avarage, deviation);

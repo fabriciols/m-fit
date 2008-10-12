@@ -541,7 +541,14 @@ void Video::removeBorder()
 
 	if (sizeWide > 0)
 	{
+		// Seta no ROI padrao do video as medidas
 		this->ROI.x = minSizeWide;
 		this->ROI.width = cvRound(this->getFramesWidth()-(minSizeWide*2));
+
+		if (this->ROI.y == -1)
+			this->ROI.y = 1;
+
+		if (this->ROI.height == -1)
+			this->ROI.height = this->getFramesHeight();
 	}
 }
