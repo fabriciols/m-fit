@@ -3,6 +3,7 @@
 #include "highgui.h"
 
 #include "QWidget.h"
+#include "QDialog.h"
 #include <QImage>
 #include <QPainter>
 #include <QtGui>
@@ -55,6 +56,7 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 	// Atualiza a imagem do histograma assim que receber um sinal da thread
 	connect(vdo_player, SIGNAL(setHistogram(QImage *)),
 			this, SLOT(updateHist(QImage *)));
+
 }
 
 /************************************************************************
@@ -838,8 +840,8 @@ int mfit::askDetection()
 	reply = QMessageBox::question(
 					this,
 					tr("MFIT"),
-					tr("<p><b>Detectar todas as transições agora?</b>" \
-						"<p>Este processo pode levar alguns minutos."),
+					tr("<p><b>Detect all transitions now?</b>" \
+						"<p>This action can take several minutes."),
 					QMessageBox::Yes | QMessageBox::No
 			  );
 
@@ -851,43 +853,3 @@ int mfit::askDetection()
 
 }
 
-void mfit::askCutThreshold(int threshold)
-{
-	int userThreshold = 0;
-	int reply = 0;
-	bool ok = FALSE;
-	Video* vdo = currentProject->getVideo();
-	Frame* frame = vdo->getNextFrame();
-
-	QMessageBox cutDialog;
-
-	cutDialog.setText("<p><b>Deseja alterar o valor do limiar\npara a detecção de cortes?</b>");
-	cutDialog.setDetailedText("<p>Você pode alterar o valor do limiar para realizar\n" \
-						"a detecção de cortes. Este limiar é responsável por filtrar\n" \
-						"aquilo que será considerado um corte ou não após aplicar o filtro\n" \
-						"de Canny sobre o Ritmo Visual");
-	cutDialog.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-	cutDialog.setDefaultButton(QMessageBox::No);
-
-	reply = cutDialog.exec();
-
-	// Se clickei em detectNow, chamo a detecção de transições
-	if (reply == QMessageBox::Yes)
-	{
-		userThreshold = QInputDialog::getInteger(this,tr("MFIT"),tr("New Threshold"),threshold, 0, frame->getHeight(), 1, &ok);
-		
-		delete frame;
-		delete vdo;
-	
-		if (ok)
-			return (userThreshold);
-		else
-			return (0);
-	}
-	else
-	{
-		delete frame;
-		delete vdo;
-		return (0);
-	}
-}
