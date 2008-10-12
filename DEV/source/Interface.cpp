@@ -133,7 +133,7 @@ void mfit::on_actionOpenProject_triggered()
 	// Quarto   parametro - Mensagem q ira aparecer la embaixo, e as extensões suportadas
 
 	QString fileName = QFileDialog::getOpenFileName(this,
-			"Open Video",
+			"Open Project",
 			".",
 			"MFIT Project File (*.mfit)");
 
@@ -511,7 +511,8 @@ void mfit::setTimeline(Frame *frameTimeline)
 	QImage *image;
 
 	// Converte a imagem
-		image = frameTimeline->IplImageToQImage(&vdo_player->timelineData, &vdo_player->timelineWidth, &vdo_player->timelineHeight);
+	//image = frameTimeline->IplImageToQImage(&vdo_player->timelineData, &vdo_player->timelineWidth, &vdo_player->timelineHeight);
+	image = frameTimeline->IplImageToQImage();
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
@@ -537,11 +538,11 @@ void mfit::setTimeline(Frame *frameTimeline)
 void mfit::updateTimeline()
 {
 	Video *vdo = 0x0;
-	double pos = 0x0;
+	long pos = 0x0;
 	int line_point = 0x0;
 
 	vdo = currentProject->getVideo();
-	pos = vdo->getCurrentPosition();
+	pos = (long)vdo->getCurrentPosition();
 
 	// A formula para saber em que ponto plotar o indicador é:
 	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
@@ -576,11 +577,23 @@ void mfit::on_actionAllTransitions_triggered()
 {
 
 	Video* vdo = 0x0;
-	DetectTransitions* DT = new DetectTransitions();
+	long posFrame = 0x0;
+	DetectTransitions* DT;
 
 	vdo = currentProject->getVideo();
 
+	if (vdo == 0x0)
+		return;
+
+	DT = new DetectTransitions();
+
+	posFrame = (long)vdo->getCurrentPosition();
+
+	vdo->seekFrame(0);
+
 	DT->detectTransitions(vdo, &currentProject->transitionList);
+
+	vdo->seekFrame(posFrame);
 
 	delete DT;
 
@@ -603,11 +616,23 @@ void mfit::on_actionOnlyCuts_triggered()
 {
 
 	Video* vdo = 0x0;
-	Cut* DTC = new Cut();
+	long posFrame = 0x0;
+	Cut* DTC = 0x0;
 
 	vdo = currentProject->getVideo();
 
+	if (vdo == 0x0)
+		return;
+
+	DTC = new Cut();
+
+	posFrame = (long)vdo->getCurrentPosition();
+
+	vdo->seekFrame(0);
+
 	DTC->detectTransitions(vdo, &currentProject->transitionList);
+
+	vdo->seekFrame(posFrame);
 
 	delete DTC;
 
@@ -630,11 +655,23 @@ void mfit::on_actionAllFades_triggered()
 {
 
 	Video* vdo = 0x0;
-	Fade* DTF = new Fade();
+	long posFrame = 0x0;
+	Fade* DTF = 0x0;
 
 	vdo = currentProject->getVideo();
 
+	if (vdo == 0x0)
+		return;
+
+	DTF = new Fade();
+
+	posFrame = (long)vdo->getCurrentPosition();
+
+	vdo->seekFrame(0);
+
 	DTF->detectTransitions(vdo, &currentProject->transitionList);
+
+	vdo->seekFrame(posFrame);
 
 	delete DTF;
 
@@ -657,11 +694,23 @@ void mfit::on_actionOnlyDissolve_triggered()
 {
 
 	Video* vdo = 0x0;
-	Dissolve* DTD = new Dissolve();
+	long posFrame = 0x0;
+	Dissolve* DTD = 0x0;
 
 	vdo = currentProject->getVideo();
 
+	if (vdo == 0x0)
+		return;
+
+	DTD = new Dissolve();
+
+	posFrame = (long)vdo->getCurrentPosition();
+
+	vdo->seekFrame(0);
+
 	DTD->detectTransitions(vdo, &currentProject->transitionList);
+
+	vdo->seekFrame(posFrame);
 
 	delete DTD;
 
@@ -695,7 +744,7 @@ void mfit::insertTransitionsTree(Transition* transition)
 
 	char posTransition_cy[10];
 	char posUserTransition_cy[10];
-	
+
 	// Adiciona as colunas
 	switch(type_i)
 	{
@@ -714,7 +763,7 @@ void mfit::insertTransitionsTree(Transition* transition)
 		default:
 			break;
 	}
-	
+
 	sprintf(posTransition_cy, "%ld", posTransition_l);
 	sprintf(posUserTransition_cy, "%ld", posUserTransition_l);
 
@@ -747,11 +796,11 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 
 	// Pega o ponto da transicao
 	posTransition_l = transition->getPosTransition();
-	
+
 	// A formula para saber em que ponto plotar o indicador é:
 	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
 	// pos (ponto timeline) ---- pos (ponto no video)
-	
+
 	posTimeline_l = (SIZE_FRAME_TIMELINE*cvRound(posTransition_l)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
 
 	CvPoint p1 = {posTimeline_l,0}; // Ponto inicial
@@ -835,15 +884,15 @@ void mfit::on_transitionsTree_itemDoubleClicked( QTreeWidgetItem * item, int col
 int mfit::askDetection()
 {
 	int reply = 0; // Resposta do usuário
-	
+
 	// Crio uma box com o ícone "?"
 	reply = QMessageBox::question(
-					this,
-					tr("MFIT"),
-					tr("<p><b>Detect all transitions now?</b>" \
-						"<p>This action can take several minutes."),
-					QMessageBox::Yes | QMessageBox::No
-			  );
+			this,
+			tr("MFIT"),
+			tr("<p><b>Detect all transitions now?</b>" \
+				"<p>This action can take several minutes."),
+			QMessageBox::Yes | QMessageBox::No
+			);
 
 	// Se clickei em detectNow, chamo a detecção de transições
 	if (reply == QMessageBox::Yes)

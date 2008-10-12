@@ -47,6 +47,8 @@ class mfit: public QMainWindow
 	public:
 		mfit(QMainWindow *parent = 0);
 
+		void askCutThreshold(int threshold);
+
 		void changeWindowTitle(char *string);
 		void insertVideoProperty(char *param_cy, char *value_cy);
 		void clearVideoProperty();
