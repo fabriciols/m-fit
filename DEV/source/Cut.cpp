@@ -67,12 +67,8 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	Time* time = new Time();
 
-	/**
-	 *  Este objeto não poderá ser deletado no final da função, senão
-	 *  irei deletar a última e a penúltima posição da lista.
-	**/
-//	Transition* oldTransition = new Transition(); 
-	
+	Log::writeLog("%s :: iniciando detecção de cortes\n");
+
 	char* label; 
 	int threshold = 0;
 	int thresholdBin = 0;
@@ -94,9 +90,9 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	// Crio uma cópia do frame original para realizar a validação dos cortes detectados posteriormente.
 	Frame* visual = new Frame(visualRythim);
 
-	Log::writeLog("%s :: new height = %d", __FUNCTION__, visualRythim->getHeight());
+//	Log::writeLog("%s :: new height = %d", __FUNCTION__, visualRythim->getHeight());
 
-	Log::writeLog("%s :: media luminancia = %lf", __FUNCTION__, visualRythim->mediaBin());
+//	Log::writeLog("%s :: media luminancia = %lf", __FUNCTION__, visualRythim->mediaBin());
 
 	cvSaveImage("rv.jpg",visualRythim->data);
 
@@ -108,14 +104,14 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	// Pergunto ao usuario se deseja alterar a limiar para detecção.
 	threshold = this->defineThreshold(visualRythim->getHeight());
 
-	Log::writeLog("%s :: threshold[%d]", __FUNCTION__, threshold);	
+//	Log::writeLog("%s :: threshold[%d]", __FUNCTION__, threshold);	
 
 	// Defino o limiar para binarização da imagem.
 	thresholdBin = (visualRythim->getMaxLum())/4;
 	
-	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
+//	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
  
-	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
+//	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
 	// Binarizo a imagem (transformo tudo em preto e branco)
 	visualRythim->binarizeImage(thresholdBin);
 
@@ -132,8 +128,6 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 				time->pos2time(i,fps); // Converto de posição física para tempo
 
 				sprintf(label, "Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
-
-				Log::writeLog("%s :: Cut in: %d", __FUNCTION__, i);
 
 				Transition* newTransition = new Transition(TRANSITION_CUT,i,label);
 
@@ -167,7 +161,7 @@ void Cut::createBorderMap(Frame* visualRythim)
 {
 	Filters* canny = new Filters();
 
-	Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
+	//Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
 
 	// Crio o mapa de bordas do RV com o operador Sobel.
 
@@ -205,7 +199,7 @@ int Cut::defineThreshold(int height)
 	
 	setThreshold(threshold > 0 ? userThreshold : (int)sysThreshold);
 	
-	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
+	//Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
 	
 	return (getThreshold());
 
@@ -239,17 +233,12 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 	int* transitions;
 	int luminance = 0;	
 	
-	int contador78 = 0;
-	int contador70 = 0;
-	int contador65 = 0;
-	int contador60 = 0;
-
 	transitions = (int*)malloc(sizeof(int)*width);
 	memset(transitions,'\0',width);
 	
-	Log::writeLog("%s :: threshold[%d] ", __FUNCTION__, threshold);
-	Log::writeLog("%s :: width[%d] ", __FUNCTION__, width);
-	Log::writeLog("%s :: height[%d] ", __FUNCTION__, height);
+	//Log::writeLog("%s :: threshold[%d] ", __FUNCTION__, threshold);
+//	Log::writeLog("%s :: width[%d] ", __FUNCTION__, width);
+//	Log::writeLog("%s :: height[%d] ", __FUNCTION__, height);
 	
 	/**
 	 *	Varro toda a imagem coluna por coluna, pixel a pixel, verificando se
@@ -268,35 +257,12 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 				points++;	
 			}
 		}
-		Log::writeLog("%s :: tamanho da reta_%d[%d] ", __FUNCTION__, column, points);
 		// Se o nro de pontos da reta for > que o limiar, então é corte.
 		transitions[column] = points >= threshold ? 1 : 0;
-
-		// Verificar. Se o tamanho da linha formada for + q 50% do tamanho do limiar,
-		// varrer a próxima ou a anterior. Somar o número de pontos das duas e ver se fica
-		// maior que o limiar. Tomar o cuidado de ao fazer isso com 1, não deverá ser contado o próximo
-		// novamente. Isso provavelmente não vai dar certo!
-
-		if( points >= 78 )
-			contador78++;
-
-		if( points >= 70 )
-			contador70++;
-
-		if( points >= 65 )
-			contador65++;
-
-		if( points >= 60 )
-			contador60++;
 
 		points = 0;
 	}
 	
-	Log::writeLog("%s :: frames acima de 78 = %d", __FUNCTION__, contador78);
-	Log::writeLog("%s :: frames acima de 70 = %d", __FUNCTION__, contador70);
-	Log::writeLog("%s :: frames acima de 65 = %d", __FUNCTION__, contador65);
-	Log::writeLog("%s :: frames acima de 60 = %d", __FUNCTION__, contador60);
-
 	return (transitions);	
 }
 
@@ -367,14 +333,13 @@ int Cut::validateCut(Frame* visual, int position)
 
 	long difference = 0;
 
-	Log::writeLog("%s :: position[%d]", __FUNCTION__, position);	
+//	Log::writeLog("%s :: position[%d]", __FUNCTION__, position);	
 	
 	// Verifico os próximos 2 frames
 	for(int x=position+1; x<=position+2 && x<width; x++)
 	{
 		for(int y=0; y<height; y++)
 		{
-//			Log::writeLog("%s :: next[%d]->luminance[%d]", __FUNCTION__, x, visualRythim->getPixel(x,y));	
 			totalNextLum = totalNextLum + visualRythim->getPixel(x,y);
 		}
 	}
@@ -383,24 +348,23 @@ int Cut::validateCut(Frame* visual, int position)
 
 	nextAvarage = totalNextLum/totalPixels;
 
-	Log::writeLog("%s :: totalNextLum = %ld, nextAvarage = %ld", __FUNCTION__, totalNextLum, nextAvarage);	
+//	Log::writeLog("%s :: totalNextLum = %ld, nextAvarage = %ld", __FUNCTION__, totalNextLum, nextAvarage);	
 	
-		for(int x=position-1; x>=position-2 && x>0; x--)
+	for(int x=position-1; x>=position-2 && x>0; x--)
 	{
 		for(int y=0; y<height; y++)
 		{
-//			Log::writeLog("%s :: previous[%d]->luminance[%d]", __FUNCTION__, x, visualRythim->getPixel(x,y));	
 			totalPreviousLum = totalPreviousLum + visualRythim->getPixel(x,y);
 		}
 	}
 
 	previousAvarage = totalPreviousLum/totalPixels;
 
-	Log::writeLog("%s :: totalPreviousLum = %ld, previousAvarage = %ld", __FUNCTION__, totalPreviousLum, previousAvarage);	
+//	Log::writeLog("%s :: totalPreviousLum = %ld, previousAvarage = %ld", __FUNCTION__, totalPreviousLum, previousAvarage);	
 
 	difference = nextAvarage - previousAvarage;
 
-	Log::writeLog("%s :: difference = %ld", __FUNCTION__, difference);	
+//	Log::writeLog("%s :: difference = %ld", __FUNCTION__, difference);	
 
 	/**
 	*  Como posso ter a transição de uma cena mais clara para uma mais escura
