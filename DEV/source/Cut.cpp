@@ -1,8 +1,11 @@
+#include "../ui_mfit.h"
 #include <stdio.h>
 #include <vector>
 #include <QImage>
 #include "cv.h"
 #include "highgui.h"
+
+#include "../include/Interface.h"
 
 #include "../include/Time.h"
 #include "../include/Histogram.h"
@@ -67,12 +70,6 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	Time* time = new Time();
 
-	/**
-	 *  Este objeto não poderá ser deletado no final da função, senão
-	 *  irei deletar a última e a penúltima posição da lista.
-	**/
-//	Transition* oldTransition = new Transition(); 
-	
 	char* label; 
 	int threshold = 0;
 	int thresholdBin = 0;
@@ -194,20 +191,19 @@ void Cut::createBorderMap(Frame* visualRythim)
 
 int Cut::defineThreshold(int height)
 {
+	Interface* interface;
 	int userThreshold = 0;
 	double sysThreshold;
 
-	// Would you like to set a new threshold? precisaremos do QT pra fazer isso
-	// mas podemos fazer o msm esquema q a gnt faz com coletaED. só preciso
-	// ver como faz q eu nao sei. waitKey?
-	
 	sysThreshold = height * 0.45;
 	
-	setThreshold(threshold > 0 ? userThreshold : (int)sysThreshold);
+	userThreshold = interface->askCutDetection((int)sysThreshold);
+
+	threshold = userThreshold > 0 ? userThreshold : (int)sysThreshold;
 	
 	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
 	
-	return (getThreshold());
+	return (threshold);
 
 }
 
@@ -238,11 +234,6 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 
 	int* transitions;
 	int luminance = 0;	
-	
-	int contador78 = 0;
-	int contador70 = 0;
-	int contador65 = 0;
-	int contador60 = 0;
 
 	transitions = (int*)malloc(sizeof(int)*width);
 	memset(transitions,'\0',width);
@@ -272,30 +263,8 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 		// Se o nro de pontos da reta for > que o limiar, então é corte.
 		transitions[column] = points >= threshold ? 1 : 0;
 
-		// Verificar. Se o tamanho da linha formada for + q 50% do tamanho do limiar,
-		// varrer a próxima ou a anterior. Somar o número de pontos das duas e ver se fica
-		// maior que o limiar. Tomar o cuidado de ao fazer isso com 1, não deverá ser contado o próximo
-		// novamente. Isso provavelmente não vai dar certo!
-
-		if( points >= 78 )
-			contador78++;
-
-		if( points >= 70 )
-			contador70++;
-
-		if( points >= 65 )
-			contador65++;
-
-		if( points >= 60 )
-			contador60++;
-
 		points = 0;
 	}
-	
-	Log::writeLog("%s :: frames acima de 78 = %d", __FUNCTION__, contador78);
-	Log::writeLog("%s :: frames acima de 70 = %d", __FUNCTION__, contador70);
-	Log::writeLog("%s :: frames acima de 65 = %d", __FUNCTION__, contador65);
-	Log::writeLog("%s :: frames acima de 60 = %d", __FUNCTION__, contador60);
 
 	return (transitions);	
 }
