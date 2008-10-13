@@ -512,8 +512,8 @@ void mfit::setTimeline(Frame *frameTimeline)
 	QImage *image;
 
 	// Converte a imagem
-	//image = frameTimeline->IplImageToQImage(&vdo_player->timelineData, &vdo_player->timelineWidth, &vdo_player->timelineHeight);
-	image = frameTimeline->IplImageToQImage();
+	image = frameTimeline->IplImageToQImage(&vdo_player->timelineData, &vdo_player->timelineWidth, &vdo_player->timelineHeight);
+	//image = frameTimeline->IplImageToQImage();
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
