@@ -52,6 +52,19 @@ border: 1px solid gray
        <enum>QFrame::StyledPanel</enum>
       </property>
       <layout class="QGridLayout" >
+       <item row="1" column="5" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>236</width>
+           <height>29</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="0" column="0" colspan="7" >
         <widget class="QLabel" name="videoLabel" >
          <property name="text" >
@@ -59,15 +72,11 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="7" >
-        <widget class="QSlider" name="videoSlider" >
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" >
+       <item row="1" column="0" >
         <widget class="QToolButton" name="playButton" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
          <property name="text" >
           <string>...</string>
          </property>
@@ -92,8 +101,11 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
-       <item row="2" column="1" >
+       <item row="1" column="1" >
         <widget class="QToolButton" name="pauseButton" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
          <property name="text" >
           <string>...</string>
          </property>
@@ -112,8 +124,11 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
-       <item row="2" column="3" >
+       <item row="1" column="3" >
         <widget class="QToolButton" name="forwardButton" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
          <property name="text" >
           <string>...</string>
          </property>
@@ -127,13 +142,19 @@ border: 1px solid gray
            <height>20</height>
           </size>
          </property>
+         <property name="checkable" >
+          <bool>false</bool>
+         </property>
          <property name="autoRaise" >
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="4" >
+       <item row="1" column="4" >
         <widget class="QToolButton" name="stopButton" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
          <property name="text" >
           <string>...</string>
          </property>
@@ -152,20 +173,7 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
-       <item row="2" column="5" >
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>236</width>
-           <height>29</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="6" >
+       <item row="1" column="6" >
         <widget class="QTimeEdit" name="videoTime" >
          <property name="minimumSize" >
           <size>
@@ -200,8 +208,11 @@ border: 1px solid gray
          </property>
         </widget>
        </item>
-       <item row="2" column="2" >
+       <item row="1" column="2" >
         <widget class="QToolButton" name="backButton" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
          <property name="text" >
           <string>...</string>
          </property>
@@ -221,14 +232,6 @@ border: 1px solid gray
         </widget>
        </item>
       </layout>
-      <zorder>videoLabel</zorder>
-      <zorder>videoSlider</zorder>
-      <zorder>playButton</zorder>
-      <zorder>pauseButton</zorder>
-      <zorder>forwardButton</zorder>
-      <zorder>stopButton</zorder>
-      <zorder>videoTime</zorder>
-      <zorder>backButton</zorder>
      </widget>
     </item>
    </layout>
@@ -256,28 +259,13 @@ border: 1px solid gray
     <addaction name="separator" />
     <addaction name="actionExit" />
    </widget>
-   <widget class="QMenu" name="menuEdit" >
-    <property name="title" >
-     <string>Edit</string>
-    </property>
-    <addaction name="actionUndo" />
-    <addaction name="actionRedo" />
-   </widget>
    <widget class="QMenu" name="menuDetect" >
     <property name="title" >
      <string>Detect</string>
     </property>
-    <widget class="QMenu" name="menuOnly_Fades" >
-     <property name="title" >
-      <string>Only Fades</string>
-     </property>
-     <addaction name="actionOnlyFadeIn" />
-     <addaction name="actionOnlyFadeOut" />
-     <addaction name="actionAllFades" />
-    </widget>
     <addaction name="actionAllTransitions" />
     <addaction name="actionOnlyCuts" />
-    <addaction name="menuOnly_Fades" />
+    <addaction name="actionAllFades" />
     <addaction name="actionOnlyDissolve" />
    </widget>
    <widget class="QMenu" name="menuTools" >
@@ -296,7 +284,6 @@ border: 1px solid gray
     </property>
    </widget>
    <addaction name="menuFile" />
-   <addaction name="menuEdit" />
    <addaction name="menuDetect" />
    <addaction name="menuTools" />
    <addaction name="menuHelp" />
@@ -315,9 +302,6 @@ border: 1px solid gray
    <addaction name="actionOpenProject" />
    <addaction name="actionSave" />
    <addaction name="actionLoadVideo" />
-   <addaction name="separator" />
-   <addaction name="actionUndo" />
-   <addaction name="actionRedo" />
   </widget>
   <widget class="QDockWidget" name="widgetTrees" >
    <property name="windowTitle" >
@@ -514,13 +498,9 @@ border: 1px solid gray
              </widget>
             </item>
            </layout>
-           <zorder>timelineLabel</zorder>
-           <zorder>timelineLabel</zorder>
           </widget>
          </item>
         </layout>
-        <zorder>widgetTimeline</zorder>
-        <zorder>widgetTimeline</zorder>
        </widget>
       </widget>
      </item>
@@ -540,7 +520,7 @@ border: 1px solid gray
       <widget class="QTreeWidget" name="videoPropertiesTree" >
        <column>
         <property name="text" >
-         <string>Param</string>
+         <string>Property</string>
         </property>
        </column>
        <column>
@@ -630,6 +610,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionSaveAs" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>Save As...</string>
    </property>
@@ -638,6 +621,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionSave" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/filesave.png</normaloff>../Interface/Icons/filesave.png</iconset>
@@ -688,6 +674,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionAllTransitions" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/all.png</normaloff>../Interface/Icons/all.png</iconset>
@@ -697,6 +686,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionOnlyCuts" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/cut.png</normaloff>../Interface/Icons/cut.png</iconset>
@@ -706,6 +698,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionOnlyDissolve" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/dissolve.png</normaloff>../Interface/Icons/dissolve.png</iconset>
@@ -748,15 +743,21 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionAllFades" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/fades.png</normaloff>../Interface/Icons/fades.png</iconset>
    </property>
    <property name="text" >
-    <string>All Fades</string>
+    <string>Only Fades</string>
    </property>
   </action>
   <action name="actionPlay" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/play.png</normaloff>../Interface/Icons/play.png</iconset>
@@ -766,6 +767,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionPause" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/pause.png</normaloff>../Interface/Icons/pause.png</iconset>
@@ -775,6 +779,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionStop" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/stop.png</normaloff>../Interface/Icons/stop.png</iconset>
@@ -784,6 +791,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionBackward" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/back.png</normaloff>../Interface/Icons/back.png</iconset>
@@ -793,6 +803,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionForward" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/forward.png</normaloff>../Interface/Icons/forward.png</iconset>
