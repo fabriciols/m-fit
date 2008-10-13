@@ -65,11 +65,25 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 * param (E): Nenhum
 ************************************************************************
 * Histórico
+* 13/10/08 - Thiago Mizutani
+* Verifica se há vídeo, se não houver mostra alerta
 * 29/09/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
 void mfit::on_playButton_clicked()
 {
+	// Somente para controle se há ou não vídeo carregado. depois deleta o obj
+	Video* vdo = currentProject->getVideo();
+
+	if (!vdo)
+	{
+		alertUser();
+		delete vdo;
+		return;
+	}
+
+	delete vdo;
+
 	if (!vdo_player->isRunning())
 		vdo_player->start();
 
@@ -82,11 +96,25 @@ void mfit::on_playButton_clicked()
 * param (E): Nenhum
 ************************************************************************
 * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Verifica se há vídeo, se não houver mostra alerta
 * 29/09/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
 void mfit::on_pauseButton_clicked()
 {
+	// Somente para controle se há ou não vídeo carregado. depois deleta o obj
+	Video* vdo = currentProject->getVideo();
+
+	if (!vdo)
+	{
+		alertUser();
+		delete vdo;
+		return;
+	}
+
+	delete vdo;
+
 	if (vdo_player->isRunning())
 		vdo_player->terminate();
 }
@@ -98,6 +126,8 @@ void mfit::on_pauseButton_clicked()
 * param (E): Nenhum
 ************************************************************************
 * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Verifica se há vídeo, se não houver mostra alerta
 * 29/09/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
@@ -109,10 +139,19 @@ void mfit::on_stopButton_clicked()
 	// seek no frame 0
 	vdo = currentProject->getVideo();
 
+	if (!vdo)
+	{
+		alertUser();
+		delete vdo;
+		return;
+	}
+
 	vdo->seekFrame(0);
 
 	if (vdo_player->isRunning())
 		vdo_player->terminate();
+	
+	delete vdo;
 
 }
 
@@ -174,6 +213,8 @@ void mfit::on_actionLoadVideo_triggered()
 	if (!fileName.isEmpty())
 	{
 		currentProject->openVideo(fileName);
+
+		enableControls();
 
 		if (askDetection()) // Gero a box perguntando se deseja detectar as transições
 		{  
@@ -570,6 +611,8 @@ void mfit::updateTimeline()
  * return : não há
  *************************************************************************
  * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Verifica se há vídeo, se não houver mostra alerta
  * 06/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
@@ -584,7 +627,10 @@ void mfit::on_actionAllTransitions_triggered()
 	vdo = currentProject->getVideo();
 
 	if (vdo == 0x0)
+	{
+		alertUser();
 		return;
+	}
 
 	DT = new DetectTransitions();
 
@@ -609,6 +655,8 @@ void mfit::on_actionAllTransitions_triggered()
  * return : não há
  *************************************************************************
  * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Verifica se há vídeo, se não houver mostra alerta
  * 06/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
@@ -623,7 +671,10 @@ void mfit::on_actionOnlyCuts_triggered()
 	vdo = currentProject->getVideo();
 
 	if (vdo == 0x0)
+	{
+		alertUser();
 		return;
+	}
 
 	DTC = new Cut();
 
@@ -648,6 +699,8 @@ void mfit::on_actionOnlyCuts_triggered()
  * return : não há
  *************************************************************************
  * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Verifica se há vídeo, se não houver mostra alerta
  * 06/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
@@ -662,7 +715,10 @@ void mfit::on_actionAllFades_triggered()
 	vdo = currentProject->getVideo();
 
 	if (vdo == 0x0)
+	{
+		alertUser();
 		return;
+	}
 
 	DTF = new Fade();
 
@@ -687,6 +743,8 @@ void mfit::on_actionAllFades_triggered()
  * return : não há
  *************************************************************************
  * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Verifica se há vídeo, se não houver mostra alerta
  * 06/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
@@ -701,7 +759,10 @@ void mfit::on_actionOnlyDissolve_triggered()
 	vdo = currentProject->getVideo();
 
 	if (vdo == 0x0)
+	{
+		alertUser();
 		return;
+	}
 
 	DTD = new Dissolve();
 
@@ -890,9 +951,10 @@ int mfit::askDetection()
 	reply = QMessageBox::question(
 			this,
 			tr("MFIT"),
-			tr("<p><b>Detect all transitions now?</b>" \
-				"<p>This action can take several minutes."),
-			QMessageBox::Yes | QMessageBox::No
+			tr("<p><b>Detectar todas as transições agora?</b>" \
+				"<p>Este processo poderá levar alguns minutos."),
+			QMessageBox::Yes | QMessageBox::No,
+			QMessageBox::No
 			);
 
 	// Se clickei em detectNow, chamo a detecção de transições
@@ -903,3 +965,68 @@ int mfit::askDetection()
 
 }
 
+/**************************************************************************
+ * Função que mostra uma mensagem de alerta caso o usuáio tente fazer 
+ * qualquer operação que exija vídeo e o vídeo não estiver carregado.
+ **************************************************************************
+ * param (E): Nenhum
+ **************************************************************************
+ * return : Não há
+ **************************************************************************
+ * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+void mfit::alertUser()
+{
+	QMessageBox::critical(
+			this,
+			tr("MFIT - ERROR"),
+			tr("<p><b>Não é possível fazer a detecção de transições!</b>" \
+				"<p>Carregue um vídeo antes de executar esta operação!"),
+			QMessageBox::Ok
+			);
+}
+
+/**************************************************************************
+ * Habilita todos os botões de controle quando carregar o vídeo.
+ **************************************************************************
+ * param (E): Nenhum
+ **************************************************************************
+ * return : Não há
+ **************************************************************************
+ * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+void mfit::enableControls()
+{
+	// Controles gerais
+	this->ui.actionSave->setEnabled(true);
+	this->ui.actionSaveAs->setEnabled(true);
+	
+	// Controles do player (action = menu e toolbar, button = botões do player)
+	this->ui.actionPlay->setEnabled(true);
+	this->ui.playButton->setEnabled(true);
+	
+	this->ui.actionPause->setEnabled(true);
+	this->ui.pauseButton->setEnabled(true);
+	
+	this->ui.actionBackward->setEnabled(true);
+	this->ui.backButton->setEnabled(true);
+	
+	this->ui.actionForward->setEnabled(true);
+	this->ui.forwardButton->setEnabled(true);
+	
+	this->ui.actionStop->setEnabled(true);
+	this->ui.stopButton->setEnabled(true);
+
+	// Controles de detecção
+	this->ui.actionAllTransitions->setEnabled(true);
+	this->ui.actionOnlyCuts->setEnabled(true);
+	this->ui.actionAllFades->setEnabled(true);
+	this->ui.actionOnlyDissolve->setEnabled(true);
+
+}
