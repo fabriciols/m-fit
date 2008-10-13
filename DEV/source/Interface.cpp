@@ -140,6 +140,7 @@ void mfit::on_actionOpenProject_triggered()
 	if (!fileName.isEmpty())
 	{
 		currentProject->openProject(fileName);
+		updateTransitions();
 	}
 	else
 	{

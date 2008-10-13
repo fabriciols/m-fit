@@ -30,7 +30,7 @@ class Xml
 
 		int openXml(char *);
 		int saveXml();
-		int readXml(char *);
+		int readXml(char *, char *, char *, char *, char *, int *, int);
 		int writeTag(char *, char *);
 		int closeXml();
 };

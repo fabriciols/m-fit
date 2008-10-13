@@ -27,22 +27,38 @@
 int Project::openProject(QString fileName)
 {
 	char *filename_cy;
+	char content[100], attr1[50], attr2[50], attr3[50];
+	int sizeTag=0;
+	int ret,i;
+//	char txt[100];
 	Xml *fileXml = new Xml();
 	// Abre um projeto ja existente
 
 	QByteArray ba = fileName.toLatin1();
 	filename_cy = ba.data(); 
 
-	// Troca o titulo da janela
-	mfit_ui->changeWindowTitle(this->filename_cy);
+	ret = fileXml->openXml(filename_cy);
 
-	fileXml->openXml(filename_cy);
-	
-	fileXml->readXml(filename_cy);
+	if(!ret)
+	{
+		fileXml->readXml("name", content, attr1, attr2, attr3, &sizeTag, 0);
 
-//	fileXml->closeXml();
+		mfit_ui->changeWindowTitle(content);
+
+		fileXml->readXml("video", content, attr1, attr2, attr3, &sizeTag, 0);
+
+		openVideo(content);
+
+		for(i=0;i<sizeTag;i++)
+		{
+			fileXml->readXml("transition", content, attr1, attr2, attr3, &sizeTag, i);
+			Transition *transition = new Transition(atoi(attr1), atol(attr2), content);
+			this->transitionList.push_back(*transition);
+		}
+	}
+
+	fileXml->closeXml();
 	
-	delete fileXml;
 	return true;
 }
 
