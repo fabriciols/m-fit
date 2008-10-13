@@ -974,9 +974,9 @@ QImage* Frame::IplImageToQImage( double mini, double maxi)
 						iplImagePtr -= 3; 
 
 						// We cannot help but copy manually. 
-						QImagePtr[0] = iplImagePtr[0]; 
-						QImagePtr[1] = iplImagePtr[1]; 
-						QImagePtr[2] = iplImagePtr[2]; 
+						QImagePtr[0] = iplImagePtr[2]; // R - B
+						QImagePtr[1] = iplImagePtr[1]; // G - G
+						QImagePtr[2] = iplImagePtr[0]; // B - R
 						QImagePtr[3] = 0; 
 
 						QImagePtr += 4; 
