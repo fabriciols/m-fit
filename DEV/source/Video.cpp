@@ -549,6 +549,6 @@ void Video::removeBorder()
 			this->ROI.y = 1;
 
 		if (this->ROI.height == -1)
-			this->ROI.height = this->getFramesHeight();
+			this->ROI.height = cvRound(this->getFramesHeight());
 	}
 }
