@@ -14,7 +14,7 @@ class Dissolve: public DetectTransitions
 		Dissolve();
 		Dissolve(Video *vdo);
 		
-		void detectTransitions(Video* vdo, std::vector<Transition>* transitionList);
+		void detectTransitions(Video* vdo, std::vector<Transition>*);
 
 		bool checkLuminance();
 	 

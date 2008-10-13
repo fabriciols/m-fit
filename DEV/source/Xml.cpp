@@ -81,10 +81,17 @@ int Xml::saveXml()
 int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, int *sizeNodes, int itemNumber)
 {
 	QDomNodeList nodeList;
-	QByteArray txt;
+	char txt[255];
 	nodeList = this->doc.elementsByTagName(tag);
+	int subNodesSize=0, i=0;
+	QString item;
 
 	*sizeNodes = nodeList.length();
+
+	memset(text,0,sizeof(attr1));
+	memset(attr1,0,sizeof(attr1));
+	memset(attr2,0,sizeof(attr1));
+	memset(attr3,0,sizeof(attr1));
 
 	if(*sizeNodes > 0)
 	{
@@ -92,9 +99,23 @@ int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, i
 
 		if(!strcmp(tag, "transition"))
 		{
-			strcpy(attr1, nodeList.item(itemNumber).toElement().attribute("type",NULL));
-			strcpy(attr2, nodeList.item(itemNumber).toElement().attribute("posTransition",NULL));
-			strcpy(attr3, nodeList.item(itemNumber).toElement().attribute("posUserTransition",NULL));
+			if(nodeList.item(itemNumber).hasChildNodes())
+			{
+				nodeList = nodeList.item(itemNumber).childNodes();
+				subNodesSize = nodeList.length();
+
+				for(i=0;i<subNodesSize;i++)
+				{
+					if(!strcmp("type",nodeList.item(i).nodeName()))
+						strcpy(attr1, nodeList.item(i).toElement().text());
+					else if(!strcmp("posTransition",nodeList.item(i).nodeName()))
+						strcpy(attr2, nodeList.item(i).toElement().text());
+					else if(!strcmp("posUserTransition",nodeList.item(i).nodeName()))
+						strcpy(attr3, nodeList.item(i).toElement().text());
+					else if(!strcmp("label",nodeList.item(i).nodeName()))
+						strcpy(text, nodeList.item(i).toElement().text());
+				}
+			}
 		}
 		return(0);
 	}
@@ -116,11 +137,24 @@ int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, i
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::writeTag(char *name, char *data)
+int Xml::createXml(char *projectName, char *videoPath, std::vector<Transition> *transitionListXml)
 {
+	int i;
+
+	Transition *transition = new Transition();
+
 	QDomText t = this->doc.createTextNode("Hello World");
 
-	return(0);
+//	transition = &transitionListXml.at(i);
+
+//	for (i=0;i<transitionListXml.size();i++)
+//	{
+//		type_i = transition->getType();
+//		posTransition_l = transition->getPosTransition();
+//		posUserTransition_l = transition->getPosUserTransition();
+//	}
+
+		return(0);
 }
 
 /************************************************************************

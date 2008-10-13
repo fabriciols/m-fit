@@ -245,7 +245,10 @@ void mfit::on_actionLoadVideo_triggered()
  ************************************************************************/
 void mfit::on_actionSaveAs_triggered()
 {
-	QString fileName = QFileDialog::getSaveFileName(this);
+	QString fileName = QFileDialog::getOpenFileName(this,
+			"Save Project",
+			".",
+			"MFIT Project File (*.mfit)");
 
 	if (!fileName.isEmpty())
 	{
@@ -265,7 +268,10 @@ void mfit::on_actionSaveAs_triggered()
  ************************************************************************/
 void mfit::on_actionSave_triggered()
 {
-	QString fileName = QFileDialog::getSaveFileName(this);
+	QString fileName = QFileDialog::getOpenFileName(this,
+			"Save Project",
+			".",
+			"MFIT Project File (*.mfit)");
 
 	if (!fileName.isEmpty())
 	{

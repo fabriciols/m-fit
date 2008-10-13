@@ -14,6 +14,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "../include/Transition.h"
 
 /**
  *Classe responsável por detectar
@@ -31,7 +32,7 @@ class Xml
 		int openXml(char *);
 		int saveXml();
 		int readXml(char *, char *, char *, char *, char *, int *, int);
-		int writeTag(char *, char *);
+		int createXml(char *, char *, std::vector<Transition> *);
 		int closeXml();
 };
 #endif
