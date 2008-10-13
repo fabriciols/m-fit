@@ -36,6 +36,8 @@ int  Xml::openXml(char *xmlName)
 		}
 	 
 		this->xmlName = xmlName;
+
+		file.close();
 		return (0);
 	}
 	else
@@ -76,16 +78,31 @@ int Xml::saveXml()
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::readXml(char *tag)
+int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, int *sizeNodes, int itemNumber)
 {
 	QDomNodeList nodeList;
-	QDomNode node;
+	QByteArray txt;
+	nodeList = this->doc.elementsByTagName(tag);
 
-	nodeList = this->doc.elementsByTagName("name");
-	node = nodeList.item(0);
-	QMessageBox::information(0, "Information", node.nodeValue());
+	*sizeNodes = nodeList.length();
 
-	return(0);
+	if(*sizeNodes > 0)
+	{
+		strcpy(text, nodeList.item(itemNumber).toElement().text());
+
+		if(!strcmp(tag, "transition"))
+		{
+			strcpy(attr1, nodeList.item(itemNumber).toElement().attribute("type",NULL));
+			strcpy(attr2, nodeList.item(itemNumber).toElement().attribute("posTransition",NULL));
+			strcpy(attr3, nodeList.item(itemNumber).toElement().attribute("posUserTransition",NULL));
+		}
+		return(0);
+	}
+	else
+	{
+		QMessageBox::information(0, "tagname", "tag not found");
+		return(1);
+	}
 }
 
 /************************************************************************
@@ -119,6 +136,6 @@ int Xml::writeTag(char *name, char *data)
 ************************************************************************/
 int Xml::closeXml()
 {
-//        this->file->close();
-		return (0);
+	delete &this->doc;
+	return (0);
 }
