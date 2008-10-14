@@ -39,12 +39,15 @@ class mfit: public QMainWindow
 		void on_actionOnlyCuts_triggered();
 		void on_actionAllFades_triggered();
 		void on_actionOnlyDissolve_triggered();
-
+		
 		void on_transitionsTree_itemDoubleClicked(QTreeWidgetItem * item, int column);
+		void on_actionCut_Settings_triggered();
 
-		int askDetection();
-		void alertUser();
-		void enableControls();
+		int askDetection(); // Pergunta se o usuário quer detectar todas as transições após carregar o vídeo.
+		void alertUser(); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo
+		void enableControls(); // Habilita todos os comandos (botões) após carregar um vídeo.
+
+		int askNewThreshold();
 
 	public:
 		mfit(QMainWindow *parent = 0);
@@ -56,7 +59,6 @@ class mfit: public QMainWindow
 		void clearVideoProperty();
 		
 		void setVideoTime(double framePos, double fps);
-
 		void createTimeline(void);
 		void setTimeline(Frame *timeLine);
 		void updateTimeline();
