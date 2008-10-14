@@ -247,7 +247,7 @@ border: 1px solid gray
    </property>
    <widget class="QMenu" name="menuFile" >
     <property name="title" >
-     <string>File</string>
+     <string>Arquivo</string>
     </property>
     <addaction name="actionNewProject" />
     <addaction name="actionOpenProject" />
@@ -261,7 +261,7 @@ border: 1px solid gray
    </widget>
    <widget class="QMenu" name="menuDetect" >
     <property name="title" >
-     <string>Detect</string>
+     <string>Detecção</string>
     </property>
     <addaction name="actionAllTransitions" />
     <addaction name="actionOnlyCuts" />
@@ -270,7 +270,7 @@ border: 1px solid gray
    </widget>
    <widget class="QMenu" name="menuTools" >
     <property name="title" >
-     <string>Tools</string>
+     <string>Ferramentas</string>
     </property>
     <addaction name="actionPlay" />
     <addaction name="actionPause" />
@@ -280,16 +280,16 @@ border: 1px solid gray
    </widget>
    <widget class="QMenu" name="menuHelp" >
     <property name="title" >
-     <string>Help</string>
+     <string>Ajuda</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuSettings" >
     <property name="title" >
-     <string>Settings</string>
+     <string>Configurações</string>
     </property>
     <widget class="QMenu" name="menuCut" >
      <property name="title" >
-      <string>Cut</string>
+      <string>Corte</string>
      </property>
      <addaction name="actionCut_Settings" />
     </widget>
@@ -298,8 +298,8 @@ border: 1px solid gray
    <addaction name="menuFile" />
    <addaction name="menuDetect" />
    <addaction name="menuTools" />
-   <addaction name="menuHelp" />
    <addaction name="menuSettings" />
+   <addaction name="menuHelp" />
   </widget>
   <widget class="QToolBar" name="mainToolBar" >
    <property name="windowTitle" >
@@ -318,7 +318,7 @@ border: 1px solid gray
   </widget>
   <widget class="QDockWidget" name="widgetTrees" >
    <property name="windowTitle" >
-    <string>Lists</string>
+    <string>Listas</string>
    </property>
    <attribute name="dockWidgetArea" >
     <number>1</number>
@@ -328,11 +328,11 @@ border: 1px solid gray
      <item row="0" column="0" >
       <widget class="QTabWidget" name="tabTransEffect" >
        <property name="currentIndex" >
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tabTransitions" >
         <attribute name="title" >
-         <string>Transitions</string>
+         <string>Transições</string>
         </attribute>
         <layout class="QGridLayout" >
          <item row="0" column="0" >
@@ -354,17 +354,17 @@ border: 1px solid gray
            </property>
            <column>
             <property name="text" >
-             <string>Type</string>
+             <string>Tipo</string>
             </property>
            </column>
            <column>
             <property name="text" >
-             <string>Position</string>
+             <string>Posição</string>
             </property>
            </column>
            <column>
             <property name="text" >
-             <string>User Position</string>
+             <string>Posição do usuário</string>
             </property>
            </column>
           </widget>
@@ -373,7 +373,7 @@ border: 1px solid gray
        </widget>
        <widget class="QWidget" name="tabEffects" >
         <attribute name="title" >
-         <string>Effects</string>
+         <string>Efeitos</string>
         </attribute>
         <layout class="QGridLayout" >
          <item row="0" column="0" >
@@ -394,7 +394,7 @@ border: 1px solid gray
            </column>
            <column>
             <property name="text" >
-             <string>Effect</string>
+             <string>Efeito</string>
             </property>
            </column>
           </widget>
@@ -426,7 +426,7 @@ border: 1px solid gray
     <bool>false</bool>
    </property>
    <property name="windowTitle" >
-    <string>Histogram</string>
+    <string>Histograma</string>
    </property>
    <attribute name="dockWidgetArea" >
     <number>2</number>
@@ -522,7 +522,7 @@ border: 1px solid gray
   </widget>
   <widget class="QDockWidget" name="widgetProperties" >
    <property name="windowTitle" >
-    <string>Video Properties</string>
+    <string>Propriedades do vídeo</string>
    </property>
    <attribute name="dockWidgetArea" >
     <number>2</number>
@@ -533,12 +533,12 @@ border: 1px solid gray
       <widget class="QTreeWidget" name="videoPropertiesTree" >
        <column>
         <property name="text" >
-         <string>Property</string>
+         <string>Propriedade</string>
         </property>
        </column>
        <column>
         <property name="text" >
-         <string>Value</string>
+         <string>Valor</string>
         </property>
        </column>
       </widget>
@@ -575,8 +575,6 @@ border: 1px solid gray
    </attribute>
    <addaction name="actionAllTransitions" />
    <addaction name="actionOnlyCuts" />
-   <addaction name="actionOnlyFadeIn" />
-   <addaction name="actionOnlyFadeOut" />
    <addaction name="actionAllFades" />
    <addaction name="actionOnlyDissolve" />
   </widget>
@@ -586,7 +584,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/filenew.png</normaloff>../Interface/Icons/filenew.png</iconset>
    </property>
    <property name="text" >
-    <string>New Project...</string>
+    <string>Novo Projeto...</string>
    </property>
    <property name="shortcut" >
     <string>Ctrl+N</string>
@@ -604,7 +602,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/fileopen.png</normaloff>../Interface/Icons/fileopen.png</iconset>
    </property>
    <property name="text" >
-    <string>Open Project...</string>
+    <string>Abrir Projeto...</string>
    </property>
    <property name="shortcut" >
     <string>Ctrl+O</string>
@@ -616,7 +614,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/load_video.png</normaloff>../Interface/Icons/load_video.png</iconset>
    </property>
    <property name="text" >
-    <string>Load Video...</string>
+    <string>Carregar Vídeo...</string>
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+O</string>
@@ -627,7 +625,7 @@ border: 1px solid gray
     <bool>false</bool>
    </property>
    <property name="text" >
-    <string>Save As...</string>
+    <string>Salvar como...</string>
    </property>
    <property name="shortcut" >
     <string>Ctrl+Shift+S</string>
@@ -642,7 +640,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/filesave.png</normaloff>../Interface/Icons/filesave.png</iconset>
    </property>
    <property name="text" >
-    <string>Save</string>
+    <string>Salvar</string>
    </property>
    <property name="shortcut" >
     <string>Ctrl+S</string>
@@ -650,7 +648,7 @@ border: 1px solid gray
   </action>
   <action name="actionRecent_Files" >
    <property name="text" >
-    <string>Recent Files</string>
+    <string>Arquivos recentes</string>
    </property>
   </action>
   <action name="actionExit" >
@@ -659,7 +657,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/exit.png</normaloff>../Interface/Icons/exit.png</iconset>
    </property>
    <property name="text" >
-    <string>Exit</string>
+    <string>Sair</string>
    </property>
   </action>
   <action name="actionUndo" >
@@ -695,7 +693,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/all.png</normaloff>../Interface/Icons/all.png</iconset>
    </property>
    <property name="text" >
-    <string>All Transitions</string>
+    <string>Todas</string>
    </property>
   </action>
   <action name="actionOnlyCuts" >
@@ -707,7 +705,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/cut.png</normaloff>../Interface/Icons/cut.png</iconset>
    </property>
    <property name="text" >
-    <string>Only Cuts</string>
+    <string>Cortes</string>
    </property>
   </action>
   <action name="actionOnlyDissolve" >
@@ -719,7 +717,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/dissolve.png</normaloff>../Interface/Icons/dissolve.png</iconset>
    </property>
    <property name="text" >
-    <string>Only Dissolve</string>
+    <string>Dissolve</string>
    </property>
   </action>
   <action name="actionOnlyFadeIn" >
@@ -764,7 +762,7 @@ border: 1px solid gray
      <normaloff>../Interface/Icons/fades.png</normaloff>../Interface/Icons/fades.png</iconset>
    </property>
    <property name="text" >
-    <string>Only Fades</string>
+    <string>Fades</string>
    </property>
   </action>
   <action name="actionPlay" >
@@ -829,7 +827,7 @@ border: 1px solid gray
   </action>
   <action name="actionCut_Settings" >
    <property name="text" >
-    <string>Set new threshold</string>
+    <string>Definir limiar</string>
    </property>
   </action>
  </widget>
