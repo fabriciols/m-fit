@@ -283,10 +283,23 @@ border: 1px solid gray
      <string>Help</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuSettings" >
+    <property name="title" >
+     <string>Settings</string>
+    </property>
+    <widget class="QMenu" name="menuCut" >
+     <property name="title" >
+      <string>Cut</string>
+     </property>
+     <addaction name="actionCut_Settings" />
+    </widget>
+    <addaction name="menuCut" />
+   </widget>
    <addaction name="menuFile" />
    <addaction name="menuDetect" />
    <addaction name="menuTools" />
    <addaction name="menuHelp" />
+   <addaction name="menuSettings" />
   </widget>
   <widget class="QToolBar" name="mainToolBar" >
    <property name="windowTitle" >
@@ -812,6 +825,11 @@ border: 1px solid gray
    </property>
    <property name="text" >
     <string>Forward</string>
+   </property>
+  </action>
+  <action name="actionCut_Settings" >
+   <property name="text" >
+    <string>Set new threshold</string>
    </property>
   </action>
  </widget>
