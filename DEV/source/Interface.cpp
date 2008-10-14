@@ -1,4 +1,5 @@
 #include "../ui_mfit.h" 
+#include "../ui_cutConfig.h"
 #include "cv.h"
 #include "highgui.h"
 
@@ -8,6 +9,7 @@
 #include <QPainter>
 #include <QtGui>
 #include <QDialog>
+#include <QTabWidget>
 #include <QMessageBox>
 #include <QPushButton>
 
@@ -1034,5 +1036,27 @@ void mfit::enableControls()
 	this->ui.actionOnlyCuts->setEnabled(true);
 	this->ui.actionAllFades->setEnabled(true);
 	this->ui.actionOnlyDissolve->setEnabled(true);
+
+}
+
+void mfit::on_actionCut_Settings_triggered()
+{
+	int newThreshold = 0;
+
+	newThreshold = askNewThreshold();
+
+}
+
+int mfit::askNewThreshold()
+{
+ 	bool ok;
+   int newThreshold;
+	  
+	newThreshold = QInputDialog::getInteger(this, tr("MFIT"),
+                                      tr("Porcentagem:"), 45, 0, 100, 1, &ok);
+   if (ok)
+		return newThreshold;
+	else
+		return 0;
 
 }

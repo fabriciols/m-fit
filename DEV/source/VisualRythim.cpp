@@ -65,7 +65,7 @@ Frame* VisualRythim::createVR(Video* vdo)
 		if (frame == NULL)
 			break;
 
-		Log::writeLog("%s :: Convert2Gray Frame[%x] Frame->data[%x]", __FUNCTION__, frame, frame->data);
+//		Log::writeLog("%s :: Convert2Gray Frame[%x] Frame->data[%x]", __FUNCTION__, frame, frame->data);
 
 		// Converto o frame para escala de cinza.
 		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
