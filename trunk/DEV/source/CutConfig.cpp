@@ -4,7 +4,12 @@
 #include "QDialog.h"
 #include <QtGui>
 
+#include "../include/Interface.h"
+#include "../include/Histogram.h"
+#include "../include/Frame.h"
+#include "../include/Video.h"
 #include "../include/CutConfig.h"
+#include "../include/Project.h"
 
 extern Project *currentProject;
 

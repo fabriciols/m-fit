@@ -26,7 +26,7 @@
 ************************************************************************/
 int Project::openProject(QString fileName)
 {
-	char *filename_cy;
+	char filename_cy[100];
 	char content[100], attr1[50], attr2[50], attr3[50];
 	int sizeTag=0;
 	int ret,i;
@@ -34,8 +34,7 @@ int Project::openProject(QString fileName)
 	Xml *fileXml = new Xml();
 	// Abre um projeto ja existente
 
-	QByteArray ba = fileName.toLatin1();
-	filename_cy = ba.data(); 
+	mfit::QStringToChar(fileName, filename_cy);
 
 	ret = fileXml->openXml(filename_cy);
 
