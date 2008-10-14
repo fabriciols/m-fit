@@ -3,14 +3,15 @@
 ######################################################################
 
 DEVCPP_PATH = "C:/Dev-Cpp"
-OPENCV_PATH = "C:/Program Files/OpenCV"
+OPENCV_PATH = "C:/Arquivos de Programas/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
 INCLUDEPATH += .
 QT += qt3support xml
 
-FORMS   = Interface/mfit.ui
+FORMS   = Interface/mfit.ui \
+			 Interface/cutConfig.ui
 
 LIBS =  -L$$OPENCV_PATH/bin  \
 		  -L$$OPENCV_PATH/lib  \
@@ -47,6 +48,7 @@ HEADERS += include/Brightness.h \
            include/Frame.h \
            include/Histogram.h \
            include/Interface.h \
+			  include/CutConfig.h \
            include/Log.h \
            include/Morphology.h \
            include/Take.h \
@@ -74,7 +76,8 @@ SOURCES += source/main.cpp \
            source/Frame.cpp \
            source/Histogram.cpp \
            source/Interface.cpp \
-           source/Log.cpp \
+			  source/CutConfig.cpp \
+			  source/Log.cpp \
            source/Morphology.cpp \
            source/Take.cpp \
            source/Time.cpp \
