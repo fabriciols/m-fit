@@ -69,6 +69,8 @@ class mfit: public QMainWindow
 		void updateTransitions();
 		void clearTransitionsTree();
 
+		static char* QStringToChar(QString string, char* string_cy);
+
 		Ui::MainWindow ui;
 
 };

@@ -341,6 +341,8 @@ void mfit::insertVideoProperty(char *param_cy, char *value_cy)
 	item->setText(0, param_cy);
 	item->setText(1, value_cy);
 
+	item->setCheckState(0, Qt::Unchecked);
+
 	itens.append(item);
 
 	this->ui.videoPropertiesTree->insertTopLevelItems(0, itens);
@@ -930,11 +932,15 @@ void mfit::clearTransitionsTree()
 
 void mfit::on_transitionsTree_itemDoubleClicked( QTreeWidgetItem * item, int column )
 {
-	char *pos;
-	QString text = item->text(0);
+	QString text = item->text(1);
+	char *str_cy;
 
-	QByteArray ba = text.toLatin1();
-	pos = ba.data(); 
+	str_cy = (char*)malloc(sizeof(text.size()+1));
+
+	memset(str_cy, '\0', sizeof(str_cy));
+
+	QStringToChar(text, str_cy);
+
 }
 
 /**************************************************************************
@@ -1088,4 +1094,23 @@ int mfit::askNewThreshold()
 
 	return 0;
 
+}
+
+/**************************************************************************
+ * Transforma uma QString em um char*
+ **************************************************************************
+ * param (E): QString *string    - String do tipo QSTRING
+ * param (S): char    *string_cy - String convertida para char*
+ **************************************************************************
+ * return : char* - String convertida
+ **************************************************************************
+ * Histórico
+ * 14/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
+char *mfit::QStringToChar(QString string, char* string_cy)
+{
+	sprintf(string_cy, "%s",string.toAscii().data());
+
+	return string_cy;
 }
