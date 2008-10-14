@@ -1,5 +1,4 @@
 #include "../ui_mfit.h" 
-#include "../ui_cutConfig.h"
 #include "cv.h"
 #include "highgui.h"
 
@@ -1045,17 +1044,39 @@ void mfit::on_actionCut_Settings_triggered()
 
 	newThreshold = askNewThreshold();
 
+	if (newThreshold)
+		currentProject->setUserThreshold(newThreshold);
 }
 
 int mfit::askNewThreshold()
 {
  	bool ok;
-   int newThreshold;
-	  
-	newThreshold = QInputDialog::getInteger(this, tr("MFIT"),
-                                      tr("Porcentagem:"), 45, 0, 100, 1, &ok);
-   if (ok)
-		return newThreshold;
+	// Por default iremos definir o limiar como 45% da altura do frame 
+	// (tal valor foi definido através de testes).
+	int defaultThreshold = 45; 
+   int userThreshold;
+
+	userThreshold = currentProject->getUserThreshold();
+
+	Log::writeLog("%s, user[%d], default[%d]", __FUNCTION__, userThreshold, defaultThreshold);
+
+	if (userThreshold != 0)
+		defaultThreshold = userThreshold;
+
+	Log::writeLog("%s, user[%d], default[%d]", __FUNCTION__, userThreshold, defaultThreshold);
+
+	userThreshold = QInputDialog::getInteger(
+							this, 
+							tr("MFIT"), // Nome da janela
+                     tr("Porcentagem:"), // Texto
+							defaultThreshold, // Valor inicial
+							0, // Valor minimo
+							100, // Valor máximo
+							1, // Incremento
+							&ok); // Botão de saida
+
+   if (ok && userThreshold)
+		return (userThreshold);
 	else
 		return 0;
 

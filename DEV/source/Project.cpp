@@ -76,6 +76,7 @@ Project::Project(void)
 	// Inicializa os ponteiros com 0
 	this->vdo = '\0';
 	this->frame = '\0';
+	this->userCutThreshold = '\0';
 
 	strcpy(this->filename_cy, "NewProject.mfit");
 
@@ -166,7 +167,42 @@ int Project::openVideo(QString fileName)
 * 29/09/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
+
 Video* Project::getVideo()
 {
 	return vdo;
+}
+
+/************************************************************************
+* Define o limiar do projeto com o valor de entrada do usuário.
+*************************************************************************
+* param (E): int threshold -> valor do limiar. 
+*************************************************************************
+* return : Nenhum. 
+*************************************************************************
+* Histórico
+* 14/10/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+void Project::setUserThreshold(int threshold)
+{
+	this->userCutThreshold = threshold;
+}
+
+/************************************************************************
+* Retorna o valor do limiar definido pelo usuário no projeto.
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* return : int userCutThreshold -> limiar definido pelo usuário. 
+*************************************************************************
+* Histórico
+* 14/10/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+int Project::getUserThreshold()
+{
+	return (this->userCutThreshold);
 }
