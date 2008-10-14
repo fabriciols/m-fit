@@ -720,24 +720,6 @@ border: 1px solid gray
     <string>Dissolve</string>
    </property>
   </action>
-  <action name="actionOnlyFadeIn" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>../Interface/Icons/fadein.png</normaloff>../Interface/Icons/fadein.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Only Fade-In</string>
-   </property>
-  </action>
-  <action name="actionOnlyFadeOut" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>../Interface/Icons/fadeout.png</normaloff>../Interface/Icons/fadeout.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Only Fade-Out</string>
-   </property>
-  </action>
   <action name="actionHistogram" >
    <property name="text" >
     <string>Histogram</string>
