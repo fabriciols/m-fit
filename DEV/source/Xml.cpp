@@ -1,5 +1,6 @@
 #include <QMessageBox>
 
+#include "../include/Transition.h"
 #include "../include/Xml.h"
 #include "../include///Log.h"
 
@@ -78,10 +79,9 @@ int Xml::saveXml()
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, int *sizeNodes, int itemNumber)
+int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, char *attr4, int *sizeNodes, int itemNumber)
 {
 	QDomNodeList nodeList;
-	char txt[255];
 	nodeList = this->doc.elementsByTagName(tag);
 	int subNodesSize=0, i=0;
 	QString item;
@@ -112,6 +112,8 @@ int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, i
 						strcpy(attr2, nodeList.item(i).toElement().text());
 					else if(!strcmp("posUserTransition",nodeList.item(i).nodeName()))
 						strcpy(attr3, nodeList.item(i).toElement().text());
+					else if(!strcmp("userCutThreshold",nodeList.item(i).nodeName()))
+						strcpy(attr4, nodeList.item(i).toElement().text());
 					else if(!strcmp("label",nodeList.item(i).nodeName()))
 						strcpy(text, nodeList.item(i).toElement().text());
 				}
@@ -137,13 +139,77 @@ int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, i
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::createXml(char *projectName, char *videoPath, std::vector<Transition> *transitionListXml)
+int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vector<Transition>* transitionListXml)
 {
 	int i;
+	QFile file(xmlName);
 
+	if (file.open(QIODevice::ReadWrite))
+	{
+		QDomElement tag;
+		QDomElement tag2;
+		QDomElement tag3;
+		QDomDocument doc("mfit");
+		QDomElement root = doc.createElement("projeto");
+		doc.appendChild(root);
+
+		QString string(xmlName);
+
+		tag = doc.createElement("name");
+		root.appendChild(tag);
+		tag.appendChild(doc.createTextNode(string.right(string.length() - string.lastIndexOf("/") - 1)));
+
+		tag = doc.createElement("path");
+		root.appendChild(tag);
+		tag.appendChild(doc.createTextNode(string.left(string.length() - string.lastIndexOf("/"))));
+
+		tag = doc.createElement("video");
+		root.appendChild(tag);
+		tag.appendChild(doc.createTextNode(videoPath));
+
+		tag = doc.createElement("transitionlist");
+		root.appendChild(tag);
+
+		tag2 = doc.createElement("transition");
+		tag.appendChild(tag2);
+
+		tag3 = doc.createElement("type");
+		tag2.appendChild(tag3);
+		tag3.appendChild(doc.createTextNode("2"));
+
+		tag3 = doc.createElement("posTransition");
+		tag2.appendChild(tag3);
+		tag3.appendChild(doc.createTextNode("20"));
+
+		tag3 = doc.createElement("userCutThreshold");
+		tag2.appendChild(tag3);
+		tag3.appendChild(doc.createTextNode("20"));
+
+		tag3 = doc.createElement("posUserTransition");
+		tag2.appendChild(tag3);
+		tag3.appendChild(doc.createTextNode("100"));
+
+		tag3 = doc.createElement("label");
+		tag2.appendChild(tag3);
+		tag3.appendChild(doc.createTextNode("Fade-In"));
+
+		QString xml = doc.toString();
+
+		QTextStream xmlStream(&file);
+		xmlStream.setCodec("UTF-8");
+		xmlStream<<xml.toUtf8();
+
+		file.close();
+		return (0);
+	}
+	else
+	{
+		file.close();
+        QMessageBox::information(0, "Erro", "Erro ao abrir arquivo XML");
+		return(1);
+	}
+	
 	Transition *transition = new Transition();
-
-	QDomText t = this->doc.createTextNode("Hello World");
 
 //	transition = &transitionListXml.at(i);
 

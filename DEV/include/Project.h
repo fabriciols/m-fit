@@ -14,6 +14,7 @@ class Project
 		Project();
 
 		int openProject(QString);
+		int saveProject(QString);
 		int openVideo(QString);
 
 		std::vector<Transition> transitionList;

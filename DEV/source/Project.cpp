@@ -27,7 +27,7 @@
 int Project::openProject(QString fileName)
 {
 	char filename_cy[100];
-	char content[100], attr1[50], attr2[50], attr3[50];
+	char content[100], attr1[50], attr2[50], attr3[50], attr4[50];
 	int sizeTag=0;
 	int ret,i;
 //	char txt[100];
@@ -40,17 +40,17 @@ int Project::openProject(QString fileName)
 
 	if(!ret)
 	{
-		fileXml->readXml("name", content, attr1, attr2, attr3, &sizeTag, 0);
+		fileXml->readXml("name", content, attr1, attr2, attr3, attr4, &sizeTag, 0);
 
 		mfit_ui->changeWindowTitle(content);
 
-		fileXml->readXml("video", content, attr1, attr2, attr3, &sizeTag, 0);
+		fileXml->readXml("video", content, attr1, attr2, attr3, attr4, &sizeTag, 0);
 
 		openVideo(content);
 
 		for(i=0;i<sizeTag;i++)
 		{
-			fileXml->readXml("transition", content, attr1, attr2, attr3, &sizeTag, i);
+			fileXml->readXml("transition", content, attr1, attr2, attr3, attr4, &sizeTag, i);
 			Transition *transition = new Transition(atoi(attr1), atol(attr2), content);
 			this->transitionList.push_back(*transition);
 		}
@@ -61,6 +61,36 @@ int Project::openProject(QString fileName)
 	return true;
 }
 
+/************************************************************************
+* Salva um arquivo de projeto, que eh um XML, parsea ele e sobe as
+* estruturas.
+* TODO: ParserXML
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico
+* 14/10/08 - Ivan Shiguenori Machida
+* Criação.
+************************************************************************/
+int Project::saveProject(QString fileName)
+{
+	char *filename_cy;
+	char content[100], attr1[50], attr2[50], attr3[50], attr4[50], txt[255];
+	int sizeTag=0;
+	int ret,i;
+//	char txt[100];
+	Xml *fileXml = new Xml();
+	// Abre um projeto ja existente
+
+	QByteArray ba = fileName.toLatin1();
+	filename_cy = ba.data(); 
+
+	sprintf(txt, "%s/%s", this->vdo->getPath(), this->vdo->getName());
+
+	ret = fileXml->createXml(filename_cy, NULL, txt, NULL);
+
+	return true;
+}
 /************************************************************************
 * Inicia um novo projeto
 *************************************************************************
