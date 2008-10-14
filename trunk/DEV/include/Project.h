@@ -8,6 +8,8 @@ class Project
 		char path_cy[256];
 		char filename_cy[256];
 
+		int userCutThreshold; // Este limiar será em %, o que representa a % da altura do frame.
+
 	public:
 		Project();
 
@@ -20,5 +22,9 @@ class Project
 		Frame *getFrame();
 		char  *getPath();
 		char  *getFileName();
+
+		void setUserThreshold(int threshold);
+		int getUserThreshold();
+
 };
 #endif
