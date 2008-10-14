@@ -7,10 +7,10 @@
 #include <QImage>
 #include <QPainter>
 #include <QtGui>
-#include <QDialog>
-#include <QTabWidget>
 #include <QMessageBox>
 #include <QPushButton>
+
+#include "../include/CutConfig.h"
 
 #include "../include/Effect.h"
 #include "../include/Interface.h"
@@ -1050,6 +1050,7 @@ void mfit::on_actionCut_Settings_triggered()
 
 int mfit::askNewThreshold()
 {
+	/*
  	bool ok;
 	// Por default iremos definir o limiar como 45% da altura do frame 
 	// (tal valor foi definido através de testes).
@@ -1079,5 +1080,12 @@ int mfit::askNewThreshold()
 		return (userThreshold);
 	else
 		return 0;
+*/
+
+	CutConfig cutWindow;
+
+	cutWindow.exec();
+
+	return 0;
 
 }
