@@ -1,0 +1,125 @@
+<ui version="4.0" >
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>261</width>
+    <height>189</height>
+   </rect>
+  </property>
+  <property name="minimumSize" >
+   <size>
+    <width>261</width>
+    <height>189</height>
+   </size>
+  </property>
+  <property name="maximumSize" >
+   <size>
+    <width>261</width>
+    <height>189</height>
+   </size>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="2" column="0" >
+    <widget class="QPushButton" name="buttonOk" >
+     <property name="text" >
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <widget class="QPushButton" name="buttonCancel" >
+     <property name="text" >
+      <string>Cancelar</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2" >
+    <widget class="QPushButton" name="buttonHelp" >
+     <property name="text" >
+      <string>Ajuda</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="3" >
+    <widget class="QGroupBox" name="groupBox_2" >
+     <property name="minimumSize" >
+      <size>
+       <width>243</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>243</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="title" >
+      <string>Filtro de Canny</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="labelFirst" >
+        <property name="text" >
+         <string>Inicial:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="labelLast" >
+        <property name="text" >
+         <string>Final:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QSpinBox" name="spinLast" />
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="spinFirst" />
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="3" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="minimumSize" >
+      <size>
+       <width>243</width>
+       <height>54</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>243</width>
+       <height>54</height>
+      </size>
+     </property>
+     <property name="title" >
+      <string>Limiar</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="labelPercentage" >
+        <property name="text" >
+         <string>Porcentagem:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="spinPercentage" />
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
