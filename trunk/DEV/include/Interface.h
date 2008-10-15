@@ -63,7 +63,7 @@ class mfit: public QMainWindow
 		void setTimeline(Frame *timeLine);
 		void updateTimeline();
 
-		void insertTransitionsTree(Transition* transition); // Insere um item na lista de transições
+		void insertTransitionsTree(Transition* transition, long id_l); // Insere um item na lista de transições
 		void insertTransitionsTimeline(Transition* transition); // Marca a timeline com uma linha onde houver transição.
 
 		void updateTransitions();

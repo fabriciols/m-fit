@@ -805,7 +805,7 @@ void mfit::on_actionOnlyDissolve_triggered()
  * Criação.
  *************************************************************************/
 
-void mfit::insertTransitionsTree(Transition* transition)
+void mfit::insertTransitionsTree(Transition* transition, long id_l)
 {
 	// Cria o item referente a Tree
 	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.transitionsTree);
@@ -819,31 +819,43 @@ void mfit::insertTransitionsTree(Transition* transition)
 
 	char posTransition_cy[10];
 	char posUserTransition_cy[10];
+	char id_cy[20];
 
-	// Adiciona as colunas
+	sprintf(posTransition_cy, "%ld", posTransition_l);
+	sprintf(posUserTransition_cy, "%ld", posUserTransition_l);
+	sprintf(id_cy, "%ld", id_l);
+
+	// Primeira Coluna - ID
+	item->setText(0, id_cy);
+
+	// Segunda Coluna - NOME
 	switch(type_i)
 	{
 		case TRANSITION_CUT:
-			item->setText(0, "Cut");
+			item->setText(1, "Cut");
 			break;
 		case TRANSITION_FADEIN:
-			item->setText(0, "Fade-In");
+			item->setText(1, "Fade-In");
 			break;
 		case TRANSITION_FADEOUT:
-			item->setText(0, "Fade-Out");
+			item->setText(1, "Fade-Out");
 			break;
 		case TRANSITION_DISSOLVE:
-			item->setText(0, "Dissolve");
+			item->setText(1, "Dissolve");
 			break;
 		default:
 			break;
 	}
 
-	sprintf(posTransition_cy, "%ld", posTransition_l);
-	sprintf(posUserTransition_cy, "%ld", posUserTransition_l);
-
-	item->setText(1, posTransition_cy);
-	item->setText(2, posUserTransition_cy);
+	// Terceira coluna - POSICAO
+	if (posUserTransition_l > 0)
+	{
+		item->setText(2, posUserTransition_cy);
+	}
+	else
+	{
+		item->setText(2, posTransition_cy);
+	}
 
 	itens.append(item);
 
@@ -901,7 +913,7 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 
 void mfit::updateTransitions()
 {
-	unsigned int i = 0;
+	unsigned long i = 0;
 
 	clearTransitionsTree();
 
@@ -909,7 +921,7 @@ void mfit::updateTransitions()
 
 	for (i = 0 ; i < currentProject->transitionList.size() ; i ++)
 	{
-		insertTransitionsTree(&currentProject->transitionList.at(i));
+		insertTransitionsTree(&currentProject->transitionList.at(i), i);
 		insertTransitionsTimeline(&currentProject->transitionList.at(i));
 	}
 
