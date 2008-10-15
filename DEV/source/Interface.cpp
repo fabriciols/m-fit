@@ -347,8 +347,6 @@ void mfit::insertVideoProperty(char *param_cy, char *value_cy)
 	item->setText(0, param_cy);
 	item->setText(1, value_cy);
 
-	item->setCheckState(0, Qt::Unchecked);
-
 	itens.append(item);
 
 	this->ui.videoPropertiesTree->insertTopLevelItems(0, itens);
