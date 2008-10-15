@@ -24,7 +24,7 @@
   <property name="windowTitle" >
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
+  <layout class="QGridLayout" >
    <item row="2" column="0" >
     <widget class="QPushButton" name="buttonOk" >
      <property name="text" >
@@ -63,7 +63,7 @@
      <property name="title" >
       <string>Filtro de Canny</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" >
+     <layout class="QGridLayout" >
       <item row="0" column="0" >
        <widget class="QLabel" name="labelFirst" >
         <property name="text" >
@@ -79,7 +79,7 @@
        </widget>
       </item>
       <item row="1" column="1" >
-       <widget class="QSpinBox" name="spinLast" >
+       <widget class="QSpinBox" name="spinLastCanny" >
         <property name="maximum" >
          <number>255</number>
         </property>
@@ -89,7 +89,7 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QSpinBox" name="spinFirst" >
+       <widget class="QSpinBox" name="spinFirstCanny" >
         <property name="maximum" >
          <number>255</number>
         </property>
@@ -118,7 +118,7 @@
      <property name="title" >
       <string>Limiar</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3" >
+     <layout class="QGridLayout" >
       <item row="0" column="0" >
        <widget class="QLabel" name="labelPercentage" >
         <property name="text" >
