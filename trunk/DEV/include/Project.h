@@ -9,6 +9,8 @@ class Project
 		char filename_cy[256];
 
 		int userCutThreshold; // Este limiar será em %, o que representa a % da altura do frame.
+		int userFirstCanny;
+		int userLastCanny;
 
 	public:
 		Project();
@@ -26,6 +28,12 @@ class Project
 
 		void setUserThreshold(int threshold);
 		int getUserThreshold();
+
+		void setUserFirstCanny(int userFirst);
+		int getUserFirstCanny();
+
+		void setUserLastCanny(int userLast);
+		int getUserLastCanny();
 
 };
 #endif
