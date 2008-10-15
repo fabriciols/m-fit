@@ -277,6 +277,8 @@ void mfit::on_actionSave_triggered()
 	if (!fileName.isEmpty())
 	{
 		currentProject->saveProject(fileName);
+		
+		this->setWindowTitle(fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1));
 
 		return;
 	}

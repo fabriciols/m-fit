@@ -161,7 +161,7 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 
 		tag = doc.createElement("path");
 		root.appendChild(tag);
-		tag.appendChild(doc.createTextNode(string.left(string.length() - string.lastIndexOf("/"))));
+		tag.appendChild(doc.createTextNode(string.left(string.lastIndexOf("/"))));
 
 		tag = doc.createElement("video");
 		root.appendChild(tag);
@@ -170,28 +170,31 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 		tag = doc.createElement("transitionlist");
 		root.appendChild(tag);
 
-		tag2 = doc.createElement("transition");
-		tag.appendChild(tag2);
+//		for(i=0.i<transitionListXml.size();i++)
+//		{
+			tag2 = doc.createElement("transition");
+			tag.appendChild(tag2);
 
-		tag3 = doc.createElement("type");
-		tag2.appendChild(tag3);
-		tag3.appendChild(doc.createTextNode("2"));
+			tag3 = doc.createElement("type");
+			tag2.appendChild(tag3);
+			tag3.appendChild(doc.createTextNode("2"));
 
-		tag3 = doc.createElement("posTransition");
-		tag2.appendChild(tag3);
-		tag3.appendChild(doc.createTextNode("20"));
+			tag3 = doc.createElement("posTransition");
+			tag2.appendChild(tag3);
+			tag3.appendChild(doc.createTextNode("20"));
 
-		tag3 = doc.createElement("userCutThreshold");
-		tag2.appendChild(tag3);
-		tag3.appendChild(doc.createTextNode("20"));
+			tag3 = doc.createElement("userCutThreshold");
+			tag2.appendChild(tag3);
+			tag3.appendChild(doc.createTextNode("20"));
 
-		tag3 = doc.createElement("posUserTransition");
-		tag2.appendChild(tag3);
-		tag3.appendChild(doc.createTextNode("100"));
+			tag3 = doc.createElement("posUserTransition");
+			tag2.appendChild(tag3);
+			tag3.appendChild(doc.createTextNode("100"));
 
-		tag3 = doc.createElement("label");
-		tag2.appendChild(tag3);
-		tag3.appendChild(doc.createTextNode("Fade-In"));
+			tag3 = doc.createElement("label");
+			tag2.appendChild(tag3);
+			tag3.appendChild(doc.createTextNode("Fade-In"));
+//		}
 
 		QString xml = doc.toString();
 
