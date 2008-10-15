@@ -40,7 +40,8 @@ class mfit: public QMainWindow
 		void on_actionAllFades_triggered();
 		void on_actionOnlyDissolve_triggered();
 		
-		void on_transitionsTree_itemDoubleClicked(QTreeWidgetItem * item, int column);
+		void on_transitionsTree_itemSelectionChanged(void);
+
 		void on_actionCut_Settings_triggered();
 
 		int askDetection(); // Pergunta se o usuário quer detectar todas as transições após carregar o vídeo.
@@ -70,6 +71,11 @@ class mfit: public QMainWindow
 		void clearTransitionsTree();
 
 		static char* QStringToChar(QString string, char* string_cy);
+
+		void updateTransitionHeader(unsigned int transitionID, int clean = 0);
+		void updateTransitionHeader(QTreeWidgetItem * item);
+		void clearTransitionHeader();
+
 
 		Ui::MainWindow ui;
 

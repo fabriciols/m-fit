@@ -2,6 +2,8 @@
 #include "cv.h"
 #include "highgui.h"
 
+#include <algorithm>
+
 #include "QWidget.h"
 #include "QDialog.h"
 #include <QImage>
@@ -602,13 +604,14 @@ void mfit::updateTimeline()
 	// A formula para saber em que ponto plotar o indicador é:
 	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
 	// pos (ponto timeline) ---- pos (ponto no video)
-	line_point  = (SIZE_FRAME_TIMELINE*cvRound(pos)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
+	//line_point  = (SIZE_FRAME_TIMELINE*cvRound(pos)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
+	line_point = currentProject->FrameToTimelinePos(pos);
 
 	if (vdo_player->frameTimelineEdited != 0x0)
 		delete vdo_player->frameTimelineEdited;
 
 	CvPoint p1 = {line_point,0};
-	CvPoint p2 = {line_point,75};
+	CvPoint p2 = {line_point,SIZE_FRAME_TIMELINE};
 
 	vdo_player->frameTimelineEdited = new Frame(vdo_player->frameTimeline);
 
@@ -877,8 +880,6 @@ void mfit::insertTransitionsTree(Transition* transition, long id_l)
 void mfit::insertTransitionsTimeline(Transition* transition)
 {
 
-	Video* vdo = currentProject->getVideo();
-
 	long posTransition_l = 0;
 	long posTimeline_l = 0;
 
@@ -889,7 +890,8 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
 	// pos (ponto timeline) ---- pos (ponto no video)
 
-	posTimeline_l = (SIZE_FRAME_TIMELINE*cvRound(posTransition_l)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
+	//posTimeline_l = (SIZE_FRAME_TIMELINE*cvRound(posTransition_l)) / (SIZE_SEC_FRAME*cvRound(vdo->getFPS()));
+	posTimeline_l = currentProject->FrameToTimelinePos(posTransition_l);
 
 	CvPoint p1 = {posTimeline_l,0}; // Ponto inicial
 	CvPoint p2 = {posTimeline_l,SIZE_FRAME_TIMELINE+10}; // Ponto final da reta + 10 (pois deve ser maior que a timeline)
@@ -916,6 +918,8 @@ void mfit::updateTransitions()
 {
 	unsigned long i = 0;
 
+	currentProject->sortTransitionList();
+
 	clearTransitionsTree();
 
 	Log::writeLog("%s :: updating Transitions", __FUNCTION__);
@@ -927,6 +931,7 @@ void mfit::updateTransitions()
 	}
 
 	updateTimeline();
+
 }
 
 /*************************************************************************
@@ -947,17 +952,36 @@ void mfit::clearTransitionsTree()
 	this->ui.transitionsTree->clear();
 }
 
-void mfit::on_transitionsTree_itemDoubleClicked( QTreeWidgetItem * item, int column )
+void mfit::on_transitionsTree_itemSelectionChanged()
 {
-	QString text = item->text(1);
-	char *str_cy;
+	QList<QTreeWidgetItem *> itens;
+	itens = this->ui.transitionsTree->selectedItems();
 
-	str_cy = (char*)malloc(sizeof(text.size()+1));
+	QTreeWidgetItem *item;
+
+	clearTransitionHeader();
+
+	foreach(item, itens)
+	{
+		updateTransitionHeader(item);
+	}
+
+	updateTimeline();
+}
+
+void mfit::updateTransitionHeader(QTreeWidgetItem * item)
+{
+	char str_cy[20];
+	long idx_i;
+	QString text = item->text(0);
 
 	memset(str_cy, '\0', sizeof(str_cy));
 
 	QStringToChar(text, str_cy);
 
+	idx_i = atoi(str_cy);
+
+	updateTransitionHeader(idx_i);
 }
 
 /**************************************************************************
@@ -1130,4 +1154,79 @@ char *mfit::QStringToChar(QString string, char* string_cy)
 	sprintf(string_cy, "%s",string.toAscii().data());
 
 	return string_cy;
+}
+
+void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
+{
+	long pos_l;
+	long posNext_l;
+
+	unsigned int posTimeline;
+	unsigned int posTimelineNext;
+
+	CvScalar scalar;
+
+	Transition *transition;
+	Transition *transitionNEXT;
+
+	transition = &currentProject->transitionList.at(transitionID);
+
+	pos_l = transition->getPosCurrent();
+
+	if (transitionID == (unsigned int)currentProject->transitionList.size()-1)
+	{
+		Video *vdo = 0x0;
+
+		vdo = currentProject->getVideo();
+
+		posNext_l = (long)vdo->getFramesTotal();
+	}
+	else
+	{
+
+		transitionNEXT = &currentProject->transitionList.at(transitionID+1);
+		posNext_l = transitionNEXT->getPosCurrent();
+
+	}
+
+	// Printa uma linha de pos ate posNext
+	posTimeline     = currentProject->FrameToTimelinePos(pos_l);
+	posTimelineNext = currentProject->FrameToTimelinePos(posNext_l);
+
+	CvPoint p1 = {posTimeline    ,SIZE_FRAME_TIMELINE+15};
+	CvPoint p2 = {posTimelineNext,SIZE_FRAME_TIMELINE+15};
+
+	if (clean == 1)
+	{  // Apaga na timelie
+		scalar.val[0] = 244;
+		scalar.val[1] = 244;
+		scalar.val[2] = 244;
+		transition->selected = false;
+	}
+	else
+	{  // Imprime na timeline
+		scalar.val[0] = 50;
+		scalar.val[1] = 30;
+		scalar.val[2] = 20;
+		transition->selected = true;
+	}
+
+	cvLine(vdo_player->frameTimeline->data, p1, p2, scalar, 3);
+
+
+}
+
+void mfit::clearTransitionHeader()
+{
+	unsigned int i = 0;
+	Transition *transition;
+	for (i = 0 ; i < currentProject->transitionList.size() ; i ++)
+	{
+		transition = &currentProject->transitionList.at(i);
+
+		if (transition->selected == true)
+		{
+			updateTransitionHeader(i, 1);
+		}
+	}
 }

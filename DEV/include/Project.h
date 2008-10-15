@@ -35,5 +35,13 @@ class Project
 		void setUserLastCanny(int userLast);
 		int getUserLastCanny();
 
+		void sortTransitionList(void);
+
+		long FrameToTimelinePos(long frame);
+		long TimelinePosToFrame(long pos);
+
+
+
+
 };
 #endif

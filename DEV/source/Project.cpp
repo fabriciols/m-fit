@@ -256,3 +256,28 @@ int Project::getUserLastCanny()
 {
 	return (this->userLastCanny);
 }
+
+void Project::sortTransitionList(void)
+{
+	sort(this->transitionList.begin(), this->transitionList.end() );
+}
+
+long Project::FrameToTimelinePos(long frame)
+{
+	// A formula para saber em que ponto plotar o indicador é:
+	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
+	// pos (ponto timeline) ---- pos (ponto no video)
+	return (SIZE_FRAME_TIMELINE*cvRound(frame)) / (SIZE_SEC_FRAME*cvRound(this->vdo->getFPS()));
+}
+
+long Project::TimelinePosToFrame(long pos)
+{
+	// A ideia aqui e a seguinte:
+	// Tendo em maos as seguintes variaveis:
+	// Todo FRAME da timeline tem o tamanho fixo de SIZE_FRAME_TIMELINE
+	// E cada um desse FRAME compreende SIZE_SEC_FRAME segundos do video
+	// captando a posicao em que o kr clicou, podemos fazer a seguinte regra de 3:
+	// SIZE_FRAME_TIMELINE ---------- SIZE_SEC_FRAME*vdo->getFPS()
+	// Posicao clicada (x) ---------- X (posicao no frame)
+	return (cvRound(SIZE_SEC_FRAME*this->vdo->getFPS())*pos / SIZE_FRAME_TIMELINE);
+}

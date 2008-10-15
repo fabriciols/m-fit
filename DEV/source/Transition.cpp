@@ -19,6 +19,7 @@ Transition::Transition()
 	this->type = 0;
 	this->posTransition = 0;
 	this->posUserTransition = 0;
+	this->selected = false;
 
 	this->label = (char*)malloc(sizeof(char)*100);
 	strcpy(this->label, "");
@@ -112,7 +113,7 @@ void Transition::setPosTransition(int posTransition)
 * Criação.
 ************************************************************************/
 
-int Transition::getPosTransition()
+long Transition::getPosTransition()
 {
 	return (this->posTransition);
 }
@@ -148,7 +149,7 @@ void Transition::setPosUserTransition(int posUser)
 * Criação.
 ************************************************************************/
 
-int Transition::getPosUserTransition()
+long Transition::getPosUserTransition()
 {
 	return (this->posUserTransition);
 }
@@ -185,4 +186,23 @@ void Transition::setLabel(char* label)
 char* Transition::getLabel()
 {
 	return (this->label);
+}
+
+bool Transition::operator <(const Transition &Rhs) const
+{  
+	long pos;
+	long posAUX;
+
+	pos = getPosCurrent();
+	posAUX = Rhs.getPosCurrent();
+
+	return (pos < posAUX);        
+}
+
+long Transition::getPosCurrent(void) const
+{
+	if (this->posUserTransition > 0)
+		return this->posUserTransition;
+	else
+		return this->posTransition;
 }
