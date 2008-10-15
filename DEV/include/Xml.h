@@ -30,7 +30,6 @@ class Xml
 		QFile *file;
 
 		int openXml(char *);
-		int saveXml();
 		int readXml(char *, char *, char *, char *, char *, char *, int *, int);
 		int createXml(char *, char *, char *, std::vector<Transition> *);
 		int closeXml();

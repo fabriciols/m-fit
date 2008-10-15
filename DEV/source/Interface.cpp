@@ -753,6 +753,7 @@ void mfit::on_actionAllFades_triggered()
  * Trata o evento gerado pelo botão para detecção de todos os dissolve
  *************************************************************************
  * param (E): Não há
+ **************************************************************************
  * return : não há
  *************************************************************************
  * Histórico

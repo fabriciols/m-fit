@@ -50,28 +50,16 @@ int  Xml::openXml(char *xmlName)
 }
 
 /************************************************************************
-* Função que salva o documento xml. 
-*************************************************************************
-* param (E): nenhum.
-************************************************************************
-* Retorno: Sucesso
-************************************************************************
-* Histórico
-* 04/10/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
-int Xml::saveXml()
-{
-	QTextStream fileStream(this->file);
-	this->doc.save(fileStream, 1);
-	 
-	return (0);
-}
-
-/************************************************************************
 * Procura tag pelo XML
 *************************************************************************
-* param (E): xmlNodePtr cur => arvore XML
+* param (E): tag => nome da tag
+* param (S): text => conteudo da tag
+* param (S): type => atributo da tag transition do XML
+* param (S): posTransition => atributo da tag transition do XML
+* param (S): posUserTransition => atributo da tag transition do XML
+* param (S): userCutThreshold => atributo da tag transition do XML
+* param (S): sizeNodes => tamanho dos filhos da tag transitionList
+* param (S): itemNumber => indice do nó a ser lido
 ************************************************************************
 * Retorno: Sucesso
 ************************************************************************
@@ -79,7 +67,7 @@ int Xml::saveXml()
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, char *attr4, int *sizeNodes, int itemNumber)
+int Xml::readXml(char *tag, char *text, char *type, char *posTransition, char *posUserTransition, char *userCutThreshold, int *sizeNodes, int itemNumber)
 {
 	QDomNodeList nodeList;
 	nodeList = this->doc.elementsByTagName(tag);
@@ -88,10 +76,10 @@ int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, c
 
 	*sizeNodes = nodeList.length();
 
-	memset(text,0,sizeof(attr1));
-	memset(attr1,0,sizeof(attr1));
-	memset(attr2,0,sizeof(attr1));
-	memset(attr3,0,sizeof(attr1));
+	memset(text,0,sizeof(text));
+	memset(type,0,sizeof(type));
+	memset(posTransition,0,sizeof(posTransition));
+	memset(posUserTransition,0,sizeof(posUserTransition));
 
 	if(*sizeNodes > 0)
 	{
@@ -107,13 +95,13 @@ int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, c
 				for(i=0;i<subNodesSize;i++)
 				{
 					if(!strcmp("type",nodeList.item(i).nodeName()))
-						strcpy(attr1, nodeList.item(i).toElement().text());
+						strcpy(type, nodeList.item(i).toElement().text());
 					else if(!strcmp("posTransition",nodeList.item(i).nodeName()))
-						strcpy(attr2, nodeList.item(i).toElement().text());
+						strcpy(posTransition, nodeList.item(i).toElement().text());
 					else if(!strcmp("posUserTransition",nodeList.item(i).nodeName()))
-						strcpy(attr3, nodeList.item(i).toElement().text());
+						strcpy(posUserTransition, nodeList.item(i).toElement().text());
 					else if(!strcmp("userCutThreshold",nodeList.item(i).nodeName()))
-						strcpy(attr4, nodeList.item(i).toElement().text());
+						strcpy(userCutThreshold, nodeList.item(i).toElement().text());
 					else if(!strcmp("label",nodeList.item(i).nodeName()))
 						strcpy(text, nodeList.item(i).toElement().text());
 				}
@@ -139,12 +127,14 @@ int Xml::readXml(char *tag, char *text, char *attr1, char *attr2, char *attr3, c
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vector<Transition>* transitionListXml)
+int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vector<Transition> *transitionListXml)
 {
 	int i;
+	char str[100];
 	QFile file(xmlName);
 
-	if (file.open(QIODevice::ReadWrite))
+
+	if (file.open(QIODevice::WriteOnly | QIODevice::Unbuffered))
 	{
 		QDomElement tag;
 		QDomElement tag2;
@@ -167,34 +157,53 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 		root.appendChild(tag);
 		tag.appendChild(doc.createTextNode(videoPath));
 
-		tag = doc.createElement("transitionlist");
-		root.appendChild(tag);
+		if((int)transitionListXml->size() > 0)
+		{
+			tag = doc.createElement("transitionlist");
+			root.appendChild(tag);
 
-//		for(i=0.i<transitionListXml.size();i++)
-//		{
-			tag2 = doc.createElement("transition");
-			tag.appendChild(tag2);
+			for(i=0;i<(int)transitionListXml->size();i++)
+			{			
+				Transition *transition;
+				transition = &transitionListXml->at(i);
 
-			tag3 = doc.createElement("type");
-			tag2.appendChild(tag3);
-			tag3.appendChild(doc.createTextNode("2"));
+				tag2 = doc.createElement("transition");
+				tag.appendChild(tag2);
 
-			tag3 = doc.createElement("posTransition");
-			tag2.appendChild(tag3);
-			tag3.appendChild(doc.createTextNode("20"));
+				sprintf(str, "%d", transition->getType());
+				tag3 = doc.createElement("type");
+				tag2.appendChild(tag3);
+				tag3.appendChild(doc.createTextNode(str));
 
-			tag3 = doc.createElement("userCutThreshold");
-			tag2.appendChild(tag3);
-			tag3.appendChild(doc.createTextNode("20"));
+				if(transition->getPosTransition() > 0)
+				{
+					sprintf(str, "%d", transition->getPosTransition());
+					tag3 = doc.createElement("posTransition");
+					tag2.appendChild(tag3);
+					tag3.appendChild(doc.createTextNode(str));
+				}
 
-			tag3 = doc.createElement("posUserTransition");
-			tag2.appendChild(tag3);
-			tag3.appendChild(doc.createTextNode("100"));
+//				Vai entrar futuramente tem q criar na Transition.h
+//				if(transition->userCutThreshold > 0 && transition->userCutThreshold < 100)
+//				{
+//					tag3 = doc.createElement("userCutThreshold");
+//					tag2.appendChild(tag3);
+//					tag3.appendChild(doc.createTextNode("20"));
+//				}
 
-			tag3 = doc.createElement("label");
-			tag2.appendChild(tag3);
-			tag3.appendChild(doc.createTextNode("Fade-In"));
-//		}
+				if(transition->getPosUserTransition() > 0)
+				{
+					sprintf(str, "%d", transition->getPosUserTransition());
+					tag3 = doc.createElement("posUserTransition");
+					tag2.appendChild(tag3);
+					tag3.appendChild(doc.createTextNode(str));
+				}
+
+				tag3 = doc.createElement("label");
+				tag2.appendChild(tag3);
+				tag3.appendChild(doc.createTextNode(transition->getLabel()));
+			}
+		}
 
 		QString xml = doc.toString();
 
@@ -212,17 +221,6 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 		return(1);
 	}
 	
-	Transition *transition = new Transition();
-
-//	transition = &transitionListXml.at(i);
-
-//	for (i=0;i<transitionListXml.size();i++)
-//	{
-//		type_i = transition->getType();
-//		posTransition_l = transition->getPosTransition();
-//		posUserTransition_l = transition->getPosUserTransition();
-//	}
-
 		return(0);
 }
 
