@@ -26,4 +26,14 @@ extern Project *currentProject;
 CutConfig::CutConfig(QDialog *parent) : QDialog(parent)
 {
 	ui.setupUi(this);
+
+	if (currentProject->getUserThreshold())
+		ui.spinPercentage->setValue(currentProject->getUserThreshold());
+
+	if (currentProject->getUserFirstCanny())
+		ui.spinFirstCanny->setValue(currentProject->getUserFirstCanny());
+
+	if (currentProject->getUserLastCanny())
+		ui.spinLastCanny->setValue(currentProject->getUserLastCanny());
+
 }

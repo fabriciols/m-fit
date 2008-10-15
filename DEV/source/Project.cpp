@@ -106,6 +106,8 @@ Project::Project(void)
 	this->vdo = '\0';
 	this->frame = '\0';
 	this->userCutThreshold = '\0';
+	this->userFirstCanny = '\0';
+	this->userLastCanny = '\0';
 
 	strcpy(this->filename_cy, "NewProject.mfit");
 
@@ -234,4 +236,25 @@ void Project::setUserThreshold(int threshold)
 int Project::getUserThreshold()
 {
 	return (this->userCutThreshold);
+}
+
+
+void Project::setUserFirstCanny(int userFirst)
+{
+	this->userFirstCanny = userFirst;
+}
+
+int Project::getUserFirstCanny()
+{
+	return (this->userFirstCanny);
+}
+
+void Project::setUserLastCanny(int userLast)
+{
+	this->userLastCanny = userLast;
+}
+
+int Project::getUserLastCanny()
+{
+	return (this->userLastCanny);
 }
