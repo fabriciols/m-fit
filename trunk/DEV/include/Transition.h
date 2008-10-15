@@ -50,6 +50,8 @@ class Transition
 		Transition();
 		Transition(int, int, char*);
 
+		bool selected;
+
 		// Seta tipo da transição
 		void setType(int type);
 		
@@ -60,19 +62,25 @@ class Transition
 		void setPosTransition(int posTransition);
 	
 		// Retorna a posição da transição (encontrada pelo sistema)
-		int getPosTransition();
+		long getPosTransition();
 
 		// Salva a posição da transição (modificada pelo usuário)
 		void setPosUserTransition(int posUser);
 
 		// Retorna a posição da transição (modificada pelo usuário)	
-		int getPosUserTransition();
+		long getPosUserTransition();
 
 		// Define a label que irá identificar a transição na timeline
 		void setLabel(char *label);
 
 		// Retorna a label de definição da transição na timeline
 		char* getLabel();
+
+		bool operator <(const Transition& Rhs) const;
+
+		long getPosCurrent(void) const;
+
+
 
 };
 #endif

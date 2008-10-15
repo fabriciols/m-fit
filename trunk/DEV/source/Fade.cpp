@@ -250,7 +250,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			// Se for maior que um limiar
 			// esse limiar foi definido realizando alguns experimentos onde apareciam
 			// transicoes diferentes de fade.
-			if (var > 8)
+			if (var > 0)
 			{
 				int type;
 				char label[100];
