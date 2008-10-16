@@ -13,3 +13,9 @@ long Effect::getFrameEnd()
 {
 	return frameEnd;
 }
+
+Frame* Effect::applyEffect(Frame *frame)
+{
+	return frame;
+}
+

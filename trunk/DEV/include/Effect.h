@@ -15,12 +15,15 @@ class Effect
 	protected:
 		long frameStart;
 		long frameEnd;
+
 	public:
 
-		virtual Frame* applyEffect(Frame *frame) = 0;
+		Frame* applyEffect(Frame *frame);
 
 		long getFrameStart();
 		long getFrameEnd();
+
+		int type;
 
 };
 #endif

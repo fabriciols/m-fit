@@ -19,6 +19,10 @@ class Color: public Effect
 		Frame* convert2Gray(Frame *frame);
 		Frame* applyEffect(Frame* frame);
 
+		Color(long frameStart, long frameEnd);
+		Color();
+
+
  
 };
 #endif
