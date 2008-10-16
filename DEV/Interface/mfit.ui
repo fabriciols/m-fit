@@ -261,6 +261,7 @@ border: 1px solid gray
     <addaction name="actionNewProject" />
     <addaction name="actionOpenProject" />
     <addaction name="actionLoadVideo" />
+    <addaction name="actionRenderVideo" />
     <addaction name="actionSaveAs" />
     <addaction name="actionSave" />
     <addaction name="separator" />
@@ -906,6 +907,11 @@ border: 1px solid gray
   <action name="actionCut_Settings" >
    <property name="text" >
     <string>Definir limiar</string>
+   </property>
+  </action>
+  <action name="actionRenderVideo" >
+   <property name="text" >
+    <string>Renderizar Video...</string>
    </property>
   </action>
  </widget>

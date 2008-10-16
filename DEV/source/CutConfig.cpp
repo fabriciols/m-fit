@@ -5,6 +5,7 @@
 #include <QtGui>
 
 #include "../include/Interface.h"
+#include "../include/Effect.h"
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Video.h"
@@ -50,19 +51,28 @@ void CutConfig::on_buttonOk_clicked()
 	int userLastCanny = ui.spinLastCanny->value();
 
 	if ( !userCutThreshold )
-		Interface::alertUser();
+	{
+		//Interface::alertUser();
+	}
 	else if ( userCutThreshold != DEFAULT_CUT_THRESHOLD )
 		currentProject->setUserThreshold(userCutThreshold);
 
 	if ( !userFirstCanny )
-		Interface::alertUser();
+	{
+		//Interface::alertUser();
+	}
+
 	else if ( userFirstCanny != DEFAULT_FIRST_CANNY )
 		currentProject->setUserFirstCanny(userFirstCanny);
 
 	if ( !userLastCanny )
-		Interface::alertUser();
+	{
+		//Interface::alertUser();
+	}
 	else if ( userLastCanny != DEFAULT_LAST_CANNY )
+	{
 		currentProject->setUserLastCanny(userLastCanny);
+	}
 
 }
 

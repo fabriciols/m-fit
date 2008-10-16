@@ -35,14 +35,15 @@ class mfit: public QMainWindow
 		void updatePlayer(QImage *image);
 		void updateHist(QImage *image);
 
+		void on_transitionsTree_itemSelectionChanged(void);
+
 		void on_actionAllTransitions_triggered();
 		void on_actionOnlyCuts_triggered();
 		void on_actionAllFades_triggered();
 		void on_actionOnlyDissolve_triggered();
-		
-		void on_transitionsTree_itemSelectionChanged(void);
-
 		void on_actionCut_Settings_triggered();
+		void on_actionRenderVideo_triggered();
+
 
 		int askDetection(); // Pergunta se o usuário quer detectar todas as transições após carregar o vídeo.
 		void alertUser(); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo

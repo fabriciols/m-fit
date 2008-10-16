@@ -1,12 +1,14 @@
 #include "../include/QWidgetTimeline.h"
 #include "cv.h"
 #include "highgui.h"
+
 #include "../include/Transition.h"
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Time.h"
 #include "../include/Log.h"
 #include "../include/Video.h"
+#include "../include/Effect.h"
 #include "../include/Project.h"
 #include "../include/VideoPlayer.h"
 

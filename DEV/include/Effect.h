@@ -12,8 +12,15 @@ class Effect
 	 *por todas as classes filhas
 	 *deste objeto.
 	 */
+	protected:
+		long frameStart;
+		long frameEnd;
 	public:
 
-		int applyEffect();
+		virtual Frame* applyEffect(Frame *frame) = 0;
+
+		long getFrameStart();
+		long getFrameEnd();
+
 };
 #endif

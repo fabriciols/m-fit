@@ -1177,9 +1177,9 @@ QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_h
 						QImagePtr -= 4; 
 
 						// We cannot help but copy manually. 
-						QImagePtr[0] = iplImagePtr[0]; 
-						QImagePtr[1] = iplImagePtr[1]; 
-						QImagePtr[2] = iplImagePtr[2]; 
+						QImagePtr[0] = iplImagePtr[0]; // R - B 
+						QImagePtr[1] = iplImagePtr[1]; // G - G
+						QImagePtr[2] = iplImagePtr[2]; // B - R
 						QImagePtr[3] = 0; 
 
 					} 

@@ -14,8 +14,8 @@
 
 #include "../include/CutConfig.h"
 
-#include "../include/Effect.h"
 #include "../include/Interface.h"
+#include "../include/Effect.h"
 #include "../include/Time.h"
 
 #include "../include/Transition.h"
@@ -1091,6 +1091,23 @@ void mfit::on_actionCut_Settings_triggered()
 
 	if (newThreshold)
 		currentProject->setUserThreshold(newThreshold);
+}
+
+void mfit::on_actionRenderVideo_triggered()
+{
+	QString fileName = QFileDialog::getSaveFileName(this,
+			"Render Video",
+			".",
+			"Supported Videos (*.avi)");
+
+	if (!fileName.isEmpty())
+	{
+		char filename_cy[100];
+
+		QStringToChar(fileName, filename_cy);
+
+		currentProject->renderVideo(filename_cy);
+	}
 }
 
 int mfit::askNewThreshold()

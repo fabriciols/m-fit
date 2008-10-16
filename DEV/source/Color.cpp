@@ -35,3 +35,8 @@ Frame* Color::convert2Gray(Frame* frame)
 
 	return (frameNew);
 }
+
+Frame* Color::applyEffect(Frame* frame)
+{
+	return convert2Gray(frame);
+}

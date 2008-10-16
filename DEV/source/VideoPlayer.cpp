@@ -1,5 +1,6 @@
 #include "../include/VideoPlayer.h"
 #include "../include/Histogram.h"
+#include "../include/Project.h"
 #include "../include/Effect.h"
 #include "../include/Color.h"
 
