@@ -20,7 +20,7 @@ class Project
 		int openVideo(QString);
 
 		std::vector<Transition> transitionList;
-		std::vector<Effect>     effectList;
+		std::vector<Effect*>     effectList;
 
 		Video *getVideo();
 		Frame *getFrame();
