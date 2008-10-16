@@ -5,6 +5,7 @@
 #include <QImage>
 
 #include "../include/Time.h"
+#include "../include/Log.h"
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 
@@ -97,6 +98,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		frameGray = color->convert2Gray(visual);
 
 		media = array_dvrh[k] = frameGray->mediaBin();
+		Log::writeLog("[%d] mean[%.lf]", k, media);
 
 		j=0;
 		for(i=0;i<tamanho_pontos;i++)
@@ -176,7 +178,7 @@ double Dissolve::calcVariance(double *arrayM, int size_i )
 	{
 		var2 = var2 + ((arrayM[i] - media) * (arrayM[i] - media));
 	}
-	var2 = var2 / (size_i+1);
+	var2 = var2 / (size_i-1);
 	return(var2);
 }
 
@@ -201,10 +203,18 @@ double* Dissolve::calcSecondDerivative(double *array, int size)
 	for (i=1; i<=size; i++)
 	{
 		if (i == 1 || i == size)
+			der1[i] = 0;
+		else
+			der1[i] = (array[i+1] + array[i-1])/2;
+	}
+	for (i=1; i<=size; i++)
+	{
+		if (i == 1 || i == size)
 			der2[i] = 0;
 		else
-			der2[i] = (array[i+1] + array[i-1]) - (2 * array[i]);
+			der2[i] = (der1[i+1] + der1[i-1])/2;
 	}
+	
 	return(der2);	
 }
 
