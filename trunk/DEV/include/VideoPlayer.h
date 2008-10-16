@@ -3,6 +3,8 @@
 #include "QMainWindow"
 
 #include "../include/Interface.h"
+#include "../include/Frame.h"
+#include "../include/Effect.h"
 #include "../include/Transition.h"
 #include "../include/Project.h"
 

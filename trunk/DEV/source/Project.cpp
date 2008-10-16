@@ -1,10 +1,12 @@
 #include "cv.h"
-#include <QImage>
 #include "highgui.h"
+
+
+#include <QImage>
 #include <vector>
 
 #include "../include/Interface.h"
-
+#include "../include/Effect.h"
 #include "../include/VisualRythim.h"
 #include "../include/Transition.h"
 #include "../include/Project.h"
@@ -27,7 +29,7 @@
 int Project::openProject(QString fileName)
 {
 
-char filename_cy[100];
+	char filename_cy[100];
 	char content[100], type[50], posTransition[50], posUserTransition[50], userCutThreshold[50];
 	int sizeTag=0;
 	int ret,i;
@@ -57,21 +59,21 @@ char filename_cy[100];
 	}
 
 	fileXml->closeXml();
-	
+
 	return true;
 }
 
 /************************************************************************
-* Salva um arquivo de projeto, que eh um XML, parsea ele e sobe as
-* estruturas.
-* TODO: ParserXML
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 14/10/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
+ * Salva um arquivo de projeto, que eh um XML, parsea ele e sobe as
+ * estruturas.
+ * TODO: ParserXML
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 14/10/08 - Ivan Shiguenori Machida
+ * Criação.
+ ************************************************************************/
 int Project::saveProject(QString fileName)
 {
 	char *filename_cy;
@@ -90,14 +92,14 @@ int Project::saveProject(QString fileName)
 }
 
 /************************************************************************
-* Inicia um novo projeto
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Inicia um novo projeto
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Project::Project(void)
 {
 	// Inicializa os ponteiros com 0
@@ -115,16 +117,16 @@ Project::Project(void)
 }
 
 /************************************************************************
-* Realiza a abertura de um video novo.
-* Preenche a videoPropertiesTree com informacoes do video.
-* Caso ja tenha um video aberto, mata ele e limpa a videoPropertiesTree.
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Realiza a abertura de um video novo.
+ * Preenche a videoPropertiesTree com informacoes do video.
+ * Caso ja tenha um video aberto, mata ele e limpa a videoPropertiesTree.
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 int Project::openVideo(QString fileName)
 {
 	char param_cy[50];
@@ -148,7 +150,7 @@ int Project::openVideo(QString fileName)
 
 	// Pega as propriedades do video e exibe na lista
 	memset(param_cy, '\0', sizeof(param_cy));
-	
+
 	// Nome
 	mfit_ui->insertVideoProperty("Name", this->vdo->getName());
 
@@ -186,16 +188,16 @@ int Project::openVideo(QString fileName)
 }
 
 /************************************************************************
-* Retorna o video corrente do projeto
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* return : Video* -> video do projeto
-*************************************************************************
-* Histórico
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Retorna o video corrente do projeto
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : Video* -> video do projeto
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 Video* Project::getVideo()
 {
@@ -203,16 +205,16 @@ Video* Project::getVideo()
 }
 
 /************************************************************************
-* Define o limiar do projeto com o valor de entrada do usuário.
-*************************************************************************
-* param (E): int threshold -> valor do limiar. 
-*************************************************************************
-* return : Nenhum. 
-*************************************************************************
-* Histórico
-* 14/10/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Define o limiar do projeto com o valor de entrada do usuário.
+ *************************************************************************
+ * param (E): int threshold -> valor do limiar. 
+ *************************************************************************
+ * return : Nenhum. 
+ *************************************************************************
+ * Histórico
+ * 14/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 void Project::setUserThreshold(int threshold)
 {
@@ -220,16 +222,16 @@ void Project::setUserThreshold(int threshold)
 }
 
 /************************************************************************
-* Retorna o valor do limiar definido pelo usuário no projeto.
-*************************************************************************
-* param (E): Nenhum
-*************************************************************************
-* return : int userCutThreshold -> limiar definido pelo usuário. 
-*************************************************************************
-* Histórico
-* 14/10/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Retorna o valor do limiar definido pelo usuário no projeto.
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : int userCutThreshold -> limiar definido pelo usuário. 
+ *************************************************************************
+ * Histórico
+ * 14/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 int Project::getUserThreshold()
 {
@@ -280,4 +282,99 @@ long Project::TimelinePosToFrame(long pos)
 	// SIZE_FRAME_TIMELINE ---------- SIZE_SEC_FRAME*vdo->getFPS()
 	// Posicao clicada (x) ---------- X (posicao no frame)
 	return (cvRound(SIZE_SEC_FRAME*this->vdo->getFPS())*pos / SIZE_FRAME_TIMELINE);
+}
+
+void Project::renderVideo(char *filename_cy)
+{
+	CvVideoWriter* videoWriter;
+	long totalFrame = 0x0;
+	long i = 0;
+	long currentPos = 0;
+	unsigned int j = 0;
+	unsigned int numEffect = 0;
+	int ret_i = 0;
+
+	Frame *frame;
+	Frame *frameEffect;
+	Effect *effect;
+
+	// CODECS
+	// CV_FOURCC('H','F','Y','U') // HuffYUV  ~3:1 compression.
+	// CV_FOURCC('P','I','M','1') // MPEG 1 (if you have it)
+	// CV_FOURCC('M','J','P','G') // Motion-jpeg
+	// CV_FOURCC('D','I','B',' ') // Uncompressed
+	// CV_FOURCC('C','D','V','C') // Canopus DV
+	// CV_FOURCC('D','I','V','X') // divx
+
+	// Abre o writer do video
+	videoWriter = cvCreateAVIWriter(filename_cy, CV_FOURCC('D','I','B',' '),
+			vdo->getFPS(), cvSize(cvRound(vdo->getFramesHeight()), cvRound(vdo->getFramesWidth())));
+
+	// Posiciona o ponteiro no comeco do video
+	currentPos = (long)vdo->getCurrentPosition();
+	vdo->seekFrame(0);
+
+	totalFrame = (long)vdo->getFramesTotal();
+
+	// Carregamos o primeiro efeito, caso tiver
+	if (effectList.size() > 0)
+	{
+		numEffect = effectList.size();
+		effect = &effectList.at(0);
+	}
+	else
+	{
+		effect = 0x0;
+	}
+
+	// Varremos Frame a Frame do video
+	for ( i = 0 , j = 0 ; i < totalFrame ; i ++)
+	{
+		frame = vdo->getNextFrame();
+
+		// Checamos se temos efeito a aplicar no frame indicado
+		if (effect)
+		{
+			// Se o frame corrente for maior que o primeiro frame do efeito
+			if (i >= effect->getFrameStart())
+			{
+				if (i <= effect->getFrameEnd())
+				{
+					// Aplica o efeito no frame
+					frameEffect = effect->applyEffect(frame);
+
+					delete frame;
+
+					frame = frameEffect;
+				}
+				else
+				{ // Acabou este efeito, vamos para o proximo
+
+					j++;
+					// Se ainda restarem efeitos
+					if (j <= numEffect)
+					{
+						effect = &effectList.at(j);
+					}
+					else
+					{
+						effect = 0x0;
+					}
+				}
+			}
+		}
+
+		// Escreve o frame no video final
+		ret_i = cvWriteToAVI(videoWriter, frame->data);
+
+		// Apaga o ponteiro para o video
+		delete frame;
+	}
+
+	// Libera o novo video
+	cvReleaseVideoWriter(&videoWriter);
+
+	// Devolve o ponteiro pra posicao inicial
+	vdo->seekFrame(currentPos);
+
 }
