@@ -18,12 +18,10 @@ class Effect
 
 	public:
 
-		Frame* applyEffect(Frame *frame);
+		virtual Frame* applyEffect(Frame *frame) = 0;
 
 		long getFrameStart();
 		long getFrameEnd();
-
-		int type;
 
 };
 #endif

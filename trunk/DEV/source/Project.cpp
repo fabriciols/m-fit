@@ -297,8 +297,8 @@ void Project::renderVideo(char *filename_cy)
 
 	// Teste
 	{
-		Color  *color  = new Color(0,100);
-		effectList.push_back(*color);
+		Effect *color  = new Color(0,100);
+		effectList.push_back(color);
 	}
 
 	Frame *frame;
@@ -327,7 +327,7 @@ void Project::renderVideo(char *filename_cy)
 	if (effectList.size() > 0)
 	{
 		numEffect = effectList.size();
-		effect = &effectList.at(0);
+		effect = effectList.at(0);
 	}
 	else
 	{
@@ -348,18 +348,8 @@ void Project::renderVideo(char *filename_cy)
 				if (i <= effect->getFrameEnd())
 				{
 					// Aplica o efeito no frame
-
-					switch (effect->type)
-					{
-						case 0:
-							frameEffect = ((Color*)effect)->applyEffect(frame);
-							break;
-						default:
-							break;
-					}
-
+					frameEffect = effect->applyEffect(frame);
 					delete frame;
-
 					frame = frameEffect;
 				}
 				else
@@ -369,7 +359,7 @@ void Project::renderVideo(char *filename_cy)
 					// Se ainda restarem efeitos
 					if (j <= (numEffect-1))
 					{
-						effect = &effectList.at(j);
+						effect = effectList.at(j);
 					}
 					else
 					{

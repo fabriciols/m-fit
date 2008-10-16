@@ -21,8 +21,6 @@ class Color: public Effect
 
 		Color(long frameStart, long frameEnd);
 		Color();
-
-
  
 };
 #endif
