@@ -198,6 +198,7 @@ double Dissolve::calcVariance(double *arrayM, int size_i )
 double* Dissolve::calcSecondDerivative(double *array, int size)
 {
 	double *der2 = (double *)malloc(sizeof(double)*size);
+	double *der1 = (double *)malloc(sizeof(double)*size);
 	int i;
 	// Calcula segunda derivada, se for primeiro ou ultimo frame, derivada  = 0
 	for (i=1; i<=size; i++)
