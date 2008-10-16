@@ -7,6 +7,7 @@
 
 #include "../include/Interface.h"
 #include "../include/Effect.h"
+#include "../include/Color.h"
 #include "../include/VisualRythim.h"
 #include "../include/Transition.h"
 #include "../include/Project.h"
@@ -294,6 +295,12 @@ void Project::renderVideo(char *filename_cy)
 	unsigned int numEffect = 0;
 	int ret_i = 0;
 
+	// Teste
+	{
+		Color  *color  = new Color(0,100);
+		effectList.push_back(*color);
+	}
+
 	Frame *frame;
 	Frame *frameEffect;
 	Effect *effect;
@@ -341,7 +348,15 @@ void Project::renderVideo(char *filename_cy)
 				if (i <= effect->getFrameEnd())
 				{
 					// Aplica o efeito no frame
-					frameEffect = effect->applyEffect(frame);
+
+					switch (effect->type)
+					{
+						case 0:
+							frameEffect = ((Color*)effect)->applyEffect(frame);
+							break;
+						default:
+							break;
+					}
 
 					delete frame;
 
@@ -352,7 +367,7 @@ void Project::renderVideo(char *filename_cy)
 
 					j++;
 					// Se ainda restarem efeitos
-					if (j <= numEffect)
+					if (j <= (numEffect-1))
 					{
 						effect = &effectList.at(j);
 					}

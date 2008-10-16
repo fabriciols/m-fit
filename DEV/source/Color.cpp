@@ -40,3 +40,17 @@ Frame* Color::applyEffect(Frame* frame)
 {
 	return convert2Gray(frame);
 }
+
+Color::Color(long frameStart, long frameEnd)
+{
+	this->frameStart = frameStart;
+	this->frameEnd = frameEnd;
+	this->type = 0;
+}
+
+Color::Color()
+{
+	this->frameStart = 0;
+	this->frameEnd = 0;
+	this->type = 0;
+}
