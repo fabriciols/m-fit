@@ -194,6 +194,9 @@ border: 1px solid gray
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="readOnly" >
+          <bool>true</bool>
+         </property>
+         <property name="keyboardTracking" >
           <bool>false</bool>
          </property>
          <property name="currentSection" >
@@ -328,7 +331,7 @@ border: 1px solid gray
   </widget>
   <widget class="QDockWidget" name="widgetTrees" >
    <property name="windowTitle" >
-    <string>Listas</string>
+    <string>Listas do Vídeo</string>
    </property>
    <attribute name="dockWidgetArea" >
     <number>1</number>
@@ -480,6 +483,45 @@ border: 1px solid gray
          </item>
         </layout>
        </widget>
+       <widget class="QWidget" name="tabVdoProperties" >
+        <attribute name="title" >
+         <string>Propriedades</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout" >
+         <item row="0" column="0" >
+          <widget class="QTreeWidget" name="videoPropertiesTree" >
+           <property name="editTriggers" >
+            <set>QAbstractItemView::DoubleClicked</set>
+           </property>
+           <property name="showDropIndicator" stdset="0" >
+            <bool>false</bool>
+           </property>
+           <property name="rootIsDecorated" >
+            <bool>true</bool>
+           </property>
+           <property name="itemsExpandable" >
+            <bool>false</bool>
+           </property>
+           <property name="sortingEnabled" >
+            <bool>true</bool>
+           </property>
+           <property name="expandsOnDoubleClick" >
+            <bool>false</bool>
+           </property>
+           <column>
+            <property name="text" >
+             <string>Propriedade</string>
+            </property>
+           </column>
+           <column>
+            <property name="text" >
+             <string>Valor</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -593,15 +635,17 @@ border: 1px solid gray
           </widget>
          </item>
         </layout>
+        <zorder>widgetTimeline</zorder>
+        <zorder>widgetTimeline</zorder>
        </widget>
       </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="widgetProperties" >
+  <widget class="QDockWidget" name="widgetEdition" >
    <property name="windowTitle" >
-    <string>Propriedades do vídeo</string>
+    <string>Edição - Efeitos</string>
    </property>
    <attribute name="dockWidgetArea" >
     <number>2</number>
@@ -609,33 +653,10 @@ border: 1px solid gray
    <widget class="QWidget" name="dockWidgetContents" >
     <layout class="QGridLayout" >
      <item row="0" column="0" >
-      <widget class="QTreeWidget" name="videoPropertiesTree" >
-       <property name="editTriggers" >
-        <set>QAbstractItemView::DoubleClicked</set>
-       </property>
-       <property name="showDropIndicator" stdset="0" >
-        <bool>false</bool>
-       </property>
-       <property name="rootIsDecorated" >
-        <bool>true</bool>
-       </property>
-       <property name="itemsExpandable" >
-        <bool>false</bool>
-       </property>
-       <property name="sortingEnabled" >
-        <bool>true</bool>
-       </property>
-       <property name="expandsOnDoubleClick" >
-        <bool>false</bool>
-       </property>
+      <widget class="QTreeWidget" name="treeWidget" >
        <column>
         <property name="text" >
-         <string>Propriedade</string>
-        </property>
-       </column>
-       <column>
-        <property name="text" >
-         <string>Valor</string>
+         <string>Efeito</string>
         </property>
        </column>
       </widget>
