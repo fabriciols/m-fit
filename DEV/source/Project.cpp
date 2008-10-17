@@ -51,16 +51,21 @@ int Project::openProject(QString fileName)
 
 		openVideo(content);
 
+		//apaga lista de transicoes
+		this->transitionList.clear();
+
 		for(i=0;i<sizeTag;i++)
 		{
-			fileXml->readXml("transition", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, i);
+			if(fileXml->readXml("transition", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, i))
+				break;
+			
 			Transition *transition = new Transition(atoi(type), atol(posTransition), content);
 			this->transitionList.push_back(*transition);
 		}
 	}
 
 	fileXml->closeXml();
-
+	
 	return true;
 }
 
@@ -139,6 +144,10 @@ int Project::openVideo(QString fileName)
 	{
 		Log::writeLog("%s :: cleaning vdo[%x]", __FUNCTION__, this->vdo);
 		delete this->vdo;
+		
+		//apaga lista de transicoes
+		this->transitionList.clear();
+
 		mfit_ui->clearVideoProperty();
 		mfit_ui->clearTransitionsTree();
 	}
