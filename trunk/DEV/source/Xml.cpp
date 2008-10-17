@@ -111,7 +111,6 @@ int Xml::readXml(char *tag, char *text, char *type, char *posTransition, char *p
 	}
 	else
 	{
-		QMessageBox::information(0, "tagname", "tag not found");
 		return(1);
 	}
 }
@@ -142,6 +141,8 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 		QDomDocument doc("mfit");
 		QDomElement root = doc.createElement("projeto");
 		doc.appendChild(root);
+
+		transitionListXml->clear();
 
 		QString string(xmlName);
 
@@ -177,7 +178,7 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 
 				if(transition->getPosTransition() > 0)
 				{
-					sprintf(str, "%d", transition->getPosTransition());
+					sprintf(str, "%d", (int)transition->getPosTransition());
 					tag3 = doc.createElement("posTransition");
 					tag2.appendChild(tag3);
 					tag3.appendChild(doc.createTextNode(str));
@@ -193,7 +194,7 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 
 				if(transition->getPosUserTransition() > 0)
 				{
-					sprintf(str, "%d", transition->getPosUserTransition());
+					sprintf(str, "%d", (int)transition->getPosUserTransition());
 					tag3 = doc.createElement("posUserTransition");
 					tag2.appendChild(tag3);
 					tag3.appendChild(doc.createTextNode(str));

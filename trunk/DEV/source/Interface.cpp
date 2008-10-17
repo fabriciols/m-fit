@@ -183,6 +183,7 @@ void mfit::on_actionOpenProject_triggered()
 	{
 		currentProject->openProject(fileName);
 		updateTransitions();
+		enableControls();
 	}
 	else
 	{
