@@ -43,6 +43,9 @@ int Project::openProject(QString fileName)
 
 	if(!ret)
 	{
+		//apaga lista de transicoes
+		this->transitionList.clear();
+
 		fileXml->readXml("name", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, 0);
 
 		mfit_ui->changeWindowTitle(content);
@@ -51,16 +54,15 @@ int Project::openProject(QString fileName)
 
 		openVideo(content);
 
-		//apaga lista de transicoes
-		this->transitionList.clear();
-
 		for(i=0;i<sizeTag;i++)
 		{
-			if(fileXml->readXml("transition", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, i))
-				break;
-			
-			Transition *transition = new Transition(atoi(type), atol(posTransition), content);
-			this->transitionList.push_back(*transition);
+			fileXml->readXml("transition", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, i);
+
+			if(sizeTag)
+			{
+				Transition *transition = new Transition(atoi(type), atol(posTransition), content);
+				this->transitionList.push_back(*transition);
+			}
 		}
 	}
 
