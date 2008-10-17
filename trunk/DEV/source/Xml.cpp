@@ -142,8 +142,6 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 		QDomElement root = doc.createElement("projeto");
 		doc.appendChild(root);
 
-		transitionListXml->clear();
-
 		QString string(xmlName);
 
 		tag = doc.createElement("name");
