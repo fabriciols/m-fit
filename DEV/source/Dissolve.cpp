@@ -55,21 +55,21 @@ Dissolve::Dissolve(Video *vdo)
 * return : Nenhum
 *************************************************************************
 * Histórico:
-* 19/08/08 - Ivan Shiguenori Machida
+* 16/10/08 - Mauricio Hirota
 * Criação.
 ************************************************************************/
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
-	Transition *transition;
+	/*Transition *transition;
 	Frame* visual = new Frame();
-	double media=0, variancia, *array_dvrh;
-	int len_i, i, j, k;
+	double media=0, *variancia, *array_dvrh, ratio;
+	double *var_2_der, *med_1_der ;
+	int len_i, i, j, k, w;
 
 	Color *color = new Color();
 	Frame* frameGray = 0;
 	double *pontos, *pontos_anterior;
 	int tamanho_pontos, *valor_pontos, *detecta;
-
 	double *calculo_pontos=0;
 
 	char pri[4],seg[4],ter[4],qua[4];
@@ -79,19 +79,6 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	visual = vdo->getCurrentFrame();
 
 	tamanho_pontos = (visual->getWidth()*visual->getHeight());
-
-	pontos = (double *)malloc(sizeof(double)*tamanho_pontos);
-	pontos_anterior = (double *)malloc(sizeof(double)*tamanho_pontos);
-	valor_pontos = (int *)malloc(sizeof(int)*len_i);
-	calculo_pontos = (double *)malloc(sizeof(double)*len_i);
-	array_dvrh = (double *) malloc(sizeof(double)*len_i);
-	detecta = (int *) malloc(sizeof(int)*len_i);
-
-	memset(pontos,0,tamanho_pontos);
-	memset(pontos_anterior,0,tamanho_pontos);
-
-	memset(detecta,0,sizeof(detecta));
-
 	for(k=0;k<len_i;k++)
 	{
 		visual = vdo->getNextFrame();
@@ -103,50 +90,51 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		j=0;
 		for(i=0;i<tamanho_pontos;i++)
 		{
-			variancia += (pontos[i] - media) * (pontos[i] - media);
+			variancia[k] += (pontos[i] - media) * (pontos[i] - media);
 		}
 
-		variancia = variancia / (tamanho_pontos-1);
-
-		valor_pontos[k] = j;
-
-		variancia=0;
-	}
-
-	for(i=0;i<len_i;i++)
-	{
-		float trsMax = 1.4, trsMin = 0.6;
-		sprintf(pri,"%03.0lf",array_dvrh[i]);
-		sprintf(seg,"%03.0lf",array_dvrh[i+1]);
-		sprintf(ter,"%03.0lf",array_dvrh[i+2]);
-		sprintf(qua,"%03.0lf",array_dvrh[i+3]);
+		variancia[k] = variancia[k] / (tamanho_pontos-1);
 		
-		if((((atoi(seg)-atoi(pri))>=trsMin)&&((atoi(seg)-atoi(pri))<=trsMax))  && 
-		((atoi(ter)-atoi(seg))>=trsMin) && ((atoi(ter)-atoi(seg))<=trsMax) && 
-		((atoi(qua)-atoi(ter)) >= trsMin) && ((atoi(qua)-atoi(ter)) <= trsMax))
-			detecta[i]=1;
-		else
-			detecta[i]=0;
 	}
-
-	for(i=0;i<len_i;i++)
+	var_2_der = CalcSecondDerivative(variancia, len_i);
+	med_1_der = CalcSecondDerivative(array_dvrh, len_i);
+	
+	for(w=0; w<len_i; w++)
 	{
-		if(detecta[i]==1 && detecta[i+1]==1 && detecta[i+2]==1)
-		{
-			transition = new Transition(TRANSITION_DISSOLVE, i+1, "Dissolve");
-			transitionList->push_back(*transition);
-			detecta[i]=1;
-		}
+		ratio = calcRatioVarianceVRH(var_2_der, med_1_der);
+		if (ratio<0)
+			ratio = (-1)*ratio;
+		// por enquanto usa 2 
+		if (ratio < 2)
+			detecta[w] = 1;
 		else
-			detecta[i]=0;
+			detecta[w] = 0;
 	}
+	// varre os pontos de deteccao e pega o primeiro entre 5 ou mais
+	for(i=0; i<len_i; i++)
+	{
+		if(detecta[i] == 1)
+		{
+			for(j=i; j<i+5; j++)
+			{
+				if (detecta[j] == 0)
+					detecta[i]=0;
+			}
+			transition = new Transition(TRANSITION_DISSOLVE, i, "Dissolve");
+			transitionList->push_back(*transition);
 
-	delete detecta;
-	delete valor_pontos;
-	delete array_dvrh;
-	delete pontos;
-	delete pontos_anterior;
-	delete calculo_pontos;
+		}
+		// se for ponto de deteccao, zera os proximos 5 pontos e avnca o contador para o sexto elemento
+		if(detecta[i] == 1)
+		{
+			for (k=i; k<i+5; k++)
+			{
+				detecta[k] = 0;
+			}
+			i = i+5;
+		}
+	}
+     */
 }
 
 /************************************************************************
@@ -213,7 +201,8 @@ double* Dissolve::calcSecondDerivative(double *array, int size)
 		if (i == 1 || i == size)
 			der2[i] = 0;
 		else
-			der2[i] = (der1[i+1] + der1[i-1])/2;
+	
+		der2[i] = (der1[i+1] + der1[i-1])/2;
 	}
 	
 	return(der2);	
@@ -232,7 +221,10 @@ double* Dissolve::calcSecondDerivative(double *array, int size)
 * 18/08/08 - Ivan Shiguenori machida
 * Criação.
 ************************************************************************/
-double Dissolve::calcRatioVarianceVRH(double var, double der2)
+double Dissolve::calcRatioVarianceVRH(double var, double med_der1)
 {
-	return(var / der2);
+	if (med_der1!=0)
+		return(var / med_der1);
+	else
+		return 0;
 }
