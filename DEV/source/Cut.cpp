@@ -14,10 +14,15 @@
 
 #include "../include/DetectTransitions.h"
 
+#include "../include/Effect.h"
+#include "../include/Project.h"
+
 #include "../include/Cut.h"
 
 #include "../include/Filters.h"
 #include "../include/Log.h"
+
+extern Project *currentProject;
 
 /************************************************************************
 * Construtor
@@ -191,12 +196,13 @@ int Cut::defineThreshold(int height)
 	int userThreshold = 0;
 	double sysThreshold;
 
-	// Would you like to set a new threshold? precisaremos do QT pra fazer isso
-	// mas podemos fazer o msm esquema q a gnt faz com coletaED. só preciso
-	// ver como faz q eu nao sei. waitKey?
+	userThreshold = currentProject->getUserThreshold();
+
+	if (userThreshold)
+		userThreshold = (int)(height * (userThreshold/100));
 	
-	sysThreshold = height * 0.45;
-	
+	Log::writeLog("%s :: userThreshold = %d", __FUNCTION__, userThreshold);
+
 	setThreshold(threshold > 0 ? userThreshold : (int)sysThreshold);
 	
 	//Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
