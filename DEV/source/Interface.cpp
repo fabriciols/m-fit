@@ -1084,10 +1084,23 @@ void mfit::enableControls()
 
 }
 
-void mfit::on_actionDetetConfig_triggered()
+/**************************************************************************
+ * Trata evento do click sobre o menu
+ **************************************************************************
+ * param (E): Não há.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 18/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+void mfit::on_actionDetectConfig_triggered()
 {
-	showDetecionConfigs();
+	showDetectionConfigs();
 }
+
 /**************************************************************************
  * Transforma uma QString em um char*
  **************************************************************************
@@ -1130,14 +1143,12 @@ void mfit::on_actionRenderVideo_triggered()
  * Criação.
  *************************************************************************/
 
-int mfit::showDetectionConfigs()
+void mfit::showDetectionConfigs()
 {
 
 	DetectConfig configWindow;
 
 	configWindow.exec();
-
-	return 0;
 
 }
 
