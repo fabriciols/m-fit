@@ -10,7 +10,7 @@
 #define DEFAULT_FIRST_CANNY   100
 #define DEFAULT_LAST_CANNY    200
 
-class CutConfig: public QDialog
+class DetectConfig: public QDialog
 {
 	
 	Q_OBJECT
@@ -18,10 +18,10 @@ class CutConfig: public QDialog
 	private slots:
 
 		void on_okButton_clicked();
-
+		void changePage();
 
 	public:
-		CutConfig(QDialog *parent = 0);
+		DetectConfig(QDialog *parent = 0);
 
 		Ui::Dialog ui;
 
