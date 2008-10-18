@@ -300,13 +300,7 @@ border: 1px solid gray
     <property name="title" >
      <string>Configurações</string>
     </property>
-    <widget class="QMenu" name="menuCut" >
-     <property name="title" >
-      <string>Corte</string>
-     </property>
-     <addaction name="actionCut_Settings" />
-    </widget>
-    <addaction name="menuCut" />
+    <addaction name="actionDetectConfig" />
    </widget>
    <addaction name="menuFile" />
    <addaction name="menuDetect" />
@@ -635,8 +629,6 @@ border: 1px solid gray
           </widget>
          </item>
         </layout>
-        <zorder>widgetTimeline</zorder>
-        <zorder>widgetTimeline</zorder>
        </widget>
       </widget>
      </item>
@@ -933,6 +925,11 @@ border: 1px solid gray
   <action name="actionRenderVideo" >
    <property name="text" >
     <string>Renderizar Video...</string>
+   </property>
+  </action>
+  <action name="actionDetectConfig" >
+   <property name="text" >
+    <string>Detecção</string>
    </property>
   </action>
  </widget>
