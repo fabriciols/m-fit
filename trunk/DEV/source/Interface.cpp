@@ -1084,15 +1084,22 @@ void mfit::enableControls()
 
 }
 
-void mfit::on_actionCut_Settings_triggered()
+void mfit::on_actionDetetConfig_triggered()
 {
-	int newThreshold = 0;
-
-	newThreshold = askNewThreshold();
-
-	if (newThreshold)
-		currentProject->setUserThreshold(newThreshold);
+	showDetecionConfigs();
 }
+/**************************************************************************
+ * Transforma uma QString em um char*
+ **************************************************************************
+ * param (E): QString *string    - String do tipo QSTRING
+ * param (S): char    *string_cy - String convertida para char*
+ **************************************************************************
+ * return : char* - String convertida
+ **************************************************************************
+ * Histórico
+ * 14/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
 
 void mfit::on_actionRenderVideo_triggered()
 {
@@ -1111,43 +1118,24 @@ void mfit::on_actionRenderVideo_triggered()
 	}
 }
 
-int mfit::askNewThreshold()
+/**************************************************************************
+ * Abre a janela de configurações para detecção de transições.
+ **************************************************************************
+ * param (E): Não há.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 18/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+int mfit::showDetectionConfigs()
 {
-	/*
- 	bool ok;
-	// Por default iremos definir o limiar como 45% da altura do frame 
-	// (tal valor foi definido através de testes).
-	int defaultThreshold = 45; 
-   int userThreshold;
 
-	userThreshold = currentProject->getUserThreshold();
+	DetectConfig configWindow;
 
-	Log::writeLog("%s, user[%d], default[%d]", __FUNCTION__, userThreshold, defaultThreshold);
-
-	if (userThreshold != 0)
-		defaultThreshold = userThreshold;
-
-	Log::writeLog("%s, user[%d], default[%d]", __FUNCTION__, userThreshold, defaultThreshold);
-
-	userThreshold = QInputDialog::getInteger(
-							this, 
-							tr("MFIT"), // Nome da janela
-                     tr("Porcentagem:"), // Texto
-							defaultThreshold, // Valor inicial
-							0, // Valor minimo
-							100, // Valor máximo
-							1, // Incremento
-							&ok); // Botão de saida
-
-   if (ok && userThreshold)
-		return (userThreshold);
-	else
-		return 0;
-*/
-
-	CutConfig cutWindow;
-
-	cutWindow.exec();
+	configWindow.exec();
 
 	return 0;
 
@@ -1165,12 +1153,26 @@ int mfit::askNewThreshold()
  * 14/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
+
 char *mfit::QStringToChar(QString string, char* string_cy)
 {
 	sprintf(string_cy, "%s",string.toAscii().data());
 
 	return string_cy;
 }
+
+/**************************************************************************
+ * Traça uma linha acima da timeline identificando a localização da tomada
+ **************************************************************************
+ * param (E): unsigned int transitionID - Transição selecionada na lista.
+ * param (E): int clean - flag que indica se deve apagar o traço ou não.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 14/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
 
 void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
 {
