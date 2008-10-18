@@ -12,7 +12,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 
-#include "../include/CutConfig.h"
+#include "../include/DetectConfig.h"
 
 #include "../include/Interface.h"
 #include "../include/Effect.h"
