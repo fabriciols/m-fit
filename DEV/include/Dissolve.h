@@ -22,7 +22,7 @@ class Dissolve: public DetectTransitions
 	 *Calcula a segunda derivada de
 	 *uma curva.
 	 */
-		double* calcSecondDerivative(double *, int);
+		double calcSecondDerivative(double *, int);
 	 
 	/**
 	 *Calcula a curva de variância de um vídeo.
