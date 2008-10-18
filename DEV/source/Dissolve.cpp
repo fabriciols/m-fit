@@ -60,19 +60,19 @@ Dissolve::Dissolve(Video *vdo)
 ************************************************************************/
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
-	/*Transition *transition;
+	Transition *transition;
 	Frame* visual = new Frame();
 	double media=0, *variancia, *array_dvrh, ratio;
-	double *var_2_der, *med_1_der ;
+	double var_2_der, med_1_der ;
 	int len_i, i, j, k, w;
 
 	Color *color = new Color();
 	Frame* frameGray = 0;
-	double *pontos, *pontos_anterior;
-	int tamanho_pontos, *valor_pontos, *detecta;
-	double *calculo_pontos=0;
+	double *pontos;    //, *pontos_anterior, *valor_pontos,;
+	int tamanho_pontos, *detecta;
+	//double *calculo_pontos=0;
 
-	char pri[4],seg[4],ter[4],qua[4];
+	//char pri[4],seg[4],ter[4],qua[4];
 
 	len_i = cvRound(vdo->getFramesTotal());
 
@@ -96,8 +96,9 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		variancia[k] = variancia[k] / (tamanho_pontos-1);
 		
 	}
-	var_2_der = CalcSecondDerivative(variancia, len_i);
-	med_1_der = CalcSecondDerivative(array_dvrh, len_i);
+	
+	var_2_der = calcSecondDerivative(variancia, len_i);
+	med_1_der = calcSecondDerivative(array_dvrh, len_i);
 	
 	for(w=0; w<len_i; w++)
 	{
@@ -134,7 +135,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 			i = i+5;
 		}
 	}
-     */
+     
 }
 
 /************************************************************************
@@ -183,7 +184,7 @@ double Dissolve::calcVariance(double *arrayM, int size_i )
 * 18/08/08 - Ivan Shiguenori machida
 * Criação.
 ************************************************************************/
-double* Dissolve::calcSecondDerivative(double *array, int size)
+double Dissolve::calcSecondDerivative(double *array, int size)
 {
 	double *der2 = (double *)malloc(sizeof(double)*size);
 	double *der1 = (double *)malloc(sizeof(double)*size);
@@ -205,7 +206,7 @@ double* Dissolve::calcSecondDerivative(double *array, int size)
 		der2[i] = (der1[i+1] + der1[i-1])/2;
 	}
 	
-	return(der2);	
+	return(*der2);	
 }
 
 /************************************************************************
