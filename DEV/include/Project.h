@@ -12,8 +12,12 @@ class Project
 		int userMinCanny;
 		int userMaxCanny;
 
+		void clearTransitionList();
+
 	public:
 		Project();
+
+
 
 		int openProject(QString);
 		int saveProject(QString);

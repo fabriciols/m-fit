@@ -44,7 +44,7 @@ int Project::openProject(QString fileName)
 	if(!ret)
 	{
 		//apaga lista de transicoes
-		this->transitionList.clear();
+		this->clearTransitionList();
 
 		fileXml->readXml("name", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, 0);
 
@@ -64,6 +64,8 @@ int Project::openProject(QString fileName)
 				this->transitionList.push_back(*transition);
 			}
 		}
+
+		mfit_ui->addRecentFile(fileName);
 	}
 
 	fileXml->closeXml();
@@ -110,7 +112,6 @@ int Project::saveProject(QString fileName)
  ************************************************************************/
 Project::Project(void)
 {
-	Transition *transition;
 
 	// Inicializa os ponteiros com 0
 	this->vdo = '\0';
@@ -124,11 +125,8 @@ Project::Project(void)
 	// Troca o titulo da janela
 	mfit_ui->changeWindowTitle(this->filename_cy);
 
-	// Cria transicao de inicio de video
-	transition = new Transition(TRANSITION_VIDEOSTART, 0, "Inicio do Video");
-
-	// Empilha
-	transitionList.push_back(*transition);
+	// Limpa a lista de transicoes
+	this->clearTransitionList();
 
 }
 
@@ -156,7 +154,7 @@ int Project::openVideo(QString fileName)
 		delete this->vdo;
 		
 		//apaga lista de transicoes
-		this->transitionList.clear();
+		this->clearTransitionList();
 
 		mfit_ui->clearVideoProperty();
 		mfit_ui->clearTransitionsTree();
@@ -205,6 +203,8 @@ int Project::openVideo(QString fileName)
 	mfit_ui->createTimeline();
 
 	mfit_ui->updateTransitions();
+
+	mfit_ui->addRecentFile(fileName);
 
 	return true;
 }
@@ -474,4 +474,17 @@ void Project::renderVideo(char *filename_cy)
 	// Devolve o ponteiro pra posicao inicial
 	vdo->seekFrame(currentPos);
 
+}
+
+void Project::clearTransitionList()
+{
+	Transition *transition;
+
+	//apaga lista de transicoes
+	this->transitionList.clear();
+
+	// Cria transicao de inicio de video
+	transition = new Transition(TRANSITION_VIDEOSTART, 0, "Inicio do Video");
+
+	this->transitionList.push_back(*transition);
 }

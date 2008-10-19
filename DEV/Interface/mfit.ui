@@ -267,6 +267,7 @@ border: 1px solid gray
     <addaction name="actionRenderVideo" />
     <addaction name="actionSaveAs" />
     <addaction name="actionSave" />
+    <addaction name="separator" />
    </widget>
    <widget class="QMenu" name="menuDetect" >
     <property name="title" >
