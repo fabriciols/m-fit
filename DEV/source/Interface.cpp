@@ -60,19 +60,42 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 	connect(vdo_player, SIGNAL(setHistogram(QImage *)),
 			this, SLOT(updateHist(QImage *)));
 
+	if (recentFiles[0])
+	{
+		ui.menuFile->addSeparator();
+		for( int i=0; i<MAX_RECENT_FILES; i++)
+		{
+			// Adiciono o arquivo no menu e crio um connect para ele.
+			if (recentFiles[i]) 
+			{
+				ui.menuFile->addAction(recentFiles[i]);
+				connect(recentFiles[i], SIGNAL(triggered()),
+                 this, SLOT(openRecentFiles()));
+			}	
+		}
+		ui.menuFile->addSeparator();
+	}
+
+	// Adiciono o EXIT no final de tudo.
+	ui.menuFile->addAction(ui.actionExit);
+}
+
+void mfit::openRecentFiles()
+{
+	return;
 }
 
 /************************************************************************
-* Tratar o evento do botão PLAY. Inicia a thread do video player
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* Histórico
-* 13/10/08 - Thiago Mizutani
-* Verifica se há vídeo, se não houver mostra alerta
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * Tratar o evento do botão PLAY. Inicia a thread do video player
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * Histórico
+ * 13/10/08 - Thiago Mizutani
+ * Verifica se há vídeo, se não houver mostra alerta
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::on_playButton_clicked()
 {
 	// Somente para controle se há ou não vídeo carregado. depois deleta o obj
@@ -94,16 +117,16 @@ void mfit::on_playButton_clicked()
 }
 
 /************************************************************************
-* Tratar o evento do botão PAUSE. Se a thread estiver rodando, mata ela
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* Histórico
+ * Tratar o evento do botão PAUSE. Se a thread estiver rodando, mata ela
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * Histórico
  * 13/10/08 - Thiago Mizutani
  * Verifica se há vídeo, se não houver mostra alerta
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::on_pauseButton_clicked()
 {
 	// Somente para controle se há ou não vídeo carregado. depois deleta o obj
@@ -123,17 +146,17 @@ void mfit::on_pauseButton_clicked()
 }
 
 /************************************************************************
-* Tratar o evento do botão STOP. Se a thread estiver rodando, mata ela,
-* e posiciona o ponteiro do video para seu inicio.
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* Histórico
+ * Tratar o evento do botão STOP. Se a thread estiver rodando, mata ela,
+ * e posiciona o ponteiro do video para seu inicio.
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * Histórico
  * 13/10/08 - Thiago Mizutani
  * Verifica se há vídeo, se não houver mostra alerta
-* 29/09/08 - Fabricio Lopes de Souza
-* Criação.
-************************************************************************/
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void mfit::on_stopButton_clicked()
 {
 	Video *vdo;
@@ -153,7 +176,7 @@ void mfit::on_stopButton_clicked()
 
 	if (vdo_player->isRunning())
 		vdo_player->terminate();
-	
+
 	delete vdo;
 
 }
@@ -280,7 +303,7 @@ void mfit::on_actionSave_triggered()
 	if (!fileName.isEmpty())
 	{
 		currentProject->saveProject(fileName);
-		
+
 		this->setWindowTitle(fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1));
 
 		return;
@@ -455,7 +478,7 @@ void mfit::on_videoTime_timeChanged(const QTime & time)
 		vdo->seekFrame(cvTime->getFramePos(vdo->getFPS()));
 
 		updateVideoPlayer(vdo->getCurrentFrame());
-	 */
+		*/
 
 }
 
@@ -493,7 +516,7 @@ void mfit::createTimeline(void)
 	iter_i = cvRound(sec_i * vdo->getFPS());
 
 	vdo->seekFrame(0);
-	
+
 	frame = vdo->getNextFrame();	
 	vdo_player->frameTimeline = frame->resize(width, height);
 
@@ -1059,20 +1082,20 @@ void mfit::enableControls()
 	// Controles gerais
 	this->ui.actionSave->setEnabled(true);
 	this->ui.actionSaveAs->setEnabled(true);
-	
+
 	// Controles do player (action = menu e toolbar, button = botões do player)
 	this->ui.actionPlay->setEnabled(true);
 	this->ui.playButton->setEnabled(true);
-	
+
 	this->ui.actionPause->setEnabled(true);
 	this->ui.pauseButton->setEnabled(true);
-	
+
 	this->ui.actionBackward->setEnabled(true);
 	this->ui.backButton->setEnabled(true);
-	
+
 	this->ui.actionForward->setEnabled(true);
 	this->ui.forwardButton->setEnabled(true);
-	
+
 	this->ui.actionStop->setEnabled(true);
 	this->ui.stopButton->setEnabled(true);
 
