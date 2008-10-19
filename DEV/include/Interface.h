@@ -13,6 +13,9 @@
 
 #ifndef INTERFACE_INCLUDE
 #define INTERFACE_INCLUDE
+
+#define MAX_RECENT_FILES 4
+
 class mfit: public QMainWindow
 {
 	Q_OBJECT
@@ -49,6 +52,12 @@ class mfit: public QMainWindow
 		void enableControls(); // Habilita todos os comandos (botões) após carregar um vídeo.
 
 		void showDetectionConfigs(); // Abre a janela de configurações para detecção de transições
+
+		void openRecentFiles();
+
+	private:
+
+		QAction *recentFiles[MAX_RECENT_FILES]; // Array que guarda o nome dos arquivos recentes
 
 	public:
 		mfit(QMainWindow *parent = 0);
