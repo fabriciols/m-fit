@@ -50,6 +50,8 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
 
+	memset(recentFileActs, '\0', sizeof(recentFileActs));
+
 	qRegisterMetaType<Frame>("Frame");
 
 	// Atualiza a imagem do player assim que receber um sinal da thread
@@ -60,29 +62,57 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 	connect(vdo_player, SIGNAL(setHistogram(QImage *)),
 			this, SLOT(updateHist(QImage *)));
 
-	if (recentFiles[0])
-	{
-		ui.menuFile->addSeparator();
-		for( int i=0; i<MAX_RECENT_FILES; i++)
-		{
-			// Adiciono o arquivo no menu e crio um connect para ele.
-			if (recentFiles[i]) 
-			{
-				ui.menuFile->addAction(recentFiles[i]);
-				connect(recentFiles[i], SIGNAL(triggered()),
-                 this, SLOT(openRecentFiles()));
-			}	
-		}
-		ui.menuFile->addSeparator();
-	}
+	createRecentFilesActions();
+	updateRecentFilesAct();
 
 	// Adiciono o EXIT no final de tudo.
 	ui.menuFile->addAction(ui.actionExit);
 }
 
-void mfit::openRecentFiles()
+void mfit::addRecentFile(QString fileName)
 {
-	return;
+	QSettings settings("MFIT", "MFIT");
+	QStringList files = settings.value("recentFileList").toStringList();
+	files.removeAll(fileName);
+	files.prepend(fileName);
+	while (files.size() > MAX_RECENT_FILES)
+	{
+		files.removeLast();
+	}
+
+	settings.setValue("recentFileList", files);
+}
+
+void mfit::updateRecentFilesAct()
+{
+	QSettings settings("MFIT", "MFIT");
+	QStringList files = settings.value("recentFileList").toStringList();
+
+	int numRecentFiles = qMin(files.size(), (int)MAX_RECENT_FILES);
+
+	ui.menuFile->addSeparator();
+
+	for (int i = 0; i < numRecentFiles; ++i)
+	{
+		QString text = tr("&%1 %2").arg(i + 1).arg(QFileInfo(files[i]).fileName());
+		recentFileActs[i]->setText(text);
+		recentFileActs[i]->setData(files[i]);
+		recentFileActs[i]->setVisible(true);
+	}
+
+	for (int j = numRecentFiles; j < MAX_RECENT_FILES ; ++j)
+		recentFileActs[j]->setVisible(false);
+}
+
+void mfit::createRecentFilesActions()
+{
+	for (int i = 0; i < MAX_RECENT_FILES ; ++i)
+	{
+		recentFileActs[i] = new QAction(this);
+		recentFileActs[i]->setVisible(false);
+		//connect(recentFileActs[i], SIGNAL(triggered()),
+		//		this, SLOT(openRecentFile()));
+	}
 }
 
 /************************************************************************
@@ -478,7 +508,7 @@ void mfit::on_videoTime_timeChanged(const QTime & time)
 		vdo->seekFrame(cvTime->getFramePos(vdo->getFPS()));
 
 		updateVideoPlayer(vdo->getCurrentFrame());
-		*/
+	 */
 
 }
 

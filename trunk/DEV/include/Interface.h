@@ -56,14 +56,16 @@ class mfit: public QMainWindow
 
 		void showDetectionConfigs(); // Abre a janela de configurações para detecção de transições
 
-		void openRecentFiles();
-
 	private:
 
-		QAction *recentFiles[MAX_RECENT_FILES]; // Array que guarda o nome dos arquivos recentes
+		QAction *recentFileActs[MAX_RECENT_FILES]; // Array que guarda o nome dos arquivos recentes
 
 	public:
 		mfit(QMainWindow *parent = 0);
+
+		void addRecentFile(QString fileName);
+		void updateRecentFilesAct();
+		void createRecentFilesActions();
 
 		void askCutThreshold(int threshold);
 
