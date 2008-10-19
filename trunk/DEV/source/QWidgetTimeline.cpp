@@ -85,7 +85,7 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 	Effect *effect = 0x0;
 	Transition *transition = 0x0;
 	unsigned int i = 0;
-	long start = 0;
+	long start = -1;
 	long end = 0;
 
 	switch(getItemByEvent(event))
@@ -118,7 +118,7 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 	{
 		transition = &currentProject->transitionList.at(i);
 
-		if (start)
+		if (start >= 0)
 		{
 			if (transition->selected == false)
 			{
@@ -131,11 +131,14 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 			}
 		}
 
-		if (transition->selected == true)
+		if (start == -1)
 		{
-			start = transition->getPosCurrent();
-			continue;
-		}	
+			if (transition->selected == true)
+			{
+				start = transition->getPosCurrent();
+				continue;
+			}	
+		}
 
 	}
 
