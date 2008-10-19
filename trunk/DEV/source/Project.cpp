@@ -114,8 +114,8 @@ Project::Project(void)
 	this->vdo = '\0';
 	this->frame = '\0';
 	this->userCutThreshold = '\0';
-	this->userFirstCanny = '\0';
-	this->userLastCanny = '\0';
+	this->userMinCanny = '\0';
+	this->userMaxCanny = '\0';
 
 	strcpy(this->filename_cy, "NewProject.mfit");
 
@@ -250,26 +250,85 @@ int Project::getUserThreshold()
 	return (this->userCutThreshold);
 }
 
+/*************************************************************************
+ * Função set para limiar mínimo (definido pelo usuario) do filtro de canny 
+ *************************************************************************
+ * param (E) : int userMinCanny-> limiar minimo definido pelo usuário. 
+ *************************************************************************
+ * return : nenhum
+ *************************************************************************
+ * Histórico
+ * 18/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
-void Project::setUserFirstCanny(int userFirst)
+void Project::setUserMinCanny(int userMinCanny)
 {
-	this->userFirstCanny = userFirst;
+	this->userMinCanny = userMinCanny;
 }
 
-int Project::getUserFirstCanny()
+/*************************************************************************
+ * Função get para limiar mínimo (definido pelo usuario) do filtro de canny 
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : int userMinCanny -> limiar minimo definido pelo usuário. 
+ *************************************************************************
+ * Histórico
+ * 18/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+int Project::getUserMinCanny()
 {
-	return (this->userFirstCanny);
+	return (this->userMinCanny);
 }
 
-void Project::setUserLastCanny(int userLast)
+/*************************************************************************
+ * Função set para limiar máximo (definido pelo usuario) do filtro de canny 
+ *************************************************************************
+ * param (E):int userMaxCanny -> limiar maximo definido pelo usuário 
+ *************************************************************************
+ * return : não há. 
+ *************************************************************************
+ * Histórico
+ * 18/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+void Project::setUserMaxCanny(int userMaxCanny)
 {
-	this->userLastCanny = userLast;
+	this->userMaxCanny = userMaxCanny;
 }
 
-int Project::getUserLastCanny()
+/*************************************************************************
+ * Função get para limiar máximo (definido pelo usuario) do filtro de canny 
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : int userMaxCanny-> limiar máximo definido pelo usuário. 
+ *************************************************************************
+ * Histórico
+ * 18/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
+
+int Project::getUserMaxCanny()
 {
-	return (this->userLastCanny);
+	return (this->userMaxCanny);
 }
+
+/*************************************************************************
+ * Ordena a lista de transiçõs
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : Nenhum. 
+ *************************************************************************
+ * Histórico
+ * 17/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
 
 void Project::sortTransitionList(void)
 {
@@ -295,6 +354,18 @@ long Project::TimelinePosToFrame(long pos)
 	// Posicao clicada (x) ---------- X (posicao no frame)
 	return (cvRound(SIZE_SEC_FRAME*this->vdo->getFPS())*pos / SIZE_FRAME_TIMELINE);
 }
+
+/*************************************************************************
+ * Salva vídeo após aplicação de efeitos.
+ *************************************************************************
+ * param (E): char *filename_cy 
+ *************************************************************************
+ * return : nenhum.
+ *************************************************************************
+ * Histórico
+ * 16/10/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 void Project::renderVideo(char *filename_cy)
 {
