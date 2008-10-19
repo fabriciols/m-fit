@@ -153,10 +153,10 @@ void Video::updatePos()
 
 	//CV_CAP_PROP_POS_FRAMES - 0-based index of the frame to be decoded/captured next
 	this->framePos = cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_FRAMES);
-	Log::writeLog("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
+	//Log::writeLog("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
 
 	msec = (long)cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_MSEC);
-	Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
+	//Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
 
 	this->timePos.setTime(msec);
 
@@ -251,7 +251,7 @@ Frame* Video::getNextFrame()
 			// Seto o frame sem o wide 
 			frameNew->setImage(imgWide);
 
-			Log::writeLog("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
+			//Log::writeLog("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
 		}
 
 		return (frameNew);
@@ -458,7 +458,7 @@ void Video::removeWide()
 
 		sizeWide = frame->removeWide();
 
-		Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
+		//Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
 
 		if (sizeWide)
 		{
@@ -470,7 +470,7 @@ void Video::removeWide()
 
 	}
 
-	Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
+	//Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
 
 	// Devolve ele pra posição que estava
 	this->seekFrame(cvRound(currentPosition));
@@ -498,8 +498,8 @@ void Video::removeBorder()
 {
 	double currentPosition = 0;
 
-	int sizeWide    = 0;
-	int minSizeWide = 9999;
+	int borderSize = 0;
+	int minBorderSize = 9999;
 
 	Frame *frame = 0;
 
@@ -520,30 +520,30 @@ void Video::removeBorder()
 
 		frame = this->getCurrentFrame();
 
-		sizeWide = frame->removeBorder();
+		borderSize = frame->removeBorder();
 
-		Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
+		//Log::writeLog("%s :: Wide [%d]", __FUNCTION__, borderSize);
 
-		if (sizeWide)
+		if (borderSize)
 		{
-			if (sizeWide < minSizeWide)
-				minSizeWide = sizeWide;
+			if (borderSize < minBorderSize)
+				minBorderSize = borderSize;
 		}
 
 		delete frame;
 
 	}
 
-	Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
+	//Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minBorderSize);
 
 	// Devolve ele pra posição que estava
 	this->seekFrame(cvRound(currentPosition));
 
-	if (sizeWide > 0)
+	if (borderSize> 0)
 	{
 		// Seta no ROI padrao do video as medidas
-		this->ROI.x = minSizeWide;
-		this->ROI.width = cvRound(this->getFramesWidth()-(minSizeWide*2));
+		this->ROI.x = minBorderSize;
+		this->ROI.width = cvRound(this->getFramesWidth()-(minBorderSize*2));
 
 		if (this->ROI.y == -1)
 			this->ROI.y = 1;

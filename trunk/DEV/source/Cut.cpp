@@ -200,6 +200,8 @@ int Cut::defineThreshold(int height)
 
 	if (userThreshold)
 		userThreshold = (int)(height * (userThreshold/100));
+	else
+		sysThreshold = height * 0.45;
 	
 	Log::writeLog("%s :: userThreshold = %d", __FUNCTION__, userThreshold);
 
@@ -325,10 +327,8 @@ int Cut::setThreshold(int threshold)
 
 int Cut::validateCut(Frame* visual, int position)
 {
-	Frame* visualRythim = new Frame(visual);
-
-	int width = visualRythim->getWidth();
-	int height = visualRythim->getHeight();
+	int width = visual->getWidth();
+	int height = visual->getHeight();
 
 	long totalPixels = height*2;
 	long totalNextLum = 0; // Soma total da luminancia dos pixels dos proximos 2 frames.
@@ -346,7 +346,7 @@ int Cut::validateCut(Frame* visual, int position)
 	{
 		for(int y=0; y<height; y++)
 		{
-			totalNextLum = totalNextLum + visualRythim->getPixel(x,y);
+			totalNextLum = totalNextLum + visual->getPixel(x,y);
 		}
 	}
 	
@@ -360,7 +360,7 @@ int Cut::validateCut(Frame* visual, int position)
 	{
 		for(int y=0; y<height; y++)
 		{
-			totalPreviousLum = totalPreviousLum + visualRythim->getPixel(x,y);
+			totalPreviousLum = totalPreviousLum + visual->getPixel(x,y);
 		}
 	}
 
