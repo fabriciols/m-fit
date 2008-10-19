@@ -165,12 +165,20 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 void Cut::createBorderMap(Frame* visualRythim)
 {
 	Filters* canny = new Filters();
+	int minCannyThreshold = 100;
+	int maxCannyThreshold = 200;
 
-	//Log::writeLog("%s :: visualRythim[%x]", __FUNCTION__, visualRythim);
+	// Se o usuário alterou o valor do mínimo do Canny devo usá-lo
+	if( currentProject->getUserMinCanny() )
+		minCannyThreshold = currentProject->getUserMinCanny();
 
-	// Crio o mapa de bordas do RV com o operador Sobel.
+	// Se o usuário alterou o valor do máximo do Canny devo usá-lo
+	if( currentProject->getUserMaxCanny() )
+		maxCannyThreshold = currentProject->getUserMaxCanny();
 
-	canny->Canny(visualRythim, 100, 200, 3);
+	// Crio o mapa de bordas do RV com o operador Canny.
+
+	canny->Canny(visualRythim, minCannyThreshold, maxCannyThreshold, 3);
 
 	delete canny;
 

@@ -42,11 +42,11 @@ DetectConfig::DetectConfig(QDialog *parent) : QDialog(parent)
 	if (currentProject->getUserThreshold()) // Limiar de corte
 		ui.spinPercentage->setValue(currentProject->getUserThreshold());
 
-	if (currentProject->getUserFirstCanny()) // Limiar mínimo do Canny
-		ui.spinFirstCanny->setValue(currentProject->getUserFirstCanny());
+	if (currentProject->getUserMinCanny()) // Limiar mínimo do Canny
+		ui.spinMinCanny->setValue(currentProject->getUserMinCanny());
 
-	if (currentProject->getUserLastCanny()) // Limiar máximo do Canny
-		ui.spinLastCanny->setValue(currentProject->getUserLastCanny());
+	if (currentProject->getUserMaxCanny()) // Limiar máximo do Canny
+		ui.spinMaxCanny->setValue(currentProject->getUserMaxCanny());
 
 	// Se botão "Cancelar" for apertado, fecho a janela sem fazer nada.
 	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(close()));
@@ -73,17 +73,17 @@ DetectConfig::DetectConfig(QDialog *parent) : QDialog(parent)
 void DetectConfig::on_okButton_clicked()
 {
 	int userCutThreshold = ui.spinPercentage->value();
-	int userFirstCanny = ui.spinFirstCanny->value();
-	int userLastCanny = ui.spinLastCanny->value();
+	int userMinCanny = ui.spinMinCanny->value();
+	int userMaxCanny= ui.spinMaxCanny->value();
 
 	if ( userCutThreshold != DEFAULT_CUT_THRESHOLD )
 		currentProject->setUserThreshold(userCutThreshold);
 
-	if ( userFirstCanny != DEFAULT_FIRST_CANNY )
-		currentProject->setUserFirstCanny(userFirstCanny);
+	if ( userMinCanny != DEFAULT_MIN_CANNY )
+		currentProject->setUserMinCanny(userMinCanny);
 
-	if ( userLastCanny != DEFAULT_LAST_CANNY )
-		currentProject->setUserLastCanny(userLastCanny);
+	if ( userMaxCanny != DEFAULT_MAX_CANNY )
+		currentProject->setUserMaxCanny(userMaxCanny);
 
 	QDialog::close();
 }
