@@ -12,11 +12,10 @@ class Effect
 	 *por todas as classes filhas
 	 *deste objeto.
 	 */
-	protected:
+	public:
+
 		long frameStart;
 		long frameEnd;
-
-	public:
 
 		virtual Frame* applyEffect(Frame *frame) = 0;
 
@@ -24,6 +23,8 @@ class Effect
 		long getFrameEnd();
 
 		// Define de TODOS os EFEITOS
-		#define COLOR 0
+		#define COLOR  0
+		#define ERODE  1
+		#define DILATE 2
 };
 #endif

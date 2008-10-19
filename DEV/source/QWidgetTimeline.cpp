@@ -12,6 +12,7 @@
 #include "../include/Effect.h"
 #include "../include/Project.h"
 #include "../include/VideoPlayer.h"
+#include "../include/MorphologyEffect.h"
 
 extern Project* currentProject;
 extern VideoPlayer* vdo_player;
@@ -81,7 +82,11 @@ bool QWidgetTimeline::event(QEvent *e)
 
 void QWidgetTimeline::dropEvent(QDropEvent *event)
 {
-	Effect *effect;
+	Effect *effect = 0x0;
+	Transition *transition = 0x0;
+	unsigned int i = 0;
+	long start = 0;
+	long end = 0;
 
 	switch(getItemByEvent(event))
 	{
@@ -90,9 +95,63 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 				ColorConfig colorConfig;
 				colorConfig.exec();
 			}
-
 			break;
+
+		case ERODE:
+			effect = new Erode();
+			break;
+
+		case DILATE:
+			effect = new Dilate();
+			break;
+
+		default:
+			break;
+
 	}
+
+	if (effect == 0x0)
+		return;
+
+	// Pego os pontos onde o efeito vai ser aplicado
+	for (i = 0; i < currentProject->transitionList.size() ; i++)
+	{
+		transition = &currentProject->transitionList.at(i);
+
+		if (start)
+		{
+			if (transition->selected == false)
+			{
+				end = transition->getPosCurrent();
+				break;
+			}
+			else
+			{
+				continue;
+			}
+		}
+
+		if (transition->selected == true)
+		{
+			start = transition->getPosCurrent();
+			continue;
+		}	
+
+	}
+
+	if (end == 0x0)
+	{
+		Video *vdo;
+		vdo = currentProject->getVideo();
+		end = (long)vdo->getFramesTotal();
+	}
+
+	effect->frameStart = start;
+	effect->frameEnd   = end;
+
+	currentProject->effectList.push_back(effect);
+
+	mfit_ui->clearTransitionHeader();
 }
 
 void QWidgetTimeline::dragEnterEvent(QDragEnterEvent * event)

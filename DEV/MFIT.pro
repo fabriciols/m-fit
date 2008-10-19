@@ -53,6 +53,7 @@ HEADERS += include/Brightness.h \
 			  include/ColorConfig.h \
            include/Log.h \
            include/Morphology.h \
+           include/MorphologyEffect.h \
            include/Take.h \
            include/Time.h \
            include/Transition.h \
@@ -82,6 +83,7 @@ SOURCES += source/main.cpp \
 			  source/ColorConfig.cpp \
 			  source/Log.cpp \
            source/Morphology.cpp \
+           source/MorphologyEffect.cpp \
            source/Take.cpp \
            source/Time.cpp \
            source/Transition.cpp \
