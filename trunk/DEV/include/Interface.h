@@ -20,6 +20,9 @@ class mfit: public QMainWindow
 {
 	Q_OBJECT
 
+	private:
+		char effects[10][30];
+
 	private slots:
 		void on_actionOpenProject_triggered();
 		void on_actionSave_triggered();
@@ -84,7 +87,6 @@ class mfit: public QMainWindow
 		void updateTransitionHeader(unsigned int transitionID, int clean = 0);
 		void updateTransitionHeader(QTreeWidgetItem * item);
 		void clearTransitionHeader();
-
 
 		Ui::MainWindow ui;
 

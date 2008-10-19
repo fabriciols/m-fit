@@ -23,5 +23,7 @@ class Effect
 		long getFrameStart();
 		long getFrameEnd();
 
+		// Define de TODOS os EFEITOS
+		#define COLOR 0
 };
 #endif
