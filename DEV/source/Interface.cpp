@@ -857,6 +857,9 @@ void mfit::insertTransitionsTree(Transition* transition, long id_l)
 	// Segunda Coluna - NOME
 	switch(type_i)
 	{
+		case TRANSITION_VIDEOSTART:
+			item->setText(1, "Inicio do Video");
+			break;
 		case TRANSITION_CUT:
 			item->setText(1, "Cut");
 			break;
@@ -952,7 +955,10 @@ void mfit::updateTransitions()
 		insertTransitionsTimeline(&currentProject->transitionList.at(i));
 	}
 
+	clearTransitionHeader();
+
 	updateTimeline();
+
 
 }
 
@@ -1276,9 +1282,6 @@ void mfit::clearTransitionHeader()
 	{
 		transition = &currentProject->transitionList.at(i);
 
-		if (transition->selected == true)
-		{
-			updateTransitionHeader(i, 1);
-		}
+		updateTransitionHeader(i, 1);
 	}
 }

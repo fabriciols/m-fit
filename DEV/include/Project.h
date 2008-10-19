@@ -19,8 +19,8 @@ class Project
 		int saveProject(QString);
 		int openVideo(QString);
 
-		std::vector<Transition> transitionList;
-		std::vector<Effect*>     effectList;
+		std::vector<Transition> transitionList;  // Transicoes no video
+		std::vector<Effect*>    effectList;      // Efeitos no video
 
 		Video *getVideo();
 		Frame *getFrame();
@@ -42,7 +42,6 @@ class Project
 		long TimelinePosToFrame(long pos);
 
 		void renderVideo(char *filename_cy);
-
 
 };
 #endif

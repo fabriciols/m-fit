@@ -5,6 +5,7 @@
  *uma transição.
  */
 
+#define TRANSITION_VIDEOSTART 0
 #define TRANSITION_CUT        1
 #define TRANSITION_FADEIN     2
 #define TRANSITION_FADEOUT    3

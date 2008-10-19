@@ -132,7 +132,6 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 	char str[100];
 	QFile file(xmlName);
 
-
 	if (file.open(QIODevice::WriteOnly | QIODevice::Unbuffered))
 	{
 		QDomElement tag;
@@ -165,6 +164,10 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 			{			
 				Transition *transition;
 				transition = &transitionListXml->at(i);
+
+				// Controle pra nao salvar a transicao dummy (Inicio de Video)
+				if (transition->getType() == 0)
+					continue;
 
 				tag2 = doc.createElement("transition");
 				tag.appendChild(tag2);

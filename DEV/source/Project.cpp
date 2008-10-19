@@ -110,6 +110,8 @@ int Project::saveProject(QString fileName)
  ************************************************************************/
 Project::Project(void)
 {
+	Transition *transition;
+
 	// Inicializa os ponteiros com 0
 	this->vdo = '\0';
 	this->frame = '\0';
@@ -121,6 +123,12 @@ Project::Project(void)
 
 	// Troca o titulo da janela
 	mfit_ui->changeWindowTitle(this->filename_cy);
+
+	// Cria transicao de inicio de video
+	transition = new Transition(TRANSITION_VIDEOSTART, 0, "Inicio do Video");
+
+	// Empilha
+	transitionList.push_back(*transition);
 
 }
 
@@ -195,6 +203,8 @@ int Project::openVideo(QString fileName)
 	mfit_ui->insertVideoProperty("Frames",  param_cy);
 
 	mfit_ui->createTimeline();
+
+	mfit_ui->updateTransitions();
 
 	return true;
 }
