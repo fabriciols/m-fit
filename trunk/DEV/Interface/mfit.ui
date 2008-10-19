@@ -332,7 +332,7 @@ border: 1px solid gray
      <item row="0" column="0" >
       <widget class="QTabWidget" name="tabTransEffect" >
        <property name="currentIndex" >
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tabTransitions" >
         <attribute name="title" >
@@ -680,7 +680,17 @@ border: 1px solid gray
        </column>
        <item>
         <property name="text" >
-         <string>Color</string>
+         <string>Cor - Converter para Cinza</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Erosao</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Dilatacao</string>
         </property>
        </item>
       </widget>
