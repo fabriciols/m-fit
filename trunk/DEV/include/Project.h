@@ -3,6 +3,7 @@
 class Project
 {
 	private:
+
 		Video *vdo;
 		Frame *frame;
 		char path_cy[256];
@@ -15,9 +16,8 @@ class Project
 		void clearTransitionList();
 
 	public:
+
 		Project();
-
-
 
 		int openProject(QString);
 		int saveProject(QString);
