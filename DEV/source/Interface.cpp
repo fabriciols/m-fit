@@ -46,6 +46,7 @@ extern VideoPlayer *vdo_player;
 * 29/09/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
+
 mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
@@ -69,37 +70,69 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 	ui.menuFile->addAction(ui.actionExit);
 }
 
+/************************************************************************
+* Adiciona um item na lista de arquivos recentes
+*************************************************************************
+* param (E): QString fileName -> nome do arquivo aberto 
+*************************************************************************
+* Histórico
+* 19/10/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+
 void mfit::addRecentFile(QString fileName)
 {
 	QSettings settings("MFIT", "MFIT");
 	QStringList files = settings.value("recentFileList").toStringList();
-	files.removeAll(fileName);
+	files.removeAll(fileName); // Remove todos os arquivos recentes com o msm nome
 	files.prepend(fileName);
+	// Retira os ultimos até que sobrem somente 4.
 	while (files.size() > MAX_RECENT_FILES)
 	{
 		files.removeLast();
 	}
 
 	settings.setValue("recentFileList", files);
+/*
+	foreach (QWidget *widget, QApplication::topLevelWidgets()) {
+         MainWindow *mainWin = qobject_cast<MainWindow *>(widget);
+         if (mainWin)
+             mainWin->updateRecentFileActions();
+     }
+*/	
 }
+
+/************************************************************************
+* Atualiza a lista de arquivos recentes
+*************************************************************************
+* param (E): Nao ha
+*************************************************************************
+* Histórico
+* 19/10/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 
 void mfit::updateRecentFilesAct()
 {
 	QSettings settings("MFIT", "MFIT");
 	QStringList files = settings.value("recentFileList").toStringList();
 
+	// Verifico o que é menor. O tamanho da lista de arquivos ou o máximo permitido.
 	int numRecentFiles = qMin(files.size(), (int)MAX_RECENT_FILES);
 
+	// Adiciono um separador.
 	ui.menuFile->addSeparator();
 
 	for (int i = 0; i < numRecentFiles; ++i)
 	{
+		// Monto a string com o número (ordem de abertura) e o nome do arquivo
 		QString text = tr("&%1 %2").arg(i + 1).arg(QFileInfo(files[i]).fileName());
 		recentFileActs[i]->setText(text);
 		recentFileActs[i]->setData(files[i]);
 		recentFileActs[i]->setVisible(true);
 	}
 
+	// Escondo aqueles que forma acima do 4 arquivo aberto recentemente
 	for (int j = numRecentFiles; j < MAX_RECENT_FILES ; ++j)
 		recentFileActs[j]->setVisible(false);
 }
