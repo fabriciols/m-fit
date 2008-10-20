@@ -18,6 +18,9 @@
 #include "../include/Effect.h"
 #include "../include/Color.h"
 
+#define RIGHT	1
+#define LEFT	2
+
 /************************************************************************
 * Construtor que somente inicializa as variavies de controle com nulo 
 *************************************************************************
@@ -61,24 +64,23 @@ Dissolve::Dissolve(Video *vdo)
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 	double *array_vrh;
-	int len_i, k, threshold=0, threshold_fade = 0;
-
-	Frame* visual = new Frame();
+	int videoSize, k, i, threshold=0, threshold_fade = 0;
 	Frame* frameGray = 0;
 
-	int *detet;
+	int *detect;
+	int *orientation;
 
-	len_i = cvRound(vdo->getFramesTotal());
+	videoSize = cvRound(vdo->getFramesTotal());
 
-	visual = vdo->getCurrentFrame();
+	detect = (int *) malloc(sizeof(int)*videoSize);
+	orientation = (int *) malloc(sizeof(int)*videoSize);
+	array_vrh = (double *) malloc(sizeof(double)*videoSize);
 
-	detet = (int *) malloc(sizeof(int)*len_i);
-	array_vrh = (double *) malloc(sizeof(double)*len_i);
-
-	memset(detet,0,len_i);
+	memset(detect,0,videoSize);
+	memset(orientation,0,videoSize);
 
 	//Coleta o ritmo visual dos frames
-	for(k=0;k<len_i;k++)
+	for(k=0;k<videoSize;k++)
 	{
 		Color *color = new Color();
 		Frame* visual = new Frame();
@@ -93,10 +95,9 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	}
 
 	threshold = 4;
-	threshold_fade = 5;
 
 	//Verifica ponto de dissolve
-	for(k=0;k<len_i;k++)
+	for(k=0;k<videoSize;k++)
 	{
 		if((array_vrh[k]<array_vrh[k+1]) &&
 		   (array_vrh[k+1]<array_vrh[k+2]) &&
@@ -115,7 +116,8 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 			  ((array_vrh[k+6]-array_vrh[k+5])<threshold) &&
 			  ((array_vrh[k+7]-array_vrh[k+6])<threshold))
 			{
-				detet[k]=1;
+				orientation[k]=RIGHT;
+				detect[k]=1;
 				k=k+6;
 			}
 		}
@@ -137,57 +139,74 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 			  ((array_vrh[k+5]-array_vrh[k+6])<threshold) &&
 			  ((array_vrh[k+6]-array_vrh[k+7])<threshold))
 			{
-				detet[k]=1;
+				orientation[k]=LEFT;
+				detect[k]=1;
 				k=k+6;
 			}
 		}
 	}
 
 	//Retirando redundancias
-	for(k=0;k<len_i;k++)
+	for(k=0;k<videoSize;k++)
 	{
-		if(detet[k])
+		if(detect[k])
 		{
-			while(detet[k+7]==1)
+			while(detect[k+7]==1)
 			{
-				detet[k+7]=0;
+				detect[k+7]=0;
 				k=k+7;
 			}
 		}
 	}
 
 	//Verifica se é um fade
-	for(k=0;k<len_i;k++)
+	i=0;
+	threshold_fade = 5;
+
+	for(k=0;k<videoSize;k++)
 	{
-		if(detet[k]==1)
+		if(detect[k]==1)
 		{
-			if((array_vrh[k]<threshold_fade) ||
-			   (array_vrh[k-1]<threshold_fade) ||
-			   (array_vrh[k-2]<threshold_fade) ||
-			   (array_vrh[k-3]<threshold_fade) ||
-			   (array_vrh[k-4]<threshold_fade) ||
-			   (array_vrh[k-5]<threshold_fade) ||
-			   (array_vrh[k-6]<threshold_fade) ||
-			   (array_vrh[k+1]<threshold_fade) ||
-			   (array_vrh[k+2]<threshold_fade) ||
-			   (array_vrh[k+3]<threshold_fade) ||
-			   (array_vrh[k+4]<threshold_fade) ||
-			   (array_vrh[k+5]<threshold_fade) ||
-			   (array_vrh[k+6]<threshold_fade))
+			i=k;
+
+			if(orientation[k]==RIGHT)
 			{
-				detet[k]=0;
+				while((array_vrh[i]<array_vrh[i+1]) && (i<videoSize))
+				{
+//					Log::writeLog("RIGHT %d - %lf", k, array_vrh[i]);
+					if(array_vrh[i]<threshold_fade)
+					{
+						detect[k]=0;
+					}
+					i++;
+				}
+			}
+			else if(orientation[k]==LEFT)
+			{
+				while((array_vrh[i]>array_vrh[i+1]) && (i<videoSize))
+				{
+//					Log::writeLog("LEFT %d - %lf", k, array_vrh[i]);
+					if(array_vrh[i]<threshold_fade)
+					{
+						detect[k]=0;
+					}
+					i++;
+				}
 			}
 		}
 	}
 
 	//Transportando para matriz de detecção
-	for(k=0;k<len_i;k++)
+	for(k=0;k<videoSize;k++)
 	{
-		if(detet[k]==1)
+		if(detect[k]==1)
 		{
 			Transition *transition = new Transition();
+
 			transition = new Transition(TRANSITION_DISSOLVE, k, "Dissolve");
-			transitionList->push_back(*transition);
+
+			if(this->validateTransition(k, transitionList))
+				transitionList->push_back(*transition);
 		}
 	}
 }
