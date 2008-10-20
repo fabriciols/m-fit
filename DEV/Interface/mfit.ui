@@ -82,7 +82,7 @@ border: 1px solid gray
          </property>
          <property name="icon" >
           <iconset>
-           <normaloff>Icons/play.png</normaloff>Icons/play.png</iconset>
+           <normaloff>../Interface/Icons/play.png</normaloff>../Interface/Icons/play.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -111,7 +111,7 @@ border: 1px solid gray
          </property>
          <property name="icon" >
           <iconset>
-           <normaloff>Icons/pause.png</normaloff>Icons/pause.png</iconset>
+           <normaloff>../Interface/Icons/pause.png</normaloff>../Interface/Icons/pause.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -134,7 +134,7 @@ border: 1px solid gray
          </property>
          <property name="icon" >
           <iconset>
-           <normaloff>Icons/forward.png</normaloff>Icons/forward.png</iconset>
+           <normaloff>../Interface/Icons/forward.png</normaloff>../Interface/Icons/forward.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -160,7 +160,7 @@ border: 1px solid gray
          </property>
          <property name="icon" >
           <iconset>
-           <normaloff>Icons/stop.png</normaloff>Icons/stop.png</iconset>
+           <normaloff>../Interface/Icons/stop.png</normaloff>../Interface/Icons/stop.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -230,7 +230,7 @@ border: 1px solid gray
          </property>
          <property name="icon" >
           <iconset>
-           <normaloff>Icons/back.png</normaloff>Icons/back.png</iconset>
+           <normaloff>../Interface/Icons/back.png</normaloff>../Interface/Icons/back.png</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -254,7 +254,7 @@ border: 1px solid gray
      <x>0</x>
      <y>0</y>
      <width>959</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile" >
@@ -332,7 +332,7 @@ border: 1px solid gray
      <item row="0" column="0" >
       <widget class="QTabWidget" name="tabTransEffect" >
        <property name="currentIndex" >
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tabTransitions" >
         <attribute name="title" >
@@ -462,12 +462,17 @@ border: 1px solid gray
            </property>
            <column>
             <property name="text" >
-             <string>Frames</string>
+             <string>Efeito</string>
             </property>
            </column>
            <column>
             <property name="text" >
-             <string>Efeito</string>
+             <string>Frame Inicial</string>
+            </property>
+           </column>
+           <column>
+            <property name="text" >
+             <string>Frame Final</string>
             </property>
            </column>
           </widget>
@@ -733,7 +738,7 @@ border: 1px solid gray
   <action name="actionNewProject" >
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/filenew.png</normaloff>Icons/filenew.png</iconset>
+     <normaloff>../Interface/Icons/filenew.png</normaloff>../Interface/Icons/filenew.png</iconset>
    </property>
    <property name="text" >
     <string>Novo Projeto...</string>
@@ -751,7 +756,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/fileopen.png</normaloff>Icons/fileopen.png</iconset>
+     <normaloff>../Interface/Icons/fileopen.png</normaloff>../Interface/Icons/fileopen.png</iconset>
    </property>
    <property name="text" >
     <string>Abrir Projeto...</string>
@@ -763,7 +768,7 @@ border: 1px solid gray
   <action name="actionLoadVideo" >
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/load_video.png</normaloff>Icons/load_video.png</iconset>
+     <normaloff>../Interface/Icons/load_video.png</normaloff>../Interface/Icons/load_video.png</iconset>
    </property>
    <property name="text" >
     <string>Carregar Vídeo...</string>
@@ -789,7 +794,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/filesave.png</normaloff>Icons/filesave.png</iconset>
+     <normaloff>../Interface/Icons/filesave.png</normaloff>../Interface/Icons/filesave.png</iconset>
    </property>
    <property name="text" >
     <string>Salvar</string>
@@ -806,7 +811,7 @@ border: 1px solid gray
   <action name="actionExit" >
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/exit.png</normaloff>Icons/exit.png</iconset>
+     <normaloff>../Interface/Icons/exit.png</normaloff>../Interface/Icons/exit.png</iconset>
    </property>
    <property name="text" >
     <string>Sair</string>
@@ -815,7 +820,7 @@ border: 1px solid gray
   <action name="actionUndo" >
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/undo.png</normaloff>Icons/undo.png</iconset>
+     <normaloff>../Interface/Icons/undo.png</normaloff>../Interface/Icons/undo.png</iconset>
    </property>
    <property name="text" >
     <string>Undo</string>
@@ -827,7 +832,7 @@ border: 1px solid gray
   <action name="actionRedo" >
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/redo.png</normaloff>Icons/redo.png</iconset>
+     <normaloff>../Interface/Icons/redo.png</normaloff>../Interface/Icons/redo.png</iconset>
    </property>
    <property name="text" >
     <string>Redo</string>
@@ -842,7 +847,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/all.png</normaloff>Icons/all.png</iconset>
+     <normaloff>../Interface/Icons/all.png</normaloff>../Interface/Icons/all.png</iconset>
    </property>
    <property name="text" >
     <string>Todas</string>
@@ -854,7 +859,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/cut.png</normaloff>Icons/cut.png</iconset>
+     <normaloff>../Interface/Icons/cut.png</normaloff>../Interface/Icons/cut.png</iconset>
    </property>
    <property name="text" >
     <string>Cortes</string>
@@ -866,7 +871,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/dissolve.png</normaloff>Icons/dissolve.png</iconset>
+     <normaloff>../Interface/Icons/dissolve.png</normaloff>../Interface/Icons/dissolve.png</iconset>
    </property>
    <property name="text" >
     <string>Dissolve</string>
@@ -893,7 +898,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/fades.png</normaloff>Icons/fades.png</iconset>
+     <normaloff>../Interface/Icons/fades.png</normaloff>../Interface/Icons/fades.png</iconset>
    </property>
    <property name="text" >
     <string>Fades</string>
@@ -905,7 +910,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/play.png</normaloff>Icons/play.png</iconset>
+     <normaloff>../Interface/Icons/play.png</normaloff>../Interface/Icons/play.png</iconset>
    </property>
    <property name="text" >
     <string>Play</string>
@@ -917,7 +922,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/pause.png</normaloff>Icons/pause.png</iconset>
+     <normaloff>../Interface/Icons/pause.png</normaloff>../Interface/Icons/pause.png</iconset>
    </property>
    <property name="text" >
     <string>Pause</string>
@@ -929,7 +934,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/stop.png</normaloff>Icons/stop.png</iconset>
+     <normaloff>../Interface/Icons/stop.png</normaloff>../Interface/Icons/stop.png</iconset>
    </property>
    <property name="text" >
     <string>Stop</string>
@@ -941,7 +946,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/back.png</normaloff>Icons/back.png</iconset>
+     <normaloff>../Interface/Icons/back.png</normaloff>../Interface/Icons/back.png</iconset>
    </property>
    <property name="text" >
     <string>Backward</string>
@@ -953,7 +958,7 @@ border: 1px solid gray
    </property>
    <property name="icon" >
     <iconset>
-     <normaloff>Icons/forward.png</normaloff>Icons/forward.png</iconset>
+     <normaloff>../Interface/Icons/forward.png</normaloff>../Interface/Icons/forward.png</iconset>
    </property>
    <property name="text" >
     <string>Forward</string>
