@@ -63,6 +63,7 @@ class mfit: public QMainWindow
 
 		// Mostra frame inicial/final de onde foi aplicado o efeito no vídeo.
 		void on_effectsTree_itemClicked(QTreeWidgetItem * item, int column);
+		void on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column);
 
 	private:
 
