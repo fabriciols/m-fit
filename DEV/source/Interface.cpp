@@ -1132,6 +1132,19 @@ void mfit::clearTransitionsTree()
 	this->ui.transitionsTree->clear();
 }
 
+/*************************************************************************
+ * Trata as seleções da lista de transição e manda pintar uma linha no 
+ * header da timeline identificando a sua tomada. 
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : Não há
+ *************************************************************************
+ * Histórico
+ * 16/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+
 void mfit::on_transitionsTree_itemSelectionChanged()
 {
 	QList<QTreeWidgetItem *> itens;
@@ -1148,6 +1161,19 @@ void mfit::on_transitionsTree_itemSelectionChanged()
 
 	updateTimeline();
 }
+
+/*************************************************************************
+ * Traça uma linha no header da timeline referente ao item selecionado
+ * na lista de transições.
+ *************************************************************************
+ * param (E): QTreeWidgetItem * item -> item selecionado 
+ *************************************************************************
+ * return : Não há
+ *************************************************************************
+ * Histórico
+ * 16/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 void mfit::updateTransitionHeader(QTreeWidgetItem * item)
 {
@@ -1448,6 +1474,53 @@ void mfit::clearTransitionHeader()
 
 		updateTransitionHeader(i, 1);
 	}
+}
+
+/**************************************************************************
+ * Mostra no player o primeiro frame da transição selecionada na lista de 
+ * transições e atualiza o cursor da timeline.
+ **************************************************************************
+ * param (E): Nenhum.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 20/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+void mfit::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column)
+{
+	char position_cy[10]; // Posição da transição determinada pelo sistema
+	char userPosition_cy[10]; // Posição da transição determinada pelo usuário
+	long position_l = 0; // Posição da transição determinada pelo sistema
+	long userPosition_l = 0; // Posição da transição determinada pelo usuário
+
+	Video* vdo = currentProject->getVideo();
+
+	QStringToChar(item->text(2), position_cy); // Pego a posição da transição determinada pelo sistema 
+	QStringToChar(item->text(3), userPosition_cy); // Pego a posição da transição determinada pelo usuário
+
+	position_l = atol(position_cy);
+	userPosition_l = atol(userPosition_cy);
+
+	// Se usuário definiu a posição para a transição uso ela, senão uso a do sistema.
+	if( userPosition_l != 0 )
+	{
+		if (userPosition_l >= vdo->getFramesTotal())
+			userPosition_l = (long)vdo->getFramesTotal() - 1;
+		vdo->seekFrame(userPosition_l); // Aponto para o frame de interesse.
+	}
+	else
+	{
+		if (position_l >= vdo->getFramesTotal())
+			position_l = (long)vdo->getFramesTotal() - 1;
+		vdo->seekFrame(position_l);
+	}
+
+	vdo_player->updatePlayer(vdo->getCurrentFrame()); // Mostro o frame
+	updateTimeline(); // Atualizo a posição do cursor da timeline
+
 }
 
 /**************************************************************************
