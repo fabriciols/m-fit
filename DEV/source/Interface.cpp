@@ -1372,7 +1372,7 @@ void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
 	long posNext_l;
 
 	unsigned int posTimeline;
-	unsigned int posTimelineNext;
+	unsigned	int posTimelineNext; 
 
 	CvScalar scalar;
 
@@ -1426,6 +1426,18 @@ void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
 
 }
 
+/**************************************************************************
+ * Varre todas as transições e retira uma a uma do header da timeline.
+ **************************************************************************
+ * param (E): Nenhum.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 14/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
+
 void mfit::clearTransitionHeader()
 {
 	unsigned int i = 0;
@@ -1437,6 +1449,18 @@ void mfit::clearTransitionHeader()
 		updateTransitionHeader(i, 1);
 	}
 }
+
+/**************************************************************************
+ * Insere um item na lista de efeitos do vídeo
+ **************************************************************************
+ * param (E): Effect *effect -> efeito a ser inserido.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 19/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
 
 void mfit::insertEffectTree(Effect *effect)
 {
@@ -1466,6 +1490,19 @@ void mfit::insertEffectTree(Effect *effect)
 	this->ui.effectsTree->insertTopLevelItems(0, itens);
 }
 
+/**************************************************************************
+ * Trata evento de quando é selecionado um item na lista de efeitos.
+ **************************************************************************
+ * param (E): QTreeWidgetItem *item -> item selecionado (linha)
+ * param (E): int column -> coluna selecionada (frame final ou inicial)
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 19/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
+
 void mfit::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
 {
 	if (column > 0)
@@ -1494,6 +1531,18 @@ void mfit::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
 	}
 }
 
+/**************************************************************************
+ * Atualiza a lista de efeitos. 
+ **************************************************************************
+ * param (E): Nenhum.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 19/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
+
 void mfit::updateEffectTree()
 {
 	unsigned int i = 0;
@@ -1506,7 +1555,89 @@ void mfit::updateEffectTree()
 	}
 }
 
+/**************************************************************************
+ * Limpa a lista de efeitos.
+ **************************************************************************
+ * param (E): Nenhum.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 19/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
+
 void mfit::effectTreeClear()
 {
 	this->ui.effectsTree->clear();
+}
+
+/**************************************************************************
+ * Fecha a aplicação.
+ **************************************************************************
+ * param (E): Nenhum.
+ **************************************************************************
+ * return : Não há.
+ **************************************************************************
+ * Histórico
+ * 20/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+void mfit::on_actionExit_triggered()
+{
+	if (currentProject->getVideo())
+	{
+		if (askUserSave())
+		{
+			QString fileName = QFileDialog::getSaveFileName(this,
+					"Salvar Projeto",
+					".",
+					"Projeto MFIT(*.mfit)");
+
+			if (!fileName.isEmpty())
+			{
+				currentProject->saveProject(fileName);
+
+				this->setWindowTitle(fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1));
+
+				QMainWindow::close();	
+			}
+		}
+	}
+
+	QMainWindow::close();
+}
+
+/**************************************************************************
+ * Pergunta se o usuário deseja salvar o projeto antes de sair.
+ **************************************************************************
+ * param (E): Nenhum.
+ **************************************************************************
+ * return : TRUE - Salva e sai.
+ * 			FALSE - Sai sem sair.
+ **************************************************************************
+ * Histórico
+ * 20/10/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+bool mfit::askUserSave()
+{
+	int reply = 0; // Resposta do usuário
+
+	// Crio uma box com o ícone "?"
+	reply = QMessageBox::question(
+			this,
+			tr("MFIT"),
+			tr("<p>Deseja salvar o projeto antes de sair?"),
+			QMessageBox::Yes | QMessageBox::No,
+			QMessageBox::No
+			);
+
+	// Se clickei em detectNow, chamo a detecção de transições
+	if (reply == QMessageBox::Yes)
+		return (TRUE);
+	else
+		return (FALSE);
 }
