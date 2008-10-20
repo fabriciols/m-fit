@@ -96,6 +96,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	//int signal = 0;
 	int no_var = 0;
 	int fade_center = 0;
+	int fade_pos = 0;
 	int signal_changed = 0;
 	int last_signal_changed = 0;
 	// media
@@ -309,15 +310,18 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 					type = TRANSITION_FADEOUT;
 					strcpy(label, "Fade Out");
 					Log::writeLog("%s :: fade out: %d", __FUNCTION__, fade_center);
+					fade_pos = fade_end;
 				}
 				else
 				{
 					type = TRANSITION_FADEIN;
 					strcpy(label, "Fade Int");
 					Log::writeLog("%s :: fade in: %d", __FUNCTION__, fade_center);
+					fade_pos = fade_start;
 				}
 
-				transition = new Transition(type, fade_center, label);
+
+				transition = new Transition(type, fade_pos, label);
 
 				/**
 				 * Verifico se na posição em que eu detectei um corte já não foi considerada
