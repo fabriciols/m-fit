@@ -254,7 +254,7 @@ border: 1px solid gray
      <x>0</x>
      <y>0</y>
      <width>959</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile" >
@@ -458,7 +458,7 @@ border: 1px solid gray
             </sizepolicy>
            </property>
            <property name="selectionBehavior" >
-            <enum>QAbstractItemView::SelectColumns</enum>
+            <enum>QAbstractItemView::SelectItems</enum>
            </property>
            <property name="allColumnsShowFocus" >
             <bool>true</bool>
