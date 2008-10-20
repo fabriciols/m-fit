@@ -105,7 +105,14 @@ void VideoPlayer::updatePlayer(Frame *frame)
 	if (!frame)
 		return;
 
+	Frame *frameNew;
+
 	QImage *image = 0x0;
+	Video *vdo = currentProject->getVideo();
+
+	frameNew = currentProject->applyEffect(frame, (long)vdo->getCurrentPosition());
+
+	frame = frameNew;
 
 	image = frame->IplImageToQImage(&imageData, &imgWidth, &imgHeight);
 
@@ -148,44 +155,3 @@ void VideoPlayer::updateHist(Frame *frame)
 	delete hist;
 	delete color;
 }
-
-
-/*
-	if (ui.widgetHistogram->isVisible())
-	{
-// Se a janela do histograma estiver visivel: mostra o histograma
-// QImage* qImage, IplImage* cvImage
-Frame *newFrame = 0;
-Frame *newGrayFrame = 0;
-Frame *frameHistogram = 0;
-QImage *imgHistogram = 0;
-Histogram *hist;
-Color *color = new Color;
-
-IplImage *cvImage = cvCreateImageHeader(cvSize(image->width(), image->height ()), IPL_DEPTH_8U, 4);
-cvImage->imageData = (char*)image->bits();
-
-newFrame = new Frame(cvImage);
-newGrayFrame = color->convert2Gray(newFrame);
-
-hist = newGrayFrame->createHistogram();
-
-frameHistogram = new Frame(hist->getMatrix(), 256, hist->getMax());
-
-//imgHistogram = frameHistogram->IplImageToQImage();
-imgHistogram = frameHistogram->IplImageToQImage(&vdo_player->imageData, &vdo_player->imgWidth, &vdo_player->imgHeight);
-
-
-QPixmap pix_image = QPixmap::fromImage(*imgHistogram);
-
-ui.histogramLabel->setScaledContents(true);
-ui.histogramLabel->setPixmap(pix_image);
-
-delete newFrame;
-delete newGrayFrame;
-delete hist;
-delete color;
-delete frameHistogram;
-
-}
- */

@@ -127,7 +127,7 @@ double* VisualRythim::createVRH(Video* vdo)
 
 	memset(hist, '\0',     sizeof(double)*cvRound(totalFrames));
 
-	// Pego o primeiro frame e sua diagonal
+	// Pego o primeiro frame
 	frame = vdo->getNextFrame();	
 
 	while(frame != NULL)
