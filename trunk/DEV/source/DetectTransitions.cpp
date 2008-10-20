@@ -28,6 +28,8 @@
 * return : Lista de transições.
 *************************************************************************
 * Histórico:
+* 20/10/08 - Thiago Mizutani
+* Incluindo o Dissolve. Controle da posição do frame.
 * 13/08/08 - Thiago Mizutani
 * Implementação dos procedimentos de detecção das transições
 * 04/07/08 - Thiago Mizutani
@@ -40,10 +42,27 @@ void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* t
 	Cut* DTC = new Cut();
 	Fade* DTF = new Fade();
 	Dissolve* DTD = new Dissolve();
+	long posFrame = 0x0;	
+	
+	posFrame = (long)vdo->getCurrentPosition();
+
+	vdo->seekFrame(0);
 	
 	DTC->detectTransitions(vdo, transitionList); // Cortes
+	
+	vdo->seekFrame(0);
+	
 	DTF->detectTransitions(vdo, transitionList); // Fade
+	
+	vdo->seekFrame(0);
+	
 	DTD->detectTransitions(vdo, transitionList); // Dissolve
+	
+	vdo->seekFrame(posFrame);
+
+	delete DTC;
+	delete DTF;
+	delete DTD;
 }
 
 /************************************************************************
