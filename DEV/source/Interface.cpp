@@ -142,7 +142,6 @@ void mfit::updateRecentFilesAct()
 * 19/10/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-
 void mfit::createRecentFilesActions()
 {
 	for (int i = 0; i < MAX_RECENT_FILES ; ++i)
@@ -155,12 +154,10 @@ void mfit::createRecentFilesActions()
 	}
 }
 
-void mfit::openRecentFiles()
+void mfit::openRecentFile()
 {
 	char fileName_cy[100];
 	char extension_cy[4];
-	int  fileType_i = 0;
-	enum inputType {PROJECT, VIDEO};
 
 	memset(fileName_cy,'\0',100);
 
@@ -170,16 +167,16 @@ void mfit::openRecentFiles()
 	{
 		strcpy(fileName_cy,action->data().toString());
 	}
+	else
+	{
+		return;
+	}
 	
 	// Pego a extensão do arquivo para verificar se é um projeto ou um vídeo.
 	strcpy(extension_cy, &fileName_cy[strlen(fileName_cy)-3]);	
 
+	// Se for um video, uso a funcao de abrir video
 	if (!strcmp(extension_cy,"AVI") || !strcmp(extension_cy,"avi"))
-		fileType_i = VIDEO;
-	else
-		fileType_i = PROJECT;
-
-	if (VIDEO)
 	{
 		currentProject->openVideo(fileName_cy);
 		enableControls();
@@ -195,14 +192,13 @@ void mfit::openRecentFiles()
 			delete DT;
 		}
 	}
-	else
+	else // Senao, abro um projeto
 	{
 		currentProject->openProject(fileName_cy);
 		updateTransitions();
 		enableControls();
 	}
 }
-
 
 /************************************************************************
  * Tratar o evento do botão PLAY. Inicia a thread do video player
