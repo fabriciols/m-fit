@@ -27,13 +27,11 @@ class mfit: public QMainWindow
 		void on_actionSaveAs_triggered();
 		void on_actionLoadVideo_triggered();
 
-		void on_playButton_clicked();
-		void on_pauseButton_clicked();
-		void on_stopButton_clicked();
-		void on_backButton_clicked();
-		void on_forwardButton_clicked();
-
-
+		void on_playButton_clicked(); // dá play no vídeo
+		void on_pauseButton_clicked(); // pausa o vídeo
+		void on_stopButton_clicked(); // para o vídeo
+		void on_backButton_clicked(); // volta um frame
+		void on_forwardButton_clicked(); // avança um frame
 
 		void on_videoTime_timeChanged(const QTime & time);
 
@@ -45,21 +43,25 @@ class mfit: public QMainWindow
 
 		void on_transitionsTree_itemSelectionChanged(void);
 
-		void on_actionAllTransitions_triggered();
-		void on_actionOnlyCuts_triggered();
-		void on_actionAllFades_triggered();
-		void on_actionOnlyDissolve_triggered();
-		void on_actionRenderVideo_triggered();  
-		void on_actionDetectConfig_triggered(); 
+		void on_actionAllTransitions_triggered(); // detecta todas as transições
+		void on_actionOnlyCuts_triggered(); // detecta somente cortes
+		void on_actionAllFades_triggered(); // detecta somente fades
+		void on_actionOnlyDissolve_triggered(); // detecta somente dissolve
+		void on_actionRenderVideo_triggered();   // renderiza o vídeo
+		void on_actionDetectConfig_triggered(); // abre janela de configurações da transição
+		void on_actionExit_triggered(); // fecha aplicação
 
 		int askDetection(); // Pergunta se o usuário quer detectar todas as transições após carregar o vídeo.
+		bool askUserSave(); // Pergunta pro usuário se deseja salvar o projeto.
 		void alertUser(); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo
+
 		void enableControls(); // Habilita todos os comandos (botões) após carregar um vídeo.
 
 		void showDetectionConfigs(); // Abre a janela de configurações para detecção de transições
 
-		void openRecentFile();
+		void openRecentFile(); // Abre um arquivo (projeto ou vídeo) selecionado no recent files
 
+		// Mostra frame inicial/final de onde foi aplicado o efeito no vídeo.
 		void on_effectsTree_itemClicked(QTreeWidgetItem * item, int column);
 
 	private:
