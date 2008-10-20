@@ -113,7 +113,6 @@ void VideoPlayer::updatePlayer(Frame *frame)
 	if (currentProject->effectList.size() > 0)
 	{
 		frameNew = currentProject->applyEffect(frame, (long)vdo->getCurrentPosition());
-		delete frame;
 	}
 	else
 	{
@@ -123,6 +122,9 @@ void VideoPlayer::updatePlayer(Frame *frame)
 	image = frameNew->IplImageToQImage(&imageData, &imgWidth, &imgHeight);
 
 	emit setNewFrame(image);
+
+	if (frame != frameNew)
+		delete frameNew;
 }
 
 /*************************************************************************

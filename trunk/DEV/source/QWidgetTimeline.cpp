@@ -60,12 +60,14 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 		vdo->seekFrame(posFrame);
 
 		Frame *frame;
+
 		frame = vdo->getCurrentFrame();
 
 		vdo_player->updatePlayer(frame);
 		vdo_player->updateHist(frame);
 
 		delete frame;
+
 	}
 	else
 	{
