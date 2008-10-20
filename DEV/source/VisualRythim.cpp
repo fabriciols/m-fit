@@ -108,7 +108,6 @@ Frame* VisualRythim::createVR(Video* vdo)
 double* VisualRythim::createVRH(Video* vdo)
 {
 	Frame* frame = new Frame(); 
-	Frame* diagonal = new Frame();
 	Histogram* histogram = new Histogram();	
 	Color *color = new Color();
 	Frame* frameGray = 0;
@@ -131,7 +130,6 @@ double* VisualRythim::createVRH(Video* vdo)
 	// Pego o primeiro frame e sua diagonal
 	frame = vdo->getNextFrame();	
 
-	
 	while(frame != NULL)
 	{
 
@@ -144,16 +142,8 @@ double* VisualRythim::createVRH(Video* vdo)
 		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
 		frameGray = color->convert2Gray(frame);
 
-		// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
-		diagonal = frameGray->getDiagonal();
-
-		// Gero o histograma da diagonal do frame corrente
-		histogram = diagonal->createHistogram();
-		//histogram = frameGray->createHistogram();
-
 		// Guardo a media do valor de luminancia da diagonal.
-		hist[posic] = (double)diagonal->mediaBin();	
-		//hist[posic] = (double)histogram->getMaxLuminance();	
+		hist[posic] = (double)frameGray->mediaBin();	
 	
 		Log::writeLog("%s :: hist[%d] = %lf", __FUNCTION__, posic, hist[posic]);
 
@@ -164,7 +154,6 @@ double* VisualRythim::createVRH(Video* vdo)
 		delete frameGray;
 		delete histogram;
 		delete frame;
-		delete diagonal;
 		
 		// Pego o proximo
 		frame = vdo->getNextFrame();
