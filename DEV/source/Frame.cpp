@@ -13,7 +13,7 @@
 #define HIST_WIDTH  256
 #define HIST_HEIGHT 256
 
-/************************************************************************
+/*************************************************************************
  * Auxiliar que atualiza as variaveis internas de um objeto Frame 
  * deve ser usada toda vez que for alterar a imagem de um frame.
  *************************************************************************
