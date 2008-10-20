@@ -46,6 +46,10 @@ int Project::openProject(QString fileName)
 		//apaga lista de transicoes
 		this->clearTransitionList();
 
+		//apaga lista de efeitos
+		this->clearEffectList();
+
+
 		fileXml->readXml("name", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, 0);
 
 		mfit_ui->changeWindowTitle(content);
@@ -401,10 +405,10 @@ void Project::renderVideo(char *filename_cy)
 	// CV_FOURCC('C','D','V','C') // Canopus DV
 	// CV_FOURCC('D','I','V','X') // divx
 
+#define UNCOMPRESSED 541215044
+
 	// Abre o writer do video
-	//videoWriter = cvCreateAVIWriter(filename_cy, CV_FOURCC('D','I','B',' '),
-	//		vdo->getFPS(), cvSize(cvRound(vdo->getFramesHeight()), cvRound(vdo->getFramesWidth())));
-	videoWriter = cvCreateVideoWriter(filename_cy, (int)vdo->getCodec(),
+	videoWriter = cvCreateVideoWriter(filename_cy, UNCOMPRESSED,
 			vdo->getFPS(), cvSize(cvRound(vdo->getFramesHeight()), cvRound(vdo->getFramesWidth())), 1);
 
 	// Posiciona o ponteiro no comeco do video
@@ -416,6 +420,10 @@ void Project::renderVideo(char *filename_cy)
 
 	// Quantos efeitos temos
 	numEffect = effectList.size();
+
+	// Reseta as ROI
+	vdo->ROI.x = -1;
+	vdo->ROI.y = -1;
 
 	// Varremos Frame a Frame do video
 	for ( i = 0 , j = 0 ; i < totalFrame ; i ++)
@@ -432,8 +440,9 @@ void Project::renderVideo(char *filename_cy)
 			frameEffect = frame;
 		}
 
+
 		// Escreve o frame no video final
-		ret_i = cvWriteToAVI(videoWriter, frame->data);
+		ret_i = cvWriteFrame(videoWriter, frameEffect->data);
 
 		// Apaga o ponteiro para o video
 		delete frameEffect;
