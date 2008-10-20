@@ -391,7 +391,6 @@ void Project::renderVideo(char *filename_cy)
 
 	Frame *frame;
 	Frame *frameEffect;
-	Effect *effect;
 
 	// CODECS
 	// CV_FOURCC('H','F','Y','U') // HuffYUV  ~3:1 compression.
@@ -409,61 +408,34 @@ void Project::renderVideo(char *filename_cy)
 
 	// Posiciona o ponteiro no comeco do video
 	currentPos = (long)vdo->getCurrentPosition();
+
 	vdo->seekFrame(0);
 
 	totalFrame = (long)vdo->getFramesTotal();
 
-	// Carregamos o primeiro efeito, caso tiver
-	if (effectList.size() > 0)
-	{
-		numEffect = effectList.size();
-		effect = effectList.at(0);
-	}
-	else
-	{
-		effect = 0x0;
-	}
+	// Quantos efeitos temos
+	numEffect = effectList.size();
 
 	// Varremos Frame a Frame do video
 	for ( i = 0 , j = 0 ; i < totalFrame ; i ++)
 	{
 		frame = vdo->getNextFrame();
 
-		// Checamos se temos efeito a aplicar no frame indicado
-		if (effect)
+		if (numEffect > 0)
 		{
-			// Se o frame corrente for maior que o primeiro frame do efeito
-			if (i >= effect->getFrameStart())
-			{
-				if (i <= effect->getFrameEnd())
-				{
-					// Aplica o efeito no frame
-					frameEffect = effect->applyEffect(frame);
-					delete frame;
-					frame = frameEffect;
-				}
-				else
-				{ // Acabou este efeito, vamos para o proximo
-
-					j++;
-					// Se ainda restarem efeitos
-					if (j <= (numEffect-1))
-					{
-						effect = effectList.at(j);
-					}
-					else
-					{
-						effect = 0x0;
-					}
-				}
-			}
+			frameEffect = applyEffect(frame, i);
+			delete frame;
+		}
+		else
+		{
+			frameEffect = frame;
 		}
 
 		// Escreve o frame no video final
 		ret_i = cvWriteToAVI(videoWriter, frame->data);
 
 		// Apaga o ponteiro para o video
-		delete frame;
+		delete frameEffect;
 	}
 
 	// Libera o novo video
@@ -485,4 +457,35 @@ void Project::clearTransitionList()
 	transition = new Transition(TRANSITION_VIDEOSTART, 0, "Inicio do Video");
 
 	this->transitionList.push_back(*transition);
+}
+
+Frame* Project::applyEffect(Frame *frame, long pos)
+{
+	Frame *frameEffect = 0x0;
+	Frame *frameNew = new Frame(frame);
+	Effect *effect = 0x0;
+	unsigned int i = 0;
+
+	for ( i = 0 ; i < effectList.size() ; i++)
+	{
+		effect = effectList.at(i);
+
+		// Se o frame corrente for maior que o primeiro frame do efeito
+		if (pos >= effect->getFrameStart())
+		{
+			if (pos <= effect->getFrameEnd())
+			{
+				// Aplica o efeito no frame
+				frameEffect = effect->applyEffect(frameNew);
+
+				delete frameNew;
+
+				frameNew = frameEffect;
+
+				continue;
+			}
+		}
+	}
+
+	return frameNew;
 }

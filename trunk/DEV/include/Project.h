@@ -47,5 +47,8 @@ class Project
 
 		void renderVideo(char *filename_cy);
 
+		Frame* applyEffect(Frame *frame, long pos);
+
+
 };
 #endif
