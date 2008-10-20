@@ -13,7 +13,6 @@ class Video
 
 		// Regiao de interesse que é aplicada
 		// a todo frame capturado deste video
-		CvRect ROI;
 
 		/**
 		 *Armazena o endereço do vídeo 
@@ -68,6 +67,8 @@ class Video
 		CvCapture* open(char *vdoSrc); 
 
 	public:
+
+		CvRect ROI;
 
 		char* getName();
 		char* getPath();
