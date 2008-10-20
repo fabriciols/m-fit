@@ -53,11 +53,10 @@ class mfit: public QMainWindow
 
 		void showDetectionConfigs(); // Abre a janela de configurações para detecção de transições
 
-		void openRecentFiles();
+		void openRecentFile();
 
 	private:
 
-		char effects[10][30];
 		QAction *recentFiles[MAX_RECENT_FILES]; // Array que guarda o nome dos arquivos recentes
 
 	public:
