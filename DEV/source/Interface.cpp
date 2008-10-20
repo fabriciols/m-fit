@@ -51,7 +51,7 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
 
-	memset(recentFileActs, '\0', sizeof(recentFileActs));
+	memset(recentFiles, '\0', sizeof(recentFiles));
 
 	qRegisterMetaType<Frame>("Frame");
 
@@ -93,13 +93,7 @@ void mfit::addRecentFile(QString fileName)
 	}
 
 	settings.setValue("recentFileList", files);
-/*
-	foreach (QWidget *widget, QApplication::topLevelWidgets()) {
-         MainWindow *mainWin = qobject_cast<MainWindow *>(widget);
-         if (mainWin)
-             mainWin->updateRecentFileActions();
-     }
-*/	
+
 }
 
 /************************************************************************
@@ -127,26 +121,88 @@ void mfit::updateRecentFilesAct()
 	{
 		// Monto a string com o número (ordem de abertura) e o nome do arquivo
 		QString text = tr("&%1 %2").arg(i + 1).arg(QFileInfo(files[i]).fileName());
-		recentFileActs[i]->setText(text);
-		recentFileActs[i]->setData(files[i]);
-		recentFileActs[i]->setVisible(true);
+		recentFiles[i]->setText(text);
+		recentFiles[i]->setData(files[i]);
+		recentFiles[i]->setVisible(true);
 	}
 
 	// Escondo aqueles que forma acima do 4 arquivo aberto recentemente
 	for (int j = numRecentFiles; j < MAX_RECENT_FILES ; ++j)
-		recentFileActs[j]->setVisible(false);
+		recentFiles[j]->setVisible(false);
 }
+
+/************************************************************************
+* Cria a lista de recent Files
+*************************************************************************
+* param (E): Nao ha
+*************************************************************************
+* Histórico
+* 19/10/08 - Thiago Mizutani
+* Inserindo as actions no menu. Por isso não estavam aparecendo. básico..
+* 19/10/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 
 void mfit::createRecentFilesActions()
 {
 	for (int i = 0; i < MAX_RECENT_FILES ; ++i)
 	{
-		recentFileActs[i] = new QAction(this);
-		recentFileActs[i]->setVisible(false);
-		//connect(recentFileActs[i], SIGNAL(triggered()),
-		//		this, SLOT(openRecentFile()));
+		recentFiles[i] = new QAction(this);
+		recentFiles[i]->setVisible(false);
+		ui.menuFile->addAction(recentFiles[i]);
+		connect(recentFiles[i], SIGNAL(triggered()),
+				this, SLOT(openRecentFile()));
 	}
 }
+
+void mfit::openRecentFiles()
+{
+	char fileName_cy[100];
+	char extension_cy[4];
+	int  fileType_i = 0;
+	enum inputType {PROJECT, VIDEO};
+
+	memset(fileName_cy,'\0',100);
+
+	QAction *action = qobject_cast<QAction *>(sender());
+
+	if (action)
+	{
+		strcpy(fileName_cy,action->data().toString());
+	}
+	
+	// Pego a extensão do arquivo para verificar se é um projeto ou um vídeo.
+	strcpy(extension_cy, &fileName_cy[strlen(fileName_cy)-3]);	
+
+	if (!strcmp(extension_cy,"AVI") || !strcmp(extension_cy,"avi"))
+		fileType_i = VIDEO;
+	else
+		fileType_i = PROJECT;
+
+	if (VIDEO)
+	{
+		currentProject->openVideo(fileName_cy);
+		enableControls();
+			
+		// Ao carregar o vídeo, devo perguntar ao usuário se ele quer fazer a detecção.
+		if( askDetection() )
+		{
+			DetectTransitions* DT = new DetectTransitions();
+			DT->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
+
+			updateTransitions();
+
+			delete DT;
+		}
+	}
+	else
+	{
+		currentProject->openProject(fileName_cy);
+		updateTransitions();
+		enableControls();
+	}
+}
+
 
 /************************************************************************
  * Tratar o evento do botão PLAY. Inicia a thread do video player
@@ -541,7 +597,7 @@ void mfit::on_videoTime_timeChanged(const QTime & time)
 		vdo->seekFrame(cvTime->getFramePos(vdo->getFPS()));
 
 		updateVideoPlayer(vdo->getCurrentFrame());
-	 */
+		*/
 
 }
 
