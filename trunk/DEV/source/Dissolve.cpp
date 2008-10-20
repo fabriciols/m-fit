@@ -60,138 +60,136 @@ Dissolve::Dissolve(Video *vdo)
 ************************************************************************/
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
+	double *array_vrh;
+	int len_i, k, threshold=0, threshold_fade = 0;
 
-	/**
-	 * #####################################################################
-	 * #####################################################################
-	 *
-	 * MAURÍCIO E IVAN. LEIAM ISSO ANTES DE FAZER QUALQUER COISA. 
-	 *
-	 * VÁRIAS COISAS.
-	 *
-	 * 1 - Coloquem comentários no código. vcs já colocam uns nomes TOTALMENTE
-	 * escrotos pras variáveis do tipo: INT A, INT B. Nao custa nada dar uns
-	 * nomes mais intuitivos e que façam mais sentido. Isso ajuda na manuteN
-	 * ção e pra mim e fabrício que não estamos fazendo o dissolve ou qqr outro
-	 * fica muito mais claro o entendimento.
-	 *
-	 * Nada de var1, var2... escreve o nome daquilo que isso se refere porra
-	 * VARIACE1, VARIANCE2. derivative em vez de der... hoje vcs lembram.. 
-	 * amanha nem vao lembrar mais.
-	 *
-	 * 2 - REVEJAM TUDO aquilo que eu comentei. Tem monte de coisa que não
-	 * faz muito sentido aí.. e se faz... bom... vcs NÃO comentaram.
-	 *
-	 * 3 - Monte de coisa que vcs colocaram ficou estranho. Vcs tão entrando
-	 * em loops absurdamente grandes. Não sei se é realmente necessário, mas
-	 * se REALMENTE for... bom.. COMENTEM... mas comentem de forma DECENTE.
-	 *
-	 * 4 - Não tenham a preguiça de comentar... isso só ajuda.
-	 *
-	 * 5 - Não fiquem misturando conceitos. Se um for ou um processo serve
-	 * pra fazer a função X, então que seja só isso... se depois tiver que
-	 * varrer td de novo... foda-se... varre... mas não misturem conceitos
-	 * isso confunde.
-	 *
-	 * #####################################################################
-	 * #####################################################################
-	 **/
-
-	Transition *transition;
-	Frame* visual;
-	double mean = 0;
-  	double *variance;
-	double *array_dvrh;
-   double ratio;
-	double var_2_der, med_1_der ;
-	int len_i, i, j, k;
-
-	Color *color = new Color();
+	Frame* visual = new Frame();
 	Frame* frameGray = 0;
-	double *points;    //, *pontos_anterior, *valor_pontos,;  O que isso armazena?
-	int pointsSize; 
-   int *detect;
-	//double *calculo_pontos=0;
 
-	//char pri[4],seg[4],ter[4],qua[4];
+	int *detet;
 
 	len_i = cvRound(vdo->getFramesTotal());
 
-//	visual = vdo->getCurrentFrame(); Aqui vcs perdem o primeiro frame.
+	visual = vdo->getCurrentFrame();
 
-	pointsSize = (visual->getWidth()*visual->getHeight()); // Pra que serve isso? Vcs vão varrer até aonde com isso?
+	detet = (int *) malloc(sizeof(int)*len_i);
+	array_vrh = (double *) malloc(sizeof(double)*len_i);
 
+	memset(detet,0,len_i);
+
+	//Coleta o ritmo visual dos frames
 	for(k=0;k<len_i;k++)
 	{
+		Color *color = new Color();
+		Frame* visual = new Frame();
 		visual = vdo->getNextFrame();
 		frameGray = color->convert2Gray(visual);
 
-		// Um conselho? Não façam isso... cada parte do processo faz uma coisa..
-		// não misturem essas coisas só pra não ter que chamar depois... não é nem por processamento
-		// mas isso atrapalha pra fazer manutenção e entendimento das coisas. inclusive de vcs.
-		// to falando do array_drvh.
-		mean = array_dvrh[k] = frameGray->mediaBin(); 
-		Log::writeLog("[%d] mean[%.lf]", k, mean);
+		array_vrh[k] = frameGray->mediaBin();
 
-		j=0; // vcs zeram o j toda hora pra que? Retirem isso....
-		for(i=0;i<pointsSize;i++)
+		delete color;
+		delete frameGray;
+		delete visual;
+	}
+
+	threshold = 4;
+	threshold_fade = 5;
+
+	//Verifica ponto de dissolve
+	for(k=0;k<len_i;k++)
+	{
+		if((array_vrh[k]<array_vrh[k+1]) &&
+		   (array_vrh[k+1]<array_vrh[k+2]) &&
+		   (array_vrh[k+2]<array_vrh[k+3]) &&
+		   (array_vrh[k+3]<array_vrh[k+4]) &&
+		   (array_vrh[k+4]<array_vrh[k+5]) &&
+		   (array_vrh[k+5]<array_vrh[k+6]) &&
+		   (array_vrh[k+6]<array_vrh[k+7]))
 		{
-			// Vcs são loco? points nem é um array. E se for vcs tem noção de até onde vcs tão 
-			// querendo varrer??? pointsSize pode chegar a mais de 100.000.... revisem isso... e por favor.
-			// respondam a estas perguntas pra mim via e-mail. E oq vcs pretendem com esse cáculo?
-			variance[k] += (points[i] - mean) * (points[i] - mean); 
+			//aplica 1. derivada
+			if(((array_vrh[k+1]-array_vrh[k])<threshold) &&
+			  ((array_vrh[k+2]-array_vrh[k+1])<threshold) &&
+			  ((array_vrh[k+3]-array_vrh[k+2])<threshold) &&
+			  ((array_vrh[k+4]-array_vrh[k+3])<threshold) &&
+			  ((array_vrh[k+5]-array_vrh[k+4])<threshold) &&
+			  ((array_vrh[k+6]-array_vrh[k+5])<threshold) &&
+			  ((array_vrh[k+7]-array_vrh[k+6])<threshold))
+			{
+				detet[k]=1;
+				k=k+6;
+			}
 		}
 
-		variance[k] = variance[k] / (pointsSize-1);
-
-		delete visual; // Isso evita o estouro de memória.
-		delete frameGray; // Sempre que vc for varrer o vídeo e ficar mudando o frame, deleta antes de pegar o próximo;
-		// A cada NextFrame que vc dá vc cria um objeto novo, o ponteiro aponta pra esse novo e não apaga o anterior.
-		// deletem este comentário depois que lerem.
-		
-	}
-	
-	var_2_der = calcSecondDerivative(variance, len_i);
-	med_1_der = calcSecondDerivative(array_dvrh, len_i);
-	
-	for(int w=0; w<len_i; w++)
-	{
-		ratio = calcRatioVarianceVRH(var_2_der, med_1_der);
-		if (ratio<0)
-			ratio = (-1)*ratio;
-		// por enquanto usa 2
-		// usa 2 oq!? Comentem o código pelo amor d deus... não da pra entender nada do q vcs tão fazendo assim...
-		// desse jeito até vcs acabam se perdendo depois e a gnt tbm não consegue ajudar em nada.
-		if (ratio < 2)
-			detect[w] = 1;
-		else
-			detect[w] = 0;
-	}
-	// varre os pontos de deteccao e pega o primeiro entre 5 ou mais
-	for(i=0; i<len_i; i++)
-	{
-		if(detect[i] == 1)
+		if((array_vrh[k]>array_vrh[k+1]) &&
+		   (array_vrh[k+1]>array_vrh[k+2]) &&
+		   (array_vrh[k+2]>array_vrh[k+3]) &&
+		   (array_vrh[k+3]>array_vrh[k+4]) &&
+		   (array_vrh[k+4]>array_vrh[k+5]) &&
+		   (array_vrh[k+5]>array_vrh[k+6]) &&
+		   (array_vrh[k+6]>array_vrh[k+7]))
 		{
-			for(j=i; j<i+5; j++)
+			//aplica 1. derivada
+			if(((array_vrh[k]-array_vrh[k+1])<threshold) &&
+			  ((array_vrh[k+1]-array_vrh[k+2])<threshold) &&
+			  ((array_vrh[k+2]-array_vrh[k+3])<threshold) &&
+			  ((array_vrh[k+3]-array_vrh[k+4])<threshold) &&
+			  ((array_vrh[k+4]-array_vrh[k+5])<threshold) &&
+			  ((array_vrh[k+5]-array_vrh[k+6])<threshold) &&
+			  ((array_vrh[k+6]-array_vrh[k+7])<threshold))
 			{
-				if (detect[j] == 0)
-					detect[i]=0;
+				detet[k]=1;
+				k=k+6;
 			}
-			transition = new Transition(TRANSITION_DISSOLVE, i, "Dissolve");
+		}
+	}
+
+	//Retirando redundancias
+	for(k=0;k<len_i;k++)
+	{
+		if(detet[k])
+		{
+			while(detet[k+7]==1)
+			{
+				detet[k+7]=0;
+				k=k+7;
+			}
+		}
+	}
+
+	//Verifica se é um fade
+	for(k=0;k<len_i;k++)
+	{
+		if(detet[k]==1)
+		{
+			if((array_vrh[k]<threshold_fade) ||
+			   (array_vrh[k-1]<threshold_fade) ||
+			   (array_vrh[k-2]<threshold_fade) ||
+			   (array_vrh[k-3]<threshold_fade) ||
+			   (array_vrh[k-4]<threshold_fade) ||
+			   (array_vrh[k-5]<threshold_fade) ||
+			   (array_vrh[k-6]<threshold_fade) ||
+			   (array_vrh[k+1]<threshold_fade) ||
+			   (array_vrh[k+2]<threshold_fade) ||
+			   (array_vrh[k+3]<threshold_fade) ||
+			   (array_vrh[k+4]<threshold_fade) ||
+			   (array_vrh[k+5]<threshold_fade) ||
+			   (array_vrh[k+6]<threshold_fade))
+			{
+				detet[k]=0;
+			}
+		}
+	}
+
+	//Transportando para matriz de detecção
+	for(k=0;k<len_i;k++)
+	{
+		if(detet[k]==1)
+		{
+			Transition *transition = new Transition();
+			transition = new Transition(TRANSITION_DISSOLVE, k, "Dissolve");
 			transitionList->push_back(*transition);
-
-		}
-		// se for ponto de deteccao, zera os proximos 5 pontos e avnca o contador para o sexto elemento
-		if(detect[i] == 1)
-		{
-			for (k=i; k<i+5; k++)
-			{
-				detect[k] = 0;
-			}
-			i = i+5;
 		}
 	}
-     
 }
 
 /************************************************************************

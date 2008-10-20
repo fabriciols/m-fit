@@ -631,21 +631,31 @@ double Frame::mediaBin()
 {
 	int x = 0;
 	int y = 0;
+	int i = 0;
+
+	double a = 0; // Coeficiente angular da equacao
+
 	double mean=0;
 
-	// Percorro todo o frame coluna a coluna, pixel a pixel.
-	for( x=0; x<this->getWidth(); x++ )
+	/** Calculo o coeficiente angular da reta ('a' da equacao).
+	 * this->getHeight = y - yo
+	 * this->getWidth  = x - xo
+	 * y - yo = m*(x - xo)
+	 **/
+	a = (float)(this->getHeight()/(float)this->getWidth());
+
+	// Pego a diagonal do this.
+	for (x=0; x < this->getWidth()-1 ; x++)
 	{
-		for( y=0; y<this->getHeight(); y++ )
-		{
-			// Somatoria de pixel do frame;
-			mean += this->getPixel(x,y);
-			//			Log::writeLog("%s :: mean[%.lf]", __FUNCTION__, mean);
-		}
-	}
+		y = cvRound(a * x);
+
+		mean += this->getPixel(x, y);
+
+		i++;
+	}	
 
 	// Calcula-se a média dos pixels somados.
-	mean = mean / (this->getWidth()*this->getHeight());
+	mean = mean / i;
 
 	//	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
 
