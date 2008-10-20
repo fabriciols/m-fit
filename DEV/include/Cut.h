@@ -17,26 +17,23 @@ class Cut: public DetectTransitions
 
 		Cut(); // Construtor
 
+		// Passa o filtro de Canny sobre o Ritmo Visual
 		void createBorderMap(Frame* visualRythim);
-	 
-		void detectTransitions(Video* vdo, std::vector<Transition>* tansitionList);
 
+		void detectTransitions(Video* vdo, std::vector<Transition>* tansitionList);
 
 		int getThreshold();
 
 		int setThreshold(int threshold);
-	/**
-	 *Processo para a definição da 
-	 *limiar de corte para o processo
-	 *de detecção de transições do tipo
-	 *corte.
-	 */
-	int defineThreshold(int height);
-	 
-	int* countPoints(Frame* borderMap, int threshold);
 
-	// Valida se aquilo que foi detectado é realmente um corte.
-	int validateCut(Frame* visual, int position);
+		// Processo para a definição do limiar de corte para o processo de detecção de cortes
+		int defineThreshold(int height);
+
+		// Faz contagem de pontos do mapa de bordas para definição daquilo que é ou não um corte.
+		int* countPoints(Frame* borderMap, int threshold);
+
+		// Valida se aquilo que foi detectado é realmente um corte.
+		int validateCut(Frame* visual, int position);
 
 };
 #endif
