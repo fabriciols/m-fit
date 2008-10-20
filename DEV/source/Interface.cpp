@@ -1400,3 +1400,73 @@ void mfit::clearTransitionHeader()
 		updateTransitionHeader(i, 1);
 	}
 }
+
+void mfit::insertEffectTree(Effect *effect)
+{
+	char frameStart[10];
+	char frameEnd[10];
+
+	// Cria o item referente a Tree
+	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.effectsTree);
+
+	// Cria a lista de items
+	QList<QTreeWidgetItem *> itens;
+
+	sprintf(frameStart, "%ld", effect->frameStart);
+	sprintf(frameEnd  , "%ld", effect->frameEnd);
+
+	// Primeira Coluna - Nome do efeito
+	item->setText(0, "Efeito");
+
+	// Segunda coluna - Frame de start
+	item->setText(1, frameStart);
+
+	// Terceira Coluna - Frame final
+	item->setText(2, frameEnd);
+
+	itens.append(item);
+
+	this->ui.effectsTree->insertTopLevelItems(0, itens);
+}
+
+void mfit::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
+{
+	if (column > 0)
+	{
+		char framepos_cy[10];
+		long framepos_l;
+		Video *vdo;
+
+		QStringToChar(item->text(column), framepos_cy);
+
+		framepos_l = atol(framepos_cy);
+
+		vdo = currentProject->getVideo();
+
+		vdo->seekFrame(framepos_l);
+
+		vdo_player->updatePlayer(vdo->getCurrentFrame());
+
+	}
+	else // Se clicou na coluna do nome do efeito
+	{
+		return;
+	}
+}
+
+void mfit::updateEffectTree()
+{
+	unsigned int i = 0;
+
+	effectTreeClear();
+
+	for ( i = 0 ; i < currentProject->effectList.size() ; i++)
+	{
+		insertEffectTree(currentProject->effectList.at(i));
+	}
+}
+
+void mfit::effectTreeClear()
+{
+	this->ui.effectsTree->clear();
+}

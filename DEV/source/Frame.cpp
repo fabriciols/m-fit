@@ -386,7 +386,6 @@ Frame::~Frame()
  ************************************************************************/
 Frame & Frame::operator+=(Frame &frame)
 {
-
 	IplImage *imgDst;
 
 	//Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
@@ -436,7 +435,6 @@ Frame & Frame::operator+=(Frame &frame)
 	// Seta pra imagem nova
 	setImage(imgDst);
 
-	//Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
 }
 
 /************************************************************************
