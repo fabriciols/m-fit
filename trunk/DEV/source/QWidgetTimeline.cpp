@@ -88,6 +88,7 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 {
 	Effect *effect = 0x0;
 	Transition *transition = 0x0;
+	Video *vdo;
 	unsigned int i = 0;
 	long start = -1;
 	long end = 0;
@@ -95,10 +96,7 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 	switch(getItemByEvent(event))
 	{
 		case COLOR:
-			{
-				ColorConfig colorConfig;
-				colorConfig.exec();
-			}
+			effect = new Color();
 			break;
 
 		case ERODE:
@@ -148,7 +146,6 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 
 	if (end == 0x0)
 	{
-		Video *vdo;
 		vdo = currentProject->getVideo();
 		end = (long)vdo->getFramesTotal();
 	}
@@ -160,6 +157,12 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 
 	mfit_ui->clearTransitionHeader();
 	mfit_ui->updateEffectTree();
+
+	if (vdo == 0x0)
+		vdo = currentProject->getVideo();
+
+	vdo_player->updatePlayer(vdo->getCurrentFrame());
+
 }
 
 void QWidgetTimeline::dragEnterEvent(QDragEnterEvent * event)
