@@ -319,8 +319,13 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 				transition = new Transition(type, fade_center, label);
 
-				// Adiciona no container
-				transitionList->push_back(*transition);
+				/**
+				 * Verifico se na posição em que eu detectei um corte já não foi considerada
+				 * outro tipo de transição. Isso evita que o sistema diga que em uma mesma posição
+				 * existam 2 transições diferentes.
+				**/
+				if( this->validateTransition((long)fade_center, transitionList) )
+					transitionList->push_back(*transition);
 
 				fade_start = 0;
 
