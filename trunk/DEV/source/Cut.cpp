@@ -197,7 +197,7 @@ void Cut::createBorderMap(Frame* visualRythim)
 int Cut::defineThreshold(int height)
 {
 	int userThreshold = 0;
-	double sysThreshold;
+	double sysThreshold = 0.0;
 
 	userThreshold = currentProject->getUserThreshold();
 

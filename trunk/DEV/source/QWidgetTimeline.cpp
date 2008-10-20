@@ -87,8 +87,9 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 void QWidgetTimeline::dropEvent(QDropEvent *event)
 {
 	Effect *effect = 0x0;
+	Frame *frameNew = 0x0;
 	Transition *transition = 0x0;
-	Video *vdo;
+	Video *vdo = 0x0;
 	unsigned int i = 0;
 	long start = -1;
 	long end = 0;
@@ -161,7 +162,10 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 	if (vdo == 0x0)
 		vdo = currentProject->getVideo();
 
-	vdo_player->updatePlayer(vdo->getCurrentFrame());
+	frameNew = vdo->getCurrentFrame();
+
+	vdo_player->updatePlayer(frameNew);
+	vdo_player->updateHist(frameNew);
 
 }
 

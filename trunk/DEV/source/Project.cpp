@@ -473,7 +473,7 @@ Frame* Project::applyEffect(Frame *frame, long pos)
 		// Se o frame corrente for maior que o primeiro frame do efeito
 		if (pos >= effect->getFrameStart())
 		{
-			if (pos <= effect->getFrameEnd())
+			if (pos < effect->getFrameEnd())
 			{
 				// Aplica o efeito no frame
 				frameEffect = effect->applyEffect(frameNew);

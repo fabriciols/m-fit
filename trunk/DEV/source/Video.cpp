@@ -223,6 +223,9 @@ double Video::getFramesTotal()
 ************************************************************************/
 Frame* Video::getNextFrame()
 {
+	if (data == 0x0)
+		return NULL;
+
 	if (!cvGrabFrame(this->data))
 	{
 		return NULL;
