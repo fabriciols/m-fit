@@ -14,6 +14,7 @@ class Project
 		int userMaxCanny;
 
 		void clearTransitionList();
+		void clearEffectList();
 
 	public:
 
