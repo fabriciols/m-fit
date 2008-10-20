@@ -39,11 +39,11 @@ void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* t
 {
 	Cut* DTC = new Cut();
 	Fade* DTF = new Fade();
-//	Dissolve* DTD;
+	Dissolve* DTD = new Dissolve();
 	
 	DTC->detectTransitions(vdo, transitionList); // Cortes
 	DTF->detectTransitions(vdo, transitionList); // Fade
-	//DTD->detectTransitions(vdo, transitions); // Dissolve
+	DTD->detectTransitions(vdo, transitions); // Dissolve
 }
 
 /************************************************************************
