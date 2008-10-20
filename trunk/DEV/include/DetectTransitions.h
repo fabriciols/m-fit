@@ -17,5 +17,8 @@ class DetectTransitions
 	public:
 		void detectTransitions(Video* vdo, std::vector<Transition>* tansitionList);
 
+		// Verifica se já existem transições detectadas na posição da nova transição.
+		bool validateTransition(long position, std::vector<Transition>* transitionList);
+
 };
 #endif
