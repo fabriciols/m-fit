@@ -30,6 +30,10 @@ class mfit: public QMainWindow
 		void on_playButton_clicked();
 		void on_pauseButton_clicked();
 		void on_stopButton_clicked();
+		void on_backButton_clicked();
+		void on_forwardButton_clicked();
+
+
 
 		void on_videoTime_timeChanged(const QTime & time);
 

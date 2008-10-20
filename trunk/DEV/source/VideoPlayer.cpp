@@ -110,11 +110,17 @@ void VideoPlayer::updatePlayer(Frame *frame)
 	QImage *image = 0x0;
 	Video *vdo = currentProject->getVideo();
 
-	frameNew = currentProject->applyEffect(frame, (long)vdo->getCurrentPosition());
+	if (currentProject->effectList.size() > 0)
+	{
+		frameNew = currentProject->applyEffect(frame, (long)vdo->getCurrentPosition());
+		delete frame;
+	}
+	else
+	{
+		frameNew = frame;
+	}
 
-	frame = frameNew;
-
-	image = frame->IplImageToQImage(&imageData, &imgWidth, &imgHeight);
+	image = frameNew->IplImageToQImage(&imageData, &imgWidth, &imgHeight);
 
 	emit setNewFrame(image);
 }
@@ -137,9 +143,13 @@ void VideoPlayer::updateHist(Frame *frame)
 	QImage *imageHist = 0x0;
 	Frame* frameGray = 0x0;
 	Frame* frameHistogram = 0x0;
-	Color* color = new Color;
+	Color* color = 0x0;
 	Histogram *hist = 0x0;
 
+	if (!mfit_ui->ui.histogramLabel->isVisible())
+		return;
+
+	color = new Color;
 	frameGray = color->convert2Gray(frame);
 	hist = frameGray->createHistogram();
 

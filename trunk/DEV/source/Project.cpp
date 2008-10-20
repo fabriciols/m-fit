@@ -403,8 +403,8 @@ void Project::renderVideo(char *filename_cy)
 	// Abre o writer do video
 	//videoWriter = cvCreateAVIWriter(filename_cy, CV_FOURCC('D','I','B',' '),
 	//		vdo->getFPS(), cvSize(cvRound(vdo->getFramesHeight()), cvRound(vdo->getFramesWidth())));
-	videoWriter = cvCreateAVIWriter(filename_cy, (int)vdo->getCodec(),
-			vdo->getFPS(), cvSize(cvRound(vdo->getFramesHeight()), cvRound(vdo->getFramesWidth())));
+	videoWriter = cvCreateVideoWriter(filename_cy, (int)vdo->getCodec(),
+			vdo->getFPS(), cvSize(cvRound(vdo->getFramesHeight()), cvRound(vdo->getFramesWidth())), 1);
 
 	// Posiciona o ponteiro no comeco do video
 	currentPos = (long)vdo->getCurrentPosition();

@@ -28,6 +28,9 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 	QPoint pointEvent(event->pos());
 	QRect  rect(this->geometry());
 
+	if (vdo_player->isRunning())
+		return;
+
 	if (currentProject->getVideo() == 0x0)
 		return;
 
@@ -56,14 +59,13 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 
 		vdo->seekFrame(posFrame);
 
-		if (!vdo_player->isRunning())
-		{
-			Frame *frame;
-			frame = vdo->getCurrentFrame();
-			vdo_player->updatePlayer(frame);
+		Frame *frame;
+		frame = vdo->getCurrentFrame();
 
-			delete frame;
-		}
+		vdo_player->updatePlayer(frame);
+		vdo_player->updateHist(frame);
+
+		delete frame;
 	}
 	else
 	{
@@ -73,12 +75,12 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 }
 
 /*
-bool QWidgetTimeline::event(QEvent *e)
-{
+	bool QWidgetTimeline::event(QEvent *e)
+	{
 	qDebug("received event(): %d", e->type());
 	return QWidget::event(e);
-}
-*/
+	}
+ */
 
 void QWidgetTimeline::dropEvent(QDropEvent *event)
 {
