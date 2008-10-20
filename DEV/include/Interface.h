@@ -54,6 +54,7 @@ class mfit: public QMainWindow
 		int askDetection(); // Pergunta se o usuário quer detectar todas as transições após carregar o vídeo.
 		bool askUserSave(); // Pergunta pro usuário se deseja salvar o projeto.
 		void alertUser(); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo
+		void alertUserVideo(); // Video nao suportado.
 
 		void enableControls(); // Habilita todos os comandos (botões) após carregar um vídeo.
 
