@@ -219,11 +219,8 @@ void mfit::on_playButton_clicked()
 	if (!vdo)
 	{
 		alertUser();
-		delete vdo;
 		return;
 	}
-
-	delete vdo;
 
 	if (!vdo_player->isRunning())
 		vdo_player->start();
@@ -250,14 +247,53 @@ void mfit::on_pauseButton_clicked()
 	if (!vdo)
 	{
 		alertUser();
-		delete vdo;
 		return;
 	}
 
-	delete vdo;
-
 	if (vdo_player->isRunning())
 		vdo_player->terminate();
+}
+
+void mfit::on_forwardButton_clicked()
+{
+	Video *vdo;
+	Frame *frame;
+
+	vdo = currentProject->getVideo();
+
+	if (vdo == 0x0)
+		return;
+
+	if (vdo->getCurrentPosition() >= vdo->getFramesTotal())
+		return;
+
+	frame = vdo->getNextFrame();
+
+	vdo_player->updatePlayer(frame);
+	vdo_player->updateHist(frame);
+
+	delete frame;
+}
+
+void mfit::on_backButton_clicked()
+{
+	Video *vdo;
+	Frame *frame;
+
+	vdo = currentProject->getVideo();
+
+	if (vdo == 0x0)
+		return;
+
+	if (vdo->getCurrentPosition() >= vdo->getFramesTotal())
+		return;
+
+	frame = vdo->getPreviousFrame();
+
+	vdo_player->updatePlayer(frame);
+	vdo_player->updateHist(frame);
+
+	delete frame;
 }
 
 /************************************************************************
@@ -283,7 +319,6 @@ void mfit::on_stopButton_clicked()
 	if (!vdo)
 	{
 		alertUser();
-		delete vdo;
 		return;
 	}
 
@@ -291,8 +326,6 @@ void mfit::on_stopButton_clicked()
 
 	if (vdo_player->isRunning())
 		vdo_player->terminate();
-
-	delete vdo;
 
 }
 
@@ -520,6 +553,8 @@ void mfit::updatePlayer(QImage *image)
 	updateTimeline();
 
 	vdo_player->mutex.unlock();
+
+	delete image;
 }
 
 /************************************************************************
@@ -544,6 +579,8 @@ void mfit::updateHist(QImage *hist)
 	// Permite ajute da imagem em relação ao tamanho da janela
 	ui.histogramLabel->setScaledContents(true);
 	ui.histogramLabel->setPixmap(pix_image); // Pinta a imagem
+
+	delete hist;
 
 	vdo_player->mutex.unlock();
 }
