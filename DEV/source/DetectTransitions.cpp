@@ -17,6 +17,8 @@
 #include "../include/Fadeout.h"
 #include "../include/Dissolve.h"
 
+#include "../include/Log.h"
+
 /************************************************************************
 * Função que faz a detecção das transições.
 *************************************************************************
@@ -42,4 +44,45 @@ void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* t
 	DTC->detectTransitions(vdo, transitionList); // Cortes
 	DTF->detectTransitions(vdo, transitionList); // Fade
 	//DTD->detectTransitions(vdo, transitions); // Dissolve
+}
+
+/************************************************************************
+* Função que faz validação da transição detectada com a lista de 
+* transições, evitando que 2 transições sejam apontadas para a mesma 
+* posição do vídeo.
+*************************************************************************
+* param (E): int position => Posição da nova transição a ser inserida
+* param (E): transitionList => lista de transições.
+*************************************************************************
+* return : TRUE => Transição válida
+* 			  FALSE => Há sobreposição de transições. 
+*************************************************************************
+* Histórico:
+* 20/10/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
+
+bool DetectTransitions::validateTransition(long position, std::vector<Transition>* transitionList)
+{
+	unsigned long i;
+	Transition* currentTransition;
+
+	Log::writeLog("%s :: position = %ld", __FUNCTION__, position);
+
+	for(i=0; i<transitionList->size(); i++)
+	{
+		currentTransition = &transitionList->at(i);
+		Log::writeLog("%s :: currentTransition = %ld", __FUNCTION__, currentTransition->getPosTransition());
+
+		if (position == currentTransition->getPosTransition())
+		{
+			Log::writeLog("%s :: Transição inválida!!! Já existe uma transição na posição[%d].", __FUNCTION__, position);
+			return FALSE;
+		}
+	}
+
+	Log::writeLog("%s :: Transição válida!!! Posição[%d].", __FUNCTION__, position);
+		// Lista está vazia ou a posição é válida.
+	return TRUE;
+
 }

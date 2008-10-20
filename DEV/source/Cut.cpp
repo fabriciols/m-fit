@@ -70,18 +70,13 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	VisualRythim *vr = new VisualRythim();
 
-	Time* time = new Time();
-
 	Log::writeLog("%s :: iniciando detecção de cortes\n");
 
-	char* label; 
 	int threshold = 0;
 	int thresholdBin = 0;
 	int *trans = 0;
-	double fps = vdo->getFPS();
+	long i = 0;
 	double totalFrames = vdo->getFramesTotal();
-
-	label = (char*)malloc(sizeof(char)*19);
 
 	// Se a posicao do video não for a inicial, aponto para o primeiro frame.
 	if (vdo->getCurrentPosition() != 0)
@@ -123,21 +118,22 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	// Realizo a contagem dos pontos das bordas que foram encontradas
 	trans = countPoints(visualRythim, threshold);
 	
-	for( int i=0; i<(int)totalFrames; i++ )
+	for(i=0; i<(long)totalFrames; i++ )
 	{
 		if(trans[i]) 
 		{
 			
 			if(validateCut(visual, i))
 			{
-				time->pos2time(i,fps); // Converto de posição física para tempo
+				Transition* newTransition = new Transition(TRANSITION_CUT,i,"Cut");
 
-				sprintf(label, "Cut in: %d:%d:%d:%d",time->getHour(),time->getMin(),time->getSec(),time->getMsec());
-
-				Transition* newTransition = new Transition(TRANSITION_CUT,i,label);
-
-				// Adiciona no container
-				transitionList->push_back(*newTransition);
+				/**
+				 * Verifico se na posição em que eu detectei um corte já não foi considerada
+				 * outro tipo de transição. Isso evita que o sistema diga que em uma mesma posição
+				 * existam 2 transições diferentes.
+				**/
+			   if(this->validateTransition(i, transitionList))
+					transitionList->push_back(*newTransition);
 			}
 		}
 	}
@@ -145,7 +141,6 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	delete visualRythim;
 	delete filters;
 	delete vr;
-	delete time;
 
 }
 
