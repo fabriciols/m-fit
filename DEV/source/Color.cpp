@@ -22,6 +22,10 @@ Frame* Color::convert2Gray(Frame* frame)
 	IplImage *imgGray;
 	Frame *frameNew;
 
+	// Se o frame jah for cinza, vaza
+	if (frame->data->nChannels == 1)
+		return new Frame(frame);
+
 	// Cria a img com as mesmas dimensões da instância atual
 	// porém com 8 bits e 1 canal apenas
 	imgGray = Frame::imgAlloc(cvGetSize(frame->data),8,1);

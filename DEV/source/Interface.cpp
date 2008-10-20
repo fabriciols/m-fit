@@ -387,7 +387,15 @@ void mfit::on_actionLoadVideo_triggered()
 
 	if (!fileName.isEmpty())
 	{
-		currentProject->openVideo(fileName);
+		try
+		{
+			currentProject->openVideo(fileName);
+		}
+		catch (...)
+		{
+			alertUserVideo();
+			return;
+		}
 
 		enableControls();
 
@@ -634,7 +642,7 @@ void mfit::on_videoTime_timeChanged(const QTime & time)
 		vdo->seekFrame(cvTime->getFramePos(vdo->getFPS()));
 
 		updateVideoPlayer(vdo->getCurrentFrame());
-		*/
+	 */
 
 }
 

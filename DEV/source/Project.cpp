@@ -159,6 +159,7 @@ int Project::openVideo(QString fileName)
 
 		mfit_ui->clearVideoProperty();
 		mfit_ui->clearTransitionsTree();
+		mfit_ui->effectTreeClear();
 	}
 
 	// Transformando QString em char*
@@ -488,4 +489,9 @@ Frame* Project::applyEffect(Frame *frame, long pos)
 	}
 
 	return frameNew;
+}
+
+void Project::clearEffectList()
+{
+	this->effectList.clear();
 }
