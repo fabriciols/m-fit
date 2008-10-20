@@ -346,9 +346,9 @@ void mfit::on_actionOpenProject_triggered()
 	// Quarto   parametro - Mensagem q ira aparecer la embaixo, e as extensões suportadas
 
 	QString fileName = QFileDialog::getOpenFileName(this,
-			"Open Project",
+			"Abrir Projeto",
 			".",
-			"MFIT Project File (*.mfit)");
+			"Projeto MFIT (*.mfit)");
 
 	if (!fileName.isEmpty())
 	{
@@ -381,9 +381,9 @@ void mfit::on_actionLoadVideo_triggered()
 	// Terceiro parametro - Diretorio inicial
 	// Quarto   parametro - Mensagem q ira aparecer la embaixo, e as extensões suportadas
 	QString fileName = QFileDialog::getOpenFileName(this,
-			"Open Video",
+			"Abrir Vídeo",
 			".",
-			"Supported Videos (*.avi)");
+			"Vídeos Suportados (*.avi)");
 
 	if (!fileName.isEmpty())
 	{
@@ -421,12 +421,16 @@ void mfit::on_actionLoadVideo_triggered()
 void mfit::on_actionSaveAs_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
-			"Save Project",
+			"Salvar Projeto",
 			".",
-			"MFIT Project File (*.mfit)");
+			"Projeto MFIT (*.mfit)");
 
 	if (!fileName.isEmpty())
 	{
+		currentProject->saveProject(fileName);
+
+		this->setWindowTitle(fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1));
+
 		return;
 	}
 }
@@ -444,9 +448,9 @@ void mfit::on_actionSaveAs_triggered()
 void mfit::on_actionSave_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
-			"Save Project",
+			"Salvar Projeto",
 			".",
-			"MFIT Project File (*.mfit)");
+			"Projeto MFIT (*.mfit)");
 
 	if (!fileName.isEmpty())
 	{
@@ -1013,7 +1017,7 @@ void mfit::insertTransitionsTree(Transition* transition, long id_l)
 			item->setText(1, "Inicio do Video");
 			break;
 		case TRANSITION_CUT:
-			item->setText(1, "Cut");
+			item->setText(1, "Corte");
 			break;
 		case TRANSITION_FADEIN:
 			item->setText(1, "Fade-In");
@@ -1242,7 +1246,7 @@ void mfit::alertUser()
 {
 	QMessageBox::critical(
 			this,
-			tr("MFIT - ERROR"),
+			tr("MFIT - ERRO"),
 			tr("<p><b>Não é possível fazer a detecção de transições!</b>" \
 				"<p>Carregue um vídeo antes de executar esta operação!"),
 			QMessageBox::Ok
@@ -1324,9 +1328,9 @@ void mfit::on_actionDetectConfig_triggered()
 void mfit::on_actionRenderVideo_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
-			"Render Video",
+			"Renderizar Video",
 			".",
-			"Supported Videos (*.avi)");
+			"Videos Suportados (*.avi)");
 
 	if (!fileName.isEmpty())
 	{
@@ -1713,4 +1717,15 @@ bool mfit::askUserSave()
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+void mfit::alertUserVideo()
+{
+	QMessageBox::critical(
+			this,
+			tr("MFIT - ERRO"),
+			tr("<p><b>Não é possível carregar o vídeo!</b>" \
+				"<p>Formato não suportado!"),
+			QMessageBox::Ok
+			);
 }
