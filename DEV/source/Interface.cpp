@@ -785,7 +785,7 @@ void mfit::updateTimeline()
 		delete vdo_player->frameTimelineEdited;
 
 	CvPoint p1 = {line_point,0};
-	CvPoint p2 = {line_point,SIZE_FRAME_TIMELINE};
+	CvPoint p2 = {line_point,SIZE_FRAME_TIMELINE+10};
 
 	vdo_player->frameTimelineEdited = new Frame(vdo_player->frameTimeline);
 
