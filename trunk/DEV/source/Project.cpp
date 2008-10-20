@@ -66,6 +66,7 @@ int Project::openProject(QString fileName)
 		}
 
 		mfit_ui->addRecentFile(fileName);
+		mfit_ui->updateRecentFilesAct();
 	}
 
 	fileXml->closeXml();
@@ -205,6 +206,7 @@ int Project::openVideo(QString fileName)
 	mfit_ui->updateTransitions();
 
 	mfit_ui->addRecentFile(fileName);
+	mfit_ui->updateRecentFilesAct();
 
 	return true;
 }
@@ -386,12 +388,6 @@ void Project::renderVideo(char *filename_cy)
 	unsigned int j = 0;
 	unsigned int numEffect = 0;
 	int ret_i = 0;
-
-	// Teste
-	{
-		Effect *color  = new Color(0,100);
-		effectList.push_back(color);
-	}
 
 	Frame *frame;
 	Frame *frameEffect;

@@ -9,6 +9,7 @@
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 #include "../include/Video.h"
+#include "../include/Effect.h"
 #include "../include/Transition.h"
 
 #ifndef INTERFACE_INCLUDE
@@ -55,6 +56,8 @@ class mfit: public QMainWindow
 
 		void openRecentFile();
 
+		void on_effectsTree_itemClicked(QTreeWidgetItem * item, int column);
+
 	private:
 
 		QAction *recentFiles[MAX_RECENT_FILES]; // Array que guarda o nome dos arquivos recentes
@@ -88,6 +91,10 @@ class mfit: public QMainWindow
 		void updateTransitionHeader(unsigned int transitionID, int clean = 0);
 		void updateTransitionHeader(QTreeWidgetItem * item);
 		void clearTransitionHeader();
+
+		void insertEffectTree(Effect *effect);
+		void updateEffectTree();
+		void effectTreeClear();
 
 		Ui::MainWindow ui;
 

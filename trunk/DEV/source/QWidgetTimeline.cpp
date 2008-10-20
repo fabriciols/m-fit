@@ -155,6 +155,7 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 	currentProject->effectList.push_back(effect);
 
 	mfit_ui->clearTransitionHeader();
+	mfit_ui->updateEffectTree();
 }
 
 void QWidgetTimeline::dragEnterEvent(QDragEnterEvent * event)
