@@ -435,7 +435,7 @@ void Project::renderVideo(char *filename_cy)
 
 	// Abre o writer do video
 	videoWriter = cvCreateVideoWriter(filename_cy, UNCOMPRESSED,
-			24.0, cvSize( cvRound(vdo->getFramesWidth()), cvRound(vdo->getFramesHeight()) ), 1);
+			(int)vdo->getFPS(), cvSize( cvRound(vdo->getFramesWidth()), cvRound(vdo->getFramesHeight()) ), 1);
 
 	// Posiciona o ponteiro no comeco do video
 	currentPos = (long)vdo->getCurrentPosition();
