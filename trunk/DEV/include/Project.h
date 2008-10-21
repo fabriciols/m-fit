@@ -50,6 +50,9 @@ class Project
 
 		Frame* applyEffect(Frame *frame, long pos);
 
+		int getTransitionByPos(int pos_x);
+
+
 
 };
 #endif

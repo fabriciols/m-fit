@@ -269,6 +269,8 @@ void mfit::on_forwardButton_clicked()
 {
 	Video *vdo;
 	Frame *frame;
+	unsigned int transitionID = 0x0;
+	long pos_l;
 
 	vdo = currentProject->getVideo();
 
@@ -279,6 +281,17 @@ void mfit::on_forwardButton_clicked()
 		return;
 
 	frame = vdo->getNextFrame();
+
+	// Vamos mostrar a transicao referente ao ponto que o usuario clicou
+	pos_l = currentProject->FrameToTimelinePos((long)vdo->getCurrentPosition());
+
+	transitionID = currentProject->getTransitionByPos((int)pos_l+9);
+
+	if (transitionID >= 0 && transitionID < currentProject->transitionList.size())
+	{
+		clearTransitionHeader();
+		updateTransitionHeader(transitionID);
+	}
 
 	vdo_player->updatePlayer(frame);
 	vdo_player->updateHist(frame);
@@ -300,6 +313,8 @@ void mfit::on_backButton_clicked()
 {
 	Video *vdo;
 	Frame *frame;
+	unsigned int transitionID;
+	long pos_l;
 
 	vdo = currentProject->getVideo();
 
@@ -310,6 +325,17 @@ void mfit::on_backButton_clicked()
 		return;
 
 	frame = vdo->getPreviousFrame();
+
+	// Vamos mostrar a transicao referente ao ponto que o usuario clicou
+	pos_l = currentProject->FrameToTimelinePos((long)vdo->getCurrentPosition());
+
+	transitionID = currentProject->getTransitionByPos((int)pos_l+9);
+
+	if (transitionID >= 0 && transitionID < currentProject->transitionList.size())
+	{
+		clearTransitionHeader();
+		updateTransitionHeader(transitionID);
+	}
 
 	vdo_player->updatePlayer(frame);
 	vdo_player->updateHist(frame);
@@ -1308,14 +1334,14 @@ void mfit::alertUser(int message)
 			);
 
 	/*
-	QMessageBox::critical(
-			this,
-			tr("MFIT - ERRO"),
-			tr("<p><b>Não é possível carregar o vídeo!</b>" \
-				"<p>Formato não suportado!"),
-			QMessageBox::Ok
-			);
-			*/
+		QMessageBox::critical(
+		this,
+		tr("MFIT - ERRO"),
+		tr("<p><b>Não é possível carregar o vídeo!</b>" \
+		"<p>Formato não suportado!"),
+		QMessageBox::Ok
+		);
+	 */
 }
 
 /**************************************************************************
@@ -1793,6 +1819,11 @@ bool mfit::askUserSave()
 
 void mfit::moveScrollArea(int x, int y)
 {
-	ui.scrollArea->ensureVisible(x, y);
+	QRect rect(ui.widgetDockTimeline->geometry());
+	int center_i;
+
+	center_i = (int)(rect.width() / 2);
+
+	ui.scrollArea->ensureVisible(x, y, center_i, center_i);
 }
 

@@ -571,3 +571,35 @@ void Project::clearEffectList()
 {
 	this->effectList.clear();
 }
+
+int Project::getTransitionByPos(int pos_x)
+{
+	int x;
+	long pos;
+	unsigned int i;
+	// Por padrao deixamos o size, pois se nao achar nenhum
+	// nao entra nas condicoes
+	unsigned int transitionID = transitionList.size();
+
+	Transition* transition = 0x0;
+
+	x = pos_x - 9 ;
+	pos = TimelinePosToFrame(x);
+
+	// Temos que achar se tem alguma transicao no ponto indicado
+	// Vamos de traz pra frente ate achar uma transicao
+	// onde o ponto clicado eh maior que o ponto de inicio da transicao
+	for (i = transitionList.size()-1 ; (signed)i >= 0 ; i--)
+	{
+		transition = &transitionList.at(i);
+
+		if (pos >= transition->getPosCurrent())
+		{
+			// Achamos
+			transitionID = i;
+			break;
+		}	
+	}
+
+	return transitionID;
+}
