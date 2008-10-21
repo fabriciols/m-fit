@@ -45,6 +45,7 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 
 		int posFrame;
 		int x;
+		unsigned int transitionID;
 
 		// A widget tem 9 pixels antes de comecar realmente
 		// a imagem da timeline
@@ -65,6 +66,16 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 
 		vdo_player->updatePlayer(frame);
 		vdo_player->updateHist(frame);
+
+		// Vamos mostrar a transicao referente ao ponto que o usuario clicou
+		transitionID = currentProject->getTransitionByPos(pointEvent.x());
+
+		if (transitionID >= 0 && transitionID < currentProject->transitionList.size())
+		{
+			mfit_ui->clearTransitionHeader();
+			mfit_ui->updateTransitionHeader(transitionID);
+			mfit_ui->updateTimeline();
+		}
 
 		delete frame;
 
@@ -240,37 +251,6 @@ int QWidgetTimeline::getItemByEvent(QDropEvent *event)
 
 }
 
-int QWidgetTimeline::getTransitionByPos(QPoint pointEvent)
-{
-	int x;
-	long pos;
-	unsigned int i;
-	// Por padrao deixamos o size, pois se nao achar nenhum
-	// nao entra nas condicoes
-	unsigned int transitionID = currentProject->transitionList.size();
-
-	Transition* transition = 0x0;
-
-	x = pointEvent.x() - 9 ;
-	pos = currentProject->TimelinePosToFrame(x);
-
-	// Temos que achar se tem alguma transicao no ponto indicado
-	// Vamos de traz pra frente ate achar uma transicao
-	// onde o ponto clicado eh maior que o ponto de inicio da transicao
-	for (i = currentProject->transitionList.size()-1 ; (signed)i >= 0 ; i--)
-	{
-		transition = &currentProject->transitionList.at(i);
-
-		if (pos >= transition->getPosCurrent())
-		{
-			// Achamos
-			transitionID = i;
-			break;
-		}	
-	}
-
-	return transitionID;
-}
 
 int QWidgetTimeline::selectDropTransition(QPoint pointEvent, int clear)
 {
@@ -280,7 +260,7 @@ int QWidgetTimeline::selectDropTransition(QPoint pointEvent, int clear)
 	if (vdo_player->frameTimeline == 0)
 		return 1;
 
-	transitionID = getTransitionByPos(pointEvent);
+	transitionID = currentProject->getTransitionByPos(pointEvent.x());
 
 	if (clear == 1)
 	{
