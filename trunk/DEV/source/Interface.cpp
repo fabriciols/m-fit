@@ -1110,14 +1110,14 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 	switch (transition->getType())
 	{
 		case TRANSITION_CUT:
-			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 1);
+			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 2);
 			break;
 		case TRANSITION_FADEIN:
 		case TRANSITION_FADEOUT:
-			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,0,255), 1);
+			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,0,255), 2);
 			break;
 		case TRANSITION_DISSOLVE:
-			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,255,0), 1);
+			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,255,0), 2);
 			break;
 		default: // Início do vídeo.
 			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,0,0), 2);
