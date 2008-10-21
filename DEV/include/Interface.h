@@ -106,6 +106,8 @@ class mfit: public QMainWindow
 		void insertEffectTree(Effect *effect);
 		void updateEffectTree();
 		void effectTreeClear();
+		void moveScrollArea(int x, int y);
+
 
 		Ui::MainWindow ui;
 
