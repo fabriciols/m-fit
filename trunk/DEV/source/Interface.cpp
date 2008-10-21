@@ -218,7 +218,7 @@ void mfit::on_playButton_clicked()
 
 	if (!vdo)
 	{
-		alertUser();
+		alertUser(ALERT_NO_LOADED_VIDEO);
 		return;
 	}
 
@@ -239,6 +239,7 @@ void mfit::on_playButton_clicked()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
+
 void mfit::on_pauseButton_clicked()
 {
 	// Somente para controle se há ou não vídeo carregado. depois deleta o obj
@@ -246,13 +247,23 @@ void mfit::on_pauseButton_clicked()
 
 	if (!vdo)
 	{
-		alertUser();
+		alertUser(ALERT_NO_LOADED_VIDEO);
 		return;
 	}
 
 	if (vdo_player->isRunning())
 		vdo_player->terminate();
 }
+
+/************************************************************************
+ * Trata o botão forward. Avança o vídeo em um frame.
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * Histórico
+ * 20/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 void mfit::on_forwardButton_clicked()
 {
@@ -274,6 +285,16 @@ void mfit::on_forwardButton_clicked()
 
 	delete frame;
 }
+
+/************************************************************************
+ * Trata o botão backward. Volta o vídeo em um frame.
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * Histórico
+ * 20/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 
 void mfit::on_backButton_clicked()
 {
@@ -308,6 +329,7 @@ void mfit::on_backButton_clicked()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
+
 void mfit::on_stopButton_clicked()
 {
 	Video *vdo;
@@ -318,7 +340,7 @@ void mfit::on_stopButton_clicked()
 
 	if (!vdo)
 	{
-		alertUser();
+		alertUser(ALERT_NO_LOADED_VIDEO);
 		return;
 	}
 
@@ -393,7 +415,7 @@ void mfit::on_actionLoadVideo_triggered()
 		}
 		catch (...)
 		{
-			alertUserVideo();
+			alertUser(ALERT_VIDEO_INCOMPATIBLE);
 			return;
 		}
 
@@ -830,7 +852,7 @@ void mfit::on_actionAllTransitions_triggered()
 
 	if (vdo == 0x0)
 	{
-		alertUser();
+		alertUser(ALERT_NO_LOADED_VIDEO);
 		return;
 	}
 
@@ -874,7 +896,7 @@ void mfit::on_actionOnlyCuts_triggered()
 
 	if (vdo == 0x0)
 	{
-		alertUser();
+		alertUser(ALERT_NO_LOADED_VIDEO);
 		return;
 	}
 
@@ -918,7 +940,7 @@ void mfit::on_actionAllFades_triggered()
 
 	if (vdo == 0x0)
 	{
-		alertUser();
+		alertUser(ALERT_NO_LOADED_VIDEO);
 		return;
 	}
 
@@ -963,7 +985,7 @@ void mfit::on_actionOnlyDissolve_triggered()
 
 	if (vdo == 0x0)
 	{
-		alertUser();
+		alertUser(ALERT_NO_LOADED_VIDEO);
 		return;
 	}
 
@@ -1068,7 +1090,6 @@ void mfit::insertTransitionsTree(Transition* transition, long id_l)
  *************************************************************************/
 void mfit::insertTransitionsTimeline(Transition* transition)
 {
-
 	long posTransition_l = 0;
 	long posTimeline_l = 0;
 
@@ -1085,8 +1106,24 @@ void mfit::insertTransitionsTimeline(Transition* transition)
 	CvPoint p1 = {posTimeline_l,0}; // Ponto inicial
 	CvPoint p2 = {posTimeline_l,SIZE_FRAME_TIMELINE+10}; // Ponto final da reta + 10 (pois deve ser maior que a timeline)
 
-	// Sempre trem que ser aplicado ao frameTimeline
-	cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 2);
+	// Sempre tem que ser aplicado ao frameTimeline
+	switch (transition->getType())
+	{
+		case TRANSITION_CUT:
+			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 1);
+			break;
+		case TRANSITION_FADEIN:
+		case TRANSITION_FADEOUT:
+			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,0,255), 1);
+			break;
+		case TRANSITION_DISSOLVE:
+			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,255,0), 1);
+			break;
+		default: // Início do vídeo.
+			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,0,0), 2);
+			break;
+	}
+
 	setTimeline(vdo_player->frameTimeline);
 
 }
@@ -1250,15 +1287,35 @@ int mfit::askDetection()
  * Criação.
  *************************************************************************/
 
-void mfit::alertUser()
+void mfit::alertUser(int message)
 {
+
+	char message_cy[200];
+
+	switch(message)
+	{
+		case ALERT_NO_LOADED_VIDEO:
+			strcpy(message_cy ,"<p><b>Não é possível fazer a detecção de transições!</b><p>Carregue um vídeo antes de executar esta operação!");
+		case ALERT_VIDEO_INCOMPATIBLE:
+			strcpy(message_cy, "<p><b>Não é possível carregar o vídeo!</b><p>Formato não suportado!");
+	}
+
 	QMessageBox::critical(
 			this,
 			tr("MFIT - ERRO"),
-			tr("<p><b>Não é possível fazer a detecção de transições!</b>" \
-				"<p>Carregue um vídeo antes de executar esta operação!"),
+			tr(message_cy),
 			QMessageBox::Ok
 			);
+
+	/*
+	QMessageBox::critical(
+			this,
+			tr("MFIT - ERRO"),
+			tr("<p><b>Não é possível carregar o vídeo!</b>" \
+				"<p>Formato não suportado!"),
+			QMessageBox::Ok
+			);
+			*/
 }
 
 /**************************************************************************
@@ -1727,13 +1784,3 @@ bool mfit::askUserSave()
 		return (FALSE);
 }
 
-void mfit::alertUserVideo()
-{
-	QMessageBox::critical(
-			this,
-			tr("MFIT - ERRO"),
-			tr("<p><b>Não é possível carregar o vídeo!</b>" \
-				"<p>Formato não suportado!"),
-			QMessageBox::Ok
-			);
-}

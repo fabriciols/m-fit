@@ -352,6 +352,19 @@ void Project::sortTransitionList(void)
 	sort(this->transitionList.begin(), this->transitionList.end() );
 }
 
+/*************************************************************************
+ * Obtém, a partir de um número de frame a posição em que o cursor da 
+ * timeline deve aparecer.
+ *************************************************************************
+ * param (E): long frame -> número do frame corrente.
+ *************************************************************************
+ * return : Posição do cursor na timeline. 
+ *************************************************************************
+ * Histórico
+ * 17/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
+
 long Project::FrameToTimelinePos(long frame)
 {
 	// A formula para saber em que ponto plotar o indicador é:
@@ -360,13 +373,26 @@ long Project::FrameToTimelinePos(long frame)
 	return (SIZE_FRAME_TIMELINE*cvRound(frame)) / (SIZE_SEC_FRAME*cvRound(this->vdo->getFPS()));
 }
 
+/*************************************************************************
+ * Mostra no player o frame correspondente à posição que o usuário clica
+ * na timeline.
+ *************************************************************************
+ * param (E): long pos -> posição da timeline em que foi clicado. 
+ *************************************************************************
+ * return : Número do frame correspondente. 
+ *************************************************************************
+ * Histórico
+ * 17/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
+
 long Project::TimelinePosToFrame(long pos)
 {
 	// A ideia aqui e a seguinte:
 	// Tendo em maos as seguintes variaveis:
 	// Todo FRAME da timeline tem o tamanho fixo de SIZE_FRAME_TIMELINE
 	// E cada um desse FRAME compreende SIZE_SEC_FRAME segundos do video
-	// captando a posicao em que o kr clicou, podemos fazer a seguinte regra de 3:
+	// captando a posicao em que o usuario clicou, podemos fazer a seguinte regra de 3:
 	// SIZE_FRAME_TIMELINE ---------- SIZE_SEC_FRAME*vdo->getFPS()
 	// Posicao clicada (x) ---------- X (posicao no frame)
 	return (cvRound(SIZE_SEC_FRAME*this->vdo->getFPS())*pos / SIZE_FRAME_TIMELINE);
@@ -409,7 +435,7 @@ void Project::renderVideo(char *filename_cy)
 
 	// Abre o writer do video
 	videoWriter = cvCreateVideoWriter(filename_cy, UNCOMPRESSED,
-			vdo->getFPS(), cvSize(cvRound(vdo->getFramesHeight()), cvRound(vdo->getFramesWidth())), 1);
+			24.0, cvSize( cvRound(vdo->getFramesWidth()), cvRound(vdo->getFramesHeight()) ), 1);
 
 	// Posiciona o ponteiro no comeco do video
 	currentPos = (long)vdo->getCurrentPosition();
@@ -456,6 +482,18 @@ void Project::renderVideo(char *filename_cy)
 
 }
 
+/*************************************************************************
+ * Limpa a lista de transições
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : Nenhum
+ *************************************************************************
+ * Histórico
+ * 18/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
+
 void Project::clearTransitionList()
 {
 	Transition *transition;
@@ -468,6 +506,20 @@ void Project::clearTransitionList()
 
 	this->transitionList.push_back(*transition);
 }
+
+/*************************************************************************
+ * Aplica um efeito da lista de efeitos disponíveis em todos os frames
+ * da tomada escolhida.
+ *************************************************************************
+ * param (E) : Frame *frame -> Frame em que será aplicado o efeito
+ * param (E) : long pos -> posição da timeline em que ocorreu o "drop"
+ *************************************************************************
+ * return : Número do frame correspondente. 
+ *************************************************************************
+ * Histórico
+ * 19/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
 
 Frame* Project::applyEffect(Frame *frame, long pos)
 {
@@ -499,6 +551,18 @@ Frame* Project::applyEffect(Frame *frame, long pos)
 
 	return frameNew;
 }
+
+/*************************************************************************
+ * Limpa a lista de efeitos.
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : Nenhum
+ *************************************************************************
+ * Histórico
+ * 19/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
 
 void Project::clearEffectList()
 {

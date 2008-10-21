@@ -17,6 +17,9 @@
 
 #define MAX_RECENT_FILES 4
 
+#define ALERT_NO_LOADED_VIDEO 0
+#define ALERT_VIDEO_INCOMPATIBLE 1
+
 class mfit: public QMainWindow
 {
 	Q_OBJECT
@@ -53,8 +56,8 @@ class mfit: public QMainWindow
 
 		int askDetection(); // Pergunta se o usuário quer detectar todas as transições após carregar o vídeo.
 		bool askUserSave(); // Pergunta pro usuário se deseja salvar o projeto.
-		void alertUser(); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo
-		void alertUserVideo(); // Video nao suportado.
+	
+		void alertUser(int message); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo
 
 		void enableControls(); // Habilita todos os comandos (botões) após carregar um vídeo.
 
