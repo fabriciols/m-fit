@@ -1564,6 +1564,7 @@ void mfit::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column)
 	char userPosition_cy[10]; // Posição da transição determinada pelo usuário
 	long position_l = 0; // Posição da transição determinada pelo sistema
 	long userPosition_l = 0; // Posição da transição determinada pelo usuário
+	long timeline_l;
 
 	Video* vdo = currentProject->getVideo();
 
@@ -1589,6 +1590,12 @@ void mfit::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column)
 
 	vdo_player->updatePlayer(vdo->getCurrentFrame()); // Mostro o frame
 	updateTimeline(); // Atualizo a posição do cursor da timeline
+
+	timeline_l = currentProject->FrameToTimelinePos(position_l);
+
+	// Move o scroll
+	moveScrollArea((int)timeline_l, 0);
+
 
 }
 
@@ -1782,5 +1789,10 @@ bool mfit::askUserSave()
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+void mfit::moveScrollArea(int x, int y)
+{
+	ui.scrollArea->ensureVisible(x, y);
 }
 

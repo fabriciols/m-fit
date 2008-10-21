@@ -434,8 +434,11 @@ void Project::renderVideo(char *filename_cy)
 #define UNCOMPRESSED 541215044
 
 	// Abre o writer do video
-	videoWriter = cvCreateVideoWriter(filename_cy, UNCOMPRESSED,
-			(int)vdo->getFPS(), cvSize( cvRound(vdo->getFramesWidth()), cvRound(vdo->getFramesHeight()) ), 1);
+	videoWriter = cvCreateVideoWriter(filename_cy, // Nome do arquivo
+			CV_FOURCC('D', 'I', 'B', ' '), // Codec
+			(int)vdo->getFPS(), // FPS
+			cvSize(cvRound(vdo->getFramesWidth()), cvRound(vdo->getFramesHeight())), // Tamanho
+			1); // Is color ?
 
 	// Posiciona o ponteiro no comeco do video
 	currentPos = (long)vdo->getCurrentPosition();
