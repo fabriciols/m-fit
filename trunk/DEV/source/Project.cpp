@@ -374,8 +374,7 @@ long Project::FrameToTimelinePos(long frame)
 }
 
 /*************************************************************************
- * Mostra no player o frame correspondente à posição que o usuário clica
- * na timeline.
+ * Converte a posicao clicada na timeline para a posicao no frame
  *************************************************************************
  * param (E): long pos -> posição da timeline em que foi clicado. 
  *************************************************************************
@@ -385,7 +384,6 @@ long Project::FrameToTimelinePos(long frame)
  * 17/10/08 - Fabrício Lopes de Souza 
  * Criação.
  ************************************************************************/
-
 long Project::TimelinePosToFrame(long pos)
 {
 	// A ideia aqui e a seguinte:
@@ -399,7 +397,7 @@ long Project::TimelinePosToFrame(long pos)
 }
 
 /*************************************************************************
- * Salva vídeo após aplicação de efeitos.
+ * Renderiza o video com os efeitos aplicados
  *************************************************************************
  * param (E): char *filename_cy 
  *************************************************************************
@@ -409,7 +407,6 @@ long Project::TimelinePosToFrame(long pos)
  * 16/10/08 - Fabrício Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Project::renderVideo(char *filename_cy)
 {
 	CvVideoWriter* videoWriter;
@@ -496,7 +493,6 @@ void Project::renderVideo(char *filename_cy)
  * 18/10/08 - Fabrício Lopes de Souza 
  * Criação.
  ************************************************************************/
-
 void Project::clearTransitionList()
 {
 	Transition *transition;
@@ -511,11 +507,10 @@ void Project::clearTransitionList()
 }
 
 /*************************************************************************
- * Aplica um efeito da lista de efeitos disponíveis em todos os frames
- * da tomada escolhida.
+ * Aplica todos os efeitos possiveis no frame
  *************************************************************************
  * param (E) : Frame *frame -> Frame em que será aplicado o efeito
- * param (E) : long pos -> posição da timeline em que ocorreu o "drop"
+ * param (E) : long pos -> posicão do frame no video
  *************************************************************************
  * return : Número do frame correspondente. 
  *************************************************************************
