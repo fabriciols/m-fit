@@ -94,12 +94,12 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 //	Log::writeLog("%s :: media luminancia = %lf", __FUNCTION__, visualRythim->mediaBin());
 
-	cvSaveImage("rv.jpg",visualRythim->data);
+//	cvSaveImage("rv.jpg",visualRythim->data);
 
 	// Passo o filtro de sobel no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);
 
-	cvSaveImage("mapaBordas.jpg",visualRythim->data);
+//	cvSaveImage("mapaBordas.jpg",visualRythim->data);
 	
 	// Pergunto ao usuario se deseja alterar a limiar para detecção.
 	threshold = this->defineThreshold(visualRythim->getHeight());
