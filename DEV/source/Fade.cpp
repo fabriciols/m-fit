@@ -137,7 +137,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 		Frame *frameVRH = new Frame(array_dy_aux, len_i, 256);
 
-		frameVRH->write("vrh_dump.jpg");
+//		frameVRH->write("vrh_dump.jpg");
 
 		delete frameVRH;
 		delete array_dy_aux;
