@@ -193,24 +193,10 @@ a detecção de transições do tipo Dissolve:
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
 
-    %Isso aqui tá errado.. tá repetindo coisa e eu não quero nem saber... quem fez a parte do dissolve fez errado.
-    %Vai quebrar a cabeça pra pensar no q tá errado e q se foda. (by mizu)
-
-    \item{\textbf{Cálculo da curva de Variância do vídeo:} Neste ponto calcula-se a média da variância dos
-    pixels da diagonal de cada frame do vídeo, e plota-se este valor na curva que representa o comportamento da variância do vídeo.}
-
-    \item{\textbf{Cálculo da segunda derivada da curva de variância:} A partir da curva do gráfico da variância, é calculada a
-    sua derivada segunda, com o objetivo de limitar cada vez as mais os pontos de variação da
-    curva.}
-
-    \item{\textbf{Cálculo da derivada do RVH:} A partir do RVH, é calculado a sua derivada primeira, com o objetivo de limitar
-    os pontos de variação da curva, os quais são os pontos representativos do
-    dissolve.}
-
-    \item{\textbf{Cálculo da razão entre a segunda derivada da variância e a derivada do RVH:}
-    O sistema gera um novo gráfico representando os valores obtidos da razão entre a derivada segunda da variância e
-    a derivada primeira do RVH. Neste gráfico será possível visualizar os pontos de ocorrência de um Dissolve. Tais pontos
-    são representados por pontos onde o valor da razão for extremamente baixo.}
-
-    \item{\textbf{Dissolve detectado:} No final deste processo, estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
+    \item{\textbf{Verifica pontos de dissolve com 7 pontos seguintes:} A partir dos pontos do Ritmo visual por historgrama, é verificado
+    os próximos 7 pontos. Caso estes pontos estejam em ordem crescente, é aplicada a primeira derivada destes pontos, comparando os valores
+    obtidos da derivada com threshold definido.}
+	
+    \item{\textbf{Dissolve detectado:} Caso os pontos em questão forem todos menores que o threshold,
+    estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
     \end{enumerate}
