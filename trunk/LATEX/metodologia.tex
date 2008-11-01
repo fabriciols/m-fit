@@ -10,12 +10,13 @@ para a realização da detecção de transições.
     \label{img_metodologia} Fonte: Autor.
 \end{figure}
 
-\hspace*{0.65cm}A Figura \ref{img_metodologia} mostra um esquema geral da
-metodologia proposta neste trabalho, que consiste em: a partir de um dado vídeo de entrada
-o sistema realizará a detecção de suas transições (corte/fade/dissolve), sendo que para cada
-tipo de transição, será aplicada uma metodologia diferente, as quais serão
-detalhadas posteriormente. Após estes processos
-o vídeo poderá ser editado, com aplicações de efeitos visuais.
+\hspace*{0.65cm}A Figura \ref{img_metodologia} mostra um esquema
+geral da metodologia proposta neste trabalho, que consiste em: a
+partir de um dado vídeo de entrada o sistema realizará a detecção de
+suas transições (corte/fade/dissolve), sendo que para cada tipo de
+transição, será aplicada uma metodologia diferente, as quais serão
+detalhadas posteriormente. Após estes processos o vídeo poderá ser
+editado, com aplicação de efeitos visuais.
 
 \section{Cortes \label{met_cortes}}
 
@@ -41,23 +42,23 @@ a detecção de transições do tipo Corte:
 
     \begin{enumerate}
         \item{Obtenção do Frame;}
+        \item{Converte Frame para tons de cinza;}
         \item{Cálculo da Diagonal Principal deste Frame.}
     \end{enumerate}
 
     \hspace*{0.65cm}Tais passos se repetem do primeiro, até o último frame do vídeo.}
 
-    \item{\textbf{Filtragem Espacial - Suavização da imagem por processos de convolução:} Homogeneização da imagem
-    (Ritmo Visual do vídeo) através da aplicação de um filtro espacial do tipo passa-baixas,
-    o qual utiliza o processo de convolução (Seção \ref{filtragem_espacial}), permitindo que a imagem torne-se mais
-    suave e com menos ruídos.}
+    \item{\textbf{Segmentação de Imagem - Extração da área de interesse:} Para vídeos que estejam no
+    formato \textit(widescreen), será realizada a extração da área de interesse (área do vídeo), para
+    que não haja interferência nos resultados por parte das bordas pertencentes ao \textit(widescreen). }
 
-    \item{\textbf{Detecção de Bordas - Operador Sobel:} Uma vez suavizada a imagem, será aplicado o operador Sobel para
-    a realização da detecção das bordas. Como visto na Seção
+    \item{\textbf{Detecção de Bordas - Operador Canny:} Será aplicado o operador Canny para
+    realizar a detecção das bordas. Como visto na Seção
     \ref{deteccao_de_bordas}, com a aplicação deste operador, é possível
     obter o mapa de bordas do Ritmo Visual, o qual irá mostrar a
     localização de possíveis transições de cortes no vídeo.}
 
-    \item{\textbf{Mapa de Bordas:} Gerado com a aplicação do Operador Sobel no RV, o mapa de bordas possibilitará a definição dos pontos
+    \item{\textbf{Mapa de Bordas:} Gerado com a aplicação do Operador Canny no RV, o mapa de bordas possibilitará a definição dos pontos
     onde há a ocorrência dos cortes.}
 
     \item{\textbf{Limiar de corte e contagem de pontos:} Gerado o mapa de bordas, será necessário determinar quais bordas
@@ -67,12 +68,12 @@ a detecção de transições do tipo Corte:
     detectadas. Quanto maior for este número, maior a possibilidade da
     borda estar representando um corte. Para isso, define-se um limiar, o
     que possibilita realizar a classificação entre aquilo que representa
-    a borda de um objeto, e daquilo que representa uma transição de
+    uma borda gerada por um objeto, e daquilo que representa uma transição de
     corte.}
 
     \item{\textbf{Transições:}
-    No final deste processo, estarão identificadas as transições do tipo
-    corte do vídeo.}
+    No final deste processo, estarão identificadas as transições do vídeo
+    do tipo corte.}
 \end{enumerate}
 
 
@@ -110,6 +111,7 @@ O processo para detecção de transições do tipo fade-in será:
     O processo para criar um RVH possui os seguintes passos:
     \begin{enumerate}
     \item{Obtenção do Frame;}
+    \item{Converte Frame para tons de cinza;}
     \item{Cálculo da Diagonal Principal deste Frame;}
     \item{Obtenção do Histograma desta diagonal.}
     \end{enumerate}
@@ -131,7 +133,7 @@ O processo para detecção de transições do tipo fade-in será:
     \end{figure}
 
     \item{\textbf{Cálculo das Derivadas do RVH:} Obtido o RVH,
-    calcula-se a derivada primeira. A partir da função derivada, é
+    calcula-se a sua derivada primeira. A partir da função derivada, é
     possível visualizar o comportamento de um fade-in. No momento em que
     a sequência estiver com seus frames mais escuros, a curva se manterá
     mais constante, ao iniciar o processo da transição (clareamento da
@@ -185,6 +187,7 @@ a detecção de transições do tipo Dissolve:
 
     \begin{enumerate}
         \item{Obtenção do Frame;}
+        \item{Converte Frame para tons de cinza;}
         \item{Cálculo da Diagonal Principal deste Frame;}
         \item{Obtenção do Histograma desta diagonal.}
         \item{Cálculo da Variância do Histograma.}
@@ -196,7 +199,7 @@ a detecção de transições do tipo Dissolve:
     \item{\textbf{Verifica pontos de dissolve com 7 pontos seguintes:} A partir dos pontos do Ritmo visual por historgrama, é verificado
     os próximos 7 pontos. Caso estes pontos estejam em ordem crescente, é aplicada a primeira derivada destes pontos, comparando os valores
     obtidos da derivada com threshold definido.}
-	
+
     \item{\textbf{Dissolve detectado:} Caso os pontos em questão forem todos menores que o threshold,
     estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
     \end{enumerate}
