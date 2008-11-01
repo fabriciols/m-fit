@@ -106,7 +106,7 @@ possibilitando dar um destaque maior para as bordas que possam
 possivelmente caracterizar uma transição.
 
 \hspace*{0.65cm}Melhores abordagens sobre estes métodos podem ser
-encontrada
+encontradas
 em \cite{SANTOS_2005}, \cite{MADRUGA_2005}, \cite{BOTELHO_2007}, \\
 \cite{FELGUEIRAS_2006}, \cite{STIVANELLO_2005} e \\
 \cite{GONZALEZ_2002}.
@@ -222,8 +222,7 @@ uma imagem dilatada tem seus pontos claros expandidos, enquanto os
 escuros são diminuídos em relação à imagem original.
 
 \hspace*{0.65cm}Neste trabalho, a Morfologia Matemática será
-utilizada tanto para auxiliar na definição dos pontos de transição,
-assim como na aplicação de efeitos visuais no vídeo.
+utilizada para demonstrar a aplicação de efeitos visuais no vídeo.
 
 \subsection{Segmentação de Imagens \label{segmentacao_de_imagens}}
 
@@ -263,7 +262,7 @@ de histograma com limiar definido.
 dependendo do limiar escolhido o resultado se altera. Quanto menor o
 valor do limiar mais pixels terão seus níveis de cinza aproximados
 de 255, deixando a imagem com mais pontos brancos do que pretos. A
-recíproca também e verdadeira.
+recíproca também é verdadeira.
 
 \begin{figure}[ht]
 \centering
@@ -290,7 +289,7 @@ recíproca também e verdadeira.
         \includegraphics[width=1.0\linewidth]{imagens/seg_limiar_150.png}
         (d)
     \end{minipage}
-    \caption{a) Figura original; b) Limiar 50; c) Limiar 100; d) Limiar 150} Fonte: Autor.
+    \caption{a) Figura original; b) Limiar 150; c) Limiar 100; d) Limiar 50} Fonte: Autor.
     \label{img_limiar}
 \end{figure}
 
@@ -299,5 +298,7 @@ mais conhecidos são: \\limiar iterativo \cite{YANG_2006}, por
 entropia não-extensiva \cite{RODRIGUEZ} e limiar adaptativo
 \cite{ILYA_2001}.
 
-\hspace*{0.65cm}Neste trabalho será utilizada a abordagem de
-\cite{RODRIGUEZ}, porém, este não será detalhado neste trabalho.
+\hspace*{0.65cm}Neste trabalho, técnicas de segmentação de imagens serão
+utilizadas para identificar a área de interesse em vídeos que estejam no formato
+\textit(widescreen), ou seja, para realizar a extração das tarjas pretas, pois estas
+podem invalidar os resultados obtidos.
