@@ -22,9 +22,8 @@ sistema o diretório do vídeo a ser carregado no sistema.
 
 \hspace*{0.65cm}O sistema realiza o carregamento do vídeo.
 
-\hspace*{0.65cm}\textbf{Cenário Alternativo:} O diretório do vídeo
-informado ao sistema é inválido ou inexistente. Com isso o sistema
-solicita ao usuário que informe novamente o diretório.
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O vídeo informado pelo
+usuário não é um tipo de vídeo suportado pelo sistema.
 
 \subsubsection{Caso de uso: Informar caminho do vídeo
 \label{use_case_informa}}
@@ -32,6 +31,9 @@ solicita ao usuário que informe novamente o diretório.
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário deverá
 informar o caminho completo do local onde está armazenado o vídeo
 para carregá-lo no sistema.
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário informa o
+caminho onde será salvo o vídeo.
 
 \subsubsection{Caso de uso: Exibe timeline \label{use_case_timeline}}
 
@@ -60,6 +62,32 @@ existentes no vídeo.
 detecção de transições ficam bloqueadas enquanto não houver vídeo
 carregado no sistema.
 
+\subsubsection{Caso de uso: Salva Projeto \label{use_case_salva_projeto}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Usuário salva o projeto,
+apontando em qual diretório deverá ser salvo o projeto e o nome do
+arquivo a ser gerado.
+
+\subsubsection{Caso de uso: Carrega Projeto: \label{use_case_carrega_projeto}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário informa ao
+sistema o diretório do projeto a ser carregado no sistema.
+
+\subsubsection{Caso de uso: Informar Caminho do Projeto:
+\label{use_case_informa_projeto}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário deverá
+informar o caminho completo do local onde está armazenado o projeto
+para carregá-lo no sistema.
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário informa o
+caminho onde será salvo o projeto.
+
+\subsubsection{Caso de uso: Renderiza \label{use_case_renderiza}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
+sistema que o vídeo seja salvo após sua edição.
+
 \subsection{Cenário Edição \label{use_case_edicao}}
 
 \begin{figure}[h|top]
@@ -78,30 +106,32 @@ cenário para os processo de edição de vídeo.
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário aplica um ou
 mais efeitos de edição no vídeo carregado.
 
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} Não há vídeo carregado
+no sistema e os controles de edição estão desabilitados.
+
 \subsubsection{Caso de uso: Define intervalo de aplicação \label{use_case_define_aplic}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário deve definir
 qual será o trecho do vídeo em que deverá ser aplicado o efeito
 selecionado. Por default, o sistema aplica o efeito na tomada que
-estiver selecionada, ou no vídeo todo, caso não haja nenhuma tomada
-selecionada.
+estiver selecionada, ou no vídeo todo, caso não haja nenhuma
+transição detectada.
 
-\subsubsection{Caso de uso: Equaliza iluminação \label{use_case_iluminacao}}
+\subsubsection{Caso de uso: Erode Imagem \label{use_case_iluminacao}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário poderá
-realizar a equalização da iluminação em uma tomada do vídeo. A qual
-poderá ser automática, ou frame a frame.
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário aplica efeitos
+de erosão em uma ou mais tomadas.
 
-\subsubsection{Caso de uso: Ajuste de Contraste \label{use_case_contraste}}
+\subsubsection{Caso de uso: Dilata Imagem \label{use_case_contraste}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário poderá
-realizar ajustes de contraste em uma tomada do vídeo.
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário aplica efeitos
+de dilatação em uma ou mais tomadas.
 
 \subsubsection{Caso de uso: Alteração do Esquema de Cores \label{use_case_cores}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário aplica efeitos
-para alteração do esquema de cores do vídeo carregado ou de uma
-tomada específica do vídeo.
+para alteração do esquema de cores de uma ou mais tomadas do vídeo.
+Será possível apenas converter as imagens para tons de cinza.
 
 \subsection{Cenário Detecção de Transição \label{use_case_deteccao}}
 
@@ -123,12 +153,12 @@ sistema que seja feita a detecção de transições do vídeo carregado.
 O sistema, por sua vez, realiza a detecção dos cortes, fades
 (fade-in e fade-out) e dissolve presentes em todo o vídeo.
 
-\subsubsection{Caso de uso: Gera lista de tomadas enumeradas \label{use_case_lista_tomadas}}
+\subsubsection{Caso de uso: Gera lista de transições enumeradas \label{use_case_lista_tomadas}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Realizada a detecção de
 transições, o sistema disponibilizará ao usuário uma lista com todas
-as tomadas do vídeo indexadas por números, facilitando a navegação
-do usuário pelas tomadas do vídeo.
+as transições do vídeo indexadas, facilitando a navegação do usuário
+pelas tomadas do vídeo.
 
 \subsubsection{Caso de uso: Marca timeline com pontos de transição \label{use_case_timeline_marcada}}
 
@@ -140,18 +170,22 @@ visto na Figura \ref{img_transicoes_detectadas2}.
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1\linewidth]{imagens/transicoes_detectadas.png}
- \caption{Transições Detectadas.}
+ \caption{Transições Detectadas. (Imagem ilustrativa)}
  Fonte: Autor.
  \label{img_transicoes_detectadas2}
 \end{figure}
 
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O vídeo não possui
-nenhum tipo de transição.
+nenhum tipo de transição, portanto a timeline não terá nenhum ponto
+marcado.
 
 \subsubsection{Caso de uso: Ajuste manual de pontos de transição \label{use_case_ajuste_manual}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário altera
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário pode alterar
 manualmente os pontos de transição detectados pelo sistema.
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário não altera o
+ponto de ocorrência de nenhuma transição.
 
 \subsection{Cenário Detecção de Cortes \label{use_case_cortes}}
 
@@ -169,8 +203,7 @@ cenário específico de detecção de cortes.
 \subsubsection{Caso de uso: Detecta Cortes \label{use_case_detecta_cortes}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
-sistema que seja realizada a detecção de transições, a qual se
-inicia pela detecção de cortes.
+sistema que seja realizada a detecção de transições do tipo corte.
 
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
 operação de detecção de transições. A mesma poderá ser feita
@@ -198,53 +231,18 @@ forma seqüencial, como visto na Figura \ref{img_rvdiagonal} da Seção
 diagonal principal de cada frame do vídeo devido à necessidade de
 montar o Ritmo Visual do vídeo.
 
-\subsubsection{Caso de uso: Filtragem: Diminuição de Ruídos \label{use_case_filtragem}}
-
-\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema aplica a
-filtragem da imagem do Ritmo Visual para a eliminação de ruídos
-indesejáveis.
-
-\subsubsection{Montagem do mapa de bordas \label{use_case_mapa_bordas}}
-
-\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema gera o mapa de
-bordas do Ritmo Visual, através da união das bordas horizontais e
-verticais encontradas pelo operador Sobel.
-
-\subsubsection{Caso de uso: Detecção de Bordas: Operador Sobel \label{use_case_sobel}}
+\subsubsection{Caso de uso: Detecção de Bordas: Operador Canny \label{use_case_sobel}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O sistema aplica o
-Operador Sobel na imagem para realizar a detecção de bordas da
-imagem do Ritmo Visual.
-
-\hspace*{0.65cm}A detecção de bordas realizada pelo Operador Sobel é
-feita em duas fases:
-
-\begin{itemize}
-\item{Detecção de bordas horizontais}
-\item{Detecção de bordas verticais}
-\end{itemize}
-
-\subsubsection{Caso de uso: Bordas Horizontais \label{use_case_bordas_hor}}
-
-\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema detecta as
-bordas horizontais da imagem através de processos de convolução com
-matrizes específicas do operador sobel.
-
-\subsubsection{Caso de uso: Bordas Verticais \label{use_case_bordas_ver}}
-
-\hspace*{1.25cm}\textbf{Cenário Principal:} Assim como as bordas
-horizontais, o sistema faz a detecção das bordas verticais através
-de processos de convolução com matrizes específicas do operador
-sobel.
+Operador Canny na imagem para realizar a detecção de bordas da
+imagem do Ritmo Visual (mapa de bordas).
 
 \subsubsection{Caso de uso: Definição de Limiar de Corte \label{use_case_limiar_corte}}
 
-\hspace*{1.25cm}\textbf{Pontos de extensão:} Manual
-
-\hspace*{0.65cm}\textbf{Cenário Principal:} O sistema define por
-"default" um limiar de corte, ou seja, um limiar que define quais
-bordas verticais (representação de transições de corte no Ritmo
-Visual) serão consideradas cortes e quais não serão.
+\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema utiliza o ser
+limiar de corte padrão, ou seja, um limiar que define quais bordas
+verticais (representação de transições de corte no Ritmo Visual)
+serão consideradas cortes e quais serão ignoradas.
 
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário define
 manualmente este limiar de corte.
@@ -282,14 +280,10 @@ inicia, o qual tem os seguintes passos:
 \item{Obtenção da derivada Máxima}
 \end{itemize}
 
-\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
-operação de detecção de transições. A mesma poderá ser feita
-posteriormente através dos menus do sistema.
-
 \subsubsection{Caso de uso: Montagem do RV por histograma \label{use_case_rvh}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Para a detecção de
-fades, O RVH será montado na representação de uma curva num gráfico,
+fades, o RVH será montado na representação de uma curva num gráfico,
 onde cada ponto da curva tem informações sobre um frame do video.
 
 \subsubsection{Caso de uso: Cálculo da Diagonal Principal do Frame
@@ -313,9 +307,9 @@ seu resultado.
 \subsubsection{Detecta Fade-In \label{use_case_detecta_fadein}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Em cima das derivadas
-dos pontos do RVH, é necessário fazer uma análise para identificar
-um padrão que evidencia o fade-in, e obter a derivada máxima para
-identificar o ponto de marcação da transição.
+dos pontos do RVH, será feita uma análise para identificar um padrão
+que evidencia o fade-in, e obter a derivada máxima para identificar
+o ponto de marcação da transição.
 
 \subsubsection{Caso de uso: Obtenção da Derivada Máxima \label{use_case_derivada_max}}
 
