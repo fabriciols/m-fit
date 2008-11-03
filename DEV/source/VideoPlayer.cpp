@@ -78,7 +78,9 @@ void VideoPlayer::run()
 		delete frame;
 
 		// Damos um tempo para fazer o vídeo passar mais devagar. Parecendo um player real.
-		usleep(cvRound(vdo->getFPS()*100));
+		usleep(cvRound(vdo->getFPS()*2000));
+
+		vdo->seekFrame(cvRound((vdo->getFPS() / 10) + vdo->getCurrentPosition()));
 		
 		// Pega o proximo frame.
 		frame = vdo->getNextFrame();
