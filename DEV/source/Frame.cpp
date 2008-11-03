@@ -92,11 +92,11 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 	int i;
 	int normalized;
 	char *frame_cy;
-	CvFont font;
+	//CvFont font;
 	CvPoint point_new  = {0,0};
 	CvPoint point_last = {0,0};
 
-	cvInitFont(&font, CV_FONT_HERSHEY_PLAIN, 0.5, 0.5, 0, 1, CV_AA);
+	//cvInitFont(&font, CV_FONT_HERSHEY_PLAIN, 0.5, 0.5, 0, 1, CV_AA);
 
 	frame_cy = (char*)malloc(sizeof(char)*10);
 
