@@ -61,7 +61,7 @@ DetectConfig::DetectConfig(QDialog *parent) : QDialog(parent)
 /************************************************************************
 * Salva as configurações e fecha a janela.
 *************************************************************************
-* param (E): Não há.é q como vai cair de quinta... pra não parar 3 dias 
+* param (E): Não há.
 *************************************************************************
 * return: nenhum.
 *************************************************************************
@@ -76,13 +76,19 @@ void DetectConfig::on_okButton_clicked()
 	int userMinCanny = ui.spinMinCanny->value();
 	int userMaxCanny= ui.spinMaxCanny->value();
 
-	if ( userCutThreshold != DEFAULT_CUT_THRESHOLD )
+	if ( userCutThreshold == DEFAULT_CUT_THRESHOLD )
+		currentProject->setUserThreshold(0);
+	else
 		currentProject->setUserThreshold(userCutThreshold);
 
-	if ( userMinCanny != DEFAULT_MIN_CANNY )
+	if ( userMinCanny == DEFAULT_MIN_CANNY )
+		currentProject->setUserMinCanny(0);
+	else
 		currentProject->setUserMinCanny(userMinCanny);
 
-	if ( userMaxCanny != DEFAULT_MAX_CANNY )
+	if ( userMaxCanny == DEFAULT_MAX_CANNY )
+		currentProject->setUserMaxCanny(0);
+	else
 		currentProject->setUserMaxCanny(userMaxCanny);
 
 	QDialog::close();
