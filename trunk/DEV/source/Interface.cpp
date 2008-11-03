@@ -1061,7 +1061,7 @@ void Interface::insertTransitionsTree(Transition* transition, long id_l)
 
 	sprintf(posTransition_cy, "%ld", posTransition_l);
 	sprintf(posUserTransition_cy, "%ld", posUserTransition_l);
-	sprintf(id_cy, "%2.2ld", id_l);
+	sprintf(id_cy, "%3.3ld", id_l);
 
 	// Primeira Coluna - ID
 	item->setText(0, id_cy);
