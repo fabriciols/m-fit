@@ -1532,7 +1532,7 @@ void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
 
 	CvPoint p1 = {posTimeline    ,SIZE_FRAME_TIMELINE+15};
 	CvPoint p2 = {posTimelineNext,SIZE_FRAME_TIMELINE+15};
-	CvPoint p3 = {posTimeline+1  ,SIZE_FRAME_TIMELINE+20};
+	CvPoint p3 = {posTimeline+4  ,SIZE_FRAME_TIMELINE+20};
 
 	if (clean == 1)
 	{  // Apaga na timelie
