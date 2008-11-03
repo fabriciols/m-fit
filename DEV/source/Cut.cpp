@@ -110,8 +110,8 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	thresholdBin = (visualRythim->getMaxLum())/4;
 	
 //	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
- 
 //	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
+
 	// Binarizo a imagem (transformo tudo em preto e branco)
 	visualRythim->binarizeImage(thresholdBin);
 
@@ -172,8 +172,11 @@ void Cut::createBorderMap(Frame* visualRythim)
 		maxCannyThreshold = currentProject->getUserMaxCanny();
 
 	// Crio o mapa de bordas do RV com o operador Canny.
+	
+	Log::writeLog("%s :: min = %d", __FUNCTION__, minCannyThreshold);
+	Log::writeLog("%s :: max = %d", __FUNCTION__, maxCannyThreshold);
 
-	canny->Canny(visualRythim, minCannyThreshold, maxCannyThreshold, 3);
+	canny->Canny(visualRythim, (double)minCannyThreshold, (double)maxCannyThreshold, 3);
 
 	delete canny;
 
@@ -196,21 +199,23 @@ void Cut::createBorderMap(Frame* visualRythim)
 
 int Cut::defineThreshold(int height)
 {
-	int userThreshold = 0;
+	double userThreshold = 0.0;
 	double sysThreshold = 0.0;
 
-	userThreshold = currentProject->getUserThreshold();
+	userThreshold = (double)currentProject->getUserThreshold();
+	
+//	Log::writeLog("%s :: userThreshold = %d", __FUNCTION__, userThreshold);
+//	Log::writeLog("%s :: height = %d", __FUNCTION__, height);
+//	Log::writeLog("%s :: teste = %lf", __FUNCTION__, height*(userThreshold/100.0));
 
 	if (userThreshold)
-		userThreshold = (int)(height * (userThreshold/100));
+		userThreshold = ((double)height * (userThreshold/100.0));
 	else
 		sysThreshold = height * 0.45;
 	
-	Log::writeLog("%s :: userThreshold = %d", __FUNCTION__, userThreshold);
+	setThreshold(userThreshold > 0 ? (int)userThreshold : (int)sysThreshold);
 
-	setThreshold(threshold > 0 ? userThreshold : (int)sysThreshold);
-	
-	//Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
+//	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
 	
 	return (getThreshold());
 
