@@ -103,11 +103,10 @@ class Interface: public QMainWindow
 		void updateTransitionHeader(QTreeWidgetItem * item);
 		void clearTransitionHeader();
 
-		void insertEffectTree(Effect *effect);
+		void insertEffectTree(Effect *effect, int ind);
 		void updateEffectTree();
 		void effectTreeClear();
 		void moveScrollArea(int x, int y);
-
 
 		Ui::MainWindow ui;
 

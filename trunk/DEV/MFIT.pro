@@ -62,6 +62,7 @@ HEADERS += include/Brightness.h \
            include/Project.h \
            include/VideoPlayer.h \
            include/QWidgetTimeline.h \
+           include/QTreeWidgetEffect.h \
            include/Xml.h
 
 SOURCES += source/main.cpp \
@@ -92,6 +93,7 @@ SOURCES += source/main.cpp \
            source/Project.cpp \
            source/VideoPlayer.cpp \
            source/QWidgetTimeline.cpp \
+           source/QTreeWidgetEffect.cpp \
            source/Xml.cpp
 
 CONFIG -= incremental_off

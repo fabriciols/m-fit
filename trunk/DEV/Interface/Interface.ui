@@ -451,7 +451,7 @@ border: 1px solid gray
         </attribute>
         <layout class="QGridLayout" >
          <item row="0" column="0" >
-          <widget class="QTreeWidget" name="effectsTree" >
+          <widget class="QTreeWidgetEffect" name="effectsTree" >
            <property name="sizePolicy" >
             <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
              <horstretch>0</horstretch>
@@ -464,6 +464,9 @@ border: 1px solid gray
            <property name="showDropIndicator" stdset="0" >
             <bool>false</bool>
            </property>
+           <property name="selectionMode" >
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
            <property name="selectionBehavior" >
             <enum>QAbstractItemView::SelectItems</enum>
            </property>
@@ -471,11 +474,16 @@ border: 1px solid gray
             <bool>false</bool>
            </property>
            <property name="sortingEnabled" >
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="allColumnsShowFocus" >
             <bool>true</bool>
            </property>
+           <column>
+            <property name="text" >
+             <string>ID</string>
+            </property>
+           </column>
            <column>
             <property name="text" >
              <string>Efeito</string>
@@ -1023,6 +1031,11 @@ border: 1px solid gray
    <extends>QWidget</extends>
    <header location="global" >../include/QWidgetTimeline.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QTreeWidgetEffect</class>
+   <extends>QTreeWidget</extends>
+   <header location="global" >../include/QTreeWidgetEffect.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

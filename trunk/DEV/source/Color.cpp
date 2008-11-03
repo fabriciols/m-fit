@@ -49,10 +49,12 @@ Color::Color(long frameStart, long frameEnd)
 {
 	this->frameStart = frameStart;
 	this->frameEnd = frameEnd;
+	strcpy(this->name_cy, "Conversao para cinza");
 }
 
 Color::Color()
 {
 	this->frameStart = 0;
 	this->frameEnd = 0;
+	strcpy(this->name_cy, "Conversao para cinza");
 }
