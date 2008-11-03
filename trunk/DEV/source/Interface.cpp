@@ -761,7 +761,7 @@ void mfit::createTimeline(void)
 
 	// Coloca o header da timeline
 	imgHeader = Frame::imgAlloc(
-			cvSize(vdo_player->frameTimeline->getWidth(), vdo_player->frameTimeline->getHeight() / 4 ),
+			cvSize(vdo_player->frameTimeline->getWidth(), vdo_player->frameTimeline->getHeight() / 2 ),
 			vdo_player->frameTimeline->data->depth,
 			vdo_player->frameTimeline->data->nChannels);
 
@@ -1495,10 +1495,16 @@ void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
 	unsigned int posTimeline;
 	unsigned	int posTimelineNext; 
 
+	char frame_cy[50];
+
+	CvFont font;
+
 	CvScalar scalar;
 
 	Transition *transition;
 	Transition *transitionNEXT;
+
+	memset(frame_cy, '\0', sizeof(frame_cy));
 
 	transition = &currentProject->transitionList.at(transitionID);
 
@@ -1526,6 +1532,7 @@ void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
 
 	CvPoint p1 = {posTimeline    ,SIZE_FRAME_TIMELINE+15};
 	CvPoint p2 = {posTimelineNext,SIZE_FRAME_TIMELINE+15};
+	CvPoint p3 = {posTimeline    ,SIZE_FRAME_TIMELINE+20};
 
 	if (clean == 1)
 	{  // Apaga na timelie
@@ -1542,8 +1549,13 @@ void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
 		transition->selected = true;
 	}
 
-	cvLine(vdo_player->frameTimeline->data, p1, p2, scalar, 3);
+	sprintf(frame_cy, "%.3d-%s", transitionID, transition->getLabel());
 
+	cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 0.3f, 0.3f, 0, 0, 0);
+
+	cvPutText(vdo_player->frameTimeline->data, frame_cy, p3, &font, scalar);
+
+	cvLine(vdo_player->frameTimeline->data, p1, p2, scalar, 3);
 
 }
 
@@ -1817,6 +1829,18 @@ bool mfit::askUserSave()
 		return (FALSE);
 }
 
+/**************************************************************************
+ * Movimenta o SCROLL, posiciona a transição selecionada no centro da timeline
+ **************************************************************************
+ * param (E): x - Posicao X
+ * param (E): y - Posicao Y
+ **************************************************************************
+ * return : Nenhum
+ **************************************************************************
+ * Histórico
+ * 20/10/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
 void mfit::moveScrollArea(int x, int y)
 {
 	QRect rect(ui.widgetDockTimeline->geometry());
