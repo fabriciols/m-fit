@@ -128,10 +128,7 @@ Video::Video(char *filename_cy)
 	updatePos();
 
 	// Inicializa o ROI
-	this->ROI.x      = -1;
-	this->ROI.y      = -1;
-	this->ROI.width  = -1; 
-	this->ROI.height = -1;
+	resetROI();
 
 }
  
@@ -554,4 +551,24 @@ void Video::removeBorder()
 		if (this->ROI.height == -1)
 			this->ROI.height = cvRound(this->getFramesHeight());
 	}
+}
+
+/************************************************************************
+* Inicializa a ROI (Region Of Interest).
+*************************************************************************
+* param (E): Nenhum
+************************************************************************
+* return: Nenhum
+************************************************************************
+* Histórico
+* 03/11/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+void Video::resetROI()
+{
+	// Inicializa o ROI
+	this->ROI.x      = -1;
+	this->ROI.y      = -1;
+	this->ROI.width  = -1; 
+	this->ROI.height = -1;
 }

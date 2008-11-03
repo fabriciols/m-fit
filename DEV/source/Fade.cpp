@@ -349,6 +349,9 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 		last_point = array_dy[i];
 	}
 
+	// Reseta o ROI craido pelo removeWide e removeBorder
+	vdo->resetROI();
+
 	delete array_vrh;
 	delete array_dy;
 	delete vrh;
