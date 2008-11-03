@@ -70,6 +70,8 @@ class Video
 
 		CvRect ROI;
 
+		void resetROI();
+
 		char* getName();
 		char* getPath();
 		/**
