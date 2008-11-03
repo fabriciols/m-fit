@@ -8,7 +8,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>857</width>
+    <width>956</width>
     <height>662</height>
    </rect>
   </property>
@@ -253,7 +253,7 @@ border: 1px solid gray
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>857</width>
+     <width>956</width>
      <height>21</height>
     </rect>
    </property>
@@ -318,6 +318,7 @@ border: 1px solid gray
    <addaction name="actionNewProject" />
    <addaction name="actionOpenProject" />
    <addaction name="actionSave" />
+   <addaction name="actionRenderVideo" />
    <addaction name="actionLoadVideo" />
   </widget>
   <widget class="QDockWidget" name="widgetTrees" >
@@ -636,7 +637,7 @@ border: 1px solid gray
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>837</width>
+          <width>936</width>
           <height>158</height>
          </rect>
         </property>
@@ -761,6 +762,7 @@ border: 1px solid gray
    <addaction name="actionOnlyCuts" />
    <addaction name="actionAllFades" />
    <addaction name="actionOnlyDissolve" />
+   <addaction name="actionDetectConfig" />
   </widget>
   <action name="actionNewProject" >
    <property name="icon" >
@@ -997,11 +999,19 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionRenderVideo" >
+   <property name="icon" >
+    <iconset>
+     <normaloff>../Interface/Icons/render.png</normaloff>../Interface/Icons/render.png</iconset>
+   </property>
    <property name="text" >
     <string>Renderizar Video...</string>
    </property>
   </action>
   <action name="actionDetectConfig" >
+   <property name="icon" >
+    <iconset>
+     <normaloff>../Interface/Icons/config.png</normaloff>../Interface/Icons/config.png</iconset>
+   </property>
    <property name="text" >
     <string>Detecção</string>
    </property>
