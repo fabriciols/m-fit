@@ -10,6 +10,8 @@ class Erode: public Effect
 {
 	public:
 		Frame* applyEffect(Frame *frame);
+		Erode();
+		
 };
 
 /************************************************************************
@@ -22,5 +24,6 @@ class Dilate: public Effect
 {
 	public:
 		Frame* applyEffect(Frame *frame);
+		Dilate();
 };
 #endif

@@ -598,3 +598,10 @@ int Project::getTransitionByPos(int pos_x)
 
 	return transitionID;
 }
+
+void Project::removeEffect(int ind)
+{
+	effectList.erase(effectList.begin( ) + ind);
+
+	Interface_ui->updateEffectTree();
+}

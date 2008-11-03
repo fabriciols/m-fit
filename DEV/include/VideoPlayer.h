@@ -39,6 +39,6 @@ class VideoPlayer: public QThread
 		Frame* frameTimeline;
 		Frame* frameTimelineEdited;
 
-
+		void updateCurrentFrame();
 };
 #endif

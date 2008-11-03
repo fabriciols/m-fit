@@ -52,7 +52,7 @@ class Project
 
 		int getTransitionByPos(int pos_x);
 
-
+		void removeEffect(int ind);
 
 };
 #endif

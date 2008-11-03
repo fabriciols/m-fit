@@ -1649,10 +1649,11 @@ void Interface::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column
  * Criação.
  *************************************************************************/
 
-void Interface::insertEffectTree(Effect *effect)
+void Interface::insertEffectTree(Effect *effect, int ind)
 {
 	char frameStart[10];
 	char frameEnd[10];
+	char id[10];
 
 	// Cria o item referente a Tree
 	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.effectsTree);
@@ -1660,17 +1661,21 @@ void Interface::insertEffectTree(Effect *effect)
 	// Cria a lista de items
 	QList<QTreeWidgetItem *> itens;
 
-	sprintf(frameStart, "%ld", effect->frameStart);
-	sprintf(frameEnd  , "%ld", effect->frameEnd);
+	sprintf(frameStart, "%ld"  , effect->frameStart);
+	sprintf(frameEnd  , "%ld"  , effect->frameEnd);
+	sprintf(id        , "%3.3d", ind);
 
-	// Primeira Coluna - Nome do efeito
-	item->setText(0, "Efeito");
+	// Primeira Coluna - ID do efeito
+	item->setText(0, id);
 
-	// Segunda coluna - Frame de start
-	item->setText(1, frameStart);
+	// Segunda Coluna - Nome do efeito
+	item->setText(1, effect->name_cy);
 
-	// Terceira Coluna - Frame final
-	item->setText(2, frameEnd);
+	// Terceira coluna - Frame de start
+	item->setText(2, frameStart);
+
+	// Quarta Coluna - Frame final
+	item->setText(3, frameEnd);
 
 	itens.append(item);
 
@@ -1738,7 +1743,7 @@ void Interface::updateEffectTree()
 
 	for ( i = 0 ; i < currentProject->effectList.size() ; i++)
 	{
-		insertEffectTree(currentProject->effectList.at(i));
+		insertEffectTree(currentProject->effectList.at(i), i);
 	}
 }
 

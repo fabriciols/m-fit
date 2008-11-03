@@ -7,6 +7,16 @@
 #include "../include/Morphology.h"
 #include "../include/MorphologyEffect.h"
 
+Erode::Erode()
+{
+	strcpy(this->name_cy, "Erosao");
+}
+
+Dilate::Dilate()
+{
+	strcpy(this->name_cy, "Dilatacao");
+}
+
 Frame* Erode::applyEffect(Frame* frame)
 {
 	Frame *frameResult;

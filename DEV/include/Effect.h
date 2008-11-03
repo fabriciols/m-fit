@@ -6,6 +6,7 @@
  */
 class Effect
 {
+	private:
 	/**
 	 *Função genérica para aplicação
 	 *de efeito. Será implementada
@@ -14,6 +15,8 @@ class Effect
 	 */
 	public:
 
+		char name_cy[50];
+
 		long frameStart;
 		long frameEnd;
 
@@ -21,6 +24,8 @@ class Effect
 
 		long getFrameStart();
 		long getFrameEnd();
+
+		char *getName();
 
 		// Define de TODOS os EFEITOS
 		#define COLOR  0

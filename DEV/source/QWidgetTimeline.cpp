@@ -87,18 +87,9 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 
 }
 
-/*
-	bool QWidgetTimeline::event(QEvent *e)
-	{
-	qDebug("received event(): %d", e->type());
-	return QWidget::event(e);
-	}
- */
-
 void QWidgetTimeline::dropEvent(QDropEvent *event)
 {
 	Effect *effect = 0x0;
-	Frame *frameNew = 0x0;
 	Transition *transition = 0x0;
 	Video *vdo = 0x0;
 	unsigned int i = 0;
@@ -170,13 +161,8 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 	Interface_ui->clearTransitionHeader();
 	Interface_ui->updateEffectTree();
 
-	if (vdo == 0x0)
-		vdo = currentProject->getVideo();
-
-	frameNew = vdo->getCurrentFrame();
-
-	vdo_player->updatePlayer(frameNew);
-	vdo_player->updateHist(frameNew);
+	// Atualiza o cursor
+	vdo_player->updateCurrentFrame();
 
 }
 

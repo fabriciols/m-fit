@@ -169,3 +169,25 @@ void VideoPlayer::updateHist(Frame *frame)
 	delete hist;
 	delete color;
 }
+
+/*************************************************************************
+ * Atualiza a atual posicao do cursor.
+ * Serve pra quando for aplicado/removido o efeito, o video preview
+ * seja atualizado no momento que uma acao for tomada
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * 03/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+void VideoPlayer::updateCurrentFrame()
+{
+	Frame *frameNew;
+	Video *vdo = currentProject->getVideo();
+
+	frameNew = vdo->getCurrentFrame();
+
+	this->updatePlayer(frameNew);
+	this->updateHist(frameNew);
+}
+
