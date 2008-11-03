@@ -8,7 +8,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>959</width>
+    <width>857</width>
     <height>662</height>
    </rect>
   </property>
@@ -253,7 +253,7 @@ border: 1px solid gray
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>959</width>
+     <width>857</width>
      <height>21</height>
     </rect>
    </property>
@@ -457,8 +457,20 @@ border: 1px solid gray
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="editTriggers" >
+            <set>QAbstractItemView::AllEditTriggers</set>
+           </property>
+           <property name="showDropIndicator" stdset="0" >
+            <bool>false</bool>
+           </property>
            <property name="selectionBehavior" >
             <enum>QAbstractItemView::SelectItems</enum>
+           </property>
+           <property name="itemsExpandable" >
+            <bool>false</bool>
+           </property>
+           <property name="sortingEnabled" >
+            <bool>true</bool>
            </property>
            <property name="allColumnsShowFocus" >
             <bool>true</bool>
@@ -624,7 +636,7 @@ border: 1px solid gray
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>939</width>
+          <width>837</width>
           <height>158</height>
          </rect>
         </property>
@@ -679,7 +691,19 @@ border: 1px solid gray
         <bool>true</bool>
        </property>
        <property name="dragDropMode" >
-        <enum>QAbstractItemView::InternalMove</enum>
+        <enum>QAbstractItemView::DragOnly</enum>
+       </property>
+       <property name="itemsExpandable" >
+        <bool>false</bool>
+       </property>
+       <property name="animated" >
+        <bool>true</bool>
+       </property>
+       <property name="allColumnsShowFocus" >
+        <bool>true</bool>
+       </property>
+       <property name="expandsOnDoubleClick" >
+        <bool>false</bool>
        </property>
        <column>
         <property name="text" >

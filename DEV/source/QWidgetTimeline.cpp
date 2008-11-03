@@ -16,7 +16,7 @@
 
 extern Project* currentProject;
 extern VideoPlayer* vdo_player;
-extern mfit* mfit_ui;
+extern Interface* Interface_ui;
 
 QWidgetTimeline::QWidgetTimeline(QWidget *parent) : QWidget(parent)
 { 
@@ -72,9 +72,9 @@ void QWidgetTimeline::mousePressEvent(QMouseEvent *event)
 
 		if (transitionID >= 0 && transitionID < currentProject->transitionList.size())
 		{
-			mfit_ui->clearTransitionHeader();
-			mfit_ui->updateTransitionHeader(transitionID);
-			mfit_ui->updateTimeline();
+			Interface_ui->clearTransitionHeader();
+			Interface_ui->updateTransitionHeader(transitionID);
+			Interface_ui->updateTimeline();
 		}
 
 		delete frame;
@@ -167,8 +167,8 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 
 	currentProject->effectList.push_back(effect);
 
-	mfit_ui->clearTransitionHeader();
-	mfit_ui->updateEffectTree();
+	Interface_ui->clearTransitionHeader();
+	Interface_ui->updateEffectTree();
 
 	if (vdo == 0x0)
 		vdo = currentProject->getVideo();
@@ -226,8 +226,8 @@ void QWidgetTimeline::dragMoveEvent(QDragMoveEvent *event)
 void QWidgetTimeline::dragLeaveEvent(QDragLeaveEvent *event)
 {
 	// Simpelsmente limpa o cabecalho da timeline
-	mfit_ui->clearTransitionHeader();
-	mfit_ui->updateTimeline();
+	Interface_ui->clearTransitionHeader();
+	Interface_ui->updateTimeline();
 }
 
 
@@ -264,13 +264,13 @@ int QWidgetTimeline::selectDropTransition(QPoint pointEvent, int clear)
 
 	if (clear == 1)
 	{
-		mfit_ui->clearTransitionHeader();
+		Interface_ui->clearTransitionHeader();
 	}
 
 	if (transitionID < currentProject->transitionList.size())
 	{
-		mfit_ui->updateTransitionHeader(transitionID, 0);
-		mfit_ui->updateTimeline();
+		Interface_ui->updateTransitionHeader(transitionID, 0);
+		Interface_ui->updateTimeline();
 		return 0;
 	}
 

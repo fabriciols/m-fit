@@ -95,7 +95,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	//double aux = 0;
 	//int signal = 0;
 	int no_var = 0;
-	int fade_center = 0;
+	//int fade_center = 0;
 	int fade_pos = 0;
 	int signal_changed = 0;
 	int last_signal_changed = 0;
@@ -303,20 +303,20 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 				Log::writeLog("%s :: avarage %lf deviation %lf" , __FUNCTION__, avarage, deviation);
 
 				// Cria o objeto da transição
-				fade_center = ( fade_end - fade_start ) / 2 + fade_start;
+				//fade_center = ( fade_end - fade_start ) / 2 + fade_start;
 
 				if (fade_max < 0)
 				{
 					type = TRANSITION_FADEOUT;
-					strcpy(label, "Fade Out");
-					Log::writeLog("%s :: fade out: %d", __FUNCTION__, fade_center);
+					strcpy(label, "Fade-Out");
+					Log::writeLog("%s :: fade out: %d", __FUNCTION__, fade_pos);
 					fade_pos = fade_end;
 				}
 				else
 				{
 					type = TRANSITION_FADEIN;
-					strcpy(label, "Fade Int");
-					Log::writeLog("%s :: fade in: %d", __FUNCTION__, fade_center);
+					strcpy(label, "Fade-In");
+					Log::writeLog("%s :: fade in: %d", __FUNCTION__, fade_pos);
 					fade_pos = fade_start;
 				}
 
@@ -328,7 +328,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 				 * outro tipo de transição. Isso evita que o sistema diga que em uma mesma posição
 				 * existam 2 transições diferentes.
 				**/
-				if( this->validateTransition((long)fade_center, transitionList) )
+				if( this->validateTransition((long)fade_pos, transitionList) )
 					transitionList->push_back(*transition);
 
 				fade_start = 0;

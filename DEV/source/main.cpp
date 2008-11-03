@@ -12,7 +12,7 @@
 
 // Variaveis globais da aplicacao
 Project *currentProject;
-mfit *mfit_ui;
+Interface *Interface_ui;
 VideoPlayer *vdo_player;
 
 int main(int argc, char *argv[])
@@ -21,10 +21,10 @@ int main(int argc, char *argv[])
 
 	 vdo_player = new VideoPlayer();
 
-	 mfit_ui = new mfit();
+	 Interface_ui = new Interface();
 
 	 currentProject = new Project();
 
-    mfit_ui->show();
+    Interface_ui->show();
     return app.exec();
 }
