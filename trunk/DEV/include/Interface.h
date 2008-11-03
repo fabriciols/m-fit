@@ -3,7 +3,7 @@
 #include "cv.h"
 #include "highgui.h"
 
-#include "../ui_mfit.h" 
+#include "../ui_Interface.h" 
 
 #include "../include/Time.h"
 #include "../include/Histogram.h"
@@ -20,7 +20,7 @@
 #define ALERT_NO_LOADED_VIDEO 0
 #define ALERT_VIDEO_INCOMPATIBLE 1
 
-class mfit: public QMainWindow
+class Interface: public QMainWindow
 {
 	Q_OBJECT
 
@@ -74,7 +74,7 @@ class mfit: public QMainWindow
 		QAction *recentFiles[MAX_RECENT_FILES]; // Array que guarda o nome dos arquivos recentes
 
 	public:
-		mfit(QMainWindow *parent = 0);
+		Interface(QMainWindow *parent = 0);
 
 		void addRecentFile(QString fileName);
 		void updateRecentFilesAct();

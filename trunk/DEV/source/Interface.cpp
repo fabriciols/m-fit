@@ -1,4 +1,4 @@
-#include "../ui_mfit.h" 
+#include "../ui_Interface.h" 
 #include "cv.h"
 #include "highgui.h"
 
@@ -47,7 +47,7 @@ extern VideoPlayer *vdo_player;
 * Criação.
 ************************************************************************/
 
-mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
+Interface::Interface(QMainWindow *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
 
@@ -80,7 +80,7 @@ mfit::mfit(QMainWindow *parent) : QMainWindow(parent)
 * Criação.
 ************************************************************************/
 
-void mfit::addRecentFile(QString fileName)
+void Interface::addRecentFile(QString fileName)
 {
 	QSettings settings("MFIT", "MFIT");
 	QStringList files = settings.value("recentFileList").toStringList();
@@ -106,7 +106,7 @@ void mfit::addRecentFile(QString fileName)
 * Criação.
 ************************************************************************/
 
-void mfit::updateRecentFilesAct()
+void Interface::updateRecentFilesAct()
 {
 	QSettings settings("MFIT", "MFIT");
 	QStringList files = settings.value("recentFileList").toStringList();
@@ -142,7 +142,7 @@ void mfit::updateRecentFilesAct()
 * 19/10/08 - Fabricio Lopes de Souza
 * Criação.
 ************************************************************************/
-void mfit::createRecentFilesActions()
+void Interface::createRecentFilesActions()
 {
 	for (int i = 0; i < MAX_RECENT_FILES ; ++i)
 	{
@@ -154,7 +154,7 @@ void mfit::createRecentFilesActions()
 	}
 }
 
-void mfit::openRecentFile()
+void Interface::openRecentFile()
 {
 	char fileName_cy[100];
 	char extension_cy[4];
@@ -211,7 +211,7 @@ void mfit::openRecentFile()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-void mfit::on_playButton_clicked()
+void Interface::on_playButton_clicked()
 {
 	// Somente para controle se há ou não vídeo carregado. depois deleta o obj
 	Video* vdo = currentProject->getVideo();
@@ -240,7 +240,7 @@ void mfit::on_playButton_clicked()
  * Criação.
  ************************************************************************/
 
-void mfit::on_pauseButton_clicked()
+void Interface::on_pauseButton_clicked()
 {
 	// Somente para controle se há ou não vídeo carregado. depois deleta o obj
 	Video* vdo = currentProject->getVideo();
@@ -265,7 +265,7 @@ void mfit::on_pauseButton_clicked()
  * Criação.
  ************************************************************************/
 
-void mfit::on_forwardButton_clicked()
+void Interface::on_forwardButton_clicked()
 {
 	Video *vdo;
 	Frame *frame;
@@ -309,7 +309,7 @@ void mfit::on_forwardButton_clicked()
  * Criação.
  ************************************************************************/
 
-void mfit::on_backButton_clicked()
+void Interface::on_backButton_clicked()
 {
 	Video *vdo;
 	Frame *frame;
@@ -356,7 +356,7 @@ void mfit::on_backButton_clicked()
  * Criação.
  ************************************************************************/
 
-void mfit::on_stopButton_clicked()
+void Interface::on_stopButton_clicked()
 {
 	Video *vdo;
 
@@ -387,7 +387,7 @@ void mfit::on_stopButton_clicked()
  * 10/10/08 - Ivan Shiguenori Machida
  * Criação.
  ************************************************************************/
-void mfit::on_actionOpenProject_triggered()
+void Interface::on_actionOpenProject_triggered()
 {
 	// Segundo  parametro - Mensagem que ira aparecer no topo da imagem
 	// Terceiro parametro - Diretorio inicial
@@ -396,7 +396,7 @@ void mfit::on_actionOpenProject_triggered()
 	QString fileName = QFileDialog::getOpenFileName(this,
 			"Abrir Projeto",
 			".",
-			"Projeto MFIT (*.mfit)");
+			"Projeto MFIT (*.Interface)");
 
 	if (!fileName.isEmpty())
 	{
@@ -423,7 +423,7 @@ void mfit::on_actionOpenProject_triggered()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-void mfit::on_actionLoadVideo_triggered()
+void Interface::on_actionLoadVideo_triggered()
 {
 	// Segundo  parametro - Mensagem que ira aparecer no topo da imagem
 	// Terceiro parametro - Diretorio inicial
@@ -474,12 +474,12 @@ void mfit::on_actionLoadVideo_triggered()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-void mfit::on_actionSaveAs_triggered()
+void Interface::on_actionSaveAs_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
 			"Salvar Projeto",
 			".",
-			"Projeto MFIT (*.mfit)");
+			"Projeto MFIT (*.Interface)");
 
 	if (!fileName.isEmpty())
 	{
@@ -501,12 +501,12 @@ void mfit::on_actionSaveAs_triggered()
  * 10/10/08 - Ivan Shiguenori Machida
  * Criação.
  ************************************************************************/
-void mfit::on_actionSave_triggered()
+void Interface::on_actionSave_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
 			"Salvar Projeto",
 			".",
-			"Projeto MFIT (*.mfit)");
+			"Projeto MFIT (*.Interface)");
 
 	if (!fileName.isEmpty())
 	{
@@ -527,7 +527,7 @@ void mfit::on_actionSave_triggered()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-void mfit::changeWindowTitle(char *string)
+void Interface::changeWindowTitle(char *string)
 {
 	// Se tiver algum caracter na string
 	if (string[0])
@@ -552,7 +552,7 @@ void mfit::changeWindowTitle(char *string)
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-void mfit::clearVideoProperty()
+void Interface::clearVideoProperty()
 {
 	Log::writeLog("%s :: clear videoPropertiesTree", __FUNCTION__); 
 	this->ui.videoPropertiesTree->clear();
@@ -567,7 +567,7 @@ void mfit::clearVideoProperty()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-void mfit::insertVideoProperty(char *param_cy, char *value_cy)
+void Interface::insertVideoProperty(char *param_cy, char *value_cy)
 {
 	// Cria o item referente a Tree
 	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.videoPropertiesTree);
@@ -595,7 +595,7 @@ void mfit::insertVideoProperty(char *param_cy, char *value_cy)
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-void mfit::updatePlayer(QImage *image)
+void Interface::updatePlayer(QImage *image)
 {
 	// Trava a thread do video_player
 	vdo_player->mutex.lock();
@@ -630,7 +630,7 @@ void mfit::updatePlayer(QImage *image)
  * Criação.
  ************************************************************************/
 
-void mfit::updateHist(QImage *hist)
+void Interface::updateHist(QImage *hist)
 {
 	vdo_player->mutex.lock();
 
@@ -655,7 +655,7 @@ void mfit::updateHist(QImage *hist)
  * Criação.
  ************************************************************************/
 
-void mfit::setVideoTime(double framePos, double fps)
+void Interface::setVideoTime(double framePos, double fps)
 {
 	Time *cvTime = new Time(framePos, fps);
 
@@ -672,7 +672,7 @@ void mfit::setVideoTime(double framePos, double fps)
 
 }
 
-void mfit::on_videoTime_timeChanged(const QTime & time)
+void Interface::on_videoTime_timeChanged(const QTime & time)
 {
 	return;
 
@@ -706,7 +706,7 @@ void mfit::on_videoTime_timeChanged(const QTime & time)
  * Criação.
  ************************************************************************/
 
-void mfit::createTimeline(void)
+void Interface::createTimeline(void)
 {
 	Video *vdo = 0x0;
 	vdo = currentProject->getVideo();
@@ -797,7 +797,7 @@ void mfit::createTimeline(void)
  * Criação.
  ************************************************************************/
 
-void mfit::setTimeline(Frame *frameTimeline)
+void Interface::setTimeline(Frame *frameTimeline)
 {
 	QImage *image;
 
@@ -826,7 +826,7 @@ void mfit::setTimeline(Frame *frameTimeline)
  * Criação.
  ************************************************************************/
 
-void mfit::updateTimeline()
+void Interface::updateTimeline()
 {
 	Video *vdo = 0x0;
 	long pos = 0x0;
@@ -867,7 +867,7 @@ void mfit::updateTimeline()
  * Criação.
  ************************************************************************/
 
-void mfit::on_actionAllTransitions_triggered()
+void Interface::on_actionAllTransitions_triggered()
 {
 
 	Video* vdo = 0x0;
@@ -911,7 +911,7 @@ void mfit::on_actionAllTransitions_triggered()
  * Criação.
  ************************************************************************/
 
-void mfit::on_actionOnlyCuts_triggered()
+void Interface::on_actionOnlyCuts_triggered()
 {
 
 	Video* vdo = 0x0;
@@ -955,7 +955,7 @@ void mfit::on_actionOnlyCuts_triggered()
  * Criação.
  ************************************************************************/
 
-void mfit::on_actionAllFades_triggered()
+void Interface::on_actionAllFades_triggered()
 {
 
 	Video* vdo = 0x0;
@@ -1000,7 +1000,7 @@ void mfit::on_actionAllFades_triggered()
  * Criação.
  ************************************************************************/
 
-void mfit::on_actionOnlyDissolve_triggered()
+void Interface::on_actionOnlyDissolve_triggered()
 {
 
 	Video* vdo = 0x0;
@@ -1043,7 +1043,7 @@ void mfit::on_actionOnlyDissolve_triggered()
  * Criação.
  *************************************************************************/
 
-void mfit::insertTransitionsTree(Transition* transition, long id_l)
+void Interface::insertTransitionsTree(Transition* transition, long id_l)
 {
 	// Cria o item referente a Tree
 	QTreeWidgetItem *item = new QTreeWidgetItem(this->ui.transitionsTree);
@@ -1114,7 +1114,7 @@ void mfit::insertTransitionsTree(Transition* transition, long id_l)
  * 08/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-void mfit::insertTransitionsTimeline(Transition* transition)
+void Interface::insertTransitionsTimeline(Transition* transition)
 {
 	long posTransition_l = 0;
 	long posTimeline_l = 0;
@@ -1166,7 +1166,7 @@ void mfit::insertTransitionsTimeline(Transition* transition)
  * Criação.
  ************************************************************************/
 
-void mfit::updateTransitions()
+void Interface::updateTransitions()
 {
 	unsigned long i = 0;
 
@@ -1201,7 +1201,7 @@ void mfit::updateTransitions()
  * Criação.
  ************************************************************************/
 
-void mfit::clearTransitionsTree()
+void Interface::clearTransitionsTree()
 {
 	Log::writeLog("%s :: clear transitionsTree", __FUNCTION__); 
 	this->ui.transitionsTree->clear();
@@ -1220,7 +1220,7 @@ void mfit::clearTransitionsTree()
  * Criação.
  ************************************************************************/
 
-void mfit::on_transitionsTree_itemSelectionChanged()
+void Interface::on_transitionsTree_itemSelectionChanged()
 {
 	QList<QTreeWidgetItem *> itens;
 	itens = this->ui.transitionsTree->selectedItems();
@@ -1250,7 +1250,7 @@ void mfit::on_transitionsTree_itemSelectionChanged()
  * Criação.
  ************************************************************************/
 
-void mfit::updateTransitionHeader(QTreeWidgetItem * item)
+void Interface::updateTransitionHeader(QTreeWidgetItem * item)
 {
 	char str_cy[20];
 	long idx_i;
@@ -1278,7 +1278,7 @@ void mfit::updateTransitionHeader(QTreeWidgetItem * item)
  * Criação.
  *************************************************************************/
 
-int mfit::askDetection()
+int Interface::askDetection()
 {
 	int reply = 0; // Resposta do usuário
 
@@ -1313,7 +1313,7 @@ int mfit::askDetection()
  * Criação.
  *************************************************************************/
 
-void mfit::alertUser(int message)
+void Interface::alertUser(int message)
 {
 
 	char message_cy[200];
@@ -1356,7 +1356,7 @@ void mfit::alertUser(int message)
  * Criação.
  *************************************************************************/
 
-void mfit::enableControls()
+void Interface::enableControls()
 {
 	// Controles gerais
 	this->ui.actionSave->setEnabled(true);
@@ -1398,7 +1398,7 @@ void mfit::enableControls()
  * Criação.
  *************************************************************************/
 
-void mfit::on_actionDetectConfig_triggered()
+void Interface::on_actionDetectConfig_triggered()
 {
 	showDetectionConfigs();
 }
@@ -1416,7 +1416,7 @@ void mfit::on_actionDetectConfig_triggered()
  * Criação.
  *************************************************************************/
 
-void mfit::on_actionRenderVideo_triggered()
+void Interface::on_actionRenderVideo_triggered()
 {
 	QString fileName = QFileDialog::getSaveFileName(this,
 			"Renderizar Video",
@@ -1445,7 +1445,7 @@ void mfit::on_actionRenderVideo_triggered()
  * Criação.
  *************************************************************************/
 
-void mfit::showDetectionConfigs()
+void Interface::showDetectionConfigs()
 {
 
 	DetectConfig configWindow;
@@ -1467,7 +1467,7 @@ void mfit::showDetectionConfigs()
  * Criação.
  *************************************************************************/
 
-char *mfit::QStringToChar(QString string, char* string_cy)
+char *Interface::QStringToChar(QString string, char* string_cy)
 {
 	sprintf(string_cy, "%s",string.toAscii().data());
 
@@ -1487,7 +1487,7 @@ char *mfit::QStringToChar(QString string, char* string_cy)
  * Criação.
  *************************************************************************/
 
-void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
+void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
 {
 	long pos_l;
 	long posNext_l;
@@ -1532,7 +1532,7 @@ void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
 
 	CvPoint p1 = {posTimeline    ,SIZE_FRAME_TIMELINE+15};
 	CvPoint p2 = {posTimelineNext,SIZE_FRAME_TIMELINE+15};
-	CvPoint p3 = {posTimeline    ,SIZE_FRAME_TIMELINE+20};
+	CvPoint p3 = {posTimeline+1  ,SIZE_FRAME_TIMELINE+20};
 
 	if (clean == 1)
 	{  // Apaga na timelie
@@ -1571,7 +1571,7 @@ void mfit::updateTransitionHeader(unsigned int transitionID, int clean)
  * Criação.
  *************************************************************************/
 
-void mfit::clearTransitionHeader()
+void Interface::clearTransitionHeader()
 {
 	unsigned int i = 0;
 	Transition *transition;
@@ -1596,7 +1596,7 @@ void mfit::clearTransitionHeader()
  * Criação.
  *************************************************************************/
 
-void mfit::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column)
+void Interface::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column)
 {
 	char position_cy[10]; // Posição da transição determinada pelo sistema
 	char userPosition_cy[10]; // Posição da transição determinada pelo usuário
@@ -1649,7 +1649,7 @@ void mfit::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column)
  * Criação.
  *************************************************************************/
 
-void mfit::insertEffectTree(Effect *effect)
+void Interface::insertEffectTree(Effect *effect)
 {
 	char frameStart[10];
 	char frameEnd[10];
@@ -1690,7 +1690,7 @@ void mfit::insertEffectTree(Effect *effect)
  * Criação.
  *************************************************************************/
 
-void mfit::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
+void Interface::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
 {
 	if (column > 0)
 	{
@@ -1730,7 +1730,7 @@ void mfit::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
  * Criação.
  *************************************************************************/
 
-void mfit::updateEffectTree()
+void Interface::updateEffectTree()
 {
 	unsigned int i = 0;
 
@@ -1754,7 +1754,7 @@ void mfit::updateEffectTree()
  * Criação.
  *************************************************************************/
 
-void mfit::effectTreeClear()
+void Interface::effectTreeClear()
 {
 	this->ui.effectsTree->clear();
 }
@@ -1771,7 +1771,7 @@ void mfit::effectTreeClear()
  * Criação.
  *************************************************************************/
 
-void mfit::on_actionExit_triggered()
+void Interface::on_actionExit_triggered()
 {
 	if (currentProject->getVideo())
 	{
@@ -1780,7 +1780,7 @@ void mfit::on_actionExit_triggered()
 			QString fileName = QFileDialog::getSaveFileName(this,
 					"Salvar Projeto",
 					".",
-					"Projeto MFIT(*.mfit)");
+					"Projeto MFIT(*.Interface)");
 
 			if (!fileName.isEmpty())
 			{
@@ -1809,7 +1809,7 @@ void mfit::on_actionExit_triggered()
  * Criação.
  *************************************************************************/
 
-bool mfit::askUserSave()
+bool Interface::askUserSave()
 {
 	int reply = 0; // Resposta do usuário
 
@@ -1841,7 +1841,7 @@ bool mfit::askUserSave()
  * 20/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
-void mfit::moveScrollArea(int x, int y)
+void Interface::moveScrollArea(int x, int y)
 {
 	QRect rect(ui.widgetDockTimeline->geometry());
 	int center_i;

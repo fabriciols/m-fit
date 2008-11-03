@@ -5,7 +5,7 @@
 #include "../include/Color.h"
 
 extern Project *currentProject;
-extern mfit *mfit_ui;
+extern Interface *Interface_ui;
 
 /************************************************************************
  * Construtor
@@ -70,7 +70,7 @@ void VideoPlayer::run()
 		updatePlayer(frame);
 
 		// Se o histograma estiver visivel, atualiza 
-		if (mfit_ui->ui.histogramLabel->isVisible())
+		if (Interface_ui->ui.histogramLabel->isVisible())
 		{
 			updateHist(frame);
 		}
@@ -148,7 +148,7 @@ void VideoPlayer::updateHist(Frame *frame)
 	Color* color = 0x0;
 	Histogram *hist = 0x0;
 
-	if (!mfit_ui->ui.histogramLabel->isVisible())
+	if (!Interface_ui->ui.histogramLabel->isVisible())
 		return;
 
 	color = new Color;

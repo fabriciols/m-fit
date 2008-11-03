@@ -37,7 +37,7 @@ int Project::openProject(QString fileName)
 	Xml *fileXml = new Xml();
 	// Abre um projeto ja existente
 
-	mfit::QStringToChar(fileName, filename_cy);
+	Interface::QStringToChar(fileName, filename_cy);
 
 	ret = fileXml->openXml(filename_cy);
 
@@ -52,7 +52,7 @@ int Project::openProject(QString fileName)
 
 		fileXml->readXml("name", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, 0);
 
-		mfit_ui->changeWindowTitle(content);
+		Interface_ui->changeWindowTitle(content);
 
 		fileXml->readXml("video", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, 0);
 
@@ -69,8 +69,8 @@ int Project::openProject(QString fileName)
 			}
 		}
 
-		mfit_ui->addRecentFile(fileName);
-		mfit_ui->updateRecentFilesAct();
+		Interface_ui->addRecentFile(fileName);
+		Interface_ui->updateRecentFilesAct();
 	}
 
 	fileXml->closeXml();
@@ -125,10 +125,10 @@ Project::Project(void)
 	this->userMinCanny = '\0';
 	this->userMaxCanny = '\0';
 
-	strcpy(this->filename_cy, "NewProject.mfit");
+	strcpy(this->filename_cy, "NewProject.Interface");
 
 	// Troca o titulo da janela
-	mfit_ui->changeWindowTitle(this->filename_cy);
+	Interface_ui->changeWindowTitle(this->filename_cy);
 
 	// Limpa a lista de transicoes
 	this->clearTransitionList();
@@ -161,9 +161,9 @@ int Project::openVideo(QString fileName)
 		//apaga lista de transicoes
 		this->clearTransitionList();
 
-		mfit_ui->clearVideoProperty();
-		mfit_ui->clearTransitionsTree();
-		mfit_ui->effectTreeClear();
+		Interface_ui->clearVideoProperty();
+		Interface_ui->clearTransitionsTree();
+		Interface_ui->effectTreeClear();
 	}
 
 	// Transformando QString em char*
@@ -176,42 +176,42 @@ int Project::openVideo(QString fileName)
 	memset(param_cy, '\0', sizeof(param_cy));
 
 	// Nome
-	mfit_ui->insertVideoProperty("Name", this->vdo->getName());
+	Interface_ui->insertVideoProperty("Name", this->vdo->getName());
 
 	// Path
-	mfit_ui->insertVideoProperty("Path", this->vdo->getPath());
+	Interface_ui->insertVideoProperty("Path", this->vdo->getPath());
 
 	// Codec
 	memset(param_cy, '\0', sizeof(param_cy));
 	sprintf(param_cy, "%.0lf", this->vdo->getCodec());
-	mfit_ui->insertVideoProperty("Codec", param_cy);
+	Interface_ui->insertVideoProperty("Codec", param_cy);
 
 	// framesHeight
 	memset(param_cy, '\0', sizeof(param_cy));
 	sprintf(param_cy, "%.0lf", this->vdo->getFramesHeight());
-	mfit_ui->insertVideoProperty("Height", param_cy); 
+	Interface_ui->insertVideoProperty("Height", param_cy); 
 
 	// framesWidth
 	memset(param_cy, '\0', sizeof(param_cy));
 	sprintf(param_cy, "%.0lf", this->vdo->getFramesHeight());
-	mfit_ui->insertVideoProperty("Width",  param_cy);
+	Interface_ui->insertVideoProperty("Width",  param_cy);
 
 	// FPS
 	memset(param_cy, '\0', sizeof(param_cy));
 	sprintf(param_cy, "%.2lf", this->vdo->getFPS());
-	mfit_ui->insertVideoProperty("FPS",  param_cy);
+	Interface_ui->insertVideoProperty("FPS",  param_cy);
 
 	// Frames
 	memset(param_cy, '\0', sizeof(param_cy));
 	sprintf(param_cy, "%.0lf", this->vdo->getFramesTotal());
-	mfit_ui->insertVideoProperty("Frames",  param_cy);
+	Interface_ui->insertVideoProperty("Frames",  param_cy);
 
-	mfit_ui->createTimeline();
+	Interface_ui->createTimeline();
 
-	mfit_ui->updateTransitions();
+	Interface_ui->updateTransitions();
 
-	mfit_ui->addRecentFile(fileName);
-	mfit_ui->updateRecentFilesAct();
+	Interface_ui->addRecentFile(fileName);
+	Interface_ui->updateRecentFilesAct();
 
 	return true;
 }
