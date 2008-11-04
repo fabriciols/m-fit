@@ -35,14 +35,14 @@ a detecção de transições do tipo Corte:
     \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos cortes.}
 
     \item{\textbf{Montagem do Ritmo Visual por sub-amostragem:} Para realizar a detecção das transições,
-    o sistema irá gerar uma imagem 2D, representando o Ritmo Visual do
+    o sistema irá gerar uma imagem 2D que representa o Ritmo Visual do
     vídeo, como definido na Seção \ref{ritmo_visual}.
 
     \hspace*{0.65cm}Este processo se dá de acordo com os seguintes passos:
 
     \begin{enumerate}
         \item{Obtenção do Frame;}
-        \item{Converte Frame para tons de cinza;}
+        \item{Conversão do Frame para tons de cinza;}
         \item{Cálculo da Diagonal Principal deste Frame.}
     \end{enumerate}
 
@@ -197,8 +197,10 @@ a detecção de transições do tipo Dissolve:
     até o último frame do vídeo.
 
     \item{\textbf{Verifica pontos de dissolve com 7 pontos seguintes:} A partir dos pontos do Ritmo visual por historgrama, é verificado
-    os próximos 7 pontos. Caso estes pontos estejam em ordem crescente, é aplicada a primeira derivada destes pontos, comparando os valores
-    obtidos da derivada com threshold definido.}
+    os próximos 7 pontos. Caso estes pontos estejam em ordem crescente, este ponto é um possível ponto de dissolve.}
+
+    \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Para os possíveis pontos de Dissolve, a derivada destes pontos é calculada,
+     comparando os resultados obtidos a um threshold definido.}
 
     \item{\textbf{Dissolve detectado:} Caso os pontos em questão forem todos menores que o threshold,
     estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
