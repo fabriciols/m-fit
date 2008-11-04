@@ -13,8 +13,6 @@
 
 #include "../include/Cut.h"
 #include "../include/Fade.h"
-#include "../include/Fadein.h"
-#include "../include/Fadeout.h"
 #include "../include/Dissolve.h"
 
 #include "../include/Log.h"
