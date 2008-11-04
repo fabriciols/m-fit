@@ -31,8 +31,7 @@ int Project::openProject(QString fileName)
 {
 
 	char filename_cy[100];
-	char content[100], type[50], posTransition[50], posUserTransition[50], userCutThreshold[50];
-	int sizeTag=0;
+//	char content[100], type[50], posTransition[50], posUserTransition[50], userCutThreshold[50];
 	int ret,i;
 	Xml *fileXml = new Xml();
 	// Abre um projeto ja existente
@@ -49,22 +48,24 @@ int Project::openProject(QString fileName)
 		//apaga lista de efeitos
 		this->clearEffectList();
 
+		fileXml->setItemNumber(0);
+		fileXml->readXml("name");
 
-		fileXml->readXml("name", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, 0);
+		Interface_ui->changeWindowTitle(fileXml->getText());
 
-		Interface_ui->changeWindowTitle(content);
+		fileXml->setItemNumber(0);
+		fileXml->readXml("video");
 
-		fileXml->readXml("video", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, 0);
+		openVideo(fileXml->getText());
 
-		openVideo(content);
-
-		for(i=0;i<sizeTag;i++)
+		for(i=0;i<fileXml->getSizeNodes();i++)
 		{
-			fileXml->readXml("transition", content, type, posTransition, posUserTransition, userCutThreshold, &sizeTag, i);
+			fileXml->setItemNumber(i);
+			fileXml->readXml("transition");
 
-			if(sizeTag)
+			if(fileXml->getSizeNodes())
 			{
-				Transition *transition = new Transition(atoi(type), atol(posTransition), content);
+				Transition *transition = new Transition(atoi(fileXml->getType()), atol(fileXml->getPosTransition()), fileXml->getText());
 				this->transitionList.push_back(*transition);
 			}
 		}
