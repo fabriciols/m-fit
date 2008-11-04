@@ -100,6 +100,20 @@ cálculo de magnitude do gradiente, os ruídos, assim como as bordas,
 retornam um valor de magnitude elevada, sendo necessário aplicar
 outros processos de filtragem para a redução dos mesmos.
 
+\hspace*{0.65cm}Outro método também eficiente para realizar a detecção
+de bordas de uma imagem, é a utilização do operador de Canny. Este operador,
+diferentemente do operador Sobel, detecta as bordas de forma mais precisa,
+visto que suas bordas são mais estreitas (1 pixel) [colocar referencia].
+Isto se deve ao fato deste operador se basear em três conceitos, os quais
+são considerados conceitos básicos para um bom detector de bordas [colocar ref],
+são eles:
+
+\begin{enumerate}
+\Item Taxa de erro
+\Item Localização
+\Item Resposta
+\end{enumerate}
+
 \hspace*{0.65cm}Neste trabalho, serão utilizadas algumas técnicas de
 Filtragem Espacial para fazer o realce das bordas do ritmo visual,
 possibilitando dar um destaque maior para as bordas que possam
