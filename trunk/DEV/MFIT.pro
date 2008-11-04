@@ -3,7 +3,7 @@
 ######################################################################
 
 DEVCPP_PATH = "C:/Dev-Cpp"
-OPENCV_PATH = "C:/Arquivos de Programas/OpenCV"
+OPENCV_PATH = "C:/Program Files/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
@@ -43,8 +43,6 @@ HEADERS += include/Brightness.h \
            include/Dissolve.h \
            include/Effect.h \
            include/Fade.h \
-           include/Fadein.h \
-           include/Fadeout.h \
            include/Filters.h \
            include/Frame.h \
            include/Histogram.h \
@@ -74,8 +72,6 @@ SOURCES += source/main.cpp \
            source/Dissolve.cpp \
            source/Effect.cpp \
            source/Fade.cpp \
-           source/Fadein.cpp \
-           source/Fadeout.cpp \
            source/Filters.cpp \
            source/Frame.cpp \
            source/Histogram.cpp \
