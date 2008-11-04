@@ -111,11 +111,12 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	// Processo de detecção de transições do tipo FADE
 	vrh = new VisualRythim();
 
-	vdo->removeWide();
-	vdo->removeBorder();
-
 	// 1- Pegamos o video e criamos o Ritmo Visual por Histograma
 	array_vrh = vrh->createVRH(vdo);
+
+	// Removemos partes indesejaveis
+	vdo->removeWide();
+	vdo->removeBorder();
 
 	len_i = cvRound(vdo->getFramesTotal());
 
