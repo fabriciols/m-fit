@@ -67,21 +67,23 @@ int  Xml::openXml(char *xmlName)
 * 04/10/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-int Xml::readXml(char *tag, char *text, char *type, char *posTransition, char *posUserTransition, char *userCutThreshold, int *sizeNodes, int itemNumber)
+int Xml::readXml(char *tag)
 {
 	QDomNodeList nodeList;
 	nodeList = this->doc.elementsByTagName(tag);
 	int subNodesSize=0, i=0;
 	QString item;
 
-	*sizeNodes = nodeList.length();
+//char *text, char *type, char *posTransition, char *posUserTransition, char *userCutThreshold, int *sizeNodes, int itemNumber
+
+	sizeNodes = nodeList.length();
 
 	memset(text,0,sizeof(text));
 	memset(type,0,sizeof(type));
 	memset(posTransition,0,sizeof(posTransition));
 	memset(posUserTransition,0,sizeof(posUserTransition));
 
-	if(*sizeNodes > 0)
+	if(sizeNodes > 0)
 	{
 		strcpy(text, nodeList.item(itemNumber).toElement().text());
 
@@ -206,7 +208,38 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 				tag3.appendChild(doc.createTextNode(transition->getLabel()));
 			}
 		}
+/*
+		if((int)this->effectList->size() > 0)
+		{
+			tag = doc.createElement("effectList");
+			root.appendChild(tag);
 
+			for(i=0;i<(int)this->effectList->size();i++)
+			{			
+				tag2 = doc.createElement("effect");
+				tag.appendChild(tag2);
+
+				sprintf(str, "%d", i);
+				tag3 = doc.createElement("id");
+				tag2.appendChild(tag3);
+				tag3.appendChild(doc.createTextNode(str));
+
+				sprintf(str, "%ld", this->effectList->at(i)->frameStart);
+				tag3 = doc.createElement("frameStart");
+				tag2.appendChild(tag3);
+				tag3.appendChild(doc.createTextNode(str));
+
+				sprintf(str, "%ld", this->effectList->at(i)->frameEnd);
+				tag3 = doc.createElement("frameEnd");
+				tag2.appendChild(tag3);
+				tag3.appendChild(doc.createTextNode(str));
+
+				tag3 = doc.createElement("name_cy");
+				tag2.appendChild(tag3);
+				tag3.appendChild(doc.createTextNode(this->effectList->at(i)->name_cy));
+			}
+		}
+*/
 		QString xml = doc.toString();
 
 		QTextStream xmlStream(&file);
@@ -241,4 +274,39 @@ int Xml::closeXml()
 {
 	delete &this->doc;
 	return (0);
+}
+
+char *Xml::getText()
+{
+	return text;
+}
+
+char *Xml::getType()
+{
+	return type;
+}
+
+char *Xml::getPosTransition()
+{
+	return posTransition;
+}
+
+char *Xml::getPosUserTransition()
+{
+	return posUserTransition;
+}
+
+char *Xml::getUserCutThreshold()
+{
+	return userCutThreshold;
+}
+
+int Xml::getSizeNodes()
+{
+	return sizeNodes;
+}
+
+void Xml::setItemNumber(int item)
+{
+	itemNumber = item;
 }

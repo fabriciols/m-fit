@@ -27,11 +27,27 @@ class Xml
 		char *xmlName;
 
 	public:
+		char	text[100];
+		char	type[50];
+		char	posTransition[50];
+		char	posUserTransition[50];
+		char	userCutThreshold[50];
+		int		sizeNodes;
+		int		itemNumber;
+
 		QFile *file;
 
 		int openXml(char *);
-		int readXml(char *, char *, char *, char *, char *, char *, int *, int);
+		int readXml(char *);
 		int createXml(char *, char *, char *, std::vector<Transition> *);
 		int closeXml();
+
+		char *getText();
+		char *getType();
+		char *getPosTransition();
+		char *getPosUserTransition();
+		char *getUserCutThreshold();
+		int getSizeNodes();
+		void setItemNumber(int);
 };
 #endif
