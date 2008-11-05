@@ -126,17 +126,22 @@ filtro.
 geradas pelo filtro em relação à uma única borda. Para cada borda existente
 na imagem, o filtro deve apontar somente uma resposta.
 
-\hspace*{0.65cm}Para atender a estes critérios, são adotados adotados, além de
-processos de convolução, processos de Supressão não Máxima e Histerese.
+\hspace*{0.65cm}Para atender a estes critérios, são adotados
+adotados, além de processos de convolução (Seção
+\ref{filtragem_espacial}), processos de Supressão não Máxima e
+Histerese.
 
-\hspace*{0.65cm}A Supressão não Máxima consiste na eliminação dos pixels
-da região da borda que não possuírem magnitude máxima. Como visto no início desta
-seção, as bordas são representadas por pixels que possuem gradiente de alta magnitude.
-Devido à ruídos presentes na imagem, após os processos de convolução da imagem, podem haver
-diversos pixels representando um único ponto de borda verdadeiro. Porém, aquele que
-possuir o gradiente com maior magnitude é o candidato mais forte para representar a borda.
-Através do processo de supressão não máxima, os outros pixels (de magnitude não máxima) são eliminados,
-restando somente 1 pixel representando 1 ponto de borda.
+\hspace*{0.65cm}COLOCAR REFERENCIAAAAAAAAAAA A Supressão não Máxima
+consiste na eliminação dos pixels da região da borda que não
+possuírem magnitude máxima. Como visto no início desta seção, as
+bordas são representadas por pixels que possuem gradiente de alta
+magnitude. Devido à ruídos presentes na imagem, após os processos de
+convolução da imagem, podem haver diversos pixels representando um
+único ponto de borda verdadeiro. Porém, aquele que possuir o
+gradiente com maior magnitude é o candidato mais forte para
+representar a borda. Através do processo de supressão não máxima, os
+outros pixels (de magnitude não máxima) são eliminados, restando
+somente 1 pixel representando 1 ponto de borda.
 
 \hspace*{0.65cm}Para evitar descontinuidades das bordas detectadas, é utilizado
 o processo de histerese, ou limiarização adaptativa. Este processo consiste em
