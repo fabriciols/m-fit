@@ -101,17 +101,56 @@ retornam um valor de magnitude elevada, sendo necessário aplicar
 outros processos de filtragem para a redução dos mesmos.
 
 \hspace*{0.65cm}Outro método também eficiente para realizar a detecção
-de bordas de uma imagem, é a utilização do operador de Canny. Este operador,
-diferentemente do operador Sobel, detecta as bordas de forma mais precisa,
-visto que suas bordas são mais estreitas (1 pixel) [colocar referencia].
-Isto se deve ao fato deste operador se basear em três conceitos, os quais
-são considerados conceitos básicos para um bom detector de bordas [colocar ref],
-são eles:
+de bordas de uma imagem, é a utilização do operador de Canny.
+Este operador é baseado em três critérios básicos \cite{SEARA_1998}, os quais,
+segundo Canny, qualquer filtro para detecção de bordas deve atender \cite{GIOVANE_2002}.
+São eles:
 
 \begin{enumerate}
-\Item Taxa de erro
-\Item Localização
-\Item Resposta
+\item Taxa de Erro (SNR)
+\item Localização (L)
+\item Resposta
+\end{enumerate}
+
+\hspace*{0.65cm}Onde a Taxa de Erro  representa a eficiência do filtro
+em relação a falsos positivos (detecção de falsas bordas) e falsos negativos
+(bordas verdadeiras não detectadas), ou seja, o filtro deve detectar o máximo
+de bordas verdadeiras existentes na imagem.
+
+\hspace*{0.65cm}O critério de localização, como o nome já diz, está ligado
+à localização real da borda na imagem e àquela apontada pelo filtro. Quanto
+menor a distância entre a borda detectada da borda real, melhor será o
+filtro.
+
+\hspace*{0.65cm}O último dos critérios corresponde à quantidade de respostas
+geradas pelo filtro em relação à uma única borda. Para cada borda existente
+na imagem, o filtro deve apontar somente uma resposta.
+
+\hspace*{0.65cm}Para atender a estes critérios, são adotados adotados, além de
+processos de convolução, processos de Supressão não Máxima e Histerese.
+
+\hspace*{0.65cm}A Supressão não Máxima consiste na eliminação dos pixels
+da região da borda que não possuírem magnitude máxima. Como visto no início desta
+seção, as bordas são representadas por pixels que possuem gradiente de alta magnitude.
+Devido à ruídos presentes na imagem, após os processos de convolução da imagem, podem haver
+diversos pixels representando um único ponto de borda verdadeiro. Porém, aquele que
+possuir o gradiente com maior magnitude é o candidato mais forte para representar a borda.
+Através do processo de supressão não máxima, os outros pixels (de magnitude não máxima) são eliminados,
+restando somente 1 pixel representando 1 ponto de borda.
+
+\hspace*{0.65cm}Para evitar descontinuidades das bordas detectadas, é utilizado
+o processo de histerese, ou limiarização adaptativa. Este processo consiste em
+aplicar duas vezes o processo de limiarização em uma mesma imagem, com a utilização de
+dois limiares, $T_{1}$ e $T_{2}$, onde $T_{1} = 2T_{2}$ ou $T_{1} = 3T_{2}$.
+A limiarização se dá da seguinte forma:
+
+\begin{enumerate}
+\item Verifica-se se a luminância do pixel é maior que $T_{1}$, se for, ele é automaticamente
+aceito como borda;
+\item Se for a luminância do pixel for menor que $T_{2}$, este pixel será automaticamente
+rejeitado;
+\item Se o valor da luminância estiver entre os dois limiares, este será aceito somente se
+os seus pixels imediatamente vizinhos, forem pixels com alto valor de luminância.
 \end{enumerate}
 
 \hspace*{0.65cm}Neste trabalho, serão utilizadas algumas técnicas de
