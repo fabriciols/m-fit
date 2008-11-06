@@ -6,7 +6,6 @@
  */
 class Effect
 {
-	private:
 	/**
 	 *Função genérica para aplicação
 	 *de efeito. Será implementada
