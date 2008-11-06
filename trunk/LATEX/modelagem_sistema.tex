@@ -843,17 +843,14 @@ a análise seja feita em todos os frames do vídeo;}
 \item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do video}
 \item{VR solicita a VDO o próximo frame do vídeo}
 \item{VR solicita ao FRAME a diagonal do frame solicitado}
-\item{VR solicita ao FRAME o histograma do frame (diagonal)}
+\item{VR  solicita ao FRAME o histograma do frame (diagonal)}
+\item{DTF solicita ao VR a media do histograma}
 \item{Loop: fim}
 \item{DTF calcula as derivadas do RVH}
-\item{DTF cria objeto DTFI}
-\item{DTF solicita à DTFI a detecção de suas transições}
-\item{DTFI calcula a derivada Máxima do RVH}
-\item{DTFI retorna as transições do tipo Fade-in}
-\item{DTF cria objeto DTFO}
-\item{DTF solicita à DTFO a detecção de suas transições}
-\item{DTFI calcula a derivada Mínima do RVH}
-\item{DTFI retorna as transições do tipo Fade-out}
+\item{DTF Analiza as derivadas do RVH}
+\item{DTF Se variacao for positiva}
+\item{DTF cria uma transicao do tipo FADE-IN}
+\item{DTF Se não, cria uma transicao do tipo FADE-OUT}
 \item{DTF solicita a VDO a restauração do ponteiro do video}
 \end{enumerate}
 
@@ -1016,17 +1013,13 @@ histogramas) do vídeo. }
 Sistema entra no estado em que é feito o cálculo das derivadas do
 RVH }
 
-\item{\textbf{Obtendo Derivada Máxima}
+\item{\textbf{Analizando as Derivadas}
 
-Caso o intuito seja detectar fade-in (ou ambos), entra-se no estado
-de obtenção da derivada máxima. Este estado é necessário para
-definir os pontos onde ocorreram os fade-in. }
-
-\item{\textbf{Obtendo Derivada Mínima}
-
-Caso o intuito seja detectar fade-out (ou ambos), entra-se no estado
-de obtenção da derivada mínima. Este estado é necessário para
-definir os pontos onde ocorreram os fade-out. }
+Caso o intuito seja detectar fade-in (ou ambos),
+Entra-se no estado par analizar a curva gerada pela derivada, em busca
+de variações que representem um fade.
+Caso uma variação tenha seu pico positivo, evidencia-se um fade-in,
+caso contrário, um fade-out.}
 
 \end{enumerate}
 
