@@ -351,10 +351,9 @@ inicia, o qual tem os seguintes passos:
 
 \begin{itemize}
 \item{Montagem do Ritmo Visual por Histograma}
-\item{Cálculo da Variância dos pontos da diagonal dos frames do vídeo}
-\item{Cálculo da primeira e segunda derivada dos pontos da Variância}
-\item{Cálculo da primeira derivada dos pontos do Ritmo Visual}
-\item{Cálculo da razão entre a segunda derivada da variância e a primeira derivada dos pontos do Ritmo Visual}
+\item{Verifica para cada ponto os próximos 7 pontos}
+\item{Cálculo da primeira derivada dos possíveis pontos de Dissolve}
+\item{Verificação dos pontos resultantes da derivada com um threshol definido}
 \end{itemize}
 
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
