@@ -1,5 +1,8 @@
 #ifndef PROJECT_INCLUDE
 #define PROJECT_INCLUDE
+
+#define DEFAULT_PROJECT_NAME "NewProject.MFIT"
+
 class Project
 {
 	private:
@@ -30,7 +33,7 @@ class Project
 		Video *getVideo();
 		Frame *getFrame();
 		char  *getPath();
-		char  *getFileName();
+		char  *getName();
 
 		void setUserThreshold(int threshold);
 		int getUserThreshold();

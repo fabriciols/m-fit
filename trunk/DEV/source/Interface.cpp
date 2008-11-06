@@ -396,7 +396,7 @@ void Interface::on_actionOpenProject_triggered()
 	QString fileName = QFileDialog::getOpenFileName(this,
 			"Abrir Projeto",
 			".",
-			"Projeto MFIT (*.Interface)");
+			"Projeto MFIT (*.MFIT)");
 
 	if (!fileName.isEmpty())
 	{
@@ -479,13 +479,13 @@ void Interface::on_actionSaveAs_triggered()
 	QString fileName = QFileDialog::getSaveFileName(this,
 			"Salvar Projeto",
 			".",
-			"Projeto MFIT (*.Interface)");
+			"Projeto MFIT (*.MFIT)");
 
 	if (!fileName.isEmpty())
 	{
 		currentProject->saveProject(fileName);
 
-		this->setWindowTitle(fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1));
+		this->setWindowTitle(currentProject->getName());
 
 		return;
 	}
@@ -503,18 +503,26 @@ void Interface::on_actionSaveAs_triggered()
  ************************************************************************/
 void Interface::on_actionSave_triggered()
 {
-	QString fileName = QFileDialog::getSaveFileName(this,
-			"Salvar Projeto",
-			".",
-			"Projeto MFIT (*.Interface)");
+	QString fileName;
+
+	// Se nao for o projeto padrao aberto, usa este nome
+	if (strcmp(currentProject->getName(), DEFAULT_PROJECT_NAME))
+	{
+		fileName = QString(currentProject->getName());
+	}
+	else // Se nao, pergunta o nome pro usuario
+	{
+		fileName = QFileDialog::getSaveFileName(this,
+				"Salvar Projeto",
+				".",
+				"Projeto MFIT (*.MFIT)");
+	}
 
 	if (!fileName.isEmpty())
 	{
 		currentProject->saveProject(fileName);
 
-		this->setWindowTitle(fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1));
-
-		return;
+		this->setWindowTitle(currentProject->getName());
 	}
 }
 
@@ -1785,7 +1793,7 @@ void Interface::on_actionExit_triggered()
 			QString fileName = QFileDialog::getSaveFileName(this,
 					"Salvar Projeto",
 					".",
-					"Projeto MFIT(*.Interface)");
+					"Projeto MFIT(*.MFIT)");
 
 			if (!fileName.isEmpty())
 			{

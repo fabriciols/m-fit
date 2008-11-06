@@ -27,6 +27,8 @@ class Xml
 		char *xmlName;
 
 	public:
+		Project project;
+
 		char	text[100];
 		char	type[50];
 		char	posTransition[50];
@@ -39,7 +41,7 @@ class Xml
 
 		int openXml(char *);
 		int readXml(char *);
-		int createXml(char *, char *, char *, std::vector<Transition> *);
+		int createXml(char *, Project *project);
 		int closeXml();
 
 		char *getText();
