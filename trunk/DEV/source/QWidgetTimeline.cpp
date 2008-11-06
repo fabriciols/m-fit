@@ -96,27 +96,6 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 	long start = -1;
 	long end = 0;
 
-	switch(getItemByEvent(event))
-	{
-		case COLOR:
-			effect = new Color();
-			break;
-
-		case ERODE:
-			effect = new Erode();
-			break;
-
-		case DILATE:
-			effect = new Dilate();
-			break;
-
-		default:
-			break;
-
-	}
-
-	if (effect == 0x0)
-		return;
 
 	// Pego os pontos onde o efeito vai ser aplicado
 	for (i = 0; i < currentProject->transitionList.size() ; i++)
@@ -147,14 +126,35 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 
 	}
 
+	// Se nao achou uma transicao seguinte, utilizamos o fim do
+	// video como marco para o fim da transicao;
 	if (end == 0x0)
 	{
 		vdo = currentProject->getVideo();
 		end = (long)vdo->getFramesTotal();
 	}
 
-	effect->frameStart = start;
-	effect->frameEnd   = end;
+	switch(getItemByEvent(event))
+	{
+		case EFFECT_COLOR:
+			effect = new Color(start, end);
+			break;
+
+		case EFFECT_ERODE:
+			effect = new Erode(start, end);
+			break;
+
+		case EFFECT_DILATE:
+			effect = new Dilate(start, end);
+			break;
+
+		default:
+			break;
+
+	}
+
+	if (effect == 0x0)
+		return;
 
 	currentProject->effectList.push_back(effect);
 

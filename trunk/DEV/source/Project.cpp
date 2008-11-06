@@ -58,6 +58,7 @@ int Project::openProject(QString fileName)
 
 		openVideo(fileXml->getText());
 
+		// Recupera a lista de transicoes detectadas.
 		for(i=0;i<fileXml->getSizeNodes();i++)
 		{
 			fileXml->setItemNumber(i);
@@ -65,8 +66,21 @@ int Project::openProject(QString fileName)
 
 			if(fileXml->getSizeNodes())
 			{
-				Transition *transition = new Transition(atoi(fileXml->getType()), atol(fileXml->getPosTransition()), fileXml->getText());
+				Transition *transition = fileXml->getTransition();
 				this->transitionList.push_back(*transition);
+			}
+		}
+
+		// Recupera a lista de efeitos aplicados.
+		for(i=0;i<fileXml->getSizeNodes();i++)
+		{
+			fileXml->setItemNumber(i);
+			fileXml->readXml("effect");
+
+			if(fileXml->getSizeNodes())
+			{
+				Effect *effect = fileXml->getEffect();
+				this->effectList.push_back(effect);
 			}
 		}
 
@@ -75,7 +89,7 @@ int Project::openProject(QString fileName)
 	}
 
 	fileXml->closeXml();
-	
+
 	return true;
 }
 
@@ -102,9 +116,8 @@ int Project::saveProject(QString fileName)
 	QString file( pathInfo.fileName());
 	QString path( pathInfo.absoluteFilePath() );
 
-
-	Interface::QStringToChar(file, filename_cy);
 	Interface::QStringToChar(path, path_cy);
+	Interface::QStringToChar(file, filename_cy);
 
 	ret = fileXml->createXml(filename_cy, this);
 
@@ -165,7 +178,7 @@ int Project::openVideo(QString fileName)
 	{
 		Log::writeLog("%s :: cleaning vdo[%x]", __FUNCTION__, this->vdo);
 		delete this->vdo;
-		
+
 		//apaga lista de transicoes
 		this->clearTransitionList();
 

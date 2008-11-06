@@ -196,6 +196,7 @@ void Interface::openRecentFile()
 	{
 		currentProject->openProject(fileName_cy);
 		updateTransitions();
+		updateEffectTree();
 		enableControls();
 	}
 }
@@ -402,6 +403,7 @@ void Interface::on_actionOpenProject_triggered()
 	{
 		currentProject->openProject(fileName);
 		updateTransitions();
+		updateEffectTree();
 		enableControls();
 	}
 	else
@@ -1669,15 +1671,15 @@ void Interface::insertEffectTree(Effect *effect, int ind)
 	// Cria a lista de items
 	QList<QTreeWidgetItem *> itens;
 
-	sprintf(frameStart, "%ld"  , effect->frameStart);
-	sprintf(frameEnd  , "%ld"  , effect->frameEnd);
+	sprintf(frameStart, "%ld"  , effect->getFrameStart());
+	sprintf(frameEnd  , "%ld"  , effect->getFrameEnd());
 	sprintf(id        , "%3.3d", ind);
 
 	// Primeira Coluna - ID do efeito
 	item->setText(0, id);
 
 	// Segunda Coluna - Nome do efeito
-	item->setText(1, effect->name_cy);
+	item->setText(1, effect->getName());
 
 	// Terceira coluna - Frame de start
 	item->setText(2, frameStart);

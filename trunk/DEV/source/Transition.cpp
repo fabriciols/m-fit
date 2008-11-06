@@ -20,10 +20,6 @@ Transition::Transition()
 	this->posTransition = 0;
 	this->posUserTransition = 0;
 	this->selected = false;
-
-	this->label = (char*)malloc(sizeof(char)*100);
-	strcpy(this->label, "");
-
 }
 
 /************************************************************************
@@ -40,12 +36,12 @@ Transition::Transition()
 ************************************************************************/
 Transition::Transition(int type, long posTransition, char *label)
 {
+	Transition();
+
 	this->type = type;
 	this->posTransition = posTransition;
 	this->posUserTransition = 0;
-	this->label = (char*)malloc(sizeof(char)*100);
 	this->selected = false;
-
 	strcpy(this->label, label);
 }
 
