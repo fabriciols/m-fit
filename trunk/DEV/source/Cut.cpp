@@ -66,8 +66,6 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 { 
 	Frame* visualRythim= new Frame();
 
-	Filters* filters = new Filters();
-
 	VisualRythim *vr = new VisualRythim();
 
 	Log::writeLog("%s :: iniciando detecção de cortes\n");
@@ -139,7 +137,6 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	}
 
 	delete visualRythim;
-	delete filters;
 	delete vr;
 
 }
