@@ -4,7 +4,6 @@
 
 #include "../include/Histogram.h"
 #include "../include/Time.h"
-#include "../include/Take.h"
 #include "../include/Frame.h"
 
 #include "../include///Log.h"

@@ -9,13 +9,30 @@
 
 Erode::Erode()
 {
-	strcpy(this->name_cy, "Erosao");
+	Erode(0, 0);
 }
 
 Dilate::Dilate()
 {
-	strcpy(this->name_cy, "Dilatacao");
+	Dilate(0, 0);
 }
+
+Dilate::Dilate(long frameStart, long frameEnd)
+{
+	this->setName("Dilatacao");
+	this->setID(EFFECT_DILATE);
+	this->setFrameStart(frameStart);
+	this->setFrameEnd(frameEnd);
+}
+
+Erode::Erode(long frameStart, long frameEnd)
+{
+	this->setName("Erosao");
+	this->setID(EFFECT_ERODE);
+	this->setFrameStart(frameStart);
+	this->setFrameEnd(frameEnd);
+}
+
 
 Frame* Erode::applyEffect(Frame* frame)
 {

@@ -26,14 +26,16 @@ class Xml
 		QDomDocument doc;
 		char *xmlName;
 
-	public:
-		Project project;
 
-		char	text[100];
-		char	type[50];
-		char	posTransition[50];
-		char	posUserTransition[50];
-		char	userCutThreshold[50];
+		Transition *transition;
+		Effect *effect;
+
+	public:
+
+
+		char userCutThreshold[10];
+		char text[30];
+
 		int		sizeNodes;
 		int		itemNumber;
 
@@ -45,11 +47,12 @@ class Xml
 		int closeXml();
 
 		char *getText();
-		char *getType();
-		char *getPosTransition();
-		char *getPosUserTransition();
+
 		char *getUserCutThreshold();
 		int getSizeNodes();
 		void setItemNumber(int);
+
+		Transition *getTransition();
+		Effect *getEffect();
 };
 #endif

@@ -21,7 +21,6 @@ extern Interface* Interface_ui;
 QTreeWidgetEffect::QTreeWidgetEffect(QWidget *parent) : QTreeWidget(parent)
 { 
 	deleteAct = new QAction(tr("&Remover Efeito"), this);
-	deleteAct->setShortcut(tr("Delete"));
 	connect(deleteAct, SIGNAL(triggered()), this, SLOT(deleteItem()));
 }
 

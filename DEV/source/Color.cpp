@@ -47,14 +47,13 @@ Frame* Color::applyEffect(Frame* frame)
 
 Color::Color(long frameStart, long frameEnd)
 {
-	this->frameStart = frameStart;
-	this->frameEnd = frameEnd;
-	strcpy(this->name_cy, "Conversao para cinza");
+	this->setFrameStart(frameStart);
+	this->setFrameEnd(frameEnd);
+	this->setName("Conversao para Cinza");
+	this->setID(EFFECT_COLOR);
 }
 
 Color::Color()
 {
-	this->frameStart = 0;
-	this->frameEnd = 0;
-	strcpy(this->name_cy, "Conversao para cinza");
+	Color(0, 0);
 }

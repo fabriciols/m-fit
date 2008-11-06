@@ -1,6 +1,7 @@
 #include <QMessageBox>
 
 #include "../include/Interface.h"
+#include "../include/MorphologyEffect.h"
 #include "../include/Transition.h"
 #include "../include/Project.h"
 #include "../include/Effect.h"
@@ -83,14 +84,7 @@ int Xml::readXml(char *tag)
 	int subNodesSize=0, i=0;
 	QString item;
 
-	//char *text, char *type, char *posTransition, char *posUserTransition, char *userCutThreshold, int *sizeNodes, int itemNumber
-
 	sizeNodes = nodeList.length();
-
-	memset(text,0,sizeof(text));
-	memset(type,0,sizeof(type));
-	memset(posTransition,0,sizeof(posTransition));
-	memset(posUserTransition,0,sizeof(posUserTransition));
 
 	if(sizeNodes > 0)
 	{
@@ -100,43 +94,92 @@ int Xml::readXml(char *tag)
 		{
 			if(nodeList.item(itemNumber).hasChildNodes())
 			{
+				char type[10];
+				char posUserTransition[10];
+				char posTransition[10];
+				char label[256];
+
 				nodeList = nodeList.item(itemNumber).childNodes();
 				subNodesSize = nodeList.length();
 
 				for(i=0;i<subNodesSize;i++)
 				{
 					if(!strcmp("type",nodeList.item(i).nodeName()))
+					{
 						strcpy(type, nodeList.item(i).toElement().text());
+					}
 					else if(!strcmp("posTransition",nodeList.item(i).nodeName()))
+					{
 						strcpy(posTransition, nodeList.item(i).toElement().text());
+					}
 					else if(!strcmp("posUserTransition",nodeList.item(i).nodeName()))
+					{
 						strcpy(posUserTransition, nodeList.item(i).toElement().text());
+					}
 					else if(!strcmp("userCutThreshold",nodeList.item(i).nodeName()))
+					{
 						strcpy(userCutThreshold, nodeList.item(i).toElement().text());
+					}
 					else if(!strcmp("label",nodeList.item(i).nodeName()))
-						strcpy(text, nodeList.item(i).toElement().text());
+					{
+						strcpy(label, nodeList.item(i).toElement().text());
+					}
 				}
+
+				transition = new Transition(atoi(type), atol(posTransition), label);
+
+				if (atol(posUserTransition) > 0)
+				{
+					transition->setPosUserTransition(atol(posUserTransition));
+				}
+
 			}
 		}
 		else if(!strcmp(tag, "effect"))
 		{
 			if(nodeList.item(itemNumber).hasChildNodes())
 			{
+				char ID[10];
+				char posStart[10];
+				char posEnd[10];
+
 				nodeList = nodeList.item(itemNumber).childNodes();
 				subNodesSize = nodeList.length();
 
 				for(i=0;i<subNodesSize;i++)
 				{
 					if(!strcmp("ID",nodeList.item(i).nodeName()))
-						strcpy(type, nodeList.item(i).toElement().text());
-					else if(!strcmp("type",nodeList.item(i).nodeName()))
-						strcpy(posTransition, nodeList.item(i).toElement().text());
+					{
+						strcpy(ID, nodeList.item(i).toElement().text());
+					}
 					else if(!strcmp("posStart",nodeList.item(i).nodeName()))
-						strcpy(posUserTransition, nodeList.item(i).toElement().text());
+					{
+						strcpy(posStart, nodeList.item(i).toElement().text());
+					}
 					else if(!strcmp("posEnd",nodeList.item(i).nodeName()))
-						strcpy(userCutThreshold, nodeList.item(i).toElement().text());
+					{
+						strcpy(posEnd, nodeList.item(i).toElement().text());
+					}
+				}
+
+				// Cria o objeto correto
+				switch (atoi(ID))
+				{
+					case EFFECT_COLOR:
+						effect = new Color(atol(posStart), atol(posEnd));
+						break;
+					case EFFECT_ERODE:
+						effect = new Erode(atol(posStart), atol(posEnd));
+						break;
+					case EFFECT_DILATE:
+						effect = new Dilate(atol(posStart), atol(posEnd));
+						break;
 				}
 			}
+		}
+		else if(!strcmp(tag, "video"))
+		{
+			strcpy(text, nodeList.item(i).toElement().text());
 		}
 		return(0);
 	}
@@ -169,6 +212,8 @@ int Xml::createXml(char *xmlName, Project *currentProject)
 
 	if (file.open(QIODevice::WriteOnly | QIODevice::Unbuffered))
 	{
+		Video *vdo;
+
 		QDomElement tag;
 		QDomElement tag2;
 		QDomElement tag3;
@@ -176,19 +221,25 @@ int Xml::createXml(char *xmlName, Project *currentProject)
 		QDomElement root = doc.createElement("projeto");
 		doc.appendChild(root);
 
-		QString string(xmlName);
+		QFileInfo pathInfo( xmlName );
+
+		QString fileName( pathInfo.fileName());
+		QString path( pathInfo.absoluteFilePath() );
 
 		tag = doc.createElement("name");
 		root.appendChild(tag);
-		tag.appendChild(doc.createTextNode(string.right(string.length() - string.lastIndexOf("/") - 1)));
+		tag.appendChild(doc.createTextNode(fileName));
 
 		tag = doc.createElement("path");
 		root.appendChild(tag);
-		tag.appendChild(doc.createTextNode(string.left(string.lastIndexOf("/"))));
+		tag.appendChild(doc.createTextNode(path));
 
 		tag = doc.createElement("video");
 		root.appendChild(tag);
-		tag.appendChild(doc.createTextNode(currentProject->getPath()));
+		vdo = currentProject->getVideo();
+		sprintf(str, "%s/%s", vdo->getPath(), vdo->getName());
+		QString videoName(str);
+		tag.appendChild(doc.createTextNode(videoName));
 
 		// Cria o nó da lista de transição, se existirem transições detectadas
 		if(currentProject->transitionList.size() > 0)
@@ -260,15 +311,10 @@ int Xml::createXml(char *xmlName, Project *currentProject)
 				tag.appendChild(tag2);
 
 				// ID do efeito
-				sprintf(str, "%d", i);
+				sprintf(str, "%d", effect->getID());
 				tag3 = doc.createElement("ID");
 				tag2.appendChild(tag3);
 				tag3.appendChild(doc.createTextNode(str));
-
-				// Tipo do efeito
-				tag3 = doc.createElement("type");
-				tag2.appendChild(tag3);
-				tag3.appendChild(doc.createTextNode(effect->name_cy));
 
 				// Posicao final do efeito
 				sprintf(str, "%ld", effect->getFrameStart());
@@ -321,26 +367,6 @@ int Xml::closeXml()
 	return (0);
 }
 
-char *Xml::getText()
-{
-	return text;
-}
-
-char *Xml::getType()
-{
-	return type;
-}
-
-char *Xml::getPosTransition()
-{
-	return posTransition;
-}
-
-char *Xml::getPosUserTransition()
-{
-	return posUserTransition;
-}
-
 char *Xml::getUserCutThreshold()
 {
 	return userCutThreshold;
@@ -354,4 +380,19 @@ int Xml::getSizeNodes()
 void Xml::setItemNumber(int item)
 {
 	itemNumber = item;
+}
+
+Transition* Xml::getTransition()
+{
+	return this->transition;
+}
+
+Effect* Xml::getEffect()
+{
+	return this->effect;
+}
+
+char* Xml::getText()
+{
+	return text;
 }

@@ -44,7 +44,7 @@ class Transition
 		 *Identificador da transição na 
 		 *timeline do vídeo.
 		 */
-		char* label;
+		char label[256];
 
 	public:
 
