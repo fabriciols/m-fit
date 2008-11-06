@@ -90,6 +90,8 @@ int Project::openProject(QString fileName)
 
 	fileXml->closeXml();
 
+	Interface_ui->disableSaveButton();
+
 	return true;
 }
 
@@ -123,6 +125,8 @@ int Project::saveProject(QString fileName)
 
 	strcpy(this->filename_cy, filename_cy);
 	strcpy(this->path_cy, path_cy);
+
+	Interface_ui->disableSaveButton();
 
 	return true;
 }
@@ -622,6 +626,10 @@ int Project::getTransitionByPos(int pos_x)
 
 void Project::removeEffect(int ind)
 {
+	Effect *effect = effectList.at(ind);
+
+	delete effect;
+
 	effectList.erase(effectList.begin( ) + ind);
 
 	Interface_ui->updateEffectTree();

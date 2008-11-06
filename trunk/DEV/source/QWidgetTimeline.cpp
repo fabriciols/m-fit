@@ -164,6 +164,9 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 	// Atualiza o cursor
 	vdo_player->updateCurrentFrame();
 
+	// Pode salvar
+	Interface_ui->enableSaveButton();
+
 }
 
 void QWidgetTimeline::dragEnterEvent(QDragEnterEvent * event)

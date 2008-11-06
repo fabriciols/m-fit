@@ -306,6 +306,9 @@ border: 1px solid gray
    <addaction name="menuHelp" />
   </widget>
   <widget class="QToolBar" name="mainToolBar" >
+   <property name="enabled" >
+    <bool>true</bool>
+   </property>
    <property name="windowTitle" >
     <string>mainToolBar</string>
    </property>
@@ -1007,6 +1010,9 @@ border: 1px solid gray
    </property>
   </action>
   <action name="actionRenderVideo" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
     <iconset>
      <normaloff>../Interface/Icons/render.png</normaloff>../Interface/Icons/render.png</iconset>

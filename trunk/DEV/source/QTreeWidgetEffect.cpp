@@ -62,4 +62,8 @@ void QTreeWidgetEffect::deleteItem(void)
 
 	// Atualiza o cursor
 	vdo_player->updateCurrentFrame();
+
+	// Pode salvar
+	Interface_ui->enableSaveButton();
+
 }
