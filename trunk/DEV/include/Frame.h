@@ -32,7 +32,7 @@ class Frame
 	public:
 
 		QImage* IplImageToQImage(double mini = 0.0, double maxi = 0.0);
-		QImage* IplImageToQImage( uchar **qImageBuffer, int *last_witdh, int *last_height, double mini = 0, double maxi = 0);
+		QImage* IplImageToQImage( uchar **qImageBuffer, int *last_width, int *last_height, double mini = 0, double maxi = 0);
 
 		Frame* resize(int width, int height);
 
