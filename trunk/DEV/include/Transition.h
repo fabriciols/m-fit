@@ -49,7 +49,7 @@ class Transition
 	public:
 
 		Transition();
-		Transition(int, int, char*);
+		Transition(int type, long posTransition, char *label);
 
 		bool selected;
 

@@ -38,7 +38,7 @@ Transition::Transition()
 * 01/09/08 - Fabrício Lopes de Souza
 * Criação.
 ************************************************************************/
-Transition::Transition(int type, int posTransition, char *label)
+Transition::Transition(int type, long posTransition, char *label)
 {
 	this->type = type;
 	this->posTransition = posTransition;
