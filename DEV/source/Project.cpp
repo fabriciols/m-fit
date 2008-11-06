@@ -92,17 +92,24 @@ int Project::openProject(QString fileName)
  ************************************************************************/
 int Project::saveProject(QString fileName)
 {
-	char *filename_cy;
-	char txt[255];
+	char filename_cy[256];
+	char path_cy[256];
 	int ret;
 	Xml *fileXml = new Xml();
 
-	QByteArray ba = fileName.toLatin1();
-	filename_cy = ba.data(); 
+	QFileInfo pathInfo( fileName );
 
-	sprintf(txt, "%s/%s", this->vdo->getPath(), this->vdo->getName());
+	QString file( pathInfo.fileName());
+	QString path( pathInfo.absoluteFilePath() );
 
-	ret = fileXml->createXml(filename_cy, NULL, txt, &this->transitionList);
+
+	Interface::QStringToChar(file, filename_cy);
+	Interface::QStringToChar(path, path_cy);
+
+	ret = fileXml->createXml(filename_cy, this);
+
+	strcpy(this->filename_cy, filename_cy);
+	strcpy(this->path_cy, path_cy);
 
 	return true;
 }
@@ -126,7 +133,7 @@ Project::Project(void)
 	this->userMinCanny = '\0';
 	this->userMaxCanny = '\0';
 
-	strcpy(this->filename_cy, "NewProject.Interface");
+	strcpy(this->filename_cy, DEFAULT_PROJECT_NAME);
 
 	// Troca o titulo da janela
 	Interface_ui->changeWindowTitle(this->filename_cy);
@@ -605,4 +612,15 @@ void Project::removeEffect(int ind)
 	effectList.erase(effectList.begin( ) + ind);
 
 	Interface_ui->updateEffectTree();
+}
+
+
+char* Project::getPath()
+{
+	return path_cy;
+}
+
+char* Project::getName()
+{
+	return filename_cy;
 }

@@ -1,20 +1,29 @@
 #include <QMessageBox>
 
+#include "../include/Interface.h"
 #include "../include/Transition.h"
+#include "../include/Project.h"
+#include "../include/Effect.h"
+#include "../include/Color.h"
+#include "../include/VisualRythim.h"
+#include "../include/Transition.h"
+#include "../include/Project.h"
 #include "../include/Xml.h"
-#include "../include///Log.h"
+#include "../include/Log.h"
+
+#include "../include/Xml.h"
 
 /************************************************************************
-* Função que realiza o carregamento do arquivo xml. 
-*************************************************************************
-* param (E): char *xmlName => nome do xml.
-************************************************************************
-* Retorno: Sucesso
-************************************************************************
-* Histórico
-* 04/10/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
+ * Função que realiza o carregamento do arquivo xml. 
+ *************************************************************************
+ * param (E): char *xmlName => nome do xml.
+ ************************************************************************
+ * Retorno: Sucesso
+ ************************************************************************
+ * Histórico
+ * 04/10/08 - Ivan Shiguenori Machida
+ * Criação.
+ ************************************************************************/
 int  Xml::openXml(char *xmlName)
 {
 	QFile file(xmlName);
@@ -27,15 +36,15 @@ int  Xml::openXml(char *xmlName)
 
 		QString errmsg;	
 		int errline, errcol;
-	
+
 		bool ok = this->doc.setContent(source, &xmlReader, &errmsg, &errline, &errcol);
 
 		if (!ok)
 		{
-	        QMessageBox::information(0, "openXml", errmsg);
+			QMessageBox::information(0, "openXml", errmsg);
 			return(1);
 		}
-	 
+
 		this->xmlName = xmlName;
 
 		file.close();
@@ -44,29 +53,29 @@ int  Xml::openXml(char *xmlName)
 	else
 	{
 		file.close();
-        QMessageBox::information(0, "Erro", "Erro ao abrir arquivo XML");
+		QMessageBox::information(0, "Erro", "Erro ao abrir arquivo XML");
 		return(1);
 	}
 }
 
 /************************************************************************
-* Procura tag pelo XML
-*************************************************************************
-* param (E): tag => nome da tag
-* param (S): text => conteudo da tag
-* param (S): type => atributo da tag transition do XML
-* param (S): posTransition => atributo da tag transition do XML
-* param (S): posUserTransition => atributo da tag transition do XML
-* param (S): userCutThreshold => atributo da tag transition do XML
-* param (S): sizeNodes => tamanho dos filhos da tag transitionList
-* param (S): itemNumber => indice do nó a ser lido
-************************************************************************
-* Retorno: Sucesso
-************************************************************************
-* Histórico
-* 04/10/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
+ * Procura tag pelo XML
+ *************************************************************************
+ * param (E): tag => nome da tag
+ * param (S): text => conteudo da tag
+ * param (S): type => atributo da tag transition do XML
+ * param (S): posTransition => atributo da tag transition do XML
+ * param (S): posUserTransition => atributo da tag transition do XML
+ * param (S): userCutThreshold => atributo da tag transition do XML
+ * param (S): sizeNodes => tamanho dos filhos da tag transitionList
+ * param (S): itemNumber => indice do nó a ser lido
+ ************************************************************************
+ * Retorno: Sucesso
+ ************************************************************************
+ * Histórico
+ * 04/10/08 - Ivan Shiguenori Machida
+ * Criação.
+ ************************************************************************/
 int Xml::readXml(char *tag)
 {
 	QDomNodeList nodeList;
@@ -74,7 +83,7 @@ int Xml::readXml(char *tag)
 	int subNodesSize=0, i=0;
 	QString item;
 
-//char *text, char *type, char *posTransition, char *posUserTransition, char *userCutThreshold, int *sizeNodes, int itemNumber
+	//char *text, char *type, char *posTransition, char *posUserTransition, char *userCutThreshold, int *sizeNodes, int itemNumber
 
 	sizeNodes = nodeList.length();
 
@@ -109,6 +118,26 @@ int Xml::readXml(char *tag)
 				}
 			}
 		}
+		else if(!strcmp(tag, "effect"))
+		{
+			if(nodeList.item(itemNumber).hasChildNodes())
+			{
+				nodeList = nodeList.item(itemNumber).childNodes();
+				subNodesSize = nodeList.length();
+
+				for(i=0;i<subNodesSize;i++)
+				{
+					if(!strcmp("ID",nodeList.item(i).nodeName()))
+						strcpy(type, nodeList.item(i).toElement().text());
+					else if(!strcmp("type",nodeList.item(i).nodeName()))
+						strcpy(posTransition, nodeList.item(i).toElement().text());
+					else if(!strcmp("posStart",nodeList.item(i).nodeName()))
+						strcpy(posUserTransition, nodeList.item(i).toElement().text());
+					else if(!strcmp("posEnd",nodeList.item(i).nodeName()))
+						strcpy(userCutThreshold, nodeList.item(i).toElement().text());
+				}
+			}
+		}
 		return(0);
 	}
 	else
@@ -118,20 +147,24 @@ int Xml::readXml(char *tag)
 }
 
 /************************************************************************
-* Escreve no arquivo XML aberto
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* return: Sucesso
-************************************************************************
-* Histórico
-* 04/10/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
-int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vector<Transition> *transitionListXml)
+ * Escreve no arquivo XML aberto
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: Sucesso
+ ************************************************************************
+ * Histórico
+ * 04/10/08 - Ivan Shiguenori Machida
+ * Criação.
+ ************************************************************************/
+int Xml::createXml(char *xmlName, Project *currentProject)
 {
-	int i;
+	unsigned int i;
 	char str[100];
+
+	Effect *effect;
+	Transition *transition;
+
 	QFile file(xmlName);
 
 	if (file.open(QIODevice::WriteOnly | QIODevice::Unbuffered))
@@ -155,17 +188,18 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 
 		tag = doc.createElement("video");
 		root.appendChild(tag);
-		tag.appendChild(doc.createTextNode(videoPath));
+		tag.appendChild(doc.createTextNode(currentProject->getPath()));
 
-		if((int)transitionListXml->size() > 0)
+		// Cria o nó da lista de transição, se existirem transições detectadas
+		if(currentProject->transitionList.size() > 0)
 		{
 			tag = doc.createElement("transitionlist");
 			root.appendChild(tag);
 
-			for(i=0;i<(int)transitionListXml->size();i++)
+			// Cria os nós filhos da lista transição
+			for(i=0;i<currentProject->transitionList.size();i++)
 			{			
-				Transition *transition;
-				transition = &transitionListXml->at(i);
+				transition = &currentProject->transitionList.at(i);
 
 				// Controle pra nao salvar a transicao dummy (Inicio de Video)
 				if (transition->getType() == 0)
@@ -174,11 +208,13 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 				tag2 = doc.createElement("transition");
 				tag.appendChild(tag2);
 
+				// ID da transicao
 				sprintf(str, "%d", transition->getType());
 				tag3 = doc.createElement("type");
 				tag2.appendChild(tag3);
 				tag3.appendChild(doc.createTextNode(str));
 
+				// Posicao definida pelo MFIT
 				if(transition->getPosTransition() > 0)
 				{
 					sprintf(str, "%d", (int)transition->getPosTransition());
@@ -187,14 +223,7 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 					tag3.appendChild(doc.createTextNode(str));
 				}
 
-//				Vai entrar futuramente tem q criar na Transition.h
-//				if(transition->userCutThreshold > 0 && transition->userCutThreshold < 100)
-//				{
-//					tag3 = doc.createElement("userCutThreshold");
-//					tag2.appendChild(tag3);
-//					tag3.appendChild(doc.createTextNode("20"));
-//				}
-
+				// Posicao definida pelo USUARIO
 				if(transition->getPosUserTransition() > 0)
 				{
 					sprintf(str, "%d", (int)transition->getPosUserTransition());
@@ -203,43 +232,59 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 					tag3.appendChild(doc.createTextNode(str));
 				}
 
+				//				Vai entrar futuramente tem q criar na Transition.h
+				//				if(transition->userCutThreshold > 0 && transition->userCutThreshold < 100)
+				//				{
+				//					tag3 = doc.createElement("userCutThreshold");
+				//					tag2.appendChild(tag3);
+				//					tag3.appendChild(doc.createTextNode("20"));
+				//				}
+
 				tag3 = doc.createElement("label");
 				tag2.appendChild(tag3);
 				tag3.appendChild(doc.createTextNode(transition->getLabel()));
 			}
 		}
-/*
-		if((int)this->effectList->size() > 0)
+
+
+		if(currentProject->effectList.size() > 0)
 		{
-			tag = doc.createElement("effectList");
+			tag = doc.createElement("effectlist");
 			root.appendChild(tag);
 
-			for(i=0;i<(int)this->effectList->size();i++)
+			for(i=0;i<currentProject->effectList.size();i++)
 			{			
+				effect = currentProject->effectList.at(i);
+
 				tag2 = doc.createElement("effect");
 				tag.appendChild(tag2);
 
+				// ID do efeito
 				sprintf(str, "%d", i);
-				tag3 = doc.createElement("id");
+				tag3 = doc.createElement("ID");
 				tag2.appendChild(tag3);
 				tag3.appendChild(doc.createTextNode(str));
 
-				sprintf(str, "%ld", this->effectList->at(i)->frameStart);
-				tag3 = doc.createElement("frameStart");
+				// Tipo do efeito
+				tag3 = doc.createElement("type");
+				tag2.appendChild(tag3);
+				tag3.appendChild(doc.createTextNode(effect->name_cy));
+
+				// Posicao final do efeito
+				sprintf(str, "%ld", effect->getFrameStart());
+				tag3 = doc.createElement("posStart");
 				tag2.appendChild(tag3);
 				tag3.appendChild(doc.createTextNode(str));
 
-				sprintf(str, "%ld", this->effectList->at(i)->frameEnd);
-				tag3 = doc.createElement("frameEnd");
+				// Posicao inicial do efeito
+				sprintf(str, "%ld", effect->getFrameEnd());
+				tag3 = doc.createElement("posEnd");
 				tag2.appendChild(tag3);
 				tag3.appendChild(doc.createTextNode(str));
 
-				tag3 = doc.createElement("name_cy");
-				tag2.appendChild(tag3);
-				tag3.appendChild(doc.createTextNode(this->effectList->at(i)->name_cy));
 			}
 		}
-*/
+
 		QString xml = doc.toString();
 
 		QTextStream xmlStream(&file);
@@ -252,24 +297,24 @@ int Xml::createXml(char *xmlName, char *projectName, char *videoPath, std::vecto
 	else
 	{
 		file.close();
-        QMessageBox::information(0, "Erro", "Erro ao abrir arquivo XML");
+		QMessageBox::information(0, "Erro", "Erro ao abrir arquivo XML");
 		return(1);
 	}
-	
-		return(0);
+
+	return(0);
 }
 
 /************************************************************************
-* Fecha o arquivo XML
-*************************************************************************
-* param (E): Nenhum
-************************************************************************
-* return: Sucesso
-************************************************************************
-* Histórico
-* 04/10/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
+ * Fecha o arquivo XML
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * return: Sucesso
+ ************************************************************************
+ * Histórico
+ * 04/10/08 - Ivan Shiguenori Machida
+ * Criação.
+ ************************************************************************/
 int Xml::closeXml()
 {
 	delete &this->doc;
