@@ -57,7 +57,6 @@ class Interface: public QMainWindow
 		int askDetection(); // Pergunta se o usuário quer detectar todas as transições após carregar o vídeo.
 		bool askUserSave(); // Pergunta pro usuário se deseja salvar o projeto.
 	
-		void alertUser(int message); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo
 
 		void enableControls(); // Habilita todos os comandos (botões) após carregar um vídeo.
 
@@ -68,6 +67,8 @@ class Interface: public QMainWindow
 		// Mostra frame inicial/final de onde foi aplicado o efeito no vídeo.
 		void on_effectsTree_itemClicked(QTreeWidgetItem * item, int column);
 		void on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column);
+
+		void alertUser(int message); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo
 
 	private:
 
@@ -107,6 +108,10 @@ class Interface: public QMainWindow
 		void updateEffectTree();
 		void effectTreeClear();
 		void moveScrollArea(int x, int y);
+
+		void enableSaveButton();
+		void disableSaveButton();
+
 
 		Ui::MainWindow ui;
 

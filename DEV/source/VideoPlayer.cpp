@@ -123,6 +123,8 @@ void VideoPlayer::updatePlayer(Frame *frame)
 
 	image = frameNew->IplImageToQImage(&imageData, &imgWidth, &imgHeight);
 
+	// Emite o sinal para a thread principal
+	// pintar a imagem
 	emit setNewFrame(image);
 
 	if (frame != frameNew)
@@ -189,5 +191,7 @@ void VideoPlayer::updateCurrentFrame()
 
 	this->updatePlayer(frameNew);
 	this->updateHist(frameNew);
+
+	delete frameNew;
 }
 

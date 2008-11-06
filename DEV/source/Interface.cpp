@@ -269,7 +269,6 @@ void Interface::on_pauseButton_clicked()
 void Interface::on_forwardButton_clicked()
 {
 	Video *vdo;
-	Frame *frame;
 	unsigned int transitionID = 0x0;
 	long pos_l;
 
@@ -281,7 +280,7 @@ void Interface::on_forwardButton_clicked()
 	if (vdo->getCurrentPosition() >= vdo->getFramesTotal())
 		return;
 
-	frame = vdo->getNextFrame();
+	vdo->seekFrame((long)vdo->getCurrentPosition() + 1);
 
 	// Vamos mostrar a transicao referente ao ponto que o usuario clicou
 	pos_l = currentProject->FrameToTimelinePos((long)vdo->getCurrentPosition());
@@ -294,10 +293,7 @@ void Interface::on_forwardButton_clicked()
 		updateTransitionHeader(transitionID);
 	}
 
-	vdo_player->updatePlayer(frame);
-	vdo_player->updateHist(frame);
-
-	delete frame;
+	vdo_player->updateCurrentFrame();
 }
 
 /************************************************************************
@@ -1193,9 +1189,9 @@ void Interface::updateTransitions()
 	}
 
 	clearTransitionHeader();
-
 	updateTimeline();
 
+	enableSaveButton();
 
 }
 
@@ -1365,7 +1361,6 @@ void Interface::alertUser(int message)
  * 13/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void Interface::enableControls()
 {
 	// Controles gerais
@@ -1387,6 +1382,8 @@ void Interface::enableControls()
 
 	this->ui.actionStop->setEnabled(true);
 	this->ui.stopButton->setEnabled(true);
+
+	this->ui.actionRenderVideo->setEnabled(true);
 
 	// Controles de detecção
 	this->ui.actionAllTransitions->setEnabled(true);
@@ -1428,6 +1425,15 @@ void Interface::on_actionDetectConfig_triggered()
 
 void Interface::on_actionRenderVideo_triggered()
 {
+
+	Video *vdo = currentProject->getVideo();
+
+	if (vdo == 0x0)
+	{
+		alertUser(ALERT_NO_LOADED_VIDEO);
+		return;
+	}
+
 	QString fileName = QFileDialog::getSaveFileName(this,
 			"Renderizar Video",
 			".",
@@ -1636,7 +1642,7 @@ void Interface::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column
 		vdo->seekFrame(position_l);
 	}
 
-	vdo_player->updatePlayer(vdo->getCurrentFrame()); // Mostro o frame
+	vdo_player->updateCurrentFrame(); // Atualiza o frame corrente
 	updateTimeline(); // Atualizo a posição do cursor da timeline
 
 	timeline_l = currentProject->FrameToTimelinePos(position_l);
@@ -1724,7 +1730,7 @@ void Interface::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
 
 		vdo->seekFrame(framepos_l);
 
-		vdo_player->updatePlayer(vdo->getCurrentFrame());
+		vdo_player->updateCurrentFrame();
 
 	}
 	else // Se clicou na coluna do nome do efeito
@@ -1866,3 +1872,13 @@ void Interface::moveScrollArea(int x, int y)
 	ui.scrollArea->ensureVisible(x, y, center_i, center_i);
 }
 
+
+void Interface::disableSaveButton()
+{
+	this->ui.actionSave->setEnabled(false);
+}
+
+void Interface::enableSaveButton()
+{
+	this->ui.actionSave->setEnabled(true);
+}
