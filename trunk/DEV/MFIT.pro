@@ -3,7 +3,7 @@
 ######################################################################
 
 DEVCPP_PATH = "C:/Dev-Cpp"
-OPENCV_PATH = "C:/Program Files/OpenCV"
+OPENCV_PATH = "C:/Arquivos de Programas/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
@@ -35,9 +35,7 @@ INCPATH += $$DEVCPP_PATH/lib/gcc/mingw32/3.4.2/include \
 
 
 # Input
-HEADERS += include/Brightness.h \
-           include/Color.h \
-           include/Contrast.h \
+HEADERS += include/Color.h \
            include/Cut.h \
            include/DetectTransitions.h \
            include/Dissolve.h \
@@ -64,9 +62,7 @@ HEADERS += include/Brightness.h \
            include/Xml.h
 
 SOURCES += source/main.cpp \
-           source/Brightness.cpp \
            source/Color.cpp \
-           source/Contrast.cpp \
            source/Cut.cpp \
            source/DetectTransitions.cpp \
            source/Dissolve.cpp \
