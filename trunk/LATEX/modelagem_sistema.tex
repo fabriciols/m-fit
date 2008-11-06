@@ -380,11 +380,6 @@ todos em um Ritmo Visual.
 variância do vídeo, onde cada ponto desta curva é dado pelo cálculo
 da variância de cada frame do vídeo.
 
-\subsubsection{Caso de uso: Cálculo da segunda derivada da curva de Variância \label{use_case_derivada_variancia}}
-
-\hspace*{1.25cm}\textbf{Cenário Principal:} Calcula-se a primeira e
-a segunda derivada dos pontos da curva da variância do vídeo.
-
 \subsubsection{Caso de uso: Cálculo da derivada do RVH \label{use_case_derivada_RVH}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} A partir do Ritmo Visual
@@ -465,21 +460,10 @@ filhos.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-    \item{bool checkLuminance() }
 
-    \item{float calcSecondDerivative() }
+    \item{float calcFirstDerivative() }
 
-\hspace*{0.65cm}Calcula a segunda derivada de uma curva.
-
-    \item{float calcVariance() }
-
-\hspace*{0.65cm}Calcula a curva de variância de um vídeo.
-
-    \item{float calcRatioVarianceVRH() }
-
-\hspace*{0.65cm}Calcula a razão entre a segunda derivada da
-variância com a derivada do RVH.
-
+    \hspace*{0.65cm}Calcula primeira derivada.
 \end{enumerate}
 
 \subsection{Classe: Effect \label{classe_Effect}}
