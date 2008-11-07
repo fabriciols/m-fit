@@ -1367,22 +1367,13 @@ void Interface::enableControls()
 	this->ui.actionSave->setEnabled(true);
 	this->ui.actionSaveAs->setEnabled(true);
 
-	// Controles do player (action = menu e toolbar, button = botões do player)
-	this->ui.actionPlay->setEnabled(true);
+	// Controles do player
 	this->ui.playButton->setEnabled(true);
-
-	this->ui.actionPause->setEnabled(true);
 	this->ui.pauseButton->setEnabled(true);
-
-	this->ui.actionBackward->setEnabled(true);
 	this->ui.backButton->setEnabled(true);
-
-	this->ui.actionForward->setEnabled(true);
 	this->ui.forwardButton->setEnabled(true);
-
-	this->ui.actionStop->setEnabled(true);
 	this->ui.stopButton->setEnabled(true);
-
+	
 	this->ui.actionRenderVideo->setEnabled(true);
 
 	// Controles de detecção
@@ -1390,6 +1381,8 @@ void Interface::enableControls()
 	this->ui.actionOnlyCuts->setEnabled(true);
 	this->ui.actionAllFades->setEnabled(true);
 	this->ui.actionOnlyDissolve->setEnabled(true);
+
+	this->ui.effectListTree->setEnabled(true);
 
 }
 
