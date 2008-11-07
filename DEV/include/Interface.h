@@ -81,8 +81,6 @@ class Interface: public QMainWindow
 		void updateRecentFilesAct();
 		void createRecentFilesActions();
 
-		void askCutThreshold(int threshold);
-
 		void changeWindowTitle(char *string);
 		void insertVideoProperty(char *param_cy, char *value_cy);
 		void clearVideoProperty();
