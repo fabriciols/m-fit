@@ -864,10 +864,9 @@ a análise seja feita em todos os frames do vídeo;}
 \item{VR solicita ao FRAME a diagonal do frame solicitado}
 \item{VR solicita ao FRAME o histograma do frame (diagonal)}
 \item{Loop: fim}
-\item{DTD calcula a variância do vídeo}
-\item{DTD calcula a segunda derivada da variância}
-\item{DTD solicita a VR o cálculo da derivada do RVH}
-\item{DTD calcula a razão entre a derivada segunda da variância e a derivada do RVH}
+\item{DTD Verifica possíveis pontos de Dissolve}
+\item{DTD calcula a primeira derivada dos possíveis pontos de Dissolve}
+\item{DTD compara resultados da derivada a um threshold}
 \end{enumerate}
 
 \subsection{Edição de vídeo \label{seq_edicao}}
