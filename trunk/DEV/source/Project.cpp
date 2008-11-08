@@ -232,7 +232,6 @@ int Project::openVideo(QString fileName)
 	Interface_ui->insertVideoProperty("Frames",  param_cy);
 
 	Interface_ui->createTimeline();
-
 	Interface_ui->updateTransitions();
 
 	Interface_ui->addRecentFile(fileName);
@@ -633,6 +632,19 @@ void Project::removeEffect(int ind)
 	effectList.erase(effectList.begin( ) + ind);
 
 	Interface_ui->updateEffectTree();
+}
+
+void Project::removeTransition(int ind)
+{
+	Transition *transition = &transitionList.at(ind);
+
+	delete transition;
+
+	transitionList.erase(transitionList.begin( ) + ind);
+
+	sortTransitionList();
+
+	Interface_ui->updateTransitions();
 }
 
 

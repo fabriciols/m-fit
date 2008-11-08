@@ -3,7 +3,7 @@
 ######################################################################
 
 DEVCPP_PATH = "C:/Dev-Cpp"
-OPENCV_PATH = "C:/Arquivos de Programas/OpenCV"
+OPENCV_PATH = "C:/Program Files/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
@@ -12,7 +12,7 @@ QT += qt3support xml
 
 FORMS   = Interface/Interface.ui \
 			 Interface/detectConfig.ui \
-			 Interface/colorConfig.ui
+			 Interface/transitionEdit.ui
 
 LIBS =  -L$$OPENCV_PATH/bin  \
 		  -L$$OPENCV_PATH/lib  \
@@ -47,6 +47,7 @@ HEADERS += include/Color.h \
            include/Interface.h \
 			  include/DetectConfig.h \
 			  include/ColorConfig.h \
+			  include/TransitionEdit.h \
            include/Log.h \
            include/Morphology.h \
            include/MorphologyEffect.h \
@@ -73,6 +74,7 @@ SOURCES += source/main.cpp \
            source/Interface.cpp \
 			  source/DetectConfig.cpp \
 			  source/ColorConfig.cpp \
+			  source/TransitionEdit.cpp \
 			  source/Log.cpp \
            source/Morphology.cpp \
            source/MorphologyEffect.cpp \
