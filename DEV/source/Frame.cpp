@@ -25,7 +25,7 @@
  ************************************************************************/
 void Frame::setImage(IplImage* imgNew)
 {
-//	Log::writeLog("%s :: old [%x] new [%x]", __FUNCTION__, this->data, imgNew);
+	Log::writeLog("%s :: old [%x] new [%x]", __FUNCTION__, this->data, imgNew);
 
 	// Se ja tiver algum alocado
 	if (this->data)
@@ -112,37 +112,23 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 	// Desenhar as linhas do histograma
 	for (i=0 ; i < len_i ; i++)
 	{
+		// Normaliza para ajustar o tamanho
 		normalized = cvRound((matrix[i]*HIST_HEIGHT)/max_f);
 
-		//Log::writeLog("%s :: Plot Value[%3d] = [%4.0lf] Normalized = [%3d]", __FUNCTION__, i, matrix[i], normalized);
+		Log::writeLog("%s :: Plot Value[%3d] = [%4.0lf] Normalized = [%3d]", __FUNCTION__, i, matrix[i], normalized);
 
 		// Printa a linha do Histograma
-		//cvLine(imgHistogram, cvPoint((i*2)-1,HIST_HEIGHT), cvPoint((i*2)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
-		//cvLine(imgHistogram, cvPoint((i)-1,HIST_HEIGHT), cvPoint((i)-1,HIST_HEIGHT-normalized), CV_RGB(0, 0, 0));
-		//point_new = cvPoint((i-1), HIST_HEIGHT-normalized);
 		point_new = cvPoint((i-1), normalized);
 
-		//cvCircle(imgHistogram, point_new, 0.1, cvScalar(0,0,0), 1);
+		// Liga os pontos
 		cvLine(imgHistogram, point_new, point_new , cvScalar(0,0,0), 1);
 		cvLine(imgHistogram, point_last, point_new, cvScalar(0,0,0), 1);
 
 		point_last = point_new;
-
-		if (i % 32 == 0)
-		{
-			sprintf(frame_cy, "%d", i);
-			//Log::writeLog("%s :: i[%d] == cvPutText :[%s] cvPoint(%d,%d)", __FUNCTION__, i, frame_cy, i-1, HIST_HEIGHT);
-			//cvPutText(imgHistogram, frame_cy, cvPoint(i-1,10), &font, CV_RGB(0,0,0));
-			//cvLine(imgHistogram, cvPoint((i)-1,0), cvPoint((i)-1,HIST_HEIGHT), CV_RGB(0, 0, 0));
-		}
-
-
-		// Print uma linha em branco, pro histograma nao ficar todo grudado
-		//cvLine(imgHistogram, cvPoint(i*2,HIST_HEIGHT), cvPoint(i*2,HIST_HEIGHT-normalized), CV_RGB(0, 255, 255));
-
 	}
 
 	initAttr();
+
 	setImage(imgHistogram);
 
 }
@@ -188,7 +174,7 @@ Frame::Frame(IplImage *img_src)
 {
 	IplImage *imgNew;
 
-	//Log::writeLog("%s :: Constructor param: IplImage[%x]", __FUNCTION__, img_src);
+	Log::writeLog("%s :: Constructor param: IplImage[%x]", __FUNCTION__, img_src);
 	initAttr();
 
 	imgNew = imgAlloc(cvSize(img_src->width, img_src->height), img_src->depth, img_src->nChannels);
@@ -282,11 +268,9 @@ Frame * Frame::getDiagonal()
 
 	Frame* frameDiagonal;
 
-	//int luminance = 0; //Valor de luminancia do pixel retirado da diagonal.
-
 	double a = 0; // Coeficiente angular da equacao
 
-	//Log::writeLog("%s :: diagonal img width[%d] height[%d]", __FUNCTION__, 1, this->getWidth());
+	Log::writeLog("%s :: diagonal img width[%d] height[%d]", __FUNCTION__, 1, this->getWidth());
 
 	IplImage* imgDiagonal = imgAlloc(cvSize(1, this->getWidth()-1), 8, 1);
 
@@ -368,7 +352,7 @@ Frame::~Frame()
 	// Se o ponteiro para a imagem nao for nulo
 	if (this->data)
 	{
-		//Log::writeLog("%s :: Deleting [%x]", __FUNCTION__, this->data);
+		Log::writeLog("%s :: Deleting [%x]", __FUNCTION__, this->data);
 		// Libera a memoria alocada para ele
 		imgDealloc(this->data);
 	}
@@ -389,7 +373,7 @@ Frame & Frame::operator+=(Frame &frame)
 {
 	IplImage *imgDst;
 
-	//Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
+	Log::writeLog("%s :: this->data[%x]", __FUNCTION__, this->data);
 
 	// As imagens tem que ter obrigatoriamente a mesma altura
 	if (this->getHeight() != frame.getHeight())
@@ -398,9 +382,8 @@ Frame & Frame::operator+=(Frame &frame)
 	// Crio uma imagem com a largura igual a soma das larguras
 	imgDst = imgAlloc(cvSize(this->getWidth() + frame.getWidth(), this->getHeight()), this->data->depth, this->data->nChannels);
 
-	//Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
-
-	//Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, 0, this->getWidth(), this->getHeight());
+	Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
+	Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, 0, this->getWidth(), this->getHeight());
 
 	// Na imagem destino, seto a area de interesse o espaco que a primeira imagem ira ocupar
 	cvSetImageROI(imgDst,
@@ -415,7 +398,7 @@ Frame & Frame::operator+=(Frame &frame)
 	// então copio esta imagem para esta área
 	imgCopy(this->data,imgDst);
 
-	//Log::writeLog("%s :: frame x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, this->getWidth(), 0, frame.getWidth(), frame.getHeight());
+	Log::writeLog("%s :: frame x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, this->getWidth(), 0, frame.getWidth(), frame.getHeight());
 
 	// Agora, seto a area de interesse o espaco que a segunda imagem irá ocupar
 	cvSetImageROI(imgDst,
@@ -466,7 +449,7 @@ Histogram* Frame::createHistogram()
  ************************************************************************/
 void Frame::write(char *filename_cy)
 {
-//	Log::writeLog("%s :: write file = [%s]", __FUNCTION__, filename_cy);
+	Log::writeLog("%s :: write file = [%s]", __FUNCTION__, filename_cy);
 
 	if (this->data)
 	{
@@ -496,7 +479,7 @@ Frame & Frame::operator=(Frame &frame)
 
 	if (this->data)
 	{
-//		Log::writeLog("%s :: Release: this->data[%x]", __FUNCTION__, this->data);
+		Log::writeLog("%s :: Release: this->data[%x]", __FUNCTION__, this->data);
 		imgDealloc(this->data);
 	}
 
@@ -523,11 +506,10 @@ Frame & Frame::operator=(Frame &frame)
  ************************************************************************/
 void Frame::imgCopy(IplImage *imgSrc, IplImage *imgDst)
 {
-	//Log::writeLog("%s :: Copy : [%x] to [%x]", __FUNCTION__, imgSrc, imgDst);
+	Log::writeLog("%s :: Copy : [%x] to [%x]", __FUNCTION__, imgSrc, imgDst);
 
 	cvCopy(imgSrc, imgDst);
 
-	//imgDst->origin = imgSrc->origin;
 	imgDst->origin = 1;
 }
 
@@ -565,7 +547,7 @@ IplImage* Frame::imgAlloc(CvSize size, int depth, int channels)
 
 	imgNew = cvCreateImage(size, depth, channels);
 
-	//Log::writeLog("%s :: New image: [%x]", __FUNCTION__, imgNew);
+	Log::writeLog("%s :: New image: [%x]", __FUNCTION__, imgNew);
 
 	return imgNew;
 }
@@ -581,7 +563,7 @@ IplImage* Frame::imgAlloc(CvSize size, int depth, int channels)
  ************************************************************************/
 void Frame::imgDealloc(IplImage *img)
 {
-	//Log::writeLog("%s :: Delete image: [%x]", __FUNCTION__, img);
+	Log::writeLog("%s :: Delete image: [%x]", __FUNCTION__, img);
 	cvReleaseImage(&img);
 }
 
@@ -598,7 +580,6 @@ void Frame::imgDealloc(IplImage *img)
  * 15/08/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 void Frame::binarizeImage(int threshold)
 {
 	int column = 0;
@@ -636,7 +617,7 @@ double Frame::mediaBin()
 
 	double a = 0; // Coeficiente angular da equacao
 
-	double mean=0;
+	double mean = 0;
 
 	/** Calculo o coeficiente angular da reta ('a' da equacao).
 	 * this->getHeight = y - yo
@@ -658,22 +639,21 @@ double Frame::mediaBin()
 	// Calcula-se a média dos pixels somados.
 	mean = mean / i;
 
-	//	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
+	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
 
 	return (mean);
 }
 
-/************************************************************************
+/*************************************************************************
  * Funcao que retorna a maior luminancia de um frame.
  *************************************************************************
  * param (E): Frame* frame => Frame do qual será retornada a maior 
- * 									  luminancia
+ * luminancia
  *************************************************************************
  * Histórico:
  * 27/08/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 int Frame::getMaxLum()
 {
 
@@ -695,6 +675,15 @@ int Frame::getMaxLum()
 	return (maxLuminance);
 }
 
+/*************************************************************************
+ * Remove a borda preta do frame
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico:
+ * 27/08/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 int Frame::removeBorder()
 {
 
@@ -717,14 +706,14 @@ int Frame::removeBorder()
 
 	frameAux->binarizeImage(maxLum/4);
 
-	//Log::writeLog("%s :: height = %d, width = %d ", __FUNCTION__, height, width);
+	Log::writeLog("%s :: height = %d, width = %d ", __FUNCTION__, height, width);
 
 	for( x=0; x<height; x++)
 	{	
 		// Quando encontrar o pixel diferente de preto eu entro e guardo a altura.
 		for( y=0; y<width ;y++)
 		{
-			//Log::writeLog("%s :: x[%d] y[%d]", __FUNCTION__, x , y);
+			Log::writeLog("%s :: x[%d] y[%d]", __FUNCTION__, x , y);
 			// Se o pixel for diferente de preto eu atribuo a altura do pixel como
 			// sendo a altura do wide.
 			if(frameAux->getPixel(y,x))
@@ -763,13 +752,13 @@ int Frame::removeBorder()
 			sizeWide = 0;
 	}
 
-	//Log::writeLog("%s :: sizeWide = %d", __FUNCTION__, sizeWide);
+	Log::writeLog("%s :: sizeWide = %d", __FUNCTION__, sizeWide);
 
 	// Se houver widescreen
 	if (sizeWide)
 	{
 
-		//Log::writeLog("%s :: sizeWide_final = %d", __FUNCTION__, sizeWide);
+		Log::writeLog("%s :: sizeWide_final = %d", __FUNCTION__, sizeWide);
 
 		IplImage* img_dst;
 
@@ -813,7 +802,6 @@ int Frame::removeBorder()
  * 01/09/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 int Frame::removeWide()
 {
 
@@ -1139,6 +1127,16 @@ QImage* Frame::IplImageToQImage( uchar **imageData, int *last_witdh, int *last_h
 	return qImage;
 }
 
+/************************************************************************
+ * Redimensiona o frame
+ *************************************************************************
+ * param (E): int width  - largura desejada
+ * param (E): int height - altura  desejada
+ *************************************************************************
+ * Histórico
+ * 29/09/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 Frame* Frame::resize(int width, int height)
 {
 	IplImage *imgResized;
@@ -1151,10 +1149,11 @@ Frame* Frame::resize(int width, int height)
 	return new Frame(imgResized);
 	
 }
+
 /************************************************************************
  * Concatena dois frames verticalmente
  *************************************************************************
- * param (E): Frame* frame -> frame a ser concatenado
+ * param (E): Frame* frame - frame a ser concatenado
  *************************************************************************
  * Histórico
  * 09/10/08 - Thiago Mizutani
@@ -1162,7 +1161,6 @@ Frame* Frame::resize(int width, int height)
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 Frame* Frame::verticalCat(Frame* frame)
 {
 	Frame *frameDown;
@@ -1178,9 +1176,9 @@ Frame* Frame::verticalCat(Frame* frame)
 			frameDown->data->depth,
 			frameDown->data->nChannels);
 
-	//Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
+	Log::writeLog("%s :: img_dst width[%d] height[%d]", __FUNCTION__, imgDst->width, imgDst->height);
 
-	//Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, 0, frameDown->getWidth(), frameDown->getHeight());
+	Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, 0, frameDown->getWidth(), frameDown->getHeight());
 
 	// Na imagem destino, seto a area de interesse o espaco que a primeira imagem ira ocupar
 	cvSetImageROI(imgDst,
@@ -1195,7 +1193,7 @@ Frame* Frame::verticalCat(Frame* frame)
 	// então copio esta imagem para esta área
 	frameDown->imgCopy(frameDown->data,imgDst);
 
-	//Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, frameUp->getHeight()+2, frameUp->getWidth(), frameUp->getHeight());
+	Log::writeLog("%s :: this x[%d] y[%d] width[%d] height[%d]", __FUNCTION__, 0, frameUp->getHeight()+2, frameUp->getWidth(), frameUp->getHeight());
 
 	// Agora, seto a area de interesse o espaco que a segunda imagem irá ocupar
 	cvSetImageROI(imgDst,

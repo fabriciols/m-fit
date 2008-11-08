@@ -9,17 +9,7 @@ class Morphology
  
 	public:
 	 
-	/**
-	 *Aplica o efeito de Erosão em uma
-	 *imagem.
-	 */
 		Frame* erode(Frame* frame);
-	 
-	/**
-	 *Aplica o efeito de dilatação em
-	 *uma imagem
-	 *
-	 */
 		Frame* dilate(Frame* frame);
 	 
 };
