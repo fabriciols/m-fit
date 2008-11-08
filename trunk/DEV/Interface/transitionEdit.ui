@@ -136,6 +136,18 @@
    </item>
    <item rowspan="2" row="13" column="5" >
     <widget class="QLabel" name="label_3" >
+     <property name="minimumSize" >
+      <size>
+       <width>105</width>
+       <height>14</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>105</width>
+       <height>14</height>
+      </size>
+     </property>
      <property name="text" >
       <string>Posição da transição: </string>
      </property>
@@ -156,6 +168,18 @@
    </item>
    <item row="11" column="5" >
     <widget class="QLabel" name="label_2" >
+     <property name="minimumSize" >
+      <size>
+       <width>105</width>
+       <height>14</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>105</width>
+       <height>14</height>
+      </size>
+     </property>
      <property name="text" >
       <string>Posição Corrente:</string>
      </property>
@@ -176,6 +200,18 @@
    </item>
    <item row="9" column="5" >
     <widget class="QLabel" name="label" >
+     <property name="minimumSize" >
+      <size>
+       <width>105</width>
+       <height>14</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>105</width>
+       <height>14</height>
+      </size>
+     </property>
      <property name="text" >
       <string>Tipo Transição:</string>
      </property>
