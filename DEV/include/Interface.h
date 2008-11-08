@@ -68,6 +68,8 @@ class Interface: public QMainWindow
 		void on_effectsTree_itemClicked(QTreeWidgetItem * item, int column);
 		void on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column);
 
+		void on_transitionsTree_itemDoubleClicked ( QTreeWidgetItem * item, int column );
+
 		void alertUser(int message); // Mostra uma mensagem de alerta se o usuário tentar fazer qqr coisa antes de dar um load num vídeo
 
 	private:
@@ -110,6 +112,7 @@ class Interface: public QMainWindow
 		void enableSaveButton();
 		void disableSaveButton();
 
+		void recreateTimeline();
 
 		Ui::MainWindow ui;
 

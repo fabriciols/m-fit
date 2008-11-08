@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 
+#include "../include/TransitionEdit.h"
 #include "../include/DetectConfig.h"
 
 #include "../include/Interface.h"
@@ -187,7 +188,7 @@ void Interface::openRecentFile()
 			DetectTransitions* DT = new DetectTransitions();
 			DT->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
 
-			updateTransitions();
+			recreateTimeline();
 
 			delete DT;
 		}
@@ -450,7 +451,7 @@ void Interface::on_actionLoadVideo_triggered()
 			DetectTransitions* DT = new DetectTransitions();
 			DT->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
 
-			updateTransitions();
+			recreateTimeline();
 
 			delete DT;
 
@@ -820,6 +821,12 @@ void Interface::setTimeline(Frame *frameTimeline)
 
 }
 
+void Interface::recreateTimeline()
+{
+	Frame::imgCopy(vdo_player->frameTimelineOriginal->data, vdo_player->frameTimeline->data);
+	updateTransitions();
+}
+
 /*************************************************************************
  * Atualiza a posição do cursor da timeline conforme a passagem do vídeo
  *************************************************************************
@@ -900,7 +907,7 @@ void Interface::on_actionAllTransitions_triggered()
 
 	delete DT;
 
-	updateTransitions();
+	recreateTimeline();
 
 }
 
@@ -944,7 +951,7 @@ void Interface::on_actionOnlyCuts_triggered()
 
 	delete DTC;
 
-	updateTransitions();
+	recreateTimeline();
 
 }
 
@@ -988,7 +995,7 @@ void Interface::on_actionAllFades_triggered()
 
 	delete DTF;
 
-	updateTransitions();
+	recreateTimeline();
 
 }
 
@@ -1033,7 +1040,7 @@ void Interface::on_actionOnlyDissolve_triggered()
 
 	delete DTD;
 
-	updateTransitions();
+	recreateTimeline();
 
 }
 
@@ -1057,52 +1064,22 @@ void Interface::insertTransitionsTree(Transition* transition, long id_l)
 	// Cria a lista de items
 	QList<QTreeWidgetItem *> itens;
 
-	int type_i = transition->getType(); // Tipo da transição
-	long posTransition_l = transition->getPosTransition(); // Posição da transição detectada pelo sistema
-	long posUserTransition_l = transition->getPosUserTransition(); // Posição da transição detectada
+	long pos_l = transition->getPosCurrent(); // Posição da transição detectada
 
-	char posTransition_cy[10];
-	char posUserTransition_cy[10];
+	char pos_cy[10];
 	char id_cy[20];
 
-	sprintf(posTransition_cy, "%ld", posTransition_l);
-	sprintf(posUserTransition_cy, "%ld", posUserTransition_l);
+	sprintf(pos_cy, "%ld", pos_l);
 	sprintf(id_cy, "%3.3ld", id_l);
 
 	// Primeira Coluna - ID
 	item->setText(0, id_cy);
 
 	// Segunda Coluna - NOME
-	switch(type_i)
-	{
-		case TRANSITION_VIDEOSTART:
-			item->setText(1, "Inicio do Video");
-			break;
-		case TRANSITION_CUT:
-			item->setText(1, "Corte");
-			break;
-		case TRANSITION_FADEIN:
-			item->setText(1, "Fade-In");
-			break;
-		case TRANSITION_FADEOUT:
-			item->setText(1, "Fade-Out");
-			break;
-		case TRANSITION_DISSOLVE:
-			item->setText(1, "Dissolve");
-			break;
-		default:
-			break;
-	}
+	item->setText(1, transition->getLabel());
 
 	// Terceira coluna - POSICAO
-	if (posUserTransition_l > 0)
-	{
-		item->setText(2, posUserTransition_cy);
-	}
-	else
-	{
-		item->setText(2, posTransition_cy);
-	}
+	item->setText(2, pos_cy);
 
 	itens.append(item);
 
@@ -1126,7 +1103,7 @@ void Interface::insertTransitionsTimeline(Transition* transition)
 	long posTimeline_l = 0;
 
 	// Pega o ponto da transicao
-	posTransition_l = transition->getPosTransition();
+	posTransition_l = transition->getPosCurrent();
 
 	// A formula para saber em que ponto plotar o indicador é:
 	// SIZE_FRAME_TIMELINE  ---- SIZE_SEC_FRAME*vdo->getFPS()
@@ -1643,6 +1620,56 @@ void Interface::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column
 	// Move o scroll
 	moveScrollArea((int)timeline_l, 0);
 
+}
+
+void Interface::on_transitionsTree_itemDoubleClicked ( QTreeWidgetItem * item, int column )
+{
+
+	char id_cy[10];
+	unsigned int idx_i;
+	long pos_l;
+	Video *vdo;
+	TransitionEdit editWindow;
+
+	QStringToChar(item->text(0), id_cy); // Pego a posição da transição determinada pelo sistema 
+	idx_i = atoi(id_cy);
+
+	if (idx_i == 0)
+		return;
+
+	editWindow.setID(idx_i);
+
+	vdo = currentProject->getVideo();
+	pos_l = (long)vdo->getCurrentPosition();
+
+	editWindow.exec();
+
+	vdo->seekFrame(pos_l);
+
+	if (editWindow.cancel)
+	{
+		return;
+	}
+	else if (editWindow.change)
+	{
+		Transition *transition;
+
+		transition = &currentProject->transitionList.at(idx_i);
+		transition->setPosUserTransition(editWindow.pos_l);
+
+	}
+	else if (editWindow.del)
+	{
+		currentProject->removeTransition(idx_i);
+	}
+	else
+	{
+		return;
+	}
+
+	recreateTimeline();
+
+	return;
 
 }
 
