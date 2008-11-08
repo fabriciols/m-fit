@@ -83,7 +83,7 @@ para carregá-lo no sistema.
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário informa o
 caminho onde será salvo o projeto.
 
-\subsubsection{Caso de uso: Renderiza \label{use_case_renderiza}}
+\subsubsection{Caso de uso: Renderiza Vídeo\label{use_case_renderiza}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
 sistema que o vídeo seja salvo após sua edição.
@@ -234,6 +234,17 @@ forma seqüencial, como visto na Figura \ref{img_rvdiagonal} da Seção
 diagonal principal de cada frame do vídeo devido à necessidade de
 montar o Ritmo Visual do vídeo.
 
+\subsubsection{Caso de uso: Remove widescreen \label{use_case_removeWide}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Após a geração do Ritmo
+Visual do vídeo, será necessário fazer a remoção das tarjas pretas
+que compõem o formato widescreen de vídeo para que estas não
+interfiram no processo de detecção de transições.
+
+\hspace*{0.65cm}\textbf{Cenário Alternativo:} O vídeo não está no
+formato widescreen, não sendo necessária a remoção de nenhuma parte
+do ritmo visual.
+
 \subsubsection{Caso de uso: Detecção de Bordas: Operador Canny \label{use_case_sobel}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O sistema aplica o
@@ -242,7 +253,7 @@ imagem do Ritmo Visual (mapa de bordas).
 
 \subsubsection{Caso de uso: Definição de Limiar de Corte \label{use_case_limiar_corte}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema utiliza o ser
+\hspace*{1.25cm}\textbf{Cenário Principal:} O sistema utiliza o seu
 limiar de corte padrão, ou seja, um limiar que define quais bordas
 verticais (representação de transições de corte no Ritmo Visual)
 serão consideradas cortes e quais serão ignoradas.
