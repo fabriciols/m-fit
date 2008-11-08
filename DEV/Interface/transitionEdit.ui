@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>384</width>
-    <height>273</height>
+    <width>450</width>
+    <height>336</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -17,64 +17,21 @@
   </property>
   <property name="minimumSize" >
    <size>
-    <width>384</width>
-    <height>273</height>
+    <width>450</width>
+    <height>336</height>
    </size>
   </property>
   <property name="maximumSize" >
    <size>
-    <width>384</width>
-    <height>273</height>
+    <width>450</width>
+    <height>336</height>
    </size>
   </property>
   <property name="windowTitle" >
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout" >
-   <item row="7" column="5" >
-    <widget class="QLabel" name="labelFramePos" >
-     <property name="text" >
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="15" column="0" >
-    <widget class="QLabel" name="label" >
-     <property name="maximumSize" >
-      <size>
-       <width>35</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text" >
-      <string>Frame:</string>
-     </property>
-     <property name="textFormat" >
-      <enum>Qt::RichText</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="15" column="1" >
-    <widget class="QLabel" name="labelTransitionName" >
-     <property name="frameShape" >
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow" >
-      <enum>QFrame::Raised</enum>
-     </property>
-     <property name="text" >
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="15" column="2" >
-    <widget class="QLabel" name="label_2" >
-     <property name="text" >
-      <string>Posicao Corrente:</string>
-     </property>
-    </widget>
-   </item>
-   <item rowspan="14" row="1" column="0" colspan="4" >
+   <item rowspan="16" row="1" column="0" colspan="4" >
     <widget class="QFrame" name="frame" >
      <property name="frameShape" >
       <enum>QFrame::Box</enum>
@@ -97,19 +54,6 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="15" column="3" >
-    <widget class="QLabel" name="labelCurrentPos" >
-     <property name="frameShape" >
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow" >
-      <enum>QFrame::Raised</enum>
-     </property>
-     <property name="text" >
-      <string/>
-     </property>
     </widget>
    </item>
    <item row="1" column="5" >
@@ -187,6 +131,66 @@
      </property>
      <property name="text" >
       <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item rowspan="2" row="13" column="5" >
+    <widget class="QLabel" name="label_3" >
+     <property name="text" >
+      <string>Posição da transição: </string>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="5" >
+    <widget class="QLabel" name="labelCurrentPos" >
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="5" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Posição Corrente:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="5" >
+    <widget class="QLabel" name="labelTransitionName" >
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="5" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Tipo Transição:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="5" >
+    <widget class="QLabel" name="labelFramePos" >
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="text" >
+      <string/>
      </property>
     </widget>
    </item>
