@@ -1,0 +1,123 @@
+\section{RESULTADOS OBTIDOS \label{resultados_obtidos}}
+
+\hspace*{1.25cm}Nesta seção serão apresentados os resultados obtidos
+com a utilização do M-FIT para realizar a detecção de transições em
+alguns vídeos e também sua interface final.
+
+\subsubsection{Resultados obtidos: geral \label{resultados_obtidos_geral}}
+
+\hspace*{0.65cm}A figura \ref{img:obtidos_preview1} mostra a tela
+que será exibida assim que o sistema for inicializado. Nota-se
+ainda, que as funções de detecção (marcadas por círculos vermelhos)
+ficam desabilitadas enquanto não houver um vídeo carregado no
+sistema, assim como a lista para aplicação de efeitos.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/resultados_obtidos.png}
+ \caption{Tela inicial do sistema.}
+ Fonte: Autor.
+ \label{img:obtidos_preview1}
+\end{figure}
+
+\hspace*{0.65cm}A figura %\ref{img:obtidos_preview2} mostra o sistema
+com um vídeo já carregado, é possível observar que ao carregar um
+vídeo, a lista com as propriedades do vídeo é automaticamente
+carregada, assim como a sua timeline.
+
+%\begin{figure}[h|top]
+ %\centering
+ %\includegraphics[width=1.0\linewidth]{imagens/resultados_obtidos2.png}
+ %\caption{Tela inicial do sistema.}
+ %Fonte: Autor.
+ %\label{img:obtidos_preview2}
+%\end{figure}
+
+\hspace*{0.65cm}Na figura (colocar referencia) pode ser observada a
+tela do sistema após o processo de detecção das transições. Nota-se
+que cada transição é marcada com uma linha vertical na timeline e
+que para cada tipo de transição há uma cor diferente. Ao clicar na
+timeline, a tomada é automaticamente marcada por uma linha que vai
+da transição inicial até sua transição final.
+
+COLOCAR IMAGEM AQUI!
+
+
+\hspace*{0.65cm}Visto que para cada tipo de transição, foi adotada
+uma metodologia diferente, esta seção apresentará os resultados
+obtidos para cada tipo de detecção separadamente, seguido dos
+resultados obtidos com a detecção de todos os tipos de transição.
+
+\subsection{Resultados obtidos: Detecção - Cortes \label{resultados_obtidos_cortes}}
+
+\hspace*{1.25cm}Neste tópico serão apresentados os resultados
+obtidos em alguns vídeos.
+
+\hspace*{0.65cm}Vídeo em análise: Batman.avi (trailer do filme
+Batman - O Cavaleiro das Trevas).
+
+\begin{itemize}
+\item{\textbf{Número de frames: } 2919}
+\item{\textbf{Número de cortes: } 51}
+\item{\textbf{Número de não cortes: } 2868}
+\end{itemize}
+
+\hspace*{0.65cm}A imagem {referencia do RV...} mostra o Ritmo Visual
+gerado para o vídeo em análise. Nota-se que onde há a ocorrência de
+cortes é observada uma mudança brusca nos padrões da imagem. A
+partir destes pontos (C1, C2, C3 colocar os pontos...), pode-se
+observar que há a formação de bordas (pontos B1,B2,B3... ETC) quando
+é aplicado o filtro de Canny sobre o Ritmo Visual (referenciar a
+imagem).
+
+\hspace*{0.65cm}A tabela \ref{tab:resultado_batman} mostra as
+transições apontadas pelo sistema.
+
+\begin{table}[htb] % [htb]-> here, top, botton
+   \centering   % tabela centralizada
+   \large       % tamanho da fonte
+   \setlength{\arrayrulewidth}{2\arrayrulewidth}  % espessura da  linha
+   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+   \caption{\it Transições encontradas pelo sistema.}
+   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+        \hline Frame & Validade \\
+        \hline 1360 & ok \\
+        \hline 1385 & ok \\
+        \hline 1416 & ok \\
+        \hline 1638 & ok \\
+        \hline 1690 & ok \\
+        \hline 1701 & ok \\
+        \hline 1784 & ok \\
+        \hline 1785 & falhou \\
+        \hline 1791 & falhou \\
+        \hline 1839 & ok \\
+        \hline 1875 & ok \\
+        \hline 2041 & ok \\
+        \hline 2147 & ok \\
+        \hline 2157 & ok \\
+        \hline 2170 & ok \\
+        \hline 2181 & ok \\
+        \hline 2187 & falhou \\
+        \hline 2190 & falhou \\
+        \hline 2215 & ok \\
+        \hline
+   \end{tabular}
+   \label{tab:resultado_batman}
+\end{table}
+
+\hspace*{0.65cm}Nota-se que das 19 transições detectadas pelo
+sistema, 4 não eram cortes, isto certamente eram objetos de cena que
+causaram grande alteração no padrão da imagem, devido a uma
+movimentação, ou aproximação da câmera.
+
+\hspace*{0.65cm}Apesar do sistema ter detectado um número muito
+abaixo do número total de cortes presentes no vídeo, pode-se dizer
+que os resultados foram satisfatórios ao analisar os resultados em
+função de falsos positivos e falsos negativos. Desta forma, obtém-se
+uma taxa de acerto de 77,96\%, considerando que para a aplicação do
+filtro de Canny, o valor do limiar mínimo = 100 e o limiar máximo -
+200, e para filtrar as bordas verticais e detectar somente aquelas
+que forem consideradas corte, foi utilizado um limiar que
+corresponde a 45\% da altura do frame.
+
+(COLOCAR OS OUTROS)

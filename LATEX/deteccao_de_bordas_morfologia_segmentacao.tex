@@ -131,20 +131,35 @@ adotados, além de processos de convolução (Seção
 \ref{filtragem_espacial}), processos de Supressão não Máxima e
 Histerese.
 
-\hspace*{0.65cm}COLOCAR REFERENCIAAAAAAAAAAA A Supressão não Máxima
-consiste na eliminação dos pixels da região da borda que não
-possuírem magnitude máxima. Como visto no início desta seção, as
-bordas são representadas por pixels que possuem gradiente de alta
-magnitude. Devido à ruídos presentes na imagem, após os processos de
+\hspace*{0.65cm}A Supressão não Máxima consiste (\cite{GIOVANE_2004}) na eliminação dos pixels
+da região da borda que não possuírem magnitude máxima, onde a magnitude dos pixels
+é dada por:
+
+\begin{large}
+\begin{center}
+\begin{equation}
+\label{eq:magnitude}
+M(x,y) = [ I_x(x,y)^2 + I_y(x,y)^2 ]^\frac{1}{2}
+\end{equation}
+\end{center}
+\end{large}
+
+\hspace*{0.65}Onde $I_x$ é a imagem convoluída na direção X e $I_y$ é a imagem convoluída na
+direção Y.
+
+\hspace*{0.65}Como visto no início desta seção, as bordas são representadas por pixels
+que possuem gradiente de alta magnitude. Devido à ruídos presentes na imagem, após os processos de
 convolução da imagem, podem haver diversos pixels representando um
 único ponto de borda verdadeiro. Porém, aquele que possuir o
 gradiente com maior magnitude é o candidato mais forte para
 representar a borda. Através do processo de supressão não máxima, os
 outros pixels (de magnitude não máxima) são eliminados, restando
-somente 1 pixel representando 1 ponto de borda.
+somente 1 pixel representando 1 ponto de borda, o que melhora a performance do filtro
+e atende ao terceiro critério citado acima, visto que as bordas serão representadas
+por linhas de apenas 1 pixel.
 
 \hspace*{0.65cm}Para evitar descontinuidades das bordas detectadas, é utilizado
-o processo de histerese, ou limiarização adaptativa. Este processo consiste em
+o processo de histerese (\cite{GIOVANE_2004}), ou limiarização adaptativa. Este processo consiste em
 aplicar duas vezes o processo de limiarização em uma mesma imagem, com a utilização de
 dois limiares, $T_{1}$ e $T_{2}$, onde $T_{1} = 2T_{2}$ ou $T_{1} = 3T_{2}$.
 A limiarização se dá da seguinte forma:
@@ -152,7 +167,7 @@ A limiarização se dá da seguinte forma:
 \begin{enumerate}
 \item Verifica-se se a luminância do pixel é maior que $T_{1}$, se for, ele é automaticamente
 aceito como borda;
-\item Se for a luminância do pixel for menor que $T_{2}$, este pixel será automaticamente
+\item Se a luminância do pixel for menor que $T_{2}$, este pixel será automaticamente
 rejeitado;
 \item Se o valor da luminância estiver entre os dois limiares, este será aceito somente se
 os seus pixels imediatamente vizinhos, forem pixels com alto valor de luminância.
