@@ -418,17 +418,29 @@ Ritmo Visual.
 \hspace*{0.65cm}A Figura \ref{img_diagrama_de_classes} representa o
 modelo do diagrama de estados do sistema.
 
-\subsection{Classe: Brightness \label{classe_Brightness}}
-
-\hspace*{1.25cm}Classe responsável em aplicar efeitos de brilho.
-
 \subsection{Classe: Color \label{classe_Color}}
 
 \hspace*{1.25cm}Classe responsável em aplicar efeitos de cor.
 
-\subsection{Classe: Contrast \label{classe_Contrast}}
+\hspace*{0.65cm}\textbf{Métodos:}
 
-\hspace*{1.25cm}Classe responsável em aplicar efeitos de contraste.
+\begin{enumerate}
+\item Frame* convert2Gray()
+\hspace*{0.65cm}Função que converte o frame para escala de cinza.
+
+\item Frame* applyEffect()
+\hspace*{0.65cm}Função que aplica o efeito de conversão de cores
+para escalas de cinza.
+
+\item Color(long frameStart, long frameEnd)
+\hspace*{0.65cm}Construtor que armazena o frame inicial e o frame
+final de um efeito aplicado no vídeo. O objeto criado é adicionado à
+lista de efeitos.
+
+\item Color()
+\hspace*{0.65cm}Construtor da classe.
+
+\end{enumerate}
 
 \subsection{Classe: Cut \label{classe_Cut}}
 
@@ -437,17 +449,49 @@ tipo Corte.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
- \item{Frame createBorderMap() }
+ \item Cut()
+ \hspace*{0.65cm}Construtor da classe.
 
+ \item{void createBorderMap() }
  \hspace*{0.65cm}Cria o mapa de bordas.
 
- \item{int defineTreshold() }
+ \item void detectTransitions()
+ \hspace*{0.65cm}Função que faz a detecção das transições do tipo corte.
 
+ \item{int defineTreshold() }
  \hspace*{0.65cm}Processo para a definição do
  limiar de corte para o processo
  de detecção de transições do tipo
  corte.
+
  \item{int countPoints() }
+ \hspace*{0.65cm}Função que faz contagem dos pontos das bordas verticais detectadas.
+
+ \item int validateCut()
+ \hspace*{0.65cm}Função que valida se a transição encontrada é realmente um corte.
+
+\end{enumerate}
+
+\subsection{Classe: DetectConfig \labeL{classe_DetectConfig}}
+
+\hspace*{1.25cm}Classe para janela de configurações de detecção de
+transição.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item DetectConfig()
+\hspace*{0.65cm}Construtor da janela de configurações. Inicializa as
+variáveis em 0 e cria conexões entre as threads.
+
+\item void on_okButton_clicked()
+\hspace*{0.65cm}Salva as configurações e fecha a janela.
+
+\item void changePage()
+\hspace*{0.65cm}Altera as páginas da janela conforme item
+selecionado no menu.
+
 \end{enumerate}
 
 \subsection{Classe: DetectTransitions \label{classe_DetectTransitions}}
