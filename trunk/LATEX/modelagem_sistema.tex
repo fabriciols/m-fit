@@ -437,8 +437,8 @@ para escalas de cinza.
 \item Color(long frameStart, long frameEnd)
 
 \hspace*{0.65cm}Construtor que armazena o frame inicial e o frame
-final de um efeito aplicado no vídeo. O objeto criado é adicionado à
-lista de efeitos.
+final de um efeito aplicado no vídeo. O objeto criado será posteriormente 
+adicionado à lista de efeitos do projeto.
 
 \item Color()
 
@@ -455,7 +455,7 @@ tipo Corte.
 \begin{enumerate}
  \item Cut()
 
- \hspace*{0.65cm}Construtor da classe.
+ \hspace*{0.65cm}Construtor .
 
  \item{void createBorderMap() }
 
@@ -484,7 +484,7 @@ tipo Corte.
 
 \subsection{Classe: DetectConfig \label{classe_DetectConfig}}
 
-\hspace*{1.25cm}Classe para janela de configurações de detecção de
+\hspace*{1.25cm}Classe para a janela de configurações de detecção de
 transição.
 
 \hspace*{0.65cm}\textbf{Métodos:}
@@ -514,24 +514,33 @@ selecionado no menu.
 \hspace*{0.65cm}\textbf{Métodos:}
 
 \begin{enumerate}
-    \item{Transition detectTransitions(Video vdo) }
+
+\item{void detectTransitions(Video, std::vector<Transition>)}
 
 \hspace*{0.65cm}Função principal na detecção de transições.
 Desencadeia a chamada da função com este mesmo nome nos objetos
-filhos.
+filhos, por fim armazena o resultado no vector passado por parâmetro.
+
+\item{bool validateTransition(long, std::vector<Transition>)}
+
+\hspace*{0.65cm}Verifica se já existem transições detectadas na
+posição da nova transição.
 
 \end{enumerate}
 
 \subsection{Classe: Dissolve \label{classe_Dissolve}}
+
+NAO VOU MEXER , IVAN E MAURICIO QUE MEXXXXXXXXXXXAM
 
 \hspace*{1.25cm}Classe responsável por detectar o dissolve.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
 
-    \item{float calcFirstDerivative() }
+\item{float calcFirstDerivative() }
 
-    \hspace*{0.65cm}Calcula primeira derivada.
+\hspace*{0.65cm}Calcula primeira derivada.
+
 \end{enumerate}
 
 \subsection{Classe: Effect \label{classe_Effect}}
@@ -541,24 +550,11 @@ efeitos.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-    \item{int applyEffect() }
 
-\hspace*{0.65cm}Função genérica para aplicação de efeito. Será
+\item{virtual Frame* applyEffect(Frame)}
+
+\hspace*{0.65cm}Função abstrata para aplicação de efeito. Será
 implementada por todas as classes filhas deste objeto.
-
-\end{enumerate}
-
-\subsection{Classe: Fadein \label{classe_Fadein}}
-
-\hspace*{1.25cm}Classe responsável por identificar transições do
-tipo Fade-in.
-
-\hspace*{0.65cm}\textbf{Métodos:}
-\begin{enumerate}
-
-    \item{float calcMaxDerivative() }
-
-\hspace*{0.65cm}Encontra a Máxima derivada.
 
 \end{enumerate}
 
@@ -567,18 +563,21 @@ tipo Fade-in.
 \hspace*{1.25cm}Classe responsável por identificar todos os tipos de
 fade.
 
-\subsection{Classe: Fadeout \label{classe_Fadeout}}
-
-\hspace*{1.25cm}Classe responsável por identificar transições do
-tipo Fade-out.
-
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-    \item{float calcMinDerivative() }
+\item{float calcMinDerivative() }
 
-\hspace*{0.65cm}Encontra a Mínima derivada.
+\item{double* calcDerivative(double* , int)}
+
+\hspace*{1.25cm}Deriva o array de doubles passado por parâmetro.
+
+\item{void detectTransitions(Video*, std::vector<Transition>*)}
+
+\hspace*{1.25cm}Realiza a detecção das transições do tipo fade (in/out)
+e empilha o resultado no vector.
 
 \end{enumerate}
+
 
 \subsection{Classe: Filters \label{classe_Filters}}
 
@@ -586,113 +585,196 @@ tipo Fade-out.
 imagens digitais.
 
 \hspace*{0.65cm}\textbf{Métodos:}
+
 \begin{enumerate}
-\item{Frame Sobel() }
+
+\item{void Sobel(Frame*, int)}
 
 \hspace*{0.65cm}Aplica o Operador Sobel em uma imagem.
 
-\hspace*{0.65cm}Será utilizado pelo processo
-\textit{createBorderMap} da classe Cut
-
-
-    \item{Frame lowPass() }
+\item{void lowPass(Frame*, int)}
 
 \hspace*{0.65cm}Aplica um filtro passa-baixa na imagem.
 
-    \item{Frame highPass() }
+\item{void highPass(Frame*, int)}
 
 \hspace*{0.65cm}Aplica um filtro passa alta na imagem.
 
+\item{void segment(Frame*, int)}
+
+\hspace*{0.65cm}Realiza a segmentação da imagem, a partir do threshold informado.
+
+\item{void Canny(Frame*, double, double, int)}
+
+\hspace*{0.65cm}Aplica o filtro de canny no frame.
+
 \end{enumerate}
 
-\subsection{Classe: Frame \label{classe_Frame}}
+\subsection{Classe: Frame\label{classe_Filters}}
 
-\hspace*{1.25cm}Classe que armazena informações sobre um único
-frame.
+\hspace*{1.25cm}Classe responsável pela manipulação de uma imagem.
+Armazena todas as suas propriedades, e possibilita a sua manipulação.
 
 \hspace*{0.65cm}\textbf{Métodos:}
+
 \begin{enumerate}
-    \item{Histogram createHistgram() }
 
-\hspace*{0.65cm}Função que cria o histograma da diagonal do frame.
+\item{Frame()}
 
-    \item{Frame getDiagonal() }
+\hspace*{0.65cm}Construtor que inicializa as variáveis internas.
 
-\hspace*{0.65cm}Retorna a diagonal do frame.
+\item{Frame(char*)}
+
+\hspace*{0.65cm}Construtor que recebe o nome de uma imagem, abre esta imagem
+e preenche as estruturas necessárias.
+
+\item{Frame(IplImage* )}
+
+\hspace*{0.65cm}Construtor que recebe uma imagem, realiza a cópia desta imagem.
+
+\item{Frame(Frame *frame)}
+
+\hspace*{0.65cm}Construtor que recebe uma frame, realiza a cópia deste frame.
+
+\item{Frame(double*, int, float)}
+
+\hspace*{0.65cm}Construtor que recebe um array, a partir deste array
+é criado uma imagem (gráfico) representativo do mesmo. Utilizado para
+representar Histogramas.
+
+\item{~Frame()}
+
+\hspace*{0.65cm}Destrutor, libera a memória alocada para o Frame.
+
+\item{QImage* IplImageToQImage(uchar**, int*, int*, double, double)}
+
+\hspace*{0.65cm}Converte uma imagem do tipo IplImage (OpenCv) para o tipo QImage (QT).
+
+\item{Histogram* createHistogram()}
+
+\hspace*{0.65cm}Cria o histograma do Frame.
+
+\item{Frame* getDiagonal()}
+
+\hspace*{0.65cm}Pega a diagonal do Frame.
+
+\item{Frame* verticalCat(Frame*)}
+
+\hspace*{0.65cm}Concatena verticalmente o Frame corrente com o passado por parâmetro.
+
+\item{Frame* resize(int, int)}
+
+\hspace*{0.65cm}Redimensiona o Frame a partir das especificações passadas por parâmetro.
+
+\item{int removeWide()}
+
+\hspace*{0.65cm}Remove as tarjas pretas horizontais do Frame;
+
+\item{int removeBorder()}
+
+\hspace*{0.65cm}Remove as tarjas pretas verticais do Frame;
+
+\item{void binarizeImage(int);}
+
+\hspace*{0.65cm}Binariza a imagem.  Tudo aquilo que
+possuir luminancia menor do que o limiar passado, terá seu valor 
+alterado para 0 e tudo aquilo que tiver luminancia acima do valor do 
+limiar terá seu valor alterado para 255.
+
+\item{void initAttr()}
+
+\hspace*{0.65cm}Inicializa todos os atributos do Frame com nulo.
+
+\item{void write(char*)}
+
+\hspace*{0.65cm}Escreve a imagem em arquivo.
+
+\item{double mediaBin()}
+
+\hspace*{0.65cm}Calcula a média de luminancia do Frame.
+
+\item{static void imgCopy(IplImage*, IplImage*)}
+
+\hspace*{0.65cm}Realiza a cópia de uma imagem.
+
+\item{static void imgDealloc(IplImage*)}
+
+\hspace*{0.65cm}Desaloca o espaco de memória reservado à uma imagem.
+
+\item{static IplImage* imgAlloc(CvSize, int, int)}
+
+\hspace*{0.65cm}Aloca o espaco de memória de uma imagem.
+
+\item{static IplImage* imgAlloc(Frame*)}
+
+\hspace*{0.65cm}Aloca o espaco de memória de uma imagem, copiando as dimensões da imagem passada
+por parâmetro.
 
 \end{enumerate}
 
-\subsection{Classe: Histogram \label{classe_Histogram}}
-
-\hspace*{1.25cm}Classe responsável por conter os dados do histograma
-de um frame.
-
-\subsection{Classe: Interface \label{classe_Interface}}
-
-\hspace*{1.25cm}\textbf{Métodos:}
-\begin{enumerate}
-    \item{void showTimeLine() }
-
-\hspace*{0.65cm}Cria a timeline na tela.
-
-    \item{void updateTimeline() }
-
-\hspace*{0.65cm}Atualiza a timeline com informações dos vídeos,
-tomadas e transições.
-
-    \item{void createListofTakes() }
-
-\hspace*{0.65cm}Cria exibição da lista de tomadas do vídeo.
-
-    \item{void showVideo() }
-
-\hspace*{0.65cm}Cria container para exibição do vídeo.
-
-    \item{void redefineTakes() }
-
-\hspace*{0.65cm}Método chamado quando o usuário modifica a posição
-de uma transição já detectada.
-
-\end{enumerate}
-
-\subsection{Classe: Morpholical \label{classe_Morpholical}}
+\subsection{Classe: Morphology\label{classe_Morphology}}
 
 \hspace*{1.25cm}Classe que agrupa filtros de morfologia matemática.
-
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-    \item{Morpholical erode(int Frame) }
 
-\hspace*{0.65cm}Aplica o efeito de Erosão em uma imagem.
+\item{Frame* erode(Frame*)}
 
-    \item{Frame dilate() }
+\hspace*{0.65cm}Aplica o efeito de Erosão em um Frame.
 
-\hspace*{0.65cm}Aplica o efeito de dilatação em uma imagem
+\item{Frame* dilate(Frame*)}
 
+\hspace*{0.65cm}Aplica o efeito de dilatação em um Frame.
 
 \end{enumerate}
 
-\subsection{Classe: Take \label{classe_Take}}
+\subsection{Classe: Erode\label{classe_MorphologyEffect}}
 
-\hspace*{1.25cm}Container para tomadas de vídeo.
-
-\subsection{Classe: Time \label{classe_Time}}
-
-\hspace*{1.25cm}Classe responsável por manipular informações de
-tempo.
-
+\hspace*{1.25cm}Classe que implementa o operador de morfologia matemática Dissolve como efeitos a ser aplicado.
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-    \item{int time2pos() }
 
-\hspace*{0.65cm}Retorna o valor em POSIÇÃO no vídeo referente ao
-tempo armazenado por este objeto.
+\item{Erode()}
+
+\hspace*{0.65cm}Construtor que inicializa os atributos internos.
+
+\item{Erode(long , long )}
+
+\hspace*{0.65cm}Construtor que inicializa os atributos, e seta os valores
+de inicio e fim do efeito.
+
+\item{Frame* applyEffect(Frame*)}
+
+\hspace*{0.65cm}Aplica o efeito de erosão em um Frame.
 
 \end{enumerate}
-
+	
 \subsection{Classe: Transition \label{classe_Transition}}
 
 \hspace*{1.25cm}Classe responsável por representar uma transição.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+
+\item{Transition()}
+
+\hspace*{0.65cm}Construtor que inicializa os atributos.
+
+\item{Transition(int, long, char*)}
+
+\hspace*{0.65cm}Construtor que inicializa os atributos, definindo o tipo da transição,
+sua posição e label.
+
+\item{long getPosCurrent(void) const}
+
+\hspace*{0.65cm}Retorna o valor utilizado da posição, que pode ser ou o definido pelo Sistem ou 
+o do Usuário, porém o segundo tem prioridade sobre o primeiro
+
+\item{bool operator <(const Transition) const}
+
+\hspace*{0.65cm}Operador de comparação entre dois objetos do tipo Transition.
+
+\end{enumerate}
 
 \subsection{Classe: Video \label{classe_Video}}
 

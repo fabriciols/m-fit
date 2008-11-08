@@ -48,40 +48,25 @@ class Transition
 
 	public:
 
+		bool selected;
+
+		// Construtores/Destrutores
 		Transition();
 		Transition(int type, long posTransition, char *label);
 
-		bool selected;
-
-		// Seta tipo da transição
+		// Get/Set
 		void setType(int type);
-		
-		// Retorna tipo da transição
 		int getType();
-	
-		// Seta posição da transição (encontrada pelo sistema)
 		void setPosTransition(int posTransition);
-	
-		// Retorna a posição da transição (encontrada pelo sistema)
 		long getPosTransition();
-
-		// Salva a posição da transição (modificada pelo usuário)
 		void setPosUserTransition(int posUser);
-
-		// Retorna a posição da transição (modificada pelo usuário)	
 		long getPosUserTransition();
-
-		// Define a label que irá identificar a transição na timeline
 		void setLabel(char *label);
-
-		// Retorna a label de definição da transição na timeline
 		char* getLabel();
-
-		bool operator <(const Transition& Rhs) const;
-
 		long getPosCurrent(void) const;
 
-
+		// Operadores
+		bool operator <(const Transition& Rhs) const;
 
 };
 #endif
