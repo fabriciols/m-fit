@@ -97,8 +97,6 @@
        </widget>
       </item>
      </layout>
-     <zorder>labelPreview</zorder>
-     <zorder>labelCurrentPos</zorder>
     </widget>
    </item>
    <item row="15" column="3" >
@@ -116,6 +114,12 @@
    </item>
    <item row="1" column="5" >
     <widget class="QPushButton" name="backButton" >
+     <property name="minimumSize" >
+      <size>
+       <width>75</width>
+       <height>23</height>
+      </size>
+     </property>
      <property name="text" >
       <string>&lt;&lt;</string>
      </property>
@@ -123,6 +127,12 @@
    </item>
    <item row="2" column="5" >
     <widget class="QPushButton" name="forwardButton" >
+     <property name="minimumSize" >
+      <size>
+       <width>75</width>
+       <height>23</height>
+      </size>
+     </property>
      <property name="text" >
       <string>>></string>
      </property>
@@ -130,6 +140,12 @@
    </item>
    <item row="3" column="5" >
     <widget class="QPushButton" name="changeButton" >
+     <property name="minimumSize" >
+      <size>
+       <width>75</width>
+       <height>23</height>
+      </size>
+     </property>
      <property name="text" >
       <string>Change</string>
      </property>
@@ -137,6 +153,12 @@
    </item>
    <item row="4" column="5" >
     <widget class="QPushButton" name="deleteButton" >
+     <property name="minimumSize" >
+      <size>
+       <width>75</width>
+       <height>23</height>
+      </size>
+     </property>
      <property name="text" >
       <string>Delete</string>
      </property>
@@ -144,6 +166,12 @@
    </item>
    <item row="5" column="5" >
     <widget class="QPushButton" name="okButton" >
+     <property name="minimumSize" >
+      <size>
+       <width>75</width>
+       <height>23</height>
+      </size>
+     </property>
      <property name="text" >
       <string>Ok</string>
      </property>
@@ -151,25 +179,18 @@
    </item>
    <item row="6" column="5" >
     <widget class="QPushButton" name="cancelButton" >
+     <property name="minimumSize" >
+      <size>
+       <width>75</width>
+       <height>23</height>
+      </size>
+     </property>
      <property name="text" >
       <string>Cancel</string>
      </property>
     </widget>
    </item>
   </layout>
-  <zorder>labelFramePos</zorder>
-  <zorder>horizontalSpacer</zorder>
-  <zorder>label</zorder>
-  <zorder>labelTransitionName</zorder>
-  <zorder>label_2</zorder>
-  <zorder>frame</zorder>
-  <zorder>labelCurrentPos</zorder>
-  <zorder>backButton</zorder>
-  <zorder>forwardButton</zorder>
-  <zorder>changeButton</zorder>
-  <zorder>deleteButton</zorder>
-  <zorder>okButton</zorder>
-  <zorder>cancelButton</zorder>
  </widget>
  <resources/>
  <connections/>
