@@ -95,7 +95,7 @@ void DetectConfig::on_okButton_clicked()
 }
 
 /************************************************************************
-* Salva as configurações e fecha a janela.
+* Altera as páginas da janela conforme item selecionado no menu.
 *************************************************************************
 * param (E): Não há.
 *************************************************************************

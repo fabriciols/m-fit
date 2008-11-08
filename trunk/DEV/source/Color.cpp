@@ -40,10 +40,36 @@ Frame* Color::convert2Gray(Frame* frame)
 	return (frameNew);
 }
 
+/************************************************************************
+* Aplica o efeito de conversão para escalas de cinza.
+*************************************************************************
+* param (E): Frame* frame => frame a ter esquema de cores alterado.
+*************************************************************************
+* return : frame em tons de cinza.
+*************************************************************************
+* Histórico:
+* 27/06/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
+
 Frame* Color::applyEffect(Frame* frame)
 {
 	return convert2Gray(frame);
 }
+
+/************************************************************************
+* Construtor que armazena o frame inicial e o frame final de um efeito 
+* aplicado no vídeo.
+*************************************************************************
+* param (E): long frameStart => frame inicial do efeito.
+* param (E): long frameEnd => frame final do efeito.
+*************************************************************************
+* return : Nenhum.
+*************************************************************************
+* Histórico:
+* 27/06/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 
 Color::Color(long frameStart, long frameEnd)
 {
@@ -52,6 +78,18 @@ Color::Color(long frameStart, long frameEnd)
 	this->setName("Conversao para Cinza");
 	this->setID(EFFECT_COLOR);
 }
+
+/************************************************************************
+* Construtor da classe.
+*************************************************************************
+* param (E): Nenhum.
+*************************************************************************
+* return : Nenhum.
+*************************************************************************
+* Histórico:
+* 27/06/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 
 Color::Color()
 {

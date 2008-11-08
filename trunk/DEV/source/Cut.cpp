@@ -181,8 +181,8 @@ void Cut::createBorderMap(Frame* visualRythim)
 
 /************************************************************************
 * Função que retorna um novo limiar para detecção de cortes. Caso o 
-* usuário tenha setado um novo valor retorna este valor, senão retorna 0
-* e o sistema irá considerar 
+* usuário tenha setado um novo valor retorna este valor, senão retorna o 
+* valor default
 *************************************************************************
 * param (E): Frame* visualRythim => Ritmo Visual do qual será gerado o
 *  											mapa de bordas
@@ -219,7 +219,7 @@ int Cut::defineThreshold(int height)
 }
 
 /************************************************************************
-* Função que faz contagem dos pontos de cada coluna que possuem 
+* Função que faz contagem dos pontos das bordas verticais detectadas.	
 *************************************************************************
 * param (E): Frame* borderMap => mapa de bordas do qual será feita a 
 * 											contagem dos pontos
