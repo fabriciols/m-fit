@@ -14,39 +14,70 @@ sistema, assim como a lista para aplicação de efeitos.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=1.0\linewidth]{imagens/resultados_obtidos.png}
+ \includegraphics[width=1.0\linewidth]{imagens/resultados_obtidos1.png}
  \caption{Tela inicial do sistema.}
  Fonte: Autor.
  \label{img:obtidos_preview1}
 \end{figure}
 
-\hspace*{0.65cm}A figura %\ref{img:obtidos_preview2} mostra o sistema
+\hspace*{0.65cm}A figura \ref{img:obtidos_preview2} mostra o sistema
 com um vídeo já carregado, é possível observar que ao carregar um
 vídeo, a lista com as propriedades do vídeo é automaticamente
 carregada, assim como a sua timeline.
 
-%\begin{figure}[h|top]
- %\centering
- %\includegraphics[width=1.0\linewidth]{imagens/resultados_obtidos2.png}
- %\caption{Tela inicial do sistema.}
- %Fonte: Autor.
- %\label{img:obtidos_preview2}
-%\end{figure}
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/resultados_obtidos2.png}
+ \caption{Tela inicial do sistema.}
+ Fonte: Autor.
+ \label{img:obtidos_preview2}
+\end{figure}
 
-\hspace*{0.65cm}Na figura (colocar referencia) pode ser observada a
+\hspace*{0.65cm}Na figura \ref{img:obtidos_preview3} pode ser observada a
 tela do sistema após o processo de detecção das transições. Nota-se
 que cada transição é marcada com uma linha vertical na timeline e
 que para cada tipo de transição há uma cor diferente. Ao clicar na
 timeline, a tomada é automaticamente marcada por uma linha que vai
 da transição inicial até sua transição final.
 
-COLOCAR IMAGEM AQUI!
-
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/resultados_obtidos3.png}
+ \caption{Tela inicial do sistema.}
+ Fonte: Autor.
+ \label{img:obtidos_preview2}
+\end{figure}
 
 \hspace*{0.65cm}Visto que para cada tipo de transição, foi adotada
 uma metodologia diferente, esta seção apresentará os resultados
 obtidos para cada tipo de detecção separadamente, seguido dos
 resultados obtidos com a detecção de todos os tipos de transição.
+
+Para todos os tipos de transições utilizamos os seguintes videos:
+
+\begin{itemize}
+\item{Teste.avi}
+
+O Video "Teste" foi criado pela equipe com intuito de gerar um video
+onde todas as transições sejam "perfeitas", sem nenhum tipo de ruido
+ou caso atípico.
+
+Transições Presentes:
+
+\subitem{ 105 - Fade-In  }
+\subitem{ 134 - Dissolve }
+\subitem{ 241 - Cur      }
+\subitem{ 377 - Fade-Out }
+
+\item {Batman.avi}
+
+Video com o trailer do filme: Batman - O Cavaleiro das Trevas.
+
+\item {Ironman.avi}
+
+Video com o trailer do filme: Homen de Ferro (Iron Man).
+
+\end{itemize}
 
 \subsection{Resultados obtidos: Detecção - Cortes \label{resultados_obtidos_cortes}}
 
@@ -120,4 +151,34 @@ filtro de Canny, o valor do limiar mínimo = 100 e o limiar máximo -
 que forem consideradas corte, foi utilizado um limiar que
 corresponde a 45\% da altura do frame.
 
-(COLOCAR OS OUTROS)
+\subsection{Resultados obtidos: Detecção - Fade\label{resultados_obtidos_cortes}}
+
+\hspace*{1.25cm}Neste tópico serão apresentados os resultados obtidos nos
+exemplos propostos.
+
+\subsubsection{Vídeo em análise: Teste.avi}
+
+\begin{itemize}
+\item{\textbf{Número de frames    : } 2919}
+\item{\textbf{Número de Fade-in   : } 51}
+\item{\textbf{Número de Fade-out  : } 51}
+\item{\textbf{Número de não cortes: } 2868}
+\end{itemize}
+
+\subsubsection{Vídeo em análise: Ironman.avi}
+
+\begin{itemize}
+\item{\textbf{Número de frames    : } 2919}
+\item{\textbf{Número de Fade-in   : } 51}
+\item{\textbf{Número de Fade-out  : } 51}
+\item{\textbf{Número de não cortes: } 2868}
+\end{itemize}
+
+\subsubsection{Vídeo em análise: Batman.avi}
+
+\begin{itemize}
+\item{\textbf{Número de frames    : } 2919}
+\item{\textbf{Número de Fade-in   : } 51}
+\item{\textbf{Número de Fade-out  : } 51}
+\item{\textbf{Número de não cortes: } 2868}
+\end{itemize}
