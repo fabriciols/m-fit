@@ -17,6 +17,7 @@
 #include "../include/Dissolve.h"
 #include "../include/Effect.h"
 #include "../include/Color.h"
+#include "../include/Filters.h"
 
 #define RIGHT	1
 #define LEFT	2
@@ -58,8 +59,10 @@ Dissolve::Dissolve(Video *vdo)
 * return : Nenhum
 *************************************************************************
 * Histórico:
-* 16/10/08 - Mauricio Hirota
+* 16/10/08 - Mauricio Hirota / Ivan Shiguenori Machida
 * Criação.
+* 08/11/08 - Ivan Shiguenori Machida
+* Utilizacao da funcao calcFirstDerivative
 ************************************************************************/
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
@@ -87,6 +90,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		visual = vdo->getNextFrame();
 		frameGray = color->convert2Gray(visual);
 
+		this->detectBorder(frameGray);
 		array_vrh[k] = frameGray->mediaBin();
 
 		delete color;
@@ -108,13 +112,13 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		   (array_vrh[k+6]<array_vrh[k+7]))
 		{
 			//aplica 1. derivada
-			if(((array_vrh[k+1]-array_vrh[k])<threshold) &&
-			  ((array_vrh[k+2]-array_vrh[k+1])<threshold) &&
-			  ((array_vrh[k+3]-array_vrh[k+2])<threshold) &&
-			  ((array_vrh[k+4]-array_vrh[k+3])<threshold) &&
-			  ((array_vrh[k+5]-array_vrh[k+4])<threshold) &&
-			  ((array_vrh[k+6]-array_vrh[k+5])<threshold) &&
-			  ((array_vrh[k+7]-array_vrh[k+6])<threshold))
+			if((calcFirstDerivative(array_vrh[k],array_vrh[k+1])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+1],array_vrh[k+2])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+2],array_vrh[k+3])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+3],array_vrh[k+4])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+4],array_vrh[k+5])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+5],array_vrh[k+6])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+6],array_vrh[k+7])<threshold))
 			{
 				orientation[k]=RIGHT;
 				detect[k]=1;
@@ -131,13 +135,13 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		   (array_vrh[k+6]>array_vrh[k+7]))
 		{
 			//aplica 1. derivada
-			if(((array_vrh[k]-array_vrh[k+1])<threshold) &&
-			  ((array_vrh[k+1]-array_vrh[k+2])<threshold) &&
-			  ((array_vrh[k+2]-array_vrh[k+3])<threshold) &&
-			  ((array_vrh[k+3]-array_vrh[k+4])<threshold) &&
-			  ((array_vrh[k+4]-array_vrh[k+5])<threshold) &&
-			  ((array_vrh[k+5]-array_vrh[k+6])<threshold) &&
-			  ((array_vrh[k+6]-array_vrh[k+7])<threshold))
+			if((calcFirstDerivative(array_vrh[k+1],array_vrh[k])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+2],array_vrh[k+1])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+3],array_vrh[k+2])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+4],array_vrh[k+3])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+5],array_vrh[k+4])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+6],array_vrh[k+5])<threshold) &&
+			  (calcFirstDerivative(array_vrh[k+7],array_vrh[k+6])<threshold))
 			{
 				orientation[k]=LEFT;
 				detect[k]=1;
@@ -212,41 +216,6 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 }
 
 /************************************************************************
-* Função que calcula a variancia através do histograma do ritmo visual
-*************************************************************************
-* param (E): vetor de média
-*************************************************************************
-* return : float -> valor da variância do histograma do ritmo visual
-*************************************************************************
-* Histórico:
-* 19/08/08 - Ivan Shiguenori Machida
-* Efetuando os calculos para variancia e desvio padrao.
-* 17/08/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
-double Dissolve::calcVariance(double *arrayM, int size_i )
-{
-	int i;
-	double mean = 0;
-	double variance=0;
-   double soma=0;
-	// faz a média
-	for (i=1; i<=size_i; i++)
-	{
-		soma=soma + arrayM[i];
-	}
-	mean = soma / size_i;
-	
-	// faz variancia
-	for (i=1; i<=size_i; i++)
-	{
-		variance = variance + ((arrayM[i] - mean ) * (arrayM[i] - mean));
-	}
-	variance = variance / (size_i-1);
-	return(variance);
-}
-
-/************************************************************************
 * Função que calcula a segunda derivada através do histograma do ritmo 
 * visual
 *************************************************************************
@@ -256,51 +225,30 @@ double Dissolve::calcVariance(double *arrayM, int size_i )
 * visual
 *************************************************************************
 * Histórico:
-* 18/08/08 - Ivan Shiguenori machida
+* 18/08/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-double Dissolve::calcSecondDerivative(double *array, int size)
+double Dissolve::calcFirstDerivative(double firstFrame, double secondFrame)
 {
-	double *derivative2 = (double *)malloc(sizeof(double)*size);
-	double *derivative1 = (double *)malloc(sizeof(double)*size);
-	int i;
-	// Calcula segunda derivada, se for primeiro ou ultimo frame, derivada  = 0
-	for (i=1; i<=size; i++)
-	{
-		if (i == 1 || i == size)
-			derivative1[i] = 0;
-		else
-			derivative1[i] = (array[i+1] + array[i-1])/2;
-	}
-	for (i=1; i<=size; i++)
-	{
-		if (i == 1 || i == size)
-			derivative2[i] = 0;
-		else
-	
-		derivative2[i] = (derivative1[i+1] + derivative1[i-1])/2;
-	}
-	
-	return(*derivative2);	
+	return(secondFrame-firstFrame);
 }
 
 /************************************************************************
-* Função que calcula a razão entre variancia e a segunda derivada gerada 
-* através do histograma do ritmo visual
+* Detecta a borda do frame usando filtro Canny
 *************************************************************************
-* param (E): variancia e segunda derivada
+* param (E): vetor de entrada
 *************************************************************************
-* return : float -> valor razão entre variancia e a segunda derivada 
-* gerada através do histograma do ritmo visual
+* return : void
 *************************************************************************
 * Histórico:
-* 18/08/08 - Ivan Shiguenori machida
+* 08/11/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-double Dissolve::calcRatioVarianceVRH(double variance, double secondDerivative)
+void Dissolve::detectBorder(Frame *frameMap)
 {
-	if (secondDerivative!=0)
-		return(variance / secondDerivative);
-	else
-		return 0;
+	Filters* border = new Filters();
+	
+	border->Canny(frameMap, 240, 255, 3);
+
+	delete border;
 }
