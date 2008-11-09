@@ -13,24 +13,15 @@ class Dissolve: public DetectTransitions
 		
 		void detectTransitions(Video* vdo, std::vector<Transition>*);
 
-		bool checkLuminance();
-	 
 	/**
-	 *Calcula a segunda derivada de
+	 *Calcula a primeira derivada de
 	 *uma curva.
 	 */
-		double calcSecondDerivative(double *, int);
+		double calcFirstDerivative(double , double);
 	 
 	/**
 	 *Calcula a curva de variância de um vídeo.
 	 */
-		double calcVariance(double *, int );
-	 
-	/**
-	 *Calcula a razão entre a segunda
-	 *derivada da variância com a 
-	 *derivada do RVH.
-	 */
-		double calcRatioVarianceVRH(double, double);
-	 
+		void detectBorder(Frame*);
+
 };
