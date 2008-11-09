@@ -17,7 +17,7 @@ class Dissolve: public DetectTransitions
 	 *Calcula a primeira derivada de
 	 *uma curva.
 	 */
-		double calcFirstDerivative(double , double);
+		int calcFirstDerivative(double , double, double, double);
 	 
 	/**
 	 *Calcula a curva de variância de um vídeo.
