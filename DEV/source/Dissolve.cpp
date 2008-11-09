@@ -23,34 +23,6 @@
 #define LEFT	2
 
 /************************************************************************
-* Construtor que somente inicializa as variavies de controle com nulo 
-*************************************************************************
-* param (E): nenhum
-*************************************************************************
-* Histórico:
-* 18/08/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
-Dissolve::Dissolve()
-{
-}
-
-/************************************************************************
-* Construtor que somente inicializa as variavies de controle com nulo 
-*************************************************************************
-* param (E): Video *vdo - guarda o video corrente para calculos de
-* detecção
-*************************************************************************
-* Histórico:
-* 18/08/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
-Dissolve::Dissolve(Video *vdo)
-{
-	this->video = vdo;
-}
-
-/************************************************************************
 * Função que detecta as transições do tipo Dissolve
 *************************************************************************
 * param (E): Video* vdo -> video à detectar as transições
