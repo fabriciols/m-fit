@@ -36,11 +36,6 @@ class Interface: public QMainWindow
 		void on_backButton_clicked(); // volta um frame
 		void on_forwardButton_clicked(); // avança um frame
 
-		void on_videoTime_timeChanged(const QTime & time);
-
-		//void updateVideoPlayer(QImage *image);
-		//void updateVideoPlayer(QImage *image, QImage *imageHist);
-
 		void updatePlayer(QImage *image);
 		void updateHist(QImage *image);
 
