@@ -67,38 +67,26 @@ Dissolve::Dissolve(Video *vdo)
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 	double *array_vrh;
-	int videoSize, k, i, threshold=0, threshold_fade = 0;
-	Frame* frameGray = 0;
+	int k, i;
+	double videoSize;
 
-	int *detect;
-	int *orientation;
+	double *detect, *orientation, thresholdMax=0, thresholdMin=0, threshold_fade = 0;
+
+	VisualRythim* vrh;
 
 	videoSize = cvRound(vdo->getFramesTotal());
 
-	detect = (int *) malloc(sizeof(int)*videoSize);
-	orientation = (int *) malloc(sizeof(int)*videoSize);
-	array_vrh = (double *) malloc(sizeof(double)*videoSize);
+	detect = (double *) malloc(sizeof(double)*videoSize);
+	orientation = (double *) malloc(sizeof(double)*videoSize);
 
-	memset(detect,0,videoSize);
-	memset(orientation,0,videoSize);
+	memset(detect, '\0',     sizeof(double)*cvRound(videoSize));
+	memset(orientation, '\0',     sizeof(double)*cvRound(videoSize));
 
 	//Coleta o ritmo visual dos frames
-	for(k=0;k<videoSize;k++)
-	{
-		Color *color = new Color();
-		Frame* visual = new Frame();
-		visual = vdo->getNextFrame();
-		frameGray = color->convert2Gray(visual);
+	array_vrh = vrh->createVRH(vdo);
 
-		this->detectBorder(frameGray);
-		array_vrh[k] = frameGray->mediaBin();
-
-		delete color;
-		delete frameGray;
-		delete visual;
-	}
-
-	threshold = 4;
+	thresholdMin = 0.2;
+	thresholdMax = 4.0;
 
 	//Verifica ponto de dissolve
 	for(k=0;k<videoSize;k++)
@@ -112,13 +100,13 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		   (array_vrh[k+6]<array_vrh[k+7]))
 		{
 			//aplica 1. derivada
-			if((calcFirstDerivative(array_vrh[k],array_vrh[k+1])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+1],array_vrh[k+2])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+2],array_vrh[k+3])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+3],array_vrh[k+4])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+4],array_vrh[k+5])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+5],array_vrh[k+6])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+6],array_vrh[k+7])<threshold))
+			if((calcFirstDerivative(array_vrh[k],array_vrh[k+1],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+1],array_vrh[k+2],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+2],array_vrh[k+3],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+3],array_vrh[k+4],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+4],array_vrh[k+5],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+5],array_vrh[k+6],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+6],array_vrh[k+7],thresholdMax,thresholdMin)))
 			{
 				orientation[k]=RIGHT;
 				detect[k]=1;
@@ -135,13 +123,13 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		   (array_vrh[k+6]>array_vrh[k+7]))
 		{
 			//aplica 1. derivada
-			if((calcFirstDerivative(array_vrh[k+1],array_vrh[k])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+2],array_vrh[k+1])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+3],array_vrh[k+2])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+4],array_vrh[k+3])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+5],array_vrh[k+4])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+6],array_vrh[k+5])<threshold) &&
-			  (calcFirstDerivative(array_vrh[k+7],array_vrh[k+6])<threshold))
+			if((calcFirstDerivative(array_vrh[k+1],array_vrh[k],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+2],array_vrh[k+1],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+3],array_vrh[k+2],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+4],array_vrh[k+3],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+5],array_vrh[k+4],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+6],array_vrh[k+5],thresholdMax,thresholdMin)) &&
+			  (calcFirstDerivative(array_vrh[k+7],array_vrh[k+6],thresholdMax,thresholdMin)))
 			{
 				orientation[k]=LEFT;
 				detect[k]=1;
@@ -163,9 +151,10 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		}
 	}
 
+
 	//Verifica se é um fade
 	i=0;
-	threshold_fade = 5;
+	threshold_fade = 6;
 
 	for(k=0;k<videoSize;k++)
 	{
@@ -175,7 +164,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 
 			if(orientation[k]==RIGHT)
 			{
-				while((array_vrh[i]<array_vrh[i+1]) && (i<videoSize))
+				while(((array_vrh[i]<=array_vrh[i+1]) || (array_vrh[i]<=array_vrh[i+2])) && (i<videoSize))
 				{
 //					Log::writeLog("RIGHT %d - %lf", k, array_vrh[i]);
 					if(array_vrh[i]<threshold_fade)
@@ -187,7 +176,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 			}
 			else if(orientation[k]==LEFT)
 			{
-				while((array_vrh[i]>array_vrh[i+1]) && (i<videoSize))
+				while(((array_vrh[i]>=array_vrh[i+1]) || (array_vrh[i]>=array_vrh[i+2])) && (i<videoSize))
 				{
 //					Log::writeLog("LEFT %d - %lf", k, array_vrh[i]);
 					if(array_vrh[i]<threshold_fade)
@@ -228,9 +217,12 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 * 18/08/08 - Ivan Shiguenori Machida
 * Criação.
 ************************************************************************/
-double Dissolve::calcFirstDerivative(double firstFrame, double secondFrame)
+int Dissolve::calcFirstDerivative(double firstFrame, double secondFrame, double thresholdMax, double thresholdMin)
 {
-	return(secondFrame-firstFrame);
+	if(((secondFrame-firstFrame) < thresholdMax) && ((secondFrame-firstFrame) > thresholdMin))
+		return(1);
+	else
+		return(0);
 }
 
 /************************************************************************
@@ -252,3 +244,4 @@ void Dissolve::detectBorder(Frame *frameMap)
 
 	delete border;
 }
+
