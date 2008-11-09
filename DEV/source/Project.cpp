@@ -17,11 +17,9 @@
 #include "../include/main.h"
 
 /************************************************************************
-* Abre um arquivo de projeto, que eh um XML, parsea ele e sobe as
-* estruturas.
-* TODO: ParserXML
+* Abre um arquivo XML de projeto e carrega as estruturas necessárias.
 *************************************************************************
-* param (E): Nenhum
+* param (E): QString fileName => nome do arquivo a ser aberto.
 *************************************************************************
 * Histórico
 * 29/09/08 - Fabricio Lopes de Souza
@@ -96,13 +94,13 @@ int Project::openProject(QString fileName)
 }
 
 /************************************************************************
- * Salva um arquivo de projeto, que eh um XML, parsea ele e sobe as
- * estruturas.
- * TODO: ParserXML
+ * Salva o projeto em um arquivo XML
  *************************************************************************
- * param (E): Nenhum
+ * param (E): QString fileName => Nome do arquivo a ser salvo
  *************************************************************************
  * Histórico
+ * 09/11/08 - Thiago Mizutani
+ * Revisão de código, alteração dos comentários
  * 14/10/08 - Ivan Shiguenori Machida
  * Criação.
  ************************************************************************/
@@ -591,6 +589,19 @@ void Project::clearEffectList()
 	this->effectList.clear();
 }
 
+/*************************************************************************
+ * Obtém a transição correspondente ao ponto clicado na timeline e marca
+ * esta tomada.
+ *************************************************************************
+ * param (E): int pos_x => posição do cursor da timeline.
+ *************************************************************************
+ * return : Nenhum
+ *************************************************************************
+ * Histórico
+ * 19/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
+
 int Project::getTransitionByPos(int pos_x)
 {
 	int x;
@@ -623,6 +634,18 @@ int Project::getTransitionByPos(int pos_x)
 	return transitionID;
 }
 
+/*************************************************************************
+ * Remove um efeito do vídeo e da lista de efeitos.
+ *************************************************************************
+ * param (E): int ind => número do efeito.
+ *************************************************************************
+ * return : Nenhum
+ *************************************************************************
+ * Histórico
+ * 19/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
+
 void Project::removeEffect(int ind)
 {
 	Effect *effect = effectList.at(ind);
@@ -633,6 +656,18 @@ void Project::removeEffect(int ind)
 
 	Interface_ui->updateEffectTree();
 }
+
+/*************************************************************************
+ * Remove uma transição apontada pelo sistema da lista de transições.
+ *************************************************************************
+ * param (E): int ind => número do efeito.
+ *************************************************************************
+ * return : Nenhum
+ *************************************************************************
+ * Histórico
+ * 19/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
 
 void Project::removeTransition(int ind)
 {

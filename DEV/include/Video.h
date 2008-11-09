@@ -101,15 +101,6 @@ class Video
 		 **/
 		int seekFrame(unsigned long posFrame);
 
-
-		/**
-		 *Função que fecha o vídeo.
-		 *1 - sucesso.
-		 *0 - erro.
-		 *
-		 */
-		int close();
-
 		/**
 		 *Obtém o frame atual.
 		 */
@@ -119,15 +110,6 @@ class Video
 
 		// Obtêm a posição corrente do ponteiro do vídeo.
 		double getCurrentPosition();
-
-		/**
-		 * Processo que escreve no arquivo. É nele onde são aplicados
-		 * realmente os efeitos provenientes da edição do vídeo.
-		 * retorna:
-		 * 1 - Sucesso.
-		 * 0 - Erro.
-		 **/
-		int write();
 
 		double getFramesWidth();
 		double getFramesHeight();
