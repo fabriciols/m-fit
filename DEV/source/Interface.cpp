@@ -1559,7 +1559,7 @@ void Interface::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column
 
 	id = atoi(id_cy);
 
-	transition = currentProject->transitionList.at(id);
+	transition = &currentProject->transitionList.at(id);
 
 	// Pega a posicao da transicao
 	pos_l = transition->getPosCurrent();
@@ -1574,7 +1574,7 @@ void Interface::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column
 	vdo_player->updateCurrentFrame(); // Atualiza o frame corrente
 	updateTimeline(); // Atualizo a posição do cursor da timeline
 
-	timeline_l = currentProject->FrameToTimelinePos(position_l);
+	timeline_l = currentProject->FrameToTimelinePos(pos_l);
 
 	// Move o scroll
 	moveScrollArea((int)timeline_l, 0);
