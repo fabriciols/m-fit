@@ -18,12 +18,30 @@ extern Project* currentProject;
 extern VideoPlayer* vdo_player;
 extern Interface* Interface_ui;
 
+/************************************************************************
+* Construtor, cria o sinal da opcao "Remover Efeito".
+*************************************************************************
+* param (E): QWidget* - Widget parente.
+*************************************************************************
+* Histórico
+* 09/11/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 QTreeWidgetEffect::QTreeWidgetEffect(QWidget *parent) : QTreeWidget(parent)
 { 
 	deleteAct = new QAction(tr("&Remover Efeito"), this);
 	connect(deleteAct, SIGNAL(triggered()), this, SLOT(deleteItem()));
 }
 
+/************************************************************************
+* Evento de abertura do menu de contexto (Vulgo botão direito)
+*************************************************************************
+* param (E): QContextMenuEvent* - Evento
+*************************************************************************
+* Histórico
+* 09/11/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 void QTreeWidgetEffect::contextMenuEvent(QContextMenuEvent *event)
 {
 	QList<QTreeWidgetItem *> itens;
@@ -37,6 +55,15 @@ void QTreeWidgetEffect::contextMenuEvent(QContextMenuEvent *event)
 	menu.exec(event->globalPos());
 }
 
+/************************************************************************
+* Deleta o item selecionado da Tree.
+*************************************************************************
+* param (E): Nenhum
+*************************************************************************
+* Histórico
+* 09/11/08 - Fabricio Lopes de Souza
+* Criação.
+************************************************************************/
 void QTreeWidgetEffect::deleteItem(void)
 {
 	QList<QTreeWidgetItem *> itens;
