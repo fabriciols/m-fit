@@ -46,7 +46,6 @@ Frame* VisualRythim::createVR(Video* vdo)
 
 	double width;
 	double heigth;
-	//int x = 0; // Coluna que está sendo montada no RV.
 
 	Log::writeLog("%s :: param: Video[%x]", __FUNCTION__, vdo);
 
@@ -68,7 +67,6 @@ Frame* VisualRythim::createVR(Video* vdo)
 //		Log::writeLog("%s :: Convert2Gray Frame[%x] Frame->data[%x]", __FUNCTION__, frame, frame->data);
 
 		// Converto o frame para escala de cinza.
-		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
 		frameGray = color->convert2Gray(frame);
 
 		// Pego a diagonal (pixel por pixel) e ploto este pixel na coluna f do RV.
@@ -139,7 +137,6 @@ double* VisualRythim::createVRH(Video* vdo)
 		}
 
 		// Converto o frame para escala de cinza.
-		// INCLUIR ESTE PASSO NO DIAGRAMA DE SEQUENCIA!!!!!!!!!!!!!
 		frameGray = color->convert2Gray(frame);
 
 		// Guardo a media do valor de luminancia da diagonal.
