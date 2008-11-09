@@ -85,7 +85,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	//Coleta o ritmo visual dos frames
 	array_vrh = vrh->createVRH(vdo);
 
-	thresholdMin = 0.2;
+	thresholdMin = 0.25;
 	thresholdMax = 4.0;
 
 	//Verifica ponto de dissolve
@@ -154,7 +154,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 
 	//Verifica se é um fade
 	i=0;
-	threshold_fade = 6;
+	threshold_fade = 6.0;
 
 	for(k=0;k<videoSize;k++)
 	{
@@ -170,6 +170,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 					if(array_vrh[i]<threshold_fade)
 					{
 						detect[k]=0;
+						break;
 					}
 					i++;
 				}
@@ -182,6 +183,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 					if(array_vrh[i]<threshold_fade)
 					{
 						detect[k]=0;
+						break;
 					}
 					i++;
 				}
@@ -224,24 +226,3 @@ int Dissolve::calcFirstDerivative(double firstFrame, double secondFrame, double 
 	else
 		return(0);
 }
-
-/************************************************************************
-* Detecta a borda do frame usando filtro Canny
-*************************************************************************
-* param (E): vetor de entrada
-*************************************************************************
-* return : void
-*************************************************************************
-* Histórico:
-* 08/11/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
-void Dissolve::detectBorder(Frame *frameMap)
-{
-	Filters* border = new Filters();
-	
-	border->Canny(frameMap, 240, 255, 3);
-
-	delete border;
-}
-
