@@ -18,10 +18,4 @@ class Dissolve: public DetectTransitions
 	 *uma curva.
 	 */
 		int calcFirstDerivative(double , double, double, double);
-	 
-	/**
-	 *Calcula a curva de variância de um vídeo.
-	 */
-		void detectBorder(Frame*);
-
 };
