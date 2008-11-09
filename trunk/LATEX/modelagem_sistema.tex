@@ -861,6 +861,72 @@ de transições.
 
 \end{enumerate}
 
+\subsection{Classe: QTreeWidgetEffect \label{classe_QTreeWidgetEffect}}
+
+\hspace*{1.25cm}Classe que armazena dados e estruturas referentes à
+lista de transições da interface.
+
+\hspace{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{QTreeWidgetEffect()}
+\hspace{0.65cm}Construtor, cria o connect da opção ``Remover
+Efeito''.
+
+\item{void contextMenuEvent()}
+\hspace{0.65cm}Trata evento de abertura do menu de contexto.
+
+\item{void deleteItem()}
+\hspace*{0.65cm}Remove o item selecionado da lista de efeitos.
+
+\end{enumerate}
+
+\subsection{Classe: QWidgetTimeline \label{classe_QWidgetTimeline}}
+
+\hspace*{1.25cm}Classe que armazena todos os dados e estruturas da
+timeline exibida na interface.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{QWidgetTimeline()}
+\hspace*{0.65cm}Construtor da classe.
+
+\item{void mousePressEvent()}
+\hspace*{0.65cm}Trata o evento gerado quando o mouse é
+``pressionado'' sobre a timeline.
+
+\item{void dragMoveEvent()}
+\hspace*{0.65cm}Trata o evento de \textit{DragMove}. Este evento
+ocorre quando um objeto for ``arrastado'' dentro da região da
+timeline.
+
+\item{void dragEnterEvent()}
+\hspace*{0.65cm}Trata o evento de \textit{DragEnter}. Este evento
+ocorre quando um objeto que está sendo arrastado entra na região de
+tratamento da timeline.
+
+\item{void dropEvent()}
+\hspace*{0.65cm}Trata o evento de \textit{Drop} na timeline. Aplica
+o efeito arrastado no intervalo da transição escolhida.
+
+\item{int getItemByEvent()}
+\hspace*{0.65cm}A partir do evento, retorna qual Efeito vai ser
+aplicado.
+
+\item{int selectDropTransition()}
+\hspace*{0.65cm}A partir de um ponto, pinta o Header da timeline
+referente a uma transição.
+
+\item{void dragLeaveEvent()}
+\hspace*{0.65cm}Trata o evento de \textit{DragLeave}. Este evento
+ocorre quando um objeto que está sendo arrastado, sai da região da
+timeline.
+
+\end{enumerate}
+
 \subsection{Classe: Time \label{classe_Time}}
 
 \hspace*{1.25cm}Classe responsável por armazenar dados relacionados
@@ -913,6 +979,46 @@ o do Usuário, porém o segundo tem prioridade sobre o primeiro
 \item{bool operator <(const Transition) const}
 
 \hspace*{0.65cm}Operador de comparação entre dois objetos do tipo Transition.
+
+\end{enumerate}
+
+\subsection{Classe: TransitionEdit \label{classe_TransitionEdit}}
+
+\hspace*{1.25cm}Classe responsável por gerenciar as alterações
+feitas pelo usuário quanto à mudança da posição de ocorrência das
+transições.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{void on_changeButton_clicked()}
+\hspace*{0.65cm}
+
+\item{void on_deleteButton_clicked()}
+\hspace*{0.65cm}
+
+\item{void on_cancelButton_clicked()}
+\hspace*{0.65cm}
+
+\item{void on_okButton_clicked()}
+\hspace*{0.65cm}
+
+\item{void on_backButton_clicked()}
+\hspace*{0.65cm}
+
+\item{void on_forwardButton_clicked()}
+\hspace*{0.65cm}
+
+\item{TransitionEdit()}
+\hspace*{0.65cm}Construtor da janela para alteração do ponto de
+ocorrência da transição.
+
+\item{void setID()}
+\hspace*{0.65cm}Define o ID da transição que será editada.
+
+\item{void updatePreview()}
+\hspace*{0.65cm}
 
 \end{enumerate}
 
@@ -1004,23 +1110,22 @@ frame da tomada editada.
 
 \end{enumerate}
 
-\subsection{Classe: VisualRythim \label{classe_VisualRythim}}
+'\subsection{Classe: VisualRythim \label{classe_VisualRythim}}
 
 \hspace*{1.25cm}Classe responsável por criar os dois tipos de ritmo
 visual.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-    \item{Frame createVR() }
+\item{Frame createVR() }
+\hspace*{0.65cm}Função que cria o Ritmo Visual por amostragem de um
+vídeo.
 
-\hspace*{0.65cm}Cria o Ritmo Visual por sub-amostragem.
+\item{double* createVRH() }
+\hspace*{0.65cm}Função que cria o Ritmo Visual por histograma de um
+vídeo.
 
-    \item{int createVRH() }
-
-\hspace*{0.65cm}Retorna o Ritmo Visual por Histograma do vídeo
-
-    \item{float calcDerivatives() }
-
+\item{float calcDerivatives() }
 \hspace*{0.65cm}Calcula primeira derivada da curva do gráfico do
 ritmo visual.
 
