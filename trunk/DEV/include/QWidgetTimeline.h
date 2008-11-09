@@ -21,7 +21,6 @@ class QWidgetTimeline : public QWidget
 		void dragEnterEvent(QDragEnterEvent * event);
  		void dropEvent(QDropEvent *event);
 		int getItemByEvent(QDropEvent *event);
-		int getTransitionByPos(QPoint pointEvent);
 		int selectDropTransition(QPoint pointEvent, int clear = 1);
 		//bool event(QEvent *e);
 		void dragLeaveEvent(QDragLeaveEvent *event);
