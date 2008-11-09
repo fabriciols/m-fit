@@ -8,9 +8,6 @@ class Dissolve: public DetectTransitions
 		Video *video;
 
 	public:
-		Dissolve();
-		Dissolve(Video *vdo);
-		
 		void detectTransitions(Video* vdo, std::vector<Transition>*);
 
 	/**
