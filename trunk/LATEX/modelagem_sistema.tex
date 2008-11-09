@@ -437,7 +437,7 @@ para escalas de cinza.
 \item Color(long frameStart, long frameEnd)
 
 \hspace*{0.65cm}Construtor que armazena o frame inicial e o frame
-final de um efeito aplicado no vídeo. O objeto criado será posteriormente 
+final de um efeito aplicado no vídeo. O objeto criado será posteriormente
 adicionado à lista de efeitos do projeto.
 
 \item Color()
@@ -515,16 +515,36 @@ selecionado no menu.
 
 \begin{enumerate}
 
-\item{void detectTransitions(Video, std::vector<Transition>)}
+\item{void detectTransitions()}
 
 \hspace*{0.65cm}Função principal na detecção de transições.
 Desencadeia a chamada da função com este mesmo nome nos objetos
 filhos, por fim armazena o resultado no vector passado por parâmetro.
 
-\item{bool validateTransition(long, std::vector<Transition>)}
+\item{bool validateTransition()}
 
 \hspace*{0.65cm}Verifica se já existem transições detectadas na
 posição da nova transição.
+
+\end{enumerate}
+
+\subsection{Classe: Dilate \label{classe_dilate}}
+
+\hspace*{1.25cm}Classe responsável em aplicar efeitos de dilatacao
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{Frame* applyEffect()}
+\hspace*{0.65cm}Aplica o efeito de dilatação no Frame.
+
+\item{Dilate()}
+\hspace{0.65cm}Construtor que inicializa os atributos do objeto.
+
+\item{Dilate(long frameStart, long frameEnd)
+\hspace{0.65cm}Construtor que inicializa os atributos do objeto e
+seta os intervalos de início e fim de aplicação do efeito.
 
 \end{enumerate}
 
@@ -551,10 +571,32 @@ efeitos.
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
 
-\item{virtual Frame* applyEffect(Frame)}
+\item{virtual Frame* applyEffect()}
 
 \hspace*{0.65cm}Função abstrata para aplicação de efeito. Será
 implementada por todas as classes filhas deste objeto.
+
+\end{enumerate}
+
+\subsection{Classe: Erode\label{classe_MorphologyEffect}}
+
+\hspace*{1.25cm}Classe que implementa o operador de morfologia
+matemática Dissolve como efeitos a ser aplicado.
+\hspace*{0.65cm}\textbf{Métodos:}
+\begin{enumerate}
+
+\item{Erode()}
+
+\hspace*{0.65cm}Construtor que inicializa os atributos internos.
+
+\item{Erode(long , long )}
+
+\hspace*{0.65cm}Construtor que inicializa os atributos, e seta os
+valores de inicio e fim do efeito.
+
+\item{Frame* applyEffect(Frame*)}
+
+\hspace*{0.65cm}Aplica o efeito de erosão em um Frame.
 
 \end{enumerate}
 
@@ -567,11 +609,11 @@ fade.
 \begin{enumerate}
 \item{float calcMinDerivative() }
 
-\item{double* calcDerivative(double* , int)}
+\item{double* calcDerivative()}
 
 \hspace*{1.25cm}Deriva o array de doubles passado por parâmetro.
 
-\item{void detectTransitions(Video*, std::vector<Transition>*)}
+\item{void detectTransitions()}
 
 \hspace*{1.25cm}Realiza a detecção das transições do tipo fade (in/out)
 e empilha o resultado no vector.
@@ -588,23 +630,23 @@ imagens digitais.
 
 \begin{enumerate}
 
-\item{void Sobel(Frame*, int)}
+\item{void Sobel()}
 
 \hspace*{0.65cm}Aplica o Operador Sobel em uma imagem.
 
-\item{void lowPass(Frame*, int)}
+\item{void lowPass()}
 
 \hspace*{0.65cm}Aplica um filtro passa-baixa na imagem.
 
-\item{void highPass(Frame*, int)}
+\item{void highPass()}
 
 \hspace*{0.65cm}Aplica um filtro passa alta na imagem.
 
-\item{void segment(Frame*, int)}
+\item{void segment()}
 
 \hspace*{0.65cm}Realiza a segmentação da imagem, a partir do threshold informado.
 
-\item{void Canny(Frame*, double, double, int)}
+\item{void Canny()}
 
 \hspace*{0.65cm}Aplica o filtro de canny no frame.
 
@@ -632,7 +674,7 @@ e preenche as estruturas necessárias.
 
 \hspace*{0.65cm}Construtor que recebe uma imagem, realiza a cópia desta imagem.
 
-\item{Frame(Frame *frame)}
+\item{Frame(Frame* )}
 
 \hspace*{0.65cm}Construtor que recebe uma frame, realiza a cópia deste frame.
 
@@ -646,7 +688,7 @@ representar Histogramas.
 
 \hspace*{0.65cm}Destrutor, libera a memória alocada para o Frame.
 
-\item{QImage* IplImageToQImage(uchar**, int*, int*, double, double)}
+\item{QImage* IplImageToQImage()}
 
 \hspace*{0.65cm}Converte uma imagem do tipo IplImage (OpenCv) para o tipo QImage (QT).
 
@@ -658,11 +700,11 @@ representar Histogramas.
 
 \hspace*{0.65cm}Pega a diagonal do Frame.
 
-\item{Frame* verticalCat(Frame*)}
+\item{Frame* verticalCat()}
 
 \hspace*{0.65cm}Concatena verticalmente o Frame corrente com o passado por parâmetro.
 
-\item{Frame* resize(int, int)}
+\item{Frame* resize()}
 
 \hspace*{0.65cm}Redimensiona o Frame a partir das especificações passadas por parâmetro.
 
@@ -674,18 +716,18 @@ representar Histogramas.
 
 \hspace*{0.65cm}Remove as tarjas pretas verticais do Frame;
 
-\item{void binarizeImage(int);}
+\item{void binarizeImage()}
 
 \hspace*{0.65cm}Binariza a imagem.  Tudo aquilo que
-possuir luminancia menor do que o limiar passado, terá seu valor 
-alterado para 0 e tudo aquilo que tiver luminancia acima do valor do 
+possuir luminancia menor do que o limiar passado, terá seu valor
+alterado para 0 e tudo aquilo que tiver luminancia acima do valor do
 limiar terá seu valor alterado para 255.
 
 \item{void initAttr()}
 
 \hspace*{0.65cm}Inicializa todos os atributos do Frame com nulo.
 
-\item{void write(char*)}
+\item{void write()}
 
 \hspace*{0.65cm}Escreve a imagem em arquivo.
 
@@ -693,22 +735,55 @@ limiar terá seu valor alterado para 255.
 
 \hspace*{0.65cm}Calcula a média de luminancia do Frame.
 
-\item{static void imgCopy(IplImage*, IplImage*)}
+\item{static void imgCopy()}
 
 \hspace*{0.65cm}Realiza a cópia de uma imagem.
 
-\item{static void imgDealloc(IplImage*)}
+\item{static void imgDealloc()}
 
 \hspace*{0.65cm}Desaloca o espaco de memória reservado à uma imagem.
 
-\item{static IplImage* imgAlloc(CvSize, int, int)}
+\item{static IplImage* imgAlloc()}
 
 \hspace*{0.65cm}Aloca o espaco de memória de uma imagem.
 
-\item{static IplImage* imgAlloc(Frame*)}
+\item{static IplImage* imgAlloc()}
 
 \hspace*{0.65cm}Aloca o espaco de memória de uma imagem, copiando as dimensões da imagem passada
 por parâmetro.
+
+\end{enumerate}
+
+\subsection{Classe: Histogram \label{classe_Histogram}}
+
+\hspace*{1.25cm}Classe responsável por armazenar os dados do
+histograma de um frame.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+\item{Histogram()}
+\hspace*{0.65cm}Consturtor da classe que inicializa as variáveis
+internas.
+
+\item{Histogram(IplImage* img)}
+\hspace*{0.65cm}Construtor para Histogram que recebe uma imagem do
+tipo IplImage e com isso gera o histograma, preenchedo os atributos
+necessários
+
+\end{enumerate}
+
+\subsection{Classe Log \label{classe_log}}
+
+\hspace*{1.25cm}Classe responsável pela geração de logs da
+aplicação.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{static int writeLog()}
+\hspace{0.65cm} Escreve no arquivo de log.
 
 \end{enumerate}
 
@@ -728,27 +803,92 @@ por parâmetro.
 
 \end{enumerate}
 
-\subsection{Classe: Erode\label{classe_MorphologyEffect}}
+\subsection{Classe: Project \label{classe_project}}
 
-\hspace*{1.25cm}Classe que implementa o operador de morfologia matemática Dissolve como efeitos a ser aplicado.
+\hspace{1.25cm}Classe responsável em armazenar os dados relacionados
+ao projeto corrente.
+
 \hspace*{0.65cm}\textbf{Métodos:}
+
 \begin{enumerate}
 
-\item{Erode()}
+\item{void clearTransitionList()}
+\hspace*{0.65cm}Limpa a lista de transições.
 
-\hspace*{0.65cm}Construtor que inicializa os atributos internos.
+\item{void clearEffectList()}
+\hspace*{0.65cm}Limpa a lista de efeitos.
 
-\item{Erode(long , long )}
+\item{int openProject()}
+\hspace*{0.65cm}Abre um arquivo XML do projeto e carrega as
+estruturas necessárias.
 
-\hspace*{0.65cm}Construtor que inicializa os atributos, e seta os valores
-de inicio e fim do efeito.
+\item{int saveProject()}
+\hspace*{0.65cm}Salva o projeto em um arquivo XML.
 
-\item{Frame* applyEffect(Frame*)}
+\item{int openVideo()}
+\hspace*{0.65cm}Realiza a abertura de um vídeo novo. Preenche a
+videoPropertiesTree com informações do vídeo. Caso já tenha um vídeo
+aberto, as estruturas referentes à este vídeo serão reescritas.
 
-\hspace*{0.65cm}Aplica o efeito de erosão em um Frame.
+\item{void sortTransitionList()}
+\hspace*{0.65cm}Ordena a lista de transições.
+
+\item{long FrameToTimelinePos()}
+\hspace*{0.65cm}Obtém, a partir de um número de frame a posição em
+que o cursor da timeline deve aparecer.
+
+\item{long TimelinePosToFrame()}
+\hspace*{0.65cm}Converte a posição do cursor da timeline para o
+número do frame correspondente.
+
+\item{void renderVideo()}
+\hspace*{0.65cm}Renderiza o vídeo com os efeitos aplicados.
+
+\item{Frame* applyEffect()}
+\hspace*{0.65cm}Aplica qualquer tipo de efeito nos frames de uma ou
+várias tomadas.
+
+\item{int getTransitionByPos()}
+\hspace{0.65cm}Obtém a transição que dá início à transição sobre a
+qual o cursor da timeline se encontra.
+
+\item{void removeEffect()}
+\hspace*{0.65cm}Remove um efeito do vídeo e da lista de efeitos.
+
+\item{void removeTransition()}
+\hspace*{0.65cm}Remove uma transição apontada pelo sistema da lista
+de transições.
 
 \end{enumerate}
-	
+
+\subsection{Classe: Time \label{classe_Time}}
+
+\hspace*{1.25cm}Classe responsável por armazenar dados relacionados
+ao tempo de vídeo e realizar conversão de posição de frame para
+tempo (hh:mm:ss).
+
+\begin{enumerate}
+
+\item{Time()}
+\hspace*{0.65cm}Construtor da classe que inicializa os atributos.
+
+\item{Time(double framePos, double fps)}
+\hspace*{0.65cm}Construtor da classe que converte de posição de
+frame para time.
+
+\item{Time(int hour, int min, int sec, int msec)}
+\hspace*{0.65cm}Construtor da classe que inicializa os atributos com
+os valores recebidos por parâmetro.
+
+\item{void pos2time()}
+\hspace*{0.65cm}Transforma de posição física para o formato
+hh:mm:ss:mm.
+
+\item{unsigned long getFramePos()}
+\hspace*{0.65cm}Retorna o numero do frame referente ao tempo.
+
+\end{enumerate}
+
 \subsection{Classe: Transition \label{classe_Transition}}
 
 \hspace*{1.25cm}Classe responsável por representar uma transição.
@@ -765,9 +905,9 @@ de inicio e fim do efeito.
 \hspace*{0.65cm}Construtor que inicializa os atributos, definindo o tipo da transição,
 sua posição e label.
 
-\item{long getPosCurrent(void) const}
+\item{long getPosCurrent() const}
 
-\hspace*{0.65cm}Retorna o valor utilizado da posição, que pode ser ou o definido pelo Sistem ou 
+\hspace*{0.65cm}Retorna o valor utilizado da posição, que pode ser ou o definido pelo Sistem ou
 o do Usuário, porém o segundo tem prioridade sobre o primeiro
 
 \item{bool operator <(const Transition) const}
@@ -783,48 +923,84 @@ vídeo.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
-    \item{Frame getNextFrame() }
 
+\item{CvCapture* open()}
+\hspace*{0.65cm}Função que realiza o carregamento do vídeo no
+sistema.
+
+\item{void resetROI()}
+\hspace*{0.65cm}Inicializa a ROI (Region Of Interest).
+
+\item{Video(char *filename_cy)}
+\hspace*{0.65cm}Construtor que recebe uma string que é o nome do
+arquivo de video a ser aberto.
+
+\item{Frame getNextFrame() }
 \hspace*{0.65cm}Método responsável por obter o próximo frame em
 relação à posição atual do vídeo.
 
-    \item{Frame getPreviousFrame() }
-
+\item{Frame getPreviousFrame() }
 \hspace*{0.65cm}Método responsável por obter o frame anterior em
 relação à posição atual do vídeo.
 
-    \item{int seekFrame(int pos) }
-
+\item{int seekFrame() }
 \hspace*{0.65cm}Método responsável em posicionar o ponteiro do vídeo
 na posição desejada, a qual é parecida como parâmetro da função.
 
-    \item{CvCapture open() }
+\item{void updatePos()}
+\hspace*{0.65cm}Atualiza os controles internos referente a posição
+atual do ponteiro de vídeo.
 
-\hspace*{0.65cm}Função que abre o vídeo e atualiza as variáveis do
+\item{void removeWide()}
+\hspace*{0.65cm}Remove o wide de um video inteiro, usando a função
+de remoção de wide de um frame.
+
+\item{void removeBorder()}
+\hspace*{0.65cm}Remove o wide de um video inteiro, usando a função
+de remoção de borda de um frame.
+
+\end{enumerate}
+
+\subsection{Classe: VideoPlayer \label{classe_VideoPlayer}}
+
+\hspace*{1.25cm}Classe que gerencia os controles do player de vídeo.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{void run()}
+\hspace*{0.65cm}Método que é executado quando a thread do
+VideoPlayer for iniciada. Pega frame a frame e emite sinal para a
+interface desenhar.
+
+\item{void setNewFrame()}
+\hspace*{0.65cm}Emissor de sinal para a interface desenhar um novo
+frame na janela do player. Emitido toda vez que o vídeo avança em 1
+frame durante a reprodução do vídeo.
+
+\item{void setHistogram()}
+\hspace*{0.65cm}Emissor de sinal para desenhar o histograma do novo
+frame. Emitido toda vez que o histograma é atualizado durante a
+reprodução do vídeo.
+
+\item{VideoPlayer()}
+\hspace{0.65cm}Construtor da classe que inicializa os atributos do
 objeto.
 
-    \item{int close() }
+\item{void updateHist()}
+\hspace*{0.65cm}Método que envia um sinal, acionando a setHistogram,
+para o connect da interface fazer a atualização do histograma.
 
-\hspace*{0.65cm}Função que fecha o vídeo.
+\item{void updatePlayer()}
+\hspace*{0.65cm}Método que emite um sinal acionando a setNewFrame
+para o connect da interface fazer a alteração do frame a ser exibido
+no player.
 
-    \item{Frame getCurrentFrame() }
-
-\hspace*{0.65cm}Obtém o frame atual.
-
-    \item{int getCurrentPosition() }
-
-\hspace*{0.65cm}Obtém a posição corrente do ponteiro do vídeo.
-
-    \item{int write() }
-
-\hspace*{0.65cm}Processo que escreve no arquivo. É nele onde são
-aplicados realmente os efeitos provenientes da edição do vídeo.
-
-\hspace*{0.65cm}Retorna:
-
-\hspace*{0.65cm}1 - Sucesso.
-
-\hspace*{0.65cm}0 - Erro.
+\item{void updateCurrentFrame()}
+\hspace*{0.65cm}Atualiza a posição atual do cursor da timeline.
+Quando for aplicado um efeito, o vídeo preview exiba o primeiro
+frame da tomada editada.
 
 \end{enumerate}
 

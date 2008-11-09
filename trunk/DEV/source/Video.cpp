@@ -485,7 +485,7 @@ void Video::removeWide()
 
 /************************************************************************
  * Remove o wide de um video inteiro, usando a funcao de remocao
- * de wide de um frame.
+ * de borda	 de um frame.
  *************************************************************************
  * param (E): Nenhum
  ************************************************************************

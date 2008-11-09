@@ -16,7 +16,6 @@ class Time
 	public:
 		
 		Time();
-		Time(unsigned long msec);
 		Time(double framePos, double fps);
 		Time(int hour, int min, int sec, int msec);
 
