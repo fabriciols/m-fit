@@ -155,6 +155,15 @@ void Interface::createRecentFilesActions()
 	}
 }
 
+/************************************************************************
+* Trata o evento de clicar em um dos arquivos da lista de "Recent Files".
+*************************************************************************
+* param (E): Nao ha
+*************************************************************************
+* Histórico
+* 19/10/08 - Thiago Mizutani
+* Criação.
+************************************************************************/
 void Interface::openRecentFile()
 {
 	char fileName_cy[100];
@@ -241,7 +250,6 @@ void Interface::on_playButton_clicked()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::on_pauseButton_clicked()
 {
 	// Somente para controle se há ou não vídeo carregado. depois deleta o obj
@@ -266,7 +274,6 @@ void Interface::on_pauseButton_clicked()
  * 20/10/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::on_forwardButton_clicked()
 {
 	Video *vdo;
@@ -306,7 +313,6 @@ void Interface::on_forwardButton_clicked()
  * 20/10/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::on_backButton_clicked()
 {
 	Video *vdo;
@@ -353,7 +359,6 @@ void Interface::on_backButton_clicked()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::on_stopButton_clicked()
 {
 	Video *vdo;
@@ -434,16 +439,18 @@ void Interface::on_actionLoadVideo_triggered()
 
 	if (!fileName.isEmpty())
 	{
+		// Se ocorrer problema na abertura
 		try
 		{
 			currentProject->openVideo(fileName);
 		}
-		catch (...)
+		catch (...) // Alerta o usuario
 		{
 			alertUser(ALERT_VIDEO_INCOMPATIBLE);
 			return;
 		}
 
+		// Habilita os botoes
 		enableControls();
 
 		if (askDetection()) // Gero a box perguntando se deseja detectar as transições
@@ -465,7 +472,6 @@ void Interface::on_actionLoadVideo_triggered()
 
 /************************************************************************
  * Tratar o evento do botão SaveAs.
- * TODO: Nao faz porra nenhuma pq nao temos o ParserXML
  *************************************************************************
  * param (E): Nenhum
  *************************************************************************
@@ -653,7 +659,7 @@ void Interface::updateHist(QImage *hist)
 }
 
 /************************************************************************
- * ??????????
+ * Seta a posicao do Video em HH:MM:SS na videoTime
  *************************************************************************
  * param (E): QImage *hist-> Novo histograma 
  *************************************************************************
@@ -661,7 +667,6 @@ void Interface::updateHist(QImage *hist)
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::setVideoTime(double framePos, double fps)
 {
 	Time *cvTime = new Time(framePos, fps);
@@ -679,30 +684,8 @@ void Interface::setVideoTime(double framePos, double fps)
 
 }
 
-void Interface::on_videoTime_timeChanged(const QTime & time)
-{
-	return;
-
-	/*
-		Video *vdo;
-		Time *cvTime;
-
-		if (vdo_player->isRunning())
-		return;
-
-		vdo = currentProject->getVideo();
-
-		cvTime = new Time(time.hour(), time.minute(), time.second(), time.msec());
-
-		vdo->seekFrame(cvTime->getFramePos(vdo->getFPS()));
-
-		updateVideoPlayer(vdo->getCurrentFrame());
-	 */
-
-}
-
 /************************************************************************
- * Cria a timeline do vídeo carregado
+ * Cria a timeline do vídeo carregado.
  *************************************************************************
  * param (E): Não há
  *************************************************************************
@@ -712,7 +695,6 @@ void Interface::on_videoTime_timeChanged(const QTime & time)
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::createTimeline(void)
 {
 	Video *vdo = 0x0;
@@ -803,14 +785,12 @@ void Interface::createTimeline(void)
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::setTimeline(Frame *frameTimeline)
 {
 	QImage *image;
 
 	// Converte a imagem
 	image = frameTimeline->IplImageToQImage(&vdo_player->timelineData, &vdo_player->timelineWidth, &vdo_player->timelineHeight);
-	//image = frameTimeline->IplImageToQImage();
 
 	QPixmap pix_image = QPixmap::fromImage(*image);
 
@@ -821,6 +801,14 @@ void Interface::setTimeline(Frame *frameTimeline)
 
 }
 
+/************************************************************************
+ * Restaura a TimeLine original e repinta as transições
+ *************************************************************************
+ * param (E): Não há
+ *************************************************************************
+ * 09/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Interface::recreateTimeline()
 {
 	Frame::imgCopy(vdo_player->frameTimelineOriginal->data, vdo_player->frameTimeline->data);
@@ -838,7 +826,6 @@ void Interface::recreateTimeline()
  * 29/09/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::updateTimeline()
 {
 	Video *vdo = 0x0;
@@ -879,7 +866,6 @@ void Interface::updateTimeline()
  * 06/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 void Interface::on_actionAllTransitions_triggered()
 {
 
@@ -923,7 +909,6 @@ void Interface::on_actionAllTransitions_triggered()
  * 06/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 void Interface::on_actionOnlyCuts_triggered()
 {
 
@@ -967,7 +952,6 @@ void Interface::on_actionOnlyCuts_triggered()
  * 06/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 void Interface::on_actionAllFades_triggered()
 {
 
@@ -1012,7 +996,6 @@ void Interface::on_actionAllFades_triggered()
  * 06/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 void Interface::on_actionOnlyDissolve_triggered()
 {
 
@@ -1055,7 +1038,6 @@ void Interface::on_actionOnlyDissolve_triggered()
  * 08/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void Interface::insertTransitionsTree(Transition* transition, long id_l)
 {
 	// Cria o item referente a Tree
@@ -1148,7 +1130,6 @@ void Interface::insertTransitionsTimeline(Transition* transition)
  * 08/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 void Interface::updateTransitions()
 {
 	unsigned long i = 0;
@@ -1183,7 +1164,6 @@ void Interface::updateTransitions()
  * 09/10/08 - Thiago Mizutani
  * Criação.
  ************************************************************************/
-
 void Interface::clearTransitionsTree()
 {
 	Log::writeLog("%s :: clear transitionsTree", __FUNCTION__); 
@@ -1202,7 +1182,6 @@ void Interface::clearTransitionsTree()
  * 16/10/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::on_transitionsTree_itemSelectionChanged()
 {
 	QList<QTreeWidgetItem *> itens;
@@ -1232,7 +1211,6 @@ void Interface::on_transitionsTree_itemSelectionChanged()
  * 16/10/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void Interface::updateTransitionHeader(QTreeWidgetItem * item)
 {
 	char str_cy[20];
@@ -1260,7 +1238,6 @@ void Interface::updateTransitionHeader(QTreeWidgetItem * item)
  * 09/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 int Interface::askDetection()
 {
 	int reply = 0; // Resposta do usuário
@@ -1295,7 +1272,6 @@ int Interface::askDetection()
  * 13/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void Interface::alertUser(int message)
 {
 
@@ -1316,15 +1292,6 @@ void Interface::alertUser(int message)
 			QMessageBox::Ok
 			);
 
-	/*
-		QMessageBox::critical(
-		this,
-		tr("MFIT - ERRO"),
-		tr("<p><b>Não é possível carregar o vídeo!</b>" \
-		"<p>Formato não suportado!"),
-		QMessageBox::Ok
-		);
-	 */
 }
 
 /**************************************************************************
@@ -1351,6 +1318,7 @@ void Interface::enableControls()
 	this->ui.forwardButton->setEnabled(true);
 	this->ui.stopButton->setEnabled(true);
 	
+	// Botao de renderizacao
 	this->ui.actionRenderVideo->setEnabled(true);
 
 	// Controles de detecção
@@ -1359,6 +1327,7 @@ void Interface::enableControls()
 	this->ui.actionAllFades->setEnabled(true);
 	this->ui.actionOnlyDissolve->setEnabled(true);
 
+	// Lista de efeitos
 	this->ui.effectListTree->setEnabled(true);
 
 }
@@ -1374,7 +1343,6 @@ void Interface::enableControls()
  * 18/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void Interface::on_actionDetectConfig_triggered()
 {
 	showDetectionConfigs();
@@ -1392,7 +1360,6 @@ void Interface::on_actionDetectConfig_triggered()
  * 14/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
-
 void Interface::on_actionRenderVideo_triggered()
 {
 
@@ -1430,7 +1397,6 @@ void Interface::on_actionRenderVideo_triggered()
  * 18/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void Interface::showDetectionConfigs()
 {
 
@@ -1472,7 +1438,6 @@ char *Interface::QStringToChar(QString string, char* string_cy)
  * 14/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
-
 void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
 {
 	long pos_l;
@@ -1496,6 +1461,8 @@ void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
 
 	pos_l = transition->getPosCurrent();
 
+	// Se a transicao escolhida for a ultima
+	// Utilizamos o frame final do video como marco de fim da transição
 	if (transitionID == (unsigned int)currentProject->transitionList.size()-1)
 	{
 		Video *vdo = 0x0;
@@ -1504,12 +1471,10 @@ void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
 
 		posNext_l = (long)vdo->getFramesTotal();
 	}
-	else
+	else // Senão, utlizamos o inicio da proxima transição
 	{
-
 		transitionNEXT = &currentProject->transitionList.at(transitionID+1);
 		posNext_l = transitionNEXT->getPosCurrent();
-
 	}
 
 	// Printa uma linha de pos ate posNext
@@ -1535,10 +1500,9 @@ void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
 		transition->selected = true;
 	}
 
+	// Escreve o ID e o nome da transição na timeline
 	sprintf(frame_cy, "%.3d-%s", transitionID, transition->getLabel());
-
 	cvInitFont(&font, CV_FONT_HERSHEY_SIMPLEX, 0.3f, 0.3f, 0, 0, 0);
-
 	cvPutText(vdo_player->frameTimeline->data, frame_cy, p3, &font, scalar);
 
 	cvLine(vdo_player->frameTimeline->data, p1, p2, scalar, 3);
@@ -1556,7 +1520,6 @@ void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
  * 14/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
-
 void Interface::clearTransitionHeader()
 {
 	unsigned int i = 0;
@@ -1581,36 +1544,32 @@ void Interface::clearTransitionHeader()
  * 20/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void Interface::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column)
 {
-	char position_cy[10]; // Posição da transição determinada pelo sistema
-	char userPosition_cy[10]; // Posição da transição determinada pelo usuário
-	long position_l = 0; // Posição da transição determinada pelo sistema
-	long userPosition_l = 0; // Posição da transição determinada pelo usuário
+	char id_cy[10];
+	unsigned int id;
+	long pos_l = 0;
 	long timeline_l;
+
+	Transition *transition;
 
 	Video* vdo = currentProject->getVideo();
 
-	QStringToChar(item->text(2), position_cy); // Pego a posição da transição determinada pelo sistema 
-	QStringToChar(item->text(3), userPosition_cy); // Pego a posição da transição determinada pelo usuário
+	QStringToChar(item->text(0), id_cy); // Pego o ID da transição
 
-	position_l = atol(position_cy);
-	userPosition_l = atol(userPosition_cy);
+	id = atoi(id_cy);
 
-	// Se usuário definiu a posição para a transição uso ela, senão uso a do sistema.
-	if( userPosition_l != 0 )
+	transition = currentProject->transitionList.at(id);
+
+	// Pega a posicao da transicao
+	pos_l = transition->getPosCurrent();
+
+	if (pos_l >= (long)vdo->getFramesTotal())
 	{
-		if (userPosition_l >= vdo->getFramesTotal())
-			userPosition_l = (long)vdo->getFramesTotal() - 1;
-		vdo->seekFrame(userPosition_l); // Aponto para o frame de interesse.
+		pos_l = (long)vdo->getFramesTotal() - 1;
 	}
-	else
-	{
-		if (position_l >= vdo->getFramesTotal())
-			position_l = (long)vdo->getFramesTotal() - 1;
-		vdo->seekFrame(position_l);
-	}
+
+	vdo->seekFrame(pos_l); // Aponto para o frame de interesse.
 
 	vdo_player->updateCurrentFrame(); // Atualiza o frame corrente
 	updateTimeline(); // Atualizo a posição do cursor da timeline
@@ -1622,6 +1581,18 @@ void Interface::on_transitionsTree_itemClicked(QTreeWidgetItem* item, int column
 
 }
 
+/**************************************************************************
+ * Trata o evento de DoubleClick em um item na lista de transições.
+ * Abre a janela de edição da transição.
+ * Apos a janela fechar, trata as opções escolhidas
+ **************************************************************************
+ * param (E): QTreeWidgetItem* - Item clicado
+ * param (E): int - Coluna clicada
+ **************************************************************************
+ * Histórico
+ * 09/11/08 - Fabrício Lopes de Souza
+ * Criação.
+ *************************************************************************/
 void Interface::on_transitionsTree_itemDoubleClicked ( QTreeWidgetItem * item, int column )
 {
 
@@ -1634,22 +1605,28 @@ void Interface::on_transitionsTree_itemDoubleClicked ( QTreeWidgetItem * item, i
 	QStringToChar(item->text(0), id_cy); // Pego a posição da transição determinada pelo sistema 
 	idx_i = atoi(id_cy);
 
+	// Não se pode editar o "Inicio de Video"
 	if (idx_i == 0)
 		return;
 
+	// Define a transição que sera editada
 	editWindow.setID(idx_i);
 
+	// Salva a posição corrente do video
 	vdo = currentProject->getVideo();
 	pos_l = (long)vdo->getCurrentPosition();
 
+	// Abre a janela
 	editWindow.exec();
 
+	// Restaura a posição do video
 	vdo->seekFrame(pos_l);
 
+	// Se cancelou, não faz nada
 	if (editWindow.cancel)
 	{
 		return;
-	}
+	} // Se selecionou o CHANGE, seta a posição da transição como a posição desejada
 	else if (editWindow.change)
 	{
 		Transition *transition;
@@ -1657,7 +1634,7 @@ void Interface::on_transitionsTree_itemDoubleClicked ( QTreeWidgetItem * item, i
 		transition = &currentProject->transitionList.at(idx_i);
 		transition->setPosUserTransition(editWindow.pos_l);
 
-	}
+	} // Se deseja remover a transição, remove :)
 	else if (editWindow.del)
 	{
 		currentProject->removeTransition(idx_i);
@@ -1667,6 +1644,7 @@ void Interface::on_transitionsTree_itemDoubleClicked ( QTreeWidgetItem * item, i
 		return;
 	}
 
+	// Recria a timeline, para absorver as alterações
 	recreateTimeline();
 
 	return;
@@ -1684,7 +1662,6 @@ void Interface::on_transitionsTree_itemDoubleClicked ( QTreeWidgetItem * item, i
  * 19/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
-
 void Interface::insertEffectTree(Effect *effect, int ind)
 {
 	char frameStart[10];
@@ -1730,7 +1707,6 @@ void Interface::insertEffectTree(Effect *effect, int ind)
  * 19/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
-
 void Interface::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
 {
 	if (column > 0)
@@ -1770,7 +1746,6 @@ void Interface::on_effectsTree_itemClicked(QTreeWidgetItem * item, int column)
  * 19/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
-
 void Interface::updateEffectTree()
 {
 	unsigned int i = 0;
@@ -1794,7 +1769,6 @@ void Interface::updateEffectTree()
  * 19/10/08 - Fabricio Lopes de Souza
  * Criação.
  *************************************************************************/
-
 void Interface::effectTreeClear()
 {
 	this->ui.effectsTree->clear();
@@ -1811,7 +1785,6 @@ void Interface::effectTreeClear()
  * 20/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void Interface::on_actionExit_triggered()
 {
 	if (currentProject->getVideo())
@@ -1849,7 +1822,6 @@ void Interface::on_actionExit_triggered()
  * 20/10/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 bool Interface::askUserSave()
 {
 	int reply = 0; // Resposta do usuário
@@ -1893,11 +1865,29 @@ void Interface::moveScrollArea(int x, int y)
 }
 
 
+/**************************************************************************
+ * Desabilita o botão de Save
+ **************************************************************************
+ * param (E): Nenhum
+ **************************************************************************
+ * Histórico
+ * 09/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
 void Interface::disableSaveButton()
 {
 	this->ui.actionSave->setEnabled(false);
 }
 
+/**************************************************************************
+ * Habilita o botão de Save
+ **************************************************************************
+ * param (E): Nenhum
+ **************************************************************************
+ * Histórico
+ * 09/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
 void Interface::enableSaveButton()
 {
 	this->ui.actionSave->setEnabled(true);
