@@ -550,14 +550,17 @@ seta os intervalos de início e fim de aplicação do efeito.
 
 \subsection{Classe: Dissolve \label{classe_Dissolve}}
 
-NAO VOU MEXER , IVAN E MAURICIO QUE MEXXXXXXXXXXXAM
-
-\hspace*{1.25cm}Classe responsável por detectar o dissolve.
+\hspace*{1.25cm}Classe responsável por detectar transições do tipo
+dissolve.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
 
-\item{float calcFirstDerivative() }
+\item{void detectTransitions()}
+
+\hspace*{0.65cm}Armazena todas as detecções dissolve em um vetor.
+
+\item{int calcFirstDerivative()}
 
 \hspace*{0.65cm}Calcula primeira derivada.
 
