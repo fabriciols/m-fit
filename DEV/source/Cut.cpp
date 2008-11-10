@@ -85,14 +85,10 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	visualRythim->removeWide();
 
-	visualRythim->write("RV.jpg");
+//	visualRythim->write("RV.jpg");
 
 	// Crio uma cópia do frame original para realizar a validação dos cortes detectados posteriormente.
 	Frame* visual = new Frame(visualRythim);
-
-//	Log::writeLog("%s :: new height = %d", __FUNCTION__, visualRythim->getHeight());
-
-//	Log::writeLog("%s :: media luminancia = %lf", __FUNCTION__, visualRythim->mediaBin());
 
 	// Passo o filtro de Canny no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);
@@ -102,13 +98,8 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	// Verifico se foi setado algum valor de limiar pelo usuário 
 	threshold = this->defineThreshold(visualRythim->getHeight());
 
-//	Log::writeLog("%s :: threshold[%d]", __FUNCTION__, threshold);	
-
 	// Defino o limiar para binarização da imagem.
 	thresholdBin = (visualRythim->getMaxLum())/4;
-	
-//	Log::writeLog("%s :: maxluminance[%d]", __FUNCTION__, visualRythim->getMaxLum());	
-//	Log::writeLog("%s :: thresholdbin[%d]", __FUNCTION__, thresholdBin);	
 
 	// Binarizo a imagem (transformo tudo em preto e branco)
 	visualRythim->binarizeImage(thresholdBin);
