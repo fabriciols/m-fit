@@ -109,6 +109,8 @@ class Interface: public QMainWindow
 
 		void recreateTimeline();
 
+		void closeEvent(QCloseEvent* event);
+
 		Ui::MainWindow ui;
 
 };

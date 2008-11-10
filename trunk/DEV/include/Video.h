@@ -80,6 +80,7 @@ class Video
 		CvCapture* data;
 
 		Video(char *filename_cy);
+		~Video();
 
 		/**
 		 *Método responsável por obter

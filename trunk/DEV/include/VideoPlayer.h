@@ -28,6 +28,7 @@ class VideoPlayer: public QThread
 		uchar* histData;
 		uchar* timelineData;
 		VideoPlayer();
+		~VideoPlayer();
 
 		int imgWidth, imgHeight;
 		int histWidth, histHeight;

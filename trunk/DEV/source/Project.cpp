@@ -158,6 +158,51 @@ Project::Project(void)
 
 }
 
+/*************************************************************************
+ * Destrutor. Libera/fecha todos os recursos abertos/instanciados
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * Histórico
+ * 10/11/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
+Project::~Project(void)
+{
+	unsigned int i;
+
+	if (vdo)
+		delete vdo;
+
+	if (frame)
+		delete frame;
+
+	// Limpa lista de transições
+	if (transitionList.size() > 0)
+	{
+		Transition *transition;
+		for (i = 0 ; i < transitionList.size() ; i++)
+		{
+			transition = &transitionList.at(i);
+			delete transition;
+			removeTransition(i);
+		}
+
+	}
+
+	// Limpa lista de efeitos
+	if (effectList.size() > 0)
+	{
+		Effect *effect;
+		for (i = 0 ; i < effectList.size() ; i++)
+		{
+			effect = effectList.at(i);
+			delete effect;
+			removeTransition(i);
+		}
+	}
+}
+
 /************************************************************************
  * Realiza a abertura de um video novo.
  * Preenche a videoPropertiesTree com informacoes do video.
@@ -683,11 +728,33 @@ void Project::removeTransition(int ind)
 }
 
 
+/*************************************************************************
+ * Get para a variável: path_cy
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : char* - Path do projeto
+ *************************************************************************
+ * Histórico
+ * 19/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
 char* Project::getPath()
 {
 	return path_cy;
 }
 
+/*************************************************************************
+ * Get para a variável: filename_cy
+ *************************************************************************
+ * param (E): Nenhum
+ *************************************************************************
+ * return : char* - Nome do projeto
+ *************************************************************************
+ * Histórico
+ * 19/10/08 - Fabrício Lopes de Souza 
+ * Criação.
+ ************************************************************************/
 char* Project::getName()
 {
 	return filename_cy;
