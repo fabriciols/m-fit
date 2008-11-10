@@ -99,7 +99,7 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	//visualRythim->write("RV Canny.jpg");
 	
-	// Pergunto ao usuario se deseja alterar a limiar para detecção.
+	// Verifico se foi setado algum valor de limiar pelo usuário 
 	threshold = this->defineThreshold(visualRythim->getHeight());
 
 //	Log::writeLog("%s :: threshold[%d]", __FUNCTION__, threshold);	
