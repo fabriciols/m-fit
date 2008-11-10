@@ -1436,7 +1436,6 @@ ocorrência de fades detectados;}
 ocorrência de dissolve detectados;}
 \item{Sistema solicita à VDO que reposicione o cursor da timeline na posição anterior ao processo
 de detecção de transições;}
-
 \end{enumerate}
 
 \subsection{Detecção de Cortes \label{seq_cortes}}
@@ -1517,7 +1516,7 @@ a análise seja feita em todos os frames do vídeo;}
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.7\linewidth]{imagens/seq_dissolve.PNG}
+ \includegraphics[width=1.0\linewidth]{imagens/seq_dissolve.PNG}
  \caption{Diagrama de sequência para detecção de dissolve.}
  Fonte: Autor.
  \label{img_seq_dissolve}
@@ -1528,20 +1527,26 @@ sequência de processos para a realização da detecção de transições
 do tipo dissolve presentes no vídeo.
 
 \begin{enumerate}
-\item{DTD solicita à VDO a posição atual do ponteiro do video;}
-\item{DTD solicita à VDO o posicionamento do ponteiro na posição 0 do vídeo, para que
-a análise seja feita em todos os frames do vídeo;}
+\item{DTD solicita à VDO a quantidade de frames do video;}
 \item{DTD cria objeto VR;}
-\item{DTD solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
+\item{DTD solicita à VDO o ritmo visual por histograma;}
+\begin{enumerate}
 \item{VR cria objeto FRAME;}
-\item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do vídeo}
-\item{VR solicita a VDO o próximo frame do vídeo}
-\item{VR solicita ao FRAME a diagonal do frame solicitado}
-\item{VR solicita ao FRAME o histograma do frame (diagonal)}
-\item{Loop: fim}
-\item{DTD Verifica possíveis pontos de Dissolve}
-\item{DTD calcula a primeira derivada dos possíveis pontos de Dissolve}
-\item{DTD compara resultados da derivada a um threshold}
+\item{VR cria objeto Histogram;}
+\item{VR cria objeto Color;}
+\item{VR solicita à VDO o primeiro frame de video;}
+\item{VR solicita à Color a conversão do frame para tons de cinza;}
+\item{VR solicita à FRAME a média da diagonal do frame corrente;}
+\item{VR solicita à VDO o próximo frame de video;}
+\item{VR solicita à VDO a destruição do objeto;}
+\item{VR solicita à FRAME a destruição do objeto;}
+\item{VR solicita à Histogram a destruição do objeto;}
+\item{VR solicita à Color a destruição do objeto;}
+\end{enumerate}
+\item{DTD faz detecção da primeira derivada a partir do vetor retornado pela classe VDO;}
+\item{DTD cria objeto Transition;}
+\item{DTD valida se há duplicidades de detecção antes de inserir no vetor de detecções;}
+\item{DTD solicita à Transition a inserção do ponto detectado, identificando o ID, posição e tipo de detecção;}
 \end{enumerate}
 
 \subsection{Edição de vídeo \label{seq_edicao}}
