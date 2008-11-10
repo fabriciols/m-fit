@@ -1559,21 +1559,17 @@ transições do vídeo.
 
 \begin{enumerate}
 \item{Usuário solicita ao sistema que seja feita a detecção de transições do vídeo;}
-\item{Sistema cria o objeto DT responsável por realizar todo tipo de detecção;}
+\item{INTERFACE cria o objeto DT responsável por realizar todo tipo de detecção;}
+\item{INTERFACE solitita à DT a detecção das transições do vídeo;}
 \item{Objeto DT cria objeto DTC responsável pelas detecções de cortes;}
 \item{DT solicita à DTC a detecção de transições do tipo corte;}
-\item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
-ocorrência de cortes detectados;}
 \item{Objeto DT cria objeto DTF responsável pelas detecções de fades (tanto fade-in, quanto fade-out);}
 \item{DT solicita à DTF a detecção de transições do tipo fade;}
-\item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
-ocorrência de fades detectados;}
 \item{Objeto DT cria objeto DTD responsável pela de dissolve;}
 \item{DT solicita à DTD a detecção de transições do tipo dissolve;}
-\item{DT solicita à INTERFACE a atualização da timeline, marcando-a com os pontos de
-ocorrência de dissolve detectados;}
-\item{Sistema solicita à VDO que reposicione o cursor da timeline na posição anterior ao processo
-de detecção de transições;}
+\item{DT retorna para INTERFACE as transições detectadas;}
+\item{INTERFACE solicita à VDO que reposicione o ponteiro para o primeiro frame do vídeo;}
+\item{INTERFACE atualiza a timeline e a lista de transições.}
 \end{enumerate}
 
 \subsection{Detecção de Cortes \label{seq_cortes}}
