@@ -6,7 +6,7 @@
 #include "../include/Time.h"
 #include "../include/Frame.h"
 
-#include "../include///Log.h"
+#include "../include/Log.h"
 
 #include "../include/Video.h"
 
@@ -149,10 +149,10 @@ void Video::updatePos()
 
 	//CV_CAP_PROP_POS_FRAMES - 0-based index of the frame to be decoded/captured next
 	this->framePos = cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_FRAMES);
-	//Log::writeLog("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
+	Log::writeLog("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
 
 	msec = (long)cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_MSEC);
-	//Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
+	Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
 
 	this->timePos.setTime(msec);
 
@@ -228,7 +228,8 @@ Frame* Video::getNextFrame()
 	}
 	else
 	{
-		Frame *frameNew = new Frame(cvRetrieveFrame(this->data));
+		IplImage *image = cvRetrieveFrame(this->data);
+		Frame *frameNew = new Frame(image);
 
 		updatePos();
 
@@ -250,7 +251,7 @@ Frame* Video::getNextFrame()
 			// Seto o frame sem o wide 
 			frameNew->setImage(imgWide);
 
-			//Log::writeLog("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
+			Log::writeLog("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
 		}
 
 		return (frameNew);
@@ -457,7 +458,7 @@ void Video::removeWide()
 
 		sizeWide = frame->removeWide();
 
-		//Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
+		Log::writeLog("%s :: Wide [%d]", __FUNCTION__, sizeWide);
 
 		if (sizeWide)
 		{
@@ -469,7 +470,7 @@ void Video::removeWide()
 
 	}
 
-	//Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
+	Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minSizeWide);
 
 	// Devolve ele pra posição que estava
 	this->seekFrame(cvRound(currentPosition));
@@ -521,7 +522,7 @@ void Video::removeBorder()
 
 		borderSize = frame->removeBorder();
 
-		//Log::writeLog("%s :: Wide [%d]", __FUNCTION__, borderSize);
+		Log::writeLog("%s :: Wide [%d]", __FUNCTION__, borderSize);
 
 		if (borderSize)
 		{
@@ -533,7 +534,7 @@ void Video::removeBorder()
 
 	}
 
-	//Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minBorderSize);
+	Log::writeLog("%s :: The min size of wide is [%d]", __FUNCTION__, minBorderSize);
 
 	// Devolve ele pra posição que estava
 	this->seekFrame(cvRound(currentPosition));

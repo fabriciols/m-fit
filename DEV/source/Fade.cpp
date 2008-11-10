@@ -105,6 +105,8 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	// Variacao do ponto atual com o ponto anterior
 	double var_d = 0.0;
 
+	double start_with = 0.0;
+
 	double fade_max = 0;
 	int fade_max_idx = 0;
 
@@ -120,12 +122,12 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	// Processo de detecção de transições do tipo FADE
 	vrh = new VisualRythim();
 
-	// 1- Pegamos o video e criamos o Ritmo Visual por Histograma
-	array_vrh = vrh->createVRH(vdo);
-
 	// Removemos partes indesejaveis
 	vdo->removeWide();
 	vdo->removeBorder();
+
+	// 1- Pegamos o video e criamos o Ritmo Visual por Histograma
+	array_vrh = vrh->createVRH(vdo);
 
 	len_i = cvRound(vdo->getFramesTotal());
 
@@ -133,7 +135,6 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	array_dy = fade->calcDerivative(array_vrh, len_i);
 
 	// Descomentar para obter uma imagem do RVH derivado
-	/*
 	{
 		int i;
 		double *array_dy_aux = 0;
@@ -154,7 +155,6 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 		delete frameVRH;
 		delete array_dy_aux;
 	}
-	*/
 
 	// A partir dai é necessário fazer uma análize na função derivada.
 	// O que iremos fazer é o seguinte:
@@ -188,14 +188,16 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			no_var = 0;
 		}
 
-		if (fabs(array_dy[i]) <= 0.009)
+		if (fabs(array_dy[i]) <= 0.004)
 			last_zero = i;
+
+		Log::writeLog("%s :: var_d[%0.3lf] i[%d] array_dy[%0.3lf] array_vrh[%0.3lf]  last_zero[%d]", __FUNCTION__, var_d, i, array_dy[i], array_vrh[i], i-last_zero );
 
 		// Condições para se iniciar a verificação de um FADE
 		if (
 				fade_start == 0 &&
 				var_d > 0.0 &&
-				(i - last_zero <= 4 || i <= 4 ) &&
+				(i - last_zero <= 4 ) &&
 				array_dy[i] != 0.0
 			)
 		{
@@ -203,16 +205,31 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			fade_start = i;
 
+			start_with = var_d;
+
 			fade_end = var = 0;
+
+
 		} // Condições para se terminar um fade
 		else if ( fade_start > 0 &&
-				( array_dy[i] == 0.0 || ( i+1 >= len_i && var_d < 2.0 )))
+				( ( array_dy[i] >= 0.0 && array_dy[i] <= 0.004 )|| ( i+1 >= len_i && var_d < 2.0 )))
 		{
 			fade_end = i - 1;
+
+			Log::writeLog("%s :: fade_end in %d", __FUNCTION__, fade_end);
 
 			var = fade_end - fade_start;
 
 			Log::writeLog("%s :: %d - %d, total points : %d", __FUNCTION__, fade_start, fade_end, var);
+
+			if (var <= 8)
+			{
+				fade_start = 0;
+				no_var = 0;
+				Log::writeLog("%s :: [%d] < [%d] - not a fade", __FUNCTION__, var, 8);
+				continue;
+			}
+
 			Log::writeLog("%s :: no_var [%d] var/2 [%d]", __FUNCTION__, no_var, var/2);
 
 			// Se um 1/3 dos pontos forem 0
@@ -228,63 +245,77 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			// Se for maior que um limiar
 			// esse limiar foi definido realizando alguns experimentos onde apareciam
 			// transicoes diferentes de fade.
-			if (var > 0)
+			int type;
+			char label[100];
+
+			double pos = 0.0;
+			double neg = 0.0;
+
+			for (j = fade_start ; j <= fade_end; j++)
 			{
-				int type;
-				char label[100];
 
-				for (j = fade_start ; j <= fade_end; j++)
+				if (array_dy[j] > 0)
 				{
-
-					if (fabs(array_dy[j]) > fabs(fade_max))
-					{
-						fade_max = array_dy[j];
-						fade_max_idx = j;
-					}
-
-				}
-
-				Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
-
-				// Cria o objeto da transição
-				// Se o ponto maximo for negativo: temos um fade-out
-				// caso contrario, temos um fade-in
-				if (fade_max < 0)
-				{
-					type = TRANSITION_FADEOUT;
-					strcpy(label, "Fade-Out");
-					Log::writeLog("%s :: fade out: %d", __FUNCTION__, fade_pos);
-					fade_pos = fade_end;
+					pos += array_dy[j];
 				}
 				else
 				{
-					type = TRANSITION_FADEIN;
-					strcpy(label, "Fade-In");
-					Log::writeLog("%s :: fade in: %d", __FUNCTION__, fade_pos);
-					fade_pos = fade_start;
+					neg += fabs(array_dy[j]);
 				}
 
-				transition = new Transition(type, fade_pos, label);
+				if (fabs(array_dy[j]) > fabs(fade_max))
+				{
+					fade_max = array_dy[j];
+					fade_max_idx = j;
+				}
 
-				/**
-				 * Verifico se na posição em que eu detectei um corte já não foi considerada
-				 * outro tipo de transição. Isso evita que o sistema diga que em uma mesma posição
-				 * existam 2 transições diferentes.
-				**/
-				if( this->validateTransition((long)fade_pos, transitionList) )
-					transitionList->push_back(*transition);
+			}
 
-				fade_start = 0;
+			Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
+			Log::writeLog("%s :: pos: %lf neg: %lf", __FUNCTION__, pos, neg);
 
-				no_var = 0;
-
+			// Cria o objeto da transição
+			// Se o ponto maximo for negativo: temos um fade-out
+			// caso contrario, temos um fade-in
+			if (neg > pos)
+			{
+				type = TRANSITION_FADEOUT;
+				strcpy(label, "Fade-Out");
+				Log::writeLog("%s :: fade out: %d", __FUNCTION__, fade_pos);
+				fade_pos = fade_end;
 			}
 			else
 			{
-				fade_start = 0;
-				no_var = 0;
-				Log::writeLog("%s :: [%d] < [%d] - not a fade", __FUNCTION__, var, 8);
+				if (!(start_with <= 0.9))
+				{
+					Log::writeLog("%s :: do not start with black. start_with: %lf", __FUNCTION__, start_with);
+					no_var = 0;
+					fade_start = 0;
+					continue;
+				}
+
+				type = TRANSITION_FADEIN;
+				strcpy(label, "Fade-In");
+				Log::writeLog("%s :: fade in: %d", __FUNCTION__, fade_pos);
+				fade_pos = fade_start;
 			}
+
+			transition = new Transition(type, fade_pos, label);
+
+			/**
+			 * Verifico se na posição em que eu detectei um corte já não foi considerada
+			 * outro tipo de transição. Isso evita que o sistema diga que em uma mesma posição
+			 * existam 2 transições diferentes.
+			 **/
+			if( this->validateTransition((long)fade_pos, transitionList) )
+				transitionList->push_back(*transition);
+
+			fade_start = 0;
+
+			no_var = 0;
+
+			i++;
+
 
 		}
 
