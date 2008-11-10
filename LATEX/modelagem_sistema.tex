@@ -537,12 +537,15 @@ posição da nova transição.
 \begin{enumerate}
 
 \item{Frame* applyEffect()}
+
 \hspace*{0.65cm}Aplica o efeito de dilatação no Frame.
 
 \item{Dilate()}
+
 \hspace{0.65cm}Construtor que inicializa os atributos do objeto.
 
-\item{Dilate(long frameStart, long frameEnd)
+\item{Dilate(long frameStart, long frameEnd)}
+
 \hspace{0.65cm}Construtor que inicializa os atributos do objeto e
 seta os intervalos de início e fim de aplicação do efeito.
 
@@ -766,10 +769,12 @@ histograma de um frame.
 
 \begin{enumerate}
 \item{Histogram()}
+
 \hspace*{0.65cm}Consturtor da classe que inicializa as variáveis
 internas.
 
 \item{Histogram(IplImage* img)}
+
 \hspace*{0.65cm}Construtor para Histogram que recebe uma imagem do
 tipo IplImage e com isso gera o histograma, preenchedo os atributos
 necessários
@@ -785,201 +790,255 @@ componentes da interface do sistema.
 
 \begin{enumerate}
 
-\item{void on_actionOpenProject_triggered()}
+\item{void on\underline{ }actionOpenProject\underline{ }triggered()}
+
 \hspace*{0.65cm}Tratar o evento da ação ``OpenProject''.
 
-\item{void on_actionSave_triggered()}
+\item{void on\underline{ }actionSave\underline{ }triggered()}
+
 \hspace*{0.65cm}Tratar o evento da ação ``Save''.
 
-\item{void on_actionSaveAs_triggered()}
+\item{void on\underline{ }actionSaveAs\underline{ }triggered()}
+
 \hspace*{0.65cm}Tratar o evento da ação ``SaveAs''.
 
-\item{void on_actionLoadVideo_triggered()}
+\item{void on\underline{ }actionLoadVideo\underline{ }triggered()}
+
 \hspace*{0.65cm}Tratar o evento da ação ``LoadVideo''. Abre o vídeo
 e atualiza a lista de propriedades do vídeo.
 
-\item{void on_playButton_clicked()}
+\item{void on\underline{ }playButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Tratar o evento do botão PLAY. Inicia a thread do
 video player.
 
-\item{void on_pauseButton_clicked()}
+\item{void on\underline{ }pauseButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Tratar o evento do botão PAUSE. Se a thread estiver
 rodando ela é parada.
 
-\item{void on_stopButton_clicked()}
+\item{void on\underline{ }stopButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Tratar o evento do botão STOP. Se a thread estiver
 rodando ela será encerrada e posiciona o ponteiro do vídeo para o
 primeiro frame.
 
-\item{void on_backButton_clicked()}
+\item{void on\underline{ }backButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Trata o botão backward. Volta o vídeo em um frame.
 
-\item{void on_forwardButton_clicked()}
+\item{void on\underline{ }forwardButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Trata o botão forward. Avança o vídeo em um frame.
 
 \item{void updatePlayer()}
+
 \hspace*{0.65cm}Atualiza o frame exibido na label do player.
 
 \item{void updateHist()}
+
 \hspace*{0.65cm}Atualiza o histograma da widgetHistogram.
 
-\item{void on_transitionsTree_itemSelectionChanged()}
+\item{void on\underline{ }transitionsTree\underline{ }itemSelectionChanged()}
+
 \hspace*{0.65cm}Trata as seleções da lista de transição e manda
 pintar uma linha no header da timeline identificando a sua tomada.
 
-\item{void on_actionAllTransitions_triggered()}
+\item{void on\underline{ }actionAllTransitions\underline{ }triggered()}
+
 \hspace*{0.65cm}Trata o evento gerado pelo botão para detecção de
 todas as transições, iniciando o processo de detecção.
 
-\item{void on_actionOnlyCuts_triggered()}
+\item{void on\underline{ }actionOnlyCuts\underline{ }triggered()}
+
 \hspace*{0.65cm}Trata o evento gerado pelo botão para detecção de
 todas as transições do tipo corte, iniciando o processo de detecção.
 
-\item{void on_actionAllFades_triggered()}
+\item{void on\underline{ }actionAllFades\underline{ }triggered()}
+
 \hspace*{0.65cm}Trata o evento gerado pelo botão para detecção de
 todas as transições do tipo fade, iniciando o processo de detecção.
 
-\item{void on_actionOnlyDissolve_triggered()}
+\item{void on\underline{ }actionOnlyDissolve\underline{ }triggered()}
+
 \hspace*{0.65cm}Trata o evento gerado pelo botão para detecção de
 todas as transições do tipo dissolve, iniciando o processo de
 detecção.
 
-\item{void on_actionRenderVideo_triggered()}
+\item{void on\underline{ }actionRenderVideo\underline{ }triggered()}
+
 \hspace*{0.65cm}Trata evento gerado pelo botão para renderização do
 vídeo.
 
-\item{void on_actionDetectConfig_triggered()}
+\item{void on\underline{ }actionDetectConfig\underline{ }triggered()}
+
 \hspace*{0.65cm}Solicita a abertura de uma janela com as
 configurações para os processos de detecção de transição.
 
-\item{void on_actionExit_triggered()}
+\item{void on\underline{ }actionExit\underline{ }triggered()}
+
 \hspace*{0.65cm}Fecha a aplicação.
 
 \item{int askDetection()}
+
 \hspace*{0.65cm}Cria uma caixa de diálogo perguntando ao usuário se
 este deseja realizar a detecção de transições logo após o
 carregamento do vídeo.
 
 \item{bool askUserSave()}
+
 \hspace*{0.65cm}Pergunta se o usuário deseja salvar o projeto antes
 de fechar a aplicação.
 
 \item{void enableControls()}
+
 \hspace*{0.65cm}Habilita todos os botões de reprodução do vídeo,
 detecção de transições e lista de efeitos.
 
 \item{void showDetectionConfigs()}
+
 \hspace*{0.65cm}Abre a janela de configurações para detecção de
 transições.
 
 \item{void openRecentFile()}
+
 \hspace*{0.65cm}Trata o evento de clicar em um dos arquivos da lista
 de ``Arquivos Recentes'' e abre o arquivo selecionado.
 
-\item{void on_effectsTree_itemClicked()}
+\item{void on\underline{ }effectsTree\underline{ }itemClicked()}
+
 \hspace*{0.65cm}Trata evento de quando é selecionado um item na
 lista de efeitos. Mostra no player o primeiro/último (conforme for a
 seleção do usuário) frame da tomada que possui o efeito selecionado.
 
-\item{void on_transitionsTree_itemClicked()}
+\item{void on\underline{ }transitionsTree\underline{ }itemClicked()}
+
 \hspace*{0.65cm}Mostra no player o primeiro frame da transição
 selecionada na lista de transições e atualiza o cursor da timeline.
 
-\item{void on_transitionsTree_itemDoubleClicked()}
+\item{void on\underline{ }transitionsTree\underline{ }itemDoubleClicked()}
+
 \hspace*{0.65cm}Trata o evento de duplo clique em um item na lista
 de transições. Abre a janela de edição da transição e trata os
 parâmetros definidos quando esta é fechada.
 
 \item{void alertUser()}
+
 \hspace*{0.65cm}Função que mostra uma mensagem de alerta caso o
 usuário tente fazer qualquer operação que exija vídeo e este não
 estiver carregado.
 
 \item{Interface()}
+
 \hspace*{0.65cm}Construtor da interface.
 
 \item{void addRecentFile()}
+
 \hspace*{0.65cm}Adiciona um item na lista de arquivos recentes.
 
 \item{void updateRecentFilesAct()}
+
 \hspace*{0.65cm}Atualiza a lista de arquivos recentes.
 
 \item{void createRecentFilesActions()}
+
 \hspace*{0.65cm}Cria a lista de arquivos recentes.
 
 \item{void changeWindowTitle()}
+
 \hspace*{0.65cm}Altera o título da janela principal.
 
 \item{void insertVideoProperty()}
+
 \hspace*{0.65cm}Insere uma linha na lista de propriedades do vídeo.
 
 \item{void clearVideoProperty()}
+
 \hspace*{0.65cm}Limpa a lista de propriedades do vídeo.
 
 \item{void setVideoTime()}
+
 \hspace*{0.65cm}Seta a posição do vídeo em HH:MM:SS na box que
 mostra o tempo do vídeo (``videoTime'').
 
 \item{void createTimeline()}
+
 \hspace*{0.65cm}Cria a timeline do vídeo carregado.
 
 \item{void setTimeline()}
+
 \hspace*{0.65cm}Desenha a imagem da timeline em sua label.
 
 \item{void updateTimeline()}
+
 \hspace*{0.65cm}Atualiza a posição do cursor da timeline conforme a
 passagem do vídeo.
 
 \item{void insertTransitionsTree()}
+
 \hspace*{0.65cm}Adiciona uma transição na lista de transições.
 
 \item{void insertTransitionsTimeline()}
+
 \hspace*{0.65cm}Marca na timeline os pontos onde ocorrem as
 transições.
 
 \item{void updateTransitions()}
+
 \hspace*{0.65cm}Atualiza a lista de transições e marca pontos de
 transição na timeline.
 
 \item{void clearTransitionsTree()}
+
 \hspace*{0.65cm}Limpa a lista de transições.
 
 \item{static char* QStringToChar()}
+
 \hspace*{0.65cm}Transforma uma QString em um char*
 
 \item{void updateTransitionHeader(unsigned int transitionID, int clean)}
+
 \hspace*{0.65cm}Traça uma linha acima da timeline identificando a
 localização da tomada.
 
 \item{void updateTransitionHeader(QTreeWidgetItem * item)}
+
 \hspace*{0.65cm}Traça uma linha no header da timeline referente ao
 item selecionado na lista de transições.
 
 \item{void clearTransitionHeader()}
+
 \hspace*{0.65cm}Varre todas as transições e retira uma a uma do
 header da timeline.
 
 \item{void insertEffectTree()}
+
 \hspace*{0.65cm}Insere um item na lista de efeitos do vídeo.
 
 \item{void updateEffectTree()}
+
 \hspace*{0.65cm}Atualiza a lista de efeitos.
 
 \item{void effectTreeClear()}
+
 \hspace*{0.65cm}Limpa a lista de efeitos.
 
 \item{void moveScrollArea()}
+
 \hspace*{0.65cm}Movimenta o SCROLL, posiciona a transição
 selecionada no centro da timeline.
 
 \item{void enableSaveButton()}
+
 \hspace*{0.65cm}Habilita o botão salvar.
 
 
 \item{void disableSaveButton()}
+
 \hspace*{0.65cm}Desabilita o botão salvar.
 
 \item{void recreateTimeline()}
+
 \hspace*{0.65cm}Restaura a TimeLine original e redesenha as
 transições.
 
@@ -995,6 +1054,7 @@ aplicação.
 \begin{enumerate}
 
 \item{static int writeLog()}
+
 \hspace{0.65cm} Escreve no arquivo de log.
 
 \end{enumerate}
@@ -1025,49 +1085,62 @@ ao projeto corrente.
 \begin{enumerate}
 
 \item{void clearTransitionList()}
+
 \hspace*{0.65cm}Limpa a lista de transições.
 
 \item{void clearEffectList()}
+
 \hspace*{0.65cm}Limpa a lista de efeitos.
 
 \item{int openProject()}
+
 \hspace*{0.65cm}Abre um arquivo XML do projeto e carrega as
 estruturas necessárias.
 
 \item{int saveProject()}
+
 \hspace*{0.65cm}Salva o projeto em um arquivo XML.
 
 \item{int openVideo()}
+
 \hspace*{0.65cm}Realiza a abertura de um vídeo novo. Preenche a
 videoPropertiesTree com informações do vídeo. Caso já tenha um vídeo
 aberto, as estruturas referentes à este vídeo serão reescritas.
 
 \item{void sortTransitionList()}
+
 \hspace*{0.65cm}Ordena a lista de transições.
 
 \item{long FrameToTimelinePos()}
+
 \hspace*{0.65cm}Obtém, a partir de um número de frame a posição em
 que o cursor da timeline deve aparecer.
 
 \item{long TimelinePosToFrame()}
+
 \hspace*{0.65cm}Converte a posição do cursor da timeline para o
 número do frame correspondente.
 
 \item{void renderVideo()}
+
 \hspace*{0.65cm}Renderiza o vídeo com os efeitos aplicados.
 
 \item{Frame* applyEffect()}
+
 \hspace*{0.65cm}Aplica qualquer tipo de efeito nos frames de uma ou
 várias tomadas.
 
 \item{int getTransitionByPos()}
+
 \hspace{0.65cm}Obtém a transição que dá início à transição sobre a
 qual o cursor da timeline se encontra.
 
 \item{void removeEffect()}
+
 \hspace*{0.65cm}Remove um efeito do vídeo e da lista de efeitos.
 
 \item{void removeTransition()}
+
 \hspace*{0.65cm}Remove uma transição apontada pelo sistema da lista
 de transições.
 
@@ -1083,13 +1156,16 @@ lista de transições da interface.
 \begin{enumerate}
 
 \item{QTreeWidgetEffect()}
+
 \hspace{0.65cm}Construtor, cria o connect da opção ``Remover
 Efeito''.
 
 \item{void contextMenuEvent()}
+
 \hspace{0.65cm}Trata evento de abertura do menu de contexto.
 
 \item{void deleteItem()}
+
 \hspace*{0.65cm}Remove o item selecionado da lista de efeitos.
 
 \end{enumerate}
@@ -1104,35 +1180,43 @@ timeline exibida na interface.
 \begin{enumerate}
 
 \item{QWidgetTimeline()}
+
 \hspace*{0.65cm}Construtor da classe.
 
 \item{void mousePressEvent()}
+
 \hspace*{0.65cm}Trata o evento gerado quando o mouse é
 ``pressionado'' sobre a timeline.
 
 \item{void dragMoveEvent()}
+
 \hspace*{0.65cm}Trata o evento de \textit{DragMove}. Este evento
 ocorre quando um objeto for ``arrastado'' dentro da região da
 timeline.
 
 \item{void dragEnterEvent()}
+
 \hspace*{0.65cm}Trata o evento de \textit{DragEnter}. Este evento
 ocorre quando um objeto que está sendo arrastado entra na região de
 tratamento da timeline.
 
 \item{void dropEvent()}
+
 \hspace*{0.65cm}Trata o evento de \textit{Drop} na timeline. Aplica
 o efeito arrastado no intervalo da transição escolhida.
 
 \item{int getItemByEvent()}
+
 \hspace*{0.65cm}A partir do evento, retorna qual Efeito vai ser
 aplicado.
 
 \item{int selectDropTransition()}
+
 \hspace*{0.65cm}A partir de um ponto, pinta o Header da timeline
 referente a uma transição.
 
 \item{void dragLeaveEvent()}
+
 \hspace*{0.65cm}Trata o evento de \textit{DragLeave}. Este evento
 ocorre quando um objeto que está sendo arrastado, sai da região da
 timeline.
@@ -1148,21 +1232,26 @@ tempo (hh:mm:ss).
 \begin{enumerate}
 
 \item{Time()}
+
 \hspace*{0.65cm}Construtor da classe que inicializa os atributos.
 
 \item{Time(double framePos, double fps)}
+
 \hspace*{0.65cm}Construtor da classe que converte de posição de
 frame para time.
 
 \item{Time(int hour, int min, int sec, int msec)}
+
 \hspace*{0.65cm}Construtor da classe que inicializa os atributos com
 os valores recebidos por parâmetro.
 
 \item{void pos2time()}
+
 \hspace*{0.65cm}Transforma de posição física para o formato
 hh:mm:ss:mm.
 
 \item{unsigned long getFramePos()}
+
 \hspace*{0.65cm}Retorna o numero do frame referente ao tempo.
 
 \end{enumerate}
@@ -1204,39 +1293,48 @@ transições.
 
 \begin{enumerate}
 
-\item{void on_changeButton_clicked()}
+\item{void on\underline{ }changeButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Evento do botão ``Change''. Ativa a flag avisando
 que o ponto da transição deve ser modificado e salva a posição
 corrente do vídeo.
 
-\item{void on_deleteButton_clicked()}
+\item{void on\underline{ }deleteButton\underline{ }clicked()}
+
 \hspace*{0.65cm}vento do botão ``Delete''. Ativa a flag avisando que
 a transição deve ser apagada.
 
-\item{void on_cancelButton_clicked()}
+\item{void on\underline{ }cancelButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Evento do botão ``Cancel''. Ativa a flag avisando
 que nenhuma alteração deve ser efetivada.
 
-\item{void on_okButton_clicked()}
+\item{void on\underline{ }okButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Evento do botão ``Ok''. Ativa a flag sinalizando que
 deve efetivar as alterações do usuário.
 
-\item{void on_backButton_clicked()}
+\item{void on\underline{ }backButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Evento do botão ``Back''. Move o ponteiro do vídeo
 para o Frame anterior e pede para atualizar o preview.
 
-\item{void on_forwardButton_clicked()}
+\item{void on\underline{ }forwardButton\underline{ }clicked()}
+
 \hspace*{0.65cm}Evento do botão ``Forward''. Move o ponteiro do
 vídeo para o Frame posterior e pede para atualizar o preview.
 
 \item{TransitionEdit()}
+
 \hspace*{0.65cm}Construtor da janela para alteração do ponto de
 ocorrência da transição.
 
 \item{void setID()}
+
 \hspace*{0.65cm}Define o ID da transição que será editada.
 
 \item{void updatePreview()}
+
 \hspace*{0.65cm}Atualiza a label de Preview com o Frame corrente do
 vídeo.
 
@@ -1251,37 +1349,46 @@ vídeo.
 \begin{enumerate}
 
 \item{CvCapture* open()}
+
 \hspace*{0.65cm}Função que realiza o carregamento do vídeo no
 sistema.
 
 \item{void resetROI()}
+
 \hspace*{0.65cm}Inicializa a ROI (Region Of Interest).
 
-\item{Video(char *filename_cy)}
+\item{Video(char *filename\underline{ }cy)}
+
 \hspace*{0.65cm}Construtor que recebe uma string que é o nome do
 arquivo de video a ser aberto.
 
 \item{Frame getNextFrame() }
+
 \hspace*{0.65cm}Método responsável por obter o próximo frame em
 relação à posição atual do vídeo.
 
 \item{Frame getPreviousFrame() }
+
 \hspace*{0.65cm}Método responsável por obter o frame anterior em
 relação à posição atual do vídeo.
 
 \item{int seekFrame() }
+
 \hspace*{0.65cm}Método responsável em posicionar o ponteiro do vídeo
 na posição desejada, a qual é parecida como parâmetro da função.
 
 \item{void updatePos()}
+
 \hspace*{0.65cm}Atualiza os controles internos referente a posição
 atual do ponteiro de vídeo.
 
 \item{void removeWide()}
+
 \hspace*{0.65cm}Remove o wide de um video inteiro, usando a função
 de remoção de wide de um frame.
 
 \item{void removeBorder()}
+
 \hspace*{0.65cm}Remove o wide de um video inteiro, usando a função
 de remoção de borda de um frame.
 
@@ -1296,41 +1403,48 @@ de remoção de borda de um frame.
 \begin{enumerate}
 
 \item{void run()}
+
 \hspace*{0.65cm}Método que é executado quando a thread do
 VideoPlayer for iniciada. Pega frame a frame e emite sinal para a
 interface desenhar.
 
 \item{void setNewFrame()}
+
 \hspace*{0.65cm}Emissor de sinal para a interface desenhar um novo
 frame na janela do player. Emitido toda vez que o vídeo avança em 1
 frame durante a reprodução do vídeo.
 
 \item{void setHistogram()}
+
 \hspace*{0.65cm}Emissor de sinal para desenhar o histograma do novo
 frame. Emitido toda vez que o histograma é atualizado durante a
 reprodução do vídeo.
 
 \item{VideoPlayer()}
+
 \hspace{0.65cm}Construtor da classe que inicializa os atributos do
 objeto.
 
 \item{void updateHist()}
+
 \hspace*{0.65cm}Método que envia um sinal, acionando a setHistogram,
 para o connect da interface fazer a atualização do histograma.
 
 \item{void updatePlayer()}
+
 \hspace*{0.65cm}Método que emite um sinal acionando a setNewFrame
 para o connect da interface fazer a alteração do frame a ser exibido
 no player.
 
 \item{void updateCurrentFrame()}
+
 \hspace*{0.65cm}Atualiza a posição atual do cursor da timeline.
-Quando for aplicado um efeito, o vídeo preview exiba o primeiro
-frame da tomada editada.
+Quando for aplicado um efeito, faz com que o vídeo preview mostre o frame
+com o frame aplicado.
 
 \end{enumerate}
 
-'\subsection{Classe: VisualRythim \label{classe_VisualRythim}}
+\subsection{Classe: VisualRythim \label{classe_VisualRythim}}
 
 \hspace*{1.25cm}Classe responsável por criar os dois tipos de ritmo
 visual.
@@ -1338,14 +1452,17 @@ visual.
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
 \item{Frame createVR() }
+
 \hspace*{0.65cm}Função que cria o Ritmo Visual por amostragem de um
 vídeo.
 
 \item{double* createVRH() }
+
 \hspace*{0.65cm}Função que cria o Ritmo Visual por histograma de um
 vídeo.
 
 \item{float calcDerivatives() }
+
 \hspace*{0.65cm}Calcula primeira derivada da curva do gráfico do
 ritmo visual.
 
@@ -1361,15 +1478,19 @@ armazenam os dados do projeto.
 \begin{enumerate}
 
 \item{int openXml()}
+
 \hspace*{0.65cm}Função que realiza o carregamento do arquivo xml.
 
 \item{int readXml()}
+
 \hspace*{0.65cm}Procura uma tag pelo XML.
 
 \item{int createXml()}
+
 \hspace*{0.65cm}Escreve no arquivo XML aberto.
 
 \item{int closeXml()}
+
 \hspace*{0.65cm}Fecha o arquivo XML.
 
 \end{enumerate}
@@ -1717,7 +1838,7 @@ primeira derivadadeste pontos.}
 
 \item{\textbf{Verificando os resultados da primeira derivada dos possíveis pontos de Dissolve}
 
-Os resultados da derivada são comparados a um threshold definido. )
+Os resultados da derivada são comparados a um threshold definido.}
 
 \item{\textbf{Limiar de fade}
 
