@@ -68,6 +68,9 @@ double* Fade::calcDerivative(double *array, int size_i)
  ************************************************************************/
 void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
+
+	#define ZERO 0.009
+
 	// Objeto FADE
 	Fade *fade;
 
@@ -178,7 +181,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 		if (fade_start > 0)
 		{
-			if (var_d <= 0.0000009)
+			if (var_d <= ZERO)
 			{
 				no_var++;
 			}
@@ -188,7 +191,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			no_var = 0;
 		}
 
-		if (fabs(array_dy[i]) <= 0.004)
+		if (fabs(array_dy[i]) <= ZERO)
 			last_zero = i;
 
 		Log::writeLog("%s :: var_d[%0.3lf] i[%d] array_dy[%0.3lf] array_vrh[%0.3lf]  last_zero[%d]", __FUNCTION__, var_d, i, array_dy[i], array_vrh[i], i-last_zero );
@@ -212,7 +215,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 		} // Condições para se terminar um fade
 		else if ( fade_start > 0 &&
-				( ( array_dy[i] >= 0.0 && array_dy[i] <= 0.004 )|| ( i+1 >= len_i && var_d < 2.0 )))
+				( ( fabs(array_dy[i]) <= ZERO )|| ( i+1 >= len_i && var_d < 2.0 )))
 		{
 			fade_end = i - 1;
 

@@ -1894,3 +1894,26 @@ void Interface::enableSaveButton()
 {
 	this->ui.actionSave->setEnabled(true);
 }
+
+/**************************************************************************
+ * Trata o evento de close da aplicação.
+ * Fecha/libera todos os objetos abertos/instanciados.
+ **************************************************************************
+ * param (E): Nenhum
+ **************************************************************************
+ * Histórico
+ * 10/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ *************************************************************************/
+void Interface::closeEvent(QCloseEvent* event)
+{
+	if (currentProject != 0x0)
+	{
+		delete currentProject;
+	}
+
+	if (vdo_player != 0x0)
+	{
+		delete vdo_player;
+	}
+}

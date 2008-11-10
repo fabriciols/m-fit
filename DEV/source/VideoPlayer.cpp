@@ -195,3 +195,23 @@ void VideoPlayer::updateCurrentFrame()
 	delete frameNew;
 }
 
+VideoPlayer::~VideoPlayer()
+{
+	if (imageData)
+		delete imageData;
+
+	if (histData)
+		delete histData;
+
+	if (timelineData)
+		delete timelineData;
+
+	if (frameTimeline)
+		delete frameTimeline;
+
+	if (frameTimelineOriginal)
+		delete frameTimelineOriginal;
+
+	if (frameTimelineEdited)
+		delete frameTimelineEdited;
+}

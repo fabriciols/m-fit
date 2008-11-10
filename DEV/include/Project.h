@@ -22,6 +22,7 @@ class Project
 	public:
 
 		Project();
+		~Project();
 
 		int openProject(QString);
 		int saveProject(QString);
