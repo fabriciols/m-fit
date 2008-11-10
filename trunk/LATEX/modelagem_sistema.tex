@@ -173,7 +173,7 @@ visto na Figura \ref{img_transicoes_detectadas2}.
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1\linewidth]{imagens/transicoes_detectadas.png}
- \caption{Transições Detectadas. (Imagem ilustrativa)}
+ \caption{Transições Detectadas.}
  Fonte: Autor.
  \label{img_transicoes_detectadas2}
 \end{figure}
@@ -538,7 +538,8 @@ posição da nova transição.
 
 \item{Frame* applyEffect()}
 
-\hspace*{0.65cm}Aplica o efeito de dilatação no Frame.
+\hspace*{0.65cm}Aplica o efeito de dilatação em um Frame utilizando
+métodos da classe Morphology.
 
 \item{Dilate()}
 
@@ -588,21 +589,23 @@ implementada por todas as classes filhas deste objeto.
 
 \hspace*{1.25cm}Classe que implementa o operador de morfologia
 matemática Dissolve como efeitos a ser aplicado.
-\hspace*{0.65cm}\textbf{Métodos:}
-\begin{enumerate}
 
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
 \item{Erode()}
 
 \hspace*{0.65cm}Construtor que inicializa os atributos internos.
 
-\item{Erode(long , long )}
+\item{Erode(long frameStart, long frameEnd)}
 
 \hspace*{0.65cm}Construtor que inicializa os atributos, e seta os
 valores de inicio e fim do efeito.
 
-\item{Frame* applyEffect(Frame*)}
+\item{Frame* applyEffect()}
 
-\hspace*{0.65cm}Aplica o efeito de erosão em um Frame.
+\hspace*{0.65cm}Aplica o efeito de erosão em um Frame utilizando
+métodos da classe Morphology.
 
 \end{enumerate}
 
@@ -612,6 +615,7 @@ valores de inicio e fim do efeito.
 fade.
 
 \hspace*{0.65cm}\textbf{Métodos:}
+
 \begin{enumerate}
 \item{float calcMinDerivative() }
 
@@ -1062,6 +1066,7 @@ aplicação.
 \subsection{Classe: Morphology\label{classe_Morphology}}
 
 \hspace*{1.25cm}Classe que agrupa filtros de morfologia matemática.
+
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
 
@@ -1229,6 +1234,8 @@ timeline.
 ao tempo de vídeo e realizar conversão de posição de frame para
 tempo (hh:mm:ss).
 
+\hspace*{0.65cm}\textbf{Métodos:}
+
 \begin{enumerate}
 
 \item{Time()}
@@ -1355,7 +1362,8 @@ sistema.
 
 \item{void resetROI()}
 
-\hspace*{0.65cm}Inicializa a ROI (Region Of Interest).
+\hspace*{0.65cm}Inicializa a ROI (Region Of Interest/Região de
+Interesse).
 
 \item{Video(char *filename\underline{ }cy)}
 

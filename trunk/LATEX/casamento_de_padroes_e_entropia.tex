@@ -1,52 +1,4 @@
 \section{Processamento de Alto Nível \label{alto_nivel}}
-\subsection{Método de Casamento de Padrões \label{casamento_de_padroes}}
-
-\hspace*{1.25cm}Casamento de padrões é uma técnica baseada na
-comparação de padrões de elementos, a qual pode ser do tipo
-estrutural, de sinais ou feições. A comparação por casamento de
-sinais dá-se entre duas imagens (no caso de PDI), uma imagem de
-estudo ($E$) e uma imagem de referência ($R$), baseando-se na
-luminância de seus pixels. No entanto, a comparação não se dá
-através das duas imagens por inteiro, e sim por sub-imagens destas
-imagens.
-
-\hspace*{0.65cm}Estas sub-imagens são como as matrizes de convolução
-vistas no tópico \ref{filtragem_espacial}, visto que são um conjunto
-de pixels retirados de uma imagem maior e dispostos como matrizes
-(em geral de tamanho $3\times3$), porém, ao invés de ``pesos'', a
-matriz pode armazenar os tons de cinza, ou brilho dos pixels da
-imagem de referência $R$.
-
-\hspace*{0.65cm}Definida a região (matriz) da imagem $R$ a ser
-comparada, define-se a região (sub-imagem) de $E$ que será a região
-a ser analisada. Com isso, cabe ao operador de casamento de padrões
-calcular a medida de similaridade entre os pontos da sub-imagem de
-$E$ e a sub-imagem de $R$, selecionando aquele que obtiver o maior
-grau de similaridade, ignorando aqueles cuja medida de similaridade
-esteja abaixo do limiar definido.
-
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=0.6\linewidth]{imagens/casamento_padrao.png}
- \caption{Definição da região de pesquisa $S$ a partir de uma janela $W$.}
- Fonte: \cite{FARIA_1997}, p.8
- \label{img_casamento_padrao}
-\end{figure}
-
-\hspace*{0.65cm}Na Figura \ref{img_casamento_padrao}, a sub-imagem
-da imagem de pesquisa possui o mesmo tamanho da janela W, que é a
-matriz com os padrões definidos de uma imagem de referência.
-
-\hspace*{0.65cm}Visto que cada transição possui uma estrutura
-diferente, este trabalho pretende utilizar métodos de casamento de
-padrões para fazer a classificação do tipo das transições presentes
-no vídeo através da comparação da estrutura da transição encontrada
-no Ritmo Visual com estruturas já conhecidas que caracterizam cada
-tipo de transição.
-
-\hspace*{0.65cm}Uma melhor abordagem sobre esta e outras técnicas de
-casamento de padrões pode ser encontrada em \cite{FARIA_1997} e
-\cite{FARIA_2001}.
 
 \subsection{Método Baseado em Entropia \label{entropia}}
 
@@ -72,7 +24,7 @@ que no estado líquido, a entropia do sistema é maior do que quando o
 sistema se encontra no estado sólido.
 
 \hspace*{0.65cm} O método baseado em entropia é um método não muito
-utilizado e neste trabalho este método não será aplicado. 
+utilizado e neste trabalho este método não será aplicado.
 
 Uma abordagem sobre este assunto pode ser encontrado em
 \cite{MENDELSSOHN_1962}.

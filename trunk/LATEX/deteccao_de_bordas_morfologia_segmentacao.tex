@@ -150,15 +150,15 @@ direção Y.
 \hspace*{0.65cm}Como visto no início desta seção, as bordas são representadas por pixels
 que possuem gradiente de alta magnitude. Devido à ruídos presentes na imagem, após os processos de
 convolução da imagem, podem haver diversos pixels representando um
-único ponto de borda verdadeiro. Porém, aquele que possuir o
+único ponto de borda verdadeiro devido à existência de ruídos na imagem. Porém, aquele que possuir o
 gradiente com maior magnitude é o candidato mais forte para
 representar a borda. Através do processo de supressão não máxima, os
-outros pixels (de magnitude não máxima) são eliminados, restando
+pixels de magnitude não máxima são eliminados, restando
 somente 1 pixel representando 1 ponto de borda, o que melhora a performance do filtro
 e atende ao terceiro critério citado acima, visto que as bordas serão representadas
 por linhas de apenas 1 pixel.
 
-\hspace*{0.65cm}Para evitar descontinuidades das bordas detectadas, é utilizado
+\hspace*{0.65cm}Para atender ao critério da localização, é utilizado
 o processo de histerese (\cite{GIOVANE_2004}), ou limiarização adaptativa. Este processo consiste em
 aplicar duas vezes o processo de limiarização em uma mesma imagem, com a utilização de
 dois limiares, $T_{1}$ e $T_{2}$, onde $T_{1} = 2T_{2}$ ou $T_{1} = 3T_{2}$.
@@ -374,5 +374,5 @@ entropia não-extensiva \cite{RODRIGUEZ} e limiar adaptativo
 
 \hspace*{0.65cm}Neste trabalho, técnicas de segmentação de imagens serão
 utilizadas para identificar a área de interesse em vídeos que estejam no formato
-\textit(widescreen), ou seja, para realizar a extração das tarjas pretas, pois estas
+\textit{widescreen}, ou seja, para realizar a extração das tarjas pretas, pois estas
 podem invalidar os resultados obtidos.
