@@ -1523,15 +1523,24 @@ de processos para a realização do carregamento de vídeos no sistema.
 \begin{enumerate}
 \item{Editor inicia a aplicação;}
 \item{Aplicação cria objeto de interface INTERFACE;}
-\item{Editor informa o diretório e o vídeo a ser carregado no sistema;}
-\item{Aplicação cria objeto VDO responsável pelo armazenamento e manipulação do vídeo carregado;}
-\item{Aplicação solicita ao objeto VDO o armazenamento das informações necessárias
-do vídeo através da função open();}
-\item{Aplicação solicita ao objeto INTERFACE que seja mostrado o vídeo, através da
-função showVideo();}
-\item{Aplicação solicita ao objeto INTERFACE que seja mostrada a timeline do vídeo, através da
-função showTimeline();}
-\item{Aplicação devolve ao usuário o vídeo e a timeline carregados na tela;}
+\item{Aplicação cria objeto de Projeto currentProject para armazenar informações sobre o projeto aberto;}
+\item{Aplicação cria objeto de VideoPlayer vdo_player para controle do player do vídeo;}
+\item{INTERFACE solicita à currentProject a abertura do vídeo;}
+\item{currentProject cria o objeto de Video vdo, carregando o vídeo solicitado;}
+\item{currentProject solicita à INTERFACE a inserção das propriedades do vídeo na lista de propriedades;}
+\item{currentProject solicita à INTERFACE a criação da Timeline do vídeo;}
+\item{currentProject solicita à INTERFACE a atualização da lista de transições;}
+\item{currentProject solicita à INTERFACE a inserção do vídeo aberto na lista de arquivos recentes;}
+\item{currentProject solicita à INTERFACE a atualização da lista de arquivos recentes;}
+\item{currentProject retorna o vídeo carregado;}
+\item{INTERFACE habilita os controles para detecção de transições,
+reprodução de vídeo e aplicação de efeitos;}
+\item{INTERFACE abre uma janela e ``pergunta'' ao editor se este deseja realizar a detecção de transições;}
+\item{Editor define se realiza a detecção de transições neste momento ou posteriormente;}
+\item{Caso a resposta seja positiva, INTERFACE cria objeto de Detecção de Transições DT;}
+\item{INTERFACE solicita à DT a detecção de transições;}
+\item{DT retorna para INTERFACE um array com as posições das transições;}
+\item{INTERFACE redesenha a timeline com os identificadores nos pontos de ocorrência de transição.}
 \end{enumerate}
 
 \subsection{Detecção de transições geral \label{seq_detecta_geral}}
