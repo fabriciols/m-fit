@@ -1104,6 +1104,8 @@ void Interface::insertTransitionsTimeline(Transition* transition)
 			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,0,0), 2);
 			break;
 		case TRANSITION_FADEIN:
+			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(255,255,0), 2);
+			break;
 		case TRANSITION_FADEOUT:
 			cvLine(vdo_player->frameTimeline->data, p1, p2, cvScalar(0,0,255), 2);
 			break;
