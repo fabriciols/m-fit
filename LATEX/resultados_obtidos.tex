@@ -58,16 +58,16 @@ Para todos os tipos de transições utilizamos os seguintes videos:
 \begin{itemize}
 \item{Teste.avi}
 
-O Video "Teste" foi criado pela equipe com intuito de gerar um video
-onde todas as transições sejam "perfeitas", sem nenhum tipo de ruido
-ou caso atípico.
+O Video ``Teste'' foi criado pela equipe com o intuito de gerar um
+vídeo onde todas as transições sejam ``perfeitas'', sem nenhum tipo
+de ruído ou caso atípico.
 
 Transições Presentes:
 
-\subitem{ 105 - Fade-In  }
-\subitem{ 134 - Dissolve }
-\subitem{ 241 - Cur      }
-\subitem{ 377 - Fade-Out }
+\subitem{105 - Fade-In}
+\subitem{134 - Dissolve}
+\subitem{241 - Corte}
+\subitem{ 377 - Fade-Out}
 
 \item {Batman.avi}
 
@@ -75,7 +75,7 @@ Video com o trailer do filme: Batman - O Cavaleiro das Trevas.
 
 \item {Ironman.avi}
 
-Video com o trailer do filme: Homen de Ferro (Iron Man).
+Video com o trailer do filme: Homem de Ferro (Iron Man).
 
 \end{itemize}
 
@@ -93,13 +93,28 @@ Batman - O Cavaleiro das Trevas).
 \item{\textbf{Número de não cortes: } 2868}
 \end{itemize}
 
-\hspace*{0.65cm}A imagem {referencia do RV...} mostra o Ritmo Visual
+\hspace*{0.65cm}A imagem \ref{img:rv_batman} mostra o Ritmo Visual
 gerado para o vídeo em análise. Nota-se que onde há a ocorrência de
 cortes é observada uma mudança brusca nos padrões da imagem. A
-partir destes pontos (C1, C2, C3 colocar os pontos...), pode-se
-observar que há a formação de bordas (pontos B1,B2,B3... ETC) quando
-é aplicado o filtro de Canny sobre o Ritmo Visual (referenciar a
-imagem).
+partir destes pontos (C1 - C10), pode-se observar que há a formação
+de bordas (pontos B1 - B10) quando é aplicado o filtro de Canny
+sobre o Ritmo Visual (\ref{img:mapa_batman}).
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/rv_batman.png}
+ \caption{Ritmo Visual do vídeo Batman.avi.}
+ Fonte: Autor.
+ \label{img:rv_batman}
+\end{figure}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/mapa_de_bordas_batman.png}
+ \caption{Ritmo Visual filtrado com o operador de Canny.}
+ Fonte: Autor.
+ \label{img:mapa_batman}
+\end{figure}
 
 \hspace*{0.65cm}A tabela \ref{tab:resultado_batman} mostra as
 transições apontadas pelo sistema.
@@ -107,7 +122,7 @@ transições apontadas pelo sistema.
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
    \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{2\arrayrulewidth}  % espessura da  linha
+   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
    \caption{\it Transições encontradas pelo sistema.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
@@ -141,11 +156,11 @@ sistema, 4 não eram cortes, isto certamente eram objetos de cena que
 causaram grande alteração no padrão da imagem, devido a uma
 movimentação, ou aproximação da câmera.
 
-\hspace*{0.65cm}Apesar do sistema ter detectado um número muito
-abaixo do número total de cortes presentes no vídeo, pode-se dizer
-que os resultados foram satisfatórios ao analisar os resultados em
-função de falsos positivos e falsos negativos. Desta forma, obtém-se
-uma taxa de acerto de 77,96\%, considerando que para a aplicação do
+\hspace*{0.65cm}Apesar do sistema ter detectado um número abaixo do
+número total de cortes presentes no vídeo, pode-se dizer que os
+resultados foram satisfatórios ao analisar os resultados em função
+de falsos positivos e falsos negativos. Desta forma, obtém-se uma
+taxa de acerto de 77,96\%, considerando que para a aplicação do
 filtro de Canny, o valor do limiar mínimo = 100 e o limiar máximo -
 200, e para filtrar as bordas verticais e detectar somente aquelas
 que forem consideradas corte, foi utilizado um limiar que
