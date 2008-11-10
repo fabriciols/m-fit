@@ -4,9 +4,6 @@
  */
 class Dissolve: public DetectTransitions
 {
-	private:
-		Video *video;
-
 	public:
 		void detectTransitions(Video* vdo, std::vector<Transition>*);
 
