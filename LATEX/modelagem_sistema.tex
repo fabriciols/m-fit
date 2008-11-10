@@ -1699,26 +1699,25 @@ Neste estado são detectadas transições do tipo dissolve.
 Sistema entra neste estado para a geração do Ritmo Visual por
 Histograma. }
 
-\item{\textbf{Calculando Variância}
+\item{\textbf{Verificando possíveis pontos de Dissolve}
 
-Sistema entra no estado em que a partir da diagonal do frame
-calcula-se o seu desvio padrão, para se obter a sua variância. }
+Sistema entra no estado em que para cada ponto do Ritmo Visual, é
+checado se os próximos 7 pontos estão em ordem crescente para que
+este ponto seja um possível ponto de Dissolve. }
 
-\item{\textbf{Calculando Derivada do RV}
+\item{\textbf{Calculando Derivada dos possíveis pontos de Dissolve}
 
-Sistema entra no estado em que a partir do RVH gerado, calcula-se a
-primeira derivada, para acentuação dos pontos de transições }
+Sistema entra no estado em que a partir dos possíveis pontos de Dissolve, calcula-se a
+primeira derivadadeste pontos.}
 
-\item{\textbf{Calculando Derivadas da Variância}
+\item{\textbf{Verificando os resultados da primeira derivada dos possíveis pontos de Dissolve}
 
-A partir da variância, calcula-se a sua segunda derivada para
-indicar os pontos de transição. }
+Os resultados da derivada são comparados a um threshold definido. )
 
-\item{\textbf{Calculando razão entre DRV / D2V}
+\item{\textbf{Limiar de fade}
 
-Sistema entra no estado  para calcular a razão entre a 1. derivada
-do RVH e a 2. derivada da variância, retornando o trecho exato onde
-ocorre o dissolve. }
+Para os pontos de Dissolve, é aplicado um limiar de fade para separar
+Fades de Dissolves. }
 
 \end{enumerate}
 
