@@ -109,6 +109,7 @@ double* VisualRythim::createVRH(Video* vdo)
 	Histogram* histogram;
 	Color *color = new Color();
 	Frame* frameGray = 0;
+	Frame *frameDiagonal = 0;
 
 	double totalFrames = vdo->getFramesTotal();
 
@@ -139,9 +140,17 @@ double* VisualRythim::createVRH(Video* vdo)
 		// Converto o frame para escala de cinza.
 		frameGray = color->convert2Gray(frame);
 
+		// Pega a diagonal
+		frameDiagonal = frameGray->getDiagonal();
+
+		// Pega o histograma da diagonal
+		histogram = frameGray->createHistogram();
+
+		// Pega o pico deste histograma.
+		//hist[posic] = histogram->getMaxLuminance();
+
 		// Guardo a media do valor de luminancia da diagonal.
 		hist[posic] = (double)frameGray->mediaBin();	
-		//histogram = frameGray->createHistogram();
 		//hist[posic] = histogram->getMaxLuminance();
 	
 		Log::writeLog("%s :: hist[%d] = %lf", __FUNCTION__, posic, hist[posic]);
@@ -150,6 +159,7 @@ double* VisualRythim::createVRH(Video* vdo)
 		 * Deleto os objetos criados anteriormente para desalocamento de
 		 * memoria.
 		**/
+		delete frameDiagonal;
 		delete frameGray;
 		delete histogram;
 		delete frame;

@@ -69,7 +69,7 @@ double* Fade::calcDerivative(double *array, int size_i)
 void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 
-	#define ZERO 0.009
+	#define ZERO 0.008
 
 	// Objeto FADE
 	Fade *fade;
@@ -107,6 +107,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 	// Variacao do ponto atual com o ponto anterior
 	double var_d = 0.0;
+	double var_last_d = 0.0;
 
 	double start_with = 0.0;
 
@@ -138,26 +139,16 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	array_dy = fade->calcDerivative(array_vrh, len_i);
 
 	// Descomentar para obter uma imagem do RVH derivado
-	{
-		int i;
-		double *array_dy_aux = 0;
+	/*******************************************************/
+	Frame *frameVRH = new Frame(array_dy, len_i, 256);
+	Frame *frameVR = new Frame(array_vrh, len_i, 256);
 
-		array_dy_aux = (double*)malloc(sizeof(double)*len_i);
+	frameVRH->write("vrhd_dump.jpg");
+	frameVR->write("vrh_dump.jpg");
 
-
-		// DUMP - cria a imagem do rvh, somente para analizarmos
-		for (i = 0 ; i < len_i ; i ++)
-		{
-			array_dy_aux[i] = array_dy[i] + 50;
-		}
-
-		Frame *frameVRH = new Frame(array_dy_aux, len_i, 256);
-
-		frameVRH->write("vrh_dump.jpg");
-
-		delete frameVRH;
-		delete array_dy_aux;
-	}
+	delete frameVRH;
+	delete frameVR;
+	/*******************************************************/
 
 	// A partir dai é necessário fazer uma análize na função derivada.
 	// O que iremos fazer é o seguinte:
@@ -215,7 +206,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 		} // Condições para se terminar um fade
 		else if ( fade_start > 0 &&
-				( ( fabs(array_dy[i]) <= ZERO )|| ( i+1 >= len_i && var_d < 2.0 )))
+				( ( fabs(array_dy[i]) <= ZERO)|| ( i+1 >= len_i && var_d < 2.0 )))
 		{
 			fade_end = i - 1;
 
@@ -225,7 +216,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			Log::writeLog("%s :: %d - %d, total points : %d", __FUNCTION__, fade_start, fade_end, var);
 
-			if (var <= 8)
+			if (var < 10)
 			{
 				fade_start = 0;
 				no_var = 0;
@@ -277,6 +268,23 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
 			Log::writeLog("%s :: pos: %lf neg: %lf", __FUNCTION__, pos, neg);
 
+				if (fabs(fade_max) < 5 || fabs(fade_max) > 60)
+			{
+					Log::writeLog("%s :: max incorrect : %lf ", __FUNCTION__, fade_max);
+					no_var = 0;
+					fade_start = 0;
+					continue;
+			}
+
+			if (var_d > 3 || var_last_d > 3)
+			{
+					Log::writeLog("%s :: var to high: %lf - %lf", __FUNCTION__, var_d, var_last_d);
+					no_var = 0;
+					fade_start = 0;
+					continue;
+			}
+
+
 			// Cria o objeto da transição
 			// Se o ponto maximo for negativo: temos um fade-out
 			// caso contrario, temos um fade-in
@@ -317,13 +325,11 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			no_var = 0;
 
-			i++;
-
-
 		}
 
 		// Ultimo ponto, igual a ponto corrente
 		last_point = array_dy[i];
+		var_last_d = var_d;
 	}
 
 	// Reseta o ROI craido pelo removeWide e removeBorder
@@ -332,4 +338,10 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	delete array_vrh;
 	delete array_dy;
 	delete vrh;
+
+	for ( i = 0 ; (unsigned int)i < transitionList->size() ; i ++)
+	{
+		transition = &transitionList->at(i);
+		Log::writeLog("%s :: %d %s %d", __FUNCTION__, i, transition->getLabel(), transition->getPosCurrent());
+	}
 }
