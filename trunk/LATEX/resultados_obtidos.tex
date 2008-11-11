@@ -88,17 +88,17 @@ obtidos em alguns vídeos.
 Batman - O Cavaleiro das Trevas).
 
 \begin{itemize}
-\item{\textbf{Número de frames: } 2919}
-\item{\textbf{Número de cortes: } 51}
-\item{\textbf{Número de não cortes: } 2868}
+\item{\textbf{Número de frames: } 3859}
+\item{\textbf{Número de cortes: } 48}
+\item{\textbf{Número de não cortes: } 3811}
 \end{itemize}
 
-\hspace*{0.65cm}A imagem \ref{img:rv_batman} mostra o Ritmo Visual
+\hspace*{0.65cm}A figura \ref{img:rv_batman} mostra o Ritmo Visual
 gerado para o vídeo em análise. Nota-se que onde há a ocorrência de
 cortes é observada uma mudança brusca nos padrões da imagem. A
 partir destes pontos (C1 - C10), pode-se observar que há a formação
 de bordas (pontos B1 - B10) quando é aplicado o filtro de Canny
-sobre o Ritmo Visual (\ref{img:mapa_batman}).
+sobre o Ritmo Visual (figura \ref{img:mapa_batman}).
 
 \begin{figure}[h|top]
  \centering
@@ -111,13 +111,10 @@ sobre o Ritmo Visual (\ref{img:mapa_batman}).
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/mapa_de_bordas_batman.png}
- \caption{Ritmo Visual filtrado com o operador de Canny.}
+ \caption{Ritmo Visual filtrado com o operador de Canny utilizando limiares T\underline{_}min = 100 e T\underline{_}max = 200.}
  Fonte: Autor.
  \label{img:mapa_batman}
 \end{figure}
-
-\hspace*{0.65cm}A tabela \ref{tab:resultado_batman} mostra as
-transições apontadas pelo sistema.
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
@@ -126,45 +123,97 @@ transições apontadas pelo sistema.
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
    \caption{\it Transições encontradas pelo sistema.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Validade \\
-        \hline 1360 & ok \\
-        \hline 1385 & ok \\
-        \hline 1416 & ok \\
-        \hline 1638 & ok \\
-        \hline 1690 & ok \\
-        \hline 1701 & ok \\
-        \hline 1784 & ok \\
-        \hline 1785 & falhou \\
-        \hline 1791 & falhou \\
-        \hline 1839 & ok \\
-        \hline 1875 & ok \\
-        \hline 2041 & ok \\
-        \hline 2147 & ok \\
-        \hline 2157 & ok \\
-        \hline 2170 & ok \\
-        \hline 2181 & ok \\
-        \hline 2187 & falhou \\
-        \hline 2190 & falhou \\
-        \hline 2215 & ok \\
+        \hline Frame & Validade & Distância do ponto \\
+        \hline 1011 & ok & 1 frame\\
+        \hline 1896 & ok & 0\\
+        \hline 1928 & ok & 1 frame\\
+        \hline 1967 & ok & 0\\
+        \hline 2105 & ok & 1 frame\\
+        \hline 2134 & falhou & ---\\
+        \hline 2156 & falhou & ---\\
+        \hline 2244 & falhou & ---\\
+        \hline 2245 & ok & 0\\
+        \hline 2281 & falhou & ---\\
+        \hline 2309 & ok & 1 frame\\
+        \hline 2322 & ok & 0\\
+        \hline 2426 & ok & 0\\
+        \hline 2495 & ok & 1 frame\\
+        \hline 2540 & ok & 1 frame\\
+        \hline 2747 & ok & 0\\
+        \hline 2785 & ok & 1 frame\\
+        \hline 2879 & ok & 1 frame\\
+        \hline 2892 & ok & 1 frame\\
+        \hline 2908 & ok & 0 \\
+        \hline 2930 & falhou & 0 \\
+        \hline 2935 & ok & 1 frame \\
+        \hline 2965 & ok & 1 frame \\
         \hline
    \end{tabular}
    \label{tab:resultado_batman}
 \end{table}
 
-\hspace*{0.65cm}Nota-se que das 19 transições detectadas pelo
-sistema, 4 não eram cortes, isto certamente eram objetos de cena que
-causaram grande alteração no padrão da imagem, devido a uma
-movimentação, ou aproximação da câmera.
+\hspace*{0.65cm}Em resumo, os resultados obtidos para a detecção de
+cortes com esta metodologia foram os seguintes:
+
+\begin{enumerate}
+\item{\textbf{Total de detecções:}23}
+\item{\textbf{``True'' positivos:}18}
+\item{\textbf{Falsos positivos:}5}
+\item{\textbf{``True'' negativos:}3806}
+\item{\textbf{Falsos negativos:}30}
+\end{enumerate}
+
+\hspace*{0.65cm}Onde ``Total de detecções'' representa o número de
+pontos apontados pelo sistema como locais de ocorrência de cortes,
+``True positivos'' representa os pontos detectados pelo sistema em
+que realmente existe um corte e ``Falsos negativos'' representa os
+pontos detectados pelo sistema em que não havia um corte.
+
+\hspace*{0.65cm}Nota-se pela tabela \ref{tab:resultado_batman} que
+das 19 transições detectadas pelo sistema, 4 não eram cortes, estes
+certamente eram pontos em que haviam objetos de cena que causaram
+grande alteração no padrão da imagem, devido a uma movimentação ou
+aproximação da câmera. Além disso, é possível observar que o ponto
+da ocorrência da transição apontado pelo sistema é bastante preciso,
+variando em, no máximo, 1 frame anterior ao ponto exato da
+transição.
 
 \hspace*{0.65cm}Apesar do sistema ter detectado um número abaixo do
 número total de cortes presentes no vídeo, pode-se dizer que os
 resultados foram satisfatórios ao analisar os resultados em função
 de falsos positivos e falsos negativos. Desta forma, obtém-se uma
-taxa de acerto de 77,96\%, considerando que para a aplicação do
-filtro de Canny, o valor do limiar mínimo = 100 e o limiar máximo -
-200, e para filtrar as bordas verticais e detectar somente aquelas
-que forem consideradas corte, foi utilizado um limiar que
-corresponde a 45\% da altura do frame.
+taxa de acerto de 77,65\%, considerando que para a aplicação do
+filtro de Canny, o valor do limiar mínimo T_min = 100 e o limiar
+máximo T_max = 200, e para filtrar as bordas verticais e detectar
+somente aquelas que realmente forem um corte, foi utilizado um
+limiar que corresponde a 45\% da altura do frame. Estes valores de
+limiar foram definidos com base em testes realizados no decorrer
+deste trabalho, como pode ser observado na Figura
+\ref{img:mapa_batman_2}.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/mapa_batman_2.png}
+ \caption{Ritmo Visual filtrado com o operador de Canny utilizando limiares T\underline{_}min = 20 e T\underline{_}max = 40.}
+ Fonte: Autor.
+ \label{img:mapa_batman_2}
+\end{figure}
+
+\hspace*{0.65cm}Percebe-se que a quantidade de bordas detectadas na
+Figura \ref{img:mapa_batman_2} é consideravelmente maior do que a
+quantidade de bordas detectadas na figura \ref{img:mapa_batman}.
+Isto se deve ao fato de que o limiar mínimo utilizado foi T_min = 20
+e T_max = 40, desta forma, qualquer pixel com luminância maior que
+40 será imediatamente aceito como borda, o que torna o resultado
+inválido, visto que bordas são vistas como picos em uma imagem.
+Junto disso, o valor do limiar para o tamanho das bordas foi baixado
+para 25\%, fazendo com que qualquer borda que ultrapasse 25\% da
+altura do frame seja aceito como uma borda representativa de corte,
+porém bordas deste tamanho podem ser geradas pela simples
+movimentação de objetos na cena ou por ruídos.
+
+\hspace*{0.65cm}\textbf{Vídeo em análise:} IronMan.avi (Trailer do
+filme Homem de Ferro).
 
 \subsection{Resultados obtidos: Detecção - Fade\label{resultados_obtidos_cortes}}
 
