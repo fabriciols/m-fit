@@ -121,7 +121,7 @@ sobre o Ritmo Visual (figura \ref{img:mapa_batman}).
    \large       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições encontradas pelo sistema.}
+   \caption{\it Transições encontradas pelo sistema no vídeo Batman.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Validade & Distância do ponto \\
         \hline 1011 & ok & 1 frame\\
@@ -156,11 +156,11 @@ sobre o Ritmo Visual (figura \ref{img:mapa_batman}).
 cortes com esta metodologia foram os seguintes:
 
 \begin{enumerate}
-\item{\textbf{Total de detecções:}23}
-\item{\textbf{``True'' positivos:}18}
-\item{\textbf{Falsos positivos:}5}
-\item{\textbf{``True'' negativos:}3806}
-\item{\textbf{Falsos negativos:}30}
+\item{\textbf{Total de detecções:} 23}
+\item{\textbf{``True'' positivos:} 18}
+\item{\textbf{Falsos positivos:} 5}
+\item{\textbf{``True'' negativos:} 3806}
+\item{\textbf{Falsos negativos:} 30}
 \end{enumerate}
 
 \hspace*{0.65cm}Onde ``Total de detecções'' representa o número de
@@ -210,6 +210,118 @@ baixado para 25\%, fazendo com que qualquer borda que ultrapasse
 25\% da altura do frame seja aceito como uma borda representativa de
 corte, porém bordas deste tamanho podem ser geradas pela simples
 movimentação de objetos na cena ou por ruídos.
+
+\hspace*{0.65cm}\textbf{Vídeo em análise:} IronMan.avi (trailer do
+filme Homem de Ferro).
+
+\begin{itemize}
+\item{\textbf{Número de frames: } 3580}
+\item{\textbf{Número de cortes: } 107}
+\item{\textbf{Número de não cortes: } 3473}
+\end{itemize}
+
+\hspace*{0.65cm}A Figura (referenciar rv dessa porra) mostra o Ritmo
+Visual do vídeo IronMan.avi filtrado pelo filtro de Canny. Novamente
+é possível observar que onde há a ocorrência de cortes existem
+bordas verticais.
+
+\hspace*{0.65cm}A Tabela \ref{tab:resultados_Iron} mostra os
+resultados obtidos com a detecção de cortes utilizando as
+configurações padrões.
+
+\begin{table}[htb] % [htb]-> here, top, botton
+   \centering   % tabela centralizada
+   \tiny       % tamanho da fonte
+   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+   \caption{\it Transições encontradas pelo sistema no vídeo IronMan.avi.}
+   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+        \hline Frame & Validade & Distância do ponto \\
+        \hline 254 & ok & 1 frame \\
+        \hline 256 & ok & 0 \\
+        \hline 300 & ok & 0 \\
+        \hline 326 & ok & 1 frame \\
+        \hline 425 & ok & 0 \\
+        \hline 538 & ok & 1 frame \\
+        \hline 580 & ok & 1 frame \\
+        \hline 608 & ok & 0 \\
+        \hline 732 & ok & 1 frame \\
+        \hline 764 & ok & 1 frame \\
+        \hline 1072 & ok & 0 \\
+        \hline 1088 & ok & 0 \\
+        \hline 1173 & ok & 0 \\
+        \hline 1175 & ok & 0 \\
+        \hline 1179 & ok & 1 frame \\
+        \hline 1181 & ok & 0 \\
+        \hline 1195 & ok & 1 frame \\
+        \hline 1197 & ok & 0 \\
+        \hline 1202 & ok & 1 frame \\
+        \hline 1204 & ok & 0 \\
+        \hline 1218 & ok & 1 frame \\
+        \hline 1220 & ok & 0 \\
+        \hline 1223 & falhou & --- \\
+        \hline 1225 & ok & 1 frame \\
+        \hline 1227 & ok & 0 \\
+        \hline 1240 & falhou & --- \\
+        \hline 1243 & ok & 0 \\
+        \hline 1248 & ok  & 1 frame \\
+        \hline 1259 & ok & 1 frame \\
+        \hline 1351 & ok & 1 frame \\
+        \hline 1353 & ok & 0 \\
+        \hline 1356 & falhou & --- \\
+        \hline 1902 & ok & 0 \\
+        \hline 2093 & ok & 1 frame \\
+        \hline 2095 & ok & 0 \\
+        \hline 2136 & falhou & --- \\
+        \hline 2163 & falhou & --- \\
+        \hline 2165 & ok & 0 \\
+        \hline 2189 & ok & 1 frame \\
+        \hline 2190 & ok & 0 \\
+        \hline 2247 & ok & 1 frame \\
+        \hline 2305 & ok & 1 frame \\
+        \hline 2385 & ok & 1 frame \\
+        \hline 2396 & falhou &  --- \\
+        \hline 2398 & ok & 0 \\
+        \hline 2410 & ok & 0 \\
+        \hline 2427 & ok & 0 \\
+        \hline 2441 & ok & 1 frame \\
+        \hline 2453 & falhou & --- \\
+        \hline 2488 & falhou & --- \\
+        \hline 2696 & ok & 0 \\
+        \hline 2792 & falhou & --- \\
+        \hline 2900 & ok & 1 frame \\
+        \hline 2970 & falhou & --- \\
+        \hline 2972 & falhou & --- \\
+        \hline 2986 & ok & 1 frame \\
+        \hline 3007 & falhou & --- \\
+        \hline 3032 & falhou  & --- \\
+        \hline 3035 & ok & 0 \\
+        \hline 3066 & falhou & --- \\
+        \hline 3068 & falhou & --- \\
+        \hline 3078 & falhou & --- \\
+        \hline 3083 & falhou & --- \\
+        \hline 3472 & ok & 1 frame\\
+        \hline
+   \end{tabular}
+   \label{tab:resultados_Iron}
+\end{table}
+
+\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+
+\begin{enumerate}
+\item{\textbf{Total de detecções:} 64}
+\item{\textbf{``True'' positivos:} 47}
+\item{\textbf{Falsos positivos:} 17}
+\item{\textbf{``True'' negativos:} 3456}
+\item{\textbf{Falsos negativos:} 60}
+\end{enumerate}
+
+\hspace*{0.65cm}Novamente os resultados podem ser considerados
+satisfatórios se a análise for baseada nos falsos positivos e falsos
+negativos, chegado a uma taxa de acerto de 72,18\%.
+
+\hspace*{0.65cm}Através da análise destes 3 vídeos têm-se uma média
+de acerto geral de 74,91\%.
 
 \subsection{Resultados obtidos: Detecção - Fade\label{resultados_obtidos_cortes}}
 
