@@ -443,14 +443,14 @@ void Video::removeWide()
 	int i = 0;
 
 
-	npoints = cvRound(0.2 * this->getFramesTotal()); // Vou scanear 10% dos frames do video
+	npoints = cvRound(0.2 * (long)this->getFramesTotal() ); // Vou scanear 20% dos frames do video
 
 	currentPosition = this->getCurrentPosition();
 
 	// Aponta pro comeco do video
 	this->seekFrame(0);
 
-	for (i = 0 ; i < this->getFramesWidth() ; i += npoints)
+	for (i = 0 ; i < this->getFramesTotal() ; i += npoints)
 	{
 		this->seekFrame(i);
 
@@ -475,7 +475,7 @@ void Video::removeWide()
 	// Devolve ele pra posição que estava
 	this->seekFrame(cvRound(currentPosition));
 
-	if (sizeWide > 0)
+	if (minSizeWide > 0 && minSizeWide != 9999)
 	{
 		this->ROI.x = 0;
 		this->ROI.y = minSizeWide;
@@ -514,7 +514,7 @@ void Video::removeBorder()
 	// Aponta pro comeco do video
 	this->seekFrame(0);
 
-	for (i = 0 ; i < this->getFramesWidth() ; i += npoints)
+	for (i = 0 ; i < this->getFramesTotal() ; i += npoints)
 	{
 		this->seekFrame(i);
 
@@ -539,7 +539,7 @@ void Video::removeBorder()
 	// Devolve ele pra posição que estava
 	this->seekFrame(cvRound(currentPosition));
 
-	if (borderSize> 0)
+	if (minBorderSize > 0 && minBorderSize != 9999)
 	{
 		// Seta no ROI padrao do video as medidas
 		this->ROI.x = minBorderSize;
