@@ -58,7 +58,7 @@ Para todos os tipos de transições utilizamos os seguintes videos:
 \begin{itemize}
 \item{Teste.avi}
 
-O Video ``Teste'' foi criado pela equipe com o intuito de gerar um
+O vídeo ``Teste'' foi criado pela equipe com o intuito de gerar um
 vídeo onde todas as transições sejam ``perfeitas'', sem nenhum tipo
 de ruído ou caso atípico.
 
@@ -71,11 +71,11 @@ Transições Presentes:
 
 \item {Batman.avi}
 
-Video com o trailer do filme: Batman - O Cavaleiro das Trevas.
+Vídeo com o trailer do filme: Batman - O Cavaleiro das Trevas.
 
 \item {Ironman.avi}
 
-Video com o trailer do filme: Homem de Ferro (Iron Man).
+Vídeo com o trailer do filme: Homem de Ferro (Iron Man).
 
 \end{itemize}
 
@@ -111,7 +111,7 @@ sobre o Ritmo Visual (figura \ref{img:mapa_batman}).
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/mapa_de_bordas_batman.png}
- \caption{Ritmo Visual filtrado com o operador de Canny utilizando limiares T\underline{_}min = 100 e T\underline{_}max = 200.}
+ \caption{Ritmo Visual filtrado com o operador de Canny utilizando limiares $T_{min}$ = 100 e $T_{max}$ = 200.}
  Fonte: Autor.
  \label{img:mapa_batman}
 \end{figure}
@@ -183,18 +183,18 @@ número total de cortes presentes no vídeo, pode-se dizer que os
 resultados foram satisfatórios ao analisar os resultados em função
 de falsos positivos e falsos negativos. Desta forma, obtém-se uma
 taxa de acerto de 77,65\%, considerando que para a aplicação do
-filtro de Canny, o valor do limiar mínimo T_min = 100 e o limiar
-máximo T_max = 200, e para filtrar as bordas verticais e detectar
-somente aquelas que realmente forem um corte, foi utilizado um
-limiar que corresponde a 45\% da altura do frame. Estes valores de
-limiar foram definidos com base em testes realizados no decorrer
+filtro de Canny, o valor do limiar mínimo $T_{min}$ = 100 e o limiar
+máximo $T_{max}$ = 200, e para filtrar as bordas verticais e
+detectar somente aquelas que realmente forem um corte, foi utilizado
+um limiar que corresponde a 45\% da altura do frame. Estes valores
+de limiar foram definidos com base em testes realizados no decorrer
 deste trabalho, como pode ser observado na Figura
 \ref{img:mapa_batman_2}.
 
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/mapa_batman_2.png}
- \caption{Ritmo Visual filtrado com o operador de Canny utilizando limiares T\underline{_}min = 20 e T\underline{_}max = 40.}
+ \caption{Ritmo Visual filtrado com o operador de Canny utilizando limiares $T_{min}$ = 20 e $T_{max}$ = 40.}
  Fonte: Autor.
  \label{img:mapa_batman_2}
 \end{figure}
@@ -202,18 +202,15 @@ deste trabalho, como pode ser observado na Figura
 \hspace*{0.65cm}Percebe-se que a quantidade de bordas detectadas na
 Figura \ref{img:mapa_batman_2} é consideravelmente maior do que a
 quantidade de bordas detectadas na figura \ref{img:mapa_batman}.
-Isto se deve ao fato de que o limiar mínimo utilizado foi T_min = 20
-e T_max = 40, desta forma, qualquer pixel com luminância maior que
-40 será imediatamente aceito como borda, o que torna o resultado
-inválido, visto que bordas são vistas como picos em uma imagem.
-Junto disso, o valor do limiar para o tamanho das bordas foi baixado
-para 25\%, fazendo com que qualquer borda que ultrapasse 25\% da
-altura do frame seja aceito como uma borda representativa de corte,
-porém bordas deste tamanho podem ser geradas pela simples
+Isto se deve ao fato de que o limiar mínimo utilizado foi $T_{min}$
+= 20 e $T_{max}$ = 40, desta forma, qualquer pixel com luminância
+maior que 40 será imediatamente aceito como borda, o que torna o
+resultado inválido, visto que bordas são vistas como picos em uma
+imagem. Junto disso, o valor do limiar para o tamanho das bordas foi
+baixado para 25\%, fazendo com que qualquer borda que ultrapasse
+25\% da altura do frame seja aceito como uma borda representativa de
+corte, porém bordas deste tamanho podem ser geradas pela simples
 movimentação de objetos na cena ou por ruídos.
-
-\hspace*{0.65cm}\textbf{Vídeo em análise:} IronMan.avi (Trailer do
-filme Homem de Ferro).
 
 \subsection{Resultados obtidos: Detecção - Fade\label{resultados_obtidos_cortes}}
 
