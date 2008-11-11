@@ -169,8 +169,6 @@ Project::Project(void)
  ************************************************************************/
 Project::~Project(void)
 {
-	unsigned int i;
-
 	if (vdo)
 		delete vdo;
 
@@ -178,29 +176,10 @@ Project::~Project(void)
 		delete frame;
 
 	// Limpa lista de transições
-	if (transitionList.size() > 0)
-	{
-		Transition *transition;
-		for (i = 0 ; i < transitionList.size() ; i++)
-		{
-			transition = &transitionList.at(i);
-			delete transition;
-			removeTransition(i);
-		}
-
-	}
+	transitionList.clear();
 
 	// Limpa lista de efeitos
-	if (effectList.size() > 0)
-	{
-		Effect *effect;
-		for (i = 0 ; i < effectList.size() ; i++)
-		{
-			effect = effectList.at(i);
-			delete effect;
-			removeTransition(i);
-		}
-	}
+	effectList.clear();
 }
 
 /************************************************************************
@@ -723,8 +702,6 @@ void Project::removeTransition(int ind)
 	transitionList.erase(transitionList.begin( ) + ind);
 
 	sortTransitionList();
-
-	Interface_ui->updateTransitions();
 }
 
 
