@@ -220,11 +220,6 @@ filme Homem de Ferro).
 \item{\textbf{Número de não cortes: } 3473}
 \end{itemize}
 
-\hspace*{0.65cm}A Figura (referenciar rv dessa porra) mostra o Ritmo
-Visual do vídeo IronMan.avi filtrado pelo filtro de Canny. Novamente
-é possível observar que onde há a ocorrência de cortes existem
-bordas verticais.
-
 \hspace*{0.65cm}A Tabela \ref{tab:resultados_Iron} mostra os
 resultados obtidos com a detecção de cortes utilizando as
 configurações padrões.
@@ -322,6 +317,54 @@ negativos, chegado a uma taxa de acerto de 72,18\%.
 
 \hspace*{0.65cm}Através da análise destes 3 vídeos têm-se uma média
 de acerto geral de 74,91\%.
+
+\hspace*{0.65cm}\textbf{Vídeo em análise:}Teste.avi (vídeo criado
+pela equipe durante a realização deste trabalho).
+
+\begin{itemize}
+\item{\textbf{Número de frames: } 385}
+\item{\textbf{Número de cortes: } 3}
+\item{\textbf{Número de não cortes: } 381}
+\end{itemize}
+
+\hspace*{0.65cm}A Tabela \ref{tab:resultados_Teste} mostra os
+resultados obtidos com a detecção de cortes utilizando as
+configurações padrões.
+
+\begin{table}[htb] % [htb]-> here, top, botton
+   \centering   % tabela centralizada
+   \tiny       % tamanho da fonte
+   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+   \caption{\it Transições encontradas pelo sistema no vídeo IronMan.avi.}
+   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+        \hline Frame & Validade & Distância do ponto \\
+        \hline 51 & ok & 0 \\
+        \hline 167 & ok & 0 \\
+        \hline
+   \end{tabular}
+   \label{tab:resultados_Teste}
+\end{table}
+
+\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+
+\begin{enumerate}
+\item{\textbf{Total de detecções:} 2}
+\item{\textbf{``True'' positivos:} 2}
+\item{\textbf{Falsos positivos:} 0}
+\item{\textbf{``True'' negativos:} 380}
+\item{\textbf{Falsos negativos:} 1}
+\end{enumerate}
+
+\hspace*{0.65cm}Com estes resultados, obtém-se uma performance de
+99,74\%, chegando próximo à perfeição, porém vale lembrar que este
+vídeo foi criado com condições ``perfeitas'' para o processo de
+detecção.
+
+\hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
+metodologia utilizada para a detecção de cortes apresentou
+resultados bastante satisfatórios com um número de falsos negativos
+relativamente baixo.
 
 \subsection{Resultados obtidos: Detecção - Fade\label{resultados_obtidos_cortes}}
 
