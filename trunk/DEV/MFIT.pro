@@ -46,7 +46,6 @@ HEADERS += include/Color.h \
            include/Histogram.h \
            include/Interface.h \
 			  include/DetectConfig.h \
-			  include/ColorConfig.h \
 			  include/TransitionEdit.h \
            include/Log.h \
            include/Morphology.h \
@@ -73,7 +72,6 @@ SOURCES += source/main.cpp \
            source/Histogram.cpp \
            source/Interface.cpp \
 			  source/DetectConfig.cpp \
-			  source/ColorConfig.cpp \
 			  source/TransitionEdit.cpp \
 			  source/Log.cpp \
            source/Morphology.cpp \

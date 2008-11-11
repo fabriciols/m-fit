@@ -2,7 +2,6 @@
 #include "cv.h"
 #include "highgui.h"
 
-#include "../include/ColorConfig.h"
 #include "../include/Transition.h"
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
@@ -13,6 +12,7 @@
 #include "../include/Project.h"
 #include "../include/VideoPlayer.h"
 #include "../include/MorphologyEffect.h"
+#include "../include/Color.h"
 
 extern Project* currentProject;
 extern VideoPlayer* vdo_player;
