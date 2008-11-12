@@ -397,3 +397,73 @@ exemplos propostos.
 \item{\textbf{Número de Fade-out  : } 51}
 \item{\textbf{Número de não cortes: } 2868}
 \end{itemize}
+
+\subsection{Resultados obtidos: Detecção - Dissolve \label{resultados_obtidos_dissolves}}
+
+\hspace*{1.25cm}Neste tópico serão apresentados os resultados obtidos para dissolve nos exemplos propostos.
+
+\subsubsection{Vídeo em análise: Teste.avi}
+
+\begin{itemize}
+\item{\textbf{Número de frames    : } 385}
+\item{\textbf{Número de dissolves  : } 3}
+\item{\textbf{Número de não dissolves: } 382}
+\end{itemize}
+
+\hspace*{0.65cm}Mais especificamente:
+
+\begin{enumerate}
+\item{\textbf{Total de detecções:} 3}
+\item{\textbf{``True'' positivos:} 3}
+\item{\textbf{Falsos positivos:} 0}
+\item{\textbf{``True'' negativos:} 382}
+\item{\textbf{Falsos negativos:} 0}
+\end{enumerate}
+
+\hspace*{0.65cm}Para este vídeo, que foi feito em condições perfeitas,
+a taxa de acerto foi de 100\%. Assim, para condições perfeitas,
+o método funciona plenamente.
+
+\subsubsection{Vídeo em análise: Ironman.avi}
+
+\begin{itemize}
+\item{\textbf{Número de frames    : } 3580}
+\item{\textbf{Número de dissolves   : } 7}
+\item{\textbf{Número de não dissolves: } 3580}
+\end{itemize}
+
+\hspace*{0.65cm}Mais especificamente:
+
+\begin{enumerate}
+\item{\textbf{Total de detecções:} 6}
+\item{\textbf{``True'' positivos:} 6}
+\item{\textbf{Falsos positivos:} 16}
+\item{\textbf{``True'' negativos:} 3557}
+\item{\textbf{Falsos negativos:} 1}
+\end{enumerate}
+
+\hspace*{0.65cm}Para este vídeo, a taxa de acerto foi de 85,71\%.
+Este resultado mostra que para um caso real, o método de detecção de
+Dissolve apresenta um resultado muito satisfatório.
+
+\subsubsection{Vídeo em análise: Batman.avi}
+
+\begin{itemize}
+\item{\textbf{Número de frames    : } 2919}
+\item{\textbf{Número de dissolves   : } 4}
+\item{\textbf{Número de não dissolves: } 2015}
+\end{itemize}
+
+\hspace*{0.65cm}Mais especificamente:
+
+\begin{enumerate}
+\item{\textbf{Total de detecções:} 3}
+\item{\textbf{``True'' positivos:} 3}
+\item{\textbf{Falsos positivos:} 11}
+\item{\textbf{``True'' negativos:} 2904}
+\item{\textbf{Falsos negativos:} 1}
+\end{enumerate}
+
+\hspace*{0.65cm}Observando os resultados, chega-se a conclusão que
+a taxa de acerto é de 75\%. Para este vídeo, o resultado foi abaixo do vídeo anterior,
+porém o método ainda apresenta um resultado satisfatório para a detecção do Dissolve.
