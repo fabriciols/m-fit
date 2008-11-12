@@ -13,3 +13,10 @@ entre duas tomadas que sejam muito escuras, porém se estes limiares
 forem modificados para detectar estas transições, as transições
 entre tomadas mais claras podem deixar de ser detectadas, além de
 aumentar o número de falsos positivos.
+
+\hspace*{0.65cm}Para a detecção do dissolve, primeiramente foi utilizado
+uma metodologia que calcula a razão entre a segunda variância da luminância e
+a derivada dos ritmo visual. Porém este método não trouxe resultados esperados,
+com uma taxa de erro inviável. Assim, foi desenvolvido um novo método de análise
+dos pontos de lumiância do frame juntamente com um threshold definido e um limiar
+para separar detecções do tipo fade.
