@@ -71,6 +71,17 @@ a detecção de transições do tipo Corte:
     uma borda gerada por um objeto, e daquilo que representa uma transição de
     corte.}
 
+    \item{\textbf{Validação dos pontos encontrados:}Neste ponto o sistema
+    verifica se o ponto apontado como transição de corte não é o final de um fade-out
+    ou início de fade-in através da análise da média da luminância
+    dos próximos frames e dos frames anteriores. Se esta for muito baixa, significa que os
+    próximos frames ou os frames anteriores são pretos, ou bastante
+    escuros, o que torna alta a probabilidade destes frames serem pertencentes ao início ou final de um fade.
+    Além disso, é realizado o cálculo da diferença entre a média da luminância
+    dos dois próximos frames e a média da luminância dos dois frames anteriores. Se esta for nula, ou muito baixa,
+    há grande chance do sistema ter detectado uma borda no Ritmo Visual gerada por um objeto de cena. Caso ocorra um destes
+    casos, o ponto será ignorado.}
+
     \item{\textbf{Transições:}
     No final deste processo, estarão identificadas as transições do vídeo
     do tipo corte.}
