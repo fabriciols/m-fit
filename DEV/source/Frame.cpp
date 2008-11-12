@@ -81,22 +81,24 @@ Frame::Frame()
  * param (E): double matrix[] - Valores do Histograma
  * param (E): int len_i       - Quantidade de valores em 'matrix'
  * param (E): float max_f     - Valor máximo do histograma
+ * param (E): bool  QT        - True - Significa que esta imagem vai ser
+ * usada no QT
  *************************************************************************
  * Histórico:
  * 27/06/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-Frame::Frame(double *matrix, int len_i, float max_f)
+Frame::Frame(double *matrix, int len_i, float max_f, bool QT)
 {
 
 	int i;
 	int normalized;
 	char *frame_cy;
-	//CvFont font;
+	CvFont font;
 	CvPoint point_new  = {0,0};
 	CvPoint point_last = {0,0};
 
-	//cvInitFont(&font, CV_FONT_HERSHEY_PLAIN, 0.5, 0.5, 0, 1, CV_AA);
+	cvInitFont(&font, CV_FONT_HERSHEY_PLAIN, 0.5, 0.5, 0, 1, CV_AA);
 
 	frame_cy = (char*)malloc(sizeof(char)*10);
 
@@ -118,11 +120,27 @@ Frame::Frame(double *matrix, int len_i, float max_f)
 		Log::writeLog("%s :: Plot Value[%3d] = [%4.0lf] Normalized = [%3d]", __FUNCTION__, i, matrix[i], normalized);
 
 		// Printa a linha do Histograma
-		point_new = cvPoint((i-1), normalized);
+		if (QT)
+		{
+			point_new = cvPoint((i-1), normalized);
+		}
+		else
+		{
+			point_new = cvPoint((i-1), HIST_HEIGHT-normalized);
+		}
 
 		// Liga os pontos
 		cvLine(imgHistogram, point_new, point_new , cvScalar(0,0,0), 1);
 		cvLine(imgHistogram, point_last, point_new, cvScalar(0,0,0), 1);
+
+		if (!QT)
+		{
+			if (i % 32 == 0)
+			{
+				sprintf(frame_cy, "%d", i);
+				cvPutText(imgHistogram, frame_cy, cvPoint(i-1,10), &font, CV_RGB(0,0,0));
+			}
+		}
 
 		point_last = point_new;
 	}
@@ -1141,7 +1159,7 @@ Frame* Frame::resize(int width, int height)
 	cvResize(this->data, imgResized);
 
 	return new Frame(imgResized);
-	
+
 }
 
 /************************************************************************
