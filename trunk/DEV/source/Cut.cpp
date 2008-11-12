@@ -93,7 +93,7 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	// Passo o filtro de Canny no RV suavizado para destacar as bordas
 	this->createBorderMap(visualRythim);
 
-	//visualRythim->write("RV Canny.jpg");
+	visualRythim->write("RV Canny.jpg");
 	
 	// Verifico se foi setado algum valor de limiar pelo usuário 
 	threshold = this->defineThreshold(visualRythim->getHeight());

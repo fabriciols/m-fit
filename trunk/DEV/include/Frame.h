@@ -38,7 +38,7 @@ class Frame
 		Frame(char *filename_cy);
 		Frame(IplImage *img_src);
 		Frame(Frame *frame);
-		Frame(double *matrix, int len_i, float max_f);
+		Frame(double *matrix, int len_i, float max_f, bool QT = true);
 		~Frame();
 
 		// Funcoes
