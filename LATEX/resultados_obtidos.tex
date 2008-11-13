@@ -467,3 +467,10 @@ Dissolve apresenta um resultado muito satisfatório.
 \hspace*{0.65cm}Observando os resultados, chega-se a conclusão que
 a taxa de acerto é de 75\%. Para este vídeo, o resultado foi abaixo do vídeo anterior,
 porém o método ainda apresenta um resultado satisfatório para a detecção do Dissolve.
+
+\hspace*{0.65cm}Para a detecção do dissolve, primeiramente foi utilizado
+uma metodologia que calcula a razão entre a segunda variância da luminância e
+a derivada dos ritmo visual. Porém este método não trouxe resultados esperados,
+com uma taxa de erro inviável. Assim, foi desenvolvido um novo método de análise
+dos pontos de lumiância do frame juntamente com um threshold definido e um limiar
+para separar detecções do tipo fade.
