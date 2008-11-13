@@ -126,14 +126,14 @@ filtro.
 geradas pelo filtro em relação à uma única borda. Para cada borda existente
 na imagem, o filtro deve apontar somente uma resposta.
 
-\hspace*{0.65cm}Para atender a estes critérios, são adotados
-adotados, além de processos de convolução (Seção
-\ref{filtragem_espacial}), processos de Supressão não Máxima e
-Histerese.
+\hspace*{0.65cm}Para atender a estes critérios, são adotados, além
+de processos de convolução (Seção \ref{filtragem_espacial}),
+processos de Supressão não Máxima e Histerese.
 
-\hspace*{0.65cm}A Supressão não Máxima consiste (\cite{GIOVANE_2004}) na eliminação dos pixels
-da região da borda que não possuírem magnitude máxima, onde a magnitude dos pixels
-é dada por:
+\hspace*{0.65cm}A Supressão não Máxima consiste na eliminação dos
+pixels da região perpendicular à direção da borda que não possuírem
+magnitude máxima \cite{GIOVANE_2004}, onde a magnitude dos pixels é
+dada por:
 
 \begin{large}
 \begin{center}
@@ -158,6 +158,9 @@ somente 1 pixel representando 1 ponto de borda, o que melhora a performance do f
 e atende ao terceiro critério citado acima, visto que as bordas serão representadas
 por linhas de apenas 1 pixel.
 
+\hspace*{0.65cm}Exemplos e melhores explicações da aplicação deste
+processo podem ser encontradas em \cite{GIOVANE_2002}.
+
 \hspace*{0.65cm}Para atender ao critério da localização, é utilizado
 o processo de histerese (\cite{GIOVANE_2004}), ou limiarização adaptativa. Este processo consiste em
 aplicar duas vezes o processo de limiarização em uma mesma imagem, com a utilização de
@@ -173,10 +176,9 @@ rejeitado;
 os seus pixels imediatamente vizinhos, forem pixels com alto valor de luminância.
 \end{enumerate}
 
-\hspace*{0.65cm}Neste trabalho, serão utilizadas algumas técnicas de
-Filtragem Espacial para fazer o realce das bordas do ritmo visual,
-possibilitando dar um destaque maior para as bordas que possam
-possivelmente caracterizar uma transição.
+\hspace*{0.65cm}Neste trabalho, serão utilizadas técnicas de
+detecção de bordas para fazer o realce das bordas do ritmo visual
+que possivelmente representem uma transição.
 
 \hspace*{0.65cm}Melhores abordagens sobre estes métodos podem ser
 encontradas
