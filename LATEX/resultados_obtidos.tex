@@ -387,6 +387,7 @@ exemplos propostos.
         \hline Frame & Tipo     & Validade \\
         \hline 296   & fade-in  & ok \\
         \hline 393   & fade-out & ok \\
+        \hline
    \end{tabular}
    \label{tab:resultados_fade_teste}
 \end{table}
@@ -443,6 +444,7 @@ algumas regras, a detecção tem uma taxa de acerto de 100\%.
         \hline 2775  & fade-in  & ok \\
         \hline 3333  & fade-in  & ok \\
         \hline 2570  & fade-out & ok \\
+        \hline
    \end{tabular}
    \label{tab:resultados_fade_ironman}
 \end{table}
@@ -611,15 +613,15 @@ falsos positivos ser praticamente 0\%.
 
 \begin{itemize}
 \item{\textbf{Número de frames    : } 385}
-\item{\textbf{Número de dissolves  : } 3}
+\item{\textbf{Número de dissolves  : } 2}
 \item{\textbf{Número de não dissolves: } 382}
 \end{itemize}
 
 \hspace*{0.65cm}Mais especificamente:
 
 \begin{enumerate}
-\item{\textbf{Total de detecções:} 3}
-\item{\textbf{``True'' positivos:} 3}
+\item{\textbf{Total de detecções:} 2}
+\item{\textbf{``True'' positivos:} 2}
 \item{\textbf{Falsos positivos:} 0}
 \item{\textbf{``True'' negativos:} 382}
 \item{\textbf{Falsos negativos:} 0}
@@ -629,14 +631,14 @@ falsos positivos ser praticamente 0\%.
 a taxa de acerto foi de 100\%. Assim, para condições perfeitas,
 o método funciona plenamente.
 
-\subsubsection{Vídeo em análise: Ironman.avi\ref{tab:resultados_IRON_DISSOLVE}}
+\subsubsection{Vídeo em análise: Ironman.avi - Tabela \ref{tab:resultados_IRON_DISSOLVE}}
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
    \tiny       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições encontradas pelo sistema no vídeo Batman.avi.}
+   \caption{\it Transições do tipo dissolve encontradas pelo sistema no vídeo Batman.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Validade & Distância do ponto \\
         \hline 766 & OK & 1\\
@@ -661,6 +663,7 @@ o método funciona plenamente.
         \hline 3193 & OK & 1\\
         \hline 3204 & OK & 1\\
         \hline 3213 & OK & 1\\
+        \hline
    \end{tabular}
    \label{tab:resultados_IRON_DISSOLVE}
 \end{table}
@@ -685,14 +688,14 @@ o método funciona plenamente.
 Este resultado mostra que para um caso real, o método de detecção de
 Dissolve apresenta um resultado muito satisfatório.
 
-\subsubsection{Vídeo em análise: Batman.avi \ref{tab:resultados_Batman_DISSOLVE}}
+\subsubsection{Vídeo em análise: Batman.avi - Tabela \ref{tab:resultados_Batman_DISSOLVE}}
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
    \tiny       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições encontradas pelo sistema no vídeo Batman.avi.}
+   \caption{\it Transições do tipo dissolve encontradas pelo sistema no vídeo Batman.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Validade & Distância do ponto \\
         \hline 102 & OK & 1 \\
