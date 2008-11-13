@@ -370,6 +370,42 @@ exemplos propostos.
 
 \subsubsection{Vídeo em análise: Teste.avi}
 
+\begin{itemize}
+\item{\textbf{Número de frames:     } 385}
+\item{\textbf{Número de fade-in:    } 1}
+\item{\textbf{Número de fade-out:   } 1}
+\item{\textbf{Número de não cortes: } 383}
+\end{itemize}
+
+\begin{table}[htb] % [htb]-> here, top, botton
+   \centering   % tabela centralizada
+   \tiny       % tamanho da fonte
+   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+   \caption{\it Transições do tipo fade encontradas pelo sistema no vídeo Teste.avi.}
+   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+        \hline Frame & Tipo     & Validade \\
+        \hline 296   & fade-in  & ok \\
+        \hline 393   & fade-out & ok \\
+   \end{tabular}
+   \label{tab:resultados_fade_teste}
+\end{table}
+
+\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+
+\begin{enumerate}
+\item{\textbf{Total de detecções:} 2}
+\item{\textbf{``True'' positivos:} 2}
+\item{\textbf{Falsos positivos  :} 0}
+\item{\textbf{``True'' negativos:} 383}
+\item{\textbf{Falsos negativos  :} 0}
+\end{enumerate}
+
+\hspace*{0.65cm}Considerando os resultados visto na Tabela \ref{tab:resultados_fade_teste}, o resultado é 100\% ``Perfeito'', com todas as reais transições
+detectadas, e as não-transições, não detectadas.
+
+\hspace*{0.65cm}Conclui-se que, em Vídeos onde o ``fade'' é criado seguido
+algumas regras, a detecção tem uma taxa de acerto de 100\%.
 
 \subsubsection{Vídeo em análise: Ironman.avi}
 
@@ -379,6 +415,7 @@ exemplos propostos.
 \item{\textbf{Número de Fade-out  : } 11}
 \item{\textbf{Número de não fades : } 3559}
 \end{itemize}
+
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
