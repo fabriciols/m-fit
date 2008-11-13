@@ -84,8 +84,7 @@ Vídeo com o trailer do filme: Homem de Ferro (Iron Man).
 \hspace*{1.25cm}Neste tópico serão apresentados os resultados
 obtidos em alguns vídeos.
 
-\hspace*{0.65cm}Vídeo em análise: Batman.avi (trailer do filme
-Batman - O Cavaleiro das Trevas).
+\hspace*{0.65cm}\textbf{Vídeo em análise: Batman.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames:     } 3859}
@@ -211,8 +210,7 @@ baixado para 25\%, fazendo com que qualquer borda que ultrapasse
 corte, porém bordas deste tamanho podem ser geradas pela simples
 movimentação de objetos na cena ou por ruídos.
 
-\hspace*{0.65cm}\textbf{Vídeo em análise:} IronMan.avi (trailer do
-filme Homem de Ferro).
+\hspace*{0.65cm}\textbf{Vídeo em análise: IronMan.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames: } 3580}
@@ -318,8 +316,7 @@ negativos, chegado a uma taxa de acerto de 72,18\%.
 \hspace*{0.65cm}Através da análise destes 3 vídeos têm-se uma média
 de acerto geral de 74,91\%.
 
-\hspace*{0.65cm}\textbf{Vídeo em análise:}Teste.avi (vídeo criado
-pela equipe durante a realização deste trabalho).
+\hspace*{0.65cm}\textbf{Vídeo em análise: Teste.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames: } 385}
@@ -339,6 +336,7 @@ configurações padrões.
    \caption{\it Transições encontradas pelo sistema no vídeo IronMan.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Validade & Distância do ponto \\
+        \hline 25 & ok & 0 \\
         \hline 51 & ok & 0 \\
         \hline 167 & ok & 0 \\
         \hline
@@ -349,17 +347,16 @@ configurações padrões.
 \hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
 \begin{enumerate}
-\item{\textbf{Total de detecções:} 2}
-\item{\textbf{``True'' positivos:} 2}
+\item{\textbf{Total de detecções:} 3}
+\item{\textbf{``True'' positivos:} 3}
 \item{\textbf{Falsos positivos:  } 0}
 \item{\textbf{``True'' negativos:} 380}
-\item{\textbf{Falsos negativos:  } 1}
+\item{\textbf{Falsos negativos:  } 0}
 \end{enumerate}
 
 \hspace*{0.65cm}Com estes resultados, obtém-se uma performance de
-99,74\%, chegando próximo à perfeição, porém vale lembrar que este
-vídeo foi criado com condições ``perfeitas'' para o processo de
-detecção.
+100\%, porém vale lembrar que este vídeo foi criado com condições
+``perfeitas'' para o processo de detecção.
 
 \hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
 metodologia utilizada para a detecção de cortes apresentou
@@ -449,7 +446,7 @@ exemplos propostos.
 
 \item{A transição detectada indevidamente possuiu uma característica peculiar. Nesta cena acontece um Corte em seu inicio, um intervalo de frames escuros, e por seguinte outro corte. Estes dados confundiram a aplicação, e fizeram ela concluir que esta transição era do tipo fade.}
 \item{As transições não detectadas pelo sistema, compreendiam um tamanho total menor de 10 Frames, e sua sequência
-	de frames pretos menor do que 3 Frames.}
+    de frames pretos menor do que 3 Frames.}
 
 \end{enumerate}
 
@@ -559,14 +556,14 @@ Este funcionamento pode ser entendida de melhor forma na Seção \ref{met_fade}.
 \end{figure}
 
 \hspace*{0.65cm}Nota-se que todas as transições, são seguidas por picos, no caso de ``fade-out'', e antecedidas
-no caso do ``fade-in''. Estes picos evidenciam as variações no Ritmo Visual por Histograma, deixando claro a 
+no caso do ``fade-in''. Estes picos evidenciam as variações no Ritmo Visual por Histograma, deixando claro a
 ocorrência de ``fades''.
 
 \hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
 metodologia utilizada para a detecção de fades apresentou
 resultados bastante satisfatórios com um número de falsos negativos
 relativamente baixo, e evidencia que a técnica utilizada não comete erros
-ao evidenciar que uma transição é do tipo fade, visto a taxa de 
+ao evidenciar que uma transição é do tipo fade, visto a taxa de
 falsos positivos ser praticamente 0\%.
 
 \subsection{Resultados obtidos: Detecção - Dissolve \label{resultados_obtidos_dissolves}}
