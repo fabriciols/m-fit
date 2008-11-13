@@ -398,7 +398,7 @@ exemplos propostos.
 \item{\textbf{Número de não cortes: } 2868}
 \end{itemize}
 
-\subsection{Resultados obtidos: Detecção - Dissolve \label{resultados_obtidos_dissolves}}
+\subsection{Resultados obtidos: Detecção - Dissolve }
 
 \hspace*{1.25cm}Neste tópico serão apresentados os resultados obtidos para dissolve nos exemplos propostos.
 
@@ -424,12 +424,46 @@ exemplos propostos.
 a taxa de acerto foi de 100\%. Assim, para condições perfeitas,
 o método funciona plenamente.
 
-\subsubsection{Vídeo em análise: Ironman.avi}
+\subsubsection{Vídeo em análise: Ironman.avi\ref{tab:resultados_IRON_DISSOLVE}}
+
+\begin{table}[htb] % [htb]-> here, top, botton
+   \centering   % tabela centralizada
+   \tiny       % tamanho da fonte
+   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+   \caption{\it Transições encontradas pelo sistema no vídeo Batman.avi.}
+   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+        \hline Frame & Validade & Distância do ponto \\
+        \hline 766 & OK & 1\\
+        \hline 776 & OK & 1\\
+        \hline 882 & FALSO & 1\\
+        \hline 994 & FALSO & 1\\
+        \hline 1312 & FALSO & 1\\
+        \hline 1384 & FALSO & 1\\
+        \hline 1406 & FALSO & 1\\
+        \hline 1440 & OK & 1\\
+        \hline 1453 & OK & 1\\
+        \hline 1712 & FALSO & 1\\
+        \hline 1766 & FALSO & 1\\
+        \hline 1839 & FALSO & 1\\
+        \hline 2599 & FALSO & 1\\
+        \hline 2638 & FALSO & 1\\
+        \hline 2672 & FALSO & 1\\
+        \hline 2902 & FALSO & 1\\
+        \hline 2918 & FALSO & 1\\
+        \hline 3011 & FALSO & 1\\
+        \hline 3179 & OK & 1\\
+        \hline 3193 & OK & 1\\
+        \hline 3204 & OK & 1\\
+        \hline 3213 & OK & 1\\
+   \end{tabular}
+   \label{tab:resultados_IRON_DISSOLVE}
+\end{table}
 
 \begin{itemize}
 \item{\textbf{Número de frames    : } 3580}
 \item{\textbf{Número de dissolves   : } 7}
-\item{\textbf{Número de não dissolves: } 3580}
+\item{\textbf{Número de não dissolves: } 3473}
 \end{itemize}
 
 \hspace*{0.65cm}Mais especificamente:
@@ -446,8 +480,34 @@ o método funciona plenamente.
 Este resultado mostra que para um caso real, o método de detecção de
 Dissolve apresenta um resultado muito satisfatório.
 
-\subsubsection{Vídeo em análise: Batman.avi}
+\subsubsection{Vídeo em análise: Batman.avi \ref{tab:resultados_Batman_DISSOLVE}}
 
+\begin{table}[htb] % [htb]-> here, top, botton
+   \centering   % tabela centralizada
+   \tiny       % tamanho da fonte
+   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+   \caption{\it Transições encontradas pelo sistema no vídeo Batman.avi.}
+   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+        \hline Frame & Validade & Distância do ponto \\
+        \hline 102 & OK & 1 \\
+        \hline 347 & OK & 1 \\
+        \hline 677 & FALSO & 1 \\
+        \hline 708 & FALSO & 1 \\
+        \hline 876 & FALSO & 1 \\
+        \hline 904 & FALSO & 1 \\
+        \hline 1366 & FALSO & 1 \\
+        \hline 1800 & OK & 1 \\
+        \hline 1958 & FALSO & 1 \\
+        \hline 1994 & FALSO & 1 \\
+        \hline 2108 & FALSO & 1 \\
+        \hline 2138 & FALSO & 1 \\
+        \hline 2150 & FALSO & 1 \\
+        \hline 2205 & FALSO & 1 \\
+        \hline
+   \end{tabular}
+   \label{tab:resultados_Batman_DISSOLVE}
+\end{table}
 \begin{itemize}
 \item{\textbf{Número de frames    : } 2919}
 \item{\textbf{Número de dissolves   : } 4}
