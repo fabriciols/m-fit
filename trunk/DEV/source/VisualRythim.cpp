@@ -150,7 +150,7 @@ double* VisualRythim::createVRH(Video* vdo)
 		//hist[posic] = histogram->getMaxLuminance();
 
 		// Guardo a media do valor de luminancia da diagonal.
-		hist[posic] = cvRound((double)frameGray->mediaBin());	
+		hist[posic] = frameGray->mediaBin();
 	
 		Log::writeLog("%s :: hist[%d] = %lf", __FUNCTION__, posic, hist[posic]);
 
