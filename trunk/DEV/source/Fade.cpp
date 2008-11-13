@@ -135,6 +135,12 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 	len_i = cvRound(vdo->getFramesTotal());
 
+	// Arredondamos os valores do VRH
+	for (i = 0 ; i < len_i ; i++)
+	{
+		array_vrh[i] = cvRound(array_vrh[i]);
+	}
+
 	// 2- Tiramos a derivada
 	array_dy = fade->calcDerivative(array_vrh, len_i);
 
@@ -143,24 +149,28 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	{
 		int i;
 		double *array_dy_aux;
+		double *array_vrh_aux;
 
 		Frame *frameVRH;
 		Frame *frameVRHD;
 
 		array_dy_aux = (double*)malloc(sizeof(double)*len_i);
+		array_vrh_aux = (double*)malloc(sizeof(double)*len_i);
 
 		for (i = 0 ; i < len_i ; i++)
 		{
 			array_dy_aux[i] = array_dy[i] + 50;
+			array_vrh_aux[i] = array_vrh[i] + 50;
 		}
 
-		frameVRH  = new Frame(array_vrh   , len_i, 256, false);
-		frameVRHD = new Frame(array_dy_aux, len_i, 256, false);
+		frameVRH  = new Frame(array_vrh_aux, len_i, 256, false);
+		frameVRHD = new Frame(array_dy_aux , len_i, 256, false);
 
 		frameVRH-> write("vrh_dump.jpg");
 		frameVRHD->write("vrhd_dump.jpg");
 
 		delete array_dy_aux;
+		delete array_vrh_aux;
 		delete frameVRH;
 		delete frameVRHD;
 	}
@@ -226,11 +236,11 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			Log::writeLog("%s :: %d - %d, total points : %d", __FUNCTION__, fade_start, fade_end, var);
 
-			if (var < 10)
+			if (var < 10 || var_d >= 10.0)
 			{
 				fade_start = 0;
 				no_var = 0;
-				Log::writeLog("%s :: [%d] < [%d] - not a fade", __FUNCTION__, var, 8);
+				Log::writeLog("%s :: [%d] < [%d] - not a fade, var_d [%lf]", __FUNCTION__, var, 10, var_d);
 				// Voltamos um Frame, pois podemos ter "comido" um possivel fade
 				i --;
 				continue;
@@ -270,14 +280,14 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
 			Log::writeLog("%s :: pos: %lf neg: %lf", __FUNCTION__, pos, neg);
 
-			if (array_vrh[fade_start] < 5.0)
+			if (array_vrh[fade_start] <= 5.0)
 			{
 				type = TRANSITION_FADEIN;
 				strcpy(label, "Fade-In");
 				fade_pos = fade_start;
 				Log::writeLog("%s :: fade in: %d", __FUNCTION__, fade_pos);
 			}
-			else if (array_vrh[fade_end] < 5.0)
+			else if (array_vrh[fade_end] <= 5.0)
 			{
 				type = TRANSITION_FADEOUT;
 				strcpy(label, "Fade-Out");
