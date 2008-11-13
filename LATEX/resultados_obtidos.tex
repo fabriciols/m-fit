@@ -88,8 +88,8 @@ obtidos em alguns vídeos.
 Batman - O Cavaleiro das Trevas).
 
 \begin{itemize}
-\item{\textbf{Número de frames: } 3859}
-\item{\textbf{Número de cortes: } 48}
+\item{\textbf{Número de frames:     } 3859}
+\item{\textbf{Número de cortes:     } 48}
 \item{\textbf{Número de não cortes: } 3811}
 \end{itemize}
 
@@ -306,9 +306,9 @@ configurações padrões.
 \begin{enumerate}
 \item{\textbf{Total de detecções:} 64}
 \item{\textbf{``True'' positivos:} 47}
-\item{\textbf{Falsos positivos:} 17}
+\item{\textbf{Falsos positivos:  } 17}
 \item{\textbf{``True'' negativos:} 3456}
-\item{\textbf{Falsos negativos:} 60}
+\item{\textbf{Falsos negativos:  } 60}
 \end{enumerate}
 
 \hspace*{0.65cm}Novamente os resultados podem ser considerados
@@ -351,9 +351,9 @@ configurações padrões.
 \begin{enumerate}
 \item{\textbf{Total de detecções:} 2}
 \item{\textbf{``True'' positivos:} 2}
-\item{\textbf{Falsos positivos:} 0}
+\item{\textbf{Falsos positivos:  } 0}
 \item{\textbf{``True'' negativos:} 380}
-\item{\textbf{Falsos negativos:} 1}
+\item{\textbf{Falsos negativos:  } 1}
 \end{enumerate}
 
 \hspace*{0.65cm}Com estes resultados, obtém-se uma performance de
@@ -373,8 +373,6 @@ exemplos propostos.
 
 \subsubsection{Vídeo em análise: Teste.avi}
 
-Vou fazer de manhã na itautec, pois esse ultimo video que o ivan criou
-ele fez o favor de colocar todos os fades com poucos frames pretos ... :[
 
 \subsubsection{Vídeo em análise: Ironman.avi}
 
@@ -523,16 +521,46 @@ ele fez o favor de colocar todos os fades com poucos frames pretos ... :[
 \end{enumerate}
 
 \hspace*{0.65cm}Considerando os resultados vistos nas tabelas \ref{tab:resultados_fade_batman} e \ref{tab:resultados_fade_batman2}
-chegamos a uma performance de 100\% de acerto, o qual é um exelente valor para tal experimento.
-A taxa de erro fica em 0,99\%, um valor extremamente baixo.
+chegamos a uma taxa de 100\% ``True'' positivo, e de 99\% de ``True'' Negativo.
+Assim a performance da detecção fica em 99\% de acerto, o qual é um exelente valor para tal experimento.
 
 \hspace*{0.65cm}Analizando a tabela \ref{tab:resultados_fade_batman2} verifica-se
 que cada fade não detectado teve um motivo especial:
 
 \begin{enumerate}
-\item{ Esta transição tem um número menor de 10 frames em sua composição, sendo este o limiar de corte. }
+\item{ Esta transição tem menos de 10 frames em sua composição, sendo este o limiar de corte. }
 \item{ Esta transição tem a quantidade de, apenas, 3 frames pretos no seu fim, numeroo qual não é possível identificar a partir da derivada do RVH.}
 \end{enumerate}
+
+\hspace*{0.65cm}Na Figura \ref{img:vrh_batman} é demonstrado um trecho do Ritmo Visual por Histograma do vídeo Batman.avi, onde
+as transições detectadas estão demarcadas com um traço vertical.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/vrh_batman.png}
+ \caption{Trecho do Ritmo Visual do vídeo Batman.avi}
+ Fonte: Autor.
+ \label{img:vrh_batman}
+\end{figure}
+
+\hspace*{0.65cm}Nesta imagem é possível verificar, que todo fade segue o padrão de um platô seguido de um variação tendendo
+ao preto (valor de luminância), no caso do ``fade-out'', a transição começa no preto e vai variando até a chegar em um platô, no caso
+do ``fade-in''.
+Este funcionamento pode ser entendida de melhor forma na Seção \ref{met_fade}.
+
+\hspace*{0.65cm}Na Figura \ref{img:vrhd_batman} é demonstrado um trecho da derivada do Ritmo Visual por Histograma do vídeo Batman.avi, onde as transições detectadas estão demarcadas com um traço vertical.
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=1.0\linewidth]{imagens/vrhd_batman.png}
+ \caption{Trecho do Ritmo Visual Derivado do vídeo Batman.avi}
+ Fonte: Autor.
+ \label{img:vrhd_batman}
+\end{figure}
+
+\hspace*{0.65cm}Nota-se que todas as transições, são seguidas por picos, no caso de ``fade-out'', e antecedidas
+no caso do ``fade-in''. Estes picos evidenciam as variações no Ritmo Visual por Histograma, deixando claro a 
+ocorrência de ``fades''.
 
 \hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
 metodologia utilizada para a detecção de fades apresentou
