@@ -4,7 +4,7 @@
 
 \subsection{Carregar um Vídeo\label{carrega_video}}
 
-Nesta seção detalharemos os passos necessãrios para se carregar um Vídeo.
+\hspace{1.25cm}Nesta seção detalharemos os passos necessãrios para se carregar um Vídeo.
 
 \begin{enumerate}
 
@@ -12,7 +12,7 @@ Nesta seção detalharemos os passos necessãrios para se carregar um Vídeo.
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.5\linewidth]{imagens/mfit_aberto.png}
+ \includegraphics[width=0.7\linewidth]{imagens/mfit_aberto.png}
  \caption{MFIT Aberto sem Vídeo carregado.}
  Fonte: Autor.
  \label{img:mfit_aberto}
@@ -23,7 +23,7 @@ Se preferir, pressione as teclas Ctrl+Shif+O (Figura \ref{img:carregar2}). }
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.5\linewidth]{imagens/carregar2.png}
+ \includegraphics[width=0.7\linewidth]{imagens/carregar2.png}
  \caption{Menu "Arquivo", opção "Carregar Vídeo" .}
  Fonte: Autor.
  \label{img:carregar2}
@@ -33,7 +33,7 @@ Se preferir, pressione as teclas Ctrl+Shif+O (Figura \ref{img:carregar2}). }
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.5\linewidth]{imagens/carregar3.png}
+ \includegraphics[width=0.7\linewidth]{imagens/carregar3.png}
  \caption{Selecionando um Vídeo válido.}
  Fonte: Autor.
  \label{img:carregar3}
@@ -45,7 +45,7 @@ Por hora, clique em cancelar (Figura \ref{img:carregar4}). }
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.5\linewidth]{imagens/carregar4.png}
+ \includegraphics[width=0.7\linewidth]{imagens/carregar4.png}
  \caption{Vídeo carregado e janela questionando o processo de detecção.}
  Fonte: Autor.
  \label{img:carregar4}
@@ -55,10 +55,91 @@ Por hora, clique em cancelar (Figura \ref{img:carregar4}). }
 
 \begin{figure}[h|top]
  \centering
- \includegraphics[width=0.5\linewidth]{imagens/carregar5.png}
+ \includegraphics[width=0.7\linewidth]{imagens/carregar5.png}
  \caption{Fim do processo.}
  Fonte: Autor.
  \label{img:carregar5}
+\end{figure}
+
+\end{enumerate}
+
+\subsection{Detecção de transições\label{carrega_video}}
+
+\hspace{1.25cm}Nesta seção detalharemos os passos necessãrios para se detectar as transições de um Vídeo.
+
+\hspace{1.25cm}Para esta funcionalidade temos dois caminhos:
+
+\begin{enumerate}
+\item{À partir do carregamento do Vídeo}
+
+\subitem{ Ao chegar no passo 4 do processo de carregamento de Vídeo (Seção \ref{carrega_video}), existe a opção de aceitar a detecção de todas as transições.
+Para isso, basta clicar em "OK" quando o sistema quiestionar sobre a detecção. Com isso o processo de detecção de todas as transições se iniciará. ( Figura \ref{img:carregar4} )}
+
+\item{Após o carregamento do Vídeo}
+
+\subitem{ Após realizar todos os passos do processo de carregamento do Vídeo (Seção \ref{carrega_video}), 
+os botões de detecção de transição estarão habilitados. Escolha a detecção que deseja e pressione o botão (Figura \ref{img:carregar5} )}
+
+\item{ Após escolher um dos passos acima, o sistema realizará a detecção de transições, com isso as transições ficarão delimitadas
+na Timeline, e a lista de transições será prenchida (Figura \ref{img:transicoes1}).}
+
+\end{enumerate}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.8\linewidth]{imagens/transicoes1.png}
+ \caption{Transições Detectadas.}
+ Fonte: Autor.
+ \label{img:transicoes1}
+\end{figure}
+
+\subsection{Aplicação de Efeito\label{carrega_video}}
+
+\hspace{1.25cm}Nesta seção detalharemos os passos necessãrios para se aplicar um efeito no Vídeo.
+\hspace{1.25cm}Como pré-requisito necessitamos de um Vídeo carregado.
+
+\begin{enumerate}
+
+\item{Com o Vídeo aberto, selecione um dos efeitos da lista de efeitos a direita (Figura \ref{img:efeitos1})}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/efeitos1.png}
+ \caption{Lista de Efeitos.}
+ Fonte: Autor.
+ \label{img:efeitos1}
+\end{figure}
+
+\item{Para aplicar o efeito, clique no efeito desejado e arraste para a posição o vídeo. Note que o sistema sinalizará
+	as transições onde este efeito será aplicado .(Figura \ref{img:efeitos2})}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/efeitos2.png}
+ \caption{Arrastando o efeito desejado.}
+ Fonte: Autor.
+ \label{img:efeitos2}
+\end{figure}
+
+\item{Caso o desejado seja aplicar em várias transições, no momento que estiver arrastando, segure a tecla CTRL (Figura \ref{img:efeitos3}).}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/efeitos3.png}
+ \caption{Arrastando para múltiplas transições.}
+ Fonte: Autor.
+ \label{img:efeitos3}
+\end{figure}
+
+\item{Com isso o efeito vai ser aplicado no intervalo de transições desejados, note que a lista de efeitos conta agora com uma entrada, e a visualização
+	do vídeo já contem o efeito aplicado (Figura \ref{img:efeitos4})}
+
+\begin{figure}[h|top]
+ \centering
+ \includegraphics[width=0.7\linewidth]{imagens/efeitos4.png}
+ \caption{Efeito aplicado.}
+ Fonte: Autor.
+ \label{img:efeitos4}
 \end{figure}
 
 \end{enumerate}
