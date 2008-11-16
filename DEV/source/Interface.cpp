@@ -1917,3 +1917,21 @@ void Interface::closeEvent(QCloseEvent* event)
 		delete vdo_player;
 	}
 }
+
+/**************************************************************************
+ * Abre novo projeto
+ **************************************************************************
+ * param (E): Nenhum
+ **************************************************************************
+ * Histórico
+ * 16/11/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
+
+void Interface::on_actionNewProject_triggered()
+{
+	clearTransitionHeader();
+	clearVideoProperty();
+	clearTransitionsTree();	
+	effectTreeClear();
+}

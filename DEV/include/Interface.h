@@ -48,6 +48,7 @@ class Interface: public QMainWindow
 		void on_actionRenderVideo_triggered();   // renderiza o vídeo
 		void on_actionDetectConfig_triggered(); // abre janela de configurações da transição
 		void on_actionExit_triggered(); // fecha aplicação
+		void on_actionNewProject_triggered(); 
 
 		int askDetection(); // Pergunta se o usuário quer detectar todas as transições após carregar o vídeo.
 		bool askUserSave(); // Pergunta pro usuário se deseja salvar o projeto.
