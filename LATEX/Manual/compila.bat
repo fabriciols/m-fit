@@ -20,4 +20,4 @@ goto main
 "%FOLDER%\pdflatex.exe" "Manual_Master.tex"
 "%FOLDER%\pdflatex.exe" "Manual_Master.tex"
 taskkill /IM "FOXITR~1.EXE"
-Master.pdf
+Manual_Master.pdf
