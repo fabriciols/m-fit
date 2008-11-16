@@ -62,6 +62,13 @@ tomadas existentes no vídeo.
 detecção de transições ficam bloqueadas enquanto não houver vídeo
 carregado no sistema.
 
+\subsubsection{Caso de uso: Edita Transições \label{use_case_edita_transicoes}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Após a execução dos
+processos de detecção de transições do vídeo, o usuário altera
+manualmente os pontos de ocorrência de transições ou remove um ponto
+qualquer.
+
 \subsubsection{Caso de uso: Salva Projeto \label{use_case_salva_projeto}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Usuário salva o projeto,
@@ -184,7 +191,7 @@ marcado.
 
 \subsubsection{Caso de uso: Ajuste manual de pontos de transição \label{use_case_ajuste_manual}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário pode alterar
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário altera
 manualmente os pontos de transição detectados pelo sistema.
 
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário não altera o
@@ -1882,6 +1889,12 @@ de repouso, aguardando alguma ação do usuário.
 
 \subsection{Estado: Em edição \label{st_edition}}
 
-\hspace*{1.25cm}Sistema entra no estado de edição do vídeo, sempre
+\hspace*{1.25cm}Sistema entra no estado de edição do vídeo sempre
 que o usuário for realizar qualquer tipo de edição no vídeo
 (aplicação de efeitos, alteração de luminosidade, dentre outros).
+
+\subsection{Estado: Renderizando Vídeo \label{st_renderiza}}
+
+\hspace*{1.25cm}Sistema entra no estado de renderização de vídeo
+sempre que o usuário solicitar a renderização de um novo vídeo, seja
+ele editado ou não.
