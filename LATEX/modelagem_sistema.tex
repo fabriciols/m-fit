@@ -1652,9 +1652,9 @@ a análise seja feita em todos os frames do vídeo;}
 \item{Loop: fim}
 \item{DTF calcula as derivadas do RVH}
 \item{DTF Analiza as derivadas do RVH}
-\item{DTF Se variacao for positiva}
-\item{DTF cria uma transicao do tipo FADE-IN}
+\item{DTF Cria uma transicao do tipo FADE-IN}
 \item{DTF Se não, cria uma transicao do tipo FADE-OUT}
+\item{DTF Adiciona a transição na lista de transições}
 \item{DTF solicita a VDO a restauração do ponteiro do video}
 \end{enumerate}
 
@@ -1711,12 +1711,9 @@ corte do vídeo.
 
 \begin{enumerate}
 \item{Editor solicita ao sistema edição de vídeo;}
-\item{Sistema cria objeto BRIGHT;}
-\item{Sistema solicita a BRIGHT a aplicação do efeito no vídeo;}
-\item{Sistema cria objeto COLOR;}
-\item{Sistema solicita a COLOR a aplicação do efeito no vídeo;}
-\item{Sistema cria objeto BRIGHT;}
-\item{Sistema solicita a CONTRAST a aplicação do efeito no vídeo;}
+\item{Sistema cria objeto EFFECT;}
+\item{Sistema solicita a EFFECT a aplicação do efeito no vídeo;}
+\item{Sistema remove objeto EFFECT;}
 \end{enumerate}
 
 \section{Diagrama de Estados \label{state_diagram}}
@@ -1826,11 +1823,8 @@ RVH }
 
 \item{\textbf{Analizando as Derivadas}
 
-Caso o intuito seja detectar fade-in (ou ambos),
-Entra-se no estado par analizar a curva gerada pela derivada, em busca
-de variações que representem um fade.
-Caso uma variação tenha seu pico positivo, evidencia-se um fade-in,
-caso contrário, um fade-out.}
+Á partir da análise das derivadas, o sistema cria os objetos de 
+acordo com a detecção encontrada. }
 
 \end{enumerate}
 
