@@ -84,6 +84,15 @@ int Xml::readXml(char *tag)
 	int subNodesSize=0, i=0;
 	QString item;
 
+	char type[10];
+	char posUserTransition[10];
+	char posTransition[10];
+	char label[256];
+
+	char ID[10];
+	char posStart[10];
+	char posEnd[10];
+
 	sizeNodes = nodeList.length();
 
 	if(sizeNodes > 0)
@@ -94,11 +103,6 @@ int Xml::readXml(char *tag)
 		{
 			if(nodeList.item(itemNumber).hasChildNodes())
 			{
-				char type[10];
-				char posUserTransition[10];
-				char posTransition[10];
-				char label[256];
-
 				nodeList = nodeList.item(itemNumber).childNodes();
 				subNodesSize = nodeList.length();
 
@@ -115,10 +119,6 @@ int Xml::readXml(char *tag)
 					else if(!strcmp("posUserTransition",nodeList.item(i).nodeName()))
 					{
 						strcpy(posUserTransition, nodeList.item(i).toElement().text());
-					}
-					else if(!strcmp("userCutThreshold",nodeList.item(i).nodeName()))
-					{
-						strcpy(userCutThreshold, nodeList.item(i).toElement().text());
 					}
 					else if(!strcmp("label",nodeList.item(i).nodeName()))
 					{
@@ -139,10 +139,6 @@ int Xml::readXml(char *tag)
 		{
 			if(nodeList.item(itemNumber).hasChildNodes())
 			{
-				char ID[10];
-				char posStart[10];
-				char posEnd[10];
-
 				nodeList = nodeList.item(itemNumber).childNodes();
 				subNodesSize = nodeList.length();
 
@@ -178,6 +174,18 @@ int Xml::readXml(char *tag)
 			}
 		}
 		else if(!strcmp(tag, "video"))
+		{
+			strcpy(text, nodeList.item(i).toElement().text());
+		}
+		else if(!strcmp(tag, "userCutThreshold"))
+		{
+			strcpy(text, nodeList.item(i).toElement().text());
+		}
+		else if(!strcmp(tag, "userMinCanny"))
+		{
+			strcpy(text, nodeList.item(i).toElement().text());
+		}
+		else if(!strcmp(tag, "userMaxCanny"))
 		{
 			strcpy(text, nodeList.item(i).toElement().text());
 		}
@@ -241,6 +249,24 @@ int Xml::createXml(char *xmlName, Project *currentProject)
 		QString videoName(str);
 		tag.appendChild(doc.createTextNode(videoName));
 
+		tag = doc.createElement("userCutThreshold");
+		root.appendChild(tag);
+		sprintf(str, "%d", currentProject->getUserThreshold());
+		QString xmlUserCutThreshold(str);
+		tag.appendChild(doc.createTextNode(xmlUserCutThreshold));
+
+		tag = doc.createElement("userMinCanny");
+		root.appendChild(tag);
+		sprintf(str, "%d", currentProject->getUserMinCanny());
+		QString xmlUserMinCanny(str);
+		tag.appendChild(doc.createTextNode(xmlUserMinCanny));
+
+		tag = doc.createElement("userMaxCanny");
+		root.appendChild(tag);
+		sprintf(str, "%d", currentProject->getUserMaxCanny());
+		QString xmlUserMaxCanny(str);
+		tag.appendChild(doc.createTextNode(xmlUserMaxCanny));
+
 		// Cria o nó da lista de transição, se existirem transições detectadas
 		if(currentProject->transitionList.size() > 0)
 		{
@@ -282,14 +308,6 @@ int Xml::createXml(char *xmlName, Project *currentProject)
 					tag2.appendChild(tag3);
 					tag3.appendChild(doc.createTextNode(str));
 				}
-
-				//				Vai entrar futuramente tem q criar na Transition.h
-				//				if(transition->userCutThreshold > 0 && transition->userCutThreshold < 100)
-				//				{
-				//					tag3 = doc.createElement("userCutThreshold");
-				//					tag2.appendChild(tag3);
-				//					tag3.appendChild(doc.createTextNode("20"));
-				//				}
 
 				tag3 = doc.createElement("label");
 				tag2.appendChild(tag3);
