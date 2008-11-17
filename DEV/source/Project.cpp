@@ -29,7 +29,6 @@ int Project::openProject(QString fileName)
 {
 
 	char filename_cy[100];
-//	char content[100], type[50], posTransition[50], posUserTransition[50], userCutThreshold[50];
 	int ret,i;
 	Xml *fileXml = new Xml();
 	// Abre um projeto ja existente
@@ -81,6 +80,18 @@ int Project::openProject(QString fileName)
 				this->effectList.push_back(effect);
 			}
 		}
+
+		fileXml->setItemNumber(0);
+		fileXml->readXml("userCutThreshold");
+		this->userCutThreshold = atoi(fileXml->getText());
+
+		fileXml->setItemNumber(0);
+		fileXml->readXml("userMinCanny");
+		this->userMinCanny = atoi(fileXml->getText());
+
+		fileXml->setItemNumber(0);
+		fileXml->readXml("userMaxCanny");
+		this->userMaxCanny = atoi(fileXml->getText());
 
 		Interface_ui->addRecentFile(fileName);
 		Interface_ui->updateRecentFilesAct();
