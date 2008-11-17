@@ -69,8 +69,6 @@ double* Fade::calcDerivative(double *array, int size_i)
 void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 
-	#define ZERO 0.008
-
 	// Objeto FADE
 	Fade *fade;
 
@@ -82,7 +80,6 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 	// Contadores
 	int i;
-	int j;
 
 	// Array do VRH
 	double *array_vrh;
@@ -92,9 +89,6 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 	// Ultimo ponto analizado
 	double last_point = 0;
-
-	// Ultimo ponto que teve variacao 0
-	int last_zero = -99;
 
 	// Poicao em que comecamos a analizar um fade
 	int fade_start = 0;
@@ -107,21 +101,18 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 	// Variacao do ponto atual com o ponto anterior
 	double var_d = 0.0;
-	double var_last_d = 0.0;
-
-	double start_with = 0.0;
-
-	double fade_max = 0;
-	int fade_max_idx = 0;
-
-	// Quantidade de pontos que nao tiveram variacao
-	int no_var = 0;
 
 	// Posicao do fade
 	int fade_pos = 0;
 
 	// Objeto Transicao
 	Transition *transition = 0x0;
+
+	// Tipo do fade: 0 - fadein / 1 - fadeout
+	int type;
+
+	// Label do fade
+	char label[100];
 
 	// Processo de detecção de transições do tipo FADE
 	vrh = new VisualRythim();
@@ -146,6 +137,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 	// Descomentar para obter uma imagem do RVH derivado
 	/*******************************************************/
+	/*
 	{
 		int i;
 		double *array_dy_aux;
@@ -174,13 +166,15 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 		delete frameVRH;
 		delete frameVRHD;
 	}
+	*/
 	/*******************************************************/
 
 	// A partir dai é necessário fazer uma análize na função derivada.
 	// O que iremos fazer é o seguinte:
 	// Varreremos todo o array em buscas de variações muito que tenham uma duração relativamente grande
 	// essa é a característica de um fade.
-	// Se essa variação for toda positiva, então temos um fade-out, caso contrário, temos um fade-in.
+	// Se essa variação terminar com um frame preto, então temos um fade-out, caso ela comece com um frame preto,
+	// temos um fade-in
 
 	// Desconsideramos o primeiro ponto da derivada
 	// pois ele sempre será '0'
@@ -190,28 +184,11 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	{
 
 		// Reseta controles
-		fade_max = 0;
-		fade_max_idx = 0;
 		fade_end = var = 0;
 
 		var_d = fabs(fabs(array_dy[i]) - fabs(last_point));
 
-		if (fade_start > 0)
-		{
-			if (var_d <= ZERO)
-			{
-				no_var++;
-			}
-		}
-		else
-		{
-			no_var = 0;
-		}
-
-		if (fabs(array_dy[i]) <= ZERO)
-			last_zero = i;
-
-		Log::writeLog("%s :: var_d[%0.3lf] i[%d] array_dy[%0.3lf] array_vrh[%0.3lf]  last_zero[%d]", __FUNCTION__, var_d, i, array_dy[i], array_vrh[i], i-last_zero );
+		Log::writeLog("%s :: var_d[%0.3lf] i[%d] array_dy[%0.3lf] array_vrh[%0.3lf]", __FUNCTION__, var_d, i, array_dy[i], array_vrh[i] );
 
 		// Condições para se iniciar a verificação de um FADE
 		if ( fade_start == 0 && ( var_d > 0.0 && var_d < 10.0 && array_dy[i-1] == 0))
@@ -220,12 +197,10 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			fade_start = i-1;
 
-			start_with = var_d;
-
 			fade_end = var = 0;
 
-
-		} // Condições para se terminar um fade
+		} // Condições para se terminar um fade, o valor quebrado foi adotado pois os vídeos comerciais
+		  // tem muito ruído, então a variação dificilmente chega a ser exatamente 0
 		else if ( fade_start > 0 && ( fabs(array_dy[i]) <= 0.003) )
 		{
 			fade_end = i;
@@ -236,49 +211,20 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 			Log::writeLog("%s :: %d - %d, total points : %d", __FUNCTION__, fade_start, fade_end, var);
 
+			// Temos que ter mais do que 10 frames na variação para considerarmos um fade e
+			// a variação não pode sermuito abrupta ( tem que ser menor que 10 ). Esses dois pontos
+			// eliminam 100% os cortes da detecção do fade.
 			if (var < 10 || var_d >= 10.0)
 			{
+				// Não é um fade. Reseta os controles.
 				fade_start = 0;
-				no_var = 0;
 				Log::writeLog("%s :: [%d] < [%d] - not a fade, var_d [%lf]", __FUNCTION__, var, 10, var_d);
-				// Voltamos um Frame, pois podemos ter "comido" um possivel fade
+
+				// Voltamos um Frame, pois podemos ter "comido" um possivel início fade
 				i --;
+
 				continue;
 			}
-
-			Log::writeLog("%s :: no_var [%d] var/2 [%d]", __FUNCTION__, no_var, var/2);
-
-			// Se for maior que um limiar
-			// esse limiar foi definido realizando alguns experimentos onde apareciam
-			// transicoes diferentes de fade.
-			int type;
-			char label[100];
-
-			double pos = 0.0;
-			double neg = 0.0;
-
-			for (j = fade_start ; j <= fade_end; j++)
-			{
-
-				if (array_dy[j] > 0)
-				{
-					pos += array_dy[j];
-				}
-				else
-				{
-					neg += fabs(array_dy[j]);
-				}
-
-				if (fabs(array_dy[j]) > fabs(fade_max))
-				{
-					fade_max = array_dy[j];
-					fade_max_idx = j;
-				}
-
-			}
-
-			Log::writeLog("%s :: max value : idx : %d valor %lf", __FUNCTION__, fade_max_idx, fade_max);
-			Log::writeLog("%s :: pos: %lf neg: %lf", __FUNCTION__, pos, neg);
 
 			if (array_vrh[fade_start] <= 5.0)
 			{
@@ -298,35 +244,10 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			{
 				Log::writeLog("%s :: nothing: %d", __FUNCTION__);
 				fade_start = 0;
-				no_var = 0;
 				continue;
 			}
 
-			/*
-				if (neg > pos)
-				{
-				type = TRANSITION_FADEOUT;
-				strcpy(label, "Fade-Out");
-				Log::writeLog("%s :: fade out: %d", __FUNCTION__, fade_pos);
-				fade_pos = fade_end;
-				}
-				else
-				{
-				if (!(start_with <= 0.9))
-				{
-				Log::writeLog("%s :: do not start with black. start_with: %lf", __FUNCTION__, start_with);
-				no_var = 0;
-				fade_start = 0;
-				continue;
-				}
-
-				type = TRANSITION_FADEIN;
-				strcpy(label, "Fade-In");
-				Log::writeLog("%s :: fade in: %d", __FUNCTION__, fade_pos);
-				fade_pos = fade_start;
-				}
-			 */
-
+			// Criamos a transição
 			transition = new Transition(type, fade_pos, label);
 
 			/**
@@ -338,13 +259,11 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 				transitionList->push_back(*transition);
 
 			fade_start = 0;
-			no_var = 0;
 
 		}
 
 		// Ultimo ponto, igual a ponto corrente
 		last_point = array_dy[i];
-		var_last_d = var_d;
 	}
 
 	// Reseta o ROI craido pelo removeWide e removeBorder
@@ -353,10 +272,4 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	delete array_vrh;
 	delete array_dy;
 	delete vrh;
-
-	for ( i = 0 ; (unsigned int)i < transitionList->size() ; i ++)
-	{
-		transition = &transitionList->at(i);
-		Log::writeLog("%s :: %d %s %d", __FUNCTION__, i, transition->getLabel(), transition->getPosCurrent());
-	}
 }

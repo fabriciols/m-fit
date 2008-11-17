@@ -151,28 +151,45 @@ O processo para detecção de transições do tipo fade-in será:
     o momento em que a luminosidade dos frames deixe de variar, fazendo
     também com que o comportamento da curva torne-se estável novamente.}
 
-    \item{\textbf{Obtenção do Ponto de Derivada Máxima:} Como visto no
-    passo anterior, conforme a tomada torna-se mais clara, a curva da
-    derivada passa a sofrer uma determinada variação. No momento em que
-    não houver mais variação na luminosidade dos frames, a curva irá
-    manter-se aproximadamente constante, e é neste momento em que a derivada atingirá o
-    seu valor máximo, o qual caracteriza a ocorrência do fade-in.}
+    \item{\textbf{Análise das Derivadas:} 
 
-    \item{\textbf{Transições Fade-in:} No final deste processo, as transições do tipo fade-in estarão detectadas.}
-\end{enumerate}
+		Tendo as derivadas calculadas, o sistema começa a analizá-las, à fim de encontrar padrões de fade-in (Figura: \ref{img_met_fadein_rvhd})
+		e fade-out (Figura: \ref{img_met_fadein_rvhd}).
 
-\subsection{Fade-Out \label{met_fadeout}}
+		Este array de derivadas é percorrido ponto a ponto, em busca de intervalos onde a derivada começa e termina uma variação, como nas figuras citadas acima.
 
-A diferença na abordagem do fade-out sobre o fade-in é que: o para o fade-out é necessário
-a captura do ponto de derivada mínima, enquanto no fade-in era o ponto de derivada máxima.
+	  	Para o sistema começar a analizar uma variação, este precisa estar dentro das seguintes condições:
 
-\begin{enumerate}
-    \item{\textbf{Obtenção do Ponto de Derivada Mínima:} Para obtermos a definição exata do
-    ponto de ocorrência do fade-out é necessário definir o momento
-    (frame) em que a derivada atinge o seu valor mínimo, o qual
-    representa o ponto onde a tomada torna-se completamente escura.}
+		\begin{enumerate}
+		\item{ Ter uma variância na sua derivada }
+		\item{ Esta variância não ser muito abrupta (Pois evidencia um CORTE)}
+		\item{ O ponto anterior não ter variação alguma, ou seja, estava constante }
+		\end{enumerate}
 
-    \item{\textbf{Transições Fade-out:} No final deste processo, as transições do tipo fade-out estarão detectadas.}
+		A partir disso, o sistema começa analizar a variação encontrada.
+
+		Para encontrar o ponto final desta variação, o sistema checa as seguintes condições:
+
+		\begin{enumerate}
+		\item{ Se no ponto não houver nenhuma variação, finaliza-se a análize}
+		\end{enumerate}
+
+		Sob posse desta variação, o sistema checa as seguintes condições:
+
+		\begin{enumerate}
+		\item{ O intervalo de variação deve conter mais do que 10 Frames, pois um valor menor que esse indica um Corte}
+		\item{ O intervalo não pode ter em seu ponto final, uma variação muito abrupta, pois isso evidencia um Corte}
+		\end{enumerate}
+
+		Assim, definimos que uma variação é de fato um fade.
+			Para o sistema diferenciar entre um Fade-in e um Fade-out:
+
+		\begin{enumerate}
+		\item{Fade-in  : O primeiro ponto da variação é um Frame com predominância PRETO}
+		\item{Fade-out : O último ponto da variação é um Frame com predominância PRETO}
+		\end{enumerate}
+	 }
+
 \end{enumerate}
 
 \section{Dissolve \label{met_dissolve}}
