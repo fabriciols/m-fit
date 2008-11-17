@@ -28,7 +28,7 @@
    </size>
   </property>
   <property name="windowTitle" >
-   <string>Form</string>
+   <string>Editar Transicao</string>
   </property>
   <layout class="QGridLayout" name="gridLayout" >
    <item rowspan="16" row="1" column="0" colspan="4" >
@@ -91,7 +91,7 @@
       </size>
      </property>
      <property name="text" >
-      <string>Change</string>
+      <string>Modificar</string>
      </property>
     </widget>
    </item>
@@ -104,7 +104,7 @@
       </size>
      </property>
      <property name="text" >
-      <string>Delete</string>
+      <string>Remover</string>
      </property>
     </widget>
    </item>
