@@ -153,8 +153,15 @@ O processo para detecção de transições do tipo fade-in será:
 
     \item{\textbf{Análise das Derivadas:} 
 
-		Tendo as derivadas calculadas, o sistema começa a analizá-las, à fim de encontrar padrões de fade-in (Figura: \ref{img_met_fadein_rvhd})
-		e fade-out (Figura: \ref{img_met_fadein_rvhd}).
+    \begin{figure}[h|top]
+        \centering
+        \includegraphics[width=1.0\linewidth]{imagens/vrhd_fade_in_out.png}
+        \caption{RVH derivado de uma sequência que contém uma transição do tipo fade-in, seguida de um fade-out.}
+		  \label{img_vrhd_fade_in_out} Fonte: Autor.
+    \end{figure}
+
+		Tendo as derivadas calculadas, o sistema começa a analizá-las, à fim de encontrar padrões de fade-in e fade-out,
+			  o qual pode ser visto na Figura \ref{img_vrhd_fade_in_out}.
 
 		Este array de derivadas é percorrido ponto a ponto, em busca de intervalos onde a derivada começa e termina uma variação, como nas figuras citadas acima.
 
