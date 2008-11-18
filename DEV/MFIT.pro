@@ -3,7 +3,7 @@
 ######################################################################
 
 DEVCPP_PATH = "C:/Dev-Cpp"
-OPENCV_PATH = "C:/Arquivos de Programas/OpenCV"
+OPENCV_PATH = "C:/Program Files/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
@@ -50,7 +50,6 @@ HEADERS += include/Color.h \
            include/Log.h \
            include/Morphology.h \
            include/MorphologyEffect.h \
-           include/Time.h \
            include/Transition.h \
            include/Video.h \
            include/VisualRythim.h \
@@ -76,7 +75,6 @@ SOURCES += source/main.cpp \
 			  source/Log.cpp \
            source/Morphology.cpp \
            source/MorphologyEffect.cpp \
-           source/Time.cpp \
            source/Transition.cpp \
            source/Video.cpp \
            source/VisualRythim.cpp \
