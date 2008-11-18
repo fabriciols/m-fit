@@ -39,23 +39,39 @@
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 	double *array_vrh;
-	int k, i;
+	double *array_variance;
+	int k;
 	double videoSize;
 
-	double *detect, *orientation, thresholdMax=0, thresholdMin=0, threshold_fade = 0;
+	double *detect, *orientation, thresholdMax=0, thresholdMin=0;
+
+	// Array da segunda derivada
+	double *arrayDDvariance;
+	// Array da primeira derivada
+	double *arrayDmean;
 
 	VisualRythim* vrh;
 
 	videoSize = cvRound(vdo->getFramesTotal());
 
-	detect = (double *) malloc(sizeof(double)*videoSize);
-	orientation = (double *) malloc(sizeof(double)*videoSize);
+	detect = (double *) malloc(sizeof(double)*cvRound(videoSize));
+	orientation = (double *) malloc(sizeof(double)*cvRound(videoSize));
 
 	memset(detect, '\0',     sizeof(double)*cvRound(videoSize));
 	memset(orientation, '\0',     sizeof(double)*cvRound(videoSize));
 
+	vdo->removeWide();
+	vdo->removeBorder();
+
 	//Coleta o ritmo visual dos frames
 	array_vrh = vrh->createVRH(vdo);
+	
+	vdo->seekFrame(0);
+	
+	array_variance = calcVariance(vdo);
+
+	arrayDmean = calcDerivative(array_vrh, cvRound(videoSize));
+	arrayDDvariance = calcDerivative(calcDerivative(array_variance, cvRound(videoSize)), cvRound(videoSize));
 
 	thresholdMin = 0.25;
 	thresholdMax = 4.0;
@@ -63,103 +79,12 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	//Verifica ponto de dissolve
 	for(k=0;k<videoSize;k++)
 	{
-		if((array_vrh[k]<array_vrh[k+1]) &&
-		   (array_vrh[k+1]<array_vrh[k+2]) &&
-		   (array_vrh[k+2]<array_vrh[k+3]) &&
-		   (array_vrh[k+3]<array_vrh[k+4]) &&
-		   (array_vrh[k+4]<array_vrh[k+5]) &&
-		   (array_vrh[k+5]<array_vrh[k+6]) &&
-		   (array_vrh[k+6]<array_vrh[k+7]))
+		if(arrayDDvariance[k]/arrayDmean[k] == 0)
 		{
-			//aplica 1. derivada
-			if((calcFirstDerivative(array_vrh[k],array_vrh[k+1],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+1],array_vrh[k+2],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+2],array_vrh[k+3],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+3],array_vrh[k+4],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+4],array_vrh[k+5],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+5],array_vrh[k+6],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+6],array_vrh[k+7],thresholdMax,thresholdMin)))
-			{
-				orientation[k]=RIGHT;
-				detect[k]=1;
-				k=k+6;
-			}
-		}
+			detect[k]=1;
 
-		if((array_vrh[k]>array_vrh[k+1]) &&
-		   (array_vrh[k+1]>array_vrh[k+2]) &&
-		   (array_vrh[k+2]>array_vrh[k+3]) &&
-		   (array_vrh[k+3]>array_vrh[k+4]) &&
-		   (array_vrh[k+4]>array_vrh[k+5]) &&
-		   (array_vrh[k+5]>array_vrh[k+6]) &&
-		   (array_vrh[k+6]>array_vrh[k+7]))
-		{
-			//aplica 1. derivada
-			if((calcFirstDerivative(array_vrh[k+1],array_vrh[k],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+2],array_vrh[k+1],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+3],array_vrh[k+2],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+4],array_vrh[k+3],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+5],array_vrh[k+4],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+6],array_vrh[k+5],thresholdMax,thresholdMin)) &&
-			  (calcFirstDerivative(array_vrh[k+7],array_vrh[k+6],thresholdMax,thresholdMin)))
-			{
-				orientation[k]=LEFT;
-				detect[k]=1;
-				k=k+6;
-			}
-		}
-	}
-
-	//Retirando redundancias
-	for(k=0;k<videoSize;k++)
-	{
-		if(detect[k])
-		{
-			while(detect[k+7]==1)
-			{
-				detect[k+7]=0;
-				k=k+7;
-			}
-		}
-	}
-
-
-	//Verifica se é um fade
-	i=0;
-	threshold_fade = 6.0;
-
-	for(k=0;k<videoSize;k++)
-	{
-		if(detect[k]==1)
-		{
-			i=k;
-
-			if(orientation[k]==RIGHT)
-			{
-				while(((array_vrh[i]<=array_vrh[i+1]) || (array_vrh[i]<=array_vrh[i+2])) && (i<videoSize))
-				{
-//					Log::writeLog("RIGHT %d - %lf", k, array_vrh[i]);
-					if(array_vrh[i]<threshold_fade)
-					{
-						detect[k]=0;
-						break;
-					}
-					i++;
-				}
-			}
-			else if(orientation[k]==LEFT)
-			{
-				while(((array_vrh[i]>=array_vrh[i+1]) || (array_vrh[i]>=array_vrh[i+2])) && (i<videoSize))
-				{
-//					Log::writeLog("LEFT %d - %lf", k, array_vrh[i]);
-					if(array_vrh[i]<threshold_fade)
-					{
-						detect[k]=0;
-						break;
-					}
-					i++;
-				}
-			}
+			while(arrayDDvariance[k]/arrayDmean[k] == 0)
+				k++;
 		}
 	}
 
@@ -197,4 +122,90 @@ int Dissolve::calcFirstDerivative(double firstFrame, double secondFrame, double 
 		return(1);
 	else
 		return(0);
+}
+
+double* Dissolve::calcDerivative(double *array, int size_i)
+{
+	// Para calcular a derivada no eixo y , calculamos para cada ponto fy:
+	// dy = ((f(y+1) - f(y-1)) / 2)
+
+	//double dy;
+	int i = 0;
+	double *array_dy;
+
+//	Log::writeLog("%s :: array[%x] size_i[%d]", __FUNCTION__, array, size_i);
+
+	array_dy = (double*)malloc(sizeof(double)*size_i);
+
+	// Calculo para a posicao 0
+	array_dy[i] = ( 0 - array[i] ) / 2;
+//	Log::writeLog("%s :: array_y[%d] = %lf array_dy[%d] = %lf", __FUNCTION__, i, array[i], i, array_dy[i]);
+
+	for ( i = 1 ; i < size_i ; i++ )
+	{
+		array_dy[i] = (( array[i+1] - array[i-1] ) / 2);
+//		Log::writeLog("%s :: array_y[%d] = %lf array_dy[%d] = %lf", __FUNCTION__, i, array[i], i, array_dy[i]);
+	}
+
+	return array_dy;
+}
+
+double* Dissolve::calcVariance(Video* vdo)
+{
+	Frame* frame = new Frame(); 
+	Frame* frameGray = 0;
+	Frame *frameDiagonal = 0;
+	Color *color = new Color();
+
+	double totalFrames = vdo->getFramesTotal();
+
+	int posic = 0;
+
+	double* variance;
+
+	variance = (double*)malloc(sizeof(double)*cvRound(totalFrames));
+
+	memset(variance, '\0',     sizeof(double)*cvRound(totalFrames));
+
+	// Pego o primeiro frame
+	frame = vdo->getNextFrame();	
+
+	while(frame != NULL)
+	{
+
+		if (posic >= totalFrames)
+		{
+			Log::writeLog("%s :: BOOOOOOM!", __FUNCTION__);
+		}
+
+		// Converto o frame para escala de cinza.
+		frameGray = color->convert2Gray(frame);
+
+		// Pega a diagonal
+		frameDiagonal = frameGray->getDiagonal();
+
+		// Guardo a media do valor de luminancia da diagonal.
+		variance[posic] = frameGray->pointVariance();
+	
+		Log::writeLog("variance[%lf] posic[%d]", variance[posic], posic);
+
+		/**
+		 * Deleto os objetos criados anteriormente para desalocamento de
+		 * memoria.
+		**/
+		delete frameDiagonal;
+		delete frameGray;
+		delete frame;
+		
+		// Pego o proximo
+		frame = vdo->getNextFrame();
+
+		posic++;
+
+	}
+
+	delete color;
+	// Retorno o array com os valores do RVH
+
+	return (variance);
 }
