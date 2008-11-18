@@ -40,8 +40,6 @@ class Video
 
 		double framesTotal;
 
-		Time timePos;
-
 		/**
 		 *Armazena o sistema de cores que
 		 *se encontra o vídeo.

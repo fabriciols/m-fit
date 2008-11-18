@@ -17,7 +17,6 @@
 
 #include "../include/Interface.h"
 #include "../include/Effect.h"
-#include "../include/Time.h"
 
 #include "../include/Transition.h"
 #include "../include/Project.h"
@@ -669,17 +668,18 @@ void Interface::updateHist(QImage *hist)
  ************************************************************************/
 void Interface::setVideoTime(double framePos, double fps)
 {
-	Time *cvTime = new Time(framePos, fps);
+	unsigned long msec;
+
+	msec = cvRound((framePos / fps ) * 1000 );
 
 	const QTime *time = new QTime(
-			cvTime->getHour(),
-			cvTime->getMin(),
-			cvTime->getSec(),
-			cvTime->getMsec());
+			(int)( msec /3600000),     // Hora
+			(int)((msec /60000) % 60), // Minuto
+			(int)((msec /1000)  % 60), // Segundo
+			(int)( msec % 1000));      // MileSegundo
 
 	ui.videoTime->setTime(*time) ;
 
-	delete cvTime;
 	delete time;
 
 }
@@ -1319,7 +1319,7 @@ void Interface::enableControls()
 	this->ui.backButton->setEnabled(true);
 	this->ui.forwardButton->setEnabled(true);
 	this->ui.stopButton->setEnabled(true);
-	
+
 	// Botao de renderizacao
 	this->ui.actionRenderVideo->setEnabled(true);
 

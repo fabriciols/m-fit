@@ -154,8 +154,6 @@ void Video::updatePos()
 	msec = (long)cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_MSEC);
 	Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
 
-	this->timePos.setTime(msec);
-
 }
 
 /************************************************************************
