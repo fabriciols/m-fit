@@ -681,7 +681,7 @@ double Frame::pointVariance()
 	double diagonal = 0; // Coeficiente angular da equacao
 
 	double mean = 0;
-	double var = 0;
+	double variance = 0;
 
 	/** Calculo o coeficiente angular da reta ('diagonal' da equacao).
 	 * this->getHeight = y - yo
@@ -707,14 +707,14 @@ double Frame::pointVariance()
 	{
 		y = cvRound(diagonal * x);
 
-		var += (this->getPixel(x, y) - mean) * (this->getPixel(x, y) - mean);
+		variance += (this->getPixel(x, y) - mean) * (this->getPixel(x, y) - mean);
 	}
 
-	var = var / (this->getWidth()-2);
+	variance = variance / (this->getWidth()-2);
 
 //	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
 
-	return (var);
+	return (variance);
 }
 
 /*************************************************************************
