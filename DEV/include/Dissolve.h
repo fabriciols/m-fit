@@ -12,4 +12,6 @@ class Dissolve: public DetectTransitions
 	 *uma curva.
 	 */
 		int calcFirstDerivative(double , double, double, double);
+		double* calcVariance(Video*);
+		double* calcDerivative(double *, int);
 };

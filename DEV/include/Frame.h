@@ -53,6 +53,7 @@ class Frame
 		void initAttr();
 		void write(char *filename_cy);
 		double mediaBin();
+		double pointVariance();
 
 		// Funcoes estaticas
 		static void imgCopy(IplImage *imgSrc, IplImage *imgDst);
