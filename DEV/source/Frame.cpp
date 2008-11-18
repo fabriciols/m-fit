@@ -678,34 +678,34 @@ double Frame::pointVariance()
 	int y = 0;
 	int i = 0;
 
-	double a = 0; // Coeficiente angular da equacao
+	double diagonal = 0; // Coeficiente angular da equacao
 
 	double mean = 0;
 	double var = 0;
 
-	/** Calculo o coeficiente angular da reta ('a' da equacao).
+	/** Calculo o coeficiente angular da reta ('diagonal' da equacao).
 	 * this->getHeight = y - yo
 	 * this->getWidth  = x - xo
 	 * y - yo = m*(x - xo)
 	 **/
-	a = (float)(this->getHeight()/(float)this->getWidth());
+	diagonal = (float)(this->getHeight()/(float)this->getWidth());
 
-	// Pego a diagonal do this.
+	// Pego diagonal diagonal do this.
 	for (x=0; x < this->getWidth()-1 ; x++)
 	{
-		y = cvRound(a * x);
+		y = cvRound(diagonal * x);
 
 		mean += this->getPixel(x, y);
 
 		i++;
 	}	
 
-	// Calcula-se a média dos pixels somados.
+	// Calcula-se diagonal média dos pixels somados.
 	mean = mean / i;
 
 	for (x=0; x < this->getWidth()-1 ; x++)
 	{
-		y = cvRound(a * x);
+		y = cvRound(diagonal * x);
 
 		var += (this->getPixel(x, y) - mean) * (this->getPixel(x, y) - mean);
 	}
