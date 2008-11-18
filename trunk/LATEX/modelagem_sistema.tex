@@ -458,7 +458,8 @@ tipo Corte.
 
  \item{void createBorderMap() }
 
- \hspace*{0.65cm}Cria o mapa de bordas.
+ \hspace*{0.65cm}Cria o mapa de bordas aplicando o filtro de Canny
+ sobre o Ritmo Visual.
 
  \item void detectTransitions()
 
@@ -516,20 +517,21 @@ selecionado no menu.
 
 \item{void detectTransitions()}
 
-\hspace*{0.65cm}Função principal na detecção de transições.
+\hspace*{0.65cm}Função principal para detecção de transições.
 Desencadeia a chamada da função com este mesmo nome nos objetos
-filhos, por fim armazena o resultado no vector passado por parâmetro.
+filhos, por fim armazena o resultado no vector passado por
+parâmetro.
 
 \item{bool validateTransition()}
 
 \hspace*{0.65cm}Verifica se já existem transições detectadas na
-posição da nova transição.
+posição de uma nova transição.
 
 \end{enumerate}
 
 \subsection{Classe: Dilate \label{classe_dilate}}
 
-\hspace*{1.25cm}Classe responsável em aplicar efeitos de dilatacao
+\hspace*{1.25cm}Classe responsável em aplicar efeitos de dilatação.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 
@@ -571,8 +573,8 @@ dissolve.
 
 \subsection{Classe: Effect \label{classe_Effect}}
 
-\hspace*{1.25cm}Classe responsável por centralizar os métodos dos
-efeitos.
+\hspace*{1.25cm}Classe responsável por centralizar os métodos para
+aplicação de efeitos.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
@@ -616,16 +618,15 @@ fade.
 \hspace*{0.65cm}\textbf{Métodos:}
 
 \begin{enumerate}
-\item{float calcMinDerivative() }
 
 \item{double* calcDerivative()}
 
-\hspace*{1.25cm}Deriva o array de doubles passado por parâmetro.
+\hspace*{1.25cm}Calcula a derivada do Ritmo Visual por Histograma.
 
 \item{void detectTransitions()}
 
-\hspace*{1.25cm}Realiza a detecção das transições do tipo fade (in/out)
-e empilha o resultado no vector.
+\hspace*{1.25cm}Realiza a detecção das transições do tipo
+fade-in/fade-out e empilha o resultado no vector.
 
 \end{enumerate}
 
@@ -645,19 +646,20 @@ imagens digitais.
 
 \item{void lowPass()}
 
-\hspace*{0.65cm}Aplica um filtro passa-baixa na imagem.
+\hspace*{0.65cm}Aplica um filtro passa-baixa em uma imagem.
 
 \item{void highPass()}
 
-\hspace*{0.65cm}Aplica um filtro passa alta na imagem.
+\hspace*{0.65cm}Aplica um filtro passa alta em uma imagem.
 
 \item{void segment()}
 
-\hspace*{0.65cm}Realiza a segmentação da imagem, a partir do threshold informado.
+\hspace*{0.65cm}Realiza a segmentação da imagem, a partir do limiar
+informado.
 
 \item{void Canny()}
 
-\hspace*{0.65cm}Aplica o filtro de canny no frame.
+\hspace*{0.65cm}Aplica o filtro de Canny em uma imagem.
 
 \end{enumerate}
 
@@ -687,7 +689,7 @@ e preenche as estruturas necessárias.
 
 \hspace*{0.65cm}Construtor que recebe uma frame, realiza a cópia deste frame.
 
-\item{Frame(double*, int, float)}
+\item{Frame(double*, int, float, bool)}
 
 \hspace*{0.65cm}Construtor que recebe um array, a partir deste array
 é criado uma imagem (gráfico) representativo do mesmo. Utilizado para
@@ -752,14 +754,48 @@ limiar terá seu valor alterado para 255.
 
 \hspace*{0.65cm}Desaloca o espaco de memória reservado à uma imagem.
 
-\item{static IplImage* imgAlloc()}
+\item{static IplImage* imgAlloc(Frame* frame)}
 
-\hspace*{0.65cm}Aloca o espaco de memória de uma imagem.
+\hspace*{0.65cm}Função que centraliza a alocação de memoria e
+criação de uma imagem a partir de um Frame de entrada.
 
-\item{static IplImage* imgAlloc()}
+\item{static IplImage* imgAlloc(CvSize size, int depth, int channels)}
 
-\hspace*{0.65cm}Aloca o espaco de memória de uma imagem, copiando as dimensões da imagem passada
-por parâmetro.
+\hspace*{0.65cm}Aloca o espaço de memória de uma imagem, copiando as
+dimensões da imagem passada por parâmetro.
+
+\item{void setImage()}
+
+\hspace*{0.65cm}Auxiliar que atualiza as variáveis internas de um
+objeto Frame. Deve ser usada toda vez que for alterar a imagem de um
+Frame.
+
+\item{void setPixel()}
+
+\hspace*{0.65cm}Função que define a luminância de um pixel.
+
+\item{int getPixel()}
+
+\hspace*{0.65cm}Função que retorna o valor de luminancia de um
+determinado pixel (x,y).
+
+\item{Frame operator+=()}
+
+\hspace*{0.65cm}Sobrecarga do operador ``+='' o qual realiza a
+concatenação dos frames, sendo que a ``soma'' só poderá ser feita
+entre dois objetos, e não dois ponteiros.
+
+\item{Frame operator=()}
+
+\hspace*{0.65cm}Sobrecarga do operador ``=''.
+
+\item{int getMaxLum()}
+
+\hspace*{0.65cm}Função que retorna a maior luminância de um frame.
+
+\item{double pointVariance}
+
+\hspace*{0.65cm}Retorna a variância da diagonal de um frame.
 
 \end{enumerate}
 
@@ -1050,6 +1086,19 @@ transições.
 \hspace*{0.65cm}Cria um novo projeto, limpando todas as estruturas
 da interface.
 
+\item{void closeEvent()}
+
+\hspace*{0.65cm}Trata o evento de close da aplicação. Fecha/libera
+todos os objetos abertos/instanciados.
+
+\item{void enableSaveButton()}
+
+\hspace*{0.65cm}Habilita o botão ``Save''.
+
+\item{void disableSaveButton()}
+
+\hspace*{0.65cm}Desabilita o botão ``Save''.
+
 \end{enumerate}
 
 \subsection{Classe Log \label{classe_log}}
@@ -1092,6 +1141,10 @@ ao projeto corrente.
 \hspace*{0.65cm}\textbf{Métodos:}
 
 \begin{enumerate}
+
+\item{Project()}
+
+\hspace*{0.65cm}Construtor da classe.
 
 \item{void clearTransitionList()}
 
@@ -1232,41 +1285,6 @@ timeline.
 
 \end{enumerate}
 
-\subsection{Classe: Time \label{classe_Time}}
-
-\hspace*{1.25cm}Classe responsável por armazenar dados relacionados
-ao tempo de vídeo e realizar conversão de posição de frame para
-tempo (hh:mm:ss).
-
-\hspace*{0.65cm}\textbf{Métodos:}
-
-\begin{enumerate}
-
-\item{Time()}
-
-\hspace*{0.65cm}Construtor da classe que inicializa os atributos.
-
-\item{Time(double framePos, double fps)}
-
-\hspace*{0.65cm}Construtor da classe que converte de posição de
-frame para time.
-
-\item{Time(int hour, int min, int sec, int msec)}
-
-\hspace*{0.65cm}Construtor da classe que inicializa os atributos com
-os valores recebidos por parâmetro.
-
-\item{void pos2time()}
-
-\hspace*{0.65cm}Transforma de posição física para o formato
-hh:mm:ss:mm.
-
-\item{unsigned long getFramePos()}
-
-\hspace*{0.65cm}Retorna o numero do frame referente ao tempo.
-
-\end{enumerate}
-
 \subsection{Classe: Transition \label{classe_Transition}}
 
 \hspace*{1.25cm}Classe responsável por representar uma transição.
@@ -1291,6 +1309,12 @@ o do Usuário, porém o segundo tem prioridade sobre o primeiro
 \item{bool operator $<$(const Transition) const}
 
 \hspace*{0.65cm}Operador de comparação entre dois objetos do tipo Transition.
+
+\item{long getPosCurrent()}
+
+\hspace*{0.65cm}Retorna a posição corrente da transição. Caso o
+usuário tenha alterado a posição da transição detectada pelo
+sistema, esta será a posição retornada.
 
 \end{enumerate}
 
@@ -1403,6 +1427,11 @@ de remoção de wide de um frame.
 
 \hspace*{0.65cm}Remove o wide de um video inteiro, usando a função
 de remoção de borda de um frame.
+
+\item{~Video()}
+
+\hspace*{0.65cm}Destrutor que desaloca o espaço alocado para o
+vídeo.
 
 \end{enumerate}
 
