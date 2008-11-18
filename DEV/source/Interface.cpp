@@ -1457,6 +1457,12 @@ void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
 	Transition *transition;
 	Transition *transitionNEXT;
 
+	if (currentProject == 0x0)
+		return;
+
+	if (currentProject->getVideo() == 0x0)
+		return;
+
 	memset(frame_cy, '\0', sizeof(frame_cy));
 
 	transition = &currentProject->transitionList.at(transitionID);
@@ -1525,6 +1531,10 @@ void Interface::updateTransitionHeader(unsigned int transitionID, int clean)
 void Interface::clearTransitionHeader()
 {
 	unsigned int i = 0;
+
+	if (currentProject == 0x0)
+		return;
+
 	Transition *transition;
 	for (i = 0 ; i < currentProject->transitionList.size() ; i ++)
 	{
@@ -1927,11 +1937,23 @@ void Interface::closeEvent(QCloseEvent* event)
  * 16/11/08 - Thiago Mizutani
  * Criação.
  *************************************************************************/
-
 void Interface::on_actionNewProject_triggered()
 {
 	clearTransitionHeader();
 	clearVideoProperty();
 	clearTransitionsTree();	
 	effectTreeClear();
+	ui.timelineLabel->clear();
+
+	if (currentProject != 0x0)
+	{
+		delete currentProject;
+		currentProject = new Project();
+	}
+
+	if (vdo_player != 0x0 )
+	{
+		delete vdo_player;
+		vdo_player = new VideoPlayer();
+	}
 }
