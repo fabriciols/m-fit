@@ -325,28 +325,20 @@ do $RVH$
 video , é calculada a derivada dos pontos, em busca de variações em
 seu resultado.
 
+\subsubsection{Caso de uso: Análise da derivada\label{use_case_derivada_min}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir das derivadas
+da reta, é feita uma análise, a fim de encontar possíveis fades.
+
 \subsubsection{Detecta Fade-In \label{use_case_detecta_fadein}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} Em cima das derivadas
-dos pontos do RVH, será feita uma análise para identificar um padrão
-que evidencia o fade-in, e obter a derivada máxima para identificar
-o ponto de marcação da transição.
+\hspace*{1.25cm}\textbf{Cenário Principal:} Feita a análise,
+	cria-se os objetos do Fade-in.
 
-\subsubsection{Caso de uso: Obtenção da Derivada Máxima \label{use_case_derivada_max}}
+\subsubsection{Fade-Out \label{use_case_detecta_fadeout}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} A partir das derivadas
-da reta, é obtido o frame onde a derivada tem seu maior pico. Este é
-o ponto onde a transição é delimitada.
-
-\subsubsection{Detecta Fade-Out \label{use_case_detecta_fadeout}}
-
-\hspace*{1.25cm}Ver: \ref{use_case_detecta_fadein}
-
-\subsubsection{Caso de uso: Obtenção da Derivada Mínima \label{use_case_derivada_min}}
-
-\hspace*{1.25cm}\textbf{Cenário Principal:} A partir das derivadas
-da reta, é obtido o frame onde a derivada possui o menor valor. Este
-é o ponto onde a transição é delimitada.
+\hspace*{1.25cm}\textbf{Cenário Principal:} Feita a análise,
+	cria-se os objetos do Fade-out.
 
 \subsection{Cenário Detecção de dissolve \label{use_case_dissolve}}
 
@@ -1296,7 +1288,7 @@ sua posição e label.
 \hspace*{0.65cm}Retorna o valor utilizado da posição, que pode ser ou o definido pelo Sistem ou
 o do Usuário, porém o segundo tem prioridade sobre o primeiro
 
-\item{bool operator <(const Transition) const}
+\item{bool operator $<$(const Transition) const}
 
 \hspace*{0.65cm}Operador de comparação entre dois objetos do tipo Transition.
 
