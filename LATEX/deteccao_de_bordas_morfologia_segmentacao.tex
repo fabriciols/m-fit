@@ -107,24 +107,25 @@ segundo Canny, qualquer filtro para detecção de bordas deve atender \cite{GIOVAN
 São eles:
 
 \begin{enumerate}
-\item Taxa de Erro (SNR)
-\item Localização (L)
-\item Resposta
+\item Alta razão Sinal/Ruído (SNR)
+\item Ótima localização (L)
+\item Boa resposta
 \end{enumerate}
 
-\hspace*{0.65cm}Onde a Taxa de Erro  representa a eficiência do filtro
-em relação a falsos positivos (detecção de falsas bordas) e falsos negativos
-(bordas verdadeiras não detectadas), ou seja, o filtro deve detectar o máximo
-de bordas verdadeiras existentes na imagem.
+\hspace*{0.65cm}Onde SNR representa a eficiência do filtro em
+relação a falsos positivos (detecção de falsas bordas, ruídos), ou
+seja, o filtro deve detectar o máximo de bordas verdadeiras (Sinal)
+existentes na imagem.
 
-\hspace*{0.65cm}O critério de localização, como o nome já diz, está ligado
-à localização real da borda na imagem e àquela apontada pelo filtro. Quanto
-menor a distância entre a borda detectada da borda real, melhor será o
-filtro.
+\hspace*{0.65cm}O critério de localização, como o nome já diz, está
+ligado à localização real da borda na imagem e aquela apontada pelo
+filtro. Quanto menor a distância entre a borda detectada e a borda
+real, melhor será o filtro.
 
-\hspace*{0.65cm}O último dos critérios corresponde à quantidade de respostas
-geradas pelo filtro em relação à uma única borda. Para cada borda existente
-na imagem, o filtro deve apontar somente uma resposta.
+\hspace*{0.65cm}O último dos critérios corresponde à quantidade de
+respostas geradas pelo filtro em relação a uma única borda. Para
+cada borda existente na imagem, o filtro deve apontar somente uma
+resposta.
 
 \hspace*{0.65cm}Para atender a estes critérios, são adotados, além
 de processos de convolução (Seção \ref{filtragem_espacial}),
