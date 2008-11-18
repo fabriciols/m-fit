@@ -96,23 +96,25 @@ a detecção de transições do tipo Corte:
     \label{img_metfades} Fonte: Autor.
 \end{figure}
 
-Como visto na Seção \ref{ed_fadein}, o fade-in é uma transição de
-tomadas mais escuras para tomadas mais claras, enquanto o fade-out,
-visto na Seção \ref{ed_fadeout}, possui um efeito inverso, ou seja,
-de tomadas mais claras para tomadas mais escuras.
+\hspace*{1.25cm}Como visto na Seção \ref{ed_fadein}, o fade-in é uma
+transição que parte de tomadas mais escuras para tomadas mais
+claras, enquanto o fade-out, visto na Seção \ref{ed_fadeout}, possui
+um efeito inverso, partindo de tomadas mais claras para tomadas mais
+escuras.
 
-Devido à similaridade entre estas duas transições, a metodologia
-utilizada para a detecção de ambas será semelhante, como pode ser
-visto na Figura \ref{img_metfades}. Primeiramente será mostrada a
-metodologia do fade-in e posteriormente serão comentadas as
-diferenças da mesma em relação ao fade-out.
+\hspace*{0.65cm}Devido à similaridade entre estas duas transições, a
+metodologia utilizada para a detecção de ambas será semelhante, como
+pode ser visto na Figura \ref{img_metfades}. Primeiramente será
+mostrada a metodologia do fade-in e posteriormente serão comentadas
+as diferenças da mesma em relação ao fade-out.
 
 \subsection{Fade-in \label{met_fadein}}
 
-O processo para detecção de transições do tipo fade-in será:
+\hspace{1.25cm}O processo para detecção de transições do tipo
+fade-in será:
 
 \begin{enumerate}
-    \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção dos fade-in.}
+    \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será realizada a detecção dos fade-in.}
 
     \item{\textbf{Ritmo Visual por Histograma (RVH):} A partir do vídeo de entrada, cria-se uma simplificação
     do mesmo chamada Ritmo Visual por Histograma (Seção
@@ -151,51 +153,49 @@ O processo para detecção de transições do tipo fade-in será:
     o momento em que a luminosidade dos frames deixe de variar, fazendo
     também com que o comportamento da curva torne-se estável novamente.}
 
-    \item{\textbf{Análise das Derivadas:} 
+    \item{\textbf{Análise das Derivadas:}
 
     \begin{figure}[h|top]
         \centering
         \includegraphics[width=1.0\linewidth]{imagens/vrhd_fade_in_out.png}
         \caption{RVH derivado de uma sequência que contém uma transição do tipo fade-in, seguida de um fade-out.}
-		  \label{img_vrhd_fade_in_out} Fonte: Autor.
+          \label{img_vrhd_fade_in_out} Fonte: Autor.
     \end{figure}
 
-		Tendo as derivadas calculadas, o sistema começa a analizá-las, à fim de encontrar padrões de fade-in e fade-out,
-			  o qual pode ser visto na Figura \ref{img_vrhd_fade_in_out}.
+        Tendo as derivadas calculadas, é feita a análise, a fim de encontrar padrões de fade-in e fade-out,
+              os quais podem ser vistos na Figura \ref{img_vrhd_fade_in_out}.
 
-		Este array de derivadas é percorrido ponto a ponto, em busca de intervalos onde a derivada começa e termina uma variação, como nas figuras citadas acima.
+        Este array de derivadas é percorrido ponto a ponto, em busca de intervalos onde a derivada sofre uma variação, como nas figuras citadas acima.
 
-	  	Para o sistema começar a analizar uma variação, este precisa estar dentro das seguintes condições:
+        Para que a variação seja analisada pelo sistema, esta precisa atender as seguintes condições:
 
-		\begin{enumerate}
-		\item{ Ter uma variância na sua derivada }
-		\item{ Esta variância não ser muito abrupta (Pois evidencia um CORTE)}
-		\item{ O ponto anterior não ter variação alguma, ou seja, estava constante }
-		\end{enumerate}
+        \begin{enumerate}
+        \item{ Sua derivada deverá sofrer uma variância (não deve ser constante); }
+        \item{ Esta variância não deve ser abrupta (Pois pode evidenciar um CORTE);}
+        \item{ O ponto anterior não deve ter variação alguma, ou seja, deve ser constante. }
+        \end{enumerate}
 
-		A partir disso, o sistema começa analizar a variação encontrada.
+        A partir disso, o sistema começa a analisar a variação encontrada.
 
-		Para encontrar o ponto final desta variação, o sistema checa as seguintes condições:
+        O ponto final desta variação é determinado quando a variação
+        tornar-se constante.
 
-		\begin{enumerate}
-		\item{ Se no ponto não houver nenhuma variação, finaliza-se a análize}
-		\end{enumerate}
+        Sob posse desta variação (que variação???? aqui acho q era legal vc explicar de novo... como a explicação ta
+        extensa o leitor se perde... tipo eu! aueuahueh), o sistema checa as seguintes condições:
 
-		Sob posse desta variação, o sistema checa as seguintes condições:
+        \begin{enumerate}
+        \item{ O intervalo de variação deve conter mais do que 10 Frames, visto que valores abaixo deste limiar podem evidenciar um Corte;}
+        \item{ O intervalo não deve ter em seu ponto final uma variação muito abrupta, podendo assim, evidenciar um Corte}
+        \end{enumerate}
 
-		\begin{enumerate}
-		\item{ O intervalo de variação deve conter mais do que 10 Frames, pois um valor menor que esse indica um Corte}
-		\item{ O intervalo não pode ter em seu ponto final, uma variação muito abrupta, pois isso evidencia um Corte}
-		\end{enumerate}
+        Assim, fica definido que uma variação é de fato um fade.
+        Para ser feita a diferenciação entre um Fade-in e um Fade-out, são adotados os seguintes critérios:
 
-		Assim, definimos que uma variação é de fato um fade.
-			Para o sistema diferenciar entre um Fade-in e um Fade-out:
-
-		\begin{enumerate}
-		\item{Fade-in  : O primeiro ponto da variação é um Frame com predominância PRETO}
-		\item{Fade-out : O último ponto da variação é um Frame com predominância PRETO}
-		\end{enumerate}
-	 }
+        \begin{enumerate}
+        \item{Fade-in  : O primeiro ponto da variação é um Frame com predominância PRETO}
+        \item{Fade-out : O último ponto da variação é um Frame com predominância PRETO}
+        \end{enumerate}
+     }
 
 \end{enumerate}
 
