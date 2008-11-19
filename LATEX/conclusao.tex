@@ -8,9 +8,10 @@ imagens presentes no vídeo, é necessário adequar o filtro de Canny
 para que seja feita uma detecção adequada, visto que os resultados
 obtidos a partir da aplicação deste filtro nas imagens variam
 conforme o comportamento da luminância dos frames em análise. Os
-valores aqui utilizados como padrão ficam vulneráveis à transições
-entre duas tomadas que sejam muito escuras, porém se estes limiares
-forem modificados para detectar estas transições, as transições
-entre tomadas mais claras podem deixar de ser detectadas, além de
-aumentar o número de falsos positivos.
-
+valores aqui utilizados como limiar ficam vulneráveis à transições
+entre duas tomadas que sejam mais escuras, porém se estes limiares
+forem configurados para detectar este tipo de transição, pode
+ocorrer o aumento de falsas detecções devido ao aumento de ruído no
+mapa de bordas. Desta forma, optou-se por utilizar limiares mais
+altos para que as transições entre tomadas mais claras fossem
+detectadas, visto que estas ocorrem em maioria.
