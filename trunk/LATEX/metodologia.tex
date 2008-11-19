@@ -72,14 +72,14 @@ a detecção de transições do tipo Corte:
     corte.}
 
     \item{\textbf{Validação dos pontos encontrados:} Neste ponto o sistema
-    verifica se o ponto apontado como transição de corte não se trata de um fade através da análise da média da luminância
-    dos próximos frames e dos frames anteriores. Se esta for muito baixa, significa que os
-    próximos frames ou os frames anteriores são pretos, ou bastante
+    verifica se o ponto apontado como transição de corte não se trata de um fade
+    através da análise da média da luminância dos próximos frames e dos frames anteriores.
+    Se esta for muito baixa, significa que os próximos frames ou os frames anteriores são pretos, ou bastante
     escuros, o que torna alta a probabilidade destes frames serem pertencentes ao início ou final de um fade.
     Além disso, é realizado o cálculo da diferença entre a média da luminância
     dos dois próximos frames e a média da luminância dos dois frames anteriores. Se esta for nula, ou muito baixa,
-    há grande chance do sistema ter detectado uma borda no Ritmo Visual gerada por um objeto de cena. Caso ocorra um destes
-    casos, o ponto será ignorado.}
+    há grande chance do sistema ter detectado uma borda no Ritmo Visual gerada por um objeto de cena.
+    Caso ocorra um destes casos, o ponto será ignorado.}
 
     \item{\textbf{Transições:}
     No final deste processo, estarão identificadas as transições do vídeo
@@ -163,8 +163,8 @@ fade-in será:
     \end{figure}
 
         Tendo as derivadas calculadas, é feita a análise, a fim de encontrar padrões de fade-in e fade-out,
-		  os quais podem ser vistos na Figura \ref{img_vrhd_fade_in_out}. Nota-se que em ambos os casos de fade,
-		  fica evidente que um fade é representado por um intervalo de variação na derivada do ritmo-visual.
+          os quais podem ser vistos na Figura \ref{img_vrhd_fade_in_out}. Nota-se que em ambos os casos de fade,
+          fica evidente que um fade é representado por um intervalo de variação na derivada do ritmo-visual.
 
         Então o array de derivadas é percorrido ponto a ponto, em busca de intervalos onde a derivada sofre uma variação, como nas figuras citadas acima.
         Para que o sistema comece a avalizar um intervalo de variação esta precisa atender as seguintes condições:
@@ -221,24 +221,30 @@ a detecção de transições do tipo Dissolve:
         \item{Obtenção do Frame;}
         \item{Converte Frame para tons de cinza;}
         \item{Cálculo da Diagonal Principal deste Frame;}
-        \item{Obtenção do Histograma desta diagonal.}
-        \item{Cálculo da Variância do Histograma.}
+        \item{Obtenção do Histograma desta diagonal;}
+        \item{Cálculo da Variância do Histograma (MAURICIO - NÃO É DOS FRAMES DO VÍDEO?).}
     \end{enumerate}
 
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
 
-    \item{\textbf{Verifica pontos de dissolve com 7 frames seguintes:} A partir dos pontos do Ritmo visual por historgrama, é verificado
-    os próximos 7 frames. Caso estes frames estejam em ordem crescente ou decrescente, este frame é um possível ponto de dissolve.}
+    \item{\textbf{Verifica pontos de dissolve com 7 frames seguintes:} A partir dos pontos do
+    Ritmo visual por histograma, são verificados os próximos 7 frames (MAURÍCIO - PROXIMOS 7 FRAMES? EM RELAÇÃO
+    À QUE!?!).
+    Caso estes frames estejam em ordem crescente ou decrescente, este frame é um possível ponto de dissolve.
+    MAURÍCIO - ISTO AQUI NÃO ESTÁ CLARO.NÃO DÁ PRA ENTENDER NADA... REESCREVAM}
 
-    \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Para os possíveis pontos de Dissolve, a derivada destes pontos é calculada,
-     comparando os resultados obtidos a um threshold definido.}
+    \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Para os possíveis pontos de Dissolve,
+    a derivada destes pontos é calculada, comparando os resultados obtidos a um limiar.
+    MAURÍCIO, TAMBÉM NÃO FICOU MUITO CLARO;}
 
-    \item{\textbf{Detecção do Dissolve:} Caso os pontos em questão forem todos menores que o threshold,
-    o primeiro ponto é o início do Dissolve.}
+    \item{\textbf{Detecção do Dissolve:} Caso os pontos em questão forem todos menores que o limiar,
+    o primeiro ponto será indicado como início do Dissolve;}
 
-    \item{\textbf{Verificação de frames escuros nos pontos detectados:} Com base nas detecções, verificamos se o nível de luminância
-    é proximo ao preto, caso positivo, ele será descartado pois tudo indica que é uma transição do tipo fade}
+    \item{\textbf{Verificação de frames escuros nos pontos detectados:} Com base nas detecções,
+    verificamos se o nível de luminância (MAURICIO - LUMINANCIA DE QUEM???) é proximo ao preto, caso positivo,
+    ele (MAURICIO - ELE!? ELE QUEM?) será descartado, pois isto pode indicar que esta transição representa um
+    fade e não um dissolve;}
 
     \item{\textbf{Dissolve detectado:} No final deste processo,
     estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}

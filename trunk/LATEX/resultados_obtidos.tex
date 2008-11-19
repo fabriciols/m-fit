@@ -222,9 +222,9 @@ movimentação de objetos na cena ou por ruídos.
 resultados obtidos com a detecção de cortes utilizando as
 configurações padrões.
 
-\begin{table}[htb] % [htb]-> here, top, botton
+\begin{longtable}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
-   \tiny       % tamanho da fonte
+   \large0       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
    \caption{\it Transições encontradas pelo sistema no vídeo IronMan.avi.}
@@ -297,7 +297,7 @@ configurações padrões.
         \hline
    \end{tabular}
    \label{tab:resultados_Iron}
-\end{table}
+\end{longtable}
 
 \hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
@@ -312,9 +312,6 @@ configurações padrões.
 \hspace*{0.65cm}Novamente os resultados podem ser considerados
 satisfatórios se a análise for baseada nos falsos positivos e falsos
 negativos, chegado a uma taxa de acerto de 72,18\%.
-
-\hspace*{0.65cm}Através da análise destes 3 vídeos têm-se uma média
-de acerto geral de 74,91\%.
 
 \hspace*{0.65cm}\textbf{Vídeo em análise: Teste.avi}
 
@@ -355,14 +352,25 @@ configurações padrões.
 
 \hspace*{0.65cm}Com estes resultados, obtém-se uma performance de
 100\%, porém vale lembrar que este vídeo foi criado com condições
-``perfeitas'' para o processo de detecção.
+``perfeitas'' para o processo de detecção, onde a quantidade de
+ruídos apresentados é consideravelmente baixa.
+
+\hspace*{0.65cm}As transições que não foram detectadas em todos os
+vídeos, apresentaram as mesmas características, mostrando o ponto
+fraco da metodologia adotada. Quando as transições de corte ocorrem
+entre cenas em que a média da luminância de seus pixels seja
+extremamente baixa, ou bastante semelhantes, o sistema falha no
+processo de detecção, aumentando o número de falsos negativos.
+Porém, como este tipo de transição ocorre em minoria, este problema
+não afeta de forma considerável na performance do sistema.
 
 \hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
 metodologia utilizada para a detecção de cortes apresentou
-resultados bastante satisfatórios com um número de falsos negativos
-relativamente baixo.
+resultados bastante satisfatórios com um número de falsos positivos
+relativamente baixo, com uma média de acerto geral de 74,91\% para
+transições do tipo corte.
 
-\subsection{Resultados obtidos: Detecção - Fade\label{resultados_obtidos_cortes}}
+\subsection{Resultados obtidos: Detecção - Fade \label{resultados_obtidos_fade}}
 
 \hspace*{1.25cm}Neste tópico serão apresentados os resultados obtidos nos
 exemplos propostos.
@@ -401,11 +409,15 @@ exemplos propostos.
 \item{\textbf{Falsos negativos  :} 0}
 \end{enumerate}
 
-\hspace*{0.65cm}Considerando os resultados visto na Tabela \ref{tab:resultados_fade_teste}, o resultado é 100\% ``Perfeito'', com todas as reais transições
-detectadas, e as não-transições, não detectadas.
+\hspace*{0.65cm}Considerando os resultados vistos na Tabela
+\ref{tab:resultados_fade_teste}, a taxa de acerto é de 100\%,
+podendo ser considerado um resultado ``perfeito'', onde todas as
+reais transições foram detectadas, e as não-transições, não
+detectadas.
 
-\hspace*{0.65cm}Conclui-se que, em Vídeos onde o ``fade'' é criado seguido
-algumas regras, a detecção tem uma taxa de acerto de 100\%.
+\hspace*{0.65cm}Conclui-se que, em Vídeos onde o ``fade'' é criado
+seguido determinadas regras, a detecção tem uma taxa de acerto de
+100\%.
 
 \subsubsection{Vídeo em análise: Ironman.avi}
 
@@ -453,14 +465,14 @@ algumas regras, a detecção tem uma taxa de acerto de 100\%.
    \large       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo fade que não encontradas pelo sistema no vídeo Ironman.avi.}
+   \caption{\it Transições do tipo fade não encontradas pelo sistema no vídeo Ironman.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Tipo     & Validade \\
-        \hline 1762  & fade-out & false \\
-        \hline 2456  & fade-out & false \\
-        \hline 2492  & fade-out & false \\
-        \hline 2508  & fade-out & false \\
-        \hline 2528  & fade-out & false \\
+        \hline 1762  & fade-out & falso \\
+        \hline 2456  & fade-out & falso \\
+        \hline 2492  & fade-out & falso \\
+        \hline 2508  & fade-out & falso \\
+        \hline 2528  & fade-out & falso \\
         \hline
    \end{tabular}
    \label{tab:resultados_fade_ironman2}
@@ -476,15 +488,25 @@ algumas regras, a detecção tem uma taxa de acerto de 100\%.
 \item{\textbf{Falsos negativos  :} 5}
 \end{enumerate}
 
-\hspace*{0.65cm}Considerando os resultados vistos nas tabelas \ref{tab:resultados_fade_ironman} e \ref{tab:resultados_fade_ironman2}, os resultados foram satisfatórios, com uma taxa de acerto de 94,44\% e a taxa de erro de ??\%
+\hspace*{0.65cm}Considerando os resultados vistos nas tabelas
+\ref{tab:resultados_fade_ironman} e
+\ref{tab:resultados_fade_ironman2}, os resultados foram
+satisfatórios, com uma taxa de acerto de 94,44\%.
 
-\hspace*{0.65cm}Ao analizar os resultados em busca de respostas para os erros, chegamos a conclusão que:
+\hspace*{0.65cm}Ao analisar os resultados em busca de respostas para
+os erros, chegamos a conclusão que:
 
 \begin{enumerate}
 
-\item{A transição detectada indevidamente possuiu uma característica peculiar. Nesta cena acontece um Corte em seu inicio, um intervalo de frames escuros, e por seguinte outro corte. Estes dados confundiram a aplicação, e fizeram ela concluir que esta transição era do tipo fade.}
-\item{As transições não detectadas pelo sistema, compreendiam um tamanho total menor de 10 Frames, e sua sequência
-    de frames pretos menor do que 3 Frames.}
+\item{A transição detectada indevidamente possui uma característica
+peculiar. Onde o início de uma tomada escura, é marcada por um
+corte, e seu fim é marcado por outro corte. Fazendo com que o
+conjunto das transições e da sequência de frames escuros, seja
+confundido com uma transição do tipo fade.}
+
+\item{As transições do tipo fade não detectadas pelo sistema,
+apresentam uma duração menor do que 10 Frames, além disso, a
+sequência de Frames pretos é menor do que 3 Frames.}
 
 \end{enumerate}
 
@@ -555,20 +577,25 @@ algumas regras, a detecção tem uma taxa de acerto de 100\%.
 \item{\textbf{Falsos negativos  :} 2}
 \end{enumerate}
 
-\hspace*{0.65cm}Considerando os resultados vistos nas tabelas \ref{tab:resultados_fade_batman} e \ref{tab:resultados_fade_batman2}
-chegamos a uma taxa de 100\% ``True'' positivo, e de 99\% de ``True'' Negativo.
-Assim a performance da detecção fica em 99\% de acerto, o qual é um exelente valor para tal experimento.
+\hspace*{0.65cm}Considerando os resultados vistos nas tabelas
+\ref{tab:resultados_fade_batman} e \ref{tab:resultados_fade_batman2}
+chegamos a uma taxa de 100\% ``True'' positivo, e de 99\% de
+``True'' Negativo. Assim a performance da detecção fica em 99\% de
+acerto, o qual é um excelente valor para tal experimento.
 
-\hspace*{0.65cm}Analizando a tabela \ref{tab:resultados_fade_batman2} verifica-se
-que cada fade não detectado teve um motivo especial:
+\hspace*{0.65cm}Analisando a Tabela
+\ref{tab:resultados_fade_batman2} verifica-se que os fades não
+detectados apresentam características específicas, onde:
 
 \begin{enumerate}
-\item{ Esta transição tem menos de 10 frames em sua composição, sendo este o limiar de corte. }
-\item{ Esta transição tem a quantidade de, apenas, 3 frames pretos no seu fim, numeroo qual não é possível identificar a partir da derivada do RVH.}
+\item{ A transição possui menos de 10 frames em sua composição, sendo este o limiar de corte. }
+\item{ A transição possui apenas 3 frames pretos no seu fim, número com o qual não é possível
+identificar uma transição do tipo fade a partir da derivada do RVH.}
 \end{enumerate}
 
-\hspace*{0.65cm}Na Figura \ref{img:vrh_batman} é demonstrado um trecho do Ritmo Visual por Histograma do vídeo Batman.avi, onde
-as transições detectadas estão demarcadas com um traço vertical.
+\hspace*{0.65cm}Na Figura \ref{img:vrh_batman} é demonstrado um
+trecho do Ritmo Visual por Histograma do vídeo Batman.avi, onde as
+transições detectadas foram marcadas com uma reta vertical.
 
 \begin{figure}[h|top]
  \centering
@@ -578,12 +605,19 @@ as transições detectadas estão demarcadas com um traço vertical.
  \label{img:vrh_batman}
 \end{figure}
 
-\hspace*{0.65cm}Nesta imagem é possível verificar, que todo fade segue o padrão de um platô seguido de um variação tendendo
-ao preto (valor de luminância), no caso do ``fade-out'', a transição começa no preto e vai variando até a chegar em um platô, no caso
-do ``fade-in''.
-Este funcionamento pode ser entendida de melhor forma na Seção \ref{met_fade}.
+\hspace*{0.65cm}Nesta imagem é possível verificar que todo fade
+segue um padrão, onde, no caso do ``fade-out'', a média da
+luminância dos pixels apresentam-se de forma uniformizada, seguida
+de uma variação que tende a 0 (preto), e no caso do ``fade-in'',
+apresentam-se com o comportamento inverso, partindo de valores
+baixos, variando até chegar em um ponto onde a média da luminância
+se estabiliza. Este processo pode ser melhor entendido na Seção
+\ref{met_fade}.
 
-\hspace*{0.65cm}Na Figura \ref{img:vrhd_batman} é demonstrado um trecho da derivada do Ritmo Visual por Histograma do vídeo Batman.avi, onde as transições detectadas estão demarcadas com um traço vertical.
+\hspace*{0.65cm}Na Figura \ref{img:vrhd_batman} é demonstrado um
+trecho da primeira derivada do Ritmo Visual por Histograma do vídeo
+Batman.avi, onde as transições detectadas estão demarcadas com um
+traço vertical.
 
 \begin{figure}[h|top]
  \centering
@@ -598,11 +632,10 @@ no caso do ``fade-in''. Estes picos evidenciam as variações no Ritmo Visual por 
 ocorrência de ``fades''.
 
 \hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
-metodologia utilizada para a detecção de fades apresentou
-resultados bastante satisfatórios com um número de falsos negativos
-relativamente baixo, e evidencia que a técnica utilizada não comete erros
-ao evidenciar que uma transição é do tipo fade, visto a taxa de
-falsos positivos ser praticamente 0\%.
+metodologia utilizada para a detecção de fades apresentou resultados
+bastante satisfatórios com um número de falsos positivos
+relativamente baixo, mostrando que a técnica utilizada não comete
+erros ao classificar uma determinada transição como sendo um fade.
 
 \subsection{Resultados obtidos: Detecção - Dissolve \label{resultados_obtidos_dissolves}}
 
@@ -611,9 +644,9 @@ falsos positivos ser praticamente 0\%.
 \subsubsection{Vídeo em análise: Teste.avi}
 
 \begin{itemize}
-\item{\textbf{Número de frames    : } 385}
-\item{\textbf{Número de dissolves  : } 2}
-\item{\textbf{Número de não dissolves: } 383}
+\item{\textbf{Número de frames:} 385}
+\item{\textbf{Número de dissolves:} 2}
+\item{\textbf{Número de não dissolves:} 383}
 \end{itemize}
 
 \hspace*{0.65cm}Mais especificamente:
@@ -626,12 +659,14 @@ falsos positivos ser praticamente 0\%.
 \item{\textbf{Falsos negativos:} 0}
 \end{enumerate}
 
-\hspace*{0.65cm}Para este vídeo, que foi feito em condições perfeitas,
-a taxa de acerto foi de 100\%. Assim, para condições perfeitas,
-o método funciona plenamente.
+\hspace*{0.65cm}Para este vídeo, a taxa de acerto foi de 100\%.
+Porém, vale lembrar que este vídeo foi produzido com condições
+``perfeitas'' para o processo de detecção.
 
-\hspace*{0.65cm}A figura \ref{img:rvh_teste} contém o ritmo visual junto com o seu respectivo gráfico, 
-onde indica os pontos de dissolve detectados a partir da diagonal do gráfico (D1 e D2).
+\hspace*{0.65cm}A Figura \ref{img:rvh_teste} mostra o Ritmo Visual
+do vídeo, junto do seu respectivo histograma, onde são indicados os
+pontos de dissolve detectados a partir da diagonal do histograma (D1
+e D2).
 
 \begin{figure}[h|top]
  \centering
@@ -642,6 +677,12 @@ onde indica os pontos de dissolve detectados a partir da diagonal do gráfico (D1
 \end{figure}
 
 \subsubsection{Vídeo em análise: Ironman.avi - Tabela \ref{tab:resultados_IRON_DISSOLVE}}
+
+\begin{itemize}
+\item{\textbf{Número de frames:} 3580}
+\item{\textbf{Número de dissolves:} 1}
+\item{\textbf{Número de não dissolves:} 3579}
+\end{itemize}
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
@@ -678,13 +719,7 @@ onde indica os pontos de dissolve detectados a partir da diagonal do gráfico (D1
    \label{tab:resultados_IRON_DISSOLVE}
 \end{table}
 
-\begin{itemize}
-\item{\textbf{Número de frames    : } 3580}
-\item{\textbf{Número de dissolves   : } 1}
-\item{\textbf{Número de não dissolves: } 3579}
-\end{itemize}
-
-\hspace*{0.65cm}Mais especificamente:
+\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
 \begin{enumerate}
 \item{\textbf{Total de detecções:} 22}
@@ -694,11 +729,18 @@ onde indica os pontos de dissolve detectados a partir da diagonal do gráfico (D1
 \item{\textbf{Falsos negativos:} 0}
 \end{enumerate}
 
-\hspace*{0.65cm}Para este vídeo, a taxa de acerto foi de 0\%. Uma grande porção de 
-cenas contendo fumaças, nuvens e explosões se confundem com uma transição do tipo 
-dissolve pois fazem sobreposições de frames, resultando em uma taxa de acerto não favorável.
+\hspace*{0.65cm}Para este vídeo, a taxa de acerto foi de 0\%. Uma
+grande porção de cenas contendo fumaças, nuvens e explosões são
+confundidas com transições do tipo dissolve, resultando em uma taxa
+de acerto não favorável.
 
 \subsubsection{Vídeo em análise: Batman.avi - Tabela \ref{tab:resultados_Batman_DISSOLVE}}
+
+\begin{itemize}
+\item{\textbf{Número de frames:} 2919}
+\item{\textbf{Número de dissolves:} 4}
+\item{\textbf{Número de não dissolves:} 2915}
+\end{itemize}
 
 \begin{table}[htb] % [htb]-> here, top, botton
    \centering   % tabela centralizada
@@ -726,31 +768,27 @@ dissolve pois fazem sobreposições de frames, resultando em uma taxa de acerto nã
    \end{tabular}
    \label{tab:resultados_Batman_DISSOLVE}
 \end{table}
-\begin{itemize}
-\item{\textbf{Número de frames    : } 2919}
-\item{\textbf{Número de dissolves   : } 4}
-\item{\textbf{Número de não dissolves: } 2015}
-\end{itemize}
 
-\hspace*{0.65cm}Mais especificamente:
+
+\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
 \begin{enumerate}
-\item{\textbf{Total de detecções:} 3}
+\item{\textbf{Total de detecções:} 14}
 \item{\textbf{``True'' positivos:} 3}
 \item{\textbf{Falsos positivos:} 11}
 \item{\textbf{``True'' negativos:} 2904}
 \item{\textbf{Falsos negativos:} 1}
 \end{enumerate}
 
-\hspace*{0.65cm}Observando os resultados, chega-se a conclusão que
-a taxa de acerto é de 21,42\%. Devido ao grande número de explosões detectadas nas 
-cenas, elas se confundem com uma transição do tipo dissolve pois fazem sobreposições 
-de imagens, contribuindo assim para uma baixa taxa de acerto.
+\hspace*{0.65cm}Observando os resultados, é possível afirmar que a
+taxa de acerto é de 21,42\%. Devido ao grande número de cenas
+contendo explosões, o número de falsos positivos aumenta, resultando
+em resultados com baixa taxa de acerto.
 
-
-\hspace*{0.65cm}Para a detecção do dissolve, primeiramente foi utilizado
-uma metodologia que calcula a razão entre a segunda variância da luminância e
-a derivada dos ritmo visual. Porém este método não trouxe resultados esperados,
-com uma taxa de erro inviável. Assim, foi desenvolvido um novo método de análise
-dos pontos de lumiância do frame juntamente com um threshold definido e um limiar
+\hspace*{0.65cm}Para a detecção do dissolve, primeiramente foi
+utilizado uma metodologia que calcula a razão entre a segunda
+variância dos frames do vídeo e a primeira derivada do Ritmo Visual.
+Porém este método não apresentou resultados satisfatórios. Desta
+forma, foi desenvolvido um novo método de análise dos pontos de
+lumiância do frame juntamente com um limiar definido e um limiar
 para separar detecções do tipo fade.
