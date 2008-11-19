@@ -340,7 +340,7 @@ da reta, é feita uma análise, a fim de encontar possíveis fades.
 \hspace*{1.25cm}\textbf{Cenário Principal:} Feita a análise,
     cria-se os objetos do Fade-out.
 
-\subsection{Cenário Detecção de dissolve \label{use_case_dissolve}}
+\subsection{Cenário Detecção de Dissolve \label{use_case_dissolve}}
 
 \begin{figure}[h|top]
  \centering
@@ -384,11 +384,24 @@ todos em um Ritmo Visual.
 
 \hspace*{1.25cm}Ver: \ref{use_case_pico_hist}
 
-\subsubsection{Caso de uso: Cálculo da derivada do RVH \label{use_case_derivada_RVH}}
+\subsubsection{Caso de uso: RV por histograma (RVH)}
+
+\hspace*{1.25cm}Ver: \ref{use_case_rvh}
+
+\subsubsection{Caso de uso: Verifica os 7 frames seguintes \label{use_case_7pontos}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} Verifica se estes 7 frames tem um comportamento crescente ou
+decrescente, formando uma diagonal.
+
+\subsubsection{Caso de uso: Derivada dos possíveis pontos de Dissolve\label{use_case_derivada_dissolve}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} A partir do Ritmo Visual
-por Histograma do video, é calculada a derivada para cada ponto
-deste Ritmo Visual.
+por Histograma do video, é calculada a derivada da diagonal demarcada como possivel dissolve.
+
+\subsubsection{Caso de uso: Compara pontos da derivada com limiar definido \label{use_case_derivada_com_limiar}}
+
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir da derivada do RHV é definido um limiar de corte para
+separar transições do tipo dissolve.
 
 \section{Diagrama de Classes \label{diagrama_classes}}
 
