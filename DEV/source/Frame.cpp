@@ -618,101 +618,75 @@ void Frame::binarizeImage(int threshold)
 }
 
 /************************************************************************
- * Funcao que calcula a média de luminancia de uma imagem.
+ * Funcao que calcula a média de luminancia da diagonal de uma imagem.
  *************************************************************************
  * param (E): Frame* frame => Imagem a ser calculada média.
  *************************************************************************
  * Histórico:
+ * 18/11/08 - Thiago Mizutani
+ * Refazendo função.
  * 18/08/08 - Ivan Shiguenori Machida
  * Criação.
  ************************************************************************/
 
-double Frame::mediaBin()
+double Frame::calcLuminanceAvarage()
 {
-	int x = 0;
-	int y = 0;
 	int i = 0;
+	int height = 0;
+	
+	double total = 0; // Total da soma da luminancia dos pixels.
+	double avarage = 0; // média da luminancia
+	Frame* diagonal;
 
-	double a = 0; // Coeficiente angular da equacao
+	diagonal = this->getDiagonal(); // Pego a diagonal do frame.
+	height = this->getHeight();
 
-	double mean = 0;
-
-	/** Calculo o coeficiente angular da reta ('a' da equacao).
-	 * this->getHeight = y - yo
-	 * this->getWidth  = x - xo
-	 * y - yo = m*(x - xo)
-	 **/
-	a = (float)(this->getHeight()/(float)this->getWidth());
-
-	// Pego a diagonal do this.
-	for (x=0; x < this->getWidth()-1 ; x++)
+	for(i=0;i<height;i++)
 	{
-		y = cvRound(a * x);
+		total = total + diagonal->getPixel(0,i); // Função getDiagonal retorna um frame com largura de 1 pixel
+	}
 
-		mean += this->getPixel(x, y);
+	avarage = total / height;
 
-		i++;
-	}	
+	delete diagonal;
 
-	// Calcula-se a média dos pixels somados.
-	mean = mean / i;
-
-//	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
-
-	return (mean);
+	return (avarage);
 }
 
 /************************************************************************
- * Funcao que calcula a média de luminancia de uma imagem.
+ * Funcao que calcula a variancia dos pixels de uma imagem.
  *************************************************************************
  * param (E): Frame* frame => Imagem a ser calculada média.
  *************************************************************************
  * Histórico:
+ * 18/11/08 - Thiago Mizutani
+ * Recriando função. Centralização de processos.
  * 18/08/08 - Ivan Shiguenori Machida
  * Criação.
  ************************************************************************/
 
-double Frame::pointVariance()
+double Frame::calculateVariance(double avarage)
 {
-	int x = 0;
-	int y = 0;
+	Frame* diagonal;
+	int height = 0;
+	int width = 0;
 	int i = 0;
+	double difference = 0;
+	double variance; // variancia da luminancia 
 
-	double diagonal = 0; // Coeficiente angular da equacao
+	diagonal = this->getDiagonal();
 
-	double mean = 0;
-	double variance = 0;
+	height = diagonal->getHeight();
 
-	/** Calculo o coeficiente angular da reta ('diagonal' da equacao).
-	 * this->getHeight = y - yo
-	 * this->getWidth  = x - xo
-	 * y - yo = m*(x - xo)
-	 **/
-	diagonal = (float)(this->getHeight()/(float)this->getWidth());
-
-	// Pego diagonal diagonal do this.
-	for (x=0; x < this->getWidth()-1 ; x++)
-	{
-		y = cvRound(diagonal * x);
-
-		mean += this->getPixel(x, y);
-
-		i++;
-	}	
-
-	// Calcula-se diagonal média dos pixels somados.
-	mean = mean / i;
-
-	for (x=0; x < this->getWidth()-1 ; x++)
-	{
-		y = cvRound(diagonal * x);
-
-		variance += (this->getPixel(x, y) - mean) * (this->getPixel(x, y) - mean);
+	for(i=0;i<height;i++)
+	{	
+		difference = diagonal->getPixel(0,i) - avarage;
+		variance = variance + pow(difference,2);
 	}
 
-	variance = variance / (this->getWidth()-2);
+	variance = variance / (double)(height-1);
 
-//	Log::writeLog("%s :: mean-geral[%.lf]", __FUNCTION__, mean);
+	delete diagonal;
 
 	return (variance);
 }

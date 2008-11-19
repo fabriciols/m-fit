@@ -7,11 +7,7 @@ class Dissolve: public DetectTransitions
 	public:
 		void detectTransitions(Video* vdo, std::vector<Transition>*);
 
-	/**
-	 *Calcula a primeira derivada de
-	 *uma curva.
-	 */
-		int calcFirstDerivative(double , double, double, double);
-		double* calcVariance(Video*);
-		double* calcDerivative(double *, int);
+		double* calculateVariance(Video*, double*);
+		double* calculateDerivative(double *, int);
+		int* validateDissolve(double*, double*, int, int);
 };

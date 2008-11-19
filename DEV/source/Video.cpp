@@ -149,10 +149,10 @@ void Video::updatePos()
 
 	//CV_CAP_PROP_POS_FRAMES - 0-based index of the frame to be decoded/captured next
 	this->framePos = cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_FRAMES);
-	Log::writeLog("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
+//	Log::writeLog("%s :: framePos[%.0f] ", __FUNCTION__, this->framePos);
 
 	msec = (long)cvGetCaptureProperty(this->data, CV_CAP_PROP_POS_MSEC);
-	Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
+//	Log::writeLog("%s :: timePos[%.0f] ", __FUNCTION__, msec);
 
 }
 
@@ -249,7 +249,7 @@ Frame* Video::getNextFrame()
 			// Seto o frame sem o wide 
 			frameNew->setImage(imgWide);
 
-			Log::writeLog("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
+//			Log::writeLog("%s :: setting ROI: x[%d] y[%d] height[%d] width[%d]", __FUNCTION__ , this->ROI.x, this->ROI.y, this->ROI.height, this->ROI.width);
 		}
 
 		return (frameNew);
@@ -296,8 +296,8 @@ Frame* Video::getCurrentFrame()
 {
 	// Pega o frame atual
 	Frame *frameCurrent = getNextFrame();
-
 	// Volta a apontar pra ele
+	
 	if (seekFrame((long)this->getCurrentPosition() - 1) == 1)
 	{
 		// Se retornar 1: erro FATAL!
