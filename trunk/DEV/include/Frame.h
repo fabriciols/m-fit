@@ -53,7 +53,6 @@ class Frame
 		void initAttr();
 		void write(char *filename_cy);
 		double calcLuminanceAvarage();
-		double calculateVariance(double);
 
 		// Funcoes estaticas
 		static void imgCopy(IplImage *imgSrc, IplImage *imgDst);
