@@ -333,12 +333,12 @@ da reta, é feita uma análise, a fim de encontar possíveis fades.
 \subsubsection{Detecta Fade-In \label{use_case_detecta_fadein}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Feita a análise,
-	cria-se os objetos do Fade-in.
+    cria-se os objetos do Fade-in.
 
 \subsubsection{Fade-Out \label{use_case_detecta_fadeout}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Feita a análise,
-	cria-se os objetos do Fade-out.
+    cria-se os objetos do Fade-out.
 
 \subsection{Cenário Detecção de dissolve \label{use_case_dissolve}}
 
@@ -729,10 +729,10 @@ representar Histogramas.
 
 \item{void binarizeImage()}
 
-\hspace*{0.65cm}Binariza a imagem.  Tudo aquilo que
-possuir luminancia menor do que o limiar passado, terá seu valor
-alterado para 0 e tudo aquilo que tiver luminancia acima do valor do
-limiar terá seu valor alterado para 255.
+\hspace*{0.65cm}Binariza a imagem.  Tudo aquilo que possuir
+luminância menor do que o limiar passado, terá seu valor alterado
+para 0 e tudo aquilo que tiver luminância acima do valor do limiar
+terá seu valor alterado para 255.
 
 \item{void initAttr()}
 
@@ -742,9 +742,9 @@ limiar terá seu valor alterado para 255.
 
 \hspace*{0.65cm}Escreve a imagem em arquivo.
 
-\item{double mediaBin()}
+\item{double calcLuminanceAvarage()}
 
-\hspace*{0.65cm}Calcula a média de luminancia do Frame.
+\hspace*{0.65cm}Calcula a média de luminância do Frame.
 
 \item{static void imgCopy()}
 
@@ -752,7 +752,7 @@ limiar terá seu valor alterado para 255.
 
 \item{static void imgDealloc()}
 
-\hspace*{0.65cm}Desaloca o espaco de memória reservado à uma imagem.
+\hspace*{0.65cm}Desaloca o espaço de memória reservado à uma imagem.
 
 \item{static IplImage* imgAlloc(Frame* frame)}
 
@@ -776,7 +776,7 @@ Frame.
 
 \item{int getPixel()}
 
-\hspace*{0.65cm}Função que retorna o valor de luminancia de um
+\hspace*{0.65cm}Função que retorna o valor de luminância de um
 determinado pixel (x,y).
 
 \item{Frame operator+=()}
@@ -793,12 +793,6 @@ entre dois objetos, e não dois ponteiros.
 
 \hspace*{0.65cm}Função que retorna a maior luminância de um frame.
 
-\item{double pointVariance}
-
-\hspace*{0.65cm}Retorna a variância da diagonal de um frame.
-
-\end{enumerate}
-
 \subsection{Classe: Histogram \label{classe_Histogram}}
 
 \hspace*{1.25cm}Classe responsável por armazenar os dados do
@@ -809,13 +803,13 @@ histograma de um frame.
 \begin{enumerate}
 \item{Histogram()}
 
-\hspace*{0.65cm}Consturtor da classe que inicializa as variáveis
+\hspace*{0.65cm}Construtor da classe que inicializa as variáveis
 internas.
 
 \item{Histogram(IplImage* img)}
 
 \hspace*{0.65cm}Construtor para Histogram que recebe uma imagem do
-tipo IplImage e com isso gera o histograma, preenchedo os atributos
+tipo IplImage e com isso gera o histograma, preenchendo os atributos
 necessários
 
 \end{enumerate}
@@ -1703,7 +1697,7 @@ do tipo dissolve presentes no vídeo.
 \item{VR cria objeto Color;}
 \item{VR solicita à VDO o primeiro frame de video;}
 \item{VR solicita à Color a conversão do frame para tons de cinza;}
-\item{VR solicita à FRAME a média da diagonal do frame corrente;}
+\item{VR solicita à FRAME a média da luminância do frame corrente;}
 \item{VR solicita à VDO o próximo frame de video;}
 \item{VR solicita à VDO a destruição do objeto;}
 \item{VR solicita à FRAME a destruição do objeto;}
