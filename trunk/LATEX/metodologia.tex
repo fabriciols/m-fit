@@ -214,26 +214,23 @@ a detecção de transições do tipo Dissolve:
         \item{Converte Frame para tons de cinza;}
         \item{Cálculo da Diagonal Principal deste Frame;}
         \item{Obtenção do Histograma desta diagonal;}
-        \item{Cálculo da Variância dos frames do vídeo.}
     \end{enumerate}
 
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
 
-    \item{\textbf{Verifica pontos de dissolve com 7 frames seguintes:} A partir dos pontos do
-    Ritmo visual por histograma, são verificados as médias da luminância dos próximos 7 frames do vídeo.
-    Caso as médias estejam em ordem crescente ou decrescente, este frame é um possível ponto de dissolve.}
+    \item{\textbf{Verifica comportamento do RVH:} A partir dos pontos do
+    Ritmo visual por histograma, é analisado para cada ponto do gráfico, se os 7 pontos seguintes seguem uma 
+    ordem crescente ou decrescente, formando uma diagonal, este frame é um possível ponto de dissolve.
 
-    \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Para os possíveis pontos de Dissolve,
-    serão calculadas as suas derivadas, as quais serão submetidas a um limiar.}
+    \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Com os possiveis pontos de dissolve, é feito uma
+    análise da derivada desta diagonal para cada ponto do gráfico do RVH, caso esta derivada não ultrapassar
+    o limiar definido, este é um ponto canditado ao dissolve.
 
-    \item{\textbf{Detecção do Dissolve:} Caso os pontos em questão forem todos menores que o limiar,
-    o primeiro ponto será indicado como o início do Dissolve.}
-
-    \item{\textbf{Verificação de frames escuros nos pontos detectados:} Com base nas detecções,
-    para cada ponto definido como início do Dissolve, é verificado seu nível de luminância.
-    Caso o nível de luminância seja próximo a 0, este ponto não será considerado um dissolve,
-    visto que isto indica que esta transição pode representar um fade e não um dissolve;}
+    \item{\textbf{Retirar transições do tipo fade:} Com base nos pontos de possiveis transições do tipo Dissolve,
+    verificamos o nível de luminância mais baixo da diagonal do RVH em questão, caso este frame estiver dentro do
+    limiar de fade definido ele será descartado, pois isto pode indicar que esta transição representa um fade e 
+    não um dissolve;}
 
     \item{\textbf{Dissolve detectado:} No final deste processo,
     estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
