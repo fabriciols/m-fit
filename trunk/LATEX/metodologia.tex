@@ -221,21 +221,19 @@ a detecção de transições do tipo Dissolve:
     até o último frame do vídeo.
 
     \item{\textbf{Verifica pontos de dissolve com 7 frames seguintes:} A partir dos pontos do
-    Ritmo visual por histograma, são verificados as médias dos pontos de luminância dos próximos 7 frames do vídeo.
+    Ritmo visual por histograma, são verificados as médias da luminância dos próximos 7 frames do vídeo.
     Caso as médias estejam em ordem crescente ou decrescente, este frame é um possível ponto de dissolve.}
 
-
     \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Para os possíveis pontos de Dissolve,
-    a derivada destes pontos é calculada, comparando os resultados obtidos a um limiar definido.}
-
+    serão calculadas as suas derivadas, as quais serão submetidas a um limiar.}
 
     \item{\textbf{Detecção do Dissolve:} Caso os pontos em questão forem todos menores que o limiar,
-    o primeiro ponto será indicado como início do Dissolve.}
+    o primeiro ponto será indicado como o início do Dissolve.}
 
     \item{\textbf{Verificação de frames escuros nos pontos detectados:} Com base nas detecções,
     para cada ponto definido como início do Dissolve, é verificado seu nível de luminância.
-    Caso o nível de luminância seja proximo ao preto, este ponto não será considerado um dissolve,
-    pois este fator indica que esta transição representa um fade e não um dissolve;}
+    Caso o nível de luminância seja próximo a 0, este ponto não será considerado um dissolve,
+    visto que isto indica que esta transição pode representar um fade e não um dissolve;}
 
     \item{\textbf{Dissolve detectado:} No final deste processo,
     estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
