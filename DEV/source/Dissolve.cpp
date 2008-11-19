@@ -40,7 +40,7 @@
 ************************************************************************/
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
-	double* visualRythim;
+	double* visualRythim; // Array para receber o RVH.
 	double* variance; // Variancia das diagonais dos frames do vídeo.
 	double* firstDerVariance; // Primeira derivada da variancia
 	double* secondDerVariance; // Segunda derivada da variancia
@@ -50,10 +50,13 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	double difference;
 
 	int threshold = 2; // Limiar para validação do dissolve (referencia de artigo).
-	int* dissolvePoints; // Pontos de ocorrencia do dissolve.
 
 	int videoSize = 0; // Tamanho do vídeo (em frames).
 	int i = 0;
+	int j = 0;
+	int countNext = 0; // Contador para os próximos frames
+	int countPrevious = 0; // Contador para os frames anteriores.
+
 	VisualRythim* vrh = new VisualRythim();
 	Frame* currentFrame;
 
@@ -104,18 +107,12 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 			break;
 	}
 
-	Log::writeLog("%s :: derivadas", __FUNCTION__);
-	Log::writeLog("%s :: visual = %lf", __FUNCTION__, visualRythim[0]);
-	Log::writeLog("%s :: variance = %lf", __FUNCTION__, variance[0]);
-
+	// Calculando as derivadas (todas ao mesmo tempo).
 	firstDerLuminance[0] = (visualRythim[0]*-1)/2;
 	firstDerVariance[0] = (variance[0]*-1)/2;
 
-	Log::writeLog("%s :: 1a der lum = %lf , 1a der var = %lf", __FUNCTION__,firstDerLuminance[0],firstDerVariance[0]);
-
 	for(i=1;i<videoSize;i++)
 	{
-		Log::writeLog("%s :: i = %d", __FUNCTION__, i);
 		firstDerLuminance[i] = (visualRythim[i+1] - visualRythim[i-1])/2.0;
 		firstDerVariance[i] = (variance[i+1] - variance[i-1])/2.0;
 		if((i-1) == 0)
@@ -124,23 +121,70 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 			secondDerVariance[i-1] = (firstDerVariance[i] - firstDerVariance[i-2])/2.0;
 	}
 
-	Log::writeLog("%s :: ultima derivada", __FUNCTION__);
-
+	// Como esta derivada começou 1 posição depois, devo preencher a ultima posição aqui.
 	secondDerVariance[i] = (firstDerVariance[i+1] - firstDerVariance[i-1])/2.0;
+
+	Log::writeLog("%s :: second = %lf", __FUNCTION__, secondDerVariance[i]);
 
 //	dissolvePoints = validateDissolve(ratio, visualRythim, threshold, videoSize);
 
 	for( i=0; i<videoSize; i++ )		
 	{
-		ratio[i] = secondDerVariance[i]/firstDerLuminance[i];
-		ratio[i+1] = secondDerVariance[i+1]/firstDerLuminance[i+1];
+		// Calculando a razão 2a Derivada da variancia / 1a Derivada da media da luminancia
+		if(firstDerLuminance[i] != 0.0 && secondDerVariance[i] != 0.0)
+		{
+			ratio[i] = secondDerVariance[i]/firstDerLuminance[i];
+			ratio[i+1] = secondDerVariance[i+1]/firstDerLuminance[i+1];
+		}
+		else 
+		{
+			ratio[i] = 0.0;
+			ratio[i+1] = 0.0;
+		}
 
+		// Diferença entre a razão de um frame e o próximo, de forma que o valor deve estar em módulo.
 		difference = fabs(fabs(ratio[i+1]) - fabs(ratio[i]));
+
+		Log::writeLog("%s :: secondDerVariance[%d] = %lf", __FUNCTION__, i, secondDerVariance[i]);
+		Log::writeLog("%s :: firstDerLuminance[%d] = %lf", __FUNCTION__, i, firstDerLuminance[i]);
+		Log::writeLog("%s :: ratio[%d] = %lf", __FUNCTION__, i, ratio[i]);
+		Log::writeLog("%s :: nextRatio[%d] = %lf", __FUNCTION__, i+1, ratio[i+1]);
+		Log::writeLog("%s :: difference = %lf", __FUNCTION__, difference);
 
 		if(difference <= threshold)
 		{
-			Transition* newTransition = new Transition(TRANSITION_DISSOLVE,i,"Dissolve");
-			transitionList->push_back(*newTransition);
+			// Se os próximos 10 frames estiverem mto escuros, significa que é um fade-out
+			for(j=i; j<i+10 && j<videoSize; j++)		
+			{
+				
+				Log::writeLog("%s :: visualRythim[%d] = %lf, i = %d", __FUNCTION__, j, visualRythim[j], i);
+
+				if(visualRythim[j] < 10)
+				{
+					countNext++;
+				}
+			}
+
+			// Se os 10 frames anteriores estiverem mto escuros, significa que é um fade-in
+			for(j=i; j>i-10 && j>0; j--)
+			{
+				if(visualRythim[j] < 10)
+				{
+					countPrevious++;
+				}
+			}	Log::writeLog("%s :: countNext[%d] = %d", __FUNCTION__, i, countNext);
+			
+			Log::writeLog("%s :: countNext[%d] = %d", __FUNCTION__, i, countNext);
+			Log::writeLog("%s :: countPrevious[%d] = %d", __FUNCTION__, i, countPrevious);
+
+			if(countNext < 3 && countPrevious < 3)
+			{
+				Transition* newTransition = new Transition(TRANSITION_DISSOLVE,i,"Dissolve");
+				transitionList->push_back(*newTransition);
+			}
+
+			countNext = 0;
+			countPrevious = 0;
 		}
 	}
 	
