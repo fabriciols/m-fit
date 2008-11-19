@@ -59,11 +59,20 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 
 	videoSize = cvRound(vdo->getFramesTotal());
 
-	variance = (double*)malloc(sizeof(double)*(long)videoSize);
+	variance = (double*)malloc(sizeof(double)*videoSize);
 	memset(variance,'\0',sizeof(variance));
 
-	ratio = (double*)malloc(sizeof(double)*(long)videoSize);
+	ratio = (double*)malloc(sizeof(double)*videoSize);
 	memset(ratio,'\0',sizeof(ratio));
+
+	firstDerVariance = (double*)malloc(sizeof(double)*videoSize);
+	memset(firstDerVariance,'\0',sizeof(firstDerVariance));
+
+	secondDerVariance = (double*)malloc(sizeof(double)*videoSize);
+	memset(secondDerVariance,'\0',sizeof(secondDerVariance));
+	
+	firstDerLuminance = (double*)malloc(sizeof(double)*videoSize);
+	memset(firstDerLuminance,'\0',sizeof(firstDerLuminance));
 
 	if(vdo->getCurrentPosition() != 0)
 		vdo->seekFrame(0);
@@ -107,17 +116,17 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	for(i=1;i<videoSize;i++)
 	{
 		Log::writeLog("%s :: i = %d", __FUNCTION__, i);
-		firstDerLuminance[i] = (visualRythim[i+1] - visualRythim[i-1])/2;
-		firstDerVariance[i] = (variance[i+1] - variance[i-1])/2;
+		firstDerLuminance[i] = (visualRythim[i+1] - visualRythim[i-1])/2.0;
+		firstDerVariance[i] = (variance[i+1] - variance[i-1])/2.0;
 		if((i-1) == 0)
-			secondDerVariance[0] = (firstDerVariance[0]*-1)/2;
+			secondDerVariance[0] = (firstDerVariance[0]*-1)/2.0;
 		else
-			secondDerVariance[i-1] = (firstDerVariance[i] - firstDerVariance[i-2])/2;
+			secondDerVariance[i-1] = (firstDerVariance[i] - firstDerVariance[i-2])/2.0;
 	}
 
 	Log::writeLog("%s :: ultima derivada", __FUNCTION__);
 
-	secondDerVariance[i] = (firstDerVariance[i+1] - firstDerVariance[i-1])/2;
+	secondDerVariance[i] = (firstDerVariance[i+1] - firstDerVariance[i-1])/2.0;
 
 //	dissolvePoints = validateDissolve(ratio, visualRythim, threshold, videoSize);
 
