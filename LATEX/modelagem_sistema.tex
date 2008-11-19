@@ -1847,18 +1847,21 @@ Histograma. }
 
 \item{\textbf{Verificando possíveis pontos de Dissolve}
 
-Sistema entra no estado em que para cada ponto do Ritmo Visual, é
-checado se os próximos 7 frames estão em ordem crescente ou decrescente 
-para que este frame seja um possível ponto de Dissolve. }
+Sistema entra no estado em que para cada ponto do Ritmo Visual por
+Histograma, são verificados os próximos 7 pontos. Se estes possuírem
+um comportamento crescente ou decrescente, o primeiro deles será
+considerado um possível local de ocorrência de Dissolve.}
 
 \item{\textbf{Calculando Derivada dos possíveis pontos de Dissolve}
 
-Sistema entra no estado em que a partir dos possíveis pontos de Dissolve, calcula-se a
-primeira derivadadeste pontos.}
+Sistema entra no estado em que é calculada a primeira derivada dos
+possíveis pontos de Dissolve determinados no estado anterior.}
 
 \item{\textbf{Verificando os resultados da primeira derivada dos possíveis pontos de Dissolve}
 
-Os resultados da derivada são comparados a um limiar definido.}
+Os resultados da derivada são comparados a um limiar. Se todas as
+derivadas de um determinado trecho estiverem abaixo do limiar
+definido, este será considerado um ponto de ocorrência de Dissolve.}
 
 \item{\textbf{Limiar de fade}
 
