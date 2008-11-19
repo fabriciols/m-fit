@@ -93,8 +93,8 @@ Histogram::Histogram(IplImage* img)
 	this->maxLum = maxLum;
 	this->minLum = minLum;
 
-	Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]", __FUNCTION__, this->minLum, this->min, this->maxLum, this->max);
-	Log::writeLog("%s :: soma_pixels[%.0lf] == width*height[%.0ld]", __FUNCTION__, soma, img->width * img->height);
+//	Log::writeLog("%s :: min[%d]: [%.0f], max[%d]: [%.0f]", __FUNCTION__, this->minLum, this->min, this->maxLum, this->max);
+//	Log::writeLog("%s :: soma_pixels[%.0lf] == width*height[%.0ld]", __FUNCTION__, soma, img->width * img->height);
 
 }
 

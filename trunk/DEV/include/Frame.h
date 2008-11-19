@@ -52,8 +52,8 @@ class Frame
 		void binarizeImage(int treshold);	
 		void initAttr();
 		void write(char *filename_cy);
-		double mediaBin();
-		double pointVariance();
+		double calcLuminanceAvarage();
+		double calculateVariance(double);
 
 		// Funcoes estaticas
 		static void imgCopy(IplImage *imgSrc, IplImage *imgDst);

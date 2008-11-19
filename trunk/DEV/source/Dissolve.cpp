@@ -31,181 +31,155 @@
 * return : Nenhum
 *************************************************************************
 * Histórico:
-* 16/10/08 - Mauricio Hirota / Ivan Shiguenori Machida
-* Criação.
+* 18/11/08 - Thiago Mizutani
+* Recriação da função
 * 08/11/08 - Ivan Shiguenori Machida
 * Utilizacao da funcao calcFirstDerivative
+* 16/10/08 - Mauricio Hirota / Ivan Shiguenori Machida
+* Criação.
 ************************************************************************/
 void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
-	double *array_vrh;
-	double *array_variance;
-	int k;
-	double videoSize;
+	double* visualRythim;
+	double* variance; // Variancia das diagonais dos frames do vídeo.
+	double* firstDerVariance; // Primeira derivada da variancia
+	double* secondDerVariance; // Segunda derivada da variancia
+	double* firstDerLuminance; // Primeira derivada da media da luminancia
+	double* ratio; // Diferenca entre a 2a derivada da variancia e 1a derivada da media da luminancia
 
-	double *detect, *orientation, thresholdMax=0, thresholdMin=0;
+	double difference;
 
-	// Array da segunda derivada
-	double *arrayDDvariance;
-	// Array da primeira derivada
-	double *arrayDmean;
+	int threshold = 2; // Limiar para validação do dissolve (referencia de artigo).
+	int* dissolvePoints; // Pontos de ocorrencia do dissolve.
 
-	VisualRythim* vrh;
+	int videoSize = 0; // Tamanho do vídeo (em frames).
+	int i = 0;
+	VisualRythim* vrh = new VisualRythim();
+	Frame* currentFrame;
 
 	videoSize = cvRound(vdo->getFramesTotal());
 
-	detect = (double *) malloc(sizeof(double)*cvRound(videoSize));
-	orientation = (double *) malloc(sizeof(double)*cvRound(videoSize));
+	variance = (double*)malloc(sizeof(double)*(long)videoSize);
+	memset(variance,'\0',sizeof(variance));
 
-	memset(detect, '\0',     sizeof(double)*cvRound(videoSize));
-	memset(orientation, '\0',     sizeof(double)*cvRound(videoSize));
+	ratio = (double*)malloc(sizeof(double)*(long)videoSize);
+	memset(ratio,'\0',sizeof(ratio));
 
+	if(vdo->getCurrentPosition() != 0)
+		vdo->seekFrame(0);
+
+	// Retirando partes indesejáveis do vídeo.
 	vdo->removeWide();
 	vdo->removeBorder();
 
-	//Coleta o ritmo visual dos frames
-	array_vrh = vrh->createVRH(vdo);
-	
+	// obtenho o ritmo visual. Com isso já tenho a média da luminancia dos frames.
+	visualRythim = vrh->createVRH(vdo);
+
+	// Depois de criar o RVH tenho que voltar o ponteiro para o primeiro frame.
 	vdo->seekFrame(0);
-	
-	array_variance = calcVariance(vdo);
 
-	arrayDmean = calcDerivative(array_vrh, cvRound(videoSize));
-	arrayDDvariance = calcDerivative(calcDerivative(array_variance, cvRound(videoSize)), cvRound(videoSize));
+	currentFrame = vdo->getCurrentFrame();
 
-	thresholdMin = 0.25;
-	thresholdMax = 4.0;
+	Log::writeLog("%s :: Calculando variancia", __FUNCTION__);
 
-	//Verifica ponto de dissolve
-	for(k=0;k<videoSize;k++)
+	// Calculo a variancia da diagonal de cada frame do vídeo.
+	for(i=0; i<videoSize; i++)
 	{
-		if(arrayDDvariance[k]/arrayDmean[k] == 0)
-		{
-			detect[k]=1;
+		variance[i] = currentFrame->calculateVariance(visualRythim[i]);
 
-			while(arrayDDvariance[k]/arrayDmean[k] == 0)
-				k++;
-		}
-	}
-
-	//Transportando para matriz de detecção
-	for(k=0;k<videoSize;k++)
-	{
-		if(detect[k]==1)
-		{
-			Transition *transition = new Transition();
-
-			transition = new Transition(TRANSITION_DISSOLVE, k, "Dissolve");
-
-			if(this->validateTransition(k, transitionList))
-				transitionList->push_back(*transition);
-		}
-	}
-}
-
-/************************************************************************
-* Função que calcula a segunda derivada através do histograma do ritmo 
-* visual
-*************************************************************************
-* param (E): vetor de entrada
-*************************************************************************
-* return : float -> valor da segunda derivada do histograma do ritmo 
-* visual
-*************************************************************************
-* Histórico:
-* 18/08/08 - Ivan Shiguenori Machida
-* Criação.
-************************************************************************/
-int Dissolve::calcFirstDerivative(double firstFrame, double secondFrame, double thresholdMax, double thresholdMin)
-{
-	if(((secondFrame-firstFrame) < thresholdMax) && ((secondFrame-firstFrame) > thresholdMin))
-		return(1);
-	else
-		return(0);
-}
-
-double* Dissolve::calcDerivative(double *array, int size_i)
-{
-	// Para calcular a derivada no eixo y , calculamos para cada ponto fy:
-	// dy = ((f(y+1) - f(y-1)) / 2)
-
-	//double dy;
-	int i = 0;
-	double *array_dy;
-
-//	Log::writeLog("%s :: array[%x] size_i[%d]", __FUNCTION__, array, size_i);
-
-	array_dy = (double*)malloc(sizeof(double)*size_i);
-
-	// Calculo para a posicao 0
-	array_dy[i] = ( 0 - array[i] ) / 2;
-//	Log::writeLog("%s :: array_y[%d] = %lf array_dy[%d] = %lf", __FUNCTION__, i, array[i], i, array_dy[i]);
-
-	for ( i = 1 ; i < size_i ; i++ )
-	{
-		array_dy[i] = (( array[i+1] - array[i-1] ) / 2);
-//		Log::writeLog("%s :: array_y[%d] = %lf array_dy[%d] = %lf", __FUNCTION__, i, array[i], i, array_dy[i]);
-	}
-
-	return array_dy;
-}
-
-double* Dissolve::calcVariance(Video* vdo)
-{
-	Frame* frame = new Frame(); 
-	Frame* frameGray = 0;
-	Frame *frameDiagonal = 0;
-	Color *color = new Color();
-
-	double totalFrames = vdo->getFramesTotal();
-
-	int posic = 0;
-
-	double* variance;
-
-	variance = (double*)malloc(sizeof(double)*cvRound(totalFrames));
-
-	memset(variance, '\0',     sizeof(double)*cvRound(totalFrames));
-
-	// Pego o primeiro frame
-	frame = vdo->getNextFrame();	
-
-	while(frame != NULL)
-	{
-
-		if (posic >= totalFrames)
-		{
-			Log::writeLog("%s :: BOOOOOOM!", __FUNCTION__);
-		}
-
-		// Converto o frame para escala de cinza.
-		frameGray = color->convert2Gray(frame);
-
-		// Pega a diagonal
-		frameDiagonal = frameGray->getDiagonal();
-
-		// Guardo a media do valor de luminancia da diagonal.
-		variance[posic] = frameGray->pointVariance();
-	
-		Log::writeLog("variance[%lf] posic[%d]", variance[posic], posic);
-
-		/**
-		 * Deleto os objetos criados anteriormente para desalocamento de
-		 * memoria.
-		**/
-		delete frameDiagonal;
-		delete frameGray;
-		delete frame;
+		delete currentFrame;
 		
-		// Pego o proximo
-		frame = vdo->getNextFrame();
+		currentFrame = vdo->getNextFrame();
 
-		posic++;
-
+		if(!currentFrame)
+			break;
 	}
 
-	delete color;
-	// Retorno o array com os valores do RVH
+	Log::writeLog("%s :: derivadas", __FUNCTION__);
+	Log::writeLog("%s :: visual = %lf", __FUNCTION__, visualRythim[0]);
+	Log::writeLog("%s :: variance = %lf", __FUNCTION__, variance[0]);
 
-	return (variance);
+	firstDerLuminance[0] = (visualRythim[0]*-1)/2;
+	firstDerVariance[0] = (variance[0]*-1)/2;
+
+	Log::writeLog("%s :: 1a der lum = %lf , 1a der var = %lf", __FUNCTION__,firstDerLuminance[0],firstDerVariance[0]);
+
+	for(i=1;i<videoSize;i++)
+	{
+		Log::writeLog("%s :: i = %d", __FUNCTION__, i);
+		firstDerLuminance[i] = (visualRythim[i+1] - visualRythim[i-1])/2;
+		firstDerVariance[i] = (variance[i+1] - variance[i-1])/2;
+		if((i-1) == 0)
+			secondDerVariance[0] = (firstDerVariance[0]*-1)/2;
+		else
+			secondDerVariance[i-1] = (firstDerVariance[i] - firstDerVariance[i-2])/2;
+	}
+
+	Log::writeLog("%s :: ultima derivada", __FUNCTION__);
+
+	secondDerVariance[i] = (firstDerVariance[i+1] - firstDerVariance[i-1])/2;
+
+//	dissolvePoints = validateDissolve(ratio, visualRythim, threshold, videoSize);
+
+	for( i=0; i<videoSize; i++ )		
+	{
+		ratio[i] = secondDerVariance[i]/firstDerLuminance[i];
+		ratio[i+1] = secondDerVariance[i+1]/firstDerLuminance[i+1];
+
+		difference = fabs(fabs(ratio[i+1]) - fabs(ratio[i]));
+
+		if(difference <= threshold)
+		{
+			Transition* newTransition = new Transition(TRANSITION_DISSOLVE,i,"Dissolve");
+			transitionList->push_back(*newTransition);
+		}
+	}
+	
+	delete currentFrame;
+	delete vrh;
+}
+
+double* Dissolve::calculateDerivative(double* curve, int size_i)
+{
+	int i = 0;
+	double* derivative;
+
+	derivative = (double*)malloc(sizeof(double)*size_i);
+
+	// Cálculo para a primeira posição.
+	derivative[i] = (0 - curve[i]) / 2;
+
+
+	for( i=1; i<size_i; i++ )
+	{
+		derivative[i] = ( (curve[i+1] - curve[i-1])/2 );
+	}
+
+	return (derivative);
+}
+
+int* Dissolve::validateDissolve(double* ratio, double* vrh, int threshold, int size_i)
+{
+	int i = 0;
+
+	double difference = 0;
+	int* dissolvePoints;
+
+	dissolvePoints = (int*)malloc(sizeof(int)*size_i);
+
+	memset(dissolvePoints,'\0',sizeof(dissolvePoints));
+
+	for( i=1; i<size_i; i++)
+	{
+		difference = fabs(fabs(ratio[i]) - fabs(ratio[i-1]));
+
+		if(difference <= (double)threshold)
+		{
+			// Verifico os próximos 10 frames. se não for 0 eu mato.
+
+				dissolvePoints[i] = 1;
+		}
+	}
+
+	return (dissolvePoints);
 }
