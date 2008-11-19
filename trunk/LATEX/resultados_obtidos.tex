@@ -215,409 +215,426 @@ movimentação de objetos na cena ou por ruídos.
 resultados obtidos com a detecção de cortes utilizando as
 configurações padrões.
 
-\begin{longtable}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large0       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo Corte encontradas pelo sistema no vídeo IronMan.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Validade & Distância do ponto \\
-        \hline 254 & ok & 1 frame \\
-        \hline 256 & ok & 0 \\
-        \hline 300 & ok & 0 \\
-        \hline 326 & ok & 1 frame \\
-        \hline 425 & ok & 0 \\
-        \hline 538 & ok & 1 frame \\
-        \hline 580 & ok & 1 frame \\
-        \hline 608 & ok & 0 \\
-        \hline 732 & ok & 1 frame \\
-        \hline 764 & ok & 1 frame \\
-        \hline 1072 & ok & 0 \\
-        \hline 1088 & ok & 0 \\
-        \hline 1173 & ok & 0 \\
-        \hline 1175 & ok & 0 \\
-        \hline 1179 & ok & 1 frame \\
-        \hline 1181 & ok & 0 \\
-        \hline 1195 & ok & 1 frame \\
-        \hline 1197 & ok & 0 \\
-        \hline 1202 & ok & 1 frame \\
-        \hline 1204 & ok & 0 \\
-        \hline 1218 & ok & 1 frame \\
-        \hline 1220 & ok & 0 \\
-        \hline 1223 & falhou & --- \\
-        \hline 1225 & ok & 1 frame \\
-        \hline 1227 & ok & 0 \\
-        \hline 1240 & falhou & --- \\
-        \hline 1243 & ok & 0 \\
-        \hline 1248 & ok  & 1 frame \\
-        \hline 1259 & ok & 1 frame \\
-        \hline 1351 & ok & 1 frame \\
-        \hline 1353 & ok & 0 \\
-        \hline 1356 & falhou & --- \\
-        \hline 1902 & ok & 0 \\
-        \hline 2093 & ok & 1 frame \\
-        \hline 2095 & ok & 0 \\
-        \hline 2136 & falhou & --- \\
-        \hline 2163 & falhou & --- \\
-        \hline 2165 & ok & 0 \\
-        \hline 2189 & ok & 1 frame \\
-        \hline 2190 & ok & 0 \\
-        \hline 2247 & ok & 1 frame \\
-        \hline 2305 & ok & 1 frame \\
-        \hline 2385 & ok & 1 frame \\
-        \hline 2396 & falhou &  --- \\
-        \hline 2398 & ok & 0 \\
-        \hline 2410 & ok & 0 \\
-        \hline 2427 & ok & 0 \\
-        \hline 2441 & ok & 1 frame \\
-        \hline 2453 & falhou & --- \\
-        \hline 2488 & falhou & --- \\
-        \hline 2696 & ok & 0 \\
-        \hline 2792 & falhou & --- \\
-        \hline 2900 & ok & 1 frame \\
-        \hline 2970 & falhou & --- \\
-        \hline 2972 & falhou & --- \\
-        \hline 2986 & ok & 1 frame \\
-        \hline 3007 & falhou & --- \\
-        \hline 3032 & falhou  & --- \\
-        \hline 3035 & ok & 0 \\
-        \hline 3066 & falhou & --- \\
-        \hline 3068 & falhou & --- \\
-        \hline 3078 & falhou & --- \\
-        \hline 3083 & falhou & --- \\
-        \hline 3472 & ok & 1 frame\\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_Iron}
-\end{longtable}
 
-\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+\begin{center}
+\begin{longtable}{|l|l|l|}
+\caption[\it Transições do tipo Corte encontradas pelo sistema no vídeo IronMan.avi.]{\it Transições do tipo Corte encontradas pelo sistema no vídeo IronMan.avi.}
 
-\begin{enumerate}
-\item{\textbf{Total de detecções:} 64}
-\item{\textbf{``True'' positivos:} 47}
-\item{\textbf{Falsos positivos:  } 17}
-\item{\textbf{``True'' negativos:} 3456}
-\item{\textbf{Falsos negativos:  } 60}
-\end{enumerate}
+\label{g_mlmmh} \\
 
-\hspace*{0.65cm}Novamente os resultados podem ser considerados
-satisfatórios se a análise for baseada nos falsos positivos e falsos
-negativos, chegado a uma taxa de acerto de 72,18\%.
+\hline
+\endfirsthead
 
-\hspace*{0.65cm}\textbf{Vídeo em análise: Teste.avi}
+\multicolumn{3}{c}%
+{{\bfseries \tablename\ \thetable{} -- continuação da página anterior}} \\
+\hline \multicolumn{1}{|c|}
+{\textbf{Frame}} & \multicolumn{1}{c|}
+{\textbf{Validade}} & \multicolumn{1}{c|}
+{\textbf{Distância do ponto}} \\ 
+\hline 
+\endhead
 
-\begin{itemize}
-\item{\textbf{Número de frames: } 385}
-\item{\textbf{Número de cortes: } 2}
-\item{\textbf{Número de não cortes: } 383}
-\end{itemize}
+\hline \multicolumn{3}{|r|}{{Continua na próxima página}} \\ \hline
+\endfoot
 
-\hspace*{0.65cm}A Tabela \ref{tab:resultados_Teste} mostra os
-resultados obtidos com a detecção de cortes utilizando as
-configurações padrões.
+\hline
+\endlastfoot
 
-\begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo Corte encontradas pelo sistema no vídeo IronMan.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Validade & Distância do ponto \\
-        \hline 25 & ok & 0 \\
-        \hline 130 & ok & 0 \\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_Teste}
-\end{table}
+\hline Frame & Validade & Distância do ponto \\
+		\hline 254 & ok & 1 frame \\
+		\hline 256 & ok & 0 \\
+		\hline 300 & ok & 0 \\
+		\hline 326 & ok & 1 frame \\
+		\hline 425 & ok & 0 \\
+		\hline 538 & ok & 1 frame \\
+		\hline 580 & ok & 1 frame \\
+		\hline 608 & ok & 0 \\
+		\hline 732 & ok & 1 frame \\
+		\hline 764 & ok & 1 frame \\
+		\hline 1072 & ok & 0 \\
+		\hline 1088 & ok & 0 \\
+		\hline 1173 & ok & 0 \\
+		\hline 1175 & ok & 0 \\
+		\hline 1179 & ok & 1 frame \\
+		\hline 1181 & ok & 0 \\
+		\hline 1195 & ok & 1 frame \\
+		\hline 1197 & ok & 0 \\
+		\hline 1202 & ok & 1 frame \\
+		\hline 1204 & ok & 0 \\
+		\hline 1218 & ok & 1 frame \\
+		\hline 1220 & ok & 0 \\
+		\hline 1223 & falhou & --- \\
+		\hline 1225 & ok & 1 frame \\
+		\hline 1227 & ok & 0 \\
+		\hline 1240 & falhou & --- \\
+		\hline 1243 & ok & 0 \\
+		\hline 1248 & ok  & 1 frame \\
+		\hline 1259 & ok & 1 frame \\
+		\hline 1351 & ok & 1 frame \\
+		\hline 1353 & ok & 0 \\
+		\hline 1356 & falhou & --- \\
+		\hline 1902 & ok & 0 \\
+		\hline 2093 & ok & 1 frame \\
+		\hline 2095 & ok & 0 \\
+		\hline 2136 & falhou & --- \\
+		\hline 2163 & falhou & --- \\
+		\hline 2165 & ok & 0 \\
+		\hline 2189 & ok & 1 frame \\
+		\hline 2190 & ok & 0 \\
+		\hline 2247 & ok & 1 frame \\
+		\hline 2305 & ok & 1 frame \\
+		\hline 2385 & ok & 1 frame \\
+		\hline 2396 & falhou &  --- \\
+		\hline 2398 & ok & 0 \\
+		\hline 2410 & ok & 0 \\
+		\hline 2427 & ok & 0 \\
+		\hline 2441 & ok & 1 frame \\
+		\hline 2453 & falhou & --- \\
+		\hline 2488 & falhou & --- \\
+		\hline 2696 & ok & 0 \\
+		\hline 2792 & falhou & --- \\
+		\hline 2900 & ok & 1 frame \\
+		\hline 2970 & falhou & --- \\
+		\hline 2972 & falhou & --- \\
+		\hline 2986 & ok & 1 frame \\
+		\hline 3007 & falhou & --- \\
+		\hline 3032 & falhou  & --- \\
+		\hline 3035 & ok & 0 \\
+		\hline 3066 & falhou & --- \\
+		\hline 3068 & falhou & --- \\
+		\hline 3078 & falhou & --- \\
+		\hline 3083 & falhou & --- \\
+		\hline 3472 & ok & 1 frame\\
+		\hline
+		\end{longtable}
+		\end{center}
 
-\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+		\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
-\begin{enumerate}
-\item{\textbf{Total de detecções:} 2}
-\item{\textbf{``True'' positivos:} 2}
-\item{\textbf{Falsos positivos:  } 0}
-\item{\textbf{``True'' negativos:} 383}
-\item{\textbf{Falsos negativos:  } 0}
-\end{enumerate}
+		\begin{enumerate}
+		\item{\textbf{Total de detecções:} 64}
+		\item{\textbf{``True'' positivos:} 47}
+		\item{\textbf{Falsos positivos:  } 17}
+		\item{\textbf{``True'' negativos:} 3456}
+		\item{\textbf{Falsos negativos:  } 60}
+		\end{enumerate}
 
-\hspace*{0.65cm}Com estes resultados, obtém-se uma performance de
-100\%, porém vale lembrar que este vídeo foi criado com condições
-``perfeitas'' para o processo de detecção, onde a quantidade de
-ruídos apresentados é consideravelmente baixa.
+		\hspace*{0.65cm}Novamente os resultados podem ser considerados
+		satisfatórios se a análise for baseada nos falsos positivos e falsos
+		negativos, chegado a uma taxa de acerto de 72,18\%.
 
-\hspace*{0.65cm}As transições que não foram detectadas em todos os
-vídeos, apresentaram as mesmas características, mostrando o ponto
-fraco da metodologia adotada. Quando as transições de corte ocorrem
-entre cenas em que a média da luminância de seus pixels seja
-extremamente baixa, ou bastante semelhantes, o sistema falha no
-processo de detecção, aumentando o número de falsos negativos.
-Porém, como este tipo de transição ocorre em minoria, este problema
-não afeta de forma considerável na performance do sistema.
+		\hspace*{0.65cm}\textbf{Vídeo em análise: Teste.avi}
 
-\hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
-metodologia utilizada para a detecção de cortes apresentou
-resultados bastante satisfatórios com um número de falsos positivos
-relativamente baixo, com uma média de acerto geral de 74,91\% para
-transições do tipo corte.
+		\begin{itemize}
+		\item{\textbf{Número de frames: } 385}
+		\item{\textbf{Número de cortes: } 2}
+		\item{\textbf{Número de não cortes: } 383}
+		\end{itemize}
 
-\subsection{Resultados obtidos: Detecção - Fade \label{resultados_obtidos_fade}}
+		\hspace*{0.65cm}A Tabela \ref{tab:resultados_Teste} mostra os
+		resultados obtidos com a detecção de cortes utilizando as
+		configurações padrões.
 
-\hspace*{1.25cm}Neste tópico serão apresentados os resultados obtidos nos
-exemplos propostos.
+		\begin{table}[htb] % [htb]-> here, top, botton
+		\centering   % tabela centralizada
+		\large       % tamanho da fonte
+		\setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+		\setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+		\caption{\it Transições do tipo Corte encontradas pelo sistema no vídeo IronMan.avi.}
+		\begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+		\hline Frame & Validade & Distância do ponto \\
+			\hline 25 & ok & 0 \\
+			\hline 130 & ok & 0 \\
+			\hline
+			\end{tabular}
+			\label{tab:resultados_Teste}
+			\end{table}
 
-\subsection{Vídeo em análise: Teste.avi}
+			\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
-\begin{itemize}
-\item{\textbf{Número de frames:     } 385}
-\item{\textbf{Número de fade-in:    } 1}
-\item{\textbf{Número de fade-out:   } 1}
-\item{\textbf{Número de não cortes: } 383}
-\end{itemize}
+			\begin{enumerate}
+			\item{\textbf{Total de detecções:} 2}
+			\item{\textbf{``True'' positivos:} 2}
+			\item{\textbf{Falsos positivos:  } 0}
+			\item{\textbf{``True'' negativos:} 383}
+			\item{\textbf{Falsos negativos:  } 0}
+			\end{enumerate}
 
-\begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo ``Fade'' encontradas pelo sistema no vídeo Teste.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Tipo     & Validade \\
-        \hline 296   & fade-in  & ok \\
-        \hline 393   & fade-out & ok \\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_fade_teste}
-\end{table}
+			\hspace*{0.65cm}Com estes resultados, obtém-se uma performance de
+			100\%, porém vale lembrar que este vídeo foi criado com condições
+			``perfeitas'' para o processo de detecção, onde a quantidade de
+			ruídos apresentados é consideravelmente baixa.
 
-\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+			\hspace*{0.65cm}As transições que não foram detectadas em todos os
+			vídeos, apresentaram as mesmas características, mostrando o ponto
+			fraco da metodologia adotada. Quando as transições de corte ocorrem
+			entre cenas em que a média da luminância de seus pixels seja
+			extremamente baixa, ou bastante semelhantes, o sistema falha no
+			processo de detecção, aumentando o número de falsos negativos.
+			Porém, como este tipo de transição ocorre em minoria, este problema
+			não afeta de forma considerável na performance do sistema.
 
-\begin{enumerate}
-\item{\textbf{Total de detecções:} 2}
-\item{\textbf{``True'' positivos:} 2}
-\item{\textbf{Falsos positivos  :} 0}
-\item{\textbf{``True'' negativos:} 383}
-\item{\textbf{Falsos negativos  :} 0}
-\end{enumerate}
+			\hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
+			metodologia utilizada para a detecção de cortes apresentou
+			resultados bastante satisfatórios com um número de falsos positivos
+			relativamente baixo, com uma média de acerto geral de 74,91\% para
+			transições do tipo corte.
 
-\hspace*{0.65cm}Considerando os resultados vistos na Tabela
-\ref{tab:resultados_fade_teste}, a taxa de acerto é de 100\%,
-podendo ser considerado um resultado ``perfeito'', onde todas as
-reais transições foram detectadas, e as não-transições, não
-detectadas.
+			\subsection{Resultados obtidos: Detecção - Fade \label{resultados_obtidos_fade}}
 
-\hspace*{0.65cm}Conclui-se que, em Vídeos onde o ``fade'' é criado
-seguido determinadas regras, a detecção tem uma taxa de acerto de
-100\%.
+			\hspace*{1.25cm}Neste tópico serão apresentados os resultados obtidos nos
+			exemplos propostos.
 
-\subsection{Vídeo em análise: Ironman.avi}
+			\subsection{Vídeo em análise: Teste.avi}
 
-\begin{itemize}
-\item{\textbf{Número de frames    : } 3580}
-\item{\textbf{Número de Fade-in   : } 10}
-\item{\textbf{Número de Fade-out  : } 11}
-\item{\textbf{Número de não fades : } 3559}
-\end{itemize}
+			\begin{itemize}
+			\item{\textbf{Número de frames:     } 385}
+			\item{\textbf{Número de fade-in:    } 1}
+			\item{\textbf{Número de fade-out:   } 1}
+			\item{\textbf{Número de não cortes: } 383}
+			\end{itemize}
+
+			\begin{table}[htb] % [htb]-> here, top, botton
+			\centering   % tabela centralizada
+			\large       % tamanho da fonte
+			\setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+			\setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+			\caption{\it Transições do tipo ``Fade'' encontradas pelo sistema no vídeo Teste.avi.}
+			\begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+			\hline Frame & Tipo     & Validade \\
+				\hline 296   & fade-in  & ok \\
+				\hline 393   & fade-out & ok \\
+				\hline
+				\end{tabular}
+				\label{tab:resultados_fade_teste}
+				\end{table}
+
+				\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+
+				\begin{enumerate}
+				\item{\textbf{Total de detecções:} 2}
+				\item{\textbf{``True'' positivos:} 2}
+				\item{\textbf{Falsos positivos  :} 0}
+				\item{\textbf{``True'' negativos:} 383}
+				\item{\textbf{Falsos negativos  :} 0}
+				\end{enumerate}
+
+				\hspace*{0.65cm}Considerando os resultados vistos na Tabela
+				\ref{tab:resultados_fade_teste}, a taxa de acerto é de 100\%,
+				podendo ser considerado um resultado ``perfeito'', onde todas as
+				reais transições foram detectadas, e as não-transições, não
+				detectadas.
+
+				\hspace*{0.65cm}Conclui-se que, em Vídeos onde o ``fade'' é criado
+				seguido determinadas regras, a detecção tem uma taxa de acerto de
+				100\%.
+
+				\subsection{Vídeo em análise: Ironman.avi}
+
+				\begin{itemize}
+				\item{\textbf{Número de frames    : } 3580}
+				\item{\textbf{Número de Fade-in   : } 10}
+				\item{\textbf{Número de Fade-out  : } 11}
+				\item{\textbf{Número de não fades : } 3559}
+				\end{itemize}
 
 
-\begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo ``Fade'' encontradas pelo sistema no vídeo Ironman.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Tipo     & Validade \\
-        \hline 1125  & fade-out & ok \\
-        \hline 1302  & fade-in  & ok \\
-        \hline 1526  & fade-in  & ok \\
-        \hline 1580  & fade-out & ok \\
-        \hline 1601  & fade-in  & ok \\
-        \hline 1666  & fade-out & ok \\
-        \hline 1677  & fade-in  & ok \\
-        \hline 1731  & fade-in  & ok \\
-        \hline 1795  & fade-out & ok \\
-        \hline 1806  & fade-in  & ok \\
-        \hline 1870  & fade-in  & ok \\
-        \hline 1924  & fade-out & ok \\
-        \hline 1943  & fade-in  & ok \\
-        \hline 2474  & fade-out & ok \\
-        \hline 2555  & fade-out & falso \\
-        \hline 2775  & fade-in  & ok \\
-        \hline 3333  & fade-in  & ok \\
-        \hline 2570  & fade-out & ok \\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_fade_ironman}
-\end{table}
+				\begin{table}[htb] % [htb]-> here, top, botton
+				\centering   % tabela centralizada
+				\large       % tamanho da fonte
+				\setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+				\setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+				\caption{\it Transições do tipo ``Fade'' encontradas pelo sistema no vídeo Ironman.avi.}
+				\begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+				\hline Frame & Tipo     & Validade \\
+					\hline 1125  & fade-out & ok \\
+					\hline 1302  & fade-in  & ok \\
+					\hline 1526  & fade-in  & ok \\
+					\hline 1580  & fade-out & ok \\
+					\hline 1601  & fade-in  & ok \\
+					\hline 1666  & fade-out & ok \\
+					\hline 1677  & fade-in  & ok \\
+					\hline 1731  & fade-in  & ok \\
+					\hline 1795  & fade-out & ok \\
+					\hline 1806  & fade-in  & ok \\
+					\hline 1870  & fade-in  & ok \\
+					\hline 1924  & fade-out & ok \\
+					\hline 1943  & fade-in  & ok \\
+					\hline 2474  & fade-out & ok \\
+					\hline 2555  & fade-out & falso \\
+					\hline 2775  & fade-in  & ok \\
+					\hline 3333  & fade-in  & ok \\
+					\hline 2570  & fade-out & ok \\
+					\hline
+					\end{tabular}
+					\label{tab:resultados_fade_ironman}
+					\end{table}
 
-\begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo ``Fade'' que não encontradas pelo sistema no vídeo Ironman.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Tipo     & Validade \\
-        \hline 1762  & fade-out & falso \\
-        \hline 2456  & fade-out & falso \\
-        \hline 2492  & fade-out & falso \\
-        \hline 2508  & fade-out & falso \\
-        \hline 2528  & fade-out & falso \\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_fade_ironman2}
-\end{table}
+					\begin{table}[htb] % [htb]-> here, top, botton
+					\centering   % tabela centralizada
+					\large       % tamanho da fonte
+					\setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+					\setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+					\caption{\it Transições do tipo ``Fade'' que não encontradas pelo sistema no vídeo Ironman.avi.}
+					\begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+					\hline Frame & Tipo     & Validade \\
+						\hline 1762  & fade-out & falso \\
+						\hline 2456  & fade-out & falso \\
+						\hline 2492  & fade-out & falso \\
+						\hline 2508  & fade-out & falso \\
+						\hline 2528  & fade-out & falso \\
+						\hline
+						\end{tabular}
+						\label{tab:resultados_fade_ironman2}
+						\end{table}
 
-\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+						\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
-\begin{enumerate}
-\item{\textbf{Total de detecções:} 18}
-\item{\textbf{``True'' positivos:} 17}
-\item{\textbf{Falsos positivos  :} 1}
-\item{\textbf{``True'' negativos:} 3575}
-\item{\textbf{Falsos negativos  :} 5}
-\end{enumerate}
+						\begin{enumerate}
+						\item{\textbf{Total de detecções:} 18}
+						\item{\textbf{``True'' positivos:} 17}
+						\item{\textbf{Falsos positivos  :} 1}
+						\item{\textbf{``True'' negativos:} 3575}
+						\item{\textbf{Falsos negativos  :} 5}
+						\end{enumerate}
 
-\hspace*{0.65cm}Considerando os resultados vistos nas tabelas
-\ref{tab:resultados_fade_ironman} e
-\ref{tab:resultados_fade_ironman2}, os resultados foram
-satisfatórios, com uma taxa de acerto de 94,44\%.
+						\hspace*{0.65cm}Considerando os resultados vistos nas tabelas
+						\ref{tab:resultados_fade_ironman} e
+						\ref{tab:resultados_fade_ironman2}, os resultados foram
+						satisfatórios, com uma taxa de acerto de 94,44\%.
 
-\hspace*{0.65cm}Ao analisar os resultados em busca de respostas para
-os erros, chegamos a conclusão que:
+						\hspace*{0.65cm}Ao analisar os resultados em busca de respostas para
+						os erros, chegamos a conclusão que:
 
-\begin{enumerate}
+						\begin{enumerate}
 
-\item{A transição detectada indevidamente possui uma característica
-peculiar. Onde o início de uma tomada escura, é marcada por um
-corte, e seu fim é marcado por outro corte. Fazendo com que o
-conjunto das transições e da sequência de frames escuros, seja
-confundido com uma transição do tipo fade.}
+						\item{A transição detectada indevidamente possui uma característica
+							peculiar. Onde o início de uma tomada escura, é marcada por um
+								corte, e seu fim é marcado por outro corte. Fazendo com que o
+								conjunto das transições e da sequência de frames escuros, seja
+								confundido com uma transição do tipo fade.}
 
-\item{As transições do tipo fade não detectadas pelo sistema,
-apresentam uma duração menor do que 10 Frames, além disso, a
-sequência de Frames pretos é menor do que 3 Frames.}
+								\item{As transições do tipo fade não detectadas pelo sistema,
+									apresentam uma duração menor do que 10 Frames, além disso, a
+										sequência de Frames pretos é menor do que 3 Frames.}
 
-\end{enumerate}
+										\end{enumerate}
 
-\subsection{Vídeo em análise: Batman.avi}
+										\subsection{Vídeo em análise: Batman.avi}
 
-\begin{itemize}
-\item{\textbf{Número de frames    : } 3859}
-\item{\textbf{Número de Fade-in   : } 9}
-\item{\textbf{Número de Fade-out  : } 11}
-\item{\textbf{Número de não cortes: } 3839}
-\end{itemize}
+										\begin{itemize}
+										\item{\textbf{Número de frames    : } 3859}
+										\item{\textbf{Número de Fade-in   : } 9}
+										\item{\textbf{Número de Fade-out  : } 11}
+										\item{\textbf{Número de não cortes: } 3839}
+										\end{itemize}
 
-\begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo fade encontradas pelo sistema no vídeo Batman.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Tipo      & Validade \\
-        \hline 240   & fade-in   & ok \\
-        \hline 290   & fade-out  & ok \\
-        \hline 370   & fade-out  & ok \\
-        \hline 581   & fade-out  & ok \\
-        \hline 586   & fade-in   & ok \\
-        \hline 680   & fade-out  & ok \\
-        \hline 726   & fade-in   & ok \\
-        \hline 983   & fade-in   & ok \\
-        \hline 1255  & fade-out  & ok \\
-        \hline 1471  & fade-out  & ok \\
-        \hline 1538  & fade-out  & ok \\
-        \hline 1580  & fade-in   & ok \\
-        \hline 1810  & fade-out  & ok \\
-        \hline 1853  & fade-in   & ok \\
-        \hline 2217  & fade-out  & ok \\
-        \hline 2218  & fade-in   & ok \\
-        \hline 2295  & fade-out  & ok \\
-        \hline 2377  & fade-out  & ok \\
-        \hline 3443  & fade-in   & ok \\
-        \hline 3496  & fade-in   & ok \\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_fade_batman}
-\end{table}
+										\begin{table}[htb] % [htb]-> here, top, botton
+										\centering   % tabela centralizada
+										\large       % tamanho da fonte
+										\setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+										\setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+										\caption{\it Transições do tipo fade encontradas pelo sistema no vídeo Batman.avi.}
+										\begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+										\hline Frame & Tipo      & Validade \\
+											\hline 240   & fade-in   & ok \\
+											\hline 290   & fade-out  & ok \\
+											\hline 370   & fade-out  & ok \\
+											\hline 581   & fade-out  & ok \\
+											\hline 586   & fade-in   & ok \\
+											\hline 680   & fade-out  & ok \\
+											\hline 726   & fade-in   & ok \\
+											\hline 983   & fade-in   & ok \\
+											\hline 1255  & fade-out  & ok \\
+											\hline 1471  & fade-out  & ok \\
+											\hline 1538  & fade-out  & ok \\
+											\hline 1580  & fade-in   & ok \\
+											\hline 1810  & fade-out  & ok \\
+											\hline 1853  & fade-in   & ok \\
+											\hline 2217  & fade-out  & ok \\
+											\hline 2218  & fade-in   & ok \\
+											\hline 2295  & fade-out  & ok \\
+											\hline 2377  & fade-out  & ok \\
+											\hline 3443  & fade-in   & ok \\
+											\hline 3496  & fade-in   & ok \\
+											\hline
+											\end{tabular}
+											\label{tab:resultados_fade_batman}
+											\end{table}
 
-\begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo fade que não encontradas pelo sistema no vídeo Batman.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Tipo     & Validade \\
-        \hline 1579  & fade-out & false \\
-        \hline 2169  & fade-out & false \\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_fade_batman2}
-\end{table}
+											\begin{table}[htb] % [htb]-> here, top, botton
+											\centering   % tabela centralizada
+											\large       % tamanho da fonte
+											\setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+											\setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+											\caption{\it Transições do tipo fade que não encontradas pelo sistema no vídeo Batman.avi.}
+											\begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+											\hline Frame & Tipo     & Validade \\
+												\hline 1579  & fade-out & false \\
+												\hline 2169  & fade-out & false \\
+												\hline
+												\end{tabular}
+												\label{tab:resultados_fade_batman2}
+												\end{table}
 
-\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+												\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
-\begin{enumerate}
-\item{\textbf{Total de detecções:} 20}
-\item{\textbf{``True'' positivos:} 20}
-\item{\textbf{Falsos positivos  :} 0}
-\item{\textbf{``True'' negativos:} 3841}
-\item{\textbf{Falsos negativos  :} 2}
-\end{enumerate}
+												\begin{enumerate}
+												\item{\textbf{Total de detecções:} 20}
+												\item{\textbf{``True'' positivos:} 20}
+												\item{\textbf{Falsos positivos  :} 0}
+												\item{\textbf{``True'' negativos:} 3841}
+												\item{\textbf{Falsos negativos  :} 2}
+												\end{enumerate}
 
-\hspace*{0.65cm}Considerando os resultados vistos nas tabelas
-\ref{tab:resultados_fade_batman} e \ref{tab:resultados_fade_batman2}
-chegamos a uma taxa de 100\% ``True'' positivo, e de 99\% de
-``True'' Negativo. Assim a performance da detecção fica em 99\% de
-acerto, o qual é um excelente valor para tal experimento.
+												\hspace*{0.65cm}Considerando os resultados vistos nas tabelas
+												\ref{tab:resultados_fade_batman} e \ref{tab:resultados_fade_batman2}
+												chegamos a uma taxa de 100\% ``True'' positivo, e de 99\% de
+												``True'' Negativo. Assim a performance da detecção fica em 99\% de
+												acerto, o qual é um excelente valor para tal experimento.
 
-\hspace*{0.65cm}Analisando a Tabela
-\ref{tab:resultados_fade_batman2} verifica-se que os fades não
-detectados apresentam características específicas, onde:
+												\hspace*{0.65cm}Analisando a Tabela
+												\ref{tab:resultados_fade_batman2} verifica-se que os fades não
+												detectados apresentam características específicas, onde:
 
-\begin{enumerate}
-\item{ A transição possui menos de 10 frames em sua composição, sendo este o limiar de corte. }
-\item{ A transição possui apenas 3 frames pretos no seu fim, número com o qual não é possível
-identificar uma transição do tipo fade a partir da derivada do RVH.}
-\end{enumerate}
+												\begin{enumerate}
+												\item{ A transição possui menos de 10 frames em sua composição, sendo este o limiar de corte. }
+												\item{ A transição possui apenas 3 frames pretos no seu fim, número com o qual não é possível
+													identificar uma transição do tipo fade a partir da derivada do RVH.}
+													\end{enumerate}
 
-\hspace*{0.65cm}Na Figura \ref{img:vrh_batman} é demonstrado um
-trecho do Ritmo Visual por Histograma do vídeo Batman.avi, onde as
-transições detectadas foram marcadas com uma reta vertical.
+													\hspace*{0.65cm}Na Figura \ref{img:vrh_batman} é demonstrado um
+													trecho do Ritmo Visual por Histograma do vídeo Batman.avi, onde as
+													transições detectadas foram marcadas com uma reta vertical.
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=1.0\linewidth]{imagens/vrh_batman.png}
- \caption{Trecho do Ritmo Visual do vídeo Batman.avi}
- Fonte: Autor.
- \label{img:vrh_batman}
+													\begin{figure}[h|top]
+													\centering
+													\includegraphics[width=1.0\linewidth]{imagens/vrh_batman.png}
+													\caption{Trecho do Ritmo Visual do vídeo Batman.avi}
+Fonte: Autor.
+\label{img:vrh_batman}
 \end{figure}
 
 \hspace*{0.65cm}Nesta imagem é possível verificar que todo fade
 segue um padrão, onde, no caso do ``fade-out'', a média da
 luminância dos pixels apresentam-se de forma uniformizada, seguida
 de uma variação que tende a 0 (preto), e no caso do ``fade-in'',
-apresentam-se com o comportamento inverso, partindo de valores
-baixos, variando até chegar em um ponto onde a média da luminância
-se estabiliza. Este processo pode ser melhor entendido na Seção
-\ref{met_fade}.
+	apresentam-se com o comportamento inverso, partindo de valores
+	baixos, variando até chegar em um ponto onde a média da luminância
+	se estabiliza. Este processo pode ser melhor entendido na Seção
+	\ref{met_fade}.
 
-\hspace*{0.65cm}Na Figura \ref{img:vrhd_batman} é demonstrado um
-trecho da primeira derivada do Ritmo Visual por Histograma do vídeo
-Batman.avi, onde as transições detectadas estão demarcadas com um
-traço vertical.
+	\hspace*{0.65cm}Na Figura \ref{img:vrhd_batman} é demonstrado um
+	trecho da primeira derivada do Ritmo Visual por Histograma do vídeo
+	Batman.avi, onde as transições detectadas estão demarcadas com um
+	traço vertical.
 
-\begin{figure}[h|top]
- \centering
- \includegraphics[width=1.0\linewidth]{imagens/vrhd_batman.png}
- \caption{Trecho do Ritmo Visual Derivado do vídeo Batman.avi}
- Fonte: Autor.
- \label{img:vrhd_batman}
+	\begin{figure}[h|top]
+	\centering
+	\includegraphics[width=1.0\linewidth]{imagens/vrhd_batman.png}
+	\caption{Trecho do Ritmo Visual Derivado do vídeo Batman.avi}
+Fonte: Autor.
+\label{img:vrhd_batman}
 \end{figure}
 
 \hspace*{0.65cm}Nota-se que todas as transições, são seguidas por picos, no caso de ``fade-out'', e antecedidas
@@ -659,14 +676,14 @@ Porém, vale lembrar que este vídeo foi produzido com condições
 \hspace*{0.65cm}A Figura \ref{img:rvh_teste} mostra o Ritmo Visual
 do vídeo, junto do seu respectivo histograma, onde são indicados os
 pontos de dissolve detectados a partir da diagonal do histograma (D1
-e D2).
+		e D2).
 
 \begin{figure}[h|top]
- \centering
- \includegraphics[width=0.5\linewidth]{imagens/rvh_teste.png}
- \caption{Ritmo Visual e Histograma do Ritmo Visual do vídeo teste.avi.}
- Fonte: Autor.
- \label{img:rvh_teste}
+\centering
+\includegraphics[width=0.5\linewidth]{imagens/rvh_teste.png}
+\caption{Ritmo Visual e Histograma do Ritmo Visual do vídeo teste.avi.}
+Fonte: Autor.
+\label{img:rvh_teste}
 \end{figure}
 
 \subsection{Vídeo em análise: Ironman.avi}
@@ -678,110 +695,110 @@ e D2).
 \end{itemize}
 
 \begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo dissolve encontradas pelo sistema no vídeo Ironman.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Validade & Distância do ponto \\
-        \hline 766 & FALSO & 1\\
-        \hline 776 & FALSO & 1\\
-        \hline 882 & FALSO & 1\\
-        \hline 994 & FALSO & 1\\
-        \hline 1312 & FALSO & 1\\
-        \hline 1384 & FALSO & 1\\
-        \hline 1406 & FALSO & 1\\
-        \hline 1440 & FALSO & 1\\
-        \hline 1453 & FALSO & 1\\
-        \hline 1712 & FALSO & 1\\
-        \hline 1766 & FALSO & 1\\
-        \hline 1839 & FALSO & 1\\
-        \hline 2599 & FALSO & 1\\
-        \hline 2638 & FALSO & 1\\
-        \hline 2672 & FALSO & 1\\
-        \hline 2902 & FALSO & 1\\
-        \hline 2918 & FALSO & 1\\
-        \hline 3011 & FALSO & 1\\
-        \hline 3179 & FALSO & 1\\
-        \hline 3193 & FALSO & 1\\
-        \hline 3204 & FALSO & 1\\
-        \hline 3213 & FALSO & 1\\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_IRON_DISSOLVE}
-\end{table}
+\centering   % tabela centralizada
+\large       % tamanho da fonte
+\setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+\setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+\caption{\it Transições do tipo dissolve encontradas pelo sistema no vídeo Ironman.avi.}
+\begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+\hline Frame & Validade & Distância do ponto \\
+		\hline 766 & FALSO & 1\\
+		\hline 776 & FALSO & 1\\
+		\hline 882 & FALSO & 1\\
+		\hline 994 & FALSO & 1\\
+		\hline 1312 & FALSO & 1\\
+		\hline 1384 & FALSO & 1\\
+		\hline 1406 & FALSO & 1\\
+		\hline 1440 & FALSO & 1\\
+		\hline 1453 & FALSO & 1\\
+		\hline 1712 & FALSO & 1\\
+		\hline 1766 & FALSO & 1\\
+		\hline 1839 & FALSO & 1\\
+		\hline 2599 & FALSO & 1\\
+		\hline 2638 & FALSO & 1\\
+		\hline 2672 & FALSO & 1\\
+		\hline 2902 & FALSO & 1\\
+		\hline 2918 & FALSO & 1\\
+		\hline 3011 & FALSO & 1\\
+		\hline 3179 & FALSO & 1\\
+		\hline 3193 & FALSO & 1\\
+		\hline 3204 & FALSO & 1\\
+		\hline 3213 & FALSO & 1\\
+		\hline
+		\end{tabular}
+		\label{tab:resultados_IRON_DISSOLVE}
+		\end{table}
 
-\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+		\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
-\begin{enumerate}
-\item{\textbf{Total de detecções:} 22}
-\item{\textbf{``True'' positivos:} 0}
-\item{\textbf{Falsos positivos:} 22}
-\item{\textbf{``True'' negativos:} 3558}
-\item{\textbf{Falsos negativos:} 0}
-\end{enumerate}
+		\begin{enumerate}
+		\item{\textbf{Total de detecções:} 22}
+		\item{\textbf{``True'' positivos:} 0}
+		\item{\textbf{Falsos positivos:} 22}
+		\item{\textbf{``True'' negativos:} 3558}
+		\item{\textbf{Falsos negativos:} 0}
+		\end{enumerate}
 
-\hspace*{0.65cm}Para este vídeo, a taxa de acerto foi de 0\%. Uma
-grande porção de cenas contendo fumaças, nuvens e explosões são
-confundidas com transições do tipo dissolve, resultando em uma taxa
-de acerto não favorável.
+		\hspace*{0.65cm}Para este vídeo, a taxa de acerto foi de 0\%. Uma
+		grande porção de cenas contendo fumaças, nuvens e explosões são
+		confundidas com transições do tipo dissolve, resultando em uma taxa
+		de acerto não favorável.
 
-\subsection{Vídeo em análise: Batman.avi}
+		\subsection{Vídeo em análise: Batman.avi}
 
-\begin{itemize}
-\item{\textbf{Número de frames:} 2919}
-\item{\textbf{Número de dissolves:} 4}
-\item{\textbf{Número de não dissolves:} 2915}
-\end{itemize}
+		\begin{itemize}
+		\item{\textbf{Número de frames:} 2919}
+		\item{\textbf{Número de dissolves:} 4}
+		\item{\textbf{Número de não dissolves:} 2915}
+		\end{itemize}
 
-\begin{table}[htb] % [htb]-> here, top, botton
-   \centering   % tabela centralizada
-   \large       % tamanho da fonte
-   \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
-   \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo dissolve encontradas pelo sistema no vídeo Batman.avi.}
-   \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
-        \hline Frame & Validade & Distância do ponto \\
-        \hline 102 & OK & 1 \\
-        \hline 347 & OK & 1 \\
-        \hline 677 & FALSO & 1 \\
-        \hline 708 & FALSO & 1 \\
-        \hline 876 & FALSO & 1 \\
-        \hline 904 & FALSO & 1 \\
-        \hline 1366 & FALSO & 1 \\
-        \hline 1800 & OK & 1 \\
-        \hline 1958 & FALSO & 1 \\
-        \hline 1994 & FALSO & 1 \\
-        \hline 2108 & FALSO & 1 \\
-        \hline 2138 & FALSO & 1 \\
-        \hline 2150 & FALSO & 1 \\
-        \hline 2205 & FALSO & 1 \\
-        \hline
-   \end{tabular}
-   \label{tab:resultados_Batman_DISSOLVE}
-\end{table}
+		\begin{table}[htb] % [htb]-> here, top, botton
+		\centering   % tabela centralizada
+		\large       % tamanho da fonte
+		\setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
+		\setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
+		\caption{\it Transições do tipo dissolve encontradas pelo sistema no vídeo Batman.avi.}
+		\begin{tabular}{|c|c|c|} % c=center, l=left, r=right
+		\hline Frame & Validade & Distância do ponto \\
+			\hline 102 & OK & 1 \\
+			\hline 347 & OK & 1 \\
+			\hline 677 & FALSO & 1 \\
+			\hline 708 & FALSO & 1 \\
+			\hline 876 & FALSO & 1 \\
+			\hline 904 & FALSO & 1 \\
+			\hline 1366 & FALSO & 1 \\
+			\hline 1800 & OK & 1 \\
+			\hline 1958 & FALSO & 1 \\
+			\hline 1994 & FALSO & 1 \\
+			\hline 2108 & FALSO & 1 \\
+			\hline 2138 & FALSO & 1 \\
+			\hline 2150 & FALSO & 1 \\
+			\hline 2205 & FALSO & 1 \\
+			\hline
+			\end{tabular}
+			\label{tab:resultados_Batman_DISSOLVE}
+			\end{table}
 
 
-\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
+			\hspace*{0.65cm}Em resumo, os resultados obtidos foram:
 
-\begin{enumerate}
-\item{\textbf{Total de detecções:} 14}
-\item{\textbf{``True'' positivos:} 3}
-\item{\textbf{Falsos positivos:} 11}
-\item{\textbf{``True'' negativos:} 2904}
-\item{\textbf{Falsos negativos:} 1}
-\end{enumerate}
+			\begin{enumerate}
+			\item{\textbf{Total de detecções:} 14}
+			\item{\textbf{``True'' positivos:} 3}
+			\item{\textbf{Falsos positivos:} 11}
+			\item{\textbf{``True'' negativos:} 2904}
+			\item{\textbf{Falsos negativos:} 1}
+			\end{enumerate}
 
-\hspace*{0.65cm}Observando os resultados, é possível afirmar que a
-taxa de acerto é de 21,42\%. Devido ao grande número de cenas
-contendo explosões, o número de falsos positivos aumenta, resultando
-em resultados com baixa taxa de acerto.
+			\hspace*{0.65cm}Observando os resultados, é possível afirmar que a
+			taxa de acerto é de 21,42\%. Devido ao grande número de cenas
+			contendo explosões, o número de falsos positivos aumenta, resultando
+			em resultados com baixa taxa de acerto.
 
-\hspace*{0.65cm}Para a detecção do dissolve, primeiramente foi
-utilizado uma metodologia que calcula a razão entre a segunda
-variância dos frames do vídeo e a primeira derivada do Ritmo Visual.
-Porém este método não apresentou resultados satisfatórios. Desta
-forma, foi desenvolvido um novo método de análise dos pontos de
-lumiância do frame juntamente com um limiar definido e um limiar
-para separar detecções do tipo fade.
+			\hspace*{0.65cm}Para a detecção do dissolve, primeiramente foi
+			utilizado uma metodologia que calcula a razão entre a segunda
+			variância dos frames do vídeo e a primeira derivada do Ritmo Visual.
+			Porém este método não apresentou resultados satisfatórios. Desta
+			forma, foi desenvolvido um novo método de análise dos pontos de
+			lumiância do frame juntamente com um limiar definido e um limiar
+			para separar detecções do tipo fade.
