@@ -361,7 +361,7 @@ inicia, o qual tem os seguintes passos:
 
 \begin{itemize}
 \item{Montagem do Ritmo Visual por Histograma}
-\item{Verifica para cada ponto os próximos 7 pontos}
+\item{Verifica os próximos 7 frames}
 \item{Cálculo da primeira derivada dos possíveis pontos de Dissolve}
 \item{Verificação dos pontos resultantes da derivada com um threshol definido}
 \end{itemize}
@@ -1868,8 +1868,8 @@ Histograma. }
 \item{\textbf{Verificando possíveis pontos de Dissolve}
 
 Sistema entra no estado em que para cada ponto do Ritmo Visual, é
-checado se os próximos 7 pontos estão em ordem crescente para que
-este ponto seja um possível ponto de Dissolve. }
+checado se os próximos 7 frames estão em ordem crescente para que
+este frame seja um possível ponto de Dissolve. }
 
 \item{\textbf{Calculando Derivada dos possíveis pontos de Dissolve}
 
