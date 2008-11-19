@@ -3,15 +3,15 @@
 \hspace*{1.25cm}Neste trabalho foram apresentadas técnicas de
 detecção de transição baseadas em diversas metodologias e para cada
 tipo de transição foi adotada uma metodologia específica. Foi
-observado durante os testes de detecção de cortes que dependendo das
-imagens presentes no vídeo, é necessário adequar o filtro de Canny
-para que seja feita uma detecção adequada, visto que os resultados
-obtidos a partir da aplicação deste filtro nas imagens variam
-conforme o comportamento da luminância dos frames em análise. Os
-valores aqui utilizados como limiar ficam vulneráveis à transições
-entre duas tomadas que sejam mais escuras, porém se estes limiares
-forem configurados para detectar este tipo de transição, pode
-ocorrer o aumento de falsas detecções devido ao aumento de ruído no
-mapa de bordas. Desta forma, optou-se por utilizar limiares mais
-altos para que as transições entre tomadas mais claras fossem
-detectadas, visto que estas ocorrem em maioria.
+observado durante os testes de detecção de cortes que a metodologia
+utilizada gerou resultados bastante aceitáveis em níveis de falsos
+positivos e falsos negativos, chegando a atingir a perfeição em
+alguns casos específicos. Porém, a metodologia mostra-se vulnerável
+em relação a cortes que ocorram entre duas tomadas cuja luminosidade
+seja muito baixa. Nos testes realizados para detecção de transições
+do tipo fade, foi possível observar que a metodologia utilizada
+atinge resultados satisfatórios, obtendo em sua maioria, baixos
+índices de falsos positivos. Por outro lado, quando as transições do
+tipo fade se apresentam de forma extremamente curta, estas são
+facilmente confundidas com cortes, aumentando o número de falsos
+positivos.
