@@ -214,29 +214,28 @@ a detecção de transições do tipo Dissolve:
         \item{Converte Frame para tons de cinza;}
         \item{Cálculo da Diagonal Principal deste Frame;}
         \item{Obtenção do Histograma desta diagonal;}
-        \item{Cálculo da Variância do Histograma (MAURICIO - NÃO É DOS FRAMES DO VÍDEO?).}
+        \item{Cálculo da Variância dos frames do vídeo.}
     \end{enumerate}
 
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
 
     \item{\textbf{Verifica pontos de dissolve com 7 frames seguintes:} A partir dos pontos do
-    Ritmo visual por histograma, são verificados os próximos 7 frames (MAURÍCIO - PROXIMOS 7 FRAMES? EM RELAÇÃO
-    À QUE!?!).
-    Caso estes frames estejam em ordem crescente ou decrescente, este frame é um possível ponto de dissolve.
-    MAURÍCIO - ISTO AQUI NÃO ESTÁ CLARO.NÃO DÁ PRA ENTENDER NADA... REESCREVAM}
+    Ritmo visual por histograma, são verificados as médias dos pontos de luminância dos próximos 7 frames do vídeo.
+    Caso as médias estejam em ordem crescente ou decrescente, este frame é um possível ponto de dissolve.}
+
 
     \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Para os possíveis pontos de Dissolve,
-    a derivada destes pontos é calculada, comparando os resultados obtidos a um limiar.
-    MAURÍCIO, TAMBÉM NÃO FICOU MUITO CLARO;}
+    a derivada destes pontos é calculada, comparando os resultados obtidos a um limiar definido.}
+
 
     \item{\textbf{Detecção do Dissolve:} Caso os pontos em questão forem todos menores que o limiar,
-    o primeiro ponto será indicado como início do Dissolve;}
+    o primeiro ponto será indicado como início do Dissolve.}
 
     \item{\textbf{Verificação de frames escuros nos pontos detectados:} Com base nas detecções,
-    verificamos se o nível de luminância (MAURICIO - LUMINANCIA DE QUEM???) é proximo ao preto, caso positivo,
-    ele (MAURICIO - ELE!? ELE QUEM?) será descartado, pois isto pode indicar que esta transição representa um
-    fade e não um dissolve;}
+    para cada ponto definido como início do Dissolve, é verificado seu nível de luminância.
+    Caso o nível de luminância seja proximo ao preto, este ponto não será considerado um dissolve,
+    pois este fator indica que esta transição representa um fade e não um dissolve;}
 
     \item{\textbf{Dissolve detectado:} No final deste processo,
     estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
