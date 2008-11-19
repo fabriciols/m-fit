@@ -390,18 +390,21 @@ todos em um Ritmo Visual.
 
 \subsubsection{Caso de uso: Verifica os 7 frames seguintes \label{use_case_7pontos}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} Verifica se estes 7 frames tem um comportamento crescente ou
-decrescente, formando uma diagonal.
+\hspace*{1.25cm}\textbf{Cenário Principal:} Verifica se os próximos
+7 frames, a partir do primeiro frame da região candidata a ser um
+dissolve, possuem um comportamento crescente ou decrescente.
 
 \subsubsection{Caso de uso: Derivada dos possíveis pontos de Dissolve\label{use_case_derivada_dissolve}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} A partir do Ritmo Visual
-por Histograma do video, é calculada a derivada da diagonal demarcada como possivel dissolve.
+por Histograma do video, é calculada a derivada da região de
+possível ocorrência de dissolve.
 
 \subsubsection{Caso de uso: Compara pontos da derivada com limiar definido \label{use_case_derivada_com_limiar}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} A partir da derivada do RHV é definido um limiar de corte para
-separar transições do tipo dissolve.
+\hspace*{1.25cm}\textbf{Cenário Principal:} A partir da derivada do
+RHV é definido um limiar para separar transições do tipo dissolve e
+fade.
 
 \section{Diagrama de Classes \label{diagrama_classes}}
 
