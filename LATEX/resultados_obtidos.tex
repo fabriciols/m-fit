@@ -651,15 +651,15 @@ onde indica os pontos de dissolve detectados a partir da diagonal do gráfico (D1
    \caption{\it Transições do tipo dissolve encontradas pelo sistema no vídeo Ironman.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Validade & Distância do ponto \\
-        \hline 766 & OK & 1\\
-        \hline 776 & OK & 1\\
+        \hline 766 & FALSO & 1\\
+        \hline 776 & FALSO & 1\\
         \hline 882 & FALSO & 1\\
         \hline 994 & FALSO & 1\\
         \hline 1312 & FALSO & 1\\
         \hline 1384 & FALSO & 1\\
         \hline 1406 & FALSO & 1\\
-        \hline 1440 & OK & 1\\
-        \hline 1453 & OK & 1\\
+        \hline 1440 & FALSO & 1\\
+        \hline 1453 & FALSO & 1\\
         \hline 1712 & FALSO & 1\\
         \hline 1766 & FALSO & 1\\
         \hline 1839 & FALSO & 1\\
@@ -669,10 +669,10 @@ onde indica os pontos de dissolve detectados a partir da diagonal do gráfico (D1
         \hline 2902 & FALSO & 1\\
         \hline 2918 & FALSO & 1\\
         \hline 3011 & FALSO & 1\\
-        \hline 3179 & OK & 1\\
-        \hline 3193 & OK & 1\\
-        \hline 3204 & OK & 1\\
-        \hline 3213 & OK & 1\\
+        \hline 3179 & FALSO & 1\\
+        \hline 3193 & FALSO & 1\\
+        \hline 3204 & FALSO & 1\\
+        \hline 3213 & FALSO & 1\\
         \hline
    \end{tabular}
    \label{tab:resultados_IRON_DISSOLVE}
@@ -680,23 +680,23 @@ onde indica os pontos de dissolve detectados a partir da diagonal do gráfico (D1
 
 \begin{itemize}
 \item{\textbf{Número de frames    : } 3580}
-\item{\textbf{Número de dissolves   : } 7}
-\item{\textbf{Número de não dissolves: } 3473}
+\item{\textbf{Número de dissolves   : } 1}
+\item{\textbf{Número de não dissolves: } 3579}
 \end{itemize}
 
 \hspace*{0.65cm}Mais especificamente:
 
 \begin{enumerate}
-\item{\textbf{Total de detecções:} 6}
-\item{\textbf{``True'' positivos:} 6}
-\item{\textbf{Falsos positivos:} 16}
-\item{\textbf{``True'' negativos:} 3557}
-\item{\textbf{Falsos negativos:} 1}
+\item{\textbf{Total de detecções:} 22}
+\item{\textbf{``True'' positivos:} 0}
+\item{\textbf{Falsos positivos:} 22}
+\item{\textbf{``True'' negativos:} 3558}
+\item{\textbf{Falsos negativos:} 0}
 \end{enumerate}
 
-\hspace*{0.65cm}Para este vídeo, a taxa de acerto foi de 85,71\%.
-Este resultado mostra que para um caso real, o método de detecção de
-Dissolve apresenta um resultado muito satisfatório.
+\hspace*{0.65cm}Para este vídeo, a taxa de acerto foi de 0\%. Uma grande porção de 
+cenas contendo fumaças, nuvens e explosões se confundem com uma transição do tipo 
+dissolve pois fazem sobreposições de frames, resultando em uma taxa de acerto não favorável.
 
 \subsubsection{Vídeo em análise: Batman.avi - Tabela \ref{tab:resultados_Batman_DISSOLVE}}
 
@@ -743,8 +743,10 @@ Dissolve apresenta um resultado muito satisfatório.
 \end{enumerate}
 
 \hspace*{0.65cm}Observando os resultados, chega-se a conclusão que
-a taxa de acerto é de 75\%. Para este vídeo, o resultado foi abaixo do vídeo anterior,
-porém o método ainda apresenta um resultado satisfatório para a detecção do Dissolve.
+a taxa de acerto é de 21,42\%. Devido ao grande número de explosões detectadas nas 
+cenas, elas se confundem com uma transição do tipo dissolve pois fazem sobreposições 
+de imagens, contribuindo assim para uma baixa taxa de acerto.
+
 
 \hspace*{0.65cm}Para a detecção do dissolve, primeiramente foi utilizado
 uma metodologia que calcula a razão entre a segunda variância da luminância e
