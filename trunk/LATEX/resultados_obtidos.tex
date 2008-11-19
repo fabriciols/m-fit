@@ -1,10 +1,10 @@
-\section{RESULTADOS OBTIDOS \label{resultados_obtidos}}
+\chapter{RESULTADOS OBTIDOS \label{resultados_obtidos}}
 
 \hspace*{1.25cm}Nesta seção serão apresentados os resultados obtidos
 com a utilização do M-FIT para realizar a detecção de transições em
 alguns vídeos e também sua interface final.
 
-\subsubsection{Resultados obtidos: geral \label{resultados_obtidos_geral}}
+\section{Resultados obtidos: Geral \label{resultados_obtidos_geral}}
 
 \hspace*{0.65cm}A Figura \ref{img:obtidos_preview1} mostra a tela
 que será exibida assim que o sistema for inicializado. Nota-se
@@ -62,13 +62,6 @@ O vídeo ``Teste'' foi criado pela equipe com o intuito de gerar um
 vídeo onde todas as transições sejam ``perfeitas'', sem nenhum tipo
 de ruído ou caso atípico.
 
-Transições Presentes:
-
-\subitem{105 - Fade-In}
-\subitem{134 - Dissolve}
-\subitem{241 - Corte}
-\subitem{377 - Fade-Out}
-
 \item {Batman.avi}
 
 Vídeo com o trailer do filme: Batman - O Cavaleiro das Trevas.
@@ -79,7 +72,7 @@ Vídeo com o trailer do filme: Homem de Ferro (Iron Man).
 
 \end{itemize}
 
-\subsection{Resultados obtidos: Detecção - Cortes \label{resultados_obtidos_cortes}}
+\section{Resultados obtidos: Detecção - Cortes \label{resultados_obtidos_cortes}}
 
 \hspace*{1.25cm}Neste tópico serão apresentados os resultados
 obtidos em alguns vídeos.
@@ -120,7 +113,7 @@ sobre o Ritmo Visual (figura \ref{img:mapa_batman}).
    \large       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições encontradas pelo sistema no vídeo Batman.avi.}
+   \caption{\it Transições do tipo Corte encontradas pelo sistema no vídeo Batman.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Validade & Distância do ponto \\
         \hline 1011 & ok & 1 frame\\
@@ -227,7 +220,7 @@ configurações padrões.
    \large0       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições encontradas pelo sistema no vídeo IronMan.avi.}
+   \caption{\it Transições do tipo Corte encontradas pelo sistema no vídeo IronMan.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Validade & Distância do ponto \\
         \hline 254 & ok & 1 frame \\
@@ -330,7 +323,7 @@ configurações padrões.
    \large       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições encontradas pelo sistema no vídeo IronMan.avi.}
+   \caption{\it Transições do tipo Corte encontradas pelo sistema no vídeo IronMan.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Validade & Distância do ponto \\
         \hline 25 & ok & 0 \\
@@ -375,7 +368,7 @@ transições do tipo corte.
 \hspace*{1.25cm}Neste tópico serão apresentados os resultados obtidos nos
 exemplos propostos.
 
-\subsubsection{Vídeo em análise: Teste.avi}
+\subsection{Vídeo em análise: Teste.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames:     } 385}
@@ -389,7 +382,7 @@ exemplos propostos.
    \large       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo fade encontradas pelo sistema no vídeo Teste.avi.}
+   \caption{\it Transições do tipo ``Fade'' encontradas pelo sistema no vídeo Teste.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Tipo     & Validade \\
         \hline 296   & fade-in  & ok \\
@@ -419,7 +412,7 @@ detectadas.
 seguido determinadas regras, a detecção tem uma taxa de acerto de
 100\%.
 
-\subsubsection{Vídeo em análise: Ironman.avi}
+\subsection{Vídeo em análise: Ironman.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames    : } 3580}
@@ -434,7 +427,7 @@ seguido determinadas regras, a detecção tem uma taxa de acerto de
    \large       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo fade encontradas pelo sistema no vídeo Ironman.avi.}
+   \caption{\it Transições do tipo ``Fade'' encontradas pelo sistema no vídeo Ironman.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Tipo     & Validade \\
         \hline 1125  & fade-out & ok \\
@@ -465,7 +458,7 @@ seguido determinadas regras, a detecção tem uma taxa de acerto de
    \large       % tamanho da fonte
    \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
    \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-   \caption{\it Transições do tipo fade não encontradas pelo sistema no vídeo Ironman.avi.}
+   \caption{\it Transições do tipo ``Fade'' que não encontradas pelo sistema no vídeo Ironman.avi.}
    \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
         \hline Frame & Tipo     & Validade \\
         \hline 1762  & fade-out & falso \\
@@ -510,7 +503,7 @@ sequência de Frames pretos é menor do que 3 Frames.}
 
 \end{enumerate}
 
-\subsubsection{Vídeo em análise: Batman.avi}
+\subsection{Vídeo em análise: Batman.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames    : } 3859}
@@ -637,11 +630,11 @@ bastante satisfatórios com um número de falsos positivos
 relativamente baixo, mostrando que a técnica utilizada não comete
 erros ao classificar uma determinada transição como sendo um fade.
 
-\subsection{Resultados obtidos: Detecção - Dissolve \label{resultados_obtidos_dissolves}}
+\section{Resultados obtidos: Detecção - Dissolve \label{resultados_obtidos_dissolves}}
 
 \hspace*{1.25cm}Neste tópico serão apresentados os resultados obtidos para dissolve nos exemplos propostos.
 
-\subsubsection{Vídeo em análise: Teste.avi}
+\subsection{Vídeo em análise: Teste.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames:} 385}
@@ -676,7 +669,7 @@ e D2).
  \label{img:rvh_teste}
 \end{figure}
 
-\subsubsection{Vídeo em análise: Ironman.avi - Tabela \ref{tab:resultados_IRON_DISSOLVE}}
+\subsection{Vídeo em análise: Ironman.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames:} 3580}
@@ -734,7 +727,7 @@ grande porção de cenas contendo fumaças, nuvens e explosões são
 confundidas com transições do tipo dissolve, resultando em uma taxa
 de acerto não favorável.
 
-\subsubsection{Vídeo em análise: Batman.avi - Tabela \ref{tab:resultados_Batman_DISSOLVE}}
+\subsection{Vídeo em análise: Batman.avi}
 
 \begin{itemize}
 \item{\textbf{Número de frames:} 2919}
