@@ -219,18 +219,24 @@ a detecção de transições do tipo Dissolve:
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
 
-    \item{\textbf{Verifica comportamento do RVH:} A partir dos pontos do
-    Ritmo visual por histograma, é analisado para cada ponto do gráfico, se os 7 pontos seguintes seguem uma 
-    ordem crescente ou decrescente, formando uma diagonal, este frame é um possível ponto de dissolve.
+    \item{\textbf{Verifica comportamento do RVH:} Para cada ponto do Ritmo Visual por
+    Histograma, serão verificados os próximos 7 pontos. Se estes
+    possuírem um comportamento crescente ou decrescente, o primeiro
+    deles será considerado um possível local de ocorrência de
+    Dissolve.}
 
-    \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Com os possiveis pontos de dissolve, é feito uma
-    análise da derivada desta diagonal para cada ponto do gráfico do RVH, caso esta derivada não ultrapassar
-    o limiar definido, este é um ponto candidato ao dissolve.
+    \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Será
+    calculada a primeira derivada dos trechos em que há uma possível
+    ocorrência de Dissolve, a qual será submetida a um processo de
+    limiarização. Se todas as derivadas de um determinado trecho
+    estiverem abaixo do limiar definido, este será considerado um
+    ponto de ocorrência de Dissolve.}
 
-    \item{\textbf{Retirar transições do tipo fade:} Com base nos pontos de possiveis transições do tipo Dissolve,
-    verificamos o nível de luminância mais baixo da diagonal do RVH em questão, caso este frame estiver dentro do
-    limiar de fade definido ele será descartado, pois isto pode indicar que esta transição representa um fade e 
-    não um dissolve;}
+    \item{\textbf{Retirar transições do tipo fade:} Será feita a
+    análise da média do nível de luminância dos Frames pertencentes
+    ao trecho apontado como Dissolve. Caso um deles possua uma média
+    de luminância próxima de zero, significa que o ponto detectado pode não ser um Dissolve
+    e sim um Fade. Desta forma o ponto é ignorado.}
 
     \item{\textbf{Dissolve detectado:} No final deste processo,
     estarão identificados os pontos de ocorrência de transições do tipo Dissolve.}
