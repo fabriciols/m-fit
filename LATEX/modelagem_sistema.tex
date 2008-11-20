@@ -1241,6 +1241,57 @@ timeline.
 
 \end{enumerate}
 
+\subsection{Classe: Render\label{classe_Xml}}
+
+\hspace*{1.25cm}Classe responsável pela janela de progresso da
+renderização de um vídeo.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{Render()}
+
+\hspace*{0.65cm}Construtor do objeto.
+
+\item{void setProgress()}
+
+\hspace*{0.65cm}Seta a barra de progresso com a porcentagem passada
+
+\item{void startRenderThread()}
+
+\hspace*{0.65cm}Começa o provesso de renderização, chamando a thread
+responsável.
+
+\item{void writeFrame()}
+
+\hspace*{0.65cm}Escreve um frame na estrutura do vídeo.
+
+\end{enumerate}
+
+\subsection{Classe: RenderThread\label{classe_Xml}}
+
+\hspace*{1.25cm}Classe responsável pela thread de renderização
+do vídeo.
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{RenderThread()}
+
+\hspace*{0.65cm}Construtor do objeto.
+
+\item{void run()}
+
+\hspace*{0.65cm}Inicia o processo de renderização do Video
+
+\item{void sendProgress()}
+
+\hspace*{0.65cm}Envia para a janela a pocentagem atual do processo.
+
+\end{enumerate}
+
 \subsection{Classe: Transition \label{classe_Transition}}
 
 \hspace*{1.25cm}Classe responsável por representar uma transição.
@@ -1492,56 +1543,6 @@ armazenam os dados do projeto.
 
 \end{enumerate}
 
-\subsection{Classe: Render\label{classe_Xml}}
-
-\hspace*{1.25cm}Classe responsável pela janela de progresso da
-renderização de um vídeo.
-
-\hspace*{0.65cm}\textbf{Métodos:}
-
-\begin{enumerate}
-
-\item{Render()}
-
-\hspace*{0.65cm}Construtor do objeto.
-
-\item{void setProgress()}
-
-\hspace*{0.65cm}Seta a barra de progresso com a porcentagem passada
-
-\item{void startRenderThread()}
-
-\hspace*{0.65cm}Começa o provesso de renderização, chamando a thread
-responsável.
-
-\item{void writeFrame()}
-
-\hspace*{0.65cm}Escreve um frame na estrutura do vídeo.
-
-\end{enumerate}
-
-\subsection{Classe: RenderThread\label{classe_Xml}}
-
-\hspace*{1.25cm}Classe responsável pela thread de renderização
-do vídeo.
-
-\hspace*{0.65cm}\textbf{Métodos:}
-
-\begin{enumerate}
-
-\item{RenderThread()}
-
-\hspace*{0.65cm}Construtor do objeto.
-
-\item{void run()}
-
-\hspace*{0.65cm}Inicia o processo de renderização do Video
-
-\item{void sendProgress()}
-
-\hspace*{0.65cm}Envia para a janela a pocentagem atual do processo.
-
-\end{enumerate}
 
 \section{Diagramas de Sequência \label{diagramas_sequencia}}
 
