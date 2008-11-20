@@ -1,4 +1,5 @@
 #include "../ui_Render.h"
+#include <stdio.h>
 
 #include "QWidget.h"
 
@@ -45,23 +46,30 @@ Render::Render(QDialog *parent) : QDialog(parent)
  ************************************************************************/
 void Render::setProgress(int percent)
 {
-	renderThread->mutex.lock();
+
+	if (!renderThread->mutex.locked())
+		renderThread->mutex.lock();
 
 	ui.progressBar->setValue (percent);
 
 	if (percent == 100)
 	{
+		renderThread->terminate();
+
 		// Libera o novo video
 		cvReleaseVideoWriter(&videoWriter);
 
 		QMessageBox::information(
 				this,
-				tr("Video Renderizado"),
+				tr("Renderizando Vídeo"),
 				tr("Fim da renderização"),
 				QMessageBox::Ok
 				);
 
+		setVisible(false);
+
 		QDialog::close();
+
 
 	}
 
@@ -90,7 +98,7 @@ void Render::startRenderThread(RenderThread *render)
 	qRegisterMetaType<Frame*>("Frame");
 
 	connect(renderThread, SIGNAL(writeFrameThread(Frame*)),
-			this, SLOT(writeFrame(Frame*)));
+			this, SLOT(writeFrame(Frame*)), Qt::BlockingQueuedConnection);
 
 	vdo = currentProject->getVideo();
 
@@ -115,14 +123,44 @@ void Render::startRenderThread(RenderThread *render)
  ************************************************************************/
 void Render::writeFrame(Frame *frame)
 {
-
 	renderThread->mutex.lock();
 
 	int ret_i;
 
 	ret_i = cvWriteFrame(videoWriter, frame->data);
 
-	delete frame;
-
 	renderThread->mutex.unlock();
+}
+
+/************************************************************************
+ * Trata o evento de close da janela
+ *************************************************************************
+ * param (E): QCloseEvent* - evento
+ ************************************************************************
+ * Histórico
+ * 20/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+void Render::closeEvent(QCloseEvent* event)
+{
+	if (renderThread->isRunning())
+	{
+
+		// Finaliza a thread
+		renderThread->terminate();
+
+		// Libera o video
+		cvReleaseVideoWriter(&videoWriter);
+
+		// Remove o pedaco do video criado
+		remove(renderThread->filename_cy);
+
+		// Fala q foi cancelado
+		QMessageBox::warning(
+				this,
+				tr("Renderizando Vídeo"),
+				tr("Renderização interrompida"),
+				QMessageBox::Ok
+				);
+	}
 }

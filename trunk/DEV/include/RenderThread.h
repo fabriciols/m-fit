@@ -29,6 +29,5 @@ class RenderThread: public QThread
 		QMutex mutex;
 
 
-
 };
 #endif
