@@ -3,7 +3,7 @@
 ######################################################################
 
 DEVCPP_PATH = "C:/Dev-Cpp"
-OPENCV_PATH = "C:/Arquivos de Programas/OpenCV"
+OPENCV_PATH = "C:/Program Files/OpenCV"
 TEMPLATE = app
 TARGET = MFIT
 DEPENDPATH += . bin include source
@@ -12,6 +12,7 @@ QT += qt3support xml
 
 FORMS   = Interface/Interface.ui \
 			 Interface/detectConfig.ui \
+			 Interface/Render.ui \
 			 Interface/transitionEdit.ui
 
 LIBS =  -L$$OPENCV_PATH/bin  \
@@ -57,6 +58,8 @@ HEADERS += include/Color.h \
            include/VideoPlayer.h \
            include/QWidgetTimeline.h \
            include/QTreeWidgetEffect.h \
+           include/RenderThread.h \
+           include/Render.h \
            include/Xml.h
 
 SOURCES += source/main.cpp \
@@ -82,6 +85,8 @@ SOURCES += source/main.cpp \
            source/VideoPlayer.cpp \
            source/QWidgetTimeline.cpp \
            source/QTreeWidgetEffect.cpp \
+           source/RenderThread.cpp \
+           source/Render.cpp \
            source/Xml.cpp
 
 CONFIG -= incremental_off
