@@ -13,7 +13,7 @@ extern Interface *Interface_ui;
 /************************************************************************
  * Construtor
  *************************************************************************
- * param (E): Nenhum
+ * param (E): char* - nome do video a ser salvo
  *************************************************************************
  * Histórico
  * 29/09/08 - Fabricio Lopes de Souza
@@ -25,16 +25,15 @@ RenderThread::RenderThread(char *filename_cy)
 }
 
 /************************************************************************
- * Metodo que é executado quando a thread do VideoPlayer for iniciada.
- * Pega frame a frame e emite sinal para a interface desenhar.
+ * Metodo que é executado quando a thread da Renderização
+ * Pega frame a frame, aplica o efeito, e manda escrever
  *************************************************************************
  * param (E): Nenhum
  *************************************************************************
  * Histórico
- * 29/09/08 - Fabricio Lopes de Souza
+ * 20/11/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
-
 void RenderThread::run()
 {
 	long totalFrame = 0x0;
@@ -105,6 +104,16 @@ void RenderThread::run()
 }
 
 
+/************************************************************************
+ * Envia para a janela o progresso atual.
+ *************************************************************************
+ * param (E): int  - Posicao atual
+ * param (E): long - Total de posições
+ *************************************************************************
+ * Histórico
+ * 20/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void RenderThread::sendProgress(int i, long total)
 {
 
