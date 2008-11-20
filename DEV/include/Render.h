@@ -31,6 +31,7 @@ class Render: public QDialog
 		Ui::Render ui;
 		void connectRenderThread(RenderThread *renderThread);
 		CvVideoWriter* videoWriter;
+		RenderThread *renderThread;
 
 
 };
