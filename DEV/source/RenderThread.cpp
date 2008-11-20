@@ -88,19 +88,26 @@ void RenderThread::run()
 		}
 
 		// Atualiza a barra de progresso
-		if (!(i % 100))
-			sendProgress(i, totalFrame);
+		sendProgress(i, totalFrame);
 
 		// Escreve o frame no video final
 		emit writeFrameThread(frameEffect);
 
+		while (true)
+		{
+			if (!mutex.locked())
+				break;
+
+			usleep(10000);
+		}
+
+		delete frameEffect;
 	}
 
 	// Devolve o ponteiro pra posicao inicial
 	vdo->seekFrame(currentPos);
 
 	emit setProgressThread(100);
-
 }
 
 

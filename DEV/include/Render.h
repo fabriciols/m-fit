@@ -25,6 +25,8 @@ class Render: public QDialog
 	private slots:
 		void setProgress(int percent);
 		void writeFrame(Frame *frame);
+		void closeEvent(QCloseEvent* event);
+
 
 	public:
 		Render(QDialog *parent = 0);
