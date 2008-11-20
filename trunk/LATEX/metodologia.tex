@@ -106,7 +106,7 @@ escuras.
 fade será:
 
 \begin{enumerate}
-    \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será realizada a detecção dos fade-in.}
+    \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será realizada a detecção dos Fades.}
 
     \item{\textbf{Ritmo Visual por Histograma (RVH):} A partir do vídeo de entrada, cria-se uma simplificação
     do mesmo chamada Ritmo Visual por Histograma (Seção
@@ -118,6 +118,7 @@ fade será:
     \item{Converte Frame para tons de cinza;}
     \item{Cálculo da Diagonal Principal deste Frame;}
     \item{Obtenção do Histograma desta diagonal.}
+    \item{Obtenção da média do Histograma.}
     \end{enumerate}
     \hspace*{0.65cm}Tais passos se repetem seqüencialmente do primeiro,
     até o último frame do vídeo.
@@ -140,10 +141,10 @@ fade será:
     calcula-se a sua derivada primeira. A partir da função derivada, é
     possível visualizar o comportamento de um fade-in. No momento em que
     a sequência estiver com seus frames mais escuros, a curva se manterá
-    mais constante, ao iniciar o processo da transição (clareamento da
+    constante. Ao iniciar o processo da transição (clareamento da
     tomada), ocorrerá uma forte variação na curva, a qual se manterá até
     o momento em que a luminosidade dos frames deixe de variar, fazendo
-    também com que o comportamento da curva torne-se estável novamente.}
+    com que o comportamento da curva torne-se estável novamente.}
 
     \item{\textbf{Análise das Derivadas:}
 
@@ -158,23 +159,24 @@ fade será:
           os quais podem ser vistos na Figura \ref{img_vrhd_fade_in_out}. Nota-se que em ambos os casos de fade,
           fica evidente que um fade é representado por um intervalo de variação na derivada do ritmo-visual.
 
-        Então o array de derivadas é percorrido ponto a ponto, em busca de intervalos onde a derivada sofre uma variação, como nas figuras citadas acima.
+        Então a sequência de derivadas é percorrido ponto a ponto, em busca de intervalos onde a derivada sofre uma variação,
+        como nas Figuras \ref{img_met_fadein_rvh} e \ref{img_vrhd_fade_in_out}.
         Para que o sistema comece a avalizar um intervalo de variação esta precisa atender as seguintes condições:
 
         \begin{enumerate}
-        \item{ Sua derivada deverá sofrer uma variância (não deve ser constante); }
-        \item{ Esta variância não deve ser abrupta (Pois pode evidenciar um CORTE);}
+        \item{ Sua derivada deverá sofrer uma variação (não deve ser constante); }
+        \item{ Esta variação não deve ser abrupta (Pois pode evidenciar um Corte);}
         \item{ O ponto anterior não deve ter variação alguma, ou seja, deve ser constante. }
         \end{enumerate}
 
         A partir disso, o sistema começa a analisar a variação encontrada.
 
-        O ponto final desta variação é determinado quando a derivada para de variar e se torna constante novamente.
+        O ponto final desta variação é determinado quando a derivada para de variar e torna-se constante novamente.
 
-        Sob posse do intervalo da variação, o sistema checa as seguintes condições:
+        Sob posse do intervalo da variação, o sistema verifica as seguintes condições:
 
         \begin{enumerate}
-        \item{ O intervalo de variação deve conter mais do que 10 Frames, visto que valores abaixo deste limiar podem evidenciar um Corte;}
+        \item{ O intervalo da variação deve conter mais do que 10 Frames, visto que valores abaixo deste limiar podem evidenciar um Corte;}
         \item{ O intervalo não deve ter em seu ponto final uma variação muito abrupta, podendo assim, evidenciar um Corte}
         \end{enumerate}
 
@@ -182,8 +184,8 @@ fade será:
         Para ser feita a diferenciação entre um Fade-in e um Fade-out, são adotados os seguintes critérios:
 
         \begin{enumerate}
-        \item{Fade-in  : O primeiro ponto da variação é um Frame com predominância PRETO}
-        \item{Fade-out : O último ponto da variação é um Frame com predominância PRETO}
+        \item{Fade-in  : O primeiro ponto da variação é um Frame com predominância de cor preta.}
+        \item{Fade-out : O último ponto da variação é um Frame com predominância de cor preta.}
         \end{enumerate}
      }
 
@@ -204,7 +206,7 @@ a detecção de transições do tipo Dissolve:
 \begin{enumerate}
     \item{\textbf{Vídeo:} É feita a entrada do vídeo no qual será feita a detecção das transições do tipo Dissolve.}
 
-    \item{\textbf{Cálculo do RV por Histograma:} Para a realização da detecção de transições do tipo
+    \item{\textbf{Cálculo do Ritmo Visual por Histograma:} Para a realização da detecção de transições do tipo
     dissolve, o sistema irá primeiramente gerar o RVH do vídeo.}
 
     \hspace*{0.65cm}Este processo se dá através dos seguintes passos:
@@ -220,10 +222,8 @@ a detecção de transições do tipo Dissolve:
     até o último frame do vídeo.
 
     \item{\textbf{Verifica comportamento do RVH:} Para cada ponto do Ritmo Visual por
-    Histograma, serão verificados os próximos 7 pontos. De acordo com
-    observações realizadas em vídeos de teste em que ocorrem o Dissolve foi constatado que em média,
-    são necessários 7 pontos. Se estes pontos possuírem um comportamento crescente ou decrescente, o primeiro
-    deles será considerado um possível local de ocorrência de
+    Histograma, serão verificados os próximos 7 pontos. Se estes pontos possuírem um comportamento
+    crescente ou decrescente, o primeiro deles será considerado um possível local de ocorrência de
     Dissolve.}
 
     \item{\textbf{Derivada dos possíveis pontos de Dissolve:} Será

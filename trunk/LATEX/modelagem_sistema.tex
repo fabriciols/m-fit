@@ -213,7 +213,7 @@ cenário específico de detecção de cortes.
 \subsubsection{Caso de uso: Detecta Cortes \label{use_case_detecta_cortes}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
-sistema que seja realizada a detecção de transições do tipo corte.
+sistema que seja realizada a detecção de transições do tipo Corte.
 
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
 operação de detecção de transições. A mesma poderá ser feita
@@ -291,15 +291,8 @@ o processo de detecção de transições do tipo fade.
 
 \subsubsection{Caso de uso: Detecta Fade \label{use_case_detecta_fades}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} Feito o carregamento do
-vídeo, um processo de detecção das transições do tipo fade se
-inicia, o qual tem os seguintes passos:
-
-\begin{itemize}
-\item{Montagem do Ritmo Visual por Histograma}
-\item{Cálculo das derivadas da reta}
-\item{Obtenção da derivada Máxima}
-\end{itemize}
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
+sistema que seja realizada a detecção de transições do tipo Fade.
 
 \subsubsection{Caso de uso: Montagem do RV por histograma \label{use_case_rvh}}
 
@@ -321,24 +314,14 @@ do $RVH$
 
 \subsubsection{Caso de uso: Cálculo das derivadas dos pontos do RVH \label{use_case_derivadas}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} A partir da reta RVH do
-video , é calculada a derivada dos pontos, em busca de variações em
-seu resultado.
+\hspace*{1.25cm}\textbf{Cenário Principal:} Calcula-se a primeira
+derivada do RVH.
 
 \subsubsection{Caso de uso: Análise da derivada\label{use_case_derivada_min}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} A partir das derivadas
-da reta, é feita uma análise, a fim de encontar possíveis fades.
-
-\subsubsection{Detecta Fade-In \label{use_case_detecta_fadein}}
-
-\hspace*{1.25cm}\textbf{Cenário Principal:} Feita a análise,
-    cria-se os objetos do Fade-in.
-
-\subsubsection{Fade-Out \label{use_case_detecta_fadeout}}
-
-\hspace*{1.25cm}\textbf{Cenário Principal:} Feita a análise,
-    cria-se os objetos do Fade-out.
+\hspace*{1.25cm}\textbf{Cenário Principal:} É feita uma busca por
+variações na curva das derivadas, a fim de encontrar possíveis Fades
+e classificá-los entre Fade-In e Fade-Out.
 
 \subsection{Cenário Detecção de Dissolve \label{use_case_dissolve}}
 
@@ -355,22 +338,10 @@ para o processo de detecção de transições do tipo dissolve.
 
 \subsubsection{Caso de uso: Detecta Dissolve \label{use_case_detecta_dissolve}}
 
-\hspace*{1.25cm}\textbf{Cenário Principal:} Feito o carregamento do
-vídeo, um processo de detecção das transições do tipo dissolve se
-inicia, o qual tem os seguintes passos:
+\hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
+sistema que seja realizada a detecção de transições do tipo Fade.
 
-\begin{itemize}
-\item{Montagem do Ritmo Visual por Histograma}
-\item{Verifica os próximos 7 frames}
-\item{Cálculo da primeira derivada dos possíveis pontos de Dissolve}
-\item{Verificação dos pontos resultantes da derivada com um limiar definido}
-\end{itemize}
-
-\hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário cancela a
-operação de detecção de transições. A mesma poderá ser feita
-posteriormente através dos menus do sistema.
-
-\subsubsection{Caso de uso: Montagem do Ritmo Visual por Histograma \label{use_case_histograma}}
+\subsubsection{Caso de uso: RV por Histograma (RVH) \label{use_case_histograma}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} A partir do vídeo de
 entrada, é calculado o Histograma de cada Frame do vídeo, juntando
@@ -383,10 +354,6 @@ todos em um Ritmo Visual.
 \subsubsection{Caso de uso: Obtenção do pico do histograma}
 
 \hspace*{1.25cm}Ver: \ref{use_case_pico_hist}
-
-\subsubsection{Caso de uso: RV por histograma (RVH)}
-
-\hspace*{1.25cm}Ver: \ref{use_case_rvh}
 
 \subsubsection{Caso de uso: Verifica os 7 frames seguintes \label{use_case_7pontos}}
 
@@ -697,7 +664,7 @@ e preenche as estruturas necessárias.
 é criado uma imagem (gráfico) representativo do mesmo. Utilizado para
 representar Histogramas.
 
-\item{~Frame()}
+\item{Frame()}
 
 \hspace*{0.65cm}Destrutor, libera a memória alocada para o Frame.
 
@@ -1653,19 +1620,20 @@ fade presentes no vídeo.
 a análise seja feita em todos os frames do vídeo;}
 \item{DTF cria objeto VR;}
 \item{DTF solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
-\item{VR cria objeto FRAME;}
 \item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do video}
-\item{VR solicita a VDO o próximo frame do vídeo}
-\item{VR solicita ao FRAME a diagonal do frame solicitado}
-\item{VR  solicita ao FRAME o histograma do frame (diagonal)}
-\item{DTF solicita ao VR a media do histograma}
-\item{Loop: fim}
-\item{DTF calcula as derivadas do RVH}
-\item{DTF Analiza as derivadas do RVH}
-\item{DTF Cria uma transicao do tipo FADE-IN}
-\item{DTF Se não, cria uma transicao do tipo FADE-OUT}
-\item{DTF Adiciona a transição na lista de transições}
-\item{DTF solicita a VDO a restauração do ponteiro do video}
+\item{VR cria objeto FRAME;}
+\item{VR solicita a VDO o próximo frame do vídeo;}
+\item{VR solicita ao FRAME a diagonal do frame solicitado;}
+\item{VR cria objeto HIST, criando o histograma do frame corrente;}
+\item{VR solicita ao FRAME a média do histograma;}
+\item{VR destrói objeto HIST;}
+\item{VR destrói objeto FRAME;}
+\item{Loop: fim;}
+\item{DTF calcula as derivadas do RVH;}
+\item{DTF Analisa as derivadas do RVH;}
+\item{DTF Cria objeto transition;
+\item{DTF Adiciona a transição na lista de transições;}
+\item{DTF solicita a VDO a restauração do ponteiro do video;}
 \end{enumerate}
 
 \subsection{Detecção de dissolve \label{seq_dissolve}}
@@ -1685,24 +1653,20 @@ do tipo dissolve presentes no vídeo.
 \begin{enumerate}
 \item{DTD solicita à VDO a quantidade de frames do video;}
 \item{DTD cria objeto VR;}
-\item{DTD solicita à VDO o ritmo visual por histograma;}
-\begin{enumerate}
+\item{DTD solicita à VR o ritmo visual por histograma;}
+\item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do video}
 \item{VR cria objeto FRAME;}
-\item{VR cria objeto Histogram;}
-\item{VR cria objeto Color;}
-\item{VR solicita à VDO o primeiro frame de video;}
-\item{VR solicita à Color a conversão do frame para tons de cinza;}
-\item{VR solicita à FRAME a média da luminância do frame corrente;}
-\item{VR solicita à VDO o próximo frame de video;}
-\item{VR solicita à VDO a destruição do objeto;}
-\item{VR solicita à FRAME a destruição do objeto;}
-\item{VR solicita à Histogram a destruição do objeto;}
-\item{VR solicita à Color a destruição do objeto;}
-\end{enumerate}
-\item{DTD faz detecção da primeira derivada a partir do vetor retornado pela classe VDO;}
+\item{VR solicita a VDO o próximo frame do vídeo;}
+\item{VR solicita ao FRAME a diagonal do frame solicitado;}
+\item{VR cria objeto HIST, criando o histograma do frame corrente;}
+\item{VR solicita ao FRAME a média do histograma;}
+\item{VR destrói objeto HIST;}
+\item{VR destrói objeto FRAME;}
+\item{Loop: fim;}
+\item{DTD faz cálculo da primeira derivada do VRH obtido;}
 \item{DTD cria objeto Transition;}
 \item{DTD valida se há duplicidades de detecção antes de inserir no vetor de detecções;}
-\item{DTD solicita à Transition a inserção do ponto detectado, identificando o ID, posição e tipo de detecção;}
+\item{DTD destrói objeto VR.}
 \end{enumerate}
 
 \subsection{Edição de vídeo \label{seq_edicao}}
@@ -1716,8 +1680,7 @@ do tipo dissolve presentes no vídeo.
 \end{figure}
 
 \hspace*{1.25cm}A Figura \ref{img_seq_edicao} representa a sequência
-de processos para a realização da detecção de transições do tipo
-corte do vídeo.
+de processos para a aplicação de um efeito no vídeo.
 
 \begin{enumerate}
 \item{Editor solicita ao sistema edição de vídeo;}
@@ -1814,7 +1777,7 @@ outro tipo de transição. }
 \hspace*{1.25cm}Estado interno do estado Detecção de Transições.
 
 \hspace*{0.65cm}Sistema entra em estado de detecção de fades. Neste
-estado são detectados os fade-in, fade-out ou ambos.
+estado são detectados os Fades presentes no vídeo.
 
 \hspace*{0.65cm}Este estado possui os seguintes estados internos:
 
@@ -1831,10 +1794,16 @@ histogramas) do vídeo. }
 Sistema entra no estado em que é feito o cálculo das derivadas do
 RVH }
 
-\item{\textbf{Analizando as Derivadas}
+\item{\textbf{Analisando as Derivadas}
 
-Á partir da análise das derivadas, o sistema cria os objetos de
-acordo com a detecção encontrada. }
+Sistema faz análise das derivadas, buscando pontos de ocorrência de
+Fades e os classifica em Fade-In ou Fade-Out.}
+
+\item{\textbf{Verificando duplicidade}
+
+Sistema faz a verificação se o ponto apontado como transição de Fade
+já não foi apontado anteriormente como ponto de ocorrência de outro
+tipo de transição. }
 
 \end{enumerate}
 
@@ -1856,26 +1825,28 @@ Histograma. }
 
 \item{\textbf{Verificando possíveis pontos de Dissolve}
 
-Sistema entra no estado em que para cada ponto do Ritmo Visual por
-Histograma, são verificados os próximos 7 pontos. Se estes possuírem
-um comportamento crescente ou decrescente, o primeiro deles será
-considerado um possível local de ocorrência de Dissolve.}
+Sistema entra no estado em que são analisados os pontos do Ritmo
+Visual por Histograma, marcando os possíveis pontos de ocorrência de
+Dissolve.}
 
-\item{\textbf{Calculando Derivada dos possíveis pontos de Dissolve}
+\item{\textbf{Calculando Derivadas}
 
 Sistema entra no estado em que é calculada a primeira derivada dos
 possíveis pontos de Dissolve determinados no estado anterior.}
 
-\item{\textbf{Verificando os resultados da primeira derivada dos possíveis pontos de Dissolve}
+\item{\textbf{Validando Dissolve}
 
 Os resultados da derivada são comparados a um limiar. Se todas as
 derivadas de um determinado trecho estiverem abaixo do limiar
-definido, este será considerado um ponto de ocorrência de Dissolve.}
+definido, este será considerado um ponto de ocorrência de Dissolve.
+Também é aplicado um limiar para distinção entre um Dissolve e um
+Fade.}
 
-\item{\textbf{Limiar de fade}
+\item{\textbf{Verificando duplicidade}
 
-Para os pontos de Dissolve, é aplicado um limiar de fade para separar
-Fades de Dissolves. }
+Sistema faz a verificação se o ponto apontado como transição de
+Dissolve já não foi apontado anteriormente como ponto de ocorrência
+de outro tipo de transição. }
 
 \end{enumerate}
 
