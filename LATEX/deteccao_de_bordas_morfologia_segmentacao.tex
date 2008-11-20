@@ -115,10 +115,10 @@ São eles:
 \hspace*{0.65cm}Onde SNR representa a eficiência do filtro em
 relação a falsos positivos (detecção de falsas bordas, ruídos), ou
 seja, o filtro deve detectar o máximo de bordas verdadeiras (Sinal)
-existentes na imagem.
+existentes na imagem. Quanto maior o SNR, melhor será a detecção.
 
 \hspace*{0.65cm}O critério de localização, como o nome já diz, está
-ligado à localização real da borda na imagem e aquela apontada pelo
+ligado à localização real da borda na imagem e àquela apontada pelo
 filtro. Quanto menor a distância entre a borda detectada e a borda
 real, melhor será o filtro.
 
@@ -148,16 +148,17 @@ M(x,y) = [ I_x(x,y)^2 + I_y(x,y)^2 ]^\frac{1}{2}
 \hspace*{0.65cm}Onde $I_x$ é a imagem convoluída na direção X e $I_y$ é a imagem convoluída na
 direção Y.
 
-\hspace*{0.65cm}Como visto no início desta seção, as bordas são representadas por pixels
-que possuem gradiente de alta magnitude. Devido à ruídos presentes na imagem, após os processos de
-convolução da imagem, podem haver diversos pixels representando um
-único ponto de borda verdadeiro devido à existência de ruídos na imagem. Porém, aquele que possuir o
-gradiente com maior magnitude é o candidato mais forte para
-representar a borda. Através do processo de supressão não máxima, os
-pixels de magnitude não máxima são eliminados, restando
-somente 1 pixel representando 1 ponto de borda, o que melhora a performance do filtro
-e atende ao terceiro critério citado acima, visto que as bordas serão representadas
-por linhas de apenas 1 pixel.
+\hspace*{0.65cm}Como visto no início desta seção, as bordas são
+representadas por pixels que possuem gradiente de alta magnitude.
+Devido à ruídos presentes na imagem, após os processos de convolução
+da imagem, podem haver diversos pixels representando um único ponto
+de borda verdadeiro devido à existência de ruídos na imagem. Porém,
+aquele que possuir o gradiente com maior magnitude é o candidato
+mais forte para representar a borda. Através do processo de
+supressão não máxima, os pixels de magnitude não máxima são
+eliminados, restando somente 1 pixel representando 1 ponto de borda,
+o que melhora a performance do filtro e atende ao terceiro critério
+citado anteriormente.
 
 \hspace*{0.65cm}Exemplos e melhores explicações da aplicação deste
 processo podem ser encontradas em \cite{GIOVANE_2002}.
@@ -237,7 +238,7 @@ uma erosão em uma imagem:
         (b)
     \end{minipage}
     \caption{a) Imagem Original; b) Imagem Erodida}
-    Fonte: Autor.
+    Fonte: Autor ``adaptado de'' Batman - O Cavaleiro das Trevas.
     \label{img_morfologia_erosao}
 \end{figure}
 
@@ -275,7 +276,7 @@ diminuídos em relação à imagem original.
         (b)
     \end{minipage}
     \caption{a) Imagem Original; b) Imagem Dilatada.}
-    Fonte: Autor.
+    Fonte: Autor``adaptado de'' Batman - O Cavaleiro das Trevas.
     \label{img_morfologia_dilatacao}
 \end{figure}
 
