@@ -1241,7 +1241,7 @@ timeline.
 
 \end{enumerate}
 
-\subsection{Classe: Render\label{classe_Xml}}
+\subsection{Classe: Render\label{classe_render}}
 
 \hspace*{1.25cm}Classe responsável pela janela de progresso da
 renderização de um vídeo.
@@ -1260,8 +1260,8 @@ renderização de um vídeo.
 
 \item{void startRenderThread()}
 
-\hspace*{0.65cm}Começa o provesso de renderização, chamando a thread
-responsável.
+\hspace*{0.65cm}Inicializa a thread responsável pelo processo de
+renderização.
 
 \item{void writeFrame()}
 
@@ -1269,7 +1269,7 @@ responsável.
 
 \end{enumerate}
 
-\subsection{Classe: RenderThread\label{classe_Xml}}
+\subsection{Classe: RenderThread\label{classe_renderThread}}
 
 \hspace*{1.25cm}Classe responsável pela thread de renderização
 do vídeo.
@@ -1288,7 +1288,7 @@ do vídeo.
 
 \item{void sendProgress()}
 
-\hspace*{0.65cm}Envia para a janela a pocentagem atual do processo.
+\hspace*{0.65cm}Envia para a janela a porcentagem atual do processo.
 
 \end{enumerate}
 
