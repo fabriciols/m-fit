@@ -26,6 +26,8 @@ class RenderThread: public QThread
 		RenderThread(char *filename_cy);
 		char filename_cy[256];
 		void sendProgress(int i, long total);
+		QMutex mutex;
+
 
 
 };

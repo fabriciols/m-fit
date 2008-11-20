@@ -53,11 +53,14 @@ void Render::setProgress(int percent)
 		QDialog::close();
 
 	}
+
 }
 
-void Render::connectRenderThread(RenderThread *renderThread)
+void Render::connectRenderThread(RenderThread *render)
 {
 	Video *vdo;
+
+	renderThread = render;
 
 	// Atualiza a imagem do player assim que receber um sinal da thread
 	connect(renderThread, SIGNAL(setProgressThread(int)),
@@ -82,8 +85,11 @@ void Render::connectRenderThread(RenderThread *renderThread)
 
 void Render::writeFrame(Frame *frame)
 {
+
+	renderThread->mutex.lock();
 	int ret_i;
 	ret_i = cvWriteFrame(videoWriter, frame->data);
 
 	delete frame;
+	renderThread->mutex.unlock();
 }
