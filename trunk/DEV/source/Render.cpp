@@ -20,12 +20,12 @@ extern Project *currentProject;
 extern VideoPlayer *vdo_player;
 
 /************************************************************************
- * Construtor da janela de configurações 
+ * Construtor da janela de Renderizacao
  *************************************************************************
  * param (E): QDialog -> referencia da janela que criou o objeto
  ************************************************************************
  * Histórico
- * 19/10/08 - Fabricio Lopes de Souza
+ * 20/11/08 - Fabricio Lopes de Souza
  * Criação.
  ************************************************************************/
 Render::Render(QDialog *parent) : QDialog(parent)
@@ -34,8 +34,19 @@ Render::Render(QDialog *parent) : QDialog(parent)
 
 }
 
+/************************************************************************
+ * Seta a porcentagem atual do processo
+ *************************************************************************
+ * param (E): int percent - porcentagem
+ ************************************************************************
+ * Histórico
+ * 20/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Render::setProgress(int percent)
 {
+	renderThread->mutex.lock();
+
 	ui.progressBar->setValue (percent);
 
 	if (percent == 100)
@@ -43,7 +54,7 @@ void Render::setProgress(int percent)
 		// Libera o novo video
 		cvReleaseVideoWriter(&videoWriter);
 
-		QMessageBox::critical(
+		QMessageBox::information(
 				this,
 				tr("Video Renderizado"),
 				tr("Fim da renderização"),
@@ -54,9 +65,19 @@ void Render::setProgress(int percent)
 
 	}
 
+	renderThread->mutex.unlock();
 }
 
-void Render::connectRenderThread(RenderThread *render)
+/************************************************************************
+ * Inicia a thread de renderização
+ *************************************************************************
+ * param (E): RenderThread - ponteiro para a thread
+ ************************************************************************
+ * Histórico
+ * 20/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
+void Render::startRenderThread(RenderThread *render)
 {
 	Video *vdo;
 
@@ -83,13 +104,25 @@ void Render::connectRenderThread(RenderThread *render)
 	renderThread->start();
 }
 
+/************************************************************************
+ * Escreve o frame na estrutura do video
+ *************************************************************************
+ * param (E): Frame* - frame a ser escrito
+ ************************************************************************
+ * Histórico
+ * 20/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Render::writeFrame(Frame *frame)
 {
 
 	renderThread->mutex.lock();
+
 	int ret_i;
+
 	ret_i = cvWriteFrame(videoWriter, frame->data);
 
 	delete frame;
+
 	renderThread->mutex.unlock();
 }
