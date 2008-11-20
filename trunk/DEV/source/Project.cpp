@@ -5,6 +5,8 @@
 #include <QImage>
 #include <vector>
 
+#include "../include/Render.h"
+#include "../include/RenderThread.h"
 #include "../include/Interface.h"
 #include "../include/Effect.h"
 #include "../include/Color.h"
@@ -466,78 +468,17 @@ long Project::TimelinePosToFrame(long pos)
  ************************************************************************/
 void Project::renderVideo(char *filename_cy)
 {
-	CvVideoWriter* videoWriter;
-	long totalFrame = 0x0;
-	long i = 0;
-	long currentPos = 0;
-	unsigned int j = 0;
-	unsigned int numEffect = 0;
-	int ret_i = 0;
+	Render renderUI;
+	RenderThread *renderThread;
 
-	Frame *frame;
-	Frame *frameEffect;
+	renderThread = new RenderThread(filename_cy);
 
-	// CODECS
-	// CV_FOURCC('H','F','Y','U') // HuffYUV  ~3:1 compression.
-	// CV_FOURCC('P','I','M','1') // MPEG 1 (if you have it)
-	// CV_FOURCC('M','J','P','G') // Motion-jpeg
-	// CV_FOURCC('D','I','B',' ') // Uncompressed
-	// CV_FOURCC('C','D','V','C') // Canopus DV
-	// CV_FOURCC('D','I','V','X') // divx
+	renderUI.connectRenderThread(renderThread);
+	renderUI.exec();
 
-#define UNCOMPRESSED 541215044
-
-	// Abre o writer do video
-	videoWriter = cvCreateVideoWriter(filename_cy, // Nome do arquivo
-			CV_FOURCC('D', 'I', 'B', ' '), // Codec
-			(int)vdo->getFPS(), // FPS
-			cvSize(cvRound(vdo->getFramesWidth()), cvRound(vdo->getFramesHeight())), // Tamanho
-			1); // Is color ?
-
-	// Posiciona o ponteiro no comeco do video
-	currentPos = (long)vdo->getCurrentPosition();
-
-	vdo->seekFrame(0);
-
-	totalFrame = (long)vdo->getFramesTotal();
-
-	// Quantos efeitos temos
-	numEffect = effectList.size();
-
-	// Reseta as ROI
-	vdo->ROI.x = -1;
-	vdo->ROI.y = -1;
-
-	// Varremos Frame a Frame do video
-	for ( i = 0 , j = 0 ; i < totalFrame ; i ++)
-	{
-		frame = vdo->getNextFrame();
-
-		if (numEffect > 0)
-		{
-			frameEffect = applyEffect(frame, i);
-			delete frame;
-		}
-		else
-		{
-			frameEffect = frame;
-		}
-
-
-		// Escreve o frame no video final
-		ret_i = cvWriteFrame(videoWriter, frameEffect->data);
-
-		// Apaga o ponteiro para o video
-		delete frameEffect;
-	}
-
-	// Libera o novo video
-	cvReleaseVideoWriter(&videoWriter);
-
-	// Devolve o ponteiro pra posicao inicial
-	vdo->seekFrame(currentPos);
-
+	delete renderThread;
 }
+
 
 /*************************************************************************
  * Limpa a lista de transições
