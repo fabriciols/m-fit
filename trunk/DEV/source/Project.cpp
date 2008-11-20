@@ -5,6 +5,7 @@
 #include <QImage>
 #include <vector>
 
+#include "../include/VideoPlayer.h"
 #include "../include/Render.h"
 #include "../include/RenderThread.h"
 #include "../include/Interface.h"
@@ -17,6 +18,8 @@
 #include "../include/Log.h"
 
 #include "../include/main.h"
+
+extern VideoPlayer *vdo_player;
 
 /************************************************************************
 * Abre um arquivo XML de projeto e carrega as estruturas necessárias.
@@ -209,7 +212,7 @@ Project::~Project(void)
 int Project::openVideo(QString fileName)
 {
 	char param_cy[50];
-	char *filename_cy;
+	char filename_cy[256];
 
 	Log::writeLog("%s :: vdo[%x]", __FUNCTION__, this->vdo);
 
@@ -220,6 +223,7 @@ int Project::openVideo(QString fileName)
 
 		//apaga lista de transicoes
 		this->clearTransitionList();
+		this->clearEffectList();
 
 		Interface_ui->clearVideoProperty();
 		Interface_ui->clearTransitionsTree();
@@ -227,8 +231,7 @@ int Project::openVideo(QString fileName)
 	}
 
 	// Transformando QString em char*
-	QByteArray ba = fileName.toLatin1();
-	filename_cy = ba.data(); 
+	Interface::QStringToChar(fileName, filename_cy);
 
 	this->vdo = new Video(filename_cy);
 
@@ -271,6 +274,8 @@ int Project::openVideo(QString fileName)
 
 	Interface_ui->addRecentFile(fileName);
 	Interface_ui->updateRecentFilesAct();
+
+	vdo_player->updateCurrentFrame();
 
 	return true;
 }
@@ -471,9 +476,13 @@ void Project::renderVideo(char *filename_cy)
 	Render renderUI;
 	RenderThread *renderThread;
 
+	// Cria a thread
 	renderThread = new RenderThread(filename_cy);
 
-	renderUI.connectRenderThread(renderThread);
+	// Inicia a thread
+	renderUI.startRenderThread(renderThread);
+
+	// Mostra a janela
 	renderUI.exec();
 
 	delete renderThread;
