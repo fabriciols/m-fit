@@ -1944,6 +1944,7 @@ void Interface::on_actionNewProject_triggered()
 	clearTransitionsTree();	
 	effectTreeClear();
 	ui.timelineLabel->clear();
+	ui.videoLabel->clear();
 
 	if (currentProject != 0x0)
 	{
@@ -1951,9 +1952,4 @@ void Interface::on_actionNewProject_triggered()
 		currentProject = new Project();
 	}
 
-	if (vdo_player != 0x0 )
-	{
-		delete vdo_player;
-		vdo_player = new VideoPlayer();
-	}
 }
