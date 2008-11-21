@@ -24,6 +24,10 @@
   <property name="windowTitle" >
    <string>MFIT - Configurações de Detecção</string>
   </property>
+  <property name="windowIcon" >
+   <iconset>
+    <normaloff>../Interface/Icons/logo.png</normaloff>../Interface/Icons/logo.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout_3" >
    <item row="0" column="1" colspan="3" >
     <widget class="QStackedWidget" name="detectProperties" >

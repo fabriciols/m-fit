@@ -15,6 +15,10 @@
   <property name="windowTitle" >
    <string>Renderizando Video</string>
   </property>
+  <property name="windowIcon" >
+   <iconset>
+    <normaloff>../Interface/Icons/logo.png</normaloff>../Interface/Icons/logo.png</iconset>
+  </property>
   <widget class="QLabel" name="label" >
    <property name="geometry" >
     <rect>

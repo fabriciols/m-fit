@@ -18,6 +18,10 @@
   <property name="windowTitle" >
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon" >
+   <iconset>
+    <normaloff>../Interface/Icons/logo.png</normaloff>../Interface/Icons/logo.png</iconset>
+  </property>
   <property name="dockOptions" >
    <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
   </property>
