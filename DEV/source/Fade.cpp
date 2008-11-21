@@ -69,9 +69,6 @@ double* Fade::calcDerivative(double *array, int size_i)
 void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 {
 
-	// Objeto FADE
-	Fade *fade;
-
 	// Objeto para o RVH
 	VisualRythim *vrh;
 
@@ -133,7 +130,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	}
 
 	// 2- Tiramos a derivada
-	array_dy = fade->calcDerivative(array_vrh, len_i);
+	array_dy = calcDerivative(array_vrh, len_i);
 
 	// Descomentar para obter uma imagem do RVH derivado
 	/*******************************************************/
