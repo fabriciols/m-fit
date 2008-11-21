@@ -437,6 +437,8 @@ Frame & Frame::operator+=(Frame &frame)
 	// Seta pra imagem nova
 	setImage(imgDst);
 
+	return *this;
+
 }
 
 /************************************************************************

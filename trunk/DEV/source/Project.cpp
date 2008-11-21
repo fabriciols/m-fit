@@ -503,7 +503,6 @@ void Project::renderVideo(char *filename_cy)
 void Project::clearTransitionList()
 {
 	Transition *transition;
-	int i;
 
 	//apaga lista de transicoes
 	this->transitionList.clear();
