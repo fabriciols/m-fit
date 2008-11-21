@@ -30,6 +30,10 @@
   <property name="windowTitle" >
    <string>Editar Transicao</string>
   </property>
+  <property name="windowIcon" >
+   <iconset>
+    <normaloff>../Interface/Icons/logo.png</normaloff>../Interface/Icons/logo.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout" >
    <item rowspan="16" row="1" column="0" colspan="4" >
     <widget class="QFrame" name="frame" >
