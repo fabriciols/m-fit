@@ -44,7 +44,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 
 	double *detect, *orientation, thresholdMax=0, thresholdMin=0, threshold_fade = 0;
 
-	VisualRythim* vrh;
+	VisualRythim* vrh = new VisualRythim();
 
 	videoSize = cvRound(vdo->getFramesTotal());
 
