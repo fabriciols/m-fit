@@ -36,8 +36,8 @@ int Project::openProject(QString fileName)
 	char filename_cy[100];
 	int ret,i;
 	Xml *fileXml = new Xml();
-	// Abre um projeto ja existente
 
+	// Abre um projeto ja existente
 	Interface::QStringToChar(fileName, filename_cy);
 
 	ret = fileXml->openXml(filename_cy);
@@ -135,7 +135,7 @@ int Project::saveProject(QString fileName)
 	Interface::QStringToChar(path, path_cy);
 	Interface::QStringToChar(file, filename_cy);
 
-	ret = fileXml->createXml(filename_cy, this);
+	ret = fileXml->createXml(path_cy, this);
 
 	strcpy(this->filename_cy, filename_cy);
 	strcpy(this->path_cy, path_cy);
@@ -503,6 +503,7 @@ void Project::renderVideo(char *filename_cy)
 void Project::clearTransitionList()
 {
 	Transition *transition;
+	int i;
 
 	//apaga lista de transicoes
 	this->transitionList.clear();
@@ -511,6 +512,7 @@ void Project::clearTransitionList()
 	transition = new Transition(TRANSITION_VIDEOSTART, 0, "Inicio do Video");
 
 	this->transitionList.push_back(*transition);
+
 }
 
 /*************************************************************************

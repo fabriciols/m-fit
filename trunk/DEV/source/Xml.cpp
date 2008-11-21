@@ -31,7 +31,7 @@ int  Xml::openXml(char *xmlName)
 
 	if (file.open(QIODevice::ReadWrite))
 	{
-		QDomDocument doc;
+		//QDomDocument doc;
 		QXmlSimpleReader xmlReader;
 		QXmlInputSource *source = new QXmlInputSource(file);
 
@@ -381,7 +381,6 @@ int Xml::createXml(char *xmlName, Project *currentProject)
  ************************************************************************/
 int Xml::closeXml()
 {
-	delete &this->doc;
 	return (0);
 }
 

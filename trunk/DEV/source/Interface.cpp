@@ -203,6 +203,12 @@ void Interface::openRecentFile()
 	}
 	else // Senao, abro um projeto
 	{
+		if (currentProject != 0x0)
+		{
+			delete currentProject;
+			currentProject = new Project();
+		}
+
 		currentProject->openProject(fileName_cy);
 		updateTransitions();
 		updateEffectTree();
@@ -394,6 +400,26 @@ void Interface::on_actionOpenProject_triggered()
 	// Segundo  parametro - Mensagem que ira aparecer no topo da imagem
 	// Terceiro parametro - Diretorio inicial
 	// Quarto   parametro - Mensagem q ira aparecer la embaixo, e as extensões suportadas
+
+	if (currentProject != 0x0)
+	{
+		delete currentProject;
+		currentProject = new Project();
+	}
+
+	if (vdo_player != 0x0)
+	{
+		delete vdo_player;
+		vdo_player = new VideoPlayer();
+
+		// Atualiza a imagem do player assim que receber um sinal da thread
+		connect(vdo_player, SIGNAL(setNewFrame(QImage *)),
+				this, SLOT(updatePlayer(QImage *)));
+
+		// Atualiza a imagem do histograma assim que receber um sinal da thread
+		connect(vdo_player, SIGNAL(setHistogram(QImage *)),
+				this, SLOT(updateHist(QImage *)));
+	}
 
 	QString fileName = QFileDialog::getOpenFileName(this,
 			"Abrir Projeto",
@@ -1950,6 +1976,20 @@ void Interface::on_actionNewProject_triggered()
 	{
 		delete currentProject;
 		currentProject = new Project();
+	}
+
+	if (vdo_player != 0x0)
+	{
+		delete vdo_player;
+		vdo_player = new VideoPlayer();
+
+		// Atualiza a imagem do player assim que receber um sinal da thread
+		connect(vdo_player, SIGNAL(setNewFrame(QImage *)),
+				this, SLOT(updatePlayer(QImage *)));
+
+		// Atualiza a imagem do histograma assim que receber um sinal da thread
+		connect(vdo_player, SIGNAL(setHistogram(QImage *)),
+				this, SLOT(updateHist(QImage *)));
 	}
 
 }

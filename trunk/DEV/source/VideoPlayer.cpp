@@ -155,6 +155,9 @@ void VideoPlayer::updateHist(Frame *frame)
 	if (!Interface_ui->ui.histogramLabel->isVisible())
 		return;
 
+	if (!frame)
+		return;
+
 	color = new Color;
 	frameGray = color->convert2Gray(frame);
 	hist = frameGray->createHistogram();
