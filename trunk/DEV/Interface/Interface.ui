@@ -248,52 +248,6 @@ border: 1px solid gray
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>956</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile" >
-    <property name="title" >
-     <string>Arquivo</string>
-    </property>
-    <addaction name="actionNewProject" />
-    <addaction name="actionOpenProject" />
-    <addaction name="actionLoadVideo" />
-    <addaction name="actionRenderVideo" />
-    <addaction name="actionSaveAs" />
-    <addaction name="actionSave" />
-    <addaction name="separator" />
-   </widget>
-   <widget class="QMenu" name="menuDetect" >
-    <property name="title" >
-     <string>Detecção</string>
-    </property>
-    <addaction name="actionAllTransitions" />
-    <addaction name="actionOnlyCuts" />
-    <addaction name="actionAllFades" />
-    <addaction name="actionOnlyDissolve" />
-   </widget>
-   <widget class="QMenu" name="menuHelp" >
-    <property name="title" >
-     <string>Ajuda</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuSettings" >
-    <property name="title" >
-     <string>Configurações</string>
-    </property>
-    <addaction name="actionDetectConfig" />
-   </widget>
-   <addaction name="menuFile" />
-   <addaction name="menuDetect" />
-   <addaction name="menuSettings" />
-   <addaction name="menuHelp" />
-  </widget>
   <widget class="QToolBar" name="mainToolBar" >
    <property name="enabled" >
     <bool>true</bool>
@@ -750,6 +704,46 @@ border: 1px solid gray
    <addaction name="actionAllFades" />
    <addaction name="actionOnlyDissolve" />
    <addaction name="actionDetectConfig" />
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>956</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile" >
+    <property name="title" >
+     <string>Arquivo</string>
+    </property>
+    <addaction name="actionNewProject" />
+    <addaction name="actionOpenProject" />
+    <addaction name="actionLoadVideo" />
+    <addaction name="actionRenderVideo" />
+    <addaction name="actionSaveAs" />
+    <addaction name="actionSave" />
+    <addaction name="separator" />
+   </widget>
+   <widget class="QMenu" name="menuDetect" >
+    <property name="title" >
+     <string>Detecção</string>
+    </property>
+    <addaction name="actionAllTransitions" />
+    <addaction name="actionOnlyCuts" />
+    <addaction name="actionAllFades" />
+    <addaction name="actionOnlyDissolve" />
+   </widget>
+   <widget class="QMenu" name="menuSettings" >
+    <property name="title" >
+     <string>Configurações</string>
+    </property>
+    <addaction name="actionDetectConfig" />
+   </widget>
+   <addaction name="menuFile" />
+   <addaction name="menuDetect" />
+   <addaction name="menuSettings" />
   </widget>
   <action name="actionNewProject" >
    <property name="icon" >
