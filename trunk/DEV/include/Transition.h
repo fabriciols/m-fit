@@ -7,9 +7,11 @@
 
 #define TRANSITION_VIDEOSTART 0
 #define TRANSITION_CUT        1
-#define TRANSITION_FADEIN     2
-#define TRANSITION_FADEOUT    3
-#define TRANSITION_DISSOLVE   4
+#define TRANSITION_FADE			2
+#define TRANSITION_FADEIN     3
+#define TRANSITION_FADEOUT    4
+#define TRANSITION_DISSOLVE   5
+#define TRANSITION_ALL			-1
 
 class Transition
 {

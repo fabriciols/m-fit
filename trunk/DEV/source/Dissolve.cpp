@@ -9,6 +9,8 @@
 #include "../include/Histogram.h"
 #include "../include/Frame.h"
 
+#include "../include/Interface.h"
+
 #include "../include/Video.h"
 #include "../include/Transition.h"
 #include "../include/DetectTransitions.h"
@@ -18,6 +20,10 @@
 #include "../include/Effect.h"
 #include "../include/Color.h"
 #include "../include/Filters.h"
+
+#include "../include/Project.h"
+
+extern Project *currentProject;
 
 #define RIGHT	1
 #define LEFT	2
@@ -56,7 +62,10 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	memset(orientation, '\0',     sizeof(double)*cvRound(videoSize));
 	memset(array_vrh, '\0',     sizeof(double)*cvRound(videoSize));
 
+	emit sendMessage("Iniciando Detecção", 0, 0);
+
 	//Coleta o ritmo visual dos frames
+	emit sendMessage("Criando VRH", transitionList->size(), 20);
 	array_vrh = vrh->createVRH(vdo);
 
 	thresholdMin = 0.25;
@@ -178,6 +187,8 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 				transitionList->push_back(*transition);
 		}
 	}
+
+	emit sendMessage("Fim do Dissolve", transitionList->size(), 100);
 }
 
 /************************************************************************
@@ -199,4 +210,9 @@ int Dissolve::calcFirstDerivative(double firstFrame, double secondFrame, double 
 		return(1);
 	else
 		return(0);
+}
+
+void Dissolve::run()
+{
+	detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
 }

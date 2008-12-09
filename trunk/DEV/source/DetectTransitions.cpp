@@ -11,11 +11,15 @@
 #include "../include/Transition.h"
 #include "../include/DetectTransitions.h"
 
+#include "../include/Project.h"
+
 #include "../include/Cut.h"
 #include "../include/Fade.h"
 #include "../include/Dissolve.h"
 
 #include "../include/Log.h"
+
+extern Project *currentProject;
 
 /************************************************************************
 * Função que faz a detecção das transições.
@@ -41,22 +45,38 @@ void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* t
 	Fade* DTF = new Fade();
 	Dissolve* DTD = new Dissolve();
 	long posFrame = 0x0;	
-	
+
 	posFrame = (long)vdo->getCurrentPosition();
 
+	emit sendMessage("Inicio", 0, 0);
+
 	vdo->seekFrame(0);
-	
-	DTC->detectTransitions(vdo, transitionList); // Cortes
-	
+
+	emit sendMessage("Inicio do Corte", transitionList->size(), 0);
+
+	DTC->start(); // Cortes
+
+	while (DTC->isRunning()) {};
+
 	vdo->seekFrame(0);
-	
-	DTF->detectTransitions(vdo, transitionList); // Fade
-	
+
+	emit sendMessage("Inicio do Fade", transitionList->size(), 33);
+
+	DTF->start(); // Fade
+
+	while (DTF->isRunning()) {};
+
 	vdo->seekFrame(0);
-	
-	DTD->detectTransitions(vdo, transitionList); // Dissolve
-	
+
+	emit sendMessage("Inicio do Dissolve", transitionList->size(), 66);
+
+	DTD->start(); // Dissolve
+
+	while (DTD->isRunning()) {};
+
 	vdo->seekFrame(posFrame);
+
+	emit sendMessage("Fim", transitionList->size(), 100);
 
 	delete DTC;
 	delete DTF;
@@ -64,21 +84,20 @@ void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* t
 }
 
 /************************************************************************
-* Função que faz validação da transição detectada com a lista de 
-* transições, evitando que 2 transições sejam apontadas para a mesma 
-* posição do vídeo.
-*************************************************************************
-* param (E): int position => Posição da nova transição a ser inserida
-* param (E): transitionList => lista de transições.
-*************************************************************************
-* return : TRUE => Transição válida
-* 			  FALSE => Há sobreposição de transições. 
-*************************************************************************
-* Histórico:
-* 20/10/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
-
+ * Função que faz validação da transição detectada com a lista de 
+ * transições, evitando que 2 transições sejam apontadas para a mesma 
+ * posição do vídeo.
+ *************************************************************************
+ * param (E): int position => Posição da nova transição a ser inserida
+ * param (E): transitionList => lista de transições.
+ *************************************************************************
+ * return : TRUE => Transição válida
+ * 			  FALSE => Há sobreposição de transições. 
+ *************************************************************************
+ * Histórico:
+ * 20/10/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 bool DetectTransitions::validateTransition(long position, std::vector<Transition>* transitionList)
 {
 	unsigned long i;
@@ -99,7 +118,12 @@ bool DetectTransitions::validateTransition(long position, std::vector<Transition
 	}
 
 	Log::writeLog("%s :: Transição válida!!! Posição[%d].", __FUNCTION__, position);
-		// Lista está vazia ou a posição é válida.
+	// Lista está vazia ou a posição é válida.
 	return TRUE;
 
+}
+
+void DetectTransitions::run()
+{
+	detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
 }

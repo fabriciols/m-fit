@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <vector>
+#include <QThread>
+#include <QObject>
 #include <QImage>
+
 #include "cv.h"
 #include "highgui.h"
 
@@ -70,6 +73,8 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 
 	Log::writeLog("%s :: iniciando detecção de cortes\n");
 
+	emit sendMessage("Iniciando Deteccao", 0, 0);
+
 	int threshold = 0;
 	int thresholdBin = 0;
 	int *trans = 0;
@@ -81,8 +86,10 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 		vdo->seekFrame(0);
 
 	// Crio o Ritmo VIsual do vídeo
+	emit sendMessage("Criando VR", transitionList->size(), 0);
 	visualRythim = vr->createVR(vdo);
 
+	emit sendMessage("Removendo Wide", transitionList->size(), 5);
 	visualRythim->removeWide();
 
 //	visualRythim->write("RV.jpg");
@@ -91,6 +98,7 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	Frame* visual = new Frame(visualRythim);
 
 	// Passo o filtro de Canny no RV suavizado para destacar as bordas
+	emit sendMessage("Criando Mapa de Bordas", transitionList->size(), 10);
 	this->createBorderMap(visualRythim);
 
 //	visualRythim->write("RV Canny.jpg");
@@ -102,9 +110,11 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 	thresholdBin = (visualRythim->getMaxLum())/4;
 
 	// Binarizo a imagem (transformo tudo em preto e branco)
+	emit sendMessage("Binarizando RV", transitionList->size(), 10);
 	visualRythim->binarizeImage(thresholdBin);
 
 	// Realizo a contagem dos pontos das bordas que foram encontradas
+	emit sendMessage("Contando Pontos", transitionList->size(), 10);
 	trans = countPoints(visualRythim, threshold);
 	
 	for(i=0; i<(long)totalFrames; i++ )
@@ -123,9 +133,13 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 				**/
 			   if(this->validateTransition(i, transitionList))
 					transitionList->push_back(*newTransition);
+
+				emit sendMessage("Validando Cortes", transitionList->size(), 60);
 			}
 		}
 	}
+
+	emit sendMessage("Fim do Corte", transitionList->size(), 100);
 
 	delete visualRythim;
 	delete vr;
@@ -133,17 +147,17 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 }
 
 /************************************************************************
-* Função que retorna o mapa de bordas de um Ritmo Visual
-*************************************************************************
-* param (E): Frame* visualRythim => Ritmo Visual do qual será gerado o
-*  											mapa de bordas
-*************************************************************************
-* return : mapa de bordas.
-*************************************************************************
-* Histórico:
-* 13/08/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Função que retorna o mapa de bordas de um Ritmo Visual
+ *************************************************************************
+ * param (E): Frame* visualRythim => Ritmo Visual do qual será gerado o
+ *  											mapa de bordas
+ *************************************************************************
+ * return : mapa de bordas.
+ *************************************************************************
+ * Histórico:
+ * 13/08/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 void Cut::createBorderMap(Frame* visualRythim)
 {
@@ -160,7 +174,7 @@ void Cut::createBorderMap(Frame* visualRythim)
 		maxCannyThreshold = currentProject->getUserMaxCanny();
 
 	// Crio o mapa de bordas do RV com o operador Canny.
-	
+
 	Log::writeLog("%s :: min = %d", __FUNCTION__, minCannyThreshold);
 	Log::writeLog("%s :: max = %d", __FUNCTION__, maxCannyThreshold);
 
@@ -171,19 +185,19 @@ void Cut::createBorderMap(Frame* visualRythim)
 }
 
 /************************************************************************
-* Função que retorna um novo limiar para detecção de cortes. Caso o 
-* usuário tenha setado um novo valor retorna este valor, senão retorna o 
-* valor default
-*************************************************************************
-* param (E): Frame* visualRythim => Ritmo Visual do qual será gerado o
-*  											mapa de bordas
-*************************************************************************
-* return : mapa de bordas.
-*************************************************************************
-* Histórico:
-* 13/08/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Função que retorna um novo limiar para detecção de cortes. Caso o 
+ * usuário tenha setado um novo valor retorna este valor, senão retorna o 
+ * valor default
+ *************************************************************************
+ * param (E): Frame* visualRythim => Ritmo Visual do qual será gerado o
+ *  											mapa de bordas
+ *************************************************************************
+ * return : mapa de bordas.
+ *************************************************************************
+ * Histórico:
+ * 13/08/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 int Cut::defineThreshold(int height)
 {
@@ -191,40 +205,40 @@ int Cut::defineThreshold(int height)
 	double sysThreshold = 0.0;
 
 	userThreshold = (double)currentProject->getUserThreshold();
-	
-//	Log::writeLog("%s :: userThreshold = %d", __FUNCTION__, userThreshold);
-//	Log::writeLog("%s :: height = %d", __FUNCTION__, height);
-//	Log::writeLog("%s :: teste = %lf", __FUNCTION__, height*(userThreshold/100.0));
+
+	//	Log::writeLog("%s :: userThreshold = %d", __FUNCTION__, userThreshold);
+	//	Log::writeLog("%s :: height = %d", __FUNCTION__, height);
+	//	Log::writeLog("%s :: teste = %lf", __FUNCTION__, height*(userThreshold/100.0));
 
 	if (userThreshold)
 		userThreshold = ((double)height * (userThreshold/100.0));
 	else
 		sysThreshold = height * 0.45;
-	
+
 	setThreshold(userThreshold > 0 ? (int)userThreshold : (int)sysThreshold);
 
-//	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
-	
+	//	Log::writeLog("%s :: threshold(%d) ", __FUNCTION__, this->threshold);
+
 	return (getThreshold());
 
 }
 
 /************************************************************************
-* Função que faz contagem dos pontos das bordas verticais detectadas.	
-*************************************************************************
-* param (E): Frame* borderMap => mapa de bordas do qual será feita a 
-* 											contagem dos pontos
-* param (E): int threshold => Valor do limiar para considerações de onde
-* 										existem cortes
-*************************************************************************
-* return : array preenchido com 1 ou 0, onde houver corte será preenchido
-* com 1 e onde não houver com 0. Cada coluna do mapa de bordas representa
-* 1 frame do vídeo. Com isso será possível saber onde estão os cortes.
-*************************************************************************
-* Histórico:
-* 13/08/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Função que faz contagem dos pontos das bordas verticais detectadas.	
+ *************************************************************************
+ * param (E): Frame* borderMap => mapa de bordas do qual será feita a 
+ * 											contagem dos pontos
+ * param (E): int threshold => Valor do limiar para considerações de onde
+ * 										existem cortes
+ *************************************************************************
+ * return : array preenchido com 1 ou 0, onde houver corte será preenchido
+ * com 1 e onde não houver com 0. Cada coluna do mapa de bordas representa
+ * 1 frame do vídeo. Com isso será possível saber onde estão os cortes.
+ *************************************************************************
+ * Histórico:
+ * 13/08/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 int* Cut::countPoints(Frame* borderMap, int threshold)
 {
@@ -236,14 +250,14 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 
 	int* transitions;
 	int luminance = 0;	
-	
+
 	transitions = (int*)malloc(sizeof(int)*width);
 	memset(transitions,'\0',width);
-	
+
 	//Log::writeLog("%s :: threshold[%d] ", __FUNCTION__, threshold);
-//	Log::writeLog("%s :: width[%d] ", __FUNCTION__, width);
-//	Log::writeLog("%s :: height[%d] ", __FUNCTION__, height);
-	
+	//	Log::writeLog("%s :: width[%d] ", __FUNCTION__, width);
+	//	Log::writeLog("%s :: height[%d] ", __FUNCTION__, height);
+
 	/**
 	 *	Varro toda a imagem coluna por coluna, pixel a pixel, verificando se
 	 *	o pixel é branco. Se for branco, significa que faz parte da borda.
@@ -266,21 +280,21 @@ int* Cut::countPoints(Frame* borderMap, int threshold)
 
 		points = 0;
 	}
-	
+
 	return (transitions);	
 }
 
 /*************************************************************************
-* Função que retorna o valor do limiar escolhido para a contagem de pontos
-**************************************************************************
-* param (E): nenhum
-**************************************************************************
-* return : Treshould
-**************************************************************************
-* Histórico:
-* 13/08/08 - Thiago Mizutani
-* Criação.
-*************************************************************************/
+ * Função que retorna o valor do limiar escolhido para a contagem de pontos
+ **************************************************************************
+ * param (E): nenhum
+ **************************************************************************
+ * return : Treshould
+ **************************************************************************
+ * Histórico:
+ * 13/08/08 - Thiago Mizutani
+ * Criação.
+ *************************************************************************/
 
 int Cut::getThreshold(void)
 {
@@ -290,16 +304,16 @@ int Cut::getThreshold(void)
 }
 
 /************************************************************************
-* Função que seta o valor do limiar (private threshold) da classe CUT
-*************************************************************************
-* param (E): int threshold => Valor do limiar
-*************************************************************************
-* return :  nenhum.
-*************************************************************************
-* Histórico:
-* 13/08/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Função que seta o valor do limiar (private threshold) da classe CUT
+ *************************************************************************
+ * param (E): int threshold => Valor do limiar
+ *************************************************************************
+ * return :  nenhum.
+ *************************************************************************
+ * Histórico:
+ * 13/08/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 int Cut::setThreshold(int threshold)
 {
@@ -309,17 +323,17 @@ int Cut::setThreshold(int threshold)
 }
 
 /************************************************************************
-* Função que valida se a transição encontrada é realmente um corte.
-*************************************************************************
-* param (E): Frame* visual : Ritmo Visual original para análise
-* param (E): int position : Posição em que foi encontrado o suposto corte
-*************************************************************************
-* return :  TRUE OU FALSE.
-*************************************************************************
-* Histórico:
-* 06/08/08 - Thiago Mizutani
-* Criação.
-************************************************************************/
+ * Função que valida se a transição encontrada é realmente um corte.
+ *************************************************************************
+ * param (E): Frame* visual : Ritmo Visual original para análise
+ * param (E): int position : Posição em que foi encontrado o suposto corte
+ *************************************************************************
+ * return :  TRUE OU FALSE.
+ *************************************************************************
+ * Histórico:
+ * 06/08/08 - Thiago Mizutani
+ * Criação.
+ ************************************************************************/
 
 int Cut::validateCut(Frame* visual, int position)
 {
@@ -329,14 +343,14 @@ int Cut::validateCut(Frame* visual, int position)
 	long totalPixels = height*2;
 	long totalNextLum = 0; // Soma total da luminancia dos pixels dos proximos 2 frames.
 	long totalPreviousLum = 0;
-	
+
 	long nextAvarage = 0;
 	long previousAvarage = 0;
 
 	long difference = 0;
 
-//	Log::writeLog("%s :: position[%d]", __FUNCTION__, position);	
-	
+	//	Log::writeLog("%s :: position[%d]", __FUNCTION__, position);	
+
 	// Verifico os próximos 2 frames
 	for(int x=position+1; x<=position+2 && x<width; x++)
 	{
@@ -345,13 +359,13 @@ int Cut::validateCut(Frame* visual, int position)
 			totalNextLum = totalNextLum + visual->getPixel(x,y);
 		}
 	}
-	
+
 	// Se for Fade-In, totalNextLum = 0, ou valor muito baixo.
 
 	nextAvarage = totalNextLum/totalPixels;
 
-//	Log::writeLog("%s :: totalNextLum = %ld, nextAvarage = %ld", __FUNCTION__, totalNextLum, nextAvarage);	
-	
+	//	Log::writeLog("%s :: totalNextLum = %ld, nextAvarage = %ld", __FUNCTION__, totalNextLum, nextAvarage);	
+
 	for(int x=position-1; x>=position-2 && x>0; x--)
 	{
 		for(int y=0; y<height; y++)
@@ -362,19 +376,19 @@ int Cut::validateCut(Frame* visual, int position)
 
 	previousAvarage = totalPreviousLum/totalPixels;
 
-//	Log::writeLog("%s :: totalPreviousLum = %ld, previousAvarage = %ld", __FUNCTION__, totalPreviousLum, previousAvarage);	
+	//	Log::writeLog("%s :: totalPreviousLum = %ld, previousAvarage = %ld", __FUNCTION__, totalPreviousLum, previousAvarage);	
 
 	difference = nextAvarage - previousAvarage;
 
-//	Log::writeLog("%s :: difference = %ld", __FUNCTION__, difference);	
+	//	Log::writeLog("%s :: difference = %ld", __FUNCTION__, difference);	
 
 	/**
-	*  Como posso ter a transição de uma cena mais clara para uma mais escura
-	*  ainda preciso considerar estas diferenças. Portanto se a diferença for
-	*  negativa, até certo ponto ainda é válida, por exemplo, uma cena possui média
-	*  50 e vai para uma em que a média da luminosidade é 40, a diferença será -10,
-	*  porém isto não é um fade-in, então considero como corte.
-	**/
+	 *  Como posso ter a transição de uma cena mais clara para uma mais escura
+	 *  ainda preciso considerar estas diferenças. Portanto se a diferença for
+	 *  negativa, até certo ponto ainda é válida, por exemplo, uma cena possui média
+	 *  50 e vai para uma em que a média da luminosidade é 40, a diferença será -10,
+	 *  porém isto não é um fade-in, então considero como corte.
+	 **/
 	if( difference < -15 )
 	{
 		/**
@@ -417,3 +431,9 @@ int Cut::validateCut(Frame* visual, int position)
 	return (TRUE);
 
 }
+
+void Cut::run()
+{
+	detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
+}
+
