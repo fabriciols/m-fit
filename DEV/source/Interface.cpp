@@ -12,6 +12,8 @@
 #include <QMessageBox>
 #include <QPushButton>
 
+#include "../include/DTWindow.h"
+
 #include "../include/TransitionEdit.h"
 #include "../include/DetectConfig.h"
 
@@ -193,8 +195,15 @@ void Interface::openRecentFile()
 		// Ao carregar o vídeo, devo perguntar ao usuário se ele quer fazer a detecção.
 		if( askDetection() )
 		{
+			DTWindow dtwindow;
+
 			DetectTransitions* DT = new DetectTransitions();
-			DT->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
+
+			dtwindow.setDetectThread(DT, TRANSITION_ALL);
+
+			dtwindow.start();
+
+			dtwindow.exec();
 
 			recreateTimeline();
 
@@ -480,8 +489,15 @@ void Interface::on_actionLoadVideo_triggered()
 
 		if (askDetection()) // Gero a box perguntando se deseja detectar as transições
 		{  
+			DTWindow dtwindow;
+
 			DetectTransitions* DT = new DetectTransitions();
-			DT->detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
+
+			dtwindow.setDetectThread(DT, TRANSITION_ALL);
+
+			dtwindow.start();
+
+			dtwindow.exec();
 
 			recreateTimeline();
 
@@ -898,6 +914,7 @@ void Interface::on_actionAllTransitions_triggered()
 	Video* vdo = 0x0;
 	long posFrame = 0x0;
 	DetectTransitions* DT;
+	DTWindow dtwindow;
 
 	vdo = currentProject->getVideo();
 
@@ -913,7 +930,11 @@ void Interface::on_actionAllTransitions_triggered()
 
 	vdo->seekFrame(0);
 
-	DT->detectTransitions(vdo, &currentProject->transitionList);
+	dtwindow.setDetectThread(DT, TRANSITION_ALL);
+
+	dtwindow.start();
+
+	dtwindow.exec();
 
 	vdo->seekFrame(posFrame);
 
@@ -941,6 +962,7 @@ void Interface::on_actionOnlyCuts_triggered()
 	Video* vdo = 0x0;
 	long posFrame = 0x0;
 	Cut* DTC = 0x0;
+	DTWindow dtwindow;
 
 	vdo = currentProject->getVideo();
 
@@ -956,7 +978,11 @@ void Interface::on_actionOnlyCuts_triggered()
 
 	vdo->seekFrame(0);
 
-	DTC->detectTransitions(vdo, &currentProject->transitionList);
+	dtwindow.setDetectThread(DTC, TRANSITION_CUT);
+
+	dtwindow.start();
+
+	dtwindow.exec();
 
 	vdo->seekFrame(posFrame);
 
@@ -984,6 +1010,7 @@ void Interface::on_actionAllFades_triggered()
 	Video* vdo = 0x0;
 	long posFrame = 0x0;
 	Fade* DTF = 0x0;
+	DTWindow dtwindow;
 
 	vdo = currentProject->getVideo();
 
@@ -999,7 +1026,11 @@ void Interface::on_actionAllFades_triggered()
 
 	vdo->seekFrame(0);
 
-	DTF->detectTransitions(vdo, &currentProject->transitionList);
+	dtwindow.setDetectThread(DTF, TRANSITION_FADE);
+
+	dtwindow.start();
+
+	dtwindow.exec();
 
 	vdo->seekFrame(posFrame);
 
@@ -1028,6 +1059,7 @@ void Interface::on_actionOnlyDissolve_triggered()
 	Video* vdo = 0x0;
 	long posFrame = 0x0;
 	Dissolve* DTD = 0x0;
+	DTWindow dtwindow;
 
 	vdo = currentProject->getVideo();
 
@@ -1043,7 +1075,11 @@ void Interface::on_actionOnlyDissolve_triggered()
 
 	vdo->seekFrame(0);
 
-	DTD->detectTransitions(vdo, &currentProject->transitionList);
+	dtwindow.setDetectThread(DTD, TRANSITION_DISSOLVE);
+
+	dtwindow.start();
+
+	dtwindow.exec();
 
 	vdo->seekFrame(posFrame);
 

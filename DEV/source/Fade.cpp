@@ -12,9 +12,14 @@
 #include "../include/VisualRythim.h"
 #include "../include/DetectTransitions.h"
 
+#include "../include/Project.h"
+
 #include "../include/Fade.h"
 
 #include "../include/Log.h"
+
+extern Project *currentProject;
+
 
 /************************************************************************
  * Função que calcula a derivada no exito y de um dado array
@@ -111,23 +116,33 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	// Label do fade
 	char label[100];
 
+	emit sendMessage("Iniciando Deteccao", 0, 0);
+
 	// Processo de detecção de transições do tipo FADE
 	vrh = new VisualRythim();
 
 	// Removemos partes indesejaveis
+	emit sendMessage("Removendo Wide", transitionList->size(), 0);
 	vdo->removeWide();
+	emit sendMessage("Removendo Borda", transitionList->size(), 5);
 	vdo->removeBorder();
+
+	emit sendMessage("Criando VRH", transitionList->size(), 10);
 
 	// 1- Pegamos o video e criamos o Ritmo Visual por Histograma
 	array_vrh = vrh->createVRH(vdo);
 
 	len_i = cvRound(vdo->getFramesTotal());
 
+	emit sendMessage("Arredondando VRH", transitionList->size(), 15);
+
 	// Arredondamos os valores do VRH
 	for (i = 0 ; i < len_i ; i++)
 	{
 		array_vrh[i] = cvRound(array_vrh[i]);
 	}
+
+	emit sendMessage("Calculando Derivadas", transitionList->size(), 20);
 
 	// 2- Tiramos a derivada
 	array_dy = calcDerivative(array_vrh, len_i);
@@ -179,6 +194,8 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 
 	for ( i=2 ; i < len_i ; i++)
 	{
+
+		emit sendMessage("Analizando Derivadas", transitionList->size(), cvRound(20 + ((((float)i / (float)len_i ) * 100) * 0.8)));
 
 		// Reseta controles
 		fade_end = var = 0;
@@ -266,7 +283,14 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	// Reseta o ROI craido pelo removeWide e removeBorder
 	vdo->resetROI();
 
+	emit sendMessage("Fim do Corte", transitionList->size(), 100);
+
 	delete array_vrh;
 	delete array_dy;
 	delete vrh;
+}
+
+void Fade::run()
+{
+	detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
 }

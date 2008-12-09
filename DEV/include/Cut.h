@@ -1,3 +1,11 @@
+#include <QThread>
+#include <QObject>
+
+#include <vector>
+#include "../include/Interface.h"
+
+#include "../include/DetectTransitions.h"
+
 #ifndef CUT_INCLUDE
 #define CUT_INCLUDE
 /**
@@ -6,6 +14,11 @@
  */
 class Cut: public DetectTransitions
 {
+
+	Q_OBJECT
+
+	signals:
+		void sendMessage(char*,uint,int);
  
 	private:
 		int threshold;
@@ -34,6 +47,10 @@ class Cut: public DetectTransitions
 
 		// Valida se aquilo que foi detectado é realmente um corte.
 		int validateCut(Frame* visual, int position);
+
+	protected:
+		void run();
+
 
 };
 #endif
