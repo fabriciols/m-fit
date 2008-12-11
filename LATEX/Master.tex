@@ -1,7 +1,9 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,doubleside]{report}
+
 \usepackage{a4wide}
 \usepackage[portuguese,english]{babel}
 \usepackage{graphics}
+\usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{epsfig}
 \usepackage[latin1]{inputenc}
@@ -11,7 +13,9 @@
 \usepackage{dropping}
 \usepackage{url}
 \usepackage{subfigure}
-\usepackage[top=3cm,left=3cm,bottom=2cm,right=2cm]{geometry}
+\usepackage{natbib}
+\usepackage{algorithm2e}
+\usepackage{hyperref}
 
 
 %\usepackage{apalike}
@@ -53,39 +57,38 @@
     \end{spacing}}%
   \vspace{1ex}}
 
-
+%\hypersetup{citecolor=black}%criar link no indice
 
 \begin{document}
 
+%%%%%%%%%%%%%%%%%%%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+%%%%%%%%%%%%%%%%%%%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
 %-----------------------------------
-% CAPA EM PORTUGUÊS
+% PRIMEIRA CAPA DE APRESENTAÇÃO EM PORTUGUÊS
 %-----------------------------------
 \thispagestyle{empty}
 
-\begin{spacing}{1.0}
-
 \begin{center}
 \begin{large}
-\begin{huge}
-CENTRO UNIVERSITÁRIO DA FEI\\[0.2 cm]
-\end{huge}
-
-\vspace {2 cm}
-
-
-MAURÍCIO KENITI HIROTA\\[0.2 cm]
-
-FABRÍCIO LOPES DE SOUZA\\[0.2 cm]
-
-IVAN SHIGUENORI MACHIDA\\[0.2 cm]
-
-THIAGO MIZUTANI\\[0.2 cm]
-
-Orientador: Prof. D.Sc. Paulo Sérgio Silva Rodrigues \\[0.2 cm]
+CENTRO UNIVERSITÁRIO DA FEI
 \end{large}
 \end{center}
 
-\vspace {2 cm}
+
+\begin{spacing}{1.0}
+\begin{center}
+\begin{large}
+\vspace{2.0cm}
+THIAGO MIZUTANI\\
+FABRÍCIO LOPES DE SOUZA\\
+MAURÍCIO KENITI HIROTA\\
+IVAN SHIGUENORI MACHIDA
+\end{large}
+\end{center}
+
+\vspace {4 cm}
 
 \begin{spacing}{1.5}
 \begin{center}
@@ -96,17 +99,19 @@ Transições}
 \end{center}
 \end{spacing}
 
-\vspace {8 cm}
+\vspace {4 cm}
+\vspace {3.5 cm}
 
 \begin{center}
 \begin{large}
-São Bernardo do Campo \\[0.2 cm]
-2008
+%São Bernardo do Campo 2007\\[0.2 cm]
+Orientador: Paulo Sérgio Silva Rodrigues \\[0.2 cm]
 \end{large}
 \end{center}
 
 \end{spacing}
 \newpage
+
 
 %-----------------------------------
 % CAPA DE APRESENTAÇÃO EM PORTUGUÊS
@@ -117,48 +122,36 @@ São Bernardo do Campo \\[0.2 cm]
 
 \begin{center}
 \begin{large}
-\begin{huge}
-CENTRO UNIVERSITÁRIO DA FEI\\[0.2 cm]
-\end{huge}
-
-\vspace {2 cm}
-
-MAURÍCIO KENITI HIROTA\\[0.2 cm]
-
-FABRÍCIO LOPES DE SOUZA\\[0.2 cm]
-
-IVAN SHIGUENORI MACHIDA\\[0.2 cm]
-
-THIAGO MIZUTANI\\[0.2 cm]
-
-Orientador: Prof. D.Sc. Paulo Sérgio Silva Rodrigues \\[0.2 cm]
+THIAGO MIZUTANI\\
+FABRÍCIO LOPES DE SOUZA\\
+MAURÍCIO KENITI HIROTA\\
+IVAN SHIGUENORI MACHIDA
 \end{large}
 \end{center}
 
-\vspace {2 cm}
+\vspace {4 cm}
 
 \begin{spacing}{1.5}
 \begin{center}
 \begin{huge}
 {\bf M-FIT: Editoração Eletrônica de Vídeos com Detecção de
 Transições}
-
 \end{huge}
 \end{center}
 \end{spacing}
 
-\vspace {2 cm}
+\vspace {3 cm}
 
 \begin{flushright}
 \begin{minipage}[t]{8.5 cm}
 Trabalho de Conclusão de Curso, apresentado no Centro Universitário
 da FEI, como parte dos requisitos necessários para obtenção do
-título de Bacharel em Ciências da Computação, orientado pelo
-professor Prof. D.Sc. Paulo Sérgio Silva Rodrigues.
+título de Bacharel em Ciências da Computação, orientado pelo Prof.
+D.Sc. Paulo Sérgio Silva Rodrigues.
 \end{minipage}
 \end{flushright}
 
-\vspace {2 cm}
+\vspace {3.5 cm}
 
 \begin{center}
 \begin{large}
@@ -169,6 +162,65 @@ São Bernardo do Campo \\[0.2 cm]
 
 \end{spacing}
 \newpage
+
+%-----------------------------------
+%        FOLHA APRESENTACAO
+%-----------------------------------
+    \thispagestyle{empty}
+\begin{center}
+THIAGO MIZUTANI\\
+FABRÍCIO LOPES DE SOUZA\\
+MAURÍCIO KENITI HIROTA\\
+IVAN SHIGUENORI MACHIDA\\
+    \vspace*{3.0mm}
+"M-FIT: Editoração Eletrônica de Vídeos com Detecção de Transições"
+    %\vspace*{5.0mm}
+
+Trabalho de Conclusão de Curso - Centro Universitário da FEI\\
+Comissão Julgadora:
+\end{center}
+
+    %\vspace*{3.0mm}
+    $$
+    \begin{array}{cccccccccccccccccccccccccccccccc}
+    & & & & & & & & & & & & & & & & & & & & & & & & & & & &\\
+    \hline
+    \end{array}
+    $$
+    \centerline {Prof. Dr. Sc. Paulo Sérgio Silva Rodrigues} \centerline
+    {\small Orientador e Presidente}
+
+    %\vspace*{3.0mm}
+
+    %\thispagestyle{empty}
+    $$
+    \begin{array}{cccccccccccccccccccccccccccccccc}
+    & & & & & & & & & & & & & & & & & & & & & & & & & & & &\\
+    \hline
+    \end{array}
+    $$
+    \centerline {Examinador (1)} \centerline
+    {\small}
+
+    %\vspace*{3.0mm}
+
+    %\thispagestyle{empty}
+    $$
+    \begin{array}{cccccccccccccccccccccccccccccccc}
+    & & & & & & & & & & & & & & & & & & & & & & & & & & & &\\
+    \hline
+    \end{array}
+    $$
+    \centerline {Examinador (2)} \centerline
+    {\small}
+\begin{center}
+São Bernardo do Campo 2008
+\end{center}
+
+    \thispagestyle{empty}
+
+%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+
 
 
 %-----------------------------------
@@ -180,6 +232,10 @@ São Bernardo do Campo \\[0.2 cm]
 \pagenumbering{roman}
 \setlength{\voffset}{0.0in}
 
+%\begin{spacing}{1.0}
+%\include{agradecimento}
+%\end{spacing}
+
 \begin{spacing}{1.0}
 \include{resumo}
 \end{spacing}
@@ -190,10 +246,14 @@ São Bernardo do Campo \\[0.2 cm]
 
 \selectlanguage{portuguese}
 
+%\begin{spacing}{1.0}
+%\include{tese-prefacio}
+%\end{spacing}
+
 \begin{spacing}{1.0}
-\renewcommand{\contentsname}{Sumário}\tableofcontents
 \listoffigures
 \listoftables
+%\tableofcontents
 \end{spacing}
 
 \clearpage
@@ -247,11 +307,11 @@ São Bernardo do Campo \\[0.2 cm]
 
 %\include{apendice}
 
-%Bibliografia
 \begin{spacing}{1.0}
-%\bibliographystyle{apalike}
-\bibliographystyle{abbrv}
-\bibliography{referencias}
+\bibliographystyle{apalike}              % referencias por extenso. Ex: segundo Rodrigues [Rodrigues, 1995]
+\bibliography{referencias}               % arquivo .bib
+%\bibliographystyle{alpha}               % referencias por
 \end{spacing}
 
 \end{document}
+

@@ -103,36 +103,32 @@ Vídeo com o trailer do filme: Homem de Ferro (Iron Man).
 
 \end{itemize}
 
-A métrica adotada para medir a qualidade de nossos
-resultados é baseada em \textit{recall} (revocação ou abrangência) e precisão baseando-se
-na análise dos valores de :
+pace*{0.65cm}A métrica utilizada para medir a qualidade dos
+resultados é baseada em \textit{Recall} (revocação ou abrangência) e Precisão tendo 
+como parâmetros os seguintes dados:
 
 \begin{itemize}
-\item{TP - \textit{True} Positivo  - Detectado pelo sistema, e é uma transição.}
-\item{FP - Falso Positivo - Detectado pelo sistema, e não é uma transição.}
-\item{TN - \textit{True} Negativo  - Não detectado pelo sistema, e não é uma transição.}
-\item{FN - Falso Negativo - Não detectado pelo sistema, e é uma transição.}
+
+\item{TP - \textit{True Positive}: Pontos do vídeo em que há ocorrência de transição
+e foram detectados pelo sistema;}
+
+\item{FP - Falso Positivo: Pontos do vídeo em que não há ocorrência de transição, porém
+foram detectados pelo sistema como pontos de transição;}
+
+\item{TN - \textit{True} Negativo: Pontos do vídeo em que não há ocorrência de transição e 
+não foram detectados pelo sistema;}
+
+\item{FN - Falso Negativo: Pontos do vídeo em que há ocorrência de transição, porém não 
+foram detectados pelo sistema.}
+
 \end{itemize}
 
-A Precisão mede a capacidade do sistema em detectar
-pontos onde realmente existe transição, ou seja,
-dentre as transições que o sistema detectou, quais
-realmente são transições.
-Conclui-se que quanto maior a taxa de TP e mais baixa a taxa de FP,
-maior a precisão.
+\hspace*{0.65cm}O conceito de Precisão é baseado na quantidade de respostas positivas
+e verdadeiras dentro de um universo de respostas retornadas por uma pesquisa,
+neste trabalho a Precisão representa quantas de todas as detecções realizadas 
+pelo sistema apontam pontos do vídeo em que realmente exista uma transição (\cite{BIBLIO_2008}).
 
-O \textit{recall} mede a habilidade do sistema em detectar
-transições, levando em consideração todas as transições
-presente no vídeo, ou seja, dentre o universo de todas as 
-transições pertencentes ao vídeo, quais o sistema realmente
-detectou corretamente.
-Conclui-se que quanto maior a taxa de 
-TP e menor a taxa de FN, maior o \textit{recall}.
-
-Estas métricas são calculadas da seguinte maneira:
-
-\begin{itemize}
-\item {Precisão
+\hspace*{0.65cm}Seu cálculo é dado por (\cite{JOHN_1999}):
 
 \begin{large}
 \begin{equation}
@@ -141,9 +137,15 @@ Estas métricas são calculadas da seguinte maneira:
 \end{equation}
 \end{large}
 
-}
+\hspace{0.65cm}Desta forma, é possível observar que quanto maior a taxa de TP e 
+mais baixa a taxa de FP, maior será a Precisão.
 
-\item{\textit{Recall}
+\hspace*{0.65cm}O conceito de \textit{Recall} é baseado na capacidade do sistema 
+detectar transições, levando em consideração todas as transições
+presente no vídeo, ou seja, quantas de todas as transições presentes no vídeo o 
+sistema conseguiu detectar (\cite{BIBLIO_2008}).
+
+\hspace*{0.65cm}Seu cálculo é dado por (\cite{JOHN_1999}):
 
 \begin{large}
 \begin{equation}
@@ -152,15 +154,16 @@ Estas métricas são calculadas da seguinte maneira:
 \end{equation}
 \end{large}
 
+\hspace*{0.65cm}Desta maneira é possível concluir que quanto maior a taxa de 
+TP e menor a taxa de FN, maior o \textit{Recall}.
 
-}
-\end{itemize}
+\hspace*{0.65cm}Tais métricas foram utilizadas por serem comumente empregadas
+como medição para métodos de detecção de transições, podendo ser observado 
+em \cite{FANG_2006}, \cite{GUIMARAES_2004}, \cite{GUIMARAES_2003_2}, \cite{NGO_1999} e
+\cite{SIMOES_2004} 
 
-Estas métricas foram utilizadas por serem comumente empregadas
-como medição para métodos de detecção de transições, isto pode
-ser visto em \cite{FANG_2006}, \cite{GUIMARAES_2004}, \cite{GUIMARAES_2003_2}, \cite{NGO_1999} e
-\cite{SIMOES_2004} e o conceito pode ser melhor entendido em \cite{BIBLIO_2008},
-\cite{WIKI_PRECISION_RECALL_2008}, e \cite{WIKI_TYPE_I_TYPE_II_ERRORS}.
+\hspace*{0.65cm}Estes conceitos podem ser melhor entendidos em 
+\cite{BIBLIO_2008} e \cite{JOHN_1999}.
 
 \subsection{Resultados obtidos: Detecção - Cortes \label{resultados_obtidos_cortes}}
 
@@ -262,14 +265,17 @@ variando em, no máximo, 1 frame do ponto exato da transição.
 \hspace*{0.65cm}Apesar do sistema ter detectado um número abaixo do
 número total de cortes presentes no vídeo, pode-se dizer que os
 resultados foram satisfatórios ao analisar os resultados em função
-de falsos positivos e falsos negativos. Desta forma, obtém-se uma
-taxa de acerto de 77,65\%, considerando que para a aplicação do
-filtro de Canny, o valor do limiar mínimo $T_{min}$ = 100 e o limiar
-máximo $T_{max}$ = 200, e para filtrar as bordas verticais e
-detectar somente aquelas que realmente forem um corte, foi utilizado
-um limiar que corresponde a 45\% da altura do frame. Estes valores
-de limiar foram definidos com base em testes realizados no decorrer
-deste trabalho, como pode ser observado na Figura
+da Precisão do sistema, visto que a Taxa de Precisão foi de 78,26\%. 
+Por outro lado, os resultados não apresentaram resultados tão satisfatórios
+quando a análise foi feita em função do \textit{Recall} do sistema, 
+onde seu valor ficou em 37,50\%.
+
+\hspace*{0.65cm}É importante ressaltar que para a aplicação do filtro de Canny, o valor do limiar 
+mínimo utilizado foi $T_{min}$ = 100 e o limiar máximo $T_{max}$ = 200, e para 
+filtrar as bordas verticais e detectar somente aquelas que realmente 
+forem um corte, foi utilizado um limiar que corresponde a 45\% da 
+altura do frame. Estes valores de limiar foram definidos com base em 
+testes realizados no decorrer deste trabalho, como pode ser observado na Figura
 \ref{img:mapa_batman}.
 
 \begin{figure}[h|top]
@@ -411,8 +417,12 @@ configurações padrões.
 \end{enumerate}
 
 \hspace*{0.65cm}Novamente os resultados podem ser considerados
-satisfatórios se a análise for baseada nos falsos positivos e falsos
-negativos, chegado a uma taxa de acerto de 72,18\%.
+satisfatórios se a análise for baseada na Precisão do Sistema, a qual
+atingiu o valor de 73,44\%, porém quando a análise foi feita levando 
+em consideração o \textit{Recall} do sistema, os resultados não foram
+tão satisfatórios quanto a Precisão do sistema, atingindo somente 43,92\%, 
+ou seja, somente 43,92\% das transições de corte presentes no vídeo 
+foram detectadas.
 
 \subsubsection{Vídeo em análise: Teste.avi}
 
@@ -452,8 +462,8 @@ vídeo Teste.avi.}
 \item{\textbf{Falsos negativos:  } 0}
 \end{enumerate}
 
-\hspace*{0.65cm}Com estes resultados, obtém-se uma performance de
-100\%, porém vale lembrar que este vídeo foi criado com condições
+\hspace*{0.65cm}Com estes resultados, obtém-se uma Taxa de Precisão e
+\textit{Recall} de 100\%, porém vale lembrar que este vídeo foi criado com condições
 ``perfeitas'' para o processo de detecção, onde a quantidade de
 ruídos apresentados é consideravelmente baixa.
 
@@ -469,8 +479,8 @@ não afeta de forma considerável na performance do sistema.
 \hspace*{0.65cm}A partir destes resultados, é possível afirmar que a
 metodologia utilizada para a detecção de cortes apresentou
 resultados bastante satisfatórios com um número de falsos positivos
-relativamente baixo, com uma média de acerto geral de 74,91\% para
-transições do tipo corte.
+relativamente baixo, tendo em média, uma Taxa de Precisão de 83,90\% e 
+\textit{Recall} de 60,47\%.
 
 \subsection{Resultados obtidos: Detecção - Fade \label{resultados_obtidos_fade}}
 
