@@ -35,10 +35,10 @@ para carregá-lo no sistema.
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O usuário informa o
 caminho onde será salvo o vídeo.
 
-\subsubsection{Caso de uso: Exibe timeline \label{use_case_timeline}}
+\subsubsection{Caso de uso: Exibe \textit{timeline} \label{use_case_timeline}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Feito o carregamento do
-vídeo no sistema, este disponibilizará ao usuário uma timeline do
+vídeo no sistema, este disponibilizará ao usuário uma \textit{timeline} do
 vídeo.
 
 \subsubsection{Caso de uso: Edita Vídeo \label{use_case_edita_geral}}
@@ -160,8 +160,8 @@ cenário geral para detecção de transição.
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
 sistema que seja feita a detecção de transições do vídeo carregado.
-O sistema, por sua vez, realiza a detecção dos cortes, fades
-(fade-in e fade-out) e dissolve presentes em todo o vídeo.
+O sistema, por sua vez, realiza a detecção dos cortes, \textit{fades}
+(\textit{fade-in} e \textit{fade-out}) e \textit{dissolve} presentes em todo o vídeo.
 
 \subsubsection{Caso de uso: Gera lista de transições enumeradas \label{use_case_lista_tomadas}}
 
@@ -170,10 +170,10 @@ transições, o sistema disponibilizará ao usuário uma lista com todas
 as transições do vídeo indexadas, facilitando a navegação do usuário
 pelas tomadas do vídeo.
 
-\subsubsection{Caso de uso: Marca timeline com pontos de transição \label{use_case_timeline_marcada}}
+\subsubsection{Caso de uso: Marca \textit{timeline} com pontos de transição \label{use_case_timeline_marcada}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Realizada a detecção de
-transições, o sistema exibirá a mesma timeline gerada ao carregar o
+transições, o sistema exibirá a mesma \textit{timeline} gerada ao carregar o
 vídeo no sistema, porém, com suas transições marcadas, como pode ser
 visto na Figura \ref{img_transicoes_detectadas2}.
 
@@ -186,7 +186,7 @@ visto na Figura \ref{img_transicoes_detectadas2}.
 \end{figure}
 
 \hspace*{0.65cm}\textbf{Cenário Alternativo:} O vídeo não possui
-nenhum tipo de transição, portanto a timeline não terá nenhum ponto
+nenhum tipo de transição, portanto a \textit{timeline} não terá nenhum ponto
 marcado.
 
 \subsubsection{Caso de uso: Ajuste manual de pontos de transição \label{use_case_ajuste_manual}}
@@ -228,17 +228,17 @@ detecção de cortes, o sistema deve montar o Ritmo Visual do vídeo.
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Para a detecção de
 cortes, o Ritmo Visual será montado através da extração de amostras
-de todos os frames do vídeo.
+de todos os \textit{frames} do vídeo.
 
 \hspace*{0.65cm}Esta amostra é dada pela diagonal principal do
-frame, a qual será transformada em uma coluna do Ritmo Visual de
+\textit{frame}, a qual será transformada em uma coluna do Ritmo Visual de
 forma seqüencial, como visto na Figura \ref{img_rvdiagonal} da Seção
 \ref{ritmo_visual}.
 
-\subsubsection{Caso de uso: Cálculo da diagonal principal do frame \label{use_case_diagonal_principal}}
+\subsubsection{Caso de uso: Cálculo da diagonal principal do \textit{frame} \label{use_case_diagonal_principal}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} É realizado o cálculo da
-diagonal principal de cada frame do vídeo devido à necessidade de
+diagonal principal de cada \textit{frame} do vídeo devido à necessidade de
 montar o Ritmo Visual do vídeo.
 
 \subsubsection{Caso de uso: Remove widescreen \label{use_case_removeWide}}
@@ -276,31 +276,31 @@ verticais detectadas no mapa de bordas. As retas que obtiverem um
 número de pontos maior ou igual ao limiar são consideradas
 transições de cortes.
 
-\subsection{Cenário Detecção de Fades \label{use_case_fades}}
+\subsection{Cenário Detecção de \textit{Fades} \label{use_case_fades}}
 
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/use_case_fade.png}
- \caption{Caso de Uso para cenário de detecção dos fades.}
+ \caption{Caso de Uso para cenário de detecção dos \textit{fades}.}
  Fonte: Autor.
  \label{img:uc_fade}
 \end{figure}
 
 \hspace*{0.65cm}A Figura \ref{img:uc_fade} representa o cenário para
-o processo de detecção de transições do tipo fade.
+o processo de detecção de transições do tipo \textit{fade}.
 
-\subsubsection{Caso de uso: Detecta Fade \label{use_case_detecta_fades}}
+\subsubsection{Caso de uso: Detecta \textit{Fade} \label{use_case_detecta_fades}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
-sistema que seja realizada a detecção de transições do tipo Fade.
+sistema que seja realizada a detecção de transições do tipo \textit{Fade}.
 
 \subsubsection{Caso de uso: Montagem do RV por histograma \label{use_case_rvh}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Para a detecção de
-fades, o RVH será montado na representação de uma curva num gráfico,
-onde cada ponto da curva tem informações sobre um frame do video.
+\textit{fades}, o RVH será montado na representação de uma curva num gráfico,
+onde cada ponto da curva tem informações sobre um \textit{frame} do video.
 
-\subsubsection{Caso de uso: Cálculo da Diagonal Principal do Frame
+\subsubsection{Caso de uso: Cálculo da Diagonal Principal do \textit{Frame}
 \label{use_case_diagonal_fade}}
 
 \hspace*{1.25cm}Ver: \ref{use_case_diagonal_principal}
@@ -308,7 +308,7 @@ onde cada ponto da curva tem informações sobre um frame do video.
 \subsubsection{Caso de uso: Obtenção da Media do Histograma \label{use_case_pico_hist}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} A partir do histograma
-de cada amostra (diagonal do frame), é obtido a média do valor de luminância.
+de cada amostra (diagonal do \textit{frame}), é obtido a média do valor de luminância.
 Este valor representará um ponto na reta
 do $RVH$
 
@@ -320,34 +320,34 @@ derivada do RVH.
 \subsubsection{Caso de uso: Análise da derivada\label{use_case_derivada_min}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} É feita uma busca por
-variações na curva das derivadas, a fim de encontrar possíveis Fades
-e classificá-los entre Fade-In e Fade-Out.
+variações na curva das derivadas, a fim de encontrar possíveis \textit{Fades}
+e classificá-los entre \textit{Fade-In} e \textit{Fade-Out}.
 
 \subsection{Cenário Detecção de Dissolve \label{use_case_dissolve}}
 
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=1.0\linewidth]{imagens/use_case_dissolve.png}
- \caption{Caso de Uso para cenário de detecção do dissolve.}
+ \caption{Caso de Uso para cenário de detecção do \textit{dissolve}.}
  Fonte: Autor.
  \label{img:uc_dissolve}
 \end{figure}
 
 \hspace*{0.65cm}A Figura \ref{img:uc_dissolve} representa o cenário
-para o processo de detecção de transições do tipo dissolve.
+para o processo de detecção de transições do tipo \textit{dissolve}.
 
 \subsubsection{Caso de uso: Detecta Dissolve \label{use_case_detecta_dissolve}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} O usuário solicita ao
-sistema que seja realizada a detecção de transições do tipo Fade.
+sistema que seja realizada a detecção de transições do tipo \textit{Fade}.
 
 \subsubsection{Caso de uso: RV por Histograma (RVH) \label{use_case_histograma}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} A partir do vídeo de
-entrada, é calculado o Histograma de cada Frame do vídeo, juntando
+entrada, é calculado o Histograma de cada \textit{Frame} do vídeo, juntando
 todos em um Ritmo Visual.
 
-\subsubsection{Caso de uso: Cálculo da diagonal principal do frame}
+\subsubsection{Caso de uso: Cálculo da diagonal principal do \textit{frame}}
 
 \hspace*{1.25cm}Ver: \ref{use_case_diagonal_principal}
 
@@ -355,23 +355,23 @@ todos em um Ritmo Visual.
 
 \hspace*{1.25cm}Ver: \ref{use_case_pico_hist}
 
-\subsubsection{Caso de uso: Verifica os 7 frames seguintes \label{use_case_7pontos}}
+\subsubsection{Caso de uso: Verifica os 7 \textit{frames} seguintes \label{use_case_7pontos}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} Verifica se os próximos
-7 frames, a partir do primeiro frame da região candidata a ser um
-dissolve, possuem um comportamento crescente ou decrescente.
+7 \textit{frames}, a partir do primeiro \textit{frame} da região candidata a ser um
+\textit{dissolve}, possuem um comportamento crescente ou decrescente.
 
 \subsubsection{Caso de uso: Derivada dos possíveis pontos de Dissolve\label{use_case_derivada_dissolve}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} A partir do Ritmo Visual
 por Histograma do video, é calculada a derivada da região de
-possível ocorrência de dissolve.
+possível ocorrência de \textit{dissolve}.
 
 \subsubsection{Caso de uso: Compara pontos da derivada com limiar definido \label{use_case_derivada_com_limiar}}
 
 \hspace*{1.25cm}\textbf{Cenário Principal:} A partir da derivada do
-RHV é definido um limiar para separar transições do tipo dissolve e
-fade.
+RHV é definido um limiar para separar transições do tipo \textit{dissolve} e
+\textit{fade}.
 
 \section{Diagrama de Classes \label{diagrama_classes}}
 
@@ -395,7 +395,7 @@ modelo do diagrama de classes do sistema.
 \begin{enumerate}
 \item Frame* convert2Gray()
 
-\hspace*{0.65cm}Função que converte o frame para escala de cinza.
+\hspace*{0.65cm}Função que converte o \textit{frame} para escala de cinza.
 
 \item Frame* applyEffect()
 
@@ -404,7 +404,7 @@ para escalas de cinza.
 
 \item Color(long frameStart, long frameEnd)
 
-\hspace*{0.65cm}Construtor que armazena o frame inicial e o frame
+\hspace*{0.65cm}Construtor que armazena o \textit{frame} inicial e o \textit{frame}
 final de um efeito aplicado no vídeo. O objeto criado será posteriormente
 adicionado à lista de efeitos do projeto.
 
@@ -508,7 +508,7 @@ posição de uma nova transição.
 
 \item{Frame* applyEffect()}
 
-\hspace*{0.65cm}Aplica o efeito de dilatação em um Frame utilizando
+\hspace*{0.65cm}Aplica o efeito de dilatação em um \textit{Frame} utilizando
 métodos da classe Morphology.
 
 \item{Dilate()}
@@ -525,14 +525,14 @@ seta os intervalos de início e fim de aplicação do efeito.
 \subsection{Classe: Dissolve \label{classe_Dissolve}}
 
 \hspace*{1.25cm}Classe responsável por detectar transições do tipo
-dissolve.
+\textit{dissolve}.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 \begin{enumerate}
 
 \item{void detectTransitions()}
 
-\hspace*{0.65cm}Realiza a detecção das transições do tipo Dissolve.
+\hspace*{0.65cm}Realiza a detecção das transições do tipo \textit{Dissolve}.
 
 \item{int calcFirstDerivative()}
 
@@ -558,7 +558,7 @@ implementada por todas as classes filhas deste objeto.
 \subsection{Classe: Erode\label{classe_MorphologyEffect}}
 
 \hspace*{1.25cm}Classe que implementa o operador de morfologia
-matemática Dissolve como efeitos a ser aplicado.
+matemática \textit{Dissolve} como efeitos a ser aplicado.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 
@@ -574,7 +574,7 @@ valores de inicio e fim do efeito.
 
 \item{Frame* applyEffect()}
 
-\hspace*{0.65cm}Aplica o efeito de erosão em um Frame utilizando
+\hspace*{0.65cm}Aplica o efeito de erosão em um \textit{Frame} utilizando
 métodos da classe Morphology.
 
 \end{enumerate}
@@ -582,7 +582,7 @@ métodos da classe Morphology.
 \subsection{Classe: Fade \label{classe_Fade}}
 
 \hspace*{1.25cm}Classe responsável por identificar todos os tipos de
-fade.
+\textit{fade}.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 
@@ -595,7 +595,7 @@ fade.
 \item{void detectTransitions()}
 
 \hspace*{1.25cm}Realiza a detecção das transições do tipo
-fade-in/fade-out e empilha o resultado no vector.
+\textit{fade-in}/\textit{fade-out} e empilha o resultado no vector.
 
 \end{enumerate}
 
@@ -656,7 +656,7 @@ e preenche as estruturas necessárias.
 
 \item{Frame(Frame* )}
 
-\hspace*{0.65cm}Construtor que recebe uma frame, realiza a cópia deste frame.
+\hspace*{0.65cm}Construtor que recebe uma \textit{frame}, realiza a cópia deste \textit{frame}.
 
 \item{Frame(double*, int, float, bool)}
 
@@ -666,7 +666,7 @@ representar Histogramas.
 
 \item{Frame()}
 
-\hspace*{0.65cm}Destrutor, libera a memória alocada para o Frame.
+\hspace*{0.65cm}Destrutor, libera a memória alocada para o \textit{Frame}.
 
 \item{QImage* IplImageToQImage()}
 
@@ -674,27 +674,27 @@ representar Histogramas.
 
 \item{Histogram* createHistogram()}
 
-\hspace*{0.65cm}Cria o histograma do Frame.
+\hspace*{0.65cm}Cria o histograma do \textit{Frame}.
 
 \item{Frame* getDiagonal()}
 
-\hspace*{0.65cm}Pega a diagonal do Frame.
+\hspace*{0.65cm}Pega a diagonal do \textit{Frame}.
 
 \item{Frame* verticalCat()}
 
-\hspace*{0.65cm}Concatena verticalmente o Frame corrente com o passado por parâmetro.
+\hspace*{0.65cm}Concatena verticalmente o \textit{Frame} corrente com o passado por parâmetro.
 
 \item{Frame* resize()}
 
-\hspace*{0.65cm}Redimensiona o Frame a partir das especificações passadas por parâmetro.
+\hspace*{0.65cm}Redimensiona o \textit{Frame} a partir das especificações passadas por parâmetro.
 
 \item{int removeWide()}
 
-\hspace*{0.65cm}Remove as tarjas pretas horizontais do Frame;
+\hspace*{0.65cm}Remove as tarjas pretas horizontais do \textit{Frame};
 
 \item{int removeBorder()}
 
-\hspace*{0.65cm}Remove as tarjas pretas verticais do Frame;
+\hspace*{0.65cm}Remove as tarjas pretas verticais do \textit{Frame};
 
 \item{void binarizeImage()}
 
@@ -705,7 +705,7 @@ terá seu valor alterado para 255.
 
 \item{void initAttr()}
 
-\hspace*{0.65cm}Inicializa todos os atributos do Frame com nulo.
+\hspace*{0.65cm}Inicializa todos os atributos do \textit{Frame} com nulo.
 
 \item{void write()}
 
@@ -713,7 +713,7 @@ terá seu valor alterado para 255.
 
 \item{double calcLuminanceAvarage()}
 
-\hspace*{0.65cm}Calcula a média de luminância do Frame.
+\hspace*{0.65cm}Calcula a média de luminância do \textit{Frame}.
 
 \item{static void imgCopy()}
 
@@ -726,7 +726,7 @@ terá seu valor alterado para 255.
 \item{static IplImage* imgAlloc(Frame* frame)}
 
 \hspace*{0.65cm}Função que centraliza a alocação de memoria e
-criação de uma imagem a partir de um Frame de entrada.
+criação de uma imagem a partir de um \textit{Frame} de entrada.
 
 \item{static IplImage* imgAlloc(CvSize size, int depth, int channels)}
 
@@ -736,8 +736,8 @@ dimensões da imagem passada por parâmetro.
 \item{void setImage()}
 
 \hspace*{0.65cm}Auxiliar que atualiza as variáveis internas de um
-objeto Frame. Deve ser usada toda vez que for alterar a imagem de um
-Frame.
+objeto \textit{Frame}. Deve ser usada toda vez que for alterar a imagem de um
+\textit{Frame}.
 
 \item{void setPixel()}
 
@@ -751,7 +751,7 @@ determinado pixel (x,y).
 \item{Frame operator+=()}
 
 \hspace*{0.65cm}Sobrecarga do operador ``+='' o qual realiza a
-concatenação dos frames, sendo que a ``soma'' só poderá ser feita
+concatenação dos \textit{frames}, sendo que a ``soma'' só poderá ser feita
 entre dois objetos, e não dois ponteiros.
 
 \item{Frame operator=()}
@@ -760,14 +760,14 @@ entre dois objetos, e não dois ponteiros.
 
 \item{int getMaxLum()}
 
-\hspace*{0.65cm}Função que retorna a maior luminância de um frame.
+\hspace*{0.65cm}Função que retorna a maior luminância de um \textit{frame}.
 
 \end{enumerate}
 
 \subsection{Classe: Histogram \label{classe_Histogram}}
 
 \hspace*{1.25cm}Classe responsável por armazenar os dados do
-histograma de um frame.
+histograma de um \textit{frame}.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 
@@ -825,19 +825,19 @@ rodando ela é parada.
 
 \hspace*{0.65cm}Tratar o evento do botão STOP. Se a thread estiver
 rodando ela será encerrada e posiciona o ponteiro do vídeo para o
-primeiro frame.
+primeiro \textit{frame}.
 
 \item{void on\underline{ }backButton\underline{ }clicked()}
 
-\hspace*{0.65cm}Trata o botão backward. Volta o vídeo em um frame.
+\hspace*{0.65cm}Trata o botão backward. Volta o vídeo em um \textit{frame}.
 
 \item{void on\underline{ }forwardButton\underline{ }clicked()}
 
-\hspace*{0.65cm}Trata o botão forward. Avança o vídeo em um frame.
+\hspace*{0.65cm}Trata o botão forward. Avança o vídeo em um \textit{frame}.
 
 \item{void updatePlayer()}
 
-\hspace*{0.65cm}Atualiza o frame exibido na label do player.
+\hspace*{0.65cm}Atualiza o \textit{frame} exibido na label do player.
 
 \item{void updateHist()}
 
@@ -846,7 +846,7 @@ primeiro frame.
 \item{void on\underline{ }transitionsTree\underline{ }itemSelectionChanged()}
 
 \hspace*{0.65cm}Trata as seleções da lista de transição e manda
-pintar uma linha no header da timeline identificando a sua tomada.
+pintar uma linha no header da \textit{timeline} identificando a sua tomada.
 
 \item{void on\underline{ }actionAllTransitions\underline{ }triggered()}
 
@@ -861,12 +861,12 @@ todas as transições do tipo corte, iniciando o processo de detecção.
 \item{void on\underline{ }actionAllFades\underline{ }triggered()}
 
 \hspace*{0.65cm}Trata o evento gerado pelo botão para detecção de
-todas as transições do tipo fade, iniciando o processo de detecção.
+todas as transições do tipo \textit{fade}, iniciando o processo de detecção.
 
 \item{void on\underline{ }actionOnlyDissolve\underline{ }triggered()}
 
 \hspace*{0.65cm}Trata o evento gerado pelo botão para detecção de
-todas as transições do tipo dissolve, iniciando o processo de
+todas as transições do tipo \textit{dissolve}, iniciando o processo de
 detecção.
 
 \item{void on\underline{ }actionRenderVideo\underline{ }triggered()}
@@ -913,12 +913,12 @@ de ``Arquivos Recentes'' e abre o arquivo selecionado.
 
 \hspace*{0.65cm}Trata evento de quando é selecionado um item na
 lista de efeitos. Mostra no player o primeiro/último (conforme for a
-seleção do usuário) frame da tomada que possui o efeito selecionado.
+seleção do usuário) \textit{frame} da tomada que possui o efeito selecionado.
 
 \item{void on\underline{ }transitionsTree\underline{ }itemClicked()}
 
-\hspace*{0.65cm}Mostra no player o primeiro frame da transição
-selecionada na lista de transições e atualiza o cursor da timeline.
+\hspace*{0.65cm}Mostra no player o primeiro \textit{frame} da transição
+selecionada na lista de transições e atualiza o cursor da \textit{timeline}.
 
 \item{void on\underline{ }transitionsTree\underline{ }itemDoubleClicked()}
 
@@ -967,15 +967,15 @@ mostra o tempo do vídeo (``videoTime'').
 
 \item{void createTimeline()}
 
-\hspace*{0.65cm}Cria a timeline do vídeo carregado.
+\hspace*{0.65cm}Cria a \textit{timeline} do vídeo carregado.
 
 \item{void setTimeline()}
 
-\hspace*{0.65cm}Desenha a imagem da timeline em sua label.
+\hspace*{0.65cm}Desenha a imagem da \textit{timeline} em sua label.
 
 \item{void updateTimeline()}
 
-\hspace*{0.65cm}Atualiza a posição do cursor da timeline conforme a
+\hspace*{0.65cm}Atualiza a posição do cursor da \textit{timeline} conforme a
 passagem do vídeo.
 
 \item{void insertTransitionsTree()}
@@ -984,13 +984,13 @@ passagem do vídeo.
 
 \item{void insertTransitionsTimeline()}
 
-\hspace*{0.65cm}Marca na timeline os pontos onde ocorrem as
+\hspace*{0.65cm}Marca na \textit{timeline} os pontos onde ocorrem as
 transições.
 
 \item{void updateTransitions()}
 
 \hspace*{0.65cm}Atualiza a lista de transições e marca pontos de
-transição na timeline.
+transição na \textit{timeline}.
 
 \item{void clearTransitionsTree()}
 
@@ -1002,18 +1002,18 @@ transição na timeline.
 
 \item{void updateTransitionHeader(unsigned int transitionID, int clean)}
 
-\hspace*{0.65cm}Traça uma linha acima da timeline identificando a
+\hspace*{0.65cm}Traça uma linha acima da \textit{timeline} identificando a
 localização da tomada.
 
 \item{void updateTransitionHeader(QTreeWidgetItem * item)}
 
-\hspace*{0.65cm}Traça uma linha no header da timeline referente ao
+\hspace*{0.65cm}Traça uma linha no header da \textit{timeline} referente ao
 item selecionado na lista de transições.
 
 \item{void clearTransitionHeader()}
 
 \hspace*{0.65cm}Varre todas as transições e retira uma a uma do
-header da timeline.
+header da \textit{timeline}.
 
 \item{void insertEffectTree()}
 
@@ -1030,7 +1030,7 @@ header da timeline.
 \item{void moveScrollArea()}
 
 \hspace*{0.65cm}Movimenta o SCROLL, posiciona a transição
-selecionada no centro da timeline.
+selecionada no centro da \textit{timeline}.
 
 \item{void enableSaveButton()}
 
@@ -1081,11 +1081,11 @@ aplicação.
 
 \item{Frame* erode(Frame*)}
 
-\hspace*{0.65cm}Aplica o efeito de Erosão em um Frame.
+\hspace*{0.65cm}Aplica o efeito de Erosão em um \textit{Frame}.
 
 \item{Frame* dilate(Frame*)}
 
-\hspace*{0.65cm}Aplica o efeito de dilatação em um Frame.
+\hspace*{0.65cm}Aplica o efeito de dilatação em um \textit{Frame}.
 
 \end{enumerate}
 
@@ -1131,13 +1131,13 @@ aberto, as estruturas referentes à este vídeo serão reescritas.
 
 \item{long FrameToTimelinePos()}
 
-\hspace*{0.65cm}Obtém, a partir de um número de frame a posição em
-que o cursor da timeline deve aparecer.
+\hspace*{0.65cm}Obtém, a partir de um número de \textit{frame} a posição em
+que o cursor da \textit{timeline} deve aparecer.
 
 \item{long TimelinePosToFrame()}
 
-\hspace*{0.65cm}Converte a posição do cursor da timeline para o
-número do frame correspondente.
+\hspace*{0.65cm}Converte a posição do cursor da \textit{timeline} para o
+número do \textit{frame} correspondente.
 
 \item{void renderVideo()}
 
@@ -1145,13 +1145,13 @@ número do frame correspondente.
 
 \item{Frame* applyEffect()}
 
-\hspace*{0.65cm}Aplica qualquer tipo de efeito nos frames de uma ou
+\hspace*{0.65cm}Aplica qualquer tipo de efeito nos \textit{frames} de uma ou
 várias tomadas.
 
 \item{int getTransitionByPos()}
 
 \hspace{0.65cm}Obtém a transição que dá início à transição sobre a
-qual o cursor da timeline se encontra.
+qual o cursor da \textit{timeline} se encontra.
 
 \item{void removeEffect()}
 
@@ -1191,7 +1191,7 @@ Efeito''.
 \subsection{Classe: QWidgetTimeline \label{classe_QWidgetTimeline}}
 
 \hspace*{1.25cm}Classe que armazena todos os dados e estruturas da
-timeline exibida na interface.
+\textit{timeline} exibida na interface.
 
 \hspace*{0.65cm}\textbf{Métodos:}
 
@@ -1204,23 +1204,23 @@ timeline exibida na interface.
 \item{void mousePressEvent()}
 
 \hspace*{0.65cm}Trata o evento gerado quando o mouse é
-``pressionado'' sobre a timeline.
+``pressionado'' sobre a \textit{timeline}.
 
 \item{void dragMoveEvent()}
 
 \hspace*{0.65cm}Trata o evento de \textit{DragMove}. Este evento
 ocorre quando um objeto for ``arrastado'' dentro da região da
-timeline.
+\textit{timeline}.
 
 \item{void dragEnterEvent()}
 
 \hspace*{0.65cm}Trata o evento de \textit{DragEnter}. Este evento
 ocorre quando um objeto que está sendo arrastado entra na região de
-tratamento da timeline.
+tratamento da \textit{timeline}.
 
 \item{void dropEvent()}
 
-\hspace*{0.65cm}Trata o evento de \textit{Drop} na timeline. Aplica
+\hspace*{0.65cm}Trata o evento de \textit{Drop} na \textit{timeline}. Aplica
 o efeito arrastado no intervalo da transição escolhida.
 
 \item{int getItemByEvent()}
@@ -1230,14 +1230,14 @@ aplicado.
 
 \item{int selectDropTransition()}
 
-\hspace*{0.65cm}A partir de um ponto, pinta o Header da timeline
+\hspace*{0.65cm}A partir de um ponto, pinta o Header da \textit{timeline}
 referente a uma transição.
 
 \item{void dragLeaveEvent()}
 
 \hspace*{0.65cm}Trata o evento de \textit{DragLeave}. Este evento
 ocorre quando um objeto que está sendo arrastado, sai da região da
-timeline.
+\textit{timeline}.
 
 \end{enumerate}
 
@@ -1265,7 +1265,7 @@ renderização.
 
 \item{void writeFrame()}
 
-\hspace*{0.65cm}Escreve um frame na estrutura do vídeo.
+\hspace*{0.65cm}Escreve um \textit{frame} na estrutura do vídeo.
 
 \item{void closeEvent()}
 
@@ -1363,12 +1363,12 @@ deve efetivar as alterações do usuário.
 \item{void on\underline{ }backButton\underline{ }clicked()}
 
 \hspace*{0.65cm}Evento do botão ``Back''. Move o ponteiro do vídeo
-para o Frame anterior e pede para atualizar o preview.
+para o \textit{Frame} anterior e pede para atualizar o preview.
 
 \item{void on\underline{ }forwardButton\underline{ }clicked()}
 
 \hspace*{0.65cm}Evento do botão ``Forward''. Move o ponteiro do
-vídeo para o Frame posterior e pede para atualizar o preview.
+vídeo para o \textit{Frame} posterior e pede para atualizar o preview.
 
 \item{TransitionEdit()}
 
@@ -1381,7 +1381,7 @@ ocorrência da transição.
 
 \item{void updatePreview()}
 
-\hspace*{0.65cm}Atualiza a label de Preview com o Frame corrente do
+\hspace*{0.65cm}Atualiza a label de Preview com o \textit{Frame} corrente do
 vídeo.
 
 \end{enumerate}
@@ -1411,12 +1411,12 @@ arquivo de video a ser aberto.
 
 \item{Frame getNextFrame() }
 
-\hspace*{0.65cm}Método responsável por obter o próximo frame em
+\hspace*{0.65cm}Método responsável por obter o próximo \textit{frame} em
 relação à posição atual do vídeo.
 
 \item{Frame getPreviousFrame() }
 
-\hspace*{0.65cm}Método responsável por obter o frame anterior em
+\hspace*{0.65cm}Método responsável por obter o \textit{frame} anterior em
 relação à posição atual do vídeo.
 
 \item{int seekFrame() }
@@ -1432,12 +1432,12 @@ atual do ponteiro de vídeo.
 \item{void removeWide()}
 
 \hspace*{0.65cm}Remove o wide de um video inteiro, usando a função
-de remoção de wide de um frame.
+de remoção de wide de um \textit{frame}.
 
 \item{void removeBorder()}
 
 \hspace*{0.65cm}Remove o wide de um video inteiro, usando a função
-de remoção de borda de um frame.
+de remoção de borda de um \textit{frame}.
 
 \item{~Video()}
 
@@ -1457,19 +1457,19 @@ vídeo.
 \item{void run()}
 
 \hspace*{0.65cm}Método que é executado quando a thread do
-VideoPlayer for iniciada. Pega frame a frame e emite sinal para a
+VideoPlayer for iniciada. Pega \textit{frame} a \textit{frame} e emite sinal para a
 interface desenhar.
 
 \item{void setNewFrame()}
 
 \hspace*{0.65cm}Emissor de sinal para a interface desenhar um novo
-frame na janela do player. Emitido toda vez que o vídeo avança em 1
-frame durante a reprodução do vídeo.
+\textit{frame} na janela do player. Emitido toda vez que o vídeo avança em 1
+\textit{frame} durante a reprodução do vídeo.
 
 \item{void setHistogram()}
 
 \hspace*{0.65cm}Emissor de sinal para desenhar o histograma do novo
-frame. Emitido toda vez que o histograma é atualizado durante a
+\textit{frame}. Emitido toda vez que o histograma é atualizado durante a
 reprodução do vídeo.
 
 \item{VideoPlayer()}
@@ -1485,14 +1485,14 @@ para o connect da interface fazer a atualização do histograma.
 \item{void updatePlayer()}
 
 \hspace*{0.65cm}Método que emite um sinal acionando a setNewFrame
-para o connect da interface fazer a alteração do frame a ser exibido
+para o connect da interface fazer a alteração do \textit{frame} a ser exibido
 no player.
 
 \item{void updateCurrentFrame()}
 
-\hspace*{0.65cm}Atualiza a posição atual do cursor da timeline.
-Quando for aplicado um efeito, faz com que o vídeo preview mostre o frame
-com o frame aplicado.
+\hspace*{0.65cm}Atualiza a posição atual do cursor da \textit{timeline}.
+Quando for aplicado um efeito, faz com que o vídeo preview mostre o \textit{frame}
+com o \textit{frame} aplicado.
 
 \end{enumerate}
 
@@ -1585,7 +1585,7 @@ reprodução de vídeo e aplicação de efeitos;}
 \item{Caso a resposta seja positiva, INTERFACE cria objeto de Detecção de Transições DT;}
 \item{INTERFACE solicita à DT a detecção de transições;}
 \item{DT retorna para INTERFACE um array com as posições das transições;}
-\item{INTERFACE redesenha a timeline com os identificadores nos pontos de ocorrência de transição.}
+\item{INTERFACE redesenha a \textit{timeline} com os identificadores nos pontos de ocorrência de transição.}
 \end{enumerate}
 
 \subsection{Detecção de transições geral \label{seq_detecta_geral}}
@@ -1608,13 +1608,13 @@ transições do vídeo.
 \item{INTERFACE solitita à DT a detecção das transições do vídeo;}
 \item{Objeto DT cria objeto DTC responsável pelas detecções de cortes;}
 \item{DT solicita à DTC a detecção de transições do tipo corte;}
-\item{Objeto DT cria objeto DTF responsável pelas detecções de fades (tanto fade-in, quanto fade-out);}
-\item{DT solicita à DTF a detecção de transições do tipo fade;}
-\item{Objeto DT cria objeto DTD responsável pela de dissolve;}
-\item{DT solicita à DTD a detecção de transições do tipo dissolve;}
+\item{Objeto DT cria objeto DTF responsável pelas detecções de \textit{fades} (tanto \textit{fade-in}, quanto \textit{fade-out});}
+\item{DT solicita à DTF a detecção de transições do tipo \textit{fade};}
+\item{Objeto DT cria objeto DTD responsável pela de \textit{dissolve};}
+\item{DT solicita à DTD a detecção de transições do tipo \textit{dissolve};}
 \item{DT retorna para INTERFACE as transições detectadas;}
-\item{INTERFACE solicita à VDO que reposicione o ponteiro para o primeiro frame do vídeo;}
-\item{INTERFACE atualiza a timeline e a lista de transições.}
+\item{INTERFACE solicita à VDO que reposicione o ponteiro para o primeiro \textit{frame} do vídeo;}
+\item{INTERFACE atualiza a \textit{timeline} e a lista de transições.}
 \end{enumerate}
 
 \subsection{Detecção de Cortes \label{seq_cortes}}
@@ -1632,10 +1632,10 @@ de processos para a realização da detecção de transições do tipo
 corte presentes no vídeo.
 
 \begin{enumerate}
-\item{DTC solicita à VDO o número total de frames do vídeo;}
-\item{DTC solicita à VDO a posição atual do cursor da timeline;}
+\item{DTC solicita à VDO o número total de \textit{frames} do vídeo;}
+\item{DTC solicita à VDO a posição atual do cursor da \textit{timeline};}
 \item{DTC solicita à VDO o posicionamento do cursor na posição 0 do vídeo, para que
-a análise seja feita em todos os frames do vídeo;}
+a análise seja feita em todos os \textit{frames} do vídeo;}
 \item{DTC cria objeto VisualRythim;}
 \item{DTC cria objeto VR;}
 \item{DTC solicita à VR a criação do Ritmo Visual por sub-amostragem do vídeo;}
@@ -1661,26 +1661,26 @@ detectada anteriormente;}
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=0.8\linewidth]{imagens/seq_fade.PNG}
- \caption{Diagrama de sequência para detecção de fades (fade-in e fade-out).}
+ \caption{Diagrama de sequência para detecção de \textit{fades} (\textit{fade-in} e \textit{fade-out}).}
  Fonte: Autor.
  \label{img_seq_fade}
 \end{figure}
 
 \hspace*{1.25cm}A Figura \ref{img_seq_fade} representa a sequência
 de processos para a realização da detecção das transições do tipo
-fade presentes no vídeo.
+\textit{fade} presentes no vídeo.
 
 \begin{enumerate}
 \item{DTF solicita à VDO a posição atual do ponteiro do video;}
 \item{DTF solicita à VDO o posicionamento do ponteiro na posição 0 do vídeo, para que
-a análise seja feita em todos os frames do vídeo;}
+a análise seja feita em todos os \textit{frames} do vídeo;}
 \item{DTF cria objeto VR;}
 \item{DTF solicita à VR a criação do Ritmo Visual por Histograma (RVH);}
-\item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do video}
+\item{Loop: Enquanto a posição do \textit{frame} corrente for diferente do tamanho do video}
 \item{VR cria objeto FRAME;}
-\item{VR solicita a VDO o próximo frame do vídeo;}
-\item{VR solicita ao FRAME a diagonal do frame solicitado;}
-\item{VR cria objeto HIST, criando o histograma do frame corrente;}
+\item{VR solicita a VDO o próximo \textit{frame} do vídeo;}
+\item{VR solicita ao FRAME a diagonal do \textit{frame} solicitado;}
+\item{VR cria objeto HIST, criando o histograma do \textit{frame} corrente;}
 \item{VR solicita ao FRAME a média do histograma;}
 \item{VR destrói objeto HIST;}
 \item{VR destrói objeto FRAME;}
@@ -1707,14 +1707,14 @@ sequência de processos para a realização da detecção de transições
 do tipo dissolve presentes no vídeo.
 
 \begin{enumerate}
-\item{DTD solicita à VDO a quantidade de frames do video;}
+\item{DTD solicita à VDO a quantidade de \textit{frames} do video;}
 \item{DTD cria objeto VR;}
 \item{DTD solicita à VR o ritmo visual por histograma;}
-\item{Loop: Enquanto a posição do frame corrente for diferente do tamanho do video}
+\item{Loop: Enquanto a posição do \textit{frame} corrente for diferente do tamanho do video}
 \item{VR cria objeto FRAME;}
-\item{VR solicita a VDO o próximo frame do vídeo;}
-\item{VR solicita ao FRAME a diagonal do frame solicitado;}
-\item{VR cria objeto HIST, criando o histograma do frame corrente;}
+\item{VR solicita a VDO o próximo \textit{frame} do vídeo;}
+\item{VR solicita ao FRAME a diagonal do \textit{frame} solicitado;}
+\item{VR cria objeto HIST, criando o histograma do \textit{frame} corrente;}
 \item{VR solicita ao FRAME a média do histograma;}
 \item{VR destrói objeto HIST;}
 \item{VR destrói objeto FRAME;}
@@ -1795,7 +1795,7 @@ estado são detectados todos os cortes do vídeo.
 \item{\textbf{Obtendo RV por amostragem}
 
 Sistema entra neste estado para a geração do Ritmo Visual por
-amostragem (extração de diagonais dos frames) do vídeo. }
+amostragem (extração de diagonais dos \textit{frames}) do vídeo. }
 
 \item{\textbf{Montando Mapa de Bordas}
 
@@ -1818,7 +1818,7 @@ vídeo. }
 
 Sistema faz a validação dos pontos de transição detectados,
 verificando se estas transições não são objetos em cena ou o início
-ou fim de uma transição do tipo fade. }
+ou fim de uma transição do tipo \textit{fade}. }
 
 \item{\textbf{Verificando duplicidade}
 
@@ -1832,8 +1832,8 @@ outro tipo de transição. }
 
 \hspace*{1.25cm}Estado interno do estado Detecção de Transições.
 
-\hspace*{0.65cm}Sistema entra em estado de detecção de fades. Neste
-estado são detectados os Fades presentes no vídeo.
+\hspace*{0.65cm}Sistema entra em estado de detecção de \textit{fades}. Neste
+estado são detectados os \textit{Fades} presentes no vídeo.
 
 \hspace*{0.65cm}Este estado possui os seguintes estados internos:
 
@@ -1842,7 +1842,7 @@ estado são detectados os Fades presentes no vídeo.
 \item{\textbf{Obtendo RV por Histograma}
 
 Sistema entra neste estado para a geração do Ritmo Visual por
-Histograma (extração de diagonais dos frames e cálculo dos
+Histograma (extração de diagonais dos \textit{frames} e cálculo dos
 histogramas) do vídeo. }
 
 \item{\textbf{Calculando Derivadas}
@@ -1853,11 +1853,11 @@ RVH }
 \item{\textbf{Analisando as Derivadas}
 
 Sistema faz análise das derivadas, buscando pontos de ocorrência de
-Fades e os classifica em Fade-In ou Fade-Out.}
+\textit{Fades} e os classifica em \textit{Fade-In} ou \textit{Fade-Out}.}
 
 \item{\textbf{Verificando duplicidade}
 
-Sistema faz a verificação se o ponto apontado como transição de Fade
+Sistema faz a verificação se o ponto apontado como transição de \textit{Fade}
 já não foi apontado anteriormente como ponto de ocorrência de outro
 tipo de transição. }
 
@@ -1879,29 +1879,29 @@ Neste estado são detectadas transições do tipo dissolve.
 Sistema entra neste estado para a geração do Ritmo Visual por
 Histograma. }
 
-\item{\textbf{Verificando possíveis pontos de Dissolve}
+\item{\textbf{Verificando possíveis pontos de \textit{Dissolve}}
 
 Sistema entra no estado em que são analisados os pontos do Ritmo
 Visual por Histograma, marcando os possíveis pontos de ocorrência de
-Dissolve.}
+\textit{Dissolve}.}
 
 \item{\textbf{Calculando Derivadas}
 
 Sistema entra no estado em que é calculada a primeira derivada dos
-possíveis pontos de Dissolve determinados no estado anterior.}
+possíveis pontos de \textit{Dissolve} determinados no estado anterior.}
 
-\item{\textbf{Validando Dissolve}
+\item{\textbf{Validando \textit{Dissolve}}
 
 Os resultados da derivada são comparados a um limiar. Se todas as
 derivadas de um determinado trecho estiverem abaixo do limiar
-definido, este será considerado um ponto de ocorrência de Dissolve.
-Também é aplicado um limiar para distinção entre um Dissolve e um
-Fade.}
+definido, este será considerado um ponto de ocorrência de \textit{Dissolve}.
+Também é aplicado um limiar para distinção entre um \textit{Dissolve} e um
+\textit{Fade}.}
 
 \item{\textbf{Verificando duplicidade}
 
 Sistema faz a verificação se o ponto apontado como transição de
-Dissolve já não foi apontado anteriormente como ponto de ocorrência
+\textit{Dissolve} já não foi apontado anteriormente como ponto de ocorrência
 de outro tipo de transição. }
 
 \end{enumerate}
@@ -1910,7 +1910,7 @@ de outro tipo de transição. }
 
 \hspace*{1.25cm}Realizadas as detecções de transições, independente
 do tipo de detecção, o sistema entra em estado de atualização da
-timeline do vídeo.
+\textit{timeline} do vídeo.
 
 \subsection{Estado: Ajuste manual \label{st_manual_adjust}}
 
