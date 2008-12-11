@@ -65,7 +65,7 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	emit sendMessage("Iniciando Detecção", 0, 0);
 
 	//Coleta o ritmo visual dos frames
-	emit sendMessage("Criando VRH", transitionList->size(), 20);
+	emit sendMessage("Criando VRH", transitionList->size(), 10);
 	array_vrh = vrh->createVRH(vdo);
 
 	thresholdMin = 0.25;
@@ -119,9 +119,13 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 				k=k+6;
 			}
 		}
+	
+		emit sendMessage("Analizando Derivadas", transitionList->size(), cvRound(10 + ((((float)k / (float)videoSize ) * 100) * 0.4)));
 	}
 
 	//Retirando redundancias
+	emit sendMessage("Retirando Redundâncias", transitionList->size(), 50);
+
 	for(k=0;k<videoSize;k++)
 	{
 		if(detect[k])
@@ -134,8 +138,9 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 		}
 	}
 
-
 	//Verifica se é um fade
+	emit sendMessage("Verificando Fades", transitionList->size(), 60);
+
 	i=0;
 	threshold_fade = 6.0;
 
@@ -175,6 +180,8 @@ void Dissolve::detectTransitions(Video* vdo, std::vector<Transition>* transition
 	}
 
 	//Transportando para matriz de detecção
+	emit sendMessage("Validando Dissolve", transitionList->size(), 80);
+
 	for(k=0;k<videoSize;k++)
 	{
 		if(detect[k]==1)
