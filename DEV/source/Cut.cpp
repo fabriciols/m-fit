@@ -124,7 +124,7 @@ void Cut::detectTransitions(Video* vdo, std::vector<Transition>* transitionList)
 			
 			if(validateCut(visual, i))
 			{
-				Transition* newTransition = new Transition(TRANSITION_CUT,i,"Cut");
+				Transition* newTransition = new Transition(TRANSITION_CUT,i,"Corte");
 
 				/**
 				 * Verifico se na posição em que eu detectei um corte já não foi considerada
