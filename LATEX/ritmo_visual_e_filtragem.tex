@@ -13,16 +13,16 @@ apresentados mais detalhadamente.
 
 \hspace*{1.25cm}O Ritmo Visual por sub-amostragem caracteriza-se
 pela transformação de determinadas faixas de pixels (amostras) de
-cada um dos frames de um vídeo em uma coluna da representação $2D$,
+cada um dos \textit{frames} de um vídeo em uma coluna da representação $2D$,
 como representado na Figura \ref{img_rvdiagonal}. Desta forma,
-pode-se dizer 4que o Ritmo Visual é uma simplificação do vídeo.
+pode-se dizer que o Ritmo Visual é uma simplificação do vídeo.
 
 \hspace*{0.65cm}O padrão desta representação pode ser alterado
 conforme a escolha dos pixels, portanto, o padrão do ritmo visual é
 totalmente dependente do tipo da amostragem retirada do vídeo. Bons
-resultados podem ser obtidos se a sub-amostragem do frame for dada
+resultados podem ser obtidos se a sub-amostragem do \textit{frame} for dada
 pela sua diagonal principal, uma vez que ela trará características
-horizontais e verticais do frame, podendo assim fazer uma boa
+horizontais e verticais do \textit{frame}, podendo assim fazer uma boa
 representação do mesmo. Uma melhor abordagem sobre este processo
 pode ser encontrada em \cite{GUIMARAES_2003_2} e
 \cite{GUIMARAES_2001_2}.
@@ -30,14 +30,14 @@ pode ser encontrada em \cite{GUIMARAES_2003_2} e
 \begin{figure}[h|top]
  \centering
  \includegraphics[width=0.3\linewidth]{imagens/rv_diagonal.png}
- \caption{Transformação da diagonal principal dos frames de um
+ \caption{Transformação da diagonal principal dos \textit{frame}s de um
 vídeo em colunas do Ritmo Visual.}
  \label{img_rvdiagonal}
  Fonte: Autor ``adaptado de'' \cite{GUIMARAES_2002_2}, p.2.
 \end{figure}
 
 \hspace*{0.65cm}Na Figura \ref{img_rvdiagonal} pode ser observado o
-processo de transformação das diagonais principais dos frames $1$,
+processo de transformação das diagonais principais dos \textit{frame}s $1$,
 $2$, $3$, $4$ e $5$ nas colunas $1$, $2$, $3$, $4$, e $5$ do Ritmo
 Visual.
 
@@ -45,11 +45,11 @@ Visual.
 seguinte maneira (\cite{GUIMARAES_2004}):
 
 \hspace*{0.65cm}Seja $\bigvee = {I_1, I_2, ..., I_n}$ um vídeo e
-$I_i(x,y)$ um frame $\in V$.
+$I_i(x,y)$ um \textit{frame} $\in V$.
 
-\hspace*{0.65cm}Um pixel qualquer de um frame é definido como
+\hspace*{0.65cm}Um pixel qualquer de um \textit{frame} é definido como
 $p(x,y)$ com $x,y \in N$, sendo que os valores de $x$ e $y$ variam
-de 0 até o valor de largura e altura do frame, respectivamente.
+de 0 até o valor de largura e altura do \textit{frame}, respectivamente.
 
 \hspace*{0.65cm}Em uma imagem em tons de cinza, cada pixel possui um
 valor de luminância $L \in {0,1,...,255}$. Sendo assim, se $L(x,y) =
@@ -68,7 +68,7 @@ tons de cinza.
 
 \hspace*{0.65cm}Portanto, Ritmo Visual é definido como:
 
-\hspace*{0.65cm}Seja $D_i$ uma diagonal do frame $I_i$. A sequência
+\hspace*{0.65cm}Seja $D_i$ uma diagonal do \textit{frame} $I_i$. A sequência
 de todas as diagonais $D_i \in \bigvee$, chama-se Ritmo Visual do
 vídeo $\bigvee$.
 
@@ -114,10 +114,10 @@ Visual por Histograma (RVH) tem como objetivo simplificar a
 representação de um vídeo. O processo de criação de um RVH é :
 
 \begin{enumerate}
-\item Captura da diagonal principal do frame.
+\item Captura da diagonal principal do \textit{frame}.
 \item Calculo do histograma desta diagonal.
 \item Obtenção do valor médio da luminância deste histograma.
-\item Os passos 1, 2 e 3 são repetidos para todos os frames, e os pontos obtidos com o passo 3, são agrupados.
+\item Os passos 1, 2 e 3 são repetidos para todos os \textit{frame}s, e os pontos obtidos com o passo 3, são agrupados.
 \end{enumerate}
 
 \begin{figure}[h|top]
@@ -134,7 +134,7 @@ vermelha no histograma da diagonal.
 
 \hspace*{0.65cm}Matematicamente:
 
-\hspace*{0.65cm}Seja $Hi$ o histograma da diagonal $Di$ do frame
+\hspace*{0.65cm}Seja $Hi$ o histograma da diagonal $Di$ do \textit{frame}
 $Ii$, a função $med(Hi)$ o valor médio das luminâncias presentes no
 frame (i.e., a média do histograma).
 
