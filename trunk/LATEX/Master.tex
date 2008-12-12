@@ -1,4 +1,5 @@
 \documentclass[12pt,a4paper]{report}
+
 \usepackage{a4wide}
 \usepackage[portuguese,english]{babel}
 \usepackage{graphics}
@@ -23,7 +24,8 @@
 
 %comandos para se definir cabeçalhos nas páginas da dissertação
 \pagestyle{fancyplain}
-\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\small\leftmark}}
+
+\lhead[\fancyplain{}{\thepage}]{}
 \rhead[\fancyplain{}{\small\rightmark}]{\fancyplain{}{\thepage}}
 \cfoot{\fancyplain{\thepage}{}}
 
@@ -215,11 +217,35 @@ São Bernardo do Campo 2008
 %-----------------------------------
 % DOCUMENTAÇÃO DO TRABALHO
 %-----------------------------------
+\newpage
 
-\renewcommand{\baselinestretch}{1.3}
+\thispagestyle{empty}
+\begin{spacing}{1.0}
+\include{dedicatoria}
+\end{spacing}
+\thispagestyle{empty}
 
-\pagenumbering{roman}
-\setlength{\voffset}{0.0in}
+\newpage
+
+ \thispagestyle{empty}
+
+\begin{spacing}{1.5}
+\include{agradecimentos}
+\end{spacing}
+\thispagestyle{empty}
+
+\newpage
+
+\thispagestyle{empty}
+
+\begin{spacing}{1.0}
+\include{epigrafe}
+\end{spacing}
+\thispagestyle{empty}
+
+\newpage
+
+\pagenumbering{roman} \setlength{\voffset}{0.0in}
 
 \begin{spacing}{1.0}
 \include{resumo}
@@ -243,6 +269,7 @@ São Bernardo do Campo 2008
 
 % Aqui entram todos os tópicos
 \begin{spacing}{1.5}
+%\include{unico}
 \include{Introducao}
 \include{objetivo}
 \include{trabalhos}
@@ -253,15 +280,15 @@ São Bernardo do Campo 2008
 \include{sistemas_de_video_e_cor}
 %\include{sistemas_de_video}
 %\include{sistemas_de_cor}
-\include{deteccao_de_transicoes}
+%\include{deteccao_de_transicoes}
 \include{ritmo_visual_e_filtragem}
 %\include{ritmo_visual}
 %\include{filtragem_espacial}
-\include{deteccao_de_bordas_morfologia_segmentacao}
+%\include{deteccao_de_bordas_morfologia_segmentacao}
 %\include{deteccao_de_bordas}
 %\include{morfologia_matematica}
 %\include{segmentacao_de_imagens}
-\include{casamento_de_padroes_e_entropia}
+%\include{casamento_de_padroes_e_entropia}
 %\include{casamento_de_padroes}
 %\include{entropia}
 %---------------------------
@@ -279,7 +306,7 @@ São Bernardo do Campo 2008
 %\include{diagrama_de_classes}
 %\include{diagramas_de_sequencia}
 %\include{diagrama_de_estados}
-\include{resultados_esperados}
+%\include{resultados_esperados}
 \include{resultados_obtidos}
 \include{conclusao}
 \end{spacing}
