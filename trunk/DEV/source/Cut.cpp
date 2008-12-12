@@ -432,6 +432,17 @@ int Cut::validateCut(Frame* visual, int position)
 
 }
 
+/************************************************************************
+ * Método de início da Thread. Inicia a detecção das transições
+ *************************************************************************
+ * param (E): Nenhum.
+ *************************************************************************
+ * return : Nenhum.
+ *************************************************************************
+ * Histórico:
+ * 10/12/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Cut::run()
 {
 	detectTransitions(currentProject->getVideo(), &currentProject->transitionList);

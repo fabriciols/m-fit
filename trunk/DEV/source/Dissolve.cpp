@@ -219,6 +219,17 @@ int Dissolve::calcFirstDerivative(double firstFrame, double secondFrame, double 
 		return(0);
 }
 
+/************************************************************************
+ * Método de início da Thread. Inicia a detecção das transições
+ *************************************************************************
+ * param (E): Nenhum.
+ *************************************************************************
+ * return : Nenhum.
+ *************************************************************************
+ * Histórico:
+ * 10/12/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Dissolve::run()
 {
 	detectTransitions(currentProject->getVideo(), &currentProject->transitionList);

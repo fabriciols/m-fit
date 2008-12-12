@@ -30,6 +30,8 @@ extern Project *currentProject;
 * return : Lista de transições.
 *************************************************************************
 * Histórico:
+* 11/12/08 - Fabricio Lopes de Souza
+* Adaptando o controle para funcionar com threads.
 * 20/10/08 - Thiago Mizutani
 * Incluindo o Dissolve. Controle da posição do frame.
 * 13/08/08 - Thiago Mizutani
@@ -123,6 +125,17 @@ bool DetectTransitions::validateTransition(long position, std::vector<Transition
 
 }
 
+/************************************************************************
+ * Método de início da Thread. Inicia a detecção de todas as transições
+ *************************************************************************
+ * param (E): Nenhum.
+ *************************************************************************
+ * return : Nenhum.
+ *************************************************************************
+ * Histórico:
+ * 10/12/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void DetectTransitions::run()
 {
 	detectTransitions(currentProject->getVideo(), &currentProject->transitionList);
