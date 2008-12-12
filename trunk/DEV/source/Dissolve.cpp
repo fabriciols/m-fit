@@ -219,7 +219,7 @@ int Dissolve::calcFirstDerivative(double firstFrame, double secondFrame, double 
 		return(0);
 }
 
-/************************************************************************
+/*************************************************************************
  * Método de início da Thread. Inicia a detecção das transições
  *************************************************************************
  * param (E): Nenhum.
