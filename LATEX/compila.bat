@@ -20,7 +20,5 @@ goto main
 "%FOLDER%\pdflatex.exe" "Master.tex"
 "%FOLDER%\pdflatex.exe" "Master.tex"
 
-del *.aux
-del *.tmp
 taskkill /IM "FOXITR~1.EXE"
 Master.pdf

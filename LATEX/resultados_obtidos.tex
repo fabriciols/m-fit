@@ -23,7 +23,7 @@ Fonte: Autor.
 \hspace*{0.65cm}A Figura \ref{img:obtidos_preview2} mostra o sistema
 com um vídeo já carregado. É possível observar que ao carregar um
 vídeo, a lista com as propriedades do vídeo é automaticamente
-carregada, assim como a sua timeline.
+carregada, assim como a sua \textit{timeline}.
 
 \begin{figure}[h|top]
 \centering
@@ -34,7 +34,7 @@ Autor. \label{img:obtidos_preview2}
 
 \hspace*{0.65cm}Na Figura \ref{img:obtidos_preview3} pode ser observada a
 tela do sistema após o processo de detecção das transições. Nota-se
-que cada transição é marcada com uma linha vertical na timeline e
+que cada transição é marcada com uma linha vertical na \textit{timeline} e
 que para cada tipo de transição há uma cor diferente. Ao clicar na
 timeline, a tomada é automaticamente marcada por uma linha que vai
 da transição inicial até sua transição final.
@@ -132,7 +132,7 @@ pelo sistema apontam pontos do vídeo em que realmente exista uma transição (\cit
 
 \begin{large}
 \begin{equation}
-\label{eq:recall}
+\label{eq:precisao}
 \frac{TP}{( TP + FP )}
 \end{equation}
 \end{large}
@@ -149,7 +149,7 @@ sistema conseguiu detectar (\cite{BIBLIO_2008}).
 
 \begin{large}
 \begin{equation}
-\label{eq:recall}
+\label{eq:Recall}
 \frac{TP}{( TP + FN )}
 \end{equation}
 \end{large}
@@ -274,7 +274,7 @@ onde seu valor ficou em 37,50\%.
 mínimo utilizado foi $T_{min}$ = 100 e o limiar máximo $T_{max}$ = 200, e para 
 filtrar as bordas verticais e detectar somente aquelas que realmente 
 forem um corte, foi utilizado um limiar que corresponde a 45\% da 
-altura do frame. Estes valores de limiar foram definidos com base em 
+altura do \textit{frame}. Estes valores de limiar foram definidos com base em 
 testes realizados no decorrer deste trabalho, como pode ser observado na Figura
 \ref{img:mapa_batman}.
 
@@ -291,7 +291,7 @@ Figura \ref{img:mapa_batman_2} é consideravelmente maior do que a
 quantidade de bordas detectadas na Figura \ref{img:mapa_batman}.
 Isto se deve ao fato de que o limiar mínimo utilizado na Figura
 \ref{img:mapa_batman_2} foi $T_{min}$ = 20 e $T_{max}$ = 40, desta
-forma, qualquer pixel com luminância maior que 40 será imediatamente
+forma, qualquer \textit{pixel} com luminância maior que 40 será imediatamente
 aceito como borda, o que torna o resultado inválido, visto que
 bordas são vistas como picos em uma imagem. Junto disso, o valor do
 limiar para o tamanho das bordas foi reduzido para 25\%, fazendo com
@@ -303,7 +303,7 @@ cena ou por ruídos.
 \subsubsection{Vídeo em análise: IronMan.avi}
 
 \begin{itemize}
-\item{\textbf{Número de frames: } 3580}
+\item{\textbf{Número de \textit{frames}: } 3580}
 \item{\textbf{Número de cortes: } 107}
 \item{\textbf{Número de não cortes: } 3473}
 \end{itemize}
@@ -427,7 +427,7 @@ foram detectadas.
 \subsubsection{Vídeo em análise: Teste.avi}
 
 \begin{itemize}
-\item{\textbf{Número de frames: } 385}
+\item{\textbf{Número de \textit{frames}: } 385}
 \item{\textbf{Número de cortes: } 2}
 \item{\textbf{Número de não cortes: } 383}
 \end{itemize}
@@ -472,7 +472,7 @@ ruídos apresentados é consideravelmente baixa.
 \hspace*{0.65cm}As transições que não foram detectadas em todos os
 vídeos, apresentaram as mesmas características, mostrando o ponto
 fraco da metodologia adotada. Quando as transições de corte ocorrem
-entre cenas em que a média da luminância de seus pixels seja
+entre cenas em que a média da luminância de seus \textit{pixels} seja
 extremamente baixa, ou bastante semelhantes, o sistema falha no
 processo de detecção, aumentando o número de falsos negativos.
 Porém, como este tipo de transição ocorre em minoria, este problema
@@ -503,11 +503,11 @@ exemplos propostos.
 \large       % tamanho da fonte
 \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
 \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-\caption{\it Transições do tipo ``\textit{Fade}'' encontradas pelo sistema no vídeo Teste.avi.}
+\caption{\it Transições do tipo \textit{Fade} encontradas pelo sistema no vídeo Teste.avi.}
 \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
 \hline \textit{Frame} & Tipo     & Validade \\
-\hline 269   & fade-in  & ok \\
-\hline 366   & fade-out & ok \\
+\hline 269   & \textit{fade-in}  & ok \\
+\hline 366   & \textit{fade-out} & ok \\
 \hline
 \end{tabular}
 \label{tab:resultados_fade_teste}
@@ -524,7 +524,7 @@ exemplos propostos.
 \end{enumerate}
 
 \hspace*{0.65cm}Como pode ser observado na Tabela
-\ref{tab:resultados_fade_teste}, a Precisão e o \textit{recall} é de 100\%,
+\ref{tab:resultados_fade_teste}, a Precisão e o \textit{Recall} é de 100\%,
 podendo ser considerado um resultado ``perfeito'', onde todas as
 reais transições foram detectadas, e as não-transições, não
 detectadas.
@@ -547,27 +547,27 @@ detectando todas as transições sem nenhum FP ou FN.
 \large       % tamanho da fonte
 \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
 \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
-\caption{\it Transições do tipo ``Fade'' encontradas pelo sistema no vídeo Ironman.avi.}
+\caption{\it Transições do tipo \textit{Fade} encontradas pelo sistema no vídeo Ironman.avi.}
 \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
 \hline \textit{Frame} & Tipo     & Validade \\
-\hline 1125  & fade-out & ok \\
-\hline 1302  & fade-in  & ok \\
-\hline 1526  & fade-in  & ok \\
-\hline 1580  & fade-out & ok \\
-\hline 1601  & fade-in  & ok \\
-\hline 1666  & fade-out & ok \\
-\hline 1677  & fade-in  & ok \\
-\hline 1731  & fade-in  & ok \\
-\hline 1795  & fade-out & ok \\
-\hline 1806  & fade-in  & ok \\
-\hline 1870  & fade-in  & ok \\
-\hline 1924  & fade-out & ok \\
-\hline 1943  & fade-in  & ok \\
-\hline 2474  & fade-out & ok \\
-\hline 2555  & fade-out & falso \\
-\hline 2775  & fade-in  & ok \\
-\hline 3333  & fade-in  & ok \\
-\hline 2570  & fade-out & ok \\
+\hline 1125  & \textit{fade-out} & ok \\
+\hline 1302  & \textit{fade-in}  & ok \\
+\hline 1526  & \textit{fade-in}  & ok \\
+\hline 1580  & \textit{fade-out} & ok \\
+\hline 1601  & \textit{fade-in}  & ok \\
+\hline 1666  & \textit{fade-out} & ok \\
+\hline 1677  & \textit{fade-in}  & ok \\
+\hline 1731  & \textit{fade-in}  & ok \\
+\hline 1795  & \textit{fade-out} & ok \\
+\hline 1806  & \textit{fade-in}  & ok \\
+\hline 1870  & \textit{fade-in}  & ok \\
+\hline 1924  & \textit{fade-out} & ok \\
+\hline 1943  & \textit{fade-in}  & ok \\
+\hline 2474  & \textit{fade-out} & ok \\
+\hline 2555  & \textit{fade-out} & falso \\
+\hline 2775  & \textit{fade-in}  & ok \\
+\hline 3333  & \textit{fade-in}  & ok \\
+\hline 2570  & \textit{fade-out} & ok \\
 \hline
 \end{tabular}
 \label{tab:resultados_fade_ironman}
@@ -582,11 +582,11 @@ detectando todas as transições sem nenhum FP ou FN.
 vídeo Ironman.avi.}
 \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
 \hline \textit{Frame} & Tipo     & Validade \\
-\hline 1762  & fade-out & falso \\
-\hline 2456  & fade-out & falso \\
-\hline 2492  & fade-out & falso \\
-\hline 2508  & fade-out & falso \\
-\hline 2528  & fade-out & falso \\
+\hline 1762  & \textit{fade-out} & falso \\
+\hline 2456  & \textit{fade-out} & falso \\
+\hline 2492  & \textit{fade-out} & falso \\
+\hline 2508  & \textit{fade-out} & falso \\
+\hline 2528  & \textit{fade-out} & falso \\
 \hline
 \end{tabular}
 \label{tab:resultados_fade_ironman2}
@@ -605,7 +605,7 @@ vídeo Ironman.avi.}
 \hspace*{0.65cm}Considerando os resultados vistos nas tabelas
 \ref{tab:resultados_fade_ironman} e
 \ref{tab:resultados_fade_ironman2}, os resultados foram
-de 94,44\% de Precisão e 77,27\% de \textit{recall}.
+de 94,44\% de Precisão e 77,27\% de \textit{Recall}.
 
 \hspace*{0.65cm}Ao analisar os resultados em busca de respostas para
 a ocorrencia de vários Falsos Negativos, pode-se concluir que:
@@ -619,7 +619,7 @@ conjunto das transições e da sequência de \textit{frames} escuros, seja
 confundido com uma transição do tipo \textit{fade}.}
 
 \item{As transições do tipo \textit{fade} não detectadas pelo sistema,
-apresentam uma duração menor do que 10 Frames, além disso, a
+apresentam uma duração menor do que 10 \textit{frames}, além disso, a
 sequência de \textit{Frames} pretos é menor do que 3 \textit{Frames}.}
 
 \end{enumerate}
@@ -642,26 +642,26 @@ sequência de \textit{Frames} pretos é menor do que 3 \textit{Frames}.}
 vídeo Batman.avi.}
 \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
 \hline \textit{Frame} & Tipo      & Validade \\
-\hline 240   & fade-in   & ok \\
-\hline 290   & fade-out  & ok \\
-\hline 370   & fade-out  & ok \\
-\hline 581   & fade-out  & ok \\
-\hline 586   & fade-in   & ok \\
-\hline 680   & fade-out  & ok \\
-\hline 726   & fade-in   & ok \\
-\hline 983   & fade-in   & ok \\
-\hline 1255  & fade-out  & ok \\
-\hline 1471  & fade-out  & ok \\
-\hline 1538  & fade-out  & ok \\
-\hline 1580  & fade-in   & ok \\
-\hline 1810  & fade-out  & ok \\
-\hline 1853  & fade-in   & ok \\
-\hline 2217  & fade-out  & ok \\
-\hline 2218  & fade-in   & ok \\
-\hline 2295  & fade-out  & ok \\
-\hline 2377  & fade-out  & ok \\
-\hline 3443  & fade-in   & ok \\
-\hline 3496  & fade-in   & ok \\
+\hline 240   & \textit{fade-in}   & ok \\
+\hline 290   & \textit{fade-out}  & ok \\
+\hline 370   & \textit{fade-out}  & ok \\
+\hline 581   & \textit{fade-out}  & ok \\
+\hline 586   & \textit{fade-in}   & ok \\
+\hline 680   & \textit{fade-out}  & ok \\
+\hline 726   & \textit{fade-in}   & ok \\
+\hline 983   & \textit{fade-in}   & ok \\
+\hline 1255  & \textit{fade-out}  & ok \\
+\hline 1471  & \textit{fade-out}  & ok \\
+\hline 1538  & \textit{fade-out}  & ok \\
+\hline 1580  & \textit{fade-in}   & ok \\
+\hline 1810  & \textit{fade-out}  & ok \\
+\hline 1853  & \textit{fade-in}   & ok \\
+\hline 2217  & \textit{fade-out}  & ok \\
+\hline 2218  & \textit{fade-in}   & ok \\
+\hline 2295  & \textit{fade-out}  & ok \\
+\hline 2377  & \textit{fade-out}  & ok \\
+\hline 3443  & \textit{fade-in}   & ok \\
+\hline 3496  & \textit{fade-in}   & ok \\
 \hline
 \end{tabular}
 \label{tab:resultados_fade_batman}
@@ -675,8 +675,8 @@ vídeo Batman.avi.}
 \caption{\it Transições do tipo \textit{fade} que não encontradas pelo sistema no vídeo Batman.avi.}
 \begin{tabular}{|c|c|c|} % c=center, l=left, r=right
 \hline \textit{Frame} & Tipo     & Validade \\
-\hline 1579  & fade-out & false \\
-\hline 2169  & fade-out & false \\
+\hline 1579  & \textit{fade-out} & falso \\
+\hline 2169  & \textit{fade-out} & falso \\
 \hline
 \end{tabular}
 \label{tab:resultados_fade_batman2}
@@ -694,7 +694,7 @@ vídeo Batman.avi.}
 
 \hspace*{0.65cm}Considerando os resultados vistos nas tabelas
 \ref{tab:resultados_fade_batman} e \ref{tab:resultados_fade_batman2}
-chegamos a um resultado de 100\% de Precisão e 90,90\% de \textit{recall}.
+chegamos a um resultado de 100\% de Precisão e 90,90\% de \textit{Recall}.
 
 \hspace*{0.65cm}Analisando a Tabela
 \ref{tab:resultados_fade_batman2} verifica-se que os \textit{fades} não
@@ -718,10 +718,10 @@ Fonte: Autor.
 \label{img:vrh_batman}
 \end{figure}
 
-\hspace*{0.65cm}Nesta imagem é possível verificar que todo fade
-segue um padrão, onde, no caso do ``fade-out'', a média da
-luminância dos pixels apresentam-se de forma uniformizada, seguida
-de uma variação que tende a 0 (preto), e no caso do ``fade-in'',
+\hspace*{0.65cm}Nesta imagem é possível verificar que todo \textit{fade}
+segue um padrão, onde, no caso do \textit{fade-out}, a média da
+luminância dos \textit{pixels} apresentam-se de forma uniformizada, seguida
+de uma variação que tende a 0 (preto), e no caso do \textit{fade-in},
 apresentam-se com o comportamento inverso, partindo de valores
 baixos, variando até chegar em um ponto onde a média da luminância
 se estabiliza. Este processo pode ser melhor entendido na Seção
@@ -752,8 +752,8 @@ metodologia utilizada para a detecção de \textit{fades} apresentou resultados
 bastante satisfatórios com a Precisão atingindo valores altos para todas 
 as amostras. Se considerarmos que os FN encontrados são, em sua maioria,
 \textit{fades} que geralmente são compostos de 10 \textit{frames} ou menos, 
-o \textit{recall} atingido pode ser considerado um ótimo resultado.
-O resultado final foi de, em média, 98.13\% de Precisão e 89.39\% de \textit{recall}.
+o \textit{Recall} atingido pode ser considerado um ótimo resultado.
+O resultado final foi de, em média, 98.13\% de Precisão e 89.39\% de \textit{Recall}.
 
 \subsection{Resultados obtidos: Detecção - \textit{Dissolve} \label{resultados_obtidos_dissolves}}
 
@@ -773,15 +773,15 @@ O resultado final foi de, em média, 98.13\% de Precisão e 89.39\% de \textit{rec
 \setlength{\arrayrulewidth}{1\arrayrulewidth}  % espessura da  linha
 \setlength{\belowcaptionskip}{10pt}  % espaço entre caption e tabela
 \caption{\it Transições do tipo \textit{Dissolve} encontradas pelo sistema no
-vídeo Batman.avi.}
+vídeo Teste.avi.}
 \begin{tabular}{|c|c|} % c=center, l=left, r=right
 \hline \textit{Frame} & Validade \\
-\hline 51 & OK \\
-\hline 172 & OK \\
+\hline 331 & OK \\
 \hline
 \end{tabular}
-\label{tab:resultados_Batman_DISSOLVE}
+\label{tab:resultados_Teste_DISSOLVE}
 \end{table}
+
 
 \hspace*{0.65cm}Mais especificamente:
 
@@ -850,7 +850,7 @@ Porém, vale lembrar que este vídeo foi produzido com condições
 \item{\textbf{Falsos negativos:} 0}
 \end{enumerate}
 
-\hspace*{0.65cm}Para este vídeo, a Precisão e o \textit{recall} foram de 0\%. Uma
+\hspace*{0.65cm}Para este vídeo, a Precisão e o \textit{Recall} foram de 0\%. Uma
 grande porção de cenas contendo fumaças, nuvens e explosões são
 confundidas com transições do tipo \textit{dissolve}, resultando em uma taxa
 de acerto não favorável.
@@ -872,7 +872,8 @@ de acerto não favorável.
 vídeo Batman.avi.}
 \begin{tabular}{|c|c|} % c=center, l=left, r=right
 \hline \textit{Frame} & Validade \\
-\hline 331 & OK \\
+\hline 51 & OK \\
+\hline 172 & OK \\
 \hline
 \end{tabular}
 \label{tab:resultados_Batman_DISSOLVE}
@@ -889,13 +890,13 @@ vídeo Batman.avi.}
 \end{enumerate}
 
 \hspace*{0.65cm}Observando os resultados, é possível afirmar que os valores
-de Precisão e \textit{recall} são, repectivamente, 100\% e 25\%.
+de Precisão e \textit{Recall} são, repectivamente, 100\% e 25\%.
 
 \subsubsection{Análise Geral}
 
 \hspace*{0.65cm}No geral os resultados foram de 66,6\% de Precisão
-e 41,66\% de \textit{recall}.
-de transições do tipo Dissolve. O resultado do sistema frente a
+e 41,66\% de \textit{Recall}.
+de transições do tipo \textit{dissolve}. O resultado do sistema frente a
 este tipo de transição mostrou-se não tão satisfatória quanto aos
 outros tipos de transição (Corte e \textit{Fade}). Isto se deve ao fato da
 metodologia utilizada ser bastante vulnerável em relação à presença
