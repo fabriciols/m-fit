@@ -13,9 +13,9 @@
 \usepackage{url}
 \usepackage{subfigure}
 \usepackage[top=3cm,left=3cm,bottom=2cm,right=2cm]{geometry}
+\usepackage{apalike}
 
 
-%\usepackage{apalike}
 \newcommand{\figr}[1]{Figura~\ref{#1}}
 \newcommand{\eqt}[1]{Eq.~(\ref{#1})}
 \newcommand{\eqts}[2]{Eq.~(\ref{#1})~e~(\ref{#2})}
@@ -25,7 +25,7 @@
 %comandos para se definir cabeçalhos nas páginas da dissertação
 \pagestyle{fancyplain}
 
-\lhead[\fancyplain{}{\thepage}]{}
+\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\small\leftmark}}
 \rhead[\fancyplain{}{\small\rightmark}]{\fancyplain{}{\thepage}}
 \cfoot{\fancyplain{\thepage}{}}
 
