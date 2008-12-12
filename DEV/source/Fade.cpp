@@ -290,6 +290,17 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	delete vrh;
 }
 
+/************************************************************************
+ * Método de início da Thread. Inicia a detecção das transições
+ *************************************************************************
+ * param (E): Nenhum.
+ *************************************************************************
+ * return : Nenhum.
+ *************************************************************************
+ * Histórico:
+ * 10/12/08 - Fabrício Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void Fade::run()
 {
 	detectTransitions(currentProject->getVideo(), &currentProject->transitionList);

@@ -38,6 +38,18 @@ DTWindow::DTWindow(QDialog *parent) : QDialog(parent)
 
 }
 
+/************************************************************************
+ * Recebe uma mensagem enviada pela thread
+ * e monta a janela a partir dos dados recebidos
+ *************************************************************************
+ * param (E): char *fase_cp - Etapa da detecção
+ * param (E): uint *len_i   - Quantas transições já detectadas
+ * param (E): int  *percent - Percentual total da detecção
+ ************************************************************************
+ * Histórico
+ * 20/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void DTWindow::receiveMessage(char* fase_cp, uint len_i, int percent)
 {
 
@@ -83,6 +95,7 @@ void DTWindow::receiveMessage(char* fase_cp, uint len_i, int percent)
 
 	ui.progressBar->setValue (this->percent);
 
+	// Fim da detecção
 	if (this->percent >= 100)
 	{
 		DT->terminate();
@@ -99,6 +112,16 @@ void DTWindow::receiveMessage(char* fase_cp, uint len_i, int percent)
 	}
 }
 
+/************************************************************************
+ * Determina qual a thread que a janela deve utilizar.
+ *************************************************************************
+ * param (E): DetectTransitions *DT - Objeto da detecção
+ * param (E): int type - Tipo da detecção
+ ************************************************************************
+ * Histórico
+ * 20/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void DTWindow::setDetectThread(DetectTransitions *DT, int type)
 {
 	this->DT = DT;
@@ -110,6 +133,15 @@ void DTWindow::setDetectThread(DetectTransitions *DT, int type)
 
 }
 
+/************************************************************************
+ * Inicia a thread de detecção e a exibição do progresso na janela.
+ *************************************************************************
+ * param (E): Nenhum
+ ************************************************************************
+ * Histórico
+ * 20/11/08 - Fabricio Lopes de Souza
+ * Criação.
+ ************************************************************************/
 void DTWindow::start()
 {
 	switch (type)

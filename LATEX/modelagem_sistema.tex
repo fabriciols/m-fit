@@ -496,6 +496,11 @@ parâmetro.
 \hspace*{0.65cm}Verifica se já existem transições detectadas na
 posição de uma nova transição.
 
+\item{void run()}
+
+\hspace*{0.65cm}Método chamado quando a thread de detecção
+de transição é instanciada.
+
 \end{enumerate}
 
 \subsection{Classe: Dilate \label{classe_dilate}}
@@ -540,12 +545,38 @@ seta os intervalos de início e fim de aplicação do efeito.
 
 \end{enumerate}
 
-\subsection{Classe: Effect \label{classe_Effect}}
+\subsection{Classe: DTWindow \label{classe_DTWindow}}
 
-\hspace*{1.25cm}Classe responsável por centralizar os métodos para
-aplicação de efeitos.
+\hspace*{1.25cm}Classe responsável por controlar a exibição
+da tela de progresso da detecção das transições.
 
 \hspace*{0.65cm}\textbf{Métodos:}
+
+\begin{enumerate}
+
+\item{DTWindow()}
+
+\hspace*{0.65cm}Construtor responsável por inicializar o objeto.
+
+\item{receiveMessage()}
+
+\hspace*{0.65cm}Recebe uma mensagem enviada pela thread
+e monta a janela a partir dos dados recebidos.
+
+\item{setDetectThread()}
+
+\hspace*{0.65cm}Determina qual a thread que a janela deve utilizar.
+
+\item{start()}
+
+\hspace*{0.65cm}Inicia a thread de detecção e a exibição do progresso na janela.
+
+\end{enumerate}
+
+\subsection{Classe: Effect \label{classe_Effect}}
+
+\hspace*{0.65cm}\textbf{Métodos:}
+
 \begin{enumerate}
 
 \item{virtual Frame* applyEffect()}
@@ -563,6 +594,7 @@ matemática \textit{Dissolve} como efeitos a ser aplicado.
 \hspace*{0.65cm}\textbf{Métodos:}
 
 \begin{enumerate}
+
 \item{Erode()}
 
 \hspace*{0.65cm}Construtor que inicializa os atributos internos.
