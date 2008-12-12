@@ -1,9 +1,7 @@
-\documentclass[12pt,doubleside]{report}
-
+\documentclass[12pt,a4paper]{report}
 \usepackage{a4wide}
 \usepackage[portuguese,english]{babel}
 \usepackage{graphics}
-\usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{epsfig}
 \usepackage[latin1]{inputenc}
@@ -13,9 +11,7 @@
 \usepackage{dropping}
 \usepackage{url}
 \usepackage{subfigure}
-\usepackage{natbib}
-\usepackage{algorithm2e}
-\usepackage{hyperref}
+\usepackage[top=3cm,left=3cm,bottom=2cm,right=2cm]{geometry}
 
 
 %\usepackage{apalike}
@@ -57,13 +53,9 @@
     \end{spacing}}%
   \vspace{1ex}}
 
-%\hypersetup{citecolor=black}%criar link no indice
+
 
 \begin{document}
-
-%%%%%%%%%%%%%%%%%%%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-%%%%%%%%%%%%%%%%%%%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
 
 %-----------------------------------
 % PRIMEIRA CAPA DE APRESENTAÇÃO EM PORTUGUÊS
@@ -93,8 +85,7 @@ IVAN SHIGUENORI MACHIDA
 \begin{spacing}{1.5}
 \begin{center}
 \begin{huge}
-{\bf M-FIT: EDITORAÇÃO ELETRÔNICA DE VÍDEOS COM DETECÇÃO DE 
-TRANSIÇÕES}
+{M-FIT: EDITORAÇÃO ELETRÔNICA DE VÍDEOS COM DETECÇÃO DE TRANSIÇÕES}
 \end{huge}
 \end{center}
 \end{spacing}
@@ -134,8 +125,7 @@ IVAN SHIGUENORI MACHIDA
 \begin{spacing}{1.5}
 \begin{center}
 \begin{huge}
-{\bf M-FIT: EDITORAÇÃO ELETRÔNICA DE VÍDEOS COM DETECÇÃO DE
-TRANSIÇÕES}
+{M-FIT: EDITORAÇÃO ELETRÔNICA DE VÍDEOS COM DETECÇÃO DE TRANSIÇÕES}
 \end{huge}
 \end{center}
 \end{spacing}
@@ -222,7 +212,6 @@ São Bernardo do Campo 2008
 %°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
 
-
 %-----------------------------------
 % DOCUMENTAÇÃO DO TRABALHO
 %-----------------------------------
@@ -231,10 +220,6 @@ São Bernardo do Campo 2008
 
 \pagenumbering{roman}
 \setlength{\voffset}{0.0in}
-
-%\begin{spacing}{1.0}
-%\include{agradecimento}
-%\end{spacing}
 
 \begin{spacing}{1.0}
 \include{resumo}
@@ -246,14 +231,10 @@ São Bernardo do Campo 2008
 
 \selectlanguage{portuguese}
 
-%\begin{spacing}{1.0}
-%\include{tese-prefacio}
-%\end{spacing}
-
 \begin{spacing}{1.0}
+\renewcommand{\contentsname}{Sumário}\tableofcontents
 \listoffigures
 \listoftables
-%\tableofcontents
 \end{spacing}
 
 \clearpage
@@ -298,21 +279,20 @@ São Bernardo do Campo 2008
 %\include{diagrama_de_classes}
 %\include{diagramas_de_sequencia}
 %\include{diagrama_de_estados}
-%\include{resultados_esperados}
+\include{resultados_esperados}
 \include{resultados_obtidos}
 \include{conclusao}
-\include{referencias}
 \end{spacing}
 
 \appendix
 
 %\include{apendice}
 
+%Bibliografia
 \begin{spacing}{1.0}
-\bibliographystyle{apalike}              % referencias por extenso. Ex: segundo Rodrigues [Rodrigues, 1995]
-\bibliography{referencias}               % arquivo .bib
-%\bibliographystyle{alpha}               % referencias por
+\bibliographystyle{apalike}
+%\bibliographystyle{abbrv}
+\bibliography{referencias}
 \end{spacing}
 
 \end{document}
-
