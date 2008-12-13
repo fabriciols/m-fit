@@ -83,6 +83,9 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	// Contadores
 	int i;
 
+	// Porcentagem atual do processo de detecção
+	int percent;
+
 	// Array do VRH
 	double *array_vrh;
 
@@ -195,7 +198,12 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 	for ( i=2 ; i < len_i ; i++)
 	{
 
-		emit sendMessage("Analizando Derivadas", transitionList->size(), cvRound(20 + ((((float)i / (float)len_i ) * 100) * 0.8)));
+		percent = cvRound(20 + ((((float)i / (float)len_i ) * 100) * 0.8));
+
+		if (percent != 100)
+		{
+			emit sendMessage("Analizando Derivadas", transitionList->size(), percent);
+		}
 
 		// Reseta controles
 		fade_end = var = 0;
@@ -214,7 +222,7 @@ void Fade::detectTransitions(Video* vdo, std::vector<Transition>* transitionList
 			fade_end = var = 0;
 
 		} // Condições para se terminar um fade, o valor quebrado foi adotado pois os vídeos comerciais
-		  // tem muito ruído, então a variação dificilmente chega a ser exatamente 0
+		// tem muito ruído, então a variação dificilmente chega a ser exatamente 0
 		else if ( fade_start > 0 && ( fabs(array_dy[i]) <= 0.003) )
 		{
 			fade_end = i;

@@ -54,7 +54,7 @@ void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* t
 
 	vdo->seekFrame(0);
 
-	emit sendMessage("Inicio do Corte", transitionList->size(), 0);
+	emit sendMessage("Detectando Corte", transitionList->size(), 0);
 
 	DTC->start(); // Cortes
 
@@ -62,7 +62,7 @@ void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* t
 
 	vdo->seekFrame(0);
 
-	emit sendMessage("Inicio do Fade", transitionList->size(), 33);
+	emit sendMessage("Detectando Fade", transitionList->size(), 33);
 
 	DTF->start(); // Fade
 
@@ -70,7 +70,7 @@ void DetectTransitions::detectTransitions(Video* vdo, std::vector<Transition>* t
 
 	vdo->seekFrame(0);
 
-	emit sendMessage("Inicio do Dissolve", transitionList->size(), 66);
+	emit sendMessage("Detectando Dissolve", transitionList->size(), 66);
 
 	DTD->start(); // Dissolve
 
