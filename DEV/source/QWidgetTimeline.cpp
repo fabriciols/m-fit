@@ -162,6 +162,9 @@ void QWidgetTimeline::dropEvent(QDropEvent *event)
 		end = (long)vdo->getFramesTotal();
 	}
 
+	start++;
+	end++;
+
 	// Define qual efeito foi arrastado
 	switch(getItemByEvent(event))
 	{
