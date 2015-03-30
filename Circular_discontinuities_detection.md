@@ -1,0 +1,1 @@
+Assunto deste pdf é sobre análise de imagens de radiografia. Nada a ver com o nosso trabalho

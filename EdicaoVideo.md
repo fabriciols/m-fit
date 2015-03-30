@@ -1,0 +1,2 @@
+A edição de vídeos, consiste em manipular o vídeo da forma desejada, como inserção de efeitos visuais em cenas. Porém, a principal dificuldade é localizar as transições entre as tomadas de vídeo para sua manipulação.
+Para a detecção dos vários tipos de transições, existem métodos distintos que se mostram eficientes.
